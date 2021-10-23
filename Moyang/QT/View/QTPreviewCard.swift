@@ -35,7 +35,7 @@ struct QTPreviewCard: View {
         .padding(EdgeInsets(top: 0, leading: 20, bottom: 2, trailing: 20))
         .background(Color.white)
         .cornerRadius(20)
-        .shadow(color: .gray.opacity(0.4), radius: 5, x: 0.0, y: 5)
+        .shadow(color: .gray.opacity(0.4), radius: 5, x: 3.0, y: 3)
     }
 }
 

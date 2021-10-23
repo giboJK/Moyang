@@ -51,7 +51,7 @@ struct BibleStoryCard: View {
             .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 20))
             .background(Color.white)
             .cornerRadius(20)
-            .shadow(color: .gray.opacity(0.4), radius: 5, x: 2.0, y: 5)
+            .shadow(color: .gray.opacity(0.4), radius: 5, x: 3.0, y: 3)
             .eraseToAnyView()
         }
     }

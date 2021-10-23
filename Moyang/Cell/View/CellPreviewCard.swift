@@ -67,7 +67,7 @@ struct CellPreviewCard: View {
             .foregroundColor(Color.black)
             .background(Color.white)
             .cornerRadius(20)
-            .shadow(color: .gray.opacity(0.4), radius: 5, x: 2.0, y: 5)
+            .shadow(color: .gray.opacity(0.4), radius: 5, x: 3.0, y: 3)
             .eraseToAnyView()
         }
     }

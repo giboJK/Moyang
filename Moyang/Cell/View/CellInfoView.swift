@@ -20,7 +20,7 @@ struct CellInfoView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("이번주 주제")
+                Text(Date().toString(format: "yyyy-MM-dd"))
                 Spacer()
             }
             HStack {
@@ -71,7 +71,6 @@ struct CellInfoView: View {
             
             Spacer()
         }
-//        .navigationTitle("Navigation")
         .navigationBarTitleDisplayMode(.inline)
         .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
         .background(Color(Asset.bgColorGray.color))
