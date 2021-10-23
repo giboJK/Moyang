@@ -32,6 +32,7 @@ struct MainView: View {
                     .background(Color(Asset.bgColor.color))
                     MainCategoryList()
                 }
+                .padding(.top, 30)
                 .background(Color(Asset.bgColor.color))
             }
             .navigationBarHidden(true)

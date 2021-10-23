@@ -71,7 +71,9 @@ struct CellInfoView: View {
             
             Spacer()
         }
-        .padding(EdgeInsets(top: 34, leading: 20, bottom: 0, trailing: 20))
+//        .navigationTitle("Navigation")
+        .navigationBarTitleDisplayMode(.inline)
+        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
         .background(Color(Asset.bgColorGray.color))
     }
 }
