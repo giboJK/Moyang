@@ -11,7 +11,7 @@ import SwiftUI
 struct MoyangApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
     }
 }
