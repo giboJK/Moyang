@@ -1,0 +1,11 @@
+#strings:
+#  inputs: Resources/Base.lproj
+#  outputs:
+#    - templateName: structured-swift5
+#      output: Generated/Strings.swift
+xcassets:
+  inputs:
+    - Moyang/Resources/Colors.xcassets
+  outputs:
+    - templateName: swift5
+      output: Moyang/Resources/Generated/Assets.swift

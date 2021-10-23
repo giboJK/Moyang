@@ -1,0 +1,38 @@
+PODS:
+  - Alamofire (5.4.3)
+  - Realm (10.15.1):
+    - Realm/Headers (= 10.15.1)
+  - Realm/Headers (10.15.1)
+  - RealmSwift (10.15.1):
+    - Realm (= 10.15.1)
+  - SwiftGen (6.4.0)
+  - SwiftLint (0.44.0)
+  - SwiftyBeaver (1.9.5)
+
+DEPENDENCIES:
+  - Alamofire
+  - RealmSwift
+  - SwiftGen
+  - SwiftLint
+  - SwiftyBeaver
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Realm
+    - RealmSwift
+    - SwiftGen
+    - SwiftLint
+    - SwiftyBeaver
+
+SPEC CHECKSUMS:
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  Realm: fbcbde2620d51623cc5b18e28f5b165c39abef52
+  RealmSwift: e4bea8e42efad3d543aea23b56504069c6faaea2
+  SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
+  SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
+  SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
+
+PODFILE CHECKSUM: 7495b7d68229e087d202ea1f601e5d0f1539b667
+
+COCOAPODS: 1.10.1

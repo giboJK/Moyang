@@ -1,0 +1,38 @@
+excluded:
+  - Pods
+
+disabled_rules:
+- trailing_whitespace
+- identifier_name
+- type_body_length
+- function_parameter_count
+- cyclomatic_complexity
+- vertical_whitespace
+
+force_cast: warning
+
+line_length:
+  warning: 120
+  error: 150
+  
+file_length:
+  warning: 650
+  error: 1000
+
+type_name:
+    min_length: 2
+    max_length: 40
+
+function_body_length:
+    warning: 80
+    error: 100
+    
+todo: # TODO, FIXME 미해결 확인
+    included: ".*.swift"
+    match_kinds: comment
+    severity: warning
+    
+mark: # MARK 유효 형식 체크
+    included: ".*.swift"
+    match_kinds: comment
+    severity: error

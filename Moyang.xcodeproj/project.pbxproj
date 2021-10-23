@@ -1,0 +1,893 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
+		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
+		248FEC102723A08D00321E5E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC0F2723A08D00321E5E /* MainView.swift */; };
+		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
+		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
+		24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F727230CA3006FF67B /* MoyangApp.swift */; };
+		24D0D2FA27230CA3006FF67B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F927230CA3006FF67B /* ContentView.swift */; };
+		24D0D2FC27230CA6006FF67B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Assets.xcassets */; };
+		24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */; };
+		24D0D30927230CA6006FF67B /* MoyangTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D30827230CA6006FF67B /* MoyangTests.swift */; };
+		24D0D31327230CA6006FF67B /* MoyangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D31227230CA6006FF67B /* MoyangUITests.swift */; };
+		24D0D31527230CA6006FF67B /* MoyangUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D31427230CA6006FF67B /* MoyangUITestsLaunchTests.swift */; };
+		24D0D325272313AF006FF67B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D324272313AF006FF67B /* .swiftlint.yml */; };
+		24D0D3292723145F006FF67B /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D3282723145F006FF67B /* Date+.swift */; };
+		24D0D32B27231487006FF67B /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D32A27231487006FF67B /* ViewModelType.swift */; };
+		24D0D32D272314F7006FF67B /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D32C272314F7006FF67B /* Log.swift */; };
+		24D0D32F27231511006FF67B /* Publishers+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D32E27231511006FF67B /* Publishers+.swift */; };
+		24D0D33127231520006FF67B /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D33027231520006FF67B /* View+.swift */; };
+		24D0D33327231537006FF67B /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D33227231537006FF67B /* UIScreen+.swift */; };
+		714C8E1E6061BBB1A40BDDA8 /* Pods_Moyang_MoyangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		24D0D30527230CA6006FF67B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24D0D2EC27230CA3006FF67B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 24D0D2F327230CA3006FF67B;
+			remoteInfo = Moyang;
+		};
+		24D0D30F27230CA6006FF67B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24D0D2EC27230CA3006FF67B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 24D0D2F327230CA3006FF67B;
+			remoteInfo = Moyang;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		248FEC0F2723A08D00321E5E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		24D0D2F427230CA3006FF67B /* Moyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		24D0D2F727230CA3006FF67B /* MoyangApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangApp.swift; sourceTree = "<group>"; };
+		24D0D2F927230CA3006FF67B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		24D0D2FB27230CA6006FF67B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		24D0D30427230CA6006FF67B /* MoyangTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoyangTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24D0D30827230CA6006FF67B /* MoyangTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangTests.swift; sourceTree = "<group>"; };
+		24D0D30E27230CA6006FF67B /* MoyangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoyangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24D0D31227230CA6006FF67B /* MoyangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangUITests.swift; sourceTree = "<group>"; };
+		24D0D31427230CA6006FF67B /* MoyangUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		24D0D324272313AF006FF67B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		24D0D3282723145F006FF67B /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		24D0D32A27231487006FF67B /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		24D0D32C272314F7006FF67B /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		24D0D32E27231511006FF67B /* Publishers+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publishers+.swift"; sourceTree = "<group>"; };
+		24D0D33027231520006FF67B /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
+		24D0D33227231537006FF67B /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
+		2928AF0E9E86176E64F5A826 /* Pods-MoyangTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoyangTests.release.xcconfig"; path = "Target Support Files/Pods-MoyangTests/Pods-MoyangTests.release.xcconfig"; sourceTree = "<group>"; };
+		38544549B563C36B981B4536 /* Pods-Moyang-MoyangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moyang-MoyangUITests.release.xcconfig"; path = "Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests.release.xcconfig"; sourceTree = "<group>"; };
+		45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B7EA5C17382D1FDE9FCE43E /* Pods-Moyang-MoyangUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moyang-MoyangUITests.debug.xcconfig"; path = "Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8F4D8CE72B9995FF96970D76 /* Pods-Moyang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moyang.debug.xcconfig"; path = "Target Support Files/Pods-Moyang/Pods-Moyang.debug.xcconfig"; sourceTree = "<group>"; };
+		943D7928348DE263CE8C77F4 /* Pods-Moyang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moyang.release.xcconfig"; path = "Target Support Files/Pods-Moyang/Pods-Moyang.release.xcconfig"; sourceTree = "<group>"; };
+		ECAD942C26F236984147E91B /* Pods-MoyangTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoyangTests.debug.xcconfig"; path = "Target Support Files/Pods-MoyangTests/Pods-MoyangTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoyangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		24D0D2F127230CA3006FF67B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24D0D30127230CA6006FF67B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24D0D30B27230CA6006FF67B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				714C8E1E6061BBB1A40BDDA8 /* Pods_Moyang_MoyangUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		248FEC0E2723A07D00321E5E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				248FEC0F2723A08D00321E5E /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		248FEC162723A13800321E5E /* String */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		248FEC1B2723AAF500321E5E /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				248FEC1C2723AB0300321E5E /* Assets.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		24D0D2EB27230CA3006FF67B = {
+			isa = PBXGroup;
+			children = (
+				24D0D324272313AF006FF67B /* .swiftlint.yml */,
+				24D0D2F627230CA3006FF67B /* Moyang */,
+				24D0D30727230CA6006FF67B /* MoyangTests */,
+				24D0D31127230CA6006FF67B /* MoyangUITests */,
+				24D0D2F527230CA3006FF67B /* Products */,
+				A053003BDE8D7C2A3DF86D0B /* Pods */,
+				FB9B4C79DF20473EEF610639 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		24D0D2F527230CA3006FF67B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				24D0D2F427230CA3006FF67B /* Moyang.app */,
+				24D0D30427230CA6006FF67B /* MoyangTests.xctest */,
+				24D0D30E27230CA6006FF67B /* MoyangUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		24D0D2F627230CA3006FF67B /* Moyang */ = {
+			isa = PBXGroup;
+			children = (
+				248FEC0E2723A07D00321E5E /* Main */,
+				24D0D334272315FA006FF67B /* Resources */,
+				24D0D32627231442006FF67B /* Util */,
+				24D0D2F727230CA3006FF67B /* MoyangApp.swift */,
+				24D0D2F927230CA3006FF67B /* ContentView.swift */,
+				24D0D2FB27230CA6006FF67B /* Assets.xcassets */,
+				24D0D2FD27230CA6006FF67B /* Preview Content */,
+			);
+			path = Moyang;
+			sourceTree = "<group>";
+		};
+		24D0D2FD27230CA6006FF67B /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		24D0D30727230CA6006FF67B /* MoyangTests */ = {
+			isa = PBXGroup;
+			children = (
+				24D0D30827230CA6006FF67B /* MoyangTests.swift */,
+			);
+			path = MoyangTests;
+			sourceTree = "<group>";
+		};
+		24D0D31127230CA6006FF67B /* MoyangUITests */ = {
+			isa = PBXGroup;
+			children = (
+				24D0D31227230CA6006FF67B /* MoyangUITests.swift */,
+				24D0D31427230CA6006FF67B /* MoyangUITestsLaunchTests.swift */,
+			);
+			path = MoyangUITests;
+			sourceTree = "<group>";
+		};
+		24D0D32627231442006FF67B /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				24D0D3272723144C006FF67B /* Extension */,
+				24D0D32A27231487006FF67B /* ViewModelType.swift */,
+				24D0D32C272314F7006FF67B /* Log.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		24D0D3272723144C006FF67B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				24D0D3282723145F006FF67B /* Date+.swift */,
+				24D0D32E27231511006FF67B /* Publishers+.swift */,
+				24D0D33027231520006FF67B /* View+.swift */,
+				24D0D33227231537006FF67B /* UIScreen+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		24D0D334272315FA006FF67B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				248FEC1B2723AAF500321E5E /* Generated */,
+				248FEC162723A13800321E5E /* String */,
+				248FEC142723A11500321E5E /* Colors.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A053003BDE8D7C2A3DF86D0B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8F4D8CE72B9995FF96970D76 /* Pods-Moyang.debug.xcconfig */,
+				943D7928348DE263CE8C77F4 /* Pods-Moyang.release.xcconfig */,
+				4B7EA5C17382D1FDE9FCE43E /* Pods-Moyang-MoyangUITests.debug.xcconfig */,
+				38544549B563C36B981B4536 /* Pods-Moyang-MoyangUITests.release.xcconfig */,
+				ECAD942C26F236984147E91B /* Pods-MoyangTests.debug.xcconfig */,
+				2928AF0E9E86176E64F5A826 /* Pods-MoyangTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FB9B4C79DF20473EEF610639 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */,
+				1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */,
+				FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		24D0D2F327230CA3006FF67B /* Moyang */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24D0D31827230CA6006FF67B /* Build configuration list for PBXNativeTarget "Moyang" */;
+			buildPhases = (
+				7A18B3611F14D17E38E71F92 /* [CP] Check Pods Manifest.lock */,
+				24D0D323272310F3006FF67B /* Run Script SwiftLint */,
+				24D0D2F027230CA3006FF67B /* Sources */,
+				24D0D2F127230CA3006FF67B /* Frameworks */,
+				24D0D2F227230CA3006FF67B /* Resources */,
+				DC870966B5077CC77F0622DA /* [CP] Embed Pods Frameworks */,
+				248FEC112723A0AF00321E5E /* Run Script SwiftGen */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Moyang;
+			productName = Moyang;
+			productReference = 24D0D2F427230CA3006FF67B /* Moyang.app */;
+			productType = "com.apple.product-type.application";
+		};
+		24D0D30327230CA6006FF67B /* MoyangTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24D0D31B27230CA6006FF67B /* Build configuration list for PBXNativeTarget "MoyangTests" */;
+			buildPhases = (
+				7E52C48440A9505544A95345 /* [CP] Check Pods Manifest.lock */,
+				24D0D30027230CA6006FF67B /* Sources */,
+				24D0D30127230CA6006FF67B /* Frameworks */,
+				24D0D30227230CA6006FF67B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				24D0D30627230CA6006FF67B /* PBXTargetDependency */,
+			);
+			name = MoyangTests;
+			productName = MoyangTests;
+			productReference = 24D0D30427230CA6006FF67B /* MoyangTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		24D0D30D27230CA6006FF67B /* MoyangUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24D0D31E27230CA6006FF67B /* Build configuration list for PBXNativeTarget "MoyangUITests" */;
+			buildPhases = (
+				D9058AF070F7DB4D0BC5566A /* [CP] Check Pods Manifest.lock */,
+				24D0D30A27230CA6006FF67B /* Sources */,
+				24D0D30B27230CA6006FF67B /* Frameworks */,
+				24D0D30C27230CA6006FF67B /* Resources */,
+				A11F22B90E2C393783691311 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				24D0D31027230CA6006FF67B /* PBXTargetDependency */,
+			);
+			name = MoyangUITests;
+			productName = MoyangUITests;
+			productReference = 24D0D30E27230CA6006FF67B /* MoyangUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		24D0D2EC27230CA3006FF67B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
+				TargetAttributes = {
+					24D0D2F327230CA3006FF67B = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					24D0D30327230CA6006FF67B = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 24D0D2F327230CA3006FF67B;
+					};
+					24D0D30D27230CA6006FF67B = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 24D0D2F327230CA3006FF67B;
+					};
+				};
+			};
+			buildConfigurationList = 24D0D2EF27230CA3006FF67B /* Build configuration list for PBXProject "Moyang" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				ko,
+			);
+			mainGroup = 24D0D2EB27230CA3006FF67B;
+			productRefGroup = 24D0D2F527230CA3006FF67B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				24D0D2F327230CA3006FF67B /* Moyang */,
+				24D0D30327230CA6006FF67B /* MoyangTests */,
+				24D0D30D27230CA6006FF67B /* MoyangUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		24D0D2F227230CA3006FF67B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24D0D325272313AF006FF67B /* .swiftlint.yml in Resources */,
+				248FEC152723A11600321E5E /* Colors.xcassets in Resources */,
+				24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */,
+				24D0D2FC27230CA6006FF67B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24D0D30227230CA6006FF67B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24D0D30C27230CA6006FF67B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		248FEC112723A0AF00321E5E /* Run Script SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script SwiftGen";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\"\nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
+		};
+		24D0D323272310F3006FF67B /* Run Script SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		7A18B3611F14D17E38E71F92 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Moyang-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E52C48440A9505544A95345 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoyangTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A11F22B90E2C393783691311 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9058AF070F7DB4D0BC5566A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Moyang-MoyangUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC870966B5077CC77F0622DA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Moyang/Pods-Moyang-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Moyang/Pods-Moyang-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moyang/Pods-Moyang-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		24D0D2F027230CA3006FF67B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24D0D32B27231487006FF67B /* ViewModelType.swift in Sources */,
+				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
+				24D0D3292723145F006FF67B /* Date+.swift in Sources */,
+				24D0D32D272314F7006FF67B /* Log.swift in Sources */,
+				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
+				24D0D2FA27230CA3006FF67B /* ContentView.swift in Sources */,
+				24D0D33127231520006FF67B /* View+.swift in Sources */,
+				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
+				248FEC1D2723AB0300321E5E /* Assets.swift in Sources */,
+				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24D0D30027230CA6006FF67B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24D0D30927230CA6006FF67B /* MoyangTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24D0D30A27230CA6006FF67B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24D0D31327230CA6006FF67B /* MoyangUITests.swift in Sources */,
+				24D0D31527230CA6006FF67B /* MoyangUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		24D0D30627230CA6006FF67B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 24D0D2F327230CA3006FF67B /* Moyang */;
+			targetProxy = 24D0D30527230CA6006FF67B /* PBXContainerItemProxy */;
+		};
+		24D0D31027230CA6006FF67B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 24D0D2F327230CA3006FF67B /* Moyang */;
+			targetProxy = 24D0D30F27230CA6006FF67B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		24D0D31627230CA6006FF67B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_LOG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		24D0D31727230CA6006FF67B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		24D0D31927230CA6006FF67B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F4D8CE72B9995FF96970D76 /* Pods-Moyang.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Moyang/Preview Content\"";
+				DEVELOPMENT_TEAM = 2427333XUL;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.Moyang;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		24D0D31A27230CA6006FF67B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 943D7928348DE263CE8C77F4 /* Pods-Moyang.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Moyang/Preview Content\"";
+				DEVELOPMENT_TEAM = 2427333XUL;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.Moyang;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		24D0D31C27230CA6006FF67B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECAD942C26F236984147E91B /* Pods-MoyangTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2427333XUL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.MoyangTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moyang.app/Moyang";
+			};
+			name = Debug;
+		};
+		24D0D31D27230CA6006FF67B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2928AF0E9E86176E64F5A826 /* Pods-MoyangTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2427333XUL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.MoyangTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moyang.app/Moyang";
+			};
+			name = Release;
+		};
+		24D0D31F27230CA6006FF67B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B7EA5C17382D1FDE9FCE43E /* Pods-Moyang-MoyangUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2427333XUL;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.MoyangUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Moyang;
+			};
+			name = Debug;
+		};
+		24D0D32027230CA6006FF67B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38544549B563C36B981B4536 /* Pods-Moyang-MoyangUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2427333XUL;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.MoyangUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Moyang;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		24D0D2EF27230CA3006FF67B /* Build configuration list for PBXProject "Moyang" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24D0D31627230CA6006FF67B /* Debug */,
+				24D0D31727230CA6006FF67B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24D0D31827230CA6006FF67B /* Build configuration list for PBXNativeTarget "Moyang" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24D0D31927230CA6006FF67B /* Debug */,
+				24D0D31A27230CA6006FF67B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24D0D31B27230CA6006FF67B /* Build configuration list for PBXNativeTarget "MoyangTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24D0D31C27230CA6006FF67B /* Debug */,
+				24D0D31D27230CA6006FF67B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24D0D31E27230CA6006FF67B /* Build configuration list for PBXNativeTarget "MoyangUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24D0D31F27230CA6006FF67B /* Debug */,
+				24D0D32027230CA6006FF67B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 24D0D2EC27230CA3006FF67B /* Project object */;
+}
