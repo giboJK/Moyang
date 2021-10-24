@@ -17,6 +17,14 @@ struct CellPreview: Codable, Identifiable {
     let dateString: String
     
     let prayList: [CellMemberPray]
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case cellName = "cell_name"
+        case talkingSubject = "talking_subject"
+        case dateString = "date_string"
+        case prayList = "pray_list"
+    }
 }
 
 struct CellMemberPray: Codable, Identifiable {
@@ -24,4 +32,10 @@ struct CellMemberPray: Codable, Identifiable {
     let id: Identifier
     var memberName: String
     var praySubject: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case memberName = "member_name"
+        case praySubject = "pray_subject"
+    }
 }

@@ -1,0 +1,43 @@
+{
+    "id":100001,
+    "cell_name":"정김기보셀",
+    "talking_subject":"네 이웃의 것을 탐하지 말라",
+    "date_string":"2021-10-24",
+    "pray_list":[
+        {
+            "id":200001,
+            "member_name":"정김기보",
+            "pray_subject":"네 주 여호와를 경외하라"
+        },
+        {
+            "id":200002,
+            "member_name":"기보 김 정",
+            "pray_subject":"매일 내 영을 새롭게 하소서"
+        },
+        {
+            "id":200003,
+            "member_name":"기보",
+            "pray_subject":"사람이 두 마음을 품을 수 없나니"
+        },
+        {
+            "id":200004,
+            "member_name":"기보 1",
+            "pray_subject":"사람이 떡으로만 살 것이 아니오."
+        },
+        {
+            "id":200005,
+            "member_name":"김기보 정",
+            "pray_subject":"네 주 여호와를 시험하지 말라"
+        },
+        {
+            "id":200006,
+            "member_name":"기보오오오",
+            "pray_subject":"내가 주와 같이 십자가에 못박혔나이다"
+        },
+        {
+            "id":200007,
+            "member_name":"기보오",
+            "pray_subject":"아멘."
+        }
+    ]
+}

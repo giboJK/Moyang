@@ -46,6 +46,8 @@
 		248FEC102723A08D00321E5E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC0F2723A08D00321E5E /* MainView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
+		249B903027259C6400B53682 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249B902F27259C6400B53682 /* DummyData.swift */; };
+		249B903827259FD300B53682 /* CellPreviewData.json in Resources */ = {isa = PBXBuildFile; fileRef = 249B903727259FD300B53682 /* CellPreviewData.json */; };
 		24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F727230CA3006FF67B /* MoyangApp.swift */; };
 		24D0D2FC27230CA6006FF67B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Assets.xcassets */; };
 		24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */; };
@@ -118,6 +120,8 @@
 		248FEC0F2723A08D00321E5E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		249B902F27259C6400B53682 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
+		249B903727259FD300B53682 /* CellPreviewData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellPreviewData.json; sourceTree = "<group>"; };
 		24D0D2F427230CA3006FF67B /* Moyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D2F727230CA3006FF67B /* MoyangApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangApp.swift; sourceTree = "<group>"; };
 		24D0D2FB27230CA6006FF67B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -324,9 +328,9 @@
 		246BD7DC27240AE4005C4E0B /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				246BD7E527240AE4005C4E0B /* Domain */,
 				246BD7DD27240AE4005C4E0B /* Presenter */,
 				246BD7E127240AE4005C4E0B /* View */,
-				246BD7E527240AE4005C4E0B /* Domain */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -399,6 +403,14 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
+		249B903127259C7F00B53682 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				249B903727259FD300B53682 /* CellPreviewData.json */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
 		24D0D2EB27230CA3006FF67B = {
 			isa = PBXGroup;
 			children = (
@@ -437,6 +449,7 @@
 				24D0D2F727230CA3006FF67B /* MoyangApp.swift */,
 				24D0D2FB27230CA6006FF67B /* Assets.xcassets */,
 				24D0D2FD27230CA6006FF67B /* Preview Content */,
+				249B902F27259C6400B53682 /* DummyData.swift */,
 			);
 			path = Moyang;
 			sourceTree = "<group>";
@@ -490,6 +503,7 @@
 		24D0D334272315FA006FF67B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				249B903127259C7F00B53682 /* JSON */,
 				248FEC1B2723AAF500321E5E /* Generated */,
 				248FEC162723A13800321E5E /* String */,
 				248FEC142723A11500321E5E /* Colors.xcassets */,
@@ -635,6 +649,7 @@
 				24D0D325272313AF006FF67B /* .swiftlint.yml in Resources */,
 				248FEC152723A11600321E5E /* Colors.xcassets in Resources */,
 				24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */,
+				249B903827259FD300B53682 /* CellPreviewData.json in Resources */,
 				24D0D2FC27230CA6006FF67B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -819,6 +834,7 @@
 				246BD7FC27240AFA005C4E0B /* QTPreviewCard.swift in Sources */,
 				246BD7A927240A96005C4E0B /* DailySummaryView.swift in Sources */,
 				246BD7EC27240AE4005C4E0B /* BibleStoryDetailView.swift in Sources */,
+				249B903027259C6400B53682 /* DummyData.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
 				246BD7C627240AD4005C4E0B /* PrayListViewModel.swift in Sources */,
 				246BD7F627240AE4005C4E0B /* CellInfoView.swift in Sources */,

@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct MoyangApp: App {
+#if ENABLE_LOG
+    @StateObject private var dummyData = DummyData()
+#endif
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -18,6 +21,7 @@ struct MoyangApp: App {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().tintColor = Asset.darkSand200.color
     }
+    
     var body: some Scene {
         WindowGroup {
             MainView()
