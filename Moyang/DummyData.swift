@@ -9,9 +9,8 @@ import Foundation
 import Combine
 
 final class DummyData: ObservableObject {
-#if ENABLE_LOG
     @Published var cellPreview: CellPreview = load("CellPreviewData.json")
-#endif
+    @Published var cellInfo: CellInfo = load("CellInfoData.json")
 }
 
 func load<T: Decodable>(_ filename: String) -> T {

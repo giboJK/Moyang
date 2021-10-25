@@ -84,8 +84,8 @@ extension CellPreviewVM {
             var list = [MemberPray]()
             cellPreview.prayList.forEach { memberPray in
                 list.append(CellPreviewVM.MemberPray(id: memberPray.id,
-                                                            name: memberPray.memberName,
-                                                            praySubject: memberPray.praySubject))
+                                                     name: memberPray.memberName,
+                                                     praySubject: memberPray.praySubject))
             }
             prayList = list
         }

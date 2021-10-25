@@ -48,6 +48,8 @@
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
 		249B903027259C6400B53682 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249B902F27259C6400B53682 /* DummyData.swift */; };
 		249B903827259FD300B53682 /* CellPreviewData.json in Resources */ = {isa = PBXBuildFile; fileRef = 249B903727259FD300B53682 /* CellPreviewData.json */; };
+		24B6A2552726BEB00065112A /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* CellInfo.swift */; };
+		24B6A2572726C40E0065112A /* CellInfoData.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* CellInfoData.json */; };
 		24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F727230CA3006FF67B /* MoyangApp.swift */; };
 		24D0D2FC27230CA6006FF67B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Assets.xcassets */; };
 		24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */; };
@@ -122,6 +124,8 @@
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		249B902F27259C6400B53682 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		249B903727259FD300B53682 /* CellPreviewData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellPreviewData.json; sourceTree = "<group>"; };
+		24B6A2542726BEB00065112A /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
+		24B6A2562726C40E0065112A /* CellInfoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellInfoData.json; sourceTree = "<group>"; };
 		24D0D2F427230CA3006FF67B /* Moyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D2F727230CA3006FF67B /* MoyangApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangApp.swift; sourceTree = "<group>"; };
 		24D0D2FB27230CA6006FF67B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -360,6 +364,7 @@
 			children = (
 				246BD7E627240AE4005C4E0B /* CellRepo.swift */,
 				246BD7E727240AE4005C4E0B /* CellPreview.swift */,
+				24B6A2542726BEB00065112A /* CellInfo.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				249B903727259FD300B53682 /* CellPreviewData.json */,
+				24B6A2562726C40E0065112A /* CellInfoData.json */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -651,6 +657,7 @@
 				24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */,
 				249B903827259FD300B53682 /* CellPreviewData.json in Resources */,
 				24D0D2FC27230CA6006FF67B /* Assets.xcassets in Resources */,
+				24B6A2572726C40E0065112A /* CellInfoData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,6 +854,7 @@
 				246BD7E927240AE4005C4E0B /* BibleStoryItemVM.swift in Sources */,
 				246BD7C327240AD4005C4E0B /* PrayRepository.swift in Sources */,
 				246BD7F527240AE4005C4E0B /* CellSubjectHistoryView.swift in Sources */,
+				24B6A2552726BEB00065112A /* CellInfo.swift in Sources */,
 				246BD7ED27240AE4005C4E0B /* BibleStoryCard.swift in Sources */,
 				246BD7C527240AD4005C4E0B /* PrayUseCaseProvider.swift in Sources */,
 				246BD7EA27240AE4005C4E0B /* BibleStoryRepoImpl.swift in Sources */,

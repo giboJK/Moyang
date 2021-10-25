@@ -20,6 +20,16 @@ class CellInfoVM: ObservableObject {
     
     init(cellRepo: CellRepo) {
         self.cellRepo = cellRepo
+        
+        Publishers.system(initial: state,
+                          reduce: Self.reduce,
+                          scheduler: RunLoop.main,
+                          feedbacks: [
+                            Self.whenLoading(),
+                            Self.userInput(input: input.eraseToAnyPublisher())
+                          ]
+        ).assign(to: \.state, on: self)
+            .store(in: &disposables)
     }
     
     deinit {
@@ -30,34 +40,64 @@ class CellInfoVM: ObservableObject {
     func send(event: Event) {
         input.send(event)
     }
+    
+    static func whenLoading() -> Feedback<State, Event> {
+        Feedback { (state: State) -> AnyPublisher<Event, Never> in
+            guard case .loading = state else { return Empty().eraseToAnyPublisher() }
+            
+            return CellRepoImpl.fetchCellInfo()
+                .map { CellInfoVM.CellInfoItem(cellInfo: $0) }
+                .map(Event.onCellInfoLoaded)
+                .catch { Just(Event.onFailedToLoadCellInfo($0)) }
+                .eraseToAnyPublisher()
+        }
+    }
 }
 
 extension CellInfoVM {
     enum State {
         case idle
         case loading
-        case loaded(CellInfoVM.CellInfo)
+        case loaded(CellInfoVM.CellInfoItem)
         case error(Error)
     }
     
     enum Event {
         case onAppear
-        case onCellInfoLoaded(CellInfoVM.CellInfo)
+        case onCellInfoLoaded(CellInfoVM.CellInfoItem)
         case onFailedToLoadCellInfo(Error)
     }
 }
 
 extension CellInfoVM {
-    struct CellInfo {
+    typealias Identifier = Int
+    struct CellInfoItem {
         let cellName: String
         let talkingSubject: String
+        let questionList: [String]
         let dateString: String
+        let prayList: [CellInfoVM.MemberPrayItem]
         
-        init(cellPreview: CellPreview) {
-            cellName = cellPreview.cellName
-            talkingSubject = cellPreview.talkingSubject
-            dateString = cellPreview.dateString
+        init(cellInfo: CellInfo) {
+            cellName = cellInfo.cellName
+            talkingSubject = cellInfo.talkingSubject
+            questionList = cellInfo.questionList
+            dateString = cellInfo.dateString
+            
+            var list = [MemberPrayItem]()
+            cellInfo.memberList.forEach { member in
+                list.append(CellInfoVM.MemberPrayItem(id: member.id,
+                                                      name: member.memberName,
+                                                      praySubject: member.praySubject))
+            }
+            prayList = list
         }
+    }
+    
+    struct MemberPrayItem: Identifiable {
+        let id: Identifier
+        let name: String
+        let praySubject: String
     }
 }
 

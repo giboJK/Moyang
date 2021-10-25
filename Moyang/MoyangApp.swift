@@ -9,9 +9,6 @@ import SwiftUI
 
 @main
 struct MoyangApp: App {
-#if ENABLE_LOG
-    @StateObject private var dummyData = DummyData()
-#endif
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
