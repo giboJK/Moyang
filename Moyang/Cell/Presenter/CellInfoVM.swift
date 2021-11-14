@@ -97,7 +97,7 @@ extension CellInfoVM {
     struct MemberPrayItem: Identifiable {
         let id: Identifier
         let name: String
-        let praySubject: String
+        var praySubject: String
     }
 }
 

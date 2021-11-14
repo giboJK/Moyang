@@ -51,7 +51,7 @@
 		24B6A2552726BEB00065112A /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* CellInfo.swift */; };
 		24B6A2572726C40E0065112A /* CellInfoData.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* CellInfoData.json */; };
 		24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F727230CA3006FF67B /* MoyangApp.swift */; };
-		24D0D2FC27230CA6006FF67B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Assets.xcassets */; };
+		24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Images.xcassets */; };
 		24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */; };
 		24D0D30927230CA6006FF67B /* MoyangTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D30827230CA6006FF67B /* MoyangTests.swift */; };
 		24D0D31327230CA6006FF67B /* MoyangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D31227230CA6006FF67B /* MoyangUITests.swift */; };
@@ -128,7 +128,7 @@
 		24B6A2562726C40E0065112A /* CellInfoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellInfoData.json; sourceTree = "<group>"; };
 		24D0D2F427230CA3006FF67B /* Moyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D2F727230CA3006FF67B /* MoyangApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangApp.swift; sourceTree = "<group>"; };
-		24D0D2FB27230CA6006FF67B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		24D0D2FB27230CA6006FF67B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		24D0D30427230CA6006FF67B /* MoyangTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoyangTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D30827230CA6006FF67B /* MoyangTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangTests.swift; sourceTree = "<group>"; };
@@ -217,6 +217,7 @@
 		246BD7AD27240AD4005C4E0B /* Pray */ = {
 			isa = PBXGroup;
 			children = (
+				246BD7C927240ADB005C4E0B /* Question */,
 				246BD7AE27240AD4005C4E0B /* View */,
 				246BD7B327240AD4005C4E0B /* Domain */,
 				246BD7BA27240AD4005C4E0B /* Presentation */,
@@ -443,17 +444,15 @@
 		24D0D2F627230CA3006FF67B /* Moyang */ = {
 			isa = PBXGroup;
 			children = (
-				246BD7F927240AFA005C4E0B /* QT */,
-				246BD7CF27240AE4005C4E0B /* BibleStory */,
-				246BD7DC27240AE4005C4E0B /* Cell */,
-				246BD7C927240ADB005C4E0B /* Question */,
-				246BD7AD27240AD4005C4E0B /* Pray */,
-				246BD7A327240A96005C4E0B /* Daily */,
 				248FEC0E2723A07D00321E5E /* Main */,
+				246BD7DC27240AE4005C4E0B /* Cell */,
+				246BD7F927240AFA005C4E0B /* QT */,
+				246BD7AD27240AD4005C4E0B /* Pray */,
+				246BD7CF27240AE4005C4E0B /* BibleStory */,
+				246BD7A327240A96005C4E0B /* Daily */,
 				24D0D334272315FA006FF67B /* Resources */,
 				24D0D32627231442006FF67B /* Util */,
 				24D0D2F727230CA3006FF67B /* MoyangApp.swift */,
-				24D0D2FB27230CA6006FF67B /* Assets.xcassets */,
 				24D0D2FD27230CA6006FF67B /* Preview Content */,
 				249B902F27259C6400B53682 /* DummyData.swift */,
 			);
@@ -509,6 +508,7 @@
 		24D0D334272315FA006FF67B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				24D0D2FB27230CA6006FF67B /* Images.xcassets */,
 				249B903127259C7F00B53682 /* JSON */,
 				248FEC1B2723AAF500321E5E /* Generated */,
 				248FEC162723A13800321E5E /* String */,
@@ -656,7 +656,7 @@
 				248FEC152723A11600321E5E /* Colors.xcassets in Resources */,
 				24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */,
 				249B903827259FD300B53682 /* CellPreviewData.json in Resources */,
-				24D0D2FC27230CA6006FF67B /* Assets.xcassets in Resources */,
+				24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */,
 				24B6A2572726C40E0065112A /* CellInfoData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
