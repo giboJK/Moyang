@@ -13,4 +13,3 @@ protocol CellRepo {
     static func fetchCellPreview()  -> AnyPublisher<CellPreview, Error>
     static func fetchCellInfo()  -> AnyPublisher<CellInfo, Error>
 }
-

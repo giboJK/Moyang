@@ -51,7 +51,7 @@ struct PrayListView: View {
                     Toggle("", isOn: $isAlarmOn)
                         .padding(.trailing, 20)
                         .labelsHidden()
-                        .toggleStyle(SwitchToggleStyle(tint: Color(Asset.lightSand.color)))
+                        .toggleStyle(SwitchToggleStyle(tint: Color(Asset.Colors.Dessert.lightSand.color)))
                 }
                 .padding(.top, 3)
 
@@ -69,7 +69,7 @@ struct PrayListView: View {
                 .foregroundColor(Color.black)
         }))
         .padding(.top, 34)
-        .background(Color(Asset.bgColorGray.color))
+        .background(Color(Asset.Colors.Bg.bgColorGray.color))
     }
 }
 

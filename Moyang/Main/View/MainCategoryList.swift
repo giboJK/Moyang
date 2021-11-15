@@ -28,7 +28,7 @@ struct MainCategoryList: View {
             }
         }
         .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-        .background(Color(Asset.bgColor.color))
+        .background(Color(Asset.Colors.Bg.bgColor.color))
     }
 }
 

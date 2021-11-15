@@ -11,7 +11,7 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(Asset.bgColor.color).ignoresSafeArea()
+                Color(Asset.Colors.Bg.bgColor.color).ignoresSafeArea()
                 VStack(spacing: 0) {
                     HStack {
                         Text("Daily Bread")
@@ -26,7 +26,7 @@ struct MainView: View {
                         .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
                 }
                 .padding(.top, 30)
-                .background(Color(Asset.bgColor.color))
+                .background(Color(Asset.Colors.Bg.bgColor.color))
             }
             .navigationBarHidden(true)
         }

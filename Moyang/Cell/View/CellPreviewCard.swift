@@ -34,6 +34,7 @@ struct CellPreviewCard: View {
                         .font(.system(size: 20, weight: .bold, design: .default))
                         .frame(width: 200, height: 40, alignment: .leading)
                     Spacer()
+                    
                 }
                 HStack {
                     Text("이번주 주제:")
@@ -45,7 +46,7 @@ struct CellPreviewCard: View {
                 }
                 Divider()
                 HStack {
-                    Text("셀 기도제목")
+                    Text("11월 3째주 기도")
                         .font(.system(size: 16, weight: .regular, design: .default))
                         .frame(maxWidth: .infinity, minHeight: 20, alignment: .leading)
                     Spacer()
@@ -56,7 +57,7 @@ struct CellPreviewCard: View {
                             Text(pray.praySubject)
                                 .frame(width: 80, height: 60, alignment: .center)
                                 .font(.system(size: 14, weight: .regular, design: .default))
-                                .background(Color(Asset.bgColorGray.color))
+                                .background(Color(Asset.Colors.Bg.bgColorGray.color))
                                 .cornerRadius(10)
                         }
                     }

@@ -26,7 +26,7 @@ struct QTPreviewCard: View {
                             .frame(width: 80, height: 60, alignment: .center)
                             .font(.system(size: 14, weight: .regular, design: .default))
                             .foregroundColor(Color.white)
-                            .background(Color(Asset.desertStone.color))
+                            .background(Color(Asset.Colors.Dessert.desertStone.color))
                             .cornerRadius(10)
                     }
                 }

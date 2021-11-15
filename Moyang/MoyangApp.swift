@@ -12,11 +12,11 @@ struct MoyangApp: App {
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = Asset.bgColor.color
-        appearance.titleTextAttributes = [.foregroundColor: Asset.darkSand200.color]
+        appearance.backgroundColor = Asset.Colors.Bg.bgColor.color
+        appearance.titleTextAttributes = [.foregroundColor: Asset.Colors.Dessert.darkSand200.color]
 
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        UINavigationBar.appearance().tintColor = Asset.darkSand200.color
+        UINavigationBar.appearance().tintColor = Asset.Colors.Dessert.darkSand200.color
     }
     
     var body: some Scene {
