@@ -63,11 +63,7 @@ struct CellPreviewCard: View {
                     .padding(.bottom, 10)
                 }.frame(height: 60)
             }
-            .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-            .foregroundColor(Color.black)
-            .background(Color.white)
-            .cornerRadius(20)
-            .shadow(color: .gray.opacity(0.4), radius: 5, x: 3.0, y: 3)
+            .modifier(MainCard())
             .eraseToAnyView()
         }
     }

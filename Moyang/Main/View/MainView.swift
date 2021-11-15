@@ -14,23 +14,16 @@ struct MainView: View {
                 Color(Asset.bgColor.color).ignoresSafeArea()
                 VStack(spacing: 0) {
                     HStack {
-                        Text("Moyang Everyday")
+                        Text("Daily Bread")
                             .font(.system(size: 24, weight: .black, design: .default))
                             .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 0))
                         Spacer()
                     }
                     DailySummaryView(viewModel: DailySummaryVM())
-                        .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                        .padding(EdgeInsets(top: 10, leading: 0, bottom: 15, trailing: 0))
                     Divider()
-                    HStack {
-                        Text("Christian Life")
-                            .font(.system(size: 24, weight: .black, design: .default))
-                            .padding(.leading, 20)
-                        Spacer()
-                    }
-                    .padding(EdgeInsets(top: 25, leading: 0, bottom: 10, trailing: 0))
-                    .background(Color(Asset.bgColor.color))
                     MainCategoryList()
+                        .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
                 }
                 .padding(.top, 30)
                 .background(Color(Asset.bgColor.color))

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
+		242D745C274267C80053EF2A /* MainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D745B274267C80053EF2A /* MainCard.swift */; };
 		246BD7A827240A96005C4E0B /* DailySummaryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7A527240A96005C4E0B /* DailySummaryVM.swift */; };
 		246BD7A927240A96005C4E0B /* DailySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7A727240A96005C4E0B /* DailySummaryView.swift */; };
 		246BD7AC27240AB9005C4E0B /* MainCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7AB27240AB9005C4E0B /* MainCategoryList.swift */; };
@@ -85,6 +86,7 @@
 
 /* Begin PBXFileReference section */
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		242D745B274267C80053EF2A /* MainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCard.swift; sourceTree = "<group>"; };
 		246BD7A527240A96005C4E0B /* DailySummaryVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryVM.swift; sourceTree = "<group>"; };
 		246BD7A727240A96005C4E0B /* DailySummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryView.swift; sourceTree = "<group>"; };
 		246BD7AB27240AB9005C4E0B /* MainCategoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoryList.swift; sourceTree = "<group>"; };
@@ -180,6 +182,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		242D745A274267AA0053EF2A /* CommonView */ = {
+			isa = PBXGroup;
+			children = (
+				242D745B274267C80053EF2A /* MainCard.swift */,
+			);
+			path = CommonView;
+			sourceTree = "<group>";
+		};
 		246BD7A327240A96005C4E0B /* Daily */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,10 +227,9 @@
 		246BD7AD27240AD4005C4E0B /* Pray */ = {
 			isa = PBXGroup;
 			children = (
-				246BD7C927240ADB005C4E0B /* Question */,
-				246BD7AE27240AD4005C4E0B /* View */,
 				246BD7B327240AD4005C4E0B /* Domain */,
 				246BD7BA27240AD4005C4E0B /* Presentation */,
+				246BD7AE27240AD4005C4E0B /* View */,
 			);
 			path = Pray;
 			sourceTree = "<group>";
@@ -444,14 +453,16 @@
 		24D0D2F627230CA3006FF67B /* Moyang */ = {
 			isa = PBXGroup;
 			children = (
+				24D0D334272315FA006FF67B /* Resources */,
+				24D0D32627231442006FF67B /* Util */,
+				242D745A274267AA0053EF2A /* CommonView */,
 				248FEC0E2723A07D00321E5E /* Main */,
 				246BD7DC27240AE4005C4E0B /* Cell */,
 				246BD7F927240AFA005C4E0B /* QT */,
 				246BD7AD27240AD4005C4E0B /* Pray */,
+				246BD7C927240ADB005C4E0B /* Question */,
 				246BD7CF27240AE4005C4E0B /* BibleStory */,
 				246BD7A327240A96005C4E0B /* Daily */,
-				24D0D334272315FA006FF67B /* Resources */,
-				24D0D32627231442006FF67B /* Util */,
 				24D0D2F727230CA3006FF67B /* MoyangApp.swift */,
 				24D0D2FD27230CA6006FF67B /* Preview Content */,
 				249B902F27259C6400B53682 /* DummyData.swift */,
@@ -852,6 +863,7 @@
 				246BD7EF27240AE4005C4E0B /* StoryPreview.swift in Sources */,
 				248FEC1D2723AB0300321E5E /* Assets.swift in Sources */,
 				246BD7E927240AE4005C4E0B /* BibleStoryItemVM.swift in Sources */,
+				242D745C274267C80053EF2A /* MainCard.swift in Sources */,
 				246BD7C327240AD4005C4E0B /* PrayRepository.swift in Sources */,
 				246BD7F527240AE4005C4E0B /* CellSubjectHistoryView.swift in Sources */,
 				24B6A2552726BEB00065112A /* CellInfo.swift in Sources */,

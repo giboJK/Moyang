@@ -42,7 +42,7 @@ struct DailySummaryView: View {
                         }
                     }
                 }
-                .cornerRadius(20)
+                .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(Color(Asset.lightSand.color), lineWidth: 1)
