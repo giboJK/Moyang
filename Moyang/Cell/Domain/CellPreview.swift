@@ -16,26 +16,26 @@ struct CellPreview: Codable, Identifiable {
     let talkingSubject: String
     let dateString: String
     
-    let prayList: [CellMemberPray]
+    let memberList: [CellMember]
     
     enum CodingKeys: String, CodingKey {
         case id
         case cellName = "cell_name"
         case talkingSubject = "talking_subject"
         case dateString = "date_string"
-        case prayList = "pray_list"
+        case memberList = "member_list"
     }
 }
 
-struct CellMemberPray: Codable, Identifiable {
+struct CellMember: Codable, Identifiable {
     typealias Identifier = Int
     let id: Identifier
-    var memberName: String
-    var praySubject: String
+    var name: String
+    let profileURL: String?
     
     enum CodingKeys: String, CodingKey {
         case id
-        case memberName = "member_name"
-        case praySubject = "pray_subject"
+        case name = "member_name"
+        case profileURL = "profile_url"
     }
 }

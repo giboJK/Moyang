@@ -31,34 +31,26 @@ struct CellPreviewCard: View {
             return VStack {
                 HStack {
                     Text(preview.cellName)
-                        .font(.system(size: 20, weight: .bold, design: .default))
-                        .frame(width: 200, height: 40, alignment: .leading)
+                        .font(.system(size: 16, weight: .bold, design: .default))
+                        .frame(alignment: .center)
                     Spacer()
-                    
+                    Image(systemName: "arrow.forward")
                 }
+                .padding(.top, 10)
+                
                 HStack {
-                    Text("이번주 주제:")
-                        .font(.system(size: 16, weight: .regular, design: .default))
                     Text(preview.talkingSubject)
-                        .font(.system(size: 16, weight: .regular, design: .default))
-                        .padding(.leading, 10)
+                        .font(.system(size: 14, weight: .regular, design: .default))
                         .frame(maxWidth: .infinity, alignment: .topLeading)
-                }
-                Divider()
-                HStack {
-                    Text("11월 3째주 기도")
-                        .font(.system(size: 16, weight: .regular, design: .default))
-                        .frame(maxWidth: .infinity, minHeight: 20, alignment: .leading)
-                    Spacer()
                 }
                 ScrollView(.horizontal) {
                     HStack(spacing: 10) {
-                        ForEach(preview.prayList) { pray in
-                            Text(pray.praySubject)
-                                .frame(width: 80, height: 60, alignment: .center)
-                                .font(.system(size: 14, weight: .regular, design: .default))
-                                .background(Color(Asset.Colors.Bg.bgColorGray.color))
-                                .cornerRadius(10)
+                        ForEach(preview.memberList) { member in
+                            if let profileURL = member.profileURL {
+                                
+                            } else {
+                                Text(member.name)
+                            }
                         }
                     }
                     .padding(.bottom, 10)

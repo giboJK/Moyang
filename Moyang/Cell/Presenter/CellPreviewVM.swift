@@ -74,27 +74,27 @@ extension CellPreviewVM {
         let cellName: String
         let talkingSubject: String
         let dateString: String
-        let prayList: [CellPreviewVM.MemberPray]
+        let memberList: [CellPreviewVM.Member]
         
         init(cellPreview: CellPreview) {
             cellName = cellPreview.cellName
             talkingSubject = cellPreview.talkingSubject
             dateString = cellPreview.dateString
             
-            var list = [MemberPray]()
-            cellPreview.prayList.forEach { memberPray in
-                list.append(CellPreviewVM.MemberPray(id: memberPray.id,
-                                                     name: memberPray.memberName,
-                                                     praySubject: memberPray.praySubject))
+            var list = [CellPreviewVM.Member]()
+            cellPreview.memberList.forEach { member in
+                list.append(CellPreviewVM.Member(id: member.id,
+                                                 name: member.name,
+                                                 profileURL: member.profileURL))
             }
-            prayList = list
+            memberList = list
         }
     }
     
-    struct MemberPray: Identifiable {
+    struct Member: Identifiable {
         let id: Identifier
         let name: String
-        let praySubject: String
+        let profileURL: String?
     }
 }
 
