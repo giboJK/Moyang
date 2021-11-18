@@ -43,17 +43,30 @@ struct CellPreviewCard: View {
                         .font(.system(size: 14, weight: .regular, design: .default))
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                 }
-                ScrollView(.horizontal) {
-                    HStack(spacing: 10) {
-                        ForEach(preview.memberList) { member in
-                            if let profileURL = member.profileURL {
-                                
-                            } else {
-                                Text(member.name)
-                            }
+                HStack(spacing: -8) {
+                    ForEach(preview.previewMemberList) { member in
+                        if let profileURL = member.profileURL {
+                            AsyncImage(url: URL(string: profileURL))
+                                .scaledToFill()
+                                .frame(width: 40, height: 40, alignment: .center)
+                                .cornerRadius(13)
+                        } else {
+                            Text(String(member.name.first ?? Character("")))
+                                .frame(width: 40, height: 40, alignment: .center)
+                                .background(Color(Asset.Colors.Bg.bgColorGray.color))
+                                .cornerRadius(13)
+                                .overlay(
+                                        RoundedRectangle(cornerRadius: 13)
+                                            .stroke(Color(Asset.Colors.Dessert.desertStone.color),
+                                                    lineWidth: 1)
+                                ).padding(.top, 1)
                         }
                     }
                     .padding(.bottom, 10)
+                    Spacer()
+                    if preview.memberList.count - preview.previewMemberList.count > 0 {
+                        Text("+ \(preview.memberList.count - preview.previewMemberList.count)")
+                    }
                 }.frame(height: 60)
             }
             .modifier(MainCard())

@@ -75,6 +75,7 @@ extension CellPreviewVM {
         let talkingSubject: String
         let dateString: String
         let memberList: [CellPreviewVM.Member]
+        var previewMemberList: [CellPreviewVM.Member]
         
         init(cellPreview: CellPreview) {
             cellName = cellPreview.cellName
@@ -88,6 +89,7 @@ extension CellPreviewVM {
                                                  profileURL: member.profileURL))
             }
             memberList = list
+            previewMemberList = list[randomPick: 6]
         }
     }
     
