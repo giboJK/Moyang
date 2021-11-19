@@ -11,7 +11,7 @@ import SwiftUI
 struct CellInfoView: View {
     @ObservedObject var viewModel: CellInfoVM
     
-    @State private var myThought = "asdasdasdasdsadsad\nasdasdas"
+    @State private var myThought = "asdasdasdasdsadsad\nasaad\nasaad\nasasdadsadsda\nasasdadsadsdadasdas"
     @State private var myPray = "asdasdas"
     @State private var showingMemo = true
     
@@ -33,11 +33,15 @@ struct CellInfoView: View {
         case .loaded(let cellInfo):
             return VStack {
                 HStack {
-                    Text(cellInfo.dateString)
+                    Text("셀 모임 질문")
+                        .font(.system(size: 16, weight: .bold))
                     Spacer()
+                    Image(systemName: "arrow.forward")
                 }
+                .padding(.bottom, 1)
                 HStack {
                     Text(cellInfo.talkingSubject)
+                        .font(.system(size: 14, weight: .regular))
                     Spacer()
                     Button(action: {
                         withAnimation {
@@ -45,12 +49,15 @@ struct CellInfoView: View {
                         }
                     }, label: {
                         showingMemo ?
-                        Image(systemName: "arrowtriangle.down.fill")
-                            .accessibilityLabel("Close memo") :
+                        Image(systemName: "arrowtriangle.down.fill") :
                         Image(systemName: "arrowtriangle.up.fill")
-                            .accessibilityLabel("Open memo")
                     })
                     .foregroundColor(Color.black)
+                }
+                HStack {
+                    Text(cellInfo.dateString)
+                        .font(.system(size: 12, weight: .regular))
+                    Spacer()
                 }
                 if showingMemo {
                     ScrollView(.vertical, showsIndicators: false) {
@@ -58,23 +65,18 @@ struct CellInfoView: View {
                             HStack {
                                 Text(question)
                                     .frame(alignment: .topLeading)
-                                    .font(.system(size: 16, weight: .regular, design: .default))
-                                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                                    .background(Color.white)
-                                    .cornerRadius(10)
+                                    .font(.system(size: 14, weight: .regular, design: .default))
                                 Spacer()
                             }
-                            .padding(.bottom, 10)
+                            .padding(EdgeInsets(top: 0, leading: 4, bottom: -10, trailing: 0))
                             TextEditor(text: $myThought)
-                                .padding(.bottom, 20)
-                                .frame(height: 200, alignment: .topLeading)
-                            Divider()
-                                .padding()
+                                .padding(.bottom, 10)
+                                .font(.system(size: 13, weight: .regular, design: .default))
+                                .frame(height: 70, alignment: .topLeading)
+                                .colorMultiply(Color(Asset.Colors.Bg.bgColorGray.color))
                         }
                     }
-                    .frame(height: 400)
                     .transition(.asymmetric(insertion: .opacity, removal: .opacity))
-                    .background(Color.white)
                 }
                 HStack {
                     Spacer()
@@ -94,7 +96,7 @@ struct CellInfoView: View {
                         HStack {
                             Text(member.praySubject)
                                 .frame(alignment: .topLeading)
-                                .font(.system(size: 16, weight: .regular, design: .default))
+                                .font(.system(size: 14, weight: .regular, design: .default))
                                 .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
                                 .background(Color.white)
                                 .cornerRadius(10)
@@ -102,7 +104,7 @@ struct CellInfoView: View {
                         }
                         TextEditor(text: $myPray)
                             .padding(.bottom, 20)
-                            .frame(height: 200, alignment: .topLeading)
+                            .frame(height: 100, alignment: .topLeading)
                         Divider()
                             .padding()
                     }

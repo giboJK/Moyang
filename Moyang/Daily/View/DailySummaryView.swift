@@ -44,7 +44,7 @@ struct DailySummaryView: View {
                 }
                 .cornerRadius(10)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 20)
+                    RoundedRectangle(cornerRadius: 10)
                         .stroke(Color(Asset.Colors.Dessert.lightSand.color), lineWidth: 1)
                 )
             }

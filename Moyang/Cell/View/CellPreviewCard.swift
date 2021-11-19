@@ -37,12 +37,12 @@ struct CellPreviewCard: View {
                     Image(systemName: "arrow.forward")
                 }
                 .padding(.top, 10)
-                
+                Divider().padding(-5)
                 HStack {
                     Text(preview.talkingSubject)
                         .font(.system(size: 14, weight: .regular, design: .default))
                         .frame(maxWidth: .infinity, alignment: .topLeading)
-                }
+                }.padding(.top, -5)
                 HStack(spacing: -8) {
                     ForEach(preview.previewMemberList) { member in
                         if let profileURL = member.profileURL {
@@ -65,9 +65,14 @@ struct CellPreviewCard: View {
                     .padding(.bottom, 10)
                     Spacer()
                     if preview.memberList.count - preview.previewMemberList.count > 0 {
-                        Text("+ \(preview.memberList.count - preview.previewMemberList.count)")
+                        Image(systemName: "person.fill")
+                            .padding(.trailing, 25)
+                            .padding(.bottom, 10)
+                            .frame(width: 10, height: 10)
+                        Text("+\(preview.memberList.count - preview.previewMemberList.count)")
+                            .padding(.bottom, 10)
                     }
-                }.frame(height: 60)
+                }.frame(height: 45)
             }
             .modifier(MainCard())
             .eraseToAnyView()
