@@ -15,16 +15,14 @@ struct MainCategoryList: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 25) {
+            VStack(spacing: 20) {
                 NavigationLink(destination: CellInfoView(viewModel: CellInfoVM(cellRepo: cellRepo))) {
                     CellPreviewCard(viewModel: CellPreviewVM(cellRepo: cellRepo))
                 }
-                BibleStoryCard(viewModel: BibleStoryListVM(bibleStoryRepo: BibleStoryRepoImpl()))
-                QuestionCard()
-                NavigationLink(destination: PrayListView(viewModel: prayListVM)) {
-                    PrayPreviewCard(viewModel: prayHistoryVM)
-                }
-                QTPreviewCard()
+//                QTPreviewCard()
+//                NavigationLink(destination: PrayListView(viewModel: prayListVM)) {
+//                    PrayPreviewCard(viewModel: prayHistoryVM)
+//                }
             }
         }
         .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
