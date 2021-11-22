@@ -16,7 +16,7 @@ struct MainCategoryList: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
-                NavigationLink(destination: CellInfoView(viewModel: CellInfoVM(cellRepo: cellRepo))) {
+                NavigationLink(destination: CellMeetingView(viewModel: CellMeetingVM(cellRepo: cellRepo))) {
                     CellPreviewCard(viewModel: CellPreviewVM(cellRepo: cellRepo))
                 }
 //                QTPreviewCard()

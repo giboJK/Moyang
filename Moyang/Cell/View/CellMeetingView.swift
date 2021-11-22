@@ -1,5 +1,5 @@
 //
-//  CellInfoView.swift
+//  CellMeetingView.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/10/19.
@@ -8,11 +8,9 @@
 
 import SwiftUI
 
-struct CellInfoView: View {
-    @ObservedObject var viewModel: CellInfoVM
+struct CellMeetingView: View {
+    @ObservedObject var viewModel: CellMeetingVM
     
-    @State private var myThought = "asdasdasdasdsadsad\nasaad\nasaad\nasasdadsadsda\nasasdadsadsdadasdas"
-    @State private var myPray = "asdasdas"
     @State private var showingMemo = true
     
     var body: some View {
@@ -34,14 +32,14 @@ struct CellInfoView: View {
             return VStack {
                 HStack {
                     Text("셀 모임 질문")
-                        .font(.system(size: 16, weight: .bold))
+                        .font(.system(size: 17, weight: .bold))
                     Spacer()
                     Image(systemName: "arrow.forward")
                 }
                 .padding(.bottom, 1)
                 HStack {
                     Text(cellInfo.talkingSubject)
-                        .font(.system(size: 14, weight: .regular))
+                        .font(.system(size: 15, weight: .regular))
                     Spacer()
                     Button(action: {
                         withAnimation {
@@ -56,59 +54,46 @@ struct CellInfoView: View {
                 }
                 HStack {
                     Text(cellInfo.dateString)
-                        .font(.system(size: 12, weight: .regular))
+                        .font(.system(size: 13, weight: .regular))
                     Spacer()
                 }
                 if showingMemo {
-                    ScrollView(.vertical, showsIndicators: false) {
-                        ForEach(cellInfo.questionList, id: \.self) { question in
+                    ScrollView(.vertical, showsIndicators: true) {
+                        ForEach(0 ..< cellInfo.questionList.count) { i in
+                            let question = cellInfo.questionList[i]
                             HStack {
-                                Text(question)
+                                Text("- " + question)
                                     .frame(alignment: .topLeading)
-                                    .font(.system(size: 14, weight: .regular, design: .default))
+                                    .font(.system(size: 15, weight: .regular, design: .default))
                                 Spacer()
                             }
                             .padding(EdgeInsets(top: 0, leading: 4, bottom: -10, trailing: 0))
-                            TextEditor(text: $myThought)
+                            TextEditor(text: $viewModel.answerList[i])
                                 .padding(.bottom, 10)
-                                .font(.system(size: 13, weight: .regular, design: .default))
-                                .frame(height: 70, alignment: .topLeading)
+                                .font(.system(size: 14, weight: .regular, design: .default))
+                                .frame(height: 75, alignment: .topLeading)
                                 .colorMultiply(Color(Asset.Colors.Bg.bgColorGray.color))
                         }
                     }
                     .transition(.asymmetric(insertion: .opacity, removal: .opacity))
-                }
-                HStack {
-                    Spacer()
-                    NavigationLink(destination: CellSubjectHistoryView()) {
-                        Text("모임 주제 모두 보기")
-                        Image(systemName: "book.fill")
-                    }
+                    .frame(height: 280)
                 }
                 Divider()
+                    .padding(.top, 5)
                 HStack {
-                    Text("셀 기도제목")
+                    Text("지난기도")
+                        .font(.system(size: 17, weight: .bold))
                     Spacer()
+                    Image(systemName: "arrow.forward")
                 }
-                .padding(.top, 14)
-                ScrollView(.vertical, showsIndicators: false) {
-                    ForEach(cellInfo.prayList) { member in
-                        HStack {
-                            Text(member.praySubject)
-                                .frame(alignment: .topLeading)
-                                .font(.system(size: 14, weight: .regular, design: .default))
-                                .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
-                                .background(Color.white)
-                                .cornerRadius(10)
-                            Spacer()
-                        }
-                        TextEditor(text: $myPray)
-                            .padding(.bottom, 20)
-                            .frame(height: 100, alignment: .topLeading)
-                        Divider()
-                            .padding()
-                    }
+                .padding(.top, 5)
+                HStack {
+                    Text("새 기도제목")
+                        .font(.system(size: 17, weight: .bold))
+                    Spacer()
+                    Image(systemName: "plus")
                 }
+                .padding(.top, 5)
                 Spacer()
             }
             .foregroundColor(Color.black)
@@ -121,8 +106,8 @@ struct CellInfoView: View {
     }
 }
 
-struct CellInfoView_Previews: PreviewProvider {
+struct CellMeetingView_Previews: PreviewProvider {
     static var previews: some View {
-        CellInfoView(viewModel: CellInfoVM(cellRepo: CellRepoImpl()))
+        CellMeetingView(viewModel: CellMeetingVM(cellRepo: CellRepoImpl()))
     }
 }

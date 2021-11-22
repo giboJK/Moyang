@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
+		24151DCE274A2A3E00DD38CE /* CellPrayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */; };
 		242D745C274267C80053EF2A /* MainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D745B274267C80053EF2A /* MainCard.swift */; };
 		242D745F274282F00053EF2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 242D7461274282F00053EF2A /* Localizable.strings */; };
 		242D7464274283710053EF2A /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D7463274283710053EF2A /* Strings.swift */; };
@@ -39,10 +40,10 @@
 		246BD7F027240AE4005C4E0B /* BibleStoryRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DB27240AE4005C4E0B /* BibleStoryRepo.swift */; };
 		246BD7F127240AE4005C4E0B /* CellRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */; };
 		246BD7F227240AE4005C4E0B /* CellPreviewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DF27240AE4005C4E0B /* CellPreviewVM.swift */; };
-		246BD7F327240AE4005C4E0B /* CellInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E027240AE4005C4E0B /* CellInfoVM.swift */; };
+		246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */; };
 		246BD7F427240AE4005C4E0B /* CellPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E227240AE4005C4E0B /* CellPreviewCard.swift */; };
 		246BD7F527240AE4005C4E0B /* CellSubjectHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E327240AE4005C4E0B /* CellSubjectHistoryView.swift */; };
-		246BD7F627240AE4005C4E0B /* CellInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E427240AE4005C4E0B /* CellInfoView.swift */; };
+		246BD7F627240AE4005C4E0B /* CellMeetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E427240AE4005C4E0B /* CellMeetingView.swift */; };
 		246BD7F727240AE4005C4E0B /* CellRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E627240AE4005C4E0B /* CellRepo.swift */; };
 		246BD7F827240AE4005C4E0B /* CellPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E727240AE4005C4E0B /* CellPreview.swift */; };
 		246BD7FC27240AFA005C4E0B /* QTPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7FB27240AFA005C4E0B /* QTPreviewCard.swift */; };
@@ -90,6 +91,7 @@
 
 /* Begin PBXFileReference section */
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayListView.swift; sourceTree = "<group>"; };
 		242D745B274267C80053EF2A /* MainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCard.swift; sourceTree = "<group>"; };
 		242D7460274282F00053EF2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		242D7462274282F30053EF2A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -121,10 +123,10 @@
 		246BD7DB27240AE4005C4E0B /* BibleStoryRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BibleStoryRepo.swift; sourceTree = "<group>"; };
 		246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRepoImpl.swift; sourceTree = "<group>"; };
 		246BD7DF27240AE4005C4E0B /* CellPreviewVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPreviewVM.swift; sourceTree = "<group>"; };
-		246BD7E027240AE4005C4E0B /* CellInfoVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellInfoVM.swift; sourceTree = "<group>"; };
+		246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellMeetingVM.swift; sourceTree = "<group>"; };
 		246BD7E227240AE4005C4E0B /* CellPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPreviewCard.swift; sourceTree = "<group>"; };
 		246BD7E327240AE4005C4E0B /* CellSubjectHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellSubjectHistoryView.swift; sourceTree = "<group>"; };
-		246BD7E427240AE4005C4E0B /* CellInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellInfoView.swift; sourceTree = "<group>"; };
+		246BD7E427240AE4005C4E0B /* CellMeetingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellMeetingView.swift; sourceTree = "<group>"; };
 		246BD7E627240AE4005C4E0B /* CellRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRepo.swift; sourceTree = "<group>"; };
 		246BD7E727240AE4005C4E0B /* CellPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPreview.swift; sourceTree = "<group>"; };
 		246BD7FB27240AFA005C4E0B /* QTPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QTPreviewCard.swift; sourceTree = "<group>"; };
@@ -363,7 +365,7 @@
 			children = (
 				246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */,
 				246BD7DF27240AE4005C4E0B /* CellPreviewVM.swift */,
-				246BD7E027240AE4005C4E0B /* CellInfoVM.swift */,
+				246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -373,7 +375,8 @@
 			children = (
 				246BD7E227240AE4005C4E0B /* CellPreviewCard.swift */,
 				246BD7E327240AE4005C4E0B /* CellSubjectHistoryView.swift */,
-				246BD7E427240AE4005C4E0B /* CellInfoView.swift */,
+				246BD7E427240AE4005C4E0B /* CellMeetingView.swift */,
+				24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -862,9 +865,10 @@
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
 				246BD7EC27240AE4005C4E0B /* BibleStoryDetailView.swift in Sources */,
 				249B903027259C6400B53682 /* DummyData.swift in Sources */,
+				24151DCE274A2A3E00DD38CE /* CellPrayListView.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
 				246BD7C627240AD4005C4E0B /* PrayListViewModel.swift in Sources */,
-				246BD7F627240AE4005C4E0B /* CellInfoView.swift in Sources */,
+				246BD7F627240AE4005C4E0B /* CellMeetingView.swift in Sources */,
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,
 				246BD7CD27240ADB005C4E0B /* QuestionView.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* CellPreview.swift in Sources */,
@@ -881,7 +885,7 @@
 				246BD7EA27240AE4005C4E0B /* BibleStoryRepoImpl.swift in Sources */,
 				246BD7F427240AE4005C4E0B /* CellPreviewCard.swift in Sources */,
 				246BD7E827240AE4005C4E0B /* BibleStoryListVM.swift in Sources */,
-				246BD7F327240AE4005C4E0B /* CellInfoVM.swift in Sources */,
+				246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */,
 				246BD7F227240AE4005C4E0B /* CellPreviewVM.swift in Sources */,
 				246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
