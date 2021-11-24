@@ -8,13 +8,29 @@
 import SwiftUI
 
 struct CellPrayListView: View {
+    @ObservedObject var viewModel: CellPrayListVM
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(viewModel.items, id: \.name) { item in
+            VStack {
+                HStack {
+                    Text(item.name)
+                    Spacer()
+                }
+                HStack {
+                    Text(item.pray)
+                    Spacer()
+                }
+            }.onTapGesture {
+                Log.d("\(item.name)")
+                viewModel.open(item)
+            }
+        }
     }
 }
 
 struct CellPrayListView_Previews: PreviewProvider {
     static var previews: some View {
-        CellPrayListView()
+        CellPrayListView(viewModel: CellPrayListVM(coordinator: CoordinatorObject()))
     }
 }

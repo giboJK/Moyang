@@ -80,11 +80,14 @@ struct CellMeetingView: View {
                 }
                 Divider()
                     .padding(.top, 5)
-                HStack {
-                    Text("지난기도")
-                        .font(.system(size: 17, weight: .bold))
-                    Spacer()
-                    Image(systemName: "arrow.forward")
+                NavigationLink(destination: CellPrayListView(viewModel: CellPrayListVM(coordinator: CoordinatorObject()))) {
+                    HStack {
+                        Text("지난기도")
+                            .font(.system(size: 17, weight: .bold))
+                        Spacer()
+                        Image(systemName: "arrow.forward")
+                    }
+
                 }
                 .padding(.top, 5)
                 HStack {
