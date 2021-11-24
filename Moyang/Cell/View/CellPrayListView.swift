@@ -31,6 +31,6 @@ struct CellPrayListView: View {
 
 struct CellPrayListView_Previews: PreviewProvider {
     static var previews: some View {
-        CellPrayListView(viewModel: CellPrayListVM(coordinator: CoordinatorObject()))
+        CellPrayListView(viewModel: CellPrayListVM(coordinator: CellCoordinator()))
     }
 }

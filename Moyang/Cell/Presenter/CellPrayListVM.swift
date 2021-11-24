@@ -10,9 +10,9 @@ import Foundation
 class CellPrayListVM: ObservableObject, Identifiable {
     @Published var items = [MemberPrayItem]()
     
-    private unowned let coordinator: CoordinatorObject
+    private unowned let coordinator: CellCoordinator
     
-    init(coordinator: CoordinatorObject) {
+    init(coordinator: CellCoordinator) {
         self.coordinator = coordinator
     }
     

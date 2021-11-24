@@ -80,7 +80,7 @@ struct CellMeetingView: View {
                 }
                 Divider()
                     .padding(.top, 5)
-                NavigationLink(destination: CellPrayListView(viewModel: CellPrayListVM(coordinator: CoordinatorObject()))) {
+                NavigationLink(destination: CellPrayListView(viewModel: CellPrayListVM(coordinator: CellCoordinator()))) {
                     HStack {
                         Text("지난기도")
                             .font(.system(size: 17, weight: .bold))
