@@ -18,6 +18,8 @@ class CellCoordinator: ObservableObject {
         self.cellMeetingVM = CellMeetingVM(cellRepo: CellRepoImpl())
     }
     
+    deinit { Log.i(self) }
+    
     func open(_ item: CellPrayListVM.MemberPrayItem) {
     }
 }

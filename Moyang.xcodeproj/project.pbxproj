@@ -55,6 +55,7 @@
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
 		24B6A2552726BEB00065112A /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* CellInfo.swift */; };
 		24B6A2572726C40E0065112A /* CellInfoData.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* CellInfoData.json */; };
+		24BF6E94274FBF620004B24E /* CellPrayData.json in Resources */ = {isa = PBXBuildFile; fileRef = 24BF6E93274FBF620004B24E /* CellPrayData.json */; };
 		24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F727230CA3006FF67B /* MoyangApp.swift */; };
 		24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Images.xcassets */; };
 		24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */; };
@@ -141,6 +142,7 @@
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		24B6A2542726BEB00065112A /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
 		24B6A2562726C40E0065112A /* CellInfoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellInfoData.json; sourceTree = "<group>"; };
+		24BF6E93274FBF620004B24E /* CellPrayData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellPrayData.json; sourceTree = "<group>"; };
 		24D0D2F427230CA3006FF67B /* Moyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D2F727230CA3006FF67B /* MoyangApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangApp.swift; sourceTree = "<group>"; };
 		24D0D2FB27230CA6006FF67B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 			children = (
 				249B903727259FD300B53682 /* CellPreviewData.json */,
 				24B6A2562726C40E0065112A /* CellInfoData.json */,
+				24BF6E93274FBF620004B24E /* CellPrayData.json */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				249B903827259FD300B53682 /* CellPreviewData.json in Resources */,
 				24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */,
 				24B6A2572726C40E0065112A /* CellInfoData.json in Resources */,
+				24BF6E94274FBF620004B24E /* CellPrayData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

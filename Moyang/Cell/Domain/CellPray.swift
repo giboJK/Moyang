@@ -12,6 +12,7 @@ struct CellPray: Codable, Identifiable {
     typealias Identifier = Int
     let id: Identifier
     let cellName: String
+    let dateString: String
     let memberList: [String]
     let prayList: [String]
     
@@ -19,6 +20,7 @@ struct CellPray: Codable, Identifiable {
         case id
         case cellName = "cell_name"
         case memberList = "member_list"
+        case dateString = "date_string"
         case prayList = "pray_list"
     }
 }
