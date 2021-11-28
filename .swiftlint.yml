@@ -12,8 +12,8 @@ disabled_rules:
 force_cast: warning
 
 line_length:
-  warning: 120
-  error: 150
+  warning: 150
+  error: 200
   
 file_length:
   warning: 650

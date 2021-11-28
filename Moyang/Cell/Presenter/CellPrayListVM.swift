@@ -10,16 +10,8 @@ import Foundation
 class CellPrayListVM: ObservableObject, Identifiable {
     @Published var items = [MemberPrayItem]()
     
-    private let coordinator: CellCoordinator
-    
-    init(coordinator: CellCoordinator) {
-        self.coordinator = coordinator
-        
+    init() {
         items = CellPrayListItem(cellPray: DummyData().cellPray).list
-    }
-    
-    func open(_ item: MemberPrayItem) {
-        coordinator.open(item)
     }
 }
 
