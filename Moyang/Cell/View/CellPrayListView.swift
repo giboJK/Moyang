@@ -10,40 +10,70 @@ import SwiftUI
 struct CellPrayListView: View {
     @ObservedObject var viewModel: CellPrayListVM
     
-    @State private var sortingByName = true
-    
     var body: some View {
         VStack {
             HStack {
                 Button {
                     withAnimation {
-                        sortingByName.toggle()
+                        viewModel.changeSorting()
                     }
                 } label: {
-                    sortingByName ?
-                    Text(Image(uiImage: Asset.Images.Cell.sortDown.image)) + Text("이름순") :
-                    Text(Image(uiImage: Asset.Images.Cell.sortDown.image)) + Text("날짜순")
+                    Image(uiImage: Asset.Images.Cell.sortDown.image)
+                        .resizable()
+                        .frame(width: 16.0, height: 16.0)
+                    viewModel.showSortingByName ? Text("이름순") : Text("날짜순")
                 }
                 .foregroundColor(Color(Asset.Colors.Dessert.darkSand200.color))
                 .frame(alignment: .leading)
                 .padding(.leading, 15)
                 Spacer()
             }
-            List(viewModel.items, id: \.name) { item in
-                VStack {
+            .padding(.top, 10)
+            .frame(height: 16, alignment: .leading)
+            .foregroundColor(Color(Asset.Colors.Dessert.darkSand200.color))
+            if viewModel.showSortingByName {
+                List(viewModel.nameSorteditemList, id: \.name) { item in
                     HStack {
                         Text(item.name)
                         Spacer()
                     }
+                    
+                    ScrollView(.vertical, showsIndicators: true) {
+                        ForEach(0 ..< item.prayList.count) { i in
+                            HStack {
+                                Text(item.dateList[i])
+                                Spacer()
+                            }
+                            HStack {
+                                Text(item.prayList[i])
+                                Spacer()
+                                
+                            }
+                            Spacer()
+                                .frame(height: 10)
+                        }
+                    }
+                    .frame(maxHeight: 160)
+                }
+                .listStyle(PlainListStyle())
+            } else {
+                List(viewModel.dateSorteditemList, id: \.date) { item in
                     HStack {
-                        Text(item.pray)
+                        Text(item.date)
                         Spacer()
                     }
-                }.onTapGesture {
-                    Log.d("\(item.name)")
+//                    VStack {
+//
+//                        HStack {
+//                            Text(item.pray)
+//                            Spacer()
+//                        }
+//                    }.onTapGesture {
+//                        Log.d("\(item.name)")
+//                    }
                 }
+                .listStyle(PlainListStyle())
             }
-            .listStyle(PlainListStyle())
         }
     }
 }

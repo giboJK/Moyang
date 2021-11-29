@@ -11,7 +11,7 @@ import Combine
 final class DummyData: ObservableObject {
     @Published var cellPreview: CellPreview = load("CellPreviewData.json")
     @Published var cellInfo: CellInfo = load("CellInfoData.json")
-    @Published var cellPray: CellPray = load("CellPrayData.json")
+    @Published var cellPrayInfo: CellPrayInfo = load("CellPrayData.json")
 }
 
 func load<T: Decodable>(_ filename: String) -> T {
