@@ -34,7 +34,7 @@ struct CellPrayListView: View {
             if viewModel.showSortingByName {
                 List(viewModel.nameSorteditemList, id: \.name) { item in
                     HStack {
-                        Text(item.name)
+                        Text(item.name.split(separator: "_").first!)
                         Spacer()
                     }
                     
@@ -62,15 +62,22 @@ struct CellPrayListView: View {
                         Text(item.date)
                         Spacer()
                     }
-//                    VStack {
-//
-//                        HStack {
-//                            Text(item.pray)
-//                            Spacer()
-//                        }
-//                    }.onTapGesture {
-//                        Log.d("\(item.name)")
-//                    }
+                    ScrollView(.vertical, showsIndicators: true) {
+                        ForEach(0 ..< item.memberList.count) { i in
+                            HStack {
+                                Text(item.memberList[i])
+                                Spacer()
+                            }
+                            HStack {
+                                Text(item.prayList[i])
+                                Spacer()
+                                
+                            }
+                            Spacer()
+                                .frame(height: 10)
+                        }
+                    }
+                    .frame(maxHeight: 160)
                 }
                 .listStyle(PlainListStyle())
             }

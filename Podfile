@@ -13,6 +13,10 @@ def db
   pod 'RealmSwift'
 end
 
+def di
+  pod 'Swinject'
+end
+
 def network
   pod 'Alamofire'
 end
@@ -25,6 +29,8 @@ target 'Moyang' do
   db
   
   network
+  
+  di
   
   post_install do |installer|
     installer.pods_project.targets.each do |target|

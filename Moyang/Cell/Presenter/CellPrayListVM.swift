@@ -5,7 +5,7 @@
 //  Created by 정김기보 on 2021/11/23.
 //
 
-import Foundation
+import Combine
 
 class CellPrayListVM: ObservableObject, Identifiable {
     @Published var nameSorteditemList = [NameSortedMemberPrayItem]()
@@ -88,12 +88,12 @@ extension CellPrayListVM {
     
     struct DateSortedMemberPrayItem {
         let date: String
-        let memeberList: [String]
+        let memberList: [String]
         let prayList: [String]
         
         init(date: String, memberList: [String], prayList: [String]) {
             self.date = date
-            self.memeberList = memberList
+            self.memberList = memberList
             self.prayList = prayList
         }
     }
