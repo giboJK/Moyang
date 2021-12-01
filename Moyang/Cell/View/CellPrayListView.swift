@@ -55,6 +55,10 @@ struct CellPrayListView: View {
                         Spacer()
                         Image(systemName: "pencil")
                     }
+                    .background(
+                        NavigationLink(destination: CellMemberPrayEditView(name: item.date)) {}
+                            .opacity(0)
+                    )
                     ScrollView(.vertical, showsIndicators: true) {
                         ForEach(item.prayItemList, id: \.member) { item in
                             CellPrayListRow(info: item.member, pray: item.pray)
