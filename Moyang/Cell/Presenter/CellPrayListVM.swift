@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 class CellPrayListVM: ObservableObject, Identifiable {
     @Published var nameSorteditemList = [NameSortedMemberPrayItem]()
@@ -24,6 +25,14 @@ class CellPrayListVM: ObservableObject, Identifiable {
     
     func changeSorting() {
         showSortingByName.toggle()
+    }
+    
+    func editNamePray() {
+        
+    }
+    
+    func editDatePray() {
+        
     }
 }
 
@@ -76,25 +85,29 @@ extension CellPrayListVM {
     
     struct NameSortedMemberPrayItem {
         let name: String
-        let dateList: [String]
-        let prayList: [String]
+        let prayItemList: [(date: String, pray: String)]
         
         init(name: String, dateList: [String], prayList: [String]) {
             self.name = name
-            self.dateList = dateList
-            self.prayList = prayList
+            var newPrayItemList = [(String, String)]()
+            for i in 0 ..< dateList.count {
+                newPrayItemList.append((dateList[i], prayList[i]))
+            }
+            self.prayItemList = newPrayItemList
         }
     }
     
     struct DateSortedMemberPrayItem {
         let date: String
-        let memberList: [String]
-        let prayList: [String]
+        let prayItemList: [(member: String, pray: String)]
         
         init(date: String, memberList: [String], prayList: [String]) {
             self.date = date
-            self.memberList = memberList
-            self.prayList = prayList
+            var newPrayItemList = [(String, String)]()
+            for i in 0 ..< memberList.count {
+                newPrayItemList.append((memberList[i], prayList[i]))
+            }
+            self.prayItemList = newPrayItemList
         }
     }
 }
