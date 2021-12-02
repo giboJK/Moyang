@@ -13,7 +13,10 @@ class CellPrayListVM: ObservableObject, Identifiable {
     @Published var dateSorteditemList = [DateSortedMemberPrayItem]()
     @Published var showSortingByName = true
     
-    init() {
+    private let cellRepo: CellRepo
+    
+    init(cellRepo: CellRepo) {
+        self.cellRepo = cellRepo
         loadData()
     }
     

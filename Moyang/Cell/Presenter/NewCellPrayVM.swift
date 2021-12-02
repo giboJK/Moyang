@@ -13,8 +13,6 @@ class NewCellPrayVM: ObservableObject, Identifiable {
     
     init() {
     }
-    
-    
 }
 
 extension NewCellPrayVM {
