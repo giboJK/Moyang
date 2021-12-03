@@ -1,12 +1,12 @@
 PODS:
-  - Alamofire (5.4.3)
-  - Realm (10.15.1):
-    - Realm/Headers (= 10.15.1)
-  - Realm/Headers (10.15.1)
-  - RealmSwift (10.15.1):
-    - Realm (= 10.15.1)
-  - SwiftGen (6.4.0)
-  - SwiftLint (0.44.0)
+  - Alamofire (5.4.4)
+  - Realm (10.20.0):
+    - Realm/Headers (= 10.20.0)
+  - Realm/Headers (10.20.0)
+  - RealmSwift (10.20.0):
+    - Realm (= 10.20.0)
+  - SwiftGen (6.5.1)
+  - SwiftLint (0.45.1)
   - SwiftyBeaver (1.9.5)
   - Swinject (2.8.1)
 
@@ -29,11 +29,11 @@ SPEC REPOS:
     - Swinject
 
 SPEC CHECKSUMS:
-  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
-  Realm: fbcbde2620d51623cc5b18e28f5b165c39abef52
-  RealmSwift: e4bea8e42efad3d543aea23b56504069c6faaea2
-  SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
-  SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  Realm: ae32bdc1da7d19c7617e0400201a77acd4a211b9
+  RealmSwift: c95eec6a712924870b2e36c4c081d63ec07e5414
+  SwiftGen: a6d22010845f08fe18fbdf3a07a8e380fd22e0ea
+  SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
   SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
   Swinject: 97112918bd7e0785dc2df7036213f3c8cbba6586
 

@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import Swinject
 
 @main
 struct MoyangApp: App {
+    let assembler = Assembler()
+    
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -17,6 +20,9 @@ struct MoyangApp: App {
 
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().tintColor = Asset.Colors.Dessert.darkSand200.color
+        
+        let appAssembly = AppAssembly()
+        assembler.apply(assembly: appAssembly)
     }
     
     var body: some Scene {

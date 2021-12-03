@@ -53,6 +53,8 @@
 		248FF3F42758D681009688C6 /* CellAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FF3F32758D681009688C6 /* CellAssembly.swift */; };
 		249B903027259C6400B53682 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249B902F27259C6400B53682 /* DummyData.swift */; };
 		249B903827259FD300B53682 /* CellPreviewData.json in Resources */ = {isa = PBXBuildFile; fileRef = 249B903727259FD300B53682 /* CellPreviewData.json */; };
+		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
+		24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
 		24B6A2552726BEB00065112A /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* CellInfo.swift */; };
 		24B6A2572726C40E0065112A /* CellInfoData.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* CellInfoData.json */; };
@@ -145,6 +147,8 @@
 		248FF3F32758D681009688C6 /* CellAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAssembly.swift; sourceTree = "<group>"; };
 		249B902F27259C6400B53682 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		249B903727259FD300B53682 /* CellPreviewData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellPreviewData.json; sourceTree = "<group>"; };
+		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
+		24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssembly.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		24B6A2542726BEB00065112A /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
 		24B6A2562726C40E0065112A /* CellInfoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellInfoData.json; sourceTree = "<group>"; };
@@ -459,6 +463,16 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		24A6A4A9275A2BCB00D7DB25 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				24D0D2F727230CA3006FF67B /* MoyangApp.swift */,
+				24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */,
+				24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		24BB803327565E0800BE2988 /* DB */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,6 +508,7 @@
 		24D0D2F627230CA3006FF67B /* Moyang */ = {
 			isa = PBXGroup;
 			children = (
+				24A6A4A9275A2BCB00D7DB25 /* App */,
 				24BB803327565E0800BE2988 /* DB */,
 				24D0D334272315FA006FF67B /* Resources */,
 				24D0D32627231442006FF67B /* Util */,
@@ -505,7 +520,6 @@
 				246BD7F927240AFA005C4E0B /* QT */,
 				246BD7CF27240AE4005C4E0B /* BibleStory */,
 				246BD7A327240A96005C4E0B /* Daily */,
-				24D0D2F727230CA3006FF67B /* MoyangApp.swift */,
 				24D0D2FD27230CA6006FF67B /* Preview Content */,
 			);
 			path = Moyang;
@@ -665,7 +679,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					24D0D2F327230CA3006FF67B = {
 						CreatedOnToolsVersion = 13.0;
@@ -906,6 +920,7 @@
 				24151DCE274A2A3E00DD38CE /* CellPrayListView.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
 				246BD7C627240AD4005C4E0B /* PrayListViewModel.swift in Sources */,
+				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
 				246BD7F627240AE4005C4E0B /* CellMeetingView.swift in Sources */,
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,
 				24BB803727565E2200BE2988 /* LocalDB.swift in Sources */,
@@ -932,6 +947,7 @@
 				246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */,
 				248FF3F42758D681009688C6 /* CellAssembly.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
+				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
 				24D7BB33274D17C100CC8B7C /* CellPrayInfo.swift in Sources */,
 				246BD7C427240AD4005C4E0B /* FetchPraySubject.swift in Sources */,
 				246BD7A827240A96005C4E0B /* DailySummaryVM.swift in Sources */,
@@ -987,6 +1003,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1048,6 +1065,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
