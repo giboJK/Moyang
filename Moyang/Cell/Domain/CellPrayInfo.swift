@@ -24,7 +24,8 @@ struct CellPrayInfo: Codable, Identifiable {
 // MARK: - PrayList
 struct CellPrayList: Codable {
     let dateString: String
-    let memberList, prayList: [String]
+    let memberList: [String]
+    let prayList: [String]
 
     enum CodingKeys: String, CodingKey {
         case dateString = "date_string"

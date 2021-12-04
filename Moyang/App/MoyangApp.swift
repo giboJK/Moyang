@@ -23,6 +23,7 @@ struct MoyangApp: App {
         
         let appAssembly = AppAssembly()
         assembler.apply(assembly: appAssembly)
+        Log.setup()
     }
     
     var body: some Scene {
