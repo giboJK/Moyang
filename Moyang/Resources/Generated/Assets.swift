@@ -22,11 +22,6 @@ public typealias AssetImageTypeAlias = ImageAsset.Image
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 public enum Asset {
   public enum Colors {
-    public enum Bg {
-      public static let bgColor = ColorAsset(name: "bgColor")
-      public static let bgColorGray = ColorAsset(name: "bgColorGray")
-      public static let bgColorGray200 = ColorAsset(name: "bgColorGray200")
-    }
     public enum Dessert {
       public static let darkSand = ColorAsset(name: "DarkSand")
       public static let darkSand200 = ColorAsset(name: "DarkSand200")
@@ -39,6 +34,11 @@ public enum Asset {
       public static let gress = ColorAsset(name: "Gress")
       public static let leaf = ColorAsset(name: "Leaf")
       public static let moss = ColorAsset(name: "Moss")
+    }
+    public enum Sheep {
+      public static let bgColor = ColorAsset(name: "bgColor")
+      public static let sheep = ColorAsset(name: "sheep")
+      public static let sheep200 = ColorAsset(name: "sheep200")
     }
   }
   public enum Images {

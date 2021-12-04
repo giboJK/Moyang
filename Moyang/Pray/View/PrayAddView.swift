@@ -56,7 +56,7 @@ struct PrayAddView: View {
             Spacer()
         }
         .padding(EdgeInsets(top: 34, leading: 20, bottom: 0, trailing: 20))
-        .background(Color(Asset.Colors.Bg.bgColorGray.color))
+        .background(Color(UIColor.bgColor))
     }
 }
 

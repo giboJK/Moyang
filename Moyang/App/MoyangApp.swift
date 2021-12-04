@@ -15,7 +15,7 @@ struct MoyangApp: App {
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = Asset.Colors.Bg.bgColor.color
+        appearance.backgroundColor = .bgColor
         appearance.titleTextAttributes = [.foregroundColor: Asset.Colors.Dessert.darkSand200.color]
 
         UINavigationBar.appearance().scrollEdgeAppearance = appearance

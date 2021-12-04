@@ -59,6 +59,7 @@
 		24B6A2552726BEB00065112A /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* CellInfo.swift */; };
 		24B6A2572726C40E0065112A /* CellInfoData.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* CellInfoData.json */; };
 		24B7B4D82753BC5F007BCF9E /* NewCellPrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B7B4D72753BC5F007BCF9E /* NewCellPrayView.swift */; };
+		24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9BF6C275AEB7B0056E694 /* UIColor+.swift */; };
 		24BB8032275645C100BE2988 /* NewCellPrayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB8031275645C100BE2988 /* NewCellPrayVM.swift */; };
 		24BB803527565E1300BE2988 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB803427565E1300BE2988 /* RealmManager.swift */; };
 		24BB803727565E2200BE2988 /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB803627565E2200BE2988 /* LocalDB.swift */; };
@@ -153,6 +154,7 @@
 		24B6A2542726BEB00065112A /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
 		24B6A2562726C40E0065112A /* CellInfoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellInfoData.json; sourceTree = "<group>"; };
 		24B7B4D72753BC5F007BCF9E /* NewCellPrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCellPrayView.swift; sourceTree = "<group>"; };
+		24B9BF6C275AEB7B0056E694 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		24BB8031275645C100BE2988 /* NewCellPrayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCellPrayVM.swift; sourceTree = "<group>"; };
 		24BB803427565E1300BE2988 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		24BB803627565E2200BE2988 /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 				24D0D33227231537006FF67B /* UIScreen+.swift */,
 				24AC737927468BD7003B9B2F /* Array+.swift */,
 				24DB53BA27479DAA00F861EC /* UINavigationController+.swift */,
+				24B9BF6C275AEB7B0056E694 /* UIColor+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -616,12 +619,12 @@
 			buildConfigurationList = 24D0D31827230CA6006FF67B /* Build configuration list for PBXNativeTarget "Moyang" */;
 			buildPhases = (
 				7A18B3611F14D17E38E71F92 /* [CP] Check Pods Manifest.lock */,
+				248FEC112723A0AF00321E5E /* Run Script SwiftGen */,
 				24D0D323272310F3006FF67B /* Run Script SwiftLint */,
 				24D0D2F027230CA3006FF67B /* Sources */,
 				24D0D2F127230CA3006FF67B /* Frameworks */,
 				24D0D2F227230CA3006FF67B /* Resources */,
 				DC870966B5077CC77F0622DA /* [CP] Embed Pods Frameworks */,
-				248FEC112723A0AF00321E5E /* Run Script SwiftGen */,
 			);
 			buildRules = (
 			);
@@ -938,6 +941,7 @@
 				246BD7ED27240AE4005C4E0B /* BibleStoryCard.swift in Sources */,
 				24BB803527565E1300BE2988 /* RealmManager.swift in Sources */,
 				246BD7C527240AD4005C4E0B /* PrayUseCaseProvider.swift in Sources */,
+				24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */,
 				246BD7EA27240AE4005C4E0B /* BibleStoryRepoImpl.swift in Sources */,
 				246BD7F427240AE4005C4E0B /* CellPreviewCard.swift in Sources */,
 				24D7BB31274D179200CC8B7C /* CellPrayListVM.swift in Sources */,

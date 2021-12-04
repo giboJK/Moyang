@@ -27,7 +27,7 @@ struct QuestionCard: View {
                             .frame(width: 140, height: 50, alignment: .leading)
                             .padding(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
                             .font(.system(size: 14, weight: .regular, design: .default))
-                            .background(Color(Asset.Colors.Bg.bgColorGray200.color))
+                            .background(Color(UIColor.sheep200))
                             .cornerRadius(10)
                     }
                 }

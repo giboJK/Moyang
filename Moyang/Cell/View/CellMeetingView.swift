@@ -72,7 +72,7 @@ struct CellMeetingView: View {
                                 .padding(.bottom, 10)
                                 .font(.system(size: 14, weight: .regular, design: .default))
                                 .frame(height: 75, alignment: .topLeading)
-                                .colorMultiply(Color(Asset.Colors.Bg.bgColorGray.color))
+                                .colorMultiply(Color(UIColor.sheep))
                         }
                     }
                     .transition(.asymmetric(insertion: .opacity, removal: .opacity))
@@ -105,7 +105,7 @@ struct CellMeetingView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(cellInfo.cellName)
             .padding(EdgeInsets(top: 14, leading: 20, bottom: 0, trailing: 20))
-            .background(Color(Asset.Colors.Bg.bgColorGray.color))
+            .background(Color(UIColor.sheep))
             .eraseToAnyView()
         }
     }

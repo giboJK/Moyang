@@ -53,7 +53,7 @@ struct CellPreviewCard: View {
                         } else {
                             Text(String(member.name.first ?? Character("")))
                                 .frame(width: 40, height: 40, alignment: .center)
-                                .background(Color(Asset.Colors.Bg.bgColorGray.color))
+                                .background(Color(UIColor.bgColor))
                                 .cornerRadius(13)
                                 .overlay(
                                         RoundedRectangle(cornerRadius: 13)

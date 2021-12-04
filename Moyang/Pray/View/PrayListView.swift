@@ -69,7 +69,7 @@ struct PrayListView: View {
                 .foregroundColor(Color.black)
         }))
         .padding(.top, 34)
-        .background(Color(Asset.Colors.Bg.bgColorGray.color))
+        .background(Color(UIColor.sheep))
     }
 }
 
