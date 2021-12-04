@@ -9,6 +9,8 @@ PODS:
   - SwiftLint (0.45.1)
   - SwiftyBeaver (1.9.5)
   - Swinject (2.8.1)
+  - SwinjectAutoregistration (2.7.0):
+    - Swinject (~> 2.7)
 
 DEPENDENCIES:
   - Alamofire
@@ -17,6 +19,7 @@ DEPENDENCIES:
   - SwiftLint
   - SwiftyBeaver
   - Swinject
+  - SwinjectAutoregistration
 
 SPEC REPOS:
   trunk:
@@ -27,6 +30,7 @@ SPEC REPOS:
     - SwiftLint
     - SwiftyBeaver
     - Swinject
+    - SwinjectAutoregistration
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
@@ -36,7 +40,8 @@ SPEC CHECKSUMS:
   SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
   SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
   Swinject: 97112918bd7e0785dc2df7036213f3c8cbba6586
+  SwinjectAutoregistration: 330f5012642a8b5c89a8a4adb0c5e52df07382c0
 
-PODFILE CHECKSUM: f1f291043b7d7902e9f4887af87dcfaea7957ca4
+PODFILE CHECKSUM: 4dad6d4a2e01f599e770b751921c3664dedb525b
 
 COCOAPODS: 1.10.1

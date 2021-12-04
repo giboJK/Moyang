@@ -5,7 +5,7 @@ use_frameworks!
 
 def etc
   pod 'SwiftyBeaver'
-  pod 'SwiftGen'
+  pod 'SwiftGen', :inhibit_warnings => true
   pod 'SwiftLint'
 end
 
@@ -15,6 +15,7 @@ end
 
 def di
   pod 'Swinject'
+  pod 'SwinjectAutoregistration', :inhibit_warnings => true
 end
 
 def network
