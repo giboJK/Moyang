@@ -263,7 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				246BD7B327240AD4005C4E0B /* Domain */,
-				246BD7BA27240AD4005C4E0B /* Presentation */,
+				246BD7BA27240AD4005C4E0B /* Presenter */,
 				246BD7AE27240AD4005C4E0B /* View */,
 			);
 			path = Pray;
@@ -307,14 +307,14 @@
 			path = UseCases;
 			sourceTree = "<group>";
 		};
-		246BD7BA27240AD4005C4E0B /* Presentation */ = {
+		246BD7BA27240AD4005C4E0B /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
 				246BD7BB27240AD4005C4E0B /* PrayListViewModel.swift */,
 				246BD7BC27240AD4005C4E0B /* PrayPreviewVM.swift */,
 				246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */,
 			);
-			path = Presentation;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		246BD7C927240ADB005C4E0B /* Question */ = {

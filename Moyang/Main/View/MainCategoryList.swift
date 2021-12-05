@@ -19,10 +19,9 @@ struct MainCategoryList: View {
                 NavigationLink(destination: CellMeetingView(viewModel: CellMeetingVM(cellRepo: cellRepo))) {
                     CellPreviewCard(viewModel: CellPreviewVM(cellRepo: cellRepo))
                 }
-//                QTPreviewCard()
-//                NavigationLink(destination: PrayListView(viewModel: prayListVM)) {
-//                    PrayPreviewCard(viewModel: prayHistoryVM)
-//                }
+                NavigationLink(destination: PrayListView(viewModel: prayListVM)) {
+                    PrayPreviewCard(viewModel: prayHistoryVM)
+                }
             }
         }
         .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))

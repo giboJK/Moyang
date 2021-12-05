@@ -29,7 +29,13 @@ struct NewCellPrayView: View {
                         }
                     }
             }
-        }.navigationBarTitle("새 기도제목")
+        }
+        .navigationBarTitle("새 기도제목")
+        .toolbar {
+            Button("추가") {
+                print("Added")
+            }
+        }
     }
 }
 
