@@ -15,10 +15,10 @@ class PrayPreviewVM: ObservableObject {
     private var disposables = Set<AnyCancellable>()
     private let input = PassthroughSubject<Event, Never>()
     
-    private var prayReposity: PrayRepository
+    private var prayRepo: PrayRepo
     
-    init(prayRepo: PrayRepository) {
-        self.prayReposity = prayRepo
+    init(prayRepo: PrayRepo) {
+        self.prayRepo = prayRepo
         
         Publishers.system(initial: state,
                           reduce: Self.reduce,

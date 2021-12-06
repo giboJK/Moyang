@@ -1,5 +1,5 @@
 //
-//  PrayRepository.swift
+//  PrayRepo.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/10/11.
@@ -9,6 +9,6 @@
 import Foundation
 import Combine
 
-protocol PrayRepository {
+protocol PrayRepo {
     static func fetchPraySubject() -> AnyPublisher<PraySubject, Error>
 }

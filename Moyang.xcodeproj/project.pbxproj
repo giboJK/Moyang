@@ -21,9 +21,7 @@
 		246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B127240AD4005C4E0B /* PrayView.swift */; };
 		246BD7C127240AD4005C4E0B /* PrayPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B227240AD4005C4E0B /* PrayPreviewCard.swift */; };
 		246BD7C227240AD4005C4E0B /* PraySubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B527240AD4005C4E0B /* PraySubject.swift */; };
-		246BD7C327240AD4005C4E0B /* PrayRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B627240AD4005C4E0B /* PrayRepository.swift */; };
-		246BD7C427240AD4005C4E0B /* FetchPraySubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B827240AD4005C4E0B /* FetchPraySubject.swift */; };
-		246BD7C527240AD4005C4E0B /* PrayUseCaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B927240AD4005C4E0B /* PrayUseCaseProvider.swift */; };
+		246BD7C327240AD4005C4E0B /* PrayRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B627240AD4005C4E0B /* PrayRepo.swift */; };
 		246BD7C627240AD4005C4E0B /* PrayListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BB27240AD4005C4E0B /* PrayListViewModel.swift */; };
 		246BD7C727240AD4005C4E0B /* PrayPreviewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BC27240AD4005C4E0B /* PrayPreviewVM.swift */; };
 		246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */; };
@@ -116,9 +114,7 @@
 		246BD7B127240AD4005C4E0B /* PrayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayView.swift; sourceTree = "<group>"; };
 		246BD7B227240AD4005C4E0B /* PrayPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayPreviewCard.swift; sourceTree = "<group>"; };
 		246BD7B527240AD4005C4E0B /* PraySubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PraySubject.swift; sourceTree = "<group>"; };
-		246BD7B627240AD4005C4E0B /* PrayRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayRepository.swift; sourceTree = "<group>"; };
-		246BD7B827240AD4005C4E0B /* FetchPraySubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchPraySubject.swift; sourceTree = "<group>"; };
-		246BD7B927240AD4005C4E0B /* PrayUseCaseProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayUseCaseProvider.swift; sourceTree = "<group>"; };
+		246BD7B627240AD4005C4E0B /* PrayRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayRepo.swift; sourceTree = "<group>"; };
 		246BD7BB27240AD4005C4E0B /* PrayListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayListViewModel.swift; sourceTree = "<group>"; };
 		246BD7BC27240AD4005C4E0B /* PrayPreviewVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayPreviewVM.swift; sourceTree = "<group>"; };
 		246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayRepoImpl.swift; sourceTree = "<group>"; };
@@ -283,28 +279,10 @@
 		246BD7B327240AD4005C4E0B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				246BD7B427240AD4005C4E0B /* Entries */,
-				246BD7B727240AD4005C4E0B /* UseCases */,
+				246BD7B527240AD4005C4E0B /* PraySubject.swift */,
+				246BD7B627240AD4005C4E0B /* PrayRepo.swift */,
 			);
 			path = Domain;
-			sourceTree = "<group>";
-		};
-		246BD7B427240AD4005C4E0B /* Entries */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7B527240AD4005C4E0B /* PraySubject.swift */,
-				246BD7B627240AD4005C4E0B /* PrayRepository.swift */,
-			);
-			path = Entries;
-			sourceTree = "<group>";
-		};
-		246BD7B727240AD4005C4E0B /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7B827240AD4005C4E0B /* FetchPraySubject.swift */,
-				246BD7B927240AD4005C4E0B /* PrayUseCaseProvider.swift */,
-			);
-			path = UseCases;
 			sourceTree = "<group>";
 		};
 		246BD7BA27240AD4005C4E0B /* Presenter */ = {
@@ -935,12 +913,11 @@
 				248FEC1D2723AB0300321E5E /* Assets.swift in Sources */,
 				246BD7E927240AE4005C4E0B /* BibleStoryItemVM.swift in Sources */,
 				242D745C274267C80053EF2A /* MainCard.swift in Sources */,
-				246BD7C327240AD4005C4E0B /* PrayRepository.swift in Sources */,
+				246BD7C327240AD4005C4E0B /* PrayRepo.swift in Sources */,
 				246BD7F527240AE4005C4E0B /* CellSubjectHistoryView.swift in Sources */,
 				24B6A2552726BEB00065112A /* CellInfo.swift in Sources */,
 				246BD7ED27240AE4005C4E0B /* BibleStoryCard.swift in Sources */,
 				24BB803527565E1300BE2988 /* RealmManager.swift in Sources */,
-				246BD7C527240AD4005C4E0B /* PrayUseCaseProvider.swift in Sources */,
 				24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */,
 				246BD7EA27240AE4005C4E0B /* BibleStoryRepoImpl.swift in Sources */,
 				246BD7F427240AE4005C4E0B /* CellPreviewCard.swift in Sources */,
@@ -953,7 +930,6 @@
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
 				24D7BB33274D17C100CC8B7C /* CellPrayInfo.swift in Sources */,
-				246BD7C427240AD4005C4E0B /* FetchPraySubject.swift in Sources */,
 				246BD7A827240A96005C4E0B /* DailySummaryVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
