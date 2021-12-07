@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 class PrayListViewModel: ObservableObject {
-    @Published var prayItem = [PrayListItem]()
+    @Published var prayList = [PrayListItem]()
     
     private var disposables = Set<AnyCancellable>()
 
@@ -26,8 +26,7 @@ class PrayListViewModel: ObservableObject {
         disposables.removeAll()
     }
     
-    func getPraySubject() {
-        
+    func fetchPraySubject() {
     }
 }
 
