@@ -26,7 +26,9 @@ class PrayListViewModel: ObservableObject {
         disposables.removeAll()
     }
     
-    func fetchPraySubject() {
+    // 4
+    func add(_ pray: PraySubject) {
+        prayRepo.add(pray)
     }
 }
 

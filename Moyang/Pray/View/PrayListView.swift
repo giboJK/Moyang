@@ -10,6 +10,9 @@ import SwiftUI
 
 struct PrayListView: View {
     @ObservedObject var viewModel: PrayListViewModel
+    
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var editingPraySubject = false
     @State private var newPraySubject = false
     @State private var isAlarmOn = true
@@ -34,32 +37,11 @@ struct PrayListView: View {
                         .padding(.trailing, 20)
                 })
             }
-            ScrollView(.vertical, showsIndicators: false) {
-                NavigationLink(destination: PrayView()) {
-                    Text(praySubject)
-                        .frame(width: UIScreen.screenWidth - 40, alignment: .topLeading)
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.leading)
-                        .font(.system(size: 16, weight: .regular))
-                }
-                HStack {
-                    Text("오후 10시 00분")
-                        .padding(.leading, 20)
-                    Spacer()
-                    Text("월 화 수 목 금 토")
-                        .padding(.trailing, 10)
-                    Toggle("", isOn: $isAlarmOn)
-                        .padding(.trailing, 20)
-                        .labelsHidden()
-                        .toggleStyle(SwitchToggleStyle(tint: Color(Asset.Colors.Dessert.lightSand.color)))
-                }
-                .padding(.top, 3)
-
-            }
-            .frame(height: 140)
-            .padding(.bottom, 15)
-            Divider()
             
+            Button(action: addPray) {
+                Text("Add New Card")
+                    .foregroundColor(.blue)
+            }
             Spacer()
         }
         .navigationBarItems(trailing: Button(action: { newPraySubject.toggle()},
@@ -70,6 +52,16 @@ struct PrayListView: View {
         }))
         .padding(.top, 34)
         .background(Color(UIColor.sheep))
+    }
+    
+    
+    private func addPray() {
+        // 1
+        let card = PraySubject(id: 12313312, subject: "ddkdkkd", timeString: Date().toString())
+        // 2
+        viewModel.add(card)
+        // 3
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

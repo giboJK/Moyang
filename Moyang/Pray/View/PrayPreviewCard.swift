@@ -12,51 +12,34 @@ struct PrayPreviewCard: View {
     @ObservedObject var viewModel: PrayPreviewVM
 
     var body: some View {
-        content
-            .onAppear {
-                self.viewModel.send(event: .onAppear)
-            }
-    }
-    
-    private var content: some View {
-        switch viewModel.state {
-        case .idle:
-            return Color.clear.eraseToAnyView()
-        case .loading:
-            return Color.clear.eraseToAnyView()
-        case .error(let error):
-            Log.e(error)
-            return Text(error.localizedDescription).eraseToAnyView()
-        case .loaded(let item):
-            return VStack {
-                HStack {
-                    Text("나의 기도")
-                        .font(.system(size: 20, weight: .bold, design: .default))
-                        .padding(.top, 10)
-                        .padding(.bottom, 5)
-                    Spacer()
-                }
-                HStack {
-                    Text(item.subject)
-                        .font(.system(size: 16, weight: .regular, design: .default))
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
-                    Spacer()
-                }
-                Spacer()
-                Divider()
-                HStack {
-                    Text("다음 기도 시간")
-                        .font(.system(size: 14, weight: .regular, design: .default))
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
-                    Spacer()
-                    Text("\(item.timeString)")
-                        .font(.system(size: 14, weight: .regular, design: .default))
-                }
+        VStack {
+            HStack {
+                Text("나의 기도")
+                    .font(.system(size: 20, weight: .bold, design: .default))
+                    .padding(.top, 10)
+                    .padding(.bottom, 5)
                 Spacer()
             }
-            .modifier(MainCard())
-            .eraseToAnyView()
+            HStack {
+                Text("기도기도")
+                    .font(.system(size: 16, weight: .regular, design: .default))
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                Spacer()
+            }
+            Spacer()
+            Divider()
+            HStack {
+                Text("다음 기도 시간")
+                    .font(.system(size: 14, weight: .regular, design: .default))
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                Spacer()
+                Text("00시 00분")
+                    .font(.system(size: 14, weight: .regular, design: .default))
+            }
+            Spacer()
         }
+        .modifier(MainCard())
+        .eraseToAnyView()
     }
 }
 

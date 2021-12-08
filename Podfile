@@ -23,9 +23,9 @@ def network
 end
 
 def firebase
-  pod 'Firebase/Analytics', :inhibit_warnings => true
-  pod 'Firebase/Auth', :inhibit_warnings => true
-  pod 'Firebase/Firestore', :inhibit_warnings => true
+  pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
 end
 
 target 'Moyang' do
