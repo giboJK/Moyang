@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Swinject
+import Firebase
 
 @main
 struct MoyangApp: App {
@@ -24,6 +25,7 @@ struct MoyangApp: App {
         let appAssembly = AppAssembly()
         assembler.apply(assembly: appAssembly)
         Log.setup()
+        FirebaseApp.configure()
     }
     
     var body: some Scene {

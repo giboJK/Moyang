@@ -22,6 +22,12 @@ def network
   pod 'Alamofire'
 end
 
+def firebase
+  pod 'Firebase/Analytics', :inhibit_warnings => true
+  pod 'Firebase/Auth', :inhibit_warnings => true
+  pod 'Firebase/Firestore', :inhibit_warnings => true
+end
+
 target 'Moyang' do
   inhibit_all_warnings!
 
@@ -33,10 +39,14 @@ target 'Moyang' do
   
   di
   
+  firebase
+  
+  
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
         config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
       end
     end
   end
