@@ -9,23 +9,35 @@
 import SwiftUI
 
 struct MainCategoryList: View {
-    private let prayHistoryVM = PrayPreviewVM(prayRepo: PrayRepoImpl())
-    private let prayListVM = PrayListViewModel(prayRepo: PrayRepoImpl())
+    @ObservedObject var prayListVM = PrayListVM(prayRepo: PrayRepoImpl())
     private let cellRepo = CellRepoImpl()
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
                 NavigationLink(destination: CellMeetingView(viewModel: CellMeetingVM(cellRepo: cellRepo))) {
-                    CellPreviewCard(viewModel: CellPreviewVM(cellRepo: cellRepo))
+                    CellPreviewCard(vm: CellPreviewVM(cellRepo: cellRepo))
                 }
                 NavigationLink(destination: PrayListView(viewModel: prayListVM)) {
-                    PrayPreviewCard(viewModel: prayHistoryVM)
+                    if let prayCardVM = prayListVM.prayCardVMs.first {
+                        PrayPreviewCard(vm: prayCardVM)
+                    }
                 }
             }
         }
         .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
         .background(Color(UIColor.bgColor))
+        Spacer()
+        
+        Button(action: addPray) {
+            Text("Add New Card")
+                .foregroundColor(.blue)
+        }
+    }
+    
+    private func addPray() {
+        let praySubject = PraySubject(id: "asdb12313312", subject: "ddkdkkd", timeString: Date().toString())
+        prayListVM.add(praySubject)
     }
 }
 

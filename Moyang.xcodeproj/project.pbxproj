@@ -22,8 +22,8 @@
 		246BD7C127240AD4005C4E0B /* PrayPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B227240AD4005C4E0B /* PrayPreviewCard.swift */; };
 		246BD7C227240AD4005C4E0B /* PraySubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B527240AD4005C4E0B /* PraySubject.swift */; };
 		246BD7C327240AD4005C4E0B /* PrayRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B627240AD4005C4E0B /* PrayRepo.swift */; };
-		246BD7C627240AD4005C4E0B /* PrayListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BB27240AD4005C4E0B /* PrayListViewModel.swift */; };
-		246BD7C727240AD4005C4E0B /* PrayPreviewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BC27240AD4005C4E0B /* PrayPreviewVM.swift */; };
+		246BD7C627240AD4005C4E0B /* PrayListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BB27240AD4005C4E0B /* PrayListVM.swift */; };
+		246BD7C727240AD4005C4E0B /* PrayCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */; };
 		246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */; };
 		246BD7CD27240ADB005C4E0B /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7CB27240ADB005C4E0B /* QuestionView.swift */; };
 		246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7CC27240ADB005C4E0B /* QuestionCard.swift */; };
@@ -118,8 +118,8 @@
 		246BD7B227240AD4005C4E0B /* PrayPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayPreviewCard.swift; sourceTree = "<group>"; };
 		246BD7B527240AD4005C4E0B /* PraySubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PraySubject.swift; sourceTree = "<group>"; };
 		246BD7B627240AD4005C4E0B /* PrayRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayRepo.swift; sourceTree = "<group>"; };
-		246BD7BB27240AD4005C4E0B /* PrayListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayListViewModel.swift; sourceTree = "<group>"; };
-		246BD7BC27240AD4005C4E0B /* PrayPreviewVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayPreviewVM.swift; sourceTree = "<group>"; };
+		246BD7BB27240AD4005C4E0B /* PrayListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayListVM.swift; sourceTree = "<group>"; };
+		246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayCardVM.swift; sourceTree = "<group>"; };
 		246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayRepoImpl.swift; sourceTree = "<group>"; };
 		246BD7CB27240ADB005C4E0B /* QuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		246BD7CC27240ADB005C4E0B /* QuestionCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionCard.swift; sourceTree = "<group>"; };
@@ -294,8 +294,8 @@
 		246BD7BA27240AD4005C4E0B /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				246BD7BB27240AD4005C4E0B /* PrayListViewModel.swift */,
-				246BD7BC27240AD4005C4E0B /* PrayPreviewVM.swift */,
+				246BD7BB27240AD4005C4E0B /* PrayListVM.swift */,
+				246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */,
 				246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */,
 			);
 			path = Presenter;
@@ -895,7 +895,7 @@
 				246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */,
 				246BD7F127240AE4005C4E0B /* CellRepoImpl.swift in Sources */,
 				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
-				246BD7C727240AD4005C4E0B /* PrayPreviewVM.swift in Sources */,
+				246BD7C727240AD4005C4E0B /* PrayCardVM.swift in Sources */,
 				24D0D3292723145F006FF67B /* Date+.swift in Sources */,
 				24BB8032275645C100BE2988 /* NewCellPrayVM.swift in Sources */,
 				24EA9B4A2757A4AB004FB585 /* CellPrayListRow.swift in Sources */,
@@ -918,7 +918,7 @@
 				249B903027259C6400B53682 /* DummyData.swift in Sources */,
 				24151DCE274A2A3E00DD38CE /* CellPrayListView.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
-				246BD7C627240AD4005C4E0B /* PrayListViewModel.swift in Sources */,
+				246BD7C627240AD4005C4E0B /* PrayListVM.swift in Sources */,
 				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
 				246BD7F627240AE4005C4E0B /* CellMeetingView.swift in Sources */,
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,

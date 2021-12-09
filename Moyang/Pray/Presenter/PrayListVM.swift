@@ -1,5 +1,5 @@
 //
-//  PrayListViewModel.swift
+//  PrayListVM.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/10/17.
@@ -9,33 +9,37 @@
 import SwiftUI
 import Combine
 
-class PrayListViewModel: ObservableObject {
+class PrayListVM: ObservableObject {
     @Published var prayList = [PrayListItem]()
-    
-    private var disposables = Set<AnyCancellable>()
+    @Published var prayCardVMs: [PrayCardVM] = []
+    private var cancellables: Set<AnyCancellable> = []
 
     private var prayRepo: PrayRepo
 
     init(prayRepo: PrayRepo) {
         self.prayRepo = prayRepo
         
+        prayRepo.$prays.map { prays in
+            return prays.map(PrayCardVM.init)
+        }
+        .assign(to: \.prayCardVMs, on: self)
+        .store(in: &cancellables)
     }
 
     deinit {
         Log.i(self)
-        disposables.removeAll()
+        cancellables.removeAll()
     }
     
-    // 4
     func add(_ pray: PraySubject) {
         prayRepo.add(pray)
     }
 }
 
 
-extension PrayListViewModel {
+extension PrayListVM {
     struct PrayListItem: Identifiable {
-        let id: Int
+        let id: String
         let subject: String
         let timeString: String
 

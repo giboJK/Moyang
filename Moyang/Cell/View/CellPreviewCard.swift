@@ -9,17 +9,17 @@
 import SwiftUI
 
 struct CellPreviewCard: View {
-    @ObservedObject var viewModel: CellPreviewVM
+    @ObservedObject var vm: CellPreviewVM
     
     var body: some View {
         content
             .onAppear {
-                self.viewModel.send(event: .onAppear)
+                self.vm.send(event: .onAppear)
             }
     }
     
     private var content: some View {
-        switch viewModel.state {
+        switch vm.state {
         case .idle:
             return Color.clear.eraseToAnyView()
         case .loading:
@@ -82,7 +82,7 @@ struct CellPreviewCard: View {
 
 struct CellPreviewCard_Previews: PreviewProvider {
     static var previews: some View {
-        CellPreviewCard(viewModel: CellPreviewVM(cellRepo: CellRepoImpl()))
+        CellPreviewCard(vm: CellPreviewVM(cellRepo: CellRepoImpl()))
             .previewLayout(.fixed(width: 414, height: 200))
     }
 }

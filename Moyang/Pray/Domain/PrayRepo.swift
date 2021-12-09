@@ -10,20 +10,36 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-// 2
 class PrayRepo: ObservableObject {
-    // 3
-    private let path: String = "cards"
-    // 4
+    private let path: String = "PRAY_SUBJECT"
     private let store = Firestore.firestore()
     
-    // 5
+    @Published var prays: [PraySubject] = []
+    
+    init() {
+        get()
+    }
+    
     func add(_ pray: PraySubject) {
         do {
-            // 6
             _ = try store.collection(path).addDocument(from: pray)
         } catch {
             fatalError("Unable to add card: \(error.localizedDescription).")
         }
     }
+    
+    func get() {
+        store.collection(path)
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    Log.e("Error getting cards: \(error.localizedDescription)")
+                    return
+                }
+                
+                self.prays = querySnapshot?.documents.compactMap { document in
+                    try? document.data(as: PraySubject.self)
+                } ?? []
+            }
+    }
+    
 }

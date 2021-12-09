@@ -9,7 +9,7 @@
 import Foundation
 
 struct PraySubject: Codable, Identifiable {
-    typealias Identifier = Int
+    typealias Identifier = String
     let id: Identifier
     let subject: String
     let timeString: String

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PrayPreviewCard: View {
-    @ObservedObject var viewModel: PrayPreviewVM
+    @ObservedObject var vm: PrayCardVM
 
     var body: some View {
         VStack {
@@ -45,7 +45,7 @@ struct PrayPreviewCard: View {
 
 struct PrayHistoryCard_Previews: PreviewProvider {
     static var previews: some View {
-        PrayPreviewCard(viewModel: PrayPreviewVM(prayRepo: PrayRepoImpl()))
+        PrayPreviewCard(vm: PrayCardVM(pray: PraySubject(id: "dd", subject: "aasd", timeString: Date().toString())))
             .previewLayout(.fixed(width: 414, height: 150))
     }
 }
