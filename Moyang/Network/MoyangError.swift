@@ -11,6 +11,7 @@ enum MoyangError: Error {
     case statusCode
     case decodingFailed
     case invalidURL
+    case emptyData
     case other(Error)
     
     static func map(_ error: Error) -> MoyangError {

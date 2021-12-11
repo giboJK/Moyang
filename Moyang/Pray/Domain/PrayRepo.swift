@@ -5,7 +5,7 @@
 //  Created by 정김기보 on 2021/10/11.
 //  Copyright © 2021 정김기보. All rights reserved.
 //
-// 1
+
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
@@ -41,5 +41,4 @@ class PrayRepo: ObservableObject {
                 } ?? []
             }
     }
-    
 }
