@@ -14,8 +14,10 @@ struct Summary: Codable, Identifiable {
     let cellMeetingSubject: String
     let cellMeetingDate: String
     let cellMemberName: [String]
+    let qtId: String
     let qtName: String
     let qtSubject: String
+    let prayId: Identifier
     let praySubject: String
     let prayStartDate: String
     
@@ -25,8 +27,10 @@ struct Summary: Codable, Identifiable {
         case cellMeetingSubject = "cell_meeting_subject"
         case cellMeetingDate = "cell_meeting_date"
         case cellMemberName = "cell_member_name"
+        case qtId = "qt_id"
         case qtName = "qt_name"
         case qtSubject = "qt_subject"
+        case prayId = "pray_id"
         case praySubject = "pray_subject"
         case prayStartDate = "pray_start_date"
     }

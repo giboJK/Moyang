@@ -64,6 +64,7 @@
 		24B8BCED2764C7FF005B0A9F /* SummaryRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEC2764C7FF005B0A9F /* SummaryRepoImpl.swift */; };
 		24B8BCEF2764C939005B0A9F /* Summary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEE2764C939005B0A9F /* Summary.swift */; };
 		24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9BF6C275AEB7B0056E694 /* UIColor+.swift */; };
+		24BB327C27656735002131BF /* MainCategoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB327B27656735002131BF /* MainCategoryVM.swift */; };
 		24BB8032275645C100BE2988 /* NewCellPrayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB8031275645C100BE2988 /* NewCellPrayVM.swift */; };
 		24BB803527565E1300BE2988 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB803427565E1300BE2988 /* RealmManager.swift */; };
 		24BB803727565E2200BE2988 /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB803627565E2200BE2988 /* LocalDB.swift */; };
@@ -163,6 +164,7 @@
 		24B8BCEC2764C7FF005B0A9F /* SummaryRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryRepoImpl.swift; sourceTree = "<group>"; };
 		24B8BCEE2764C939005B0A9F /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
 		24B9BF6C275AEB7B0056E694 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		24BB327B27656735002131BF /* MainCategoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoryVM.swift; sourceTree = "<group>"; };
 		24BB8031275645C100BE2988 /* NewCellPrayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCellPrayVM.swift; sourceTree = "<group>"; };
 		24BB803427565E1300BE2988 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		24BB803627565E2200BE2988 /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				24B8BCEC2764C7FF005B0A9F /* SummaryRepoImpl.swift */,
+				24BB327B27656735002131BF /* MainCategoryVM.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -953,6 +956,7 @@
 				24BB803727565E2200BE2988 /* LocalDB.swift in Sources */,
 				246BD7CD27240ADB005C4E0B /* QuestionView.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* CellPreview.swift in Sources */,
+				24BB327C27656735002131BF /* MainCategoryVM.swift in Sources */,
 				246BD7C227240AD4005C4E0B /* PraySubject.swift in Sources */,
 				24EA9B4827579BDC004FB585 /* CellMemberPrayEditView.swift in Sources */,
 				24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */,

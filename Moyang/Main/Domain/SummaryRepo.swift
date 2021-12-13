@@ -9,6 +9,6 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-protocol SummaryRepo: ObservableObject {
+protocol SummaryRepo {
     func fetchSummary() -> AnyPublisher<Summary, Error>
 }
