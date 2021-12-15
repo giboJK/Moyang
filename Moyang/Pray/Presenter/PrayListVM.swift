@@ -10,25 +10,31 @@ import SwiftUI
 import Combine
 
 class PrayListVM: ObservableObject {
+    private var cancellables: Set<AnyCancellable> = []
+    private var prayRepo: PrayRepo
+    
     @Published var prayList = [PrayListItem]()
     @Published var prayCardVMs: [PrayCardVM] = []
-    private var cancellables: Set<AnyCancellable> = []
-
-    private var prayRepo: PrayRepo
 
     init(prayRepo: PrayRepo) {
         self.prayRepo = prayRepo
-        
-        prayRepo.$prays.map { prays in
-            return prays.map(PrayCardVM.init)
-        }
-        .assign(to: \.prayCardVMs, on: self)
-        .store(in: &cancellables)
     }
 
     deinit {
         Log.i(self)
         cancellables.removeAll()
+    }
+    
+    func fetchPrayList() {
+        prayRepo.fetchPraySubject()
+            .map { praySubject in
+                PrayCardVM.init(pray: praySubject)
+            }
+            .sink { completion in
+                Log.i(completion)
+            } receiveValue: { item in
+                self.prayCardVMs = [item]
+            }.store(in: &cancellables)
     }
     
     func add(_ pray: PraySubject) {

@@ -6,39 +6,10 @@
 //  Copyright © 2021 정김기보. All rights reserved.
 //
 
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 import Combine
 
-class PrayRepo: ObservableObject {
-    private let path: String = "PRAY_SUBJECT"
-    private let store = Firestore.firestore()
+protocol PrayRepo {
+    func add(_ pray: PraySubject)
     
-    @Published var prays: [PraySubject] = []
-    
-    init() {
-        get()
-    }
-    
-    func add(_ pray: PraySubject) {
-        do {
-            _ = try store.collection(path).addDocument(from: pray)
-        } catch {
-            fatalError("Unable to add card: \(error.localizedDescription).")
-        }
-    }
-    
-    func get() {
-        store.collection(path)
-            .addSnapshotListener { querySnapshot, error in
-                if let error = error {
-                    Log.e("Error getting cards: \(error.localizedDescription)")
-                    return
-                }
-                
-                self.prays = querySnapshot?.documents.compactMap { document in
-                    try? document.data(as: PraySubject.self)
-                } ?? []
-            }
-    }
+    func fetchPraySubject() -> AnyPublisher<PraySubject, Error>
 }

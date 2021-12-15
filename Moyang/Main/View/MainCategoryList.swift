@@ -19,7 +19,7 @@ struct MainCategoryList: View {
                 NavigationLink(destination: CellMeetingView(viewModel: CellMeetingVM(cellRepo: cellRepo))) {
                     CellPreviewCard(vm: CellPreviewVM(cellRepo: cellRepo))
                 }
-                NavigationLink(destination: PrayListView(viewModel: prayListVM)) {
+                NavigationLink(destination: PrayListView(vm: prayListVM)) {
                     if let prayCardVM = vm.prayCardVM {
                         PrayPreviewCard(vm: prayCardVM)
                     }
@@ -28,19 +28,9 @@ struct MainCategoryList: View {
         }
         .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
         .background(Color(UIColor.bgColor))
-        Spacer()
-        
-        Button(action: addPray) {
-            Text("Add New Card")
-                .foregroundColor(.blue)
-        }.onAppear {
+        .onAppear {
             vm.fetchSummary()
         }
-    }
-    
-    private func addPray() {
-        let praySubject = PraySubject(id: "asdb12313312", subject: "ddkdkkd", timeString: Date().toString())
-        prayListVM.add(praySubject)
     }
 }
 

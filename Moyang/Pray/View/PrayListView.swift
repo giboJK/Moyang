@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PrayListView: View {
-    @ObservedObject var viewModel: PrayListVM
+    @ObservedObject var vm: PrayListVM
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -48,18 +48,20 @@ struct PrayListView: View {
         }))
         .padding(.top, 34)
         .background(Color(UIColor.sheep))
+        .onAppear {
+            vm.fetchPrayList()
+        }
     }
-    
     
     private func addPray() {
         let praySubject = PraySubject(id: "asdb12313312", subject: "ddkdkkd", timeString: Date().toString())
-        viewModel.add(praySubject)
+        vm.add(praySubject)
         presentationMode.wrappedValue.dismiss()
     }
 }
 
 struct PrayListView_Previews: PreviewProvider {
     static var previews: some View {
-        PrayListView(viewModel: PrayListVM(prayRepo: PrayRepoImpl()))
+        PrayListView(vm: PrayListVM(prayRepo: PrayRepoImpl()))
     }
 }

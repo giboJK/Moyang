@@ -25,12 +25,6 @@ class MainCategoryVM: ObservableObject {
             }
             .sink { completion in
                 Log.i(completion)
-                switch completion {
-                case .finished:
-                    Log.i("")
-                case .failure(let error):
-                    Log.e(error)
-                }
             } receiveValue: { item in
                 let prayCardItem = item.prayCardItem
                 let praySubject = PraySubject(id: prayCardItem.id,
