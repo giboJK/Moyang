@@ -11,5 +11,5 @@ import Combine
 protocol PrayRepo {
     func add(_ pray: PraySubject)
     
-    func fetchPraySubject() -> AnyPublisher<PraySubject, Error>
+    func fetchPraySubject() -> AnyPublisher<PraySubject, MoyangError>
 }

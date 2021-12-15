@@ -8,5 +8,5 @@
 import Combine
 
 protocol SummaryRepo {
-    func fetchSummary() -> AnyPublisher<Summary, Error>
+    func fetchSummary() -> AnyPublisher<Summary, MoyangError>
 }

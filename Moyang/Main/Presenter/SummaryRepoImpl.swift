@@ -17,9 +17,9 @@ class SummaryRepoImpl: SummaryRepo {
         
     }
     
-    func fetchSummary() -> AnyPublisher<Summary, Error> {
+    func fetchSummary() -> AnyPublisher<Summary, MoyangError> {
 //        return Empty(completeImmediately: false).eraseToAnyPublisher()
-        return Future<Summary, Error> { [weak self] promise in
+        return Future<Summary, MoyangError> { [weak self] promise in
             guard let self = self else { return }
             self.store.collection(self.collectionName)
                 .addSnapshotListener { querySnapshot, error in

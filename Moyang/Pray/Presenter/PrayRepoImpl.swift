@@ -24,8 +24,8 @@ class PrayRepoImpl: PrayRepo {
     }
     
     
-    func fetchPraySubject() -> AnyPublisher<PraySubject, Error> {
-        return Future<PraySubject, Error> { [weak self] promise in
+    func fetchPraySubject() -> AnyPublisher<PraySubject, MoyangError> {
+        return Future<PraySubject, MoyangError> { [weak self] promise in
             guard let self = self else { return }
             self.store.collection(self.collectionName)
                 .addSnapshotListener { querySnapshot, error in
