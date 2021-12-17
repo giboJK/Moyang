@@ -27,15 +27,6 @@
 		246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */; };
 		246BD7CD27240ADB005C4E0B /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7CB27240ADB005C4E0B /* QuestionView.swift */; };
 		246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7CC27240ADB005C4E0B /* QuestionCard.swift */; };
-		246BD7E827240AE4005C4E0B /* BibleStoryListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7D127240AE4005C4E0B /* BibleStoryListVM.swift */; };
-		246BD7E927240AE4005C4E0B /* BibleStoryItemVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7D227240AE4005C4E0B /* BibleStoryItemVM.swift */; };
-		246BD7EA27240AE4005C4E0B /* BibleStoryRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7D327240AE4005C4E0B /* BibleStoryRepoImpl.swift */; };
-		246BD7EB27240AE4005C4E0B /* BibleStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7D527240AE4005C4E0B /* BibleStoryView.swift */; };
-		246BD7EC27240AE4005C4E0B /* BibleStoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7D627240AE4005C4E0B /* BibleStoryDetailView.swift */; };
-		246BD7ED27240AE4005C4E0B /* BibleStoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7D727240AE4005C4E0B /* BibleStoryCard.swift */; };
-		246BD7EE27240AE4005C4E0B /* BibleStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7D927240AE4005C4E0B /* BibleStory.swift */; };
-		246BD7EF27240AE4005C4E0B /* StoryPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DA27240AE4005C4E0B /* StoryPreview.swift */; };
-		246BD7F027240AE4005C4E0B /* BibleStoryRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DB27240AE4005C4E0B /* BibleStoryRepo.swift */; };
 		246BD7F127240AE4005C4E0B /* CellRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */; };
 		246BD7F227240AE4005C4E0B /* CellPreviewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DF27240AE4005C4E0B /* CellPreviewVM.swift */; };
 		246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */; };
@@ -74,8 +65,6 @@
 		24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Images.xcassets */; };
 		24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */; };
 		24D0D30927230CA6006FF67B /* MoyangTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D30827230CA6006FF67B /* MoyangTests.swift */; };
-		24D0D31327230CA6006FF67B /* MoyangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D31227230CA6006FF67B /* MoyangUITests.swift */; };
-		24D0D31527230CA6006FF67B /* MoyangUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D31427230CA6006FF67B /* MoyangUITestsLaunchTests.swift */; };
 		24D0D325272313AF006FF67B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D324272313AF006FF67B /* .swiftlint.yml */; };
 		24D0D3292723145F006FF67B /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D3282723145F006FF67B /* Date+.swift */; };
 		24D0D32D272314F7006FF67B /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D32C272314F7006FF67B /* Log.swift */; };
@@ -87,18 +76,10 @@
 		24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB53BA27479DAA00F861EC /* UINavigationController+.swift */; };
 		24EA9B4827579BDC004FB585 /* CellMemberPrayEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EA9B4727579BDC004FB585 /* CellMemberPrayEditView.swift */; };
 		24EA9B4A2757A4AB004FB585 /* CellPrayListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EA9B492757A4AB004FB585 /* CellPrayListRow.swift */; };
-		714C8E1E6061BBB1A40BDDA8 /* Pods_Moyang_MoyangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		24D0D30527230CA6006FF67B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 24D0D2EC27230CA3006FF67B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 24D0D2F327230CA3006FF67B;
-			remoteInfo = Moyang;
-		};
-		24D0D30F27230CA6006FF67B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 24D0D2EC27230CA3006FF67B /* Project object */;
 			proxyType = 1;
@@ -128,15 +109,6 @@
 		246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayRepoImpl.swift; sourceTree = "<group>"; };
 		246BD7CB27240ADB005C4E0B /* QuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		246BD7CC27240ADB005C4E0B /* QuestionCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionCard.swift; sourceTree = "<group>"; };
-		246BD7D127240AE4005C4E0B /* BibleStoryListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BibleStoryListVM.swift; sourceTree = "<group>"; };
-		246BD7D227240AE4005C4E0B /* BibleStoryItemVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BibleStoryItemVM.swift; sourceTree = "<group>"; };
-		246BD7D327240AE4005C4E0B /* BibleStoryRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BibleStoryRepoImpl.swift; sourceTree = "<group>"; };
-		246BD7D527240AE4005C4E0B /* BibleStoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BibleStoryView.swift; sourceTree = "<group>"; };
-		246BD7D627240AE4005C4E0B /* BibleStoryDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BibleStoryDetailView.swift; sourceTree = "<group>"; };
-		246BD7D727240AE4005C4E0B /* BibleStoryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BibleStoryCard.swift; sourceTree = "<group>"; };
-		246BD7D927240AE4005C4E0B /* BibleStory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BibleStory.swift; sourceTree = "<group>"; };
-		246BD7DA27240AE4005C4E0B /* StoryPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPreview.swift; sourceTree = "<group>"; };
-		246BD7DB27240AE4005C4E0B /* BibleStoryRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BibleStoryRepo.swift; sourceTree = "<group>"; };
 		246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRepoImpl.swift; sourceTree = "<group>"; };
 		246BD7DF27240AE4005C4E0B /* CellPreviewVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPreviewVM.swift; sourceTree = "<group>"; };
 		246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellMeetingVM.swift; sourceTree = "<group>"; };
@@ -177,9 +149,6 @@
 		24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		24D0D30427230CA6006FF67B /* MoyangTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoyangTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D30827230CA6006FF67B /* MoyangTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangTests.swift; sourceTree = "<group>"; };
-		24D0D30E27230CA6006FF67B /* MoyangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoyangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		24D0D31227230CA6006FF67B /* MoyangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangUITests.swift; sourceTree = "<group>"; };
-		24D0D31427230CA6006FF67B /* MoyangUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		24D0D324272313AF006FF67B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		24D0D3282723145F006FF67B /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		24D0D32C272314F7006FF67B /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -215,14 +184,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		24D0D30B27230CA6006FF67B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				714C8E1E6061BBB1A40BDDA8 /* Pods_Moyang_MoyangUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,46 +287,6 @@
 				246BD7CC27240ADB005C4E0B /* QuestionCard.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		246BD7CF27240AE4005C4E0B /* BibleStory */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7D027240AE4005C4E0B /* Presenter */,
-				246BD7D427240AE4005C4E0B /* View */,
-				246BD7D827240AE4005C4E0B /* Domain */,
-			);
-			path = BibleStory;
-			sourceTree = "<group>";
-		};
-		246BD7D027240AE4005C4E0B /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7D127240AE4005C4E0B /* BibleStoryListVM.swift */,
-				246BD7D227240AE4005C4E0B /* BibleStoryItemVM.swift */,
-				246BD7D327240AE4005C4E0B /* BibleStoryRepoImpl.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		246BD7D427240AE4005C4E0B /* View */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7D527240AE4005C4E0B /* BibleStoryView.swift */,
-				246BD7D627240AE4005C4E0B /* BibleStoryDetailView.swift */,
-				246BD7D727240AE4005C4E0B /* BibleStoryCard.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		246BD7D827240AE4005C4E0B /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7D927240AE4005C4E0B /* BibleStory.swift */,
-				246BD7DA27240AE4005C4E0B /* StoryPreview.swift */,
-				246BD7DB27240AE4005C4E0B /* BibleStoryRepo.swift */,
-			);
-			path = Domain;
 			sourceTree = "<group>";
 		};
 		246BD7DC27240AE4005C4E0B /* Cell */ = {
@@ -515,7 +436,6 @@
 				24D0D324272313AF006FF67B /* .swiftlint.yml */,
 				24D0D2F627230CA3006FF67B /* Moyang */,
 				24D0D30727230CA6006FF67B /* MoyangTests */,
-				24D0D31127230CA6006FF67B /* MoyangUITests */,
 				24D0D2F527230CA3006FF67B /* Products */,
 				A053003BDE8D7C2A3DF86D0B /* Pods */,
 				FB9B4C79DF20473EEF610639 /* Frameworks */,
@@ -527,7 +447,6 @@
 			children = (
 				24D0D2F427230CA3006FF67B /* Moyang.app */,
 				24D0D30427230CA6006FF67B /* MoyangTests.xctest */,
-				24D0D30E27230CA6006FF67B /* MoyangUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -546,7 +465,6 @@
 				246BD7AD27240AD4005C4E0B /* Pray */,
 				246BD7C927240ADB005C4E0B /* Question */,
 				246BD7F927240AFA005C4E0B /* QT */,
-				246BD7CF27240AE4005C4E0B /* BibleStory */,
 				246BD7A327240A96005C4E0B /* Daily */,
 				24D0D2FD27230CA6006FF67B /* Preview Content */,
 			);
@@ -567,15 +485,6 @@
 				24D0D30827230CA6006FF67B /* MoyangTests.swift */,
 			);
 			path = MoyangTests;
-			sourceTree = "<group>";
-		};
-		24D0D31127230CA6006FF67B /* MoyangUITests */ = {
-			isa = PBXGroup;
-			children = (
-				24D0D31227230CA6006FF67B /* MoyangUITests.swift */,
-				24D0D31427230CA6006FF67B /* MoyangUITestsLaunchTests.swift */,
-			);
-			path = MoyangUITests;
 			sourceTree = "<group>";
 		};
 		24D0D32627231442006FF67B /* Util */ = {
@@ -680,26 +589,6 @@
 			productReference = 24D0D30427230CA6006FF67B /* MoyangTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		24D0D30D27230CA6006FF67B /* MoyangUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 24D0D31E27230CA6006FF67B /* Build configuration list for PBXNativeTarget "MoyangUITests" */;
-			buildPhases = (
-				D9058AF070F7DB4D0BC5566A /* [CP] Check Pods Manifest.lock */,
-				24D0D30A27230CA6006FF67B /* Sources */,
-				24D0D30B27230CA6006FF67B /* Frameworks */,
-				24D0D30C27230CA6006FF67B /* Resources */,
-				A11F22B90E2C393783691311 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				24D0D31027230CA6006FF67B /* PBXTargetDependency */,
-			);
-			name = MoyangUITests;
-			productName = MoyangUITests;
-			productReference = 24D0D30E27230CA6006FF67B /* MoyangUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -714,10 +603,6 @@
 						CreatedOnToolsVersion = 13.0;
 					};
 					24D0D30327230CA6006FF67B = {
-						CreatedOnToolsVersion = 13.0;
-						TestTargetID = 24D0D2F327230CA3006FF67B;
-					};
-					24D0D30D27230CA6006FF67B = {
 						CreatedOnToolsVersion = 13.0;
 						TestTargetID = 24D0D2F327230CA3006FF67B;
 					};
@@ -739,7 +624,6 @@
 			targets = (
 				24D0D2F327230CA3006FF67B /* Moyang */,
 				24D0D30327230CA6006FF67B /* MoyangTests */,
-				24D0D30D27230CA6006FF67B /* MoyangUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -762,13 +646,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		24D0D30227230CA6006FF67B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		24D0D30C27230CA6006FF67B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -858,45 +735,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A11F22B90E2C393783691311 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D9058AF070F7DB4D0BC5566A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Moyang-MoyangUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		DC870966B5077CC77F0622DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -922,7 +760,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				24AC737A27468BD7003B9B2F /* Array+.swift in Sources */,
-				246BD7EB27240AE4005C4E0B /* BibleStoryView.swift in Sources */,
 				246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */,
 				246BD7F127240AE4005C4E0B /* CellRepoImpl.swift in Sources */,
 				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
@@ -934,20 +771,17 @@
 				24D0D32D272314F7006FF67B /* Log.swift in Sources */,
 				246BD7AC27240AB9005C4E0B /* MainCategoryList.swift in Sources */,
 				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
-				246BD7EE27240AE4005C4E0B /* BibleStory.swift in Sources */,
 				246BD7C127240AD4005C4E0B /* PrayPreviewCard.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */,
 				24B8BCED2764C7FF005B0A9F /* SummaryRepoImpl.swift in Sources */,
 				246BD7F727240AE4005C4E0B /* CellRepo.swift in Sources */,
-				246BD7F027240AE4005C4E0B /* BibleStoryRepo.swift in Sources */,
 				246BD7FC27240AFA005C4E0B /* QTPreviewCard.swift in Sources */,
 				24B8BCEF2764C939005B0A9F /* Summary.swift in Sources */,
 				246BD7A927240A96005C4E0B /* DailySummaryView.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
 				24B7B4D82753BC5F007BCF9E /* NewCellPrayView.swift in Sources */,
-				246BD7EC27240AE4005C4E0B /* BibleStoryDetailView.swift in Sources */,
 				249B903027259C6400B53682 /* DummyData.swift in Sources */,
 				24151DCE274A2A3E00DD38CE /* CellPrayListView.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
@@ -963,21 +797,16 @@
 				246BD7C227240AD4005C4E0B /* PraySubject.swift in Sources */,
 				24EA9B4827579BDC004FB585 /* CellMemberPrayEditView.swift in Sources */,
 				24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */,
-				246BD7EF27240AE4005C4E0B /* StoryPreview.swift in Sources */,
 				248FEC1D2723AB0300321E5E /* Assets.swift in Sources */,
-				246BD7E927240AE4005C4E0B /* BibleStoryItemVM.swift in Sources */,
 				242D745C274267C80053EF2A /* MainCard.swift in Sources */,
 				24B6E321275F897100AD2E53 /* PrayAPI.swift in Sources */,
 				246BD7C327240AD4005C4E0B /* PrayRepo.swift in Sources */,
 				246BD7F527240AE4005C4E0B /* CellSubjectHistoryView.swift in Sources */,
 				24B6A2552726BEB00065112A /* CellInfo.swift in Sources */,
-				246BD7ED27240AE4005C4E0B /* BibleStoryCard.swift in Sources */,
 				24BB803527565E1300BE2988 /* RealmManager.swift in Sources */,
 				24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */,
-				246BD7EA27240AE4005C4E0B /* BibleStoryRepoImpl.swift in Sources */,
 				246BD7F427240AE4005C4E0B /* CellPreviewCard.swift in Sources */,
 				24D7BB31274D179200CC8B7C /* CellPrayListVM.swift in Sources */,
-				246BD7E827240AE4005C4E0B /* BibleStoryListVM.swift in Sources */,
 				246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */,
 				246BD7F227240AE4005C4E0B /* CellPreviewVM.swift in Sources */,
 				246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */,
@@ -998,15 +827,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		24D0D30A27230CA6006FF67B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				24D0D31327230CA6006FF67B /* MoyangUITests.swift in Sources */,
-				24D0D31527230CA6006FF67B /* MoyangUITestsLaunchTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1014,11 +834,6 @@
 			isa = PBXTargetDependency;
 			target = 24D0D2F327230CA3006FF67B /* Moyang */;
 			targetProxy = 24D0D30527230CA6006FF67B /* PBXContainerItemProxy */;
-		};
-		24D0D31027230CA6006FF67B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 24D0D2F327230CA3006FF67B /* Moyang */;
-			targetProxy = 24D0D30F27230CA6006FF67B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1267,54 +1082,6 @@
 			};
 			name = Release;
 		};
-		24D0D31F27230CA6006FF67B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B7EA5C17382D1FDE9FCE43E /* Pods-Moyang-MoyangUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2427333XUL;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.MoyangUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Moyang;
-			};
-			name = Debug;
-		};
-		24D0D32027230CA6006FF67B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 38544549B563C36B981B4536 /* Pods-Moyang-MoyangUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2427333XUL;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.MoyangUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Moyang;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1341,15 +1108,6 @@
 			buildConfigurations = (
 				24D0D31C27230CA6006FF67B /* Debug */,
 				24D0D31D27230CA6006FF67B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		24D0D31E27230CA6006FF67B /* Build configuration list for PBXNativeTarget "MoyangUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				24D0D31F27230CA6006FF67B /* Debug */,
-				24D0D32027230CA6006FF67B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
