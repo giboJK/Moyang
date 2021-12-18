@@ -37,7 +37,7 @@ class MainCategoryVM: ObservableObject {
                 let cellPreview = CellPreview(cellName: cellCardItem.cellName,
                                               talkingSubject: cellCardItem.talkingSubject,
                                               dateString: cellCardItem.cellMeetingDate,
-                                              memberList: cellCardItem.cellMemberList)
+                                              memberList: [])
                 self.cellCardVM = CellCardVM.init(cellPreview: cellPreview)
             }.store(in: &cancellables)
     }
@@ -60,13 +60,13 @@ extension MainCategoryVM {
         let cellName: String
         let talkingSubject: String
         let cellMeetingDate: String
-        let cellMemberList: [CellMember]
+//        let cellMemberList: [CellMember]
         
         init(summary: Summary) {
             cellName = summary.cellName
-            talkingSubject = summary.cellTalkingSubject
-            cellMeetingDate = summary.cellMeetingDate
-            cellMemberList = summary.cellMemberList
+            talkingSubject = ""
+            cellMeetingDate = ""
+//            cellMemberList = summary.cellMemberList
         }
     }
     
@@ -76,9 +76,9 @@ extension MainCategoryVM {
         let prayStartDate: String
         
         init(summary: Summary) {
-            id = summary.prayId
-            praySubject = summary.praySubject
-            prayStartDate = summary.prayStartDate
+            id = "summary.prayId"
+            praySubject = ""
+            prayStartDate = ""
         }
     }
     
@@ -88,9 +88,9 @@ extension MainCategoryVM {
         let qtSubject: String
         
         init(summary: Summary) {
-            id = summary.qtId
-            qtName = summary.qtName
-            qtSubject = summary.qtSubject
+            id = "summary.qtId"
+            qtName = "summary.qtName"
+            qtSubject = "summary.qtSubject"
         }
     }
 }

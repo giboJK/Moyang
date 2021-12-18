@@ -23,14 +23,14 @@ class FireStoreService {
                         promise(.failure(MoyangError.other(error)))
                     }
                     if let query = querySnapshot {
-                        let summaryList = query.documents.compactMap { document in
+                        let objectList = query.documents.compactMap { document in
                             try? document.data(as: T.self)
                         }
                         _ = query.documents.compactMap { document in
                             Log.i(document.data())
                         }
-                        if let summary = summaryList.first {
-                            promise(.success(summary))
+                        if let object = objectList.first {
+                            promise(.success(object))
                         } else {
                             promise(.failure(MoyangError.decodingFailed))
                         }
@@ -40,4 +40,6 @@ class FireStoreService {
                 }
         }.eraseToAnyPublisher()
     }
+    
+    // fetch object랑 fetch object list를 두어야할 듯...
 }

@@ -7,22 +7,21 @@
 
 import Foundation
 
-struct Summary: Codable, Identifiable {
-    typealias Identifier = String
-    let id: Identifier
+struct Summary: Codable {
+    let cellId: String
     let cellName: String
     let cellTalkingSubject: String
     let cellMeetingDate: String
-    let cellMemberList: [CellMember]
+    let cellMemberList: [[String: String]]
     let qtId: String
     let qtName: String
     let qtSubject: String
-    let prayId: Identifier
+    let prayId: String
     let praySubject: String
     let prayStartDate: String
     
     enum CodingKeys: String, CodingKey {
-        case id
+        case cellId = "cell_id"
         case cellName = "cell_name"
         case cellTalkingSubject = "cell_talking_subject"
         case cellMeetingDate = "cell_meeting_date"
