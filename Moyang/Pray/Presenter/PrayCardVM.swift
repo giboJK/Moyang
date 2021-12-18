@@ -29,32 +29,3 @@ class PrayCardVM: ObservableObject {
         cancellables.removeAll()
     }
 }
-
-extension PrayCardVM {
-    enum State {
-        case idle
-        case loading
-        case loaded(PrayCardVM.PrayPreviewItem)
-        case error(Error)
-    }
-    
-    enum Event {
-        case onAppear
-        case onItemLoaded(PrayCardVM.PrayPreviewItem)
-        case onFailedToLoadPray(Error)
-    }
-}
-
-extension PrayCardVM {
-    struct PrayPreviewItem: Identifiable {
-        let id: String
-        let subject: String
-        let timeString: String
-        
-        init(praySubject: PraySubject) {
-            id = praySubject.id
-            subject = praySubject.subject
-            timeString = praySubject.timeString
-        }
-    }
-}

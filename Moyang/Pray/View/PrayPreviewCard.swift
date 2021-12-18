@@ -21,7 +21,7 @@ struct PrayPreviewCard: View {
                 Spacer()
             }
             HStack {
-                Text("기도기도")
+                Text(vm.pray.subject)
                     .font(.system(size: 16, weight: .regular, design: .default))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 Spacer()
@@ -33,7 +33,7 @@ struct PrayPreviewCard: View {
                     .font(.system(size: 14, weight: .regular, design: .default))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 Spacer()
-                Text("00시 00분")
+                Text(vm.pray.timeString)
                     .font(.system(size: 14, weight: .regular, design: .default))
             }
             Spacer()

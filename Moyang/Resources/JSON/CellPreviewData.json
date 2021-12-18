@@ -1,85 +1,84 @@
 {
-    "id":100001,
     "cell_name":"정김기보셀",
     "talking_subject":"네 이웃의 것을 탐하지 말라",
     "date_string":"2021-10-24",
     "member_list":[
         {
             "id":200001,
-            "member_name":"정김기보",
+            "name":"정김기보",
             "profile_url":"https://source.unsplash.com/user/c_v_r/100x100"
         },
         {
             "id":200002,
-            "member_name":"기보 김 정"
+            "name":"기보 김 정"
         },
         {
             "id":200003,
-            "member_name":"김기보",
+            "name":"김기보",
             "profile_url":"https://picsum.photos/200/300.webp"
         },
         {
             "id":200004,
-            "member_name":"최기보",
+            "name":"최기보",
             "profile_url":"https://picsum.photos/200"
         },
         {
             "id":200005,
-            "member_name":"정기보 정",
+            "name":"정기보 정",
             "profile_url":"https://picsum.photos/id/237"
         },
         {
             "id":200006,
-            "member_name":"오기보",
+            "name":"오기보",
             "profile_url":"https://picsum.photos/seed/picsum/200/300"
         },
         {
             "id":200007,
-            "member_name":"여기보",
+            "name":"여기보",
             "profile_url":"https://picsum.photos/200/300?grayscale"
         },
         {
             "id":200008,
-            "member_name":"허기보",
+            "name":"허기보",
             "profile_url":"https://picsum.photos/id/1005"
         },
         {
             "id":200009,
-            "member_name":"박기보",
+            "name":"박기보",
             "profile_url":"https://picsum.photos/id/1003"
         },
         {
             "id":200010,
-            "member_name":"최김기",
+            "name":"최김기",
             "profile_url":"https://picsum.photos/id/1006"
         },
         {
             "id":200011,
-            "member_name":"백기보",
+            "name":"백기보",
             "profile_url":"https://picsum.photos/id/101"
         },
         {
             "id":200012,
-            "member_name":"장기보",
+            "name":"장기보",
             "profile_url":"https://picsum.photos/id/1016"
         },
         {
             "id":200013,
-            "member_name":"박정김",
+            "name":"박정김",
             "profile_url":"https://picsum.photos/id/102"
         },
         {
             "id":200014,
-            "member_name":"채기보"
+            "name":"채기보"
         },
         {
             "id":200015,
-            "member_name":"진기보",
+            "name":"진기보",
             "profile_url":"https://picsum.photos/id/655"
         },
         {
             "id":200016,
-            "member_name":"전기보"
+            "name":"전기보"
         }
     ]
 }

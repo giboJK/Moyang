@@ -11,9 +11,9 @@ struct Summary: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
     let cellName: String
-    let cellMeetingSubject: String
+    let cellTalkingSubject: String
     let cellMeetingDate: String
-    let cellMemberName: [String]
+    let cellMemberList: [CellMember]
     let qtId: String
     let qtName: String
     let qtSubject: String
@@ -24,9 +24,9 @@ struct Summary: Codable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case id
         case cellName = "cell_name"
-        case cellMeetingSubject = "cell_meeting_subject"
+        case cellTalkingSubject = "cell_talking_subject"
         case cellMeetingDate = "cell_meeting_date"
-        case cellMemberName = "cell_member_name"
+        case cellMemberList = "cell_member_list"
         case qtId = "qt_id"
         case qtName = "qt_name"
         case qtSubject = "qt_subject"

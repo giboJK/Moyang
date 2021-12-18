@@ -14,7 +14,10 @@ class SummaryRepoImpl: SummaryRepo {
     private let collectionName = "DAILY"
     
     init() {
-        
+    }
+    
+    deinit {
+        Log.i(self)
     }
     
     func fetchSummary() -> AnyPublisher<Summary, MoyangError> {

@@ -17,7 +17,9 @@ struct MainCategoryList: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
                 NavigationLink(destination: CellMeetingView(viewModel: CellMeetingVM(cellRepo: cellRepo))) {
-                    CellPreviewCard(vm: CellPreviewVM(cellRepo: cellRepo))
+                    if let cellCardVM = vm.cellCardVM {
+                        CellPreviewCard(vm: cellCardVM)
+                    }
                 }
                 NavigationLink(destination: PrayListView(vm: prayListVM)) {
                     if let prayCardVM = vm.prayCardVM {
@@ -32,6 +34,7 @@ struct MainCategoryList: View {
             vm.fetchSummary()
         }
     }
+    
 }
 
 enum MainCategory: String {

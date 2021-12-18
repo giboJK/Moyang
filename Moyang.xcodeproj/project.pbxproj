@@ -36,6 +36,7 @@
 		246BD7F727240AE4005C4E0B /* CellRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E627240AE4005C4E0B /* CellRepo.swift */; };
 		246BD7F827240AE4005C4E0B /* CellPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E727240AE4005C4E0B /* CellPreview.swift */; };
 		246BD7FC27240AFA005C4E0B /* QTPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7FB27240AFA005C4E0B /* QTPreviewCard.swift */; };
+		2481EF22276D9D3900C70E26 /* CellCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481EF21276D9D3900C70E26 /* CellCardVM.swift */; };
 		248FEC102723A08D00321E5E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC0F2723A08D00321E5E /* MainView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
@@ -118,6 +119,7 @@
 		246BD7E627240AE4005C4E0B /* CellRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRepo.swift; sourceTree = "<group>"; };
 		246BD7E727240AE4005C4E0B /* CellPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPreview.swift; sourceTree = "<group>"; };
 		246BD7FB27240AFA005C4E0B /* QTPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QTPreviewCard.swift; sourceTree = "<group>"; };
+		2481EF21276D9D3900C70E26 /* CellCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCardVM.swift; sourceTree = "<group>"; };
 		248FEC0F2723A08D00321E5E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */,
 				24D7BB30274D179200CC8B7C /* CellPrayListVM.swift */,
 				24BB8031275645C100BE2988 /* NewCellPrayVM.swift */,
+				2481EF21276D9D3900C70E26 /* CellCardVM.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 			files = (
 				24AC737A27468BD7003B9B2F /* Array+.swift in Sources */,
 				246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */,
+				2481EF22276D9D3900C70E26 /* CellCardVM.swift in Sources */,
 				246BD7F127240AE4005C4E0B /* CellRepoImpl.swift in Sources */,
 				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
 				246BD7C727240AD4005C4E0B /* PrayCardVM.swift in Sources */,

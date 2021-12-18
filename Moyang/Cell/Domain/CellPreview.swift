@@ -9,9 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct CellPreview: Codable, Identifiable {
-    typealias Identifier = Int
-    let id: Identifier
+struct CellPreview: Codable {
     let cellName: String
     let talkingSubject: String
     let dateString: String
@@ -19,7 +17,6 @@ struct CellPreview: Codable, Identifiable {
     let memberList: [CellMember]
     
     enum CodingKeys: String, CodingKey {
-        case id
         case cellName = "cell_name"
         case talkingSubject = "talking_subject"
         case dateString = "date_string"
@@ -35,7 +32,7 @@ struct CellMember: Codable, Identifiable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case name = "member_name"
+        case name = "name"
         case profileURL = "profile_url"
     }
 }

@@ -26,13 +26,16 @@ class FireStoreService {
                         let summaryList = query.documents.compactMap { document in
                             try? document.data(as: T.self)
                         }
+                        _ = query.documents.compactMap { document in
+                            Log.i(document.data())
+                        }
                         if let summary = summaryList.first {
                             promise(.success(summary))
                         } else {
-                            promise(.failure(MoyangError.emptyData))
+                            promise(.failure(MoyangError.decodingFailed))
                         }
                     } else {
-                        promise(.failure(MoyangError.decodingFailed))
+                        promise(.failure(MoyangError.emptyData))
                     }
                 }
         }.eraseToAnyPublisher()

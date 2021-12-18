@@ -13,6 +13,7 @@ class MainCategoryVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     @Published var prayCardVM: PrayCardVM?
+    @Published var cellCardVM: CellCardVM?
     
     init(repo: SummaryRepo) {
         self.repo = repo
@@ -31,6 +32,13 @@ class MainCategoryVM: ObservableObject {
                                               subject: prayCardItem.praySubject,
                                               timeString: prayCardItem.prayStartDate)
                 self.prayCardVM = PrayCardVM.init(pray: praySubject)
+                
+                let cellCardItem = item.cellCardItem
+                let cellPreview = CellPreview(cellName: cellCardItem.cellName,
+                                              talkingSubject: cellCardItem.talkingSubject,
+                                              dateString: cellCardItem.cellMeetingDate,
+                                              memberList: cellCardItem.cellMemberList)
+                self.cellCardVM = CellCardVM.init(cellPreview: cellPreview)
             }.store(in: &cancellables)
     }
 }
@@ -50,15 +58,15 @@ extension MainCategoryVM {
     
     struct CellCardItem {
         let cellName: String
-        let cellMeetingSubject: String
+        let talkingSubject: String
         let cellMeetingDate: String
-        let cellMemberName: [String]
+        let cellMemberList: [CellMember]
         
         init(summary: Summary) {
             cellName = summary.cellName
-            cellMeetingSubject = summary.cellMeetingSubject
+            talkingSubject = summary.cellTalkingSubject
             cellMeetingDate = summary.cellMeetingDate
-            cellMemberName = summary.cellMemberName
+            cellMemberList = summary.cellMemberList
         }
     }
     
