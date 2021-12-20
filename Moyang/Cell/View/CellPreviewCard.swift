@@ -41,8 +41,7 @@ struct CellPreviewCard: View {
                             .cornerRadius(13)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 13)
-                                    .stroke(Color(Asset.Colors.Dessert.desertStone.color),
-                                            lineWidth: 1)
+                                    .stroke(Color(Asset.Colors.Dessert.desertStone.color), lineWidth: 1)
                             ).padding(.top, 1)
                     }
                 }

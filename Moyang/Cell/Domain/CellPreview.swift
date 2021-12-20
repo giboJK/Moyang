@@ -25,14 +25,14 @@ struct CellPreview: Codable {
 }
 
 struct CellMember: Codable, Identifiable {
-    typealias Identifier = Int
+    typealias Identifier = String
     let id: Identifier
     var name: String
-    let profileURL: String?
+    let profileURL: String
     
     enum CodingKeys: String, CodingKey {
         case id
         case name = "name"
-        case profileURL = "profile_url"
+        case profileURL = "url"
     }
 }

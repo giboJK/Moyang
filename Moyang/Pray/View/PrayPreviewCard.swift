@@ -15,11 +15,12 @@ struct PrayPreviewCard: View {
         VStack {
             HStack {
                 Text("나의 기도")
-                    .font(.system(size: 20, weight: .bold, design: .default))
-                    .padding(.top, 10)
+                    .font(.system(size: 16, weight: .bold, design: .default))
                     .padding(.bottom, 5)
                 Spacer()
+                Image(systemName: "arrow.forward")
             }
+            .padding(.top, 10)
             HStack {
                 Text(vm.pray.subject)
                     .font(.system(size: 16, weight: .regular, design: .default))

@@ -27,19 +27,24 @@ class MainCategoryVM: ObservableObject {
             .sink { completion in
                 Log.i(completion)
             } receiveValue: { item in
-                let prayCardItem = item.prayCardItem
-                let praySubject = PraySubject(id: prayCardItem.id,
-                                              subject: prayCardItem.praySubject,
-                                              timeString: prayCardItem.prayStartDate)
-                self.prayCardVM = PrayCardVM.init(pray: praySubject)
-                
-                let cellCardItem = item.cellCardItem
-                let cellPreview = CellPreview(cellName: cellCardItem.cellName,
-                                              talkingSubject: cellCardItem.talkingSubject,
-                                              dateString: cellCardItem.cellMeetingDate,
-                                              memberList: [])
-                self.cellCardVM = CellCardVM.init(cellPreview: cellPreview)
+                self.makeCellCardVM(cellCardItem: item.cellCardItem)
+                self.makePrayCardVM(prayCardItem: item.prayCardItem)
             }.store(in: &cancellables)
+    }
+    
+    private func makeCellCardVM(cellCardItem: CellCardItem) {
+        let cellPreview = CellPreview(cellName: cellCardItem.cellName,
+                                      talkingSubject: cellCardItem.talkingSubject,
+                                      dateString: cellCardItem.cellMeetingDate,
+                                      memberList: [])
+        cellCardVM = CellCardVM.init(cellPreview: cellPreview)
+    }
+    
+    private func makePrayCardVM(prayCardItem: PrayCardItem) {
+        let praySubject = PraySubject(id: prayCardItem.id,
+                                      subject: prayCardItem.praySubject,
+                                      timeString: prayCardItem.prayStartDate)
+        prayCardVM = PrayCardVM.init(pray: praySubject)
     }
 }
 
@@ -60,13 +65,24 @@ extension MainCategoryVM {
         let cellName: String
         let talkingSubject: String
         let cellMeetingDate: String
-//        let cellMemberList: [CellMember]
+        let cellMemberList: [CellMember]?
         
         init(summary: Summary) {
             cellName = summary.cellName
             talkingSubject = ""
             cellMeetingDate = ""
-//            cellMemberList = summary.cellMemberList
+            
+            if let json = try? JSONSerialization.data(withJSONObject: summary.cellMemberList) {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let list = try? decoder.decode([CellMember].self, from: json)
+                
+                cellMemberList = list
+                Log.d(list as Any)
+            } else {
+                
+                cellMemberList = []
+            }
         }
     }
     

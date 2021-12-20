@@ -4,80 +4,80 @@
     "date_string":"2021-10-24",
     "member_list":[
         {
-            "id":200001,
+            "id":"200001",
             "name":"정김기보",
-            "profile_url":"https://source.unsplash.com/user/c_v_r/100x100"
+            "url":"https://source.unsplash.com/user/c_v_r/100x100"
         },
         {
-            "id":200002,
+            "id":"200002",
             "name":"기보 김 정"
         },
         {
-            "id":200003,
+            "id":"200003",
             "name":"김기보",
-            "profile_url":"https://picsum.photos/200/300.webp"
+            "url":"https://picsum.photos/200/300.webp"
         },
         {
-            "id":200004,
+            "id":"200004",
             "name":"최기보",
-            "profile_url":"https://picsum.photos/200"
+            "url":"https://picsum.photos/200"
         },
         {
-            "id":200005,
+            "id":"200005",
             "name":"정기보 정",
-            "profile_url":"https://picsum.photos/id/237"
+            "url":"https://picsum.photos/id/237"
         },
         {
-            "id":200006,
+            "id":"200006",
             "name":"오기보",
-            "profile_url":"https://picsum.photos/seed/picsum/200/300"
+            "url":"https://picsum.photos/seed/picsum/200/300"
         },
         {
-            "id":200007,
+            "id":"200007",
             "name":"여기보",
-            "profile_url":"https://picsum.photos/200/300?grayscale"
+            "url":"https://picsum.photos/200/300?grayscale"
         },
         {
-            "id":200008,
+            "id":"200008",
             "name":"허기보",
-            "profile_url":"https://picsum.photos/id/1005"
+            "url":"https://picsum.photos/id/1005"
         },
         {
-            "id":200009,
+            "id":"200009",
             "name":"박기보",
-            "profile_url":"https://picsum.photos/id/1003"
+            "url":"https://picsum.photos/id/1003"
         },
         {
-            "id":200010,
+            "id":"200010",
             "name":"최김기",
-            "profile_url":"https://picsum.photos/id/1006"
+            "url":"https://picsum.photos/id/1006"
         },
         {
-            "id":200011,
+            "id":"200011",
             "name":"백기보",
-            "profile_url":"https://picsum.photos/id/101"
+            "url":"https://picsum.photos/id/101"
         },
         {
-            "id":200012,
+            "id":"200012",
             "name":"장기보",
-            "profile_url":"https://picsum.photos/id/1016"
+            "url":"https://picsum.photos/id/1016"
         },
         {
-            "id":200013,
+            "id":"200013",
             "name":"박정김",
-            "profile_url":"https://picsum.photos/id/102"
+            "url":"https://picsum.photos/id/102"
         },
         {
-            "id":200014,
+            "id":"200014",
             "name":"채기보"
         },
         {
-            "id":200015,
+            "id":"200015",
             "name":"진기보",
-            "profile_url":"https://picsum.photos/id/655"
+            "url":"https://picsum.photos/id/655"
         },
         {
-            "id":200016,
+            "id":"200016",
             "name":"전기보"
         }
     ]

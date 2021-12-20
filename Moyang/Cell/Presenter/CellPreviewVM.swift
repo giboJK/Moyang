@@ -69,7 +69,7 @@ extension CellPreviewVM {
 }
 
 extension CellPreviewVM {
-    typealias Identifier = Int
+    typealias Identifier = String
     struct Preview {
         let cellName: String
         let talkingSubject: String
@@ -96,7 +96,7 @@ extension CellPreviewVM {
     struct Member: Identifiable {
         let id: Identifier
         let name: String
-        let profileURL: String?
+        let profileURL: String
     }
 }
 
