@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 import Combine
 
 class SummaryRepoImpl: SummaryRepo {
-    private let store = Firestore.firestore()
+    private let service = FireStoreService()
     private let collectionName = "DAILY"
     
     init() {
@@ -21,8 +21,13 @@ class SummaryRepoImpl: SummaryRepo {
     }
     
     func fetchSummary() -> AnyPublisher<Summary, MoyangError> {
-//        return Empty(completeImmediately: false).eraseToAnyPublisher()
-        return FireStoreService.shared.fetchObject(collection: collectionName,
-                                                   type: Summary.self)
+        //        return Empty(completeImmediately: false).eraseToAnyPublisher()
+        return service.fetchObject(collection: collectionName,
+                                   type: Summary.self)
+    }
+    
+    func addSummaryListener() -> PassthroughSubject<Summary, MoyangError> {
+        return service.addListener(collection: collectionName,
+                                   type: Summary.self)
     }
 }

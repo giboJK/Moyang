@@ -9,4 +9,7 @@ import Combine
 
 protocol SummaryRepo {
     func fetchSummary() -> AnyPublisher<Summary, MoyangError>
+    
+    // For firebase
+    func addSummaryListener() -> PassthroughSubject<Summary, MoyangError>
 }

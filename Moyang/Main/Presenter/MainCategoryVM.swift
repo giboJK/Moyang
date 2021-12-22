@@ -20,16 +20,27 @@ class MainCategoryVM: ObservableObject {
     }
     
     func fetchSummary() {
-        repo.fetchSummary()
-            .map { summary in
-                SummaryItem(summary: summary)
-            }
-            .sink { completion in
+//        repo.fetchSummary()
+//            .map { summary in
+//                SummaryItem(summary: summary)
+//            }
+//            .sink { completion in
+//                Log.i(completion)
+//            } receiveValue: { item in
+//                self.makeCellCardVM(cellCardItem: item.cellCardItem)
+//                self.makePrayCardVM(prayCardItem: item.prayCardItem)
+//            }.store(in: &cancellables)
+        
+        repo.addSummaryListener()
+            .sink(receiveCompletion: { completion in
                 Log.i(completion)
-            } receiveValue: { item in
-                self.makeCellCardVM(cellCardItem: item.cellCardItem)
-                self.makePrayCardVM(prayCardItem: item.prayCardItem)
-            }.store(in: &cancellables)
+            }, receiveValue: { summary in
+                let summaryItem = SummaryItem(summary: summary)
+                self.makeCellCardVM(cellCardItem: summaryItem.cellCardItem)
+                self.makePrayCardVM(prayCardItem: summaryItem.prayCardItem)
+            })
+            .store(in: &cancellables)
+        
     }
     
     private func makeCellCardVM(cellCardItem: CellCardItem) {
