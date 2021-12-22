@@ -28,7 +28,6 @@
 		246BD7CD27240ADB005C4E0B /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7CB27240ADB005C4E0B /* QuestionView.swift */; };
 		246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7CC27240ADB005C4E0B /* QuestionCard.swift */; };
 		246BD7F127240AE4005C4E0B /* CellRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */; };
-		246BD7F227240AE4005C4E0B /* CellPreviewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DF27240AE4005C4E0B /* CellPreviewVM.swift */; };
 		246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */; };
 		246BD7F427240AE4005C4E0B /* CellPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E227240AE4005C4E0B /* CellPreviewCard.swift */; };
 		246BD7F527240AE4005C4E0B /* CellSubjectHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E327240AE4005C4E0B /* CellSubjectHistoryView.swift */; };
@@ -111,7 +110,6 @@
 		246BD7CB27240ADB005C4E0B /* QuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		246BD7CC27240ADB005C4E0B /* QuestionCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionCard.swift; sourceTree = "<group>"; };
 		246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRepoImpl.swift; sourceTree = "<group>"; };
-		246BD7DF27240AE4005C4E0B /* CellPreviewVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPreviewVM.swift; sourceTree = "<group>"; };
 		246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellMeetingVM.swift; sourceTree = "<group>"; };
 		246BD7E227240AE4005C4E0B /* CellPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPreviewCard.swift; sourceTree = "<group>"; };
 		246BD7E327240AE4005C4E0B /* CellSubjectHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellSubjectHistoryView.swift; sourceTree = "<group>"; };
@@ -306,7 +304,6 @@
 			isa = PBXGroup;
 			children = (
 				246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */,
-				246BD7DF27240AE4005C4E0B /* CellPreviewVM.swift */,
 				246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */,
 				24D7BB30274D179200CC8B7C /* CellPrayListVM.swift */,
 				24BB8031275645C100BE2988 /* NewCellPrayVM.swift */,
@@ -812,7 +809,6 @@
 				246BD7F427240AE4005C4E0B /* CellPreviewCard.swift in Sources */,
 				24D7BB31274D179200CC8B7C /* CellPrayListVM.swift in Sources */,
 				246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */,
-				246BD7F227240AE4005C4E0B /* CellPreviewVM.swift in Sources */,
 				246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */,
 				248FF3F42758D681009688C6 /* CellAssembly.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,

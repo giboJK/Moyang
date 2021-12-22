@@ -20,17 +20,6 @@ class MainCategoryVM: ObservableObject {
     }
     
     func fetchSummary() {
-//        repo.fetchSummary()
-//            .map { summary in
-//                SummaryItem(summary: summary)
-//            }
-//            .sink { completion in
-//                Log.i(completion)
-//            } receiveValue: { item in
-//                self.makeCellCardVM(cellCardItem: item.cellCardItem)
-//                self.makePrayCardVM(prayCardItem: item.prayCardItem)
-//            }.store(in: &cancellables)
-        
         repo.addSummaryListener()
             .sink(receiveCompletion: { completion in
                 Log.i(completion)
@@ -47,7 +36,7 @@ class MainCategoryVM: ObservableObject {
         let cellPreview = CellPreview(cellName: cellCardItem.cellName,
                                       talkingSubject: cellCardItem.talkingSubject,
                                       dateString: cellCardItem.cellMeetingDate,
-                                      memberList: [])
+                                      memberList: cellCardItem.cellMemberList)
         cellCardVM = CellCardVM.init(cellPreview: cellPreview)
     }
     
@@ -76,24 +65,22 @@ extension MainCategoryVM {
         let cellName: String
         let talkingSubject: String
         let cellMeetingDate: String
-        let cellMemberList: [CellMember]?
+        let cellMemberList: [CellMember]
         
         init(summary: Summary) {
             cellName = summary.cellName
-            talkingSubject = ""
-            cellMeetingDate = ""
+            talkingSubject = summary.cellTalkingSubject
+            cellMeetingDate = summary.cellMeetingDate
             
+            var list = [CellMember]()
             if let json = try? JSONSerialization.data(withJSONObject: summary.cellMemberList) {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let list = try? decoder.decode([CellMember].self, from: json)
-                
-                cellMemberList = list
-                Log.d(list as Any)
-            } else {
-                
-                cellMemberList = []
+                if let decodedList = try? decoder.decode([CellMember].self, from: json) {
+                    list = decodedList
+                }
             }
+            cellMemberList = list
         }
     }
     

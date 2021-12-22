@@ -26,9 +26,10 @@ struct CellPreviewCard: View {
                 Text(vm.cellPreview.talkingSubject)
                     .font(.system(size: 14, weight: .regular, design: .default))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
+                Spacer()
             }.padding(.top, -5)
             HStack(spacing: -8) {
-                ForEach(vm.cellPreview.memberList) { member in
+                ForEach(vm.randomMemberList) { member in
                     if let profileURL = member.profileURL {
                         AsyncImage(url: URL(string: profileURL))
                             .scaledToFill()
@@ -47,7 +48,7 @@ struct CellPreviewCard: View {
                 }
                 .padding(.bottom, 10)
                 Spacer()
-                if vm.cellPreview.memberList.count - 5 > 0 {
+                if vm.cellPreview.memberList.count - vm.maxDisplayedMembers > 0 {
                     Image(systemName: "person.fill")
                         .padding(.trailing, 25)
                         .padding(.bottom, 10)

@@ -55,9 +55,6 @@ class FireStoreService {
                     let objectList = query.documents.compactMap { document in
                         try? document.data(as: T.self)
                     }
-                    _ = query.documents.compactMap { document in
-                        Log.i(document.data())
-                    }
                     if let object = objectList.first {
                         subject.send(object)
                     } else {
