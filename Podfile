@@ -55,9 +55,4 @@ target 'Moyang' do
     inherit! :search_paths
     # Pods for testing
   end
-
-  target 'MoyangUITests' do
-    # Pods for testing
-  end
-
 end
