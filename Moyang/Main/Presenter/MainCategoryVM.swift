@@ -90,9 +90,9 @@ extension MainCategoryVM {
         let prayStartDate: String
         
         init(summary: Summary) {
-            id = "summary.prayId"
-            praySubject = ""
-            prayStartDate = ""
+            id = summary.prayId
+            praySubject = summary.praySubject
+            prayStartDate = summary.prayStartDate
         }
     }
     
