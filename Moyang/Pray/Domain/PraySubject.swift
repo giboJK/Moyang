@@ -13,10 +13,14 @@ struct PraySubject: Codable, Identifiable {
     let id: Identifier
     let subject: String
     let timeString: String
+    let prayDayList: [String]
+    let prayTime: String
     
     enum CodingKeys: String, CodingKey {
         case id
         case subject
         case timeString = "time_string"
+        case prayDayList = "pray_day_list"
+        case prayTime = "pray_time"
     }
 }

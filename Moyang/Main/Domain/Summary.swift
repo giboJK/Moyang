@@ -19,6 +19,8 @@ struct Summary: Codable {
     let prayId: String
     let praySubject: String
     let prayStartDate: String
+    let prayDayList: [String]
+    let prayTime: String
     
     enum CodingKeys: String, CodingKey {
         case cellId = "cell_id"
@@ -32,5 +34,7 @@ struct Summary: Codable {
         case prayId = "pray_id"
         case praySubject = "pray_subject"
         case prayStartDate = "pray_start_date"
+        case prayDayList = "pray_day_list"
+        case prayTime = "pray_time"
     }
 }

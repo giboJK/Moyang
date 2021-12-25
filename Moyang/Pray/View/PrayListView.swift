@@ -54,7 +54,11 @@ struct PrayListView: View {
     }
     
     private func addPray() {
-        let praySubject = PraySubject(id: "asdb12313312", subject: "ddkdkkd", timeString: Date().toString())
+        let praySubject = PraySubject(id: "asdb12313312",
+                                      subject: "ddkdkkd",
+                                      timeString: Date().toString(),
+                                      prayDayList: ["mon", "wed", "sat"],
+                                      prayTime: "08:30 pm")
         vm.add(praySubject)
         presentationMode.wrappedValue.dismiss()
     }
