@@ -8,14 +8,44 @@
 import SwiftUI
 
 struct PrayCardView: View {
+    @ObservedObject var vm: PrayCardVM
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                Text("나의 기도")
+                    .font(.system(size: 16, weight: .bold, design: .default))
+                Spacer()
+                Image(systemName: "arrow.forward")
+            }
+            .padding(.top, 10)
+            Divider().padding(-5)
+            HStack {
+                Text(vm.pray.subject)
+                    .font(.system(size: 16, weight: .regular, design: .default))
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                Spacer()
+            }
+            Spacer()
+            HStack {
+                Text("다음 기도 시간")
+                    .font(.system(size: 14, weight: .regular, design: .default))
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                Spacer()
+                Text(vm.pray.timeString)
+                    .font(.system(size: 14, weight: .regular, design: .default))
+            }
+            .padding(.bottom, 10)
+        }
+        .modifier(MainCard())
+        .eraseToAnyView()
     }
 }
 
 struct PrayCardView_Previews: PreviewProvider {
+    static let praySubject = DummyData().praySubject
     static var previews: some View {
-        PrayCardView()
+        PrayCardView(vm: PrayCardVM(pray: praySubject))
             .previewLayout(.fixed(width: 414, height: 250))
     }
 }

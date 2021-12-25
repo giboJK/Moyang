@@ -14,6 +14,7 @@
 		242D745F274282F00053EF2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 242D7461274282F00053EF2A /* Localizable.strings */; };
 		242D7464274283710053EF2A /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D7463274283710053EF2A /* Strings.swift */; };
 		244933EB27775B8F000DDE01 /* PrayCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244933EA27775B8F000DDE01 /* PrayCardView.swift */; };
+		244933ED277765BB000DDE01 /* PraySubject.json in Resources */ = {isa = PBXBuildFile; fileRef = 244933EC277765BB000DDE01 /* PraySubject.json */; };
 		246BD7A827240A96005C4E0B /* DailySummaryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7A527240A96005C4E0B /* DailySummaryVM.swift */; };
 		246BD7A927240A96005C4E0B /* DailySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7A727240A96005C4E0B /* DailySummaryView.swift */; };
 		246BD7AC27240AB9005C4E0B /* MainCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7AB27240AB9005C4E0B /* MainCategoryList.swift */; };
@@ -42,14 +43,14 @@
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
 		248FF3F42758D681009688C6 /* CellAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FF3F32758D681009688C6 /* CellAssembly.swift */; };
 		249B903027259C6400B53682 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249B902F27259C6400B53682 /* DummyData.swift */; };
-		249B903827259FD300B53682 /* CellPreviewData.json in Resources */ = {isa = PBXBuildFile; fileRef = 249B903727259FD300B53682 /* CellPreviewData.json */; };
+		249B903827259FD300B53682 /* CellPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = 249B903727259FD300B53682 /* CellPreview.json */; };
 		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
 		24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
 		24B47FF7276A1BD3003130E6 /* FireStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B47FF6276A1BD3003130E6 /* FireStoreService.swift */; };
 		24B57BBC2760B37A00630C4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */; };
 		24B6A2552726BEB00065112A /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* CellInfo.swift */; };
-		24B6A2572726C40E0065112A /* CellInfoData.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* CellInfoData.json */; };
+		24B6A2572726C40E0065112A /* CellInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* CellInfo.json */; };
 		24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6E31E275F81CE00AD2E53 /* MoyangError.swift */; };
 		24B6E321275F897100AD2E53 /* PrayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6E320275F897100AD2E53 /* PrayAPI.swift */; };
 		24B7B4D82753BC5F007BCF9E /* NewCellPrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B7B4D72753BC5F007BCF9E /* NewCellPrayView.swift */; };
@@ -61,7 +62,7 @@
 		24BB8032275645C100BE2988 /* NewCellPrayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB8031275645C100BE2988 /* NewCellPrayVM.swift */; };
 		24BB803527565E1300BE2988 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB803427565E1300BE2988 /* RealmManager.swift */; };
 		24BB803727565E2200BE2988 /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB803627565E2200BE2988 /* LocalDB.swift */; };
-		24BF6E94274FBF620004B24E /* CellPrayData.json in Resources */ = {isa = PBXBuildFile; fileRef = 24BF6E93274FBF620004B24E /* CellPrayData.json */; };
+		24BF6E94274FBF620004B24E /* CellPray.json in Resources */ = {isa = PBXBuildFile; fileRef = 24BF6E93274FBF620004B24E /* CellPray.json */; };
 		24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F727230CA3006FF67B /* MoyangApp.swift */; };
 		24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Images.xcassets */; };
 		24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */; };
@@ -97,6 +98,7 @@
 		242D7462274282F30053EF2A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		242D7463274283710053EF2A /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		244933EA27775B8F000DDE01 /* PrayCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayCardView.swift; sourceTree = "<group>"; };
+		244933EC277765BB000DDE01 /* PraySubject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PraySubject.json; sourceTree = "<group>"; };
 		246BD7A527240A96005C4E0B /* DailySummaryVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryVM.swift; sourceTree = "<group>"; };
 		246BD7A727240A96005C4E0B /* DailySummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryView.swift; sourceTree = "<group>"; };
 		246BD7AB27240AB9005C4E0B /* MainCategoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoryList.swift; sourceTree = "<group>"; };
@@ -125,14 +127,14 @@
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		248FF3F32758D681009688C6 /* CellAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAssembly.swift; sourceTree = "<group>"; };
 		249B902F27259C6400B53682 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
-		249B903727259FD300B53682 /* CellPreviewData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellPreviewData.json; sourceTree = "<group>"; };
+		249B903727259FD300B53682 /* CellPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellPreview.json; sourceTree = "<group>"; };
 		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
 		24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssembly.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		24B47FF6276A1BD3003130E6 /* FireStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreService.swift; sourceTree = "<group>"; };
 		24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24B6A2542726BEB00065112A /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
-		24B6A2562726C40E0065112A /* CellInfoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellInfoData.json; sourceTree = "<group>"; };
+		24B6A2562726C40E0065112A /* CellInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellInfo.json; sourceTree = "<group>"; };
 		24B6E31E275F81CE00AD2E53 /* MoyangError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangError.swift; sourceTree = "<group>"; };
 		24B6E320275F897100AD2E53 /* PrayAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAPI.swift; sourceTree = "<group>"; };
 		24B7B4D72753BC5F007BCF9E /* NewCellPrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCellPrayView.swift; sourceTree = "<group>"; };
@@ -144,7 +146,7 @@
 		24BB8031275645C100BE2988 /* NewCellPrayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCellPrayVM.swift; sourceTree = "<group>"; };
 		24BB803427565E1300BE2988 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		24BB803627565E2200BE2988 /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
-		24BF6E93274FBF620004B24E /* CellPrayData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellPrayData.json; sourceTree = "<group>"; };
+		24BF6E93274FBF620004B24E /* CellPray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellPray.json; sourceTree = "<group>"; };
 		24D0D2F427230CA3006FF67B /* Moyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D2F727230CA3006FF67B /* MoyangApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangApp.swift; sourceTree = "<group>"; };
 		24D0D2FB27230CA6006FF67B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -378,9 +380,10 @@
 		249B903127259C7F00B53682 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				249B903727259FD300B53682 /* CellPreviewData.json */,
-				24B6A2562726C40E0065112A /* CellInfoData.json */,
-				24BF6E93274FBF620004B24E /* CellPrayData.json */,
+				244933EC277765BB000DDE01 /* PraySubject.json */,
+				249B903727259FD300B53682 /* CellPreview.json */,
+				24B6A2562726C40E0065112A /* CellInfo.json */,
+				24BF6E93274FBF620004B24E /* CellPray.json */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -640,11 +643,12 @@
 				248FEC152723A11600321E5E /* Colors.xcassets in Resources */,
 				24B57BBC2760B37A00630C4C /* GoogleService-Info.plist in Resources */,
 				24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */,
+				244933ED277765BB000DDE01 /* PraySubject.json in Resources */,
 				242D745F274282F00053EF2A /* Localizable.strings in Resources */,
-				249B903827259FD300B53682 /* CellPreviewData.json in Resources */,
+				249B903827259FD300B53682 /* CellPreview.json in Resources */,
 				24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */,
-				24B6A2572726C40E0065112A /* CellInfoData.json in Resources */,
-				24BF6E94274FBF620004B24E /* CellPrayData.json in Resources */,
+				24B6A2572726C40E0065112A /* CellInfo.json in Resources */,
+				24BF6E94274FBF620004B24E /* CellPray.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
