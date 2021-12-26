@@ -16,7 +16,7 @@ struct PrayCardView: View {
                 Text("나의 기도")
                     .font(.system(size: 16, weight: .bold, design: .default))
                 Spacer()
-                Image(systemName: "arrow.forward")
+                Image(systemName: "pencil")
             }
             .padding(.top, 10)
             Divider().padding(-5)

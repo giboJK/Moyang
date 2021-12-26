@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct PrayAddView: View {
+    @ObservedObject var vm: PrayAddVM
     @State private var praySubject: String = ""
     
     var body: some View {
@@ -32,11 +33,11 @@ struct PrayAddView: View {
             }
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
             ZStack(alignment: .topLeading) {
-                TextEditor(text: $praySubject)
+                TextEditor(text: vm.$praySubject)
                     .multilineTextAlignment(.leading)
                     .font(.system(size: 16, weight: .regular))
                     .frame(maxWidth: UIScreen.screenWidth, maxHeight: 180, alignment: .topLeading)
-                if praySubject.isEmpty {
+                if vm.praySubject.isEmpty {
                     Text("기도 제목을 적어보세요")
                         .foregroundColor(Color(UIColor.placeholderText))
                         .padding(.horizontal, 4)
@@ -47,7 +48,7 @@ struct PrayAddView: View {
             
             Divider()
             HStack {
-                Text("기도가 처음이시거나 어려우신가요?")
+                Text("기도제목 작성 도우미를 이용해보세요.")
                 Image(systemName: "info.circle")
                 Spacer()
             }
@@ -62,6 +63,6 @@ struct PrayAddView: View {
 
 struct PrayAddView_Previews: PreviewProvider {
     static var previews: some View {
-        PrayAddView()
+        PrayAddView(vm: PrayAddVM())
     }
 }

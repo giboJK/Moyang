@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
+		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		24151DCE274A2A3E00DD38CE /* CellPrayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */; };
 		242D745C274267C80053EF2A /* MainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D745B274267C80053EF2A /* MainCard.swift */; };
@@ -91,6 +92,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayListView.swift; sourceTree = "<group>"; };
 		242D745B274267C80053EF2A /* MainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCard.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				246BD7BB27240AD4005C4E0B /* PrayListVM.swift */,
 				246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */,
 				246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */,
+				08D897AD2778604D0065E103 /* PrayAddVM.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				246BD7F827240AE4005C4E0B /* CellPreview.swift in Sources */,
 				24BB327C27656735002131BF /* MainCategoryVM.swift in Sources */,
 				246BD7C227240AD4005C4E0B /* PraySubject.swift in Sources */,
+				08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */,
 				24EA9B4827579BDC004FB585 /* CellMemberPrayEditView.swift in Sources */,
 				24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */,
 				248FEC1D2723AB0300321E5E /* Assets.swift in Sources */,
