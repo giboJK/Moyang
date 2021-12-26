@@ -60,6 +60,6 @@ struct PrayAddView: View {
 
 struct PrayAddView_Previews: PreviewProvider {
     static var previews: some View {
-        PrayAddView(vm: PrayAddVM())
+        PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl()))
     }
 }

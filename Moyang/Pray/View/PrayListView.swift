@@ -17,7 +17,8 @@ struct PrayListView: View {
     
     var body: some View {
         VStack {
-            NavigationLink(destination: PrayAddView(vm: PrayAddVM()), isActive: $newPraySubject) { EmptyView() }
+            NavigationLink(destination: PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl())),
+                           isActive: $newPraySubject) { EmptyView() }
             
             Button(action: addPray) {
                 Text("Add New Card")
