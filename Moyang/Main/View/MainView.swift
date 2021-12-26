@@ -30,6 +30,7 @@ struct MainView: View {
                 .background(Color(UIColor.bgColor))
             }
             .navigationBarHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

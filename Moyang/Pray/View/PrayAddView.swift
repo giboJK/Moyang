@@ -15,12 +15,6 @@ struct PrayAddView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("새 기도 제목")
-                    .font(.system(size: 20, weight: .bold))
-                Spacer()
-            }
-            .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
-            HStack {
                 Text("시작 날짜")
                     .font(.system(size: 16, weight: .regular))
                 Spacer()
@@ -33,7 +27,7 @@ struct PrayAddView: View {
             }
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
             ZStack(alignment: .topLeading) {
-                TextEditor(text: vm.$praySubject)
+                TextEditor(text: $vm.praySubject)
                     .multilineTextAlignment(.leading)
                     .font(.system(size: 16, weight: .regular))
                     .frame(maxWidth: UIScreen.screenWidth, maxHeight: 180, alignment: .topLeading)
@@ -56,7 +50,10 @@ struct PrayAddView: View {
             
             Spacer()
         }
-        .padding(EdgeInsets(top: 34, leading: 20, bottom: 0, trailing: 20))
+        .navigationBarTitle("새 기도제목")
+        .navigationBarItems(trailing: Button("완료", action: {
+            vm.addPray()
+        }))
         .background(Color(UIColor.bgColor))
     }
 }

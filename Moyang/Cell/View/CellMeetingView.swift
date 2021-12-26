@@ -102,7 +102,6 @@ struct CellMeetingView: View {
                 Spacer()
             }
             .foregroundColor(Color.black)
-            .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(cellInfo.cellName)
             .padding(EdgeInsets(top: 14, leading: 20, bottom: 0, trailing: 20))
             .background(Color(UIColor.sheep))

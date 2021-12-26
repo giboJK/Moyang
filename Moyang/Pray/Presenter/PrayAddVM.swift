@@ -11,10 +11,10 @@ import Combine
 class PrayAddVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
-    @State var praySubject: String = ""
-    @State var prayStartDate: String = ""
-    @State var prayDayList: String = ""
-    @State var PrayTime: String = ""
+    @Published var praySubject: String = ""
+    @Published var prayStartDate: String = ""
+    @Published var prayDayList: String = ""
+    @Published var PrayTime: String = ""
     
     init() {
     }
@@ -22,6 +22,10 @@ class PrayAddVM: ObservableObject {
     deinit {
         Log.i(self)
         cancellables.removeAll()
+    }
+    
+    func addPray() {
+        
     }
 }
 

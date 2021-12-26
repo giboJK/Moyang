@@ -19,7 +19,6 @@ struct PrayListView: View {
         VStack {
             NavigationLink(destination: PrayAddView(vm: PrayAddVM()), isActive: $newPraySubject) { EmptyView() }
             
-            
             Button(action: addPray) {
                 Text("Add New Card")
                     .foregroundColor(.blue)
