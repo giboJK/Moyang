@@ -15,7 +15,8 @@ class PrayAddVM: ObservableObject {
     @Published var praySubject: String = ""
     @Published var prayStartDate: String = ""
     @Published var prayDayList: [String] = []
-    @Published var prayTime: String = ""
+    @Published var prayTime: String = "3"
+    @Published var alarmTime: String?
     
     init(prayRepo: PrayRepo) {
         self.prayRepo = prayRepo
@@ -34,4 +35,3 @@ class PrayAddVM: ObservableObject {
                                  prayTime: prayTime))
     }
 }
-

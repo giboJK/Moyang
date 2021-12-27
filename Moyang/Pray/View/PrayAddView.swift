@@ -10,9 +10,11 @@ import SwiftUI
 
 struct PrayAddView: View {
     @ObservedObject var vm: PrayAddVM
-    @State private var showPrayTimePicker = false
-    @State private var showAlarmPicker = false
-    @State private var selection = 0
+    
+    @State var arrGenders = ["Male","Female","Unknown"]
+    @State var selectionIndex = 0
+    @FocusState var isPraySubjectInputActive: Bool
+    @FocusState var isPrayTimeInputActive: Bool
     
     var values = ["V1", "V2", "V3"]
     
@@ -29,6 +31,16 @@ struct PrayAddView: View {
                     .multilineTextAlignment(.leading)
                     .font(.system(size: 16, weight: .regular))
                     .frame(maxWidth: UIScreen.screenWidth, maxHeight: 180, alignment: .topLeading)
+                    .focused($isPraySubjectInputActive)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            
+                            Button("완료") {
+                                isPraySubjectInputActive = false
+                            }
+                        }
+                    }
                 if vm.praySubject.isEmpty {
                     Text("하나님과 나눌 대화를 적어보세요")
                         .foregroundColor(Color(UIColor.placeholderText))
@@ -56,36 +68,23 @@ struct PrayAddView: View {
                 Text("알람 시간")
                     .font(.system(size: 16, weight: .regular))
                 Spacer()
-                TextField("시간을 골라요", text: $vm.prayTime) { onEditing in
-                    self.showAlarmPicker = onEditing
-                }
-                
-                if showAlarmPicker {
-                    Picker(selection: $selection, label:
-                        Text("Pick one:")
-                        , content: {
-                            ForEach(0 ..< values.count) { index in
-                                Text(self.values[index])
-                                    .tag(index)
-                            }
-                    })
-
-                    Text("you have picked \(self.values[self.selection])")
-
-                    Button(action: {
-                        vm.prayTime = self.values[self.selection]
-                    }, label: {
-                        Text("Done")
-                    })
-                }
+                TextFieldWithPickerInputView(data: self.arrGenders,
+                                             placeholder: "select your gender",
+                                             selectionIndex: self.$selectionIndex,
+                                             text: $vm.alarmTime)
             }
-            Divider()
+            HStack {
+                Text("Select a date")
+                DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
+                    Text("date")
+                }
+                Text("Birth date is \(birthDate, formatter: dateFormatter)")
+            }.labelsHidden()
             HStack {
                 Spacer()
                 Text("기도를 작성하기 어려우신가요?")
                 Image(systemName: "info.circle")
             }
-            Spacer()
         }
         .navigationBarTitle("새 기도제목")
         .navigationBarItems(trailing: Button("완료", action: {
@@ -93,6 +92,15 @@ struct PrayAddView: View {
         }))
         .background(Color(UIColor.bgColor))
     }
+    
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter
+    }
+    
+    @State private var birthDate = Date()
+    
 }
 
 struct PrayAddView_Previews: PreviewProvider {
