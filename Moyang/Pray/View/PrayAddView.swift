@@ -10,20 +10,18 @@ import SwiftUI
 
 struct PrayAddView: View {
     @ObservedObject var vm: PrayAddVM
-    @State private var praySubject: String = ""
+    @State private var showPrayTimePicker = false
+    @State private var showAlarmPicker = false
+    @State private var selection = 0
+    
+    var values = ["V1", "V2", "V3"]
     
     var body: some View {
         VStack {
             HStack {
-                Text("시작 날짜")
+                Text("기도 제목")
                     .font(.system(size: 16, weight: .regular))
                 Spacer()
-                Text(Date().toString("yyyy년 MM월 dd일")) // 기도를 작성한 날짜 표시
-                    .padding(.leading, 20)
-                    .font(.system(size: 16, weight: .regular))
-                    .onTapGesture(perform: {
-                        // 달력 뷰를 띄울까?
-                    })
             }
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
             ZStack(alignment: .topLeading) {
@@ -32,22 +30,61 @@ struct PrayAddView: View {
                     .font(.system(size: 16, weight: .regular))
                     .frame(maxWidth: UIScreen.screenWidth, maxHeight: 180, alignment: .topLeading)
                 if vm.praySubject.isEmpty {
-                    Text("기도 제목을 적어보세요")
+                    Text("하나님과 나눌 대화를 적어보세요")
                         .foregroundColor(Color(UIColor.placeholderText))
                         .padding(.horizontal, 4)
                         .padding(.vertical, 8)
                 }
             }
             Divider()
-            
-            Divider()
             HStack {
-                Text("기도제목 작성 도우미를 이용해보세요.")
-                Image(systemName: "info.circle")
+                Text("요일")
+                    .font(.system(size: 16, weight: .regular))
                 Spacer()
             }
-            
-            
+            HStack {
+                Text("기도 시간")
+                    .font(.system(size: 16, weight: .regular))
+                Spacer()
+            }
+            HStack {
+                Text("알람")
+                    .font(.system(size: 16, weight: .regular))
+                Spacer()
+            }
+            HStack {
+                Text("알람 시간")
+                    .font(.system(size: 16, weight: .regular))
+                Spacer()
+                TextField("시간을 골라요", text: $vm.prayTime) { onEditing in
+                    self.showAlarmPicker = onEditing
+                }
+                
+                if showAlarmPicker {
+                    Picker(selection: $selection, label:
+                        Text("Pick one:")
+                        , content: {
+                            ForEach(0 ..< values.count) { index in
+                                Text(self.values[index])
+                                    .tag(index)
+                            }
+                    })
+
+                    Text("you have picked \(self.values[self.selection])")
+
+                    Button(action: {
+                        vm.prayTime = self.values[self.selection]
+                    }, label: {
+                        Text("Done")
+                    })
+                }
+            }
+            Divider()
+            HStack {
+                Spacer()
+                Text("기도를 작성하기 어려우신가요?")
+                Image(systemName: "info.circle")
+            }
             Spacer()
         }
         .navigationBarTitle("새 기도제목")

@@ -42,7 +42,6 @@ class PrayListVM: ObservableObject {
     }
 }
 
-
 extension PrayListVM {
     struct PrayListItem: Identifiable {
         let id: String
