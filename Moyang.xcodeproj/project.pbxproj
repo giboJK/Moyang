@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
+		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		24151DCE274A2A3E00DD38CE /* CellPrayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */; };
@@ -48,7 +49,6 @@
 		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
 		24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
-		24B30AEE2779E77E003C55D1 /* TextFieldWithPickerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B30AED2779E77E003C55D1 /* TextFieldWithPickerInputView.swift */; };
 		24B47FF7276A1BD3003130E6 /* FireStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B47FF6276A1BD3003130E6 /* FireStoreService.swift */; };
 		24B57BBC2760B37A00630C4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */; };
 		24B6A2552726BEB00065112A /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* CellInfo.swift */; };
@@ -93,6 +93,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayListView.swift; sourceTree = "<group>"; };
@@ -134,7 +135,6 @@
 		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
 		24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssembly.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
-		24B30AED2779E77E003C55D1 /* TextFieldWithPickerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithPickerInputView.swift; sourceTree = "<group>"; };
 		24B47FF6276A1BD3003130E6 /* FireStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreService.swift; sourceTree = "<group>"; };
 		24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24B6A2542726BEB00065112A /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
@@ -202,7 +202,6 @@
 			isa = PBXGroup;
 			children = (
 				242D745B274267C80053EF2A /* MainCard.swift */,
-				24B30AED2779E77E003C55D1 /* TextFieldWithPickerInputView.swift */,
 			);
 			path = CommonView;
 			sourceTree = "<group>";
@@ -518,6 +517,7 @@
 				24AC737927468BD7003B9B2F /* Array+.swift */,
 				24DB53BA27479DAA00F861EC /* UINavigationController+.swift */,
 				24B9BF6C275AEB7B0056E694 /* UIColor+.swift */,
+				084BE66E277B243800CFC19D /* UIApplication+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -795,7 +795,6 @@
 				246BD7FC27240AFA005C4E0B /* QTPreviewCard.swift in Sources */,
 				24B8BCEF2764C939005B0A9F /* Summary.swift in Sources */,
 				246BD7A927240A96005C4E0B /* DailySummaryView.swift in Sources */,
-				24B30AEE2779E77E003C55D1 /* TextFieldWithPickerInputView.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
 				24B7B4D82753BC5F007BCF9E /* NewCellPrayView.swift in Sources */,
 				249B903027259C6400B53682 /* DummyData.swift in Sources */,
@@ -827,6 +826,7 @@
 				246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */,
 				246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */,
 				248FF3F42758D681009688C6 /* CellAssembly.swift in Sources */,
+				084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
 				24B47FF7276A1BD3003130E6 /* FireStoreService.swift in Sources */,

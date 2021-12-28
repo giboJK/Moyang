@@ -22,7 +22,7 @@ struct PrayAddView: View {
         VStack {
             HStack {
                 Text("기도 제목")
-                    .font(.system(size: 16, weight: .regular))
+                    .font(.system(size: 18, weight: .regular))
                 Spacer()
             }
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
@@ -35,7 +35,6 @@ struct PrayAddView: View {
                     .toolbar {
                         ToolbarItemGroup(placement: .keyboard) {
                             Spacer()
-                            
                             Button("완료") {
                                 isPraySubjectInputActive = false
                             }
@@ -50,57 +49,58 @@ struct PrayAddView: View {
             }
             Divider()
             HStack {
-                Text("요일")
-                    .font(.system(size: 16, weight: .regular))
-                Spacer()
+                ForEach(PrayDay.allCases) { day in
+                    Button(day.rawValue, action: {
+                        if vm.prayDayList.contains(day.rawValue) {
+                            vm.prayDayList.removeAll { $0 == day.rawValue }
+                        } else {
+                            vm.prayDayList.append(day.rawValue)
+                        }
+                    })
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 40)
+                        .font(.system(size: 18, weight: .regular))
+                        .foregroundColor(vm.prayDayList.contains(day.rawValue) ? .white : day.textColor)
+                        .background(vm.prayDayList.contains(day.rawValue) ? .gray : .white)
+                        .clipShape(Circle())
+                }
+                
             }
             HStack {
                 Text("기도 시간")
-                    .font(.system(size: 16, weight: .regular))
+                    .font(.system(size: 18, weight: .regular))
                 Spacer()
+                Picker("Pray time", selection: $vm.prayTime) {
+                    ForEach(PrayTime.allCases) { flavor in
+                        Text(flavor.rawValue.capitalized)
+                    }
+                }
             }
             HStack {
                 Text("알람")
-                    .font(.system(size: 16, weight: .regular))
+                    .font(.system(size: 18, weight: .regular))
                 Spacer()
             }
             HStack {
-                Text("알람 시간")
-                    .font(.system(size: 16, weight: .regular))
-                Spacer()
-                TextFieldWithPickerInputView(data: self.arrGenders,
-                                             placeholder: "select your gender",
-                                             selectionIndex: self.$selectionIndex,
-                                             text: $vm.alarmTime)
-            }
-            HStack {
-                Text("Select a date")
-                DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
-                    Text("date")
+                DatePicker(selection: $vm.alarmTime, displayedComponents: .hourAndMinute) {
+                    Text("알람 시간")
+                        .font(.system(size: 18, weight: .regular))
                 }
-                Text("Birth date is \(birthDate, formatter: dateFormatter)")
-            }.labelsHidden()
+            }
             HStack {
                 Spacer()
                 Text("기도를 작성하기 어려우신가요?")
                 Image(systemName: "info.circle")
             }
+            Spacer()
         }
         .navigationBarTitle("새 기도제목")
         .navigationBarItems(trailing: Button("완료", action: {
             vm.addPray()
         }))
         .background(Color(UIColor.bgColor))
+        .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: UIApplication.bottomInset))
     }
-    
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        return formatter
-    }
-    
-    @State private var birthDate = Date()
-    
 }
 
 struct PrayAddView_Previews: PreviewProvider {

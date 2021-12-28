@@ -13,10 +13,10 @@ class PrayAddVM: ObservableObject {
     private var prayRepo: PrayRepo
     
     @Published var praySubject: String = ""
-    @Published var prayStartDate: String = ""
+    @Published var prayStartDate: String = Date().toString()
     @Published var prayDayList: [String] = []
     @Published var prayTime: String = "3"
-    @Published var alarmTime: String?
+    @Published var alarmTime: Date = Date()
     
     init(prayRepo: PrayRepo) {
         self.prayRepo = prayRepo
@@ -28,10 +28,50 @@ class PrayAddVM: ObservableObject {
     }
     
     func addPray() {
+        Log.w(praySubject)
+        Log.w(prayStartDate)
+        Log.w(prayDayList)
+        Log.w(prayTime)
+        Log.w(alarmTime.toString("hh:mm zzz"))
         prayRepo.add(PraySubject(id: "",
                                  subject: praySubject,
                                  timeString: prayStartDate,
                                  prayDayList: prayDayList,
                                  prayTime: prayTime))
+    }
+}
+
+enum PrayTime: String, CaseIterable, Identifiable {
+    case one = "1분"
+    case two = "2분"
+    case three = "3분"
+    case five = "5분"
+    case ten = "10분"
+    case twenty = "20분"
+    case thirty = "30분"
+    case hour = "1시간"
+    
+    var id: String { self.rawValue }
+}
+
+enum PrayDay: String, CaseIterable, Identifiable {
+    case sun = "일"
+    case mon = "월"
+    case tue = "화"
+    case wed = "수"
+    case thu = "목"
+    case fri = "금"
+    case sat = "토"
+    
+    var id: String { self.rawValue }
+    var textColor: Color {
+        switch self {
+        case .sun:
+            return .red
+        case .mon, .tue, .wed, .thu, .fri:
+            return .black
+        case .sat:
+            return .blue
+        }
     }
 }
