@@ -18,7 +18,6 @@ class PrayAddVM: ObservableObject {
     @Published var prayTime: String = PrayTime.one.rawValue
     @Published var alarmTime: Date = Date()
     @Published var showingAlert = false
-    @Published var showingAlarmAlert = false
     @Published var isAlarmOn = false
     
     var alertTitle = ""
@@ -39,7 +38,7 @@ class PrayAddVM: ObservableObject {
             return
         }
         
-        if prayDayList.isEmpty {
+        if isAlarmOn && prayDayList.isEmpty {
             showingAlert = true
             alertTitle = "요일을 선택하세요"
             return

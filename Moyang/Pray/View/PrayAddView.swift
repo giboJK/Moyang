@@ -13,6 +13,12 @@ struct PrayAddView: View {
     
     @FocusState var isPraySubjectInputActive: Bool
     
+    private enum ActiveAlert {
+        case warning, select
+    }
+    @State private var activeAlert: ActiveAlert = .warning
+    
+    
     var body: some View {
         VStack {
             HStack {
@@ -83,7 +89,8 @@ struct PrayAddView: View {
                 Spacer()
                 Text("기도를 작성하기 어려우신가요?")
                 Button(action: {
-                    print("button pressed")
+                    activeAlert = .select
+                    vm.showingAlert = true
                 }) {
                     Image(systemName: "info.circle")
                         .foregroundColor(.black)
@@ -98,7 +105,20 @@ struct PrayAddView: View {
         .background(Color(UIColor.bgColor))
         .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: UIApplication.bottomInset))
         .alert(isPresented: $vm.showingAlert) {
-            Alert(title: Text(vm.alertTitle), message: Text(""))
+            if activeAlert == .warning {
+                return Alert(title: Text(vm.alertTitle), message: Text(""))
+            } else {
+                return Alert(title: Text("기도제목 도우미를 이용하시겠어요?"),
+                             message: Text(""),
+                             primaryButton: .default(Text("이동"),
+                                                     action: {
+                    activeAlert = .warning
+                }),
+                             secondaryButton: .cancel({
+                    activeAlert = .warning
+                }))
+                
+            }
         }
     }
 }
