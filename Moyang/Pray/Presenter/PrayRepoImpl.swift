@@ -17,7 +17,14 @@ class PrayRepoImpl: PrayRepo {
     
     func add(_ pray: PraySubject) {
         do {
-            _ = try store.collection(collectionName).addDocument(from: pray)
+            var documentName = "TEST"
+            if let userName = UserData.shared.userID {
+                documentName = userName
+            }
+            _ = try store
+                .collection(collectionName)
+                .document(documentName)
+                .setData(from: pray)
         } catch {
             fatalError("Unable to add card: \(error.localizedDescription).")
         }

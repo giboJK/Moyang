@@ -10,13 +10,9 @@ import SwiftUI
 
 struct PrayAddView: View {
     @ObservedObject var vm: PrayAddVM
-    
-    @State var arrGenders = ["Male","Female","Unknown"]
-    @State var selectionIndex = 0
+
     @FocusState var isPraySubjectInputActive: Bool
     @FocusState var isPrayTimeInputActive: Bool
-    
-    var values = ["V1", "V2", "V3"]
     
     var body: some View {
         VStack {
