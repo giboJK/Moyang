@@ -10,9 +10,8 @@ import SwiftUI
 
 struct PrayAddView: View {
     @ObservedObject var vm: PrayAddVM
-
+    
     @FocusState var isPraySubjectInputActive: Bool
-    @FocusState var isPrayTimeInputActive: Bool
     
     var body: some View {
         VStack {
@@ -45,47 +44,50 @@ struct PrayAddView: View {
             }
             Divider()
             HStack {
-                ForEach(PrayDay.allCases) { day in
-                    Button(day.rawValue, action: {
-                        if vm.prayDayList.contains(day.dayCode) {
-                            vm.prayDayList.removeAll { $0 == day.dayCode }
-                        } else {
-                            vm.prayDayList.append(day.dayCode)
-                        }
-                    })
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 40)
-                        .font(.system(size: 18, weight: .regular))
-                        .foregroundColor(vm.prayDayList.contains(day.dayCode) ? .white : day.textColor)
-                        .background(vm.prayDayList.contains(day.dayCode) ? .gray : .white)
-                        .clipShape(Circle())
-                }
-            }
-            HStack {
                 Text("기도 시간")
                     .font(.system(size: 18, weight: .regular))
                 Spacer()
-                Picker("Pray time", selection: $vm.prayTime) {
-                    ForEach(PrayTime.allCases) { flavor in
-                        Text(flavor.rawValue.capitalized)
+                Picker(selection: $vm.prayTime, label: Text("기도 시간")) {
+                    ForEach(PrayTime.allCases) { prayTime in
+                        Text(prayTime.rawValue)
                     }
                 }
             }
-            HStack {
-                Text("알람")
-                    .font(.system(size: 18, weight: .regular))
-                Spacer()
-            }
-            HStack {
+            
+            Toggle("알람", isOn: $vm.isAlarmOn.animation(.easeInOut))
+            if vm.isAlarmOn {
+                HStack {
+                    ForEach(PrayDay.allCases) { day in
+                        Button(day.rawValue, action: {
+                            if vm.prayDayList.contains(day.dayCode) {
+                                vm.prayDayList.removeAll { $0 == day.dayCode }
+                            } else {
+                                vm.prayDayList.append(day.dayCode)
+                            }
+                        })
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 40)
+                            .font(.system(size: 18, weight: .regular))
+                            .foregroundColor(vm.prayDayList.contains(day.dayCode) ? .white : day.textColor)
+                            .background(vm.prayDayList.contains(day.dayCode) ? .gray : .white)
+                            .clipShape(Circle())
+                    }
+                }
                 DatePicker(selection: $vm.alarmTime, displayedComponents: .hourAndMinute) {
                     Text("알람 시간")
                         .font(.system(size: 18, weight: .regular))
                 }
             }
+            
             HStack {
                 Spacer()
                 Text("기도를 작성하기 어려우신가요?")
-                Image(systemName: "info.circle")
+                Button(action: {
+                    print("button pressed")
+                }) {
+                    Image(systemName: "info.circle")
+                        .foregroundColor(.black)
+                }
             }
             Spacer()
         }
@@ -95,6 +97,9 @@ struct PrayAddView: View {
         }))
         .background(Color(UIColor.bgColor))
         .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: UIApplication.bottomInset))
+        .alert(isPresented: $vm.showingAlert) {
+            Alert(title: Text(vm.alertTitle), message: Text(""))
+        }
     }
 }
 

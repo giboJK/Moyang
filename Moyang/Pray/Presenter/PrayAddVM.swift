@@ -15,8 +15,13 @@ class PrayAddVM: ObservableObject {
     @Published var praySubject: String = ""
     @Published var prayStartDate: String = Date().toString()
     @Published var prayDayList: [String] = []
-    @Published var prayTime: String = "3"
+    @Published var prayTime: String = PrayTime.one.rawValue
     @Published var alarmTime: Date = Date()
+    @Published var showingAlert = false
+    @Published var showingAlarmAlert = false
+    @Published var isAlarmOn = false
+    
+    var alertTitle = ""
     
     init(prayRepo: PrayRepo) {
         self.prayRepo = prayRepo
@@ -28,17 +33,25 @@ class PrayAddVM: ObservableObject {
     }
     
     func addPray() {
-        Log.w(praySubject)
-        Log.w(prayStartDate)
-        Log.w(prayDayList)
-        Log.w(prayTime)
-        Log.w(alarmTime.toString("hh:mm a"))
-        prayRepo.add(PraySubject(id: "",
+        if praySubject.isEmpty {
+            showingAlert = true
+            alertTitle = "기도 제목을 입력하세요"
+            return
+        }
+        
+        if prayDayList.isEmpty {
+            showingAlert = true
+            alertTitle = "요일을 선택하세요"
+            return
+        }
+        
+        let prayTimeCode = PrayTime(rawValue: prayTime)!
+        prayRepo.add(PraySubject(id: Date().toString("yyyy-mm-dd hh:mm:ss a"),
                                  createdTimestamp: Date().toString("yyyy-mm-dd hh:mm:ss a"),
                                  praySubject: praySubject,
                                  prayAlarmTime: alarmTime.toString("hh:mm a"),
                                  prayDayList: prayDayList,
-                                 prayTime: prayTime))
+                                 prayTime: prayTimeCode.code))
     }
 }
 
@@ -51,8 +64,32 @@ enum PrayTime: String, CaseIterable, Identifiable {
     case twenty = "20분"
     case thirty = "30분"
     case hour = "1시간"
+    case noChoice = "선택안함"
     
     var id: String { self.rawValue }
+    
+    var code: String {
+        switch self {
+        case .one:
+            return "1"
+        case .two:
+            return "2"
+        case .three:
+            return "3"
+        case .five:
+            return "5"
+        case .ten:
+            return "10"
+        case .twenty:
+            return "20"
+        case .thirty:
+            return "30"
+        case .hour:
+            return "60"
+        case .noChoice:
+            return "-1"
+        }
+    }
 }
 
 enum PrayDay: String, CaseIterable, Identifiable {
