@@ -24,9 +24,10 @@ class PrayRepoImpl: PrayRepo {
             _ = try store
                 .collection(collectionName)
                 .document(documentName)
-                .setData(from: pray)
+                .collection(pray.createdTimestamp)
+                .addDocument(from: pray)
         } catch {
-            fatalError("Unable to add card: \(error.localizedDescription).")
+            Log.e(MoyangError.writingFailed)
         }
     }
     

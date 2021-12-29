@@ -34,8 +34,9 @@ class PrayAddVM: ObservableObject {
         Log.w(prayTime)
         Log.w(alarmTime.toString("hh:mm a"))
         prayRepo.add(PraySubject(id: "",
-                                 subject: praySubject,
-                                 timeString: prayStartDate,
+                                 createdTimestamp: Date().toString("yyyy-mm-dd hh:mm:ss a"),
+                                 praySubject: praySubject,
+                                 prayAlarmTime: alarmTime.toString("hh:mm a"),
                                  prayDayList: prayDayList,
                                  prayTime: prayTime))
     }

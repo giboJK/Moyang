@@ -22,7 +22,7 @@ struct PrayPreviewCard: View {
             .padding(.top, 10)
             Divider().padding(-5)
             HStack {
-                Text(vm.pray.subject)
+                Text(vm.pray.praySubject)
                     .font(.system(size: 16, weight: .regular, design: .default))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 Spacer()
@@ -33,10 +33,11 @@ struct PrayPreviewCard: View {
                     .font(.system(size: 14, weight: .regular, design: .default))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 Spacer()
-                Text(vm.pray.timeString)
+                Text(vm.pray.prayAlarmTime)
                     .font(.system(size: 14, weight: .regular, design: .default))
             }
             .padding(.bottom, 10)
+            // TODO: 여기에 시계아이콘이랑 기도시간
         }
         .modifier(MainCard())
         .eraseToAnyView()

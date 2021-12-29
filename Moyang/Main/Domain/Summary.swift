@@ -18,7 +18,8 @@ struct Summary: Codable {
     let qtSubject: String
     let prayId: String
     let praySubject: String
-    let prayStartDate: String
+    let prayAlarmTime: String
+    let prayCreatedTimestamp: String
     let prayDayList: [String]
     let prayTime: String
     
@@ -33,7 +34,8 @@ struct Summary: Codable {
         case qtSubject = "qt_subject"
         case prayId = "pray_id"
         case praySubject = "pray_subject"
-        case prayStartDate = "pray_start_date"
+        case prayAlarmTime = "pray_alarm_time"
+        case prayCreatedTimestamp = "pray_created_timestamp"
         case prayDayList = "pray_day_list"
         case prayTime = "pray_time"
     }

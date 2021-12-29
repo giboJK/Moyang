@@ -42,8 +42,9 @@ class MainCategoryVM: ObservableObject {
     
     private func makePrayCardVM(prayCardItem: PrayCardItem) {
         let praySubject = PraySubject(id: prayCardItem.id,
-                                      subject: prayCardItem.praySubject,
-                                      timeString: prayCardItem.prayStartDate,
+                                      createdTimestamp: prayCardItem.createdTimestamp,
+                                      praySubject: prayCardItem.praySubject,
+                                      prayAlarmTime: prayCardItem.prayAlarmTime,
                                       prayDayList: prayCardItem.prayDayList,
                                       prayTime: prayCardItem.prayTime)
         prayCardVM = PrayCardVM.init(pray: praySubject)
@@ -89,14 +90,16 @@ extension MainCategoryVM {
     struct PrayCardItem: Identifiable {
         let id: String
         let praySubject: String
-        let prayStartDate: String
+        let createdTimestamp: String
+        let prayAlarmTime: String
         let prayDayList: [String]
         let prayTime: String
         
         init(summary: Summary) {
             id = summary.prayId
             praySubject = summary.praySubject
-            prayStartDate = summary.prayStartDate
+            createdTimestamp = summary.prayCreatedTimestamp
+            prayAlarmTime = summary.prayAlarmTime
             prayDayList = summary.prayDayList
             prayTime = summary.prayTime
         }

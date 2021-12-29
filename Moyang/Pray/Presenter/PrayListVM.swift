@@ -46,12 +46,14 @@ extension PrayListVM {
     struct PrayListItem: Identifiable {
         let id: String
         let subject: String
-        let timeString: String
+        let alarmTime: String
+        let prayTime: String
 
         init(praySubject: PraySubject) {
             id = praySubject.id
-            subject = praySubject.subject
-            timeString = praySubject.timeString
+            subject = praySubject.praySubject
+            alarmTime = praySubject.prayAlarmTime
+            prayTime = praySubject.prayTime
         }
     }
 }
