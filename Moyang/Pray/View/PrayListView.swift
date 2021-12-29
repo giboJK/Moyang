@@ -19,11 +19,8 @@ struct PrayListView: View {
         VStack {
             NavigationLink(destination: PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl())),
                            isActive: $newPraySubject) { EmptyView() }
-            
-            Button(action: addPray) {
-                Text("Add New Card")
-                    .foregroundColor(.blue)
-            }
+            Text("Add New Pray")
+                .foregroundColor(.blue)
             Spacer()
         }
         .navigationBarItems(trailing: Button(action: { newPraySubject.toggle()},
@@ -39,12 +36,6 @@ struct PrayListView: View {
     }
     
     private func addPray() {
-        let praySubject = PraySubject(id: "asdb12313312",
-                                      subject: "ddkdkkd",
-                                      timeString: Date().toString(),
-                                      prayDayList: ["mon", "wed", "sat"],
-                                      prayTime: "08:30 pm")
-        vm.add(praySubject)
         presentationMode.wrappedValue.dismiss()
     }
 }

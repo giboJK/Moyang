@@ -51,20 +51,19 @@ struct PrayAddView: View {
             HStack {
                 ForEach(PrayDay.allCases) { day in
                     Button(day.rawValue, action: {
-                        if vm.prayDayList.contains(day.rawValue) {
-                            vm.prayDayList.removeAll { $0 == day.rawValue }
+                        if vm.prayDayList.contains(day.dayCode) {
+                            vm.prayDayList.removeAll { $0 == day.dayCode }
                         } else {
-                            vm.prayDayList.append(day.rawValue)
+                            vm.prayDayList.append(day.dayCode)
                         }
                     })
                         .frame(maxWidth: .infinity)
                         .frame(height: 40)
                         .font(.system(size: 18, weight: .regular))
-                        .foregroundColor(vm.prayDayList.contains(day.rawValue) ? .white : day.textColor)
-                        .background(vm.prayDayList.contains(day.rawValue) ? .gray : .white)
+                        .foregroundColor(vm.prayDayList.contains(day.dayCode) ? .white : day.textColor)
+                        .background(vm.prayDayList.contains(day.dayCode) ? .gray : .white)
                         .clipShape(Circle())
                 }
-                
             }
             HStack {
                 Text("기도 시간")

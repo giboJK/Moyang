@@ -32,7 +32,7 @@ class PrayAddVM: ObservableObject {
         Log.w(prayStartDate)
         Log.w(prayDayList)
         Log.w(prayTime)
-        Log.w(alarmTime.toString("hh:mm zzz"))
+        Log.w(alarmTime.toString("hh:mm a"))
         prayRepo.add(PraySubject(id: "",
                                  subject: praySubject,
                                  timeString: prayStartDate,
@@ -64,6 +64,7 @@ enum PrayDay: String, CaseIterable, Identifiable {
     case sat = "토"
     
     var id: String { self.rawValue }
+    
     var textColor: Color {
         switch self {
         case .sun:
@@ -72,6 +73,25 @@ enum PrayDay: String, CaseIterable, Identifiable {
             return .black
         case .sat:
             return .blue
+        }
+    }
+    
+    var dayCode: String {
+        switch self {
+        case .sun:
+            return "sun"
+        case .mon:
+            return "mon"
+        case .tue:
+            return "tue"
+        case .wed:
+            return "wed"
+        case .thu:
+            return "thu"
+        case .fri:
+            return "fri"
+        case .sat:
+            return "sat"
         }
     }
 }

@@ -39,6 +39,7 @@
 		246BD7F727240AE4005C4E0B /* CellRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E627240AE4005C4E0B /* CellRepo.swift */; };
 		246BD7F827240AE4005C4E0B /* CellPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E727240AE4005C4E0B /* CellPreview.swift */; };
 		246BD7FC27240AFA005C4E0B /* QTPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7FB27240AFA005C4E0B /* QTPreviewCard.swift */; };
+		24755367277CA9AB001908A6 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24755366277CA9AB001908A6 /* UserData.swift */; };
 		2481EF22276D9D3900C70E26 /* CellCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481EF21276D9D3900C70E26 /* CellCardVM.swift */; };
 		248FEC102723A08D00321E5E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC0F2723A08D00321E5E /* MainView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
@@ -125,6 +126,7 @@
 		246BD7E627240AE4005C4E0B /* CellRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRepo.swift; sourceTree = "<group>"; };
 		246BD7E727240AE4005C4E0B /* CellPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPreview.swift; sourceTree = "<group>"; };
 		246BD7FB27240AFA005C4E0B /* QTPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QTPreviewCard.swift; sourceTree = "<group>"; };
+		24755366277CA9AB001908A6 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		2481EF21276D9D3900C70E26 /* CellCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCardVM.swift; sourceTree = "<group>"; };
 		248FEC0F2723A08D00321E5E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 			children = (
 				24BB803427565E1300BE2988 /* RealmManager.swift */,
 				24BB803627565E2200BE2988 /* LocalDB.swift */,
+				24755366277CA9AB001908A6 /* UserData.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -823,6 +826,7 @@
 				24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */,
 				246BD7F427240AE4005C4E0B /* CellPreviewCard.swift in Sources */,
 				24D7BB31274D179200CC8B7C /* CellPrayListVM.swift in Sources */,
+				24755367277CA9AB001908A6 /* UserData.swift in Sources */,
 				246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */,
 				246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */,
 				248FF3F42758D681009688C6 /* CellAssembly.swift in Sources */,

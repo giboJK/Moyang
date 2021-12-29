@@ -7,3 +7,13 @@
 
 import Foundation
 import RealmSwift
+
+class RealmManager: LocalDB {
+    
+    init() {}
+    
+    deinit {
+        Log.i(self)
+    }
+    
+}
