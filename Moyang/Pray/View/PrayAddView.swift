@@ -103,7 +103,7 @@ struct PrayAddView: View {
             vm.addPray()
         }))
         .background(Color(UIColor.bgColor))
-        .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: UIApplication.bottomInset))
+        .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 0))
         .alert(isPresented: $vm.showingAlert) {
             if activeAlert == .warning {
                 return Alert(title: Text(vm.alertTitle), message: Text(""))

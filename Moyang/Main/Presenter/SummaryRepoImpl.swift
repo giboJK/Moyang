@@ -21,13 +21,12 @@ class SummaryRepoImpl: SummaryRepo {
     }
     
     func fetchSummary() -> AnyPublisher<Summary, MoyangError> {
-        //        return Empty(completeImmediately: false).eraseToAnyPublisher()
-        return service.fetchObject(collection: collectionName,
-                                   type: Summary.self)
+        return Empty(completeImmediately: false).eraseToAnyPublisher()
     }
     
     func addSummaryListener() -> PassthroughSubject<Summary, MoyangError> {
-        return service.addListener(collection: collectionName,
+        let ref = service.store.collection(collectionName)
+        return service.addListener(ref: ref,
                                    type: Summary.self)
     }
 }

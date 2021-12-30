@@ -18,6 +18,7 @@ class PrayListVM: ObservableObject {
 
     init(prayRepo: PrayRepo) {
         self.prayRepo = prayRepo
+        fetchPrayList()
     }
 
     deinit {

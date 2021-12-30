@@ -15,92 +15,59 @@ class FireStoreService {
     
     let store = Firestore.firestore()
     
-    func addDocument<T: Codable>(_ object: T, ref: CollectionReference) -> AnyPublisher<Bool, MoyangError> {
+    func addDocument<T: Codable>(_ object: T,
+                                 ref: CollectionReference) -> AnyPublisher<Bool, MoyangError> {
         return Future<Bool, MoyangError> { promise in
             do {
-                _ = try ref
-                    .addDocument(from: object)
+                _ = try ref.addDocument(from: object)
                 promise(.success(true))
             } catch {
                 promise(.failure(MoyangError.writingFailed))
             }
         }.eraseToAnyPublisher()
-
+        
     }
-    
-    func fetchObject<T: Codable>(collection: String,
-                                 type: T.Type) -> AnyPublisher<T, MoyangError> {
-        return Future<T, MoyangError> { [weak self] promise in
-            guard let self = self else { return }
-            self.store.collection(collection)
-                .addSnapshotListener { querySnapshot, error in
-                    if let error = error {
-                        promise(.failure(MoyangError.other(error)))
-                    }
-                    if let query = querySnapshot {
-                        let objectList = query.documents.compactMap { document in
-                            try? document.data(as: T.self)
-                        }
-                        _ = query.documents.compactMap { document in
-                            Log.i(document.data())
-                        }
-                        if let object = objectList.first {
-                            promise(.success(object))
-                        } else {
-                            promise(.failure(MoyangError.decodingFailed))
-                        }
-                    } else {
-                        promise(.failure(MoyangError.emptyData))
-                    }
-                }
-        }.eraseToAnyPublisher()
-    }
-    
-    func addListener<T: Codable>(collection: String,
+        
+    func addListener<T: Codable>(ref: CollectionReference,
                                  type: T.Type) -> PassthroughSubject<T, MoyangError> {
-        let subject = PassthroughSubject<T, MoyangError>()
-        self.store.collection(collection)
-            .addSnapshotListener { querySnapshot, error in
-                if let error = error {
-                    subject.send(completion: .failure(.other(error)))
-                }
-                if let query = querySnapshot {
-                    let objectList = query.documents.compactMap { document in
-                        try? document.data(as: T.self)
-                    }
-                    if let object = objectList.first {
-                        subject.send(object)
-                    } else {
-                        subject.send(completion: .failure(.decodingFailed))
-                    }
-                } else {
-                    subject.send(completion: .failure(.emptyData))
-                }
+        let listener = PassthroughSubject<T, MoyangError>()
+        ref.addSnapshotListener { querySnapshot, error in
+            if let error = error {
+                listener.send(completion: .failure(.other(error)))
             }
-        return subject
+            if let query = querySnapshot {
+                let objectList = query.documents.compactMap { document in
+                    try? document.data(as: T.self)
+                }
+                if let object = objectList.first {
+                    listener.send(object)
+                } else {
+                    listener.send(completion: .failure(.decodingFailed))
+                }
+            } else {
+                listener.send(completion: .failure(.emptyData))
+            }
+        }
+        
+        return listener
     }
     
-    func fetchObjectList<T: Codable>(collection: String,
-                                     type: T.Type) -> AnyPublisher<[T], MoyangError> {
-            return Future<[T], MoyangError> { [weak self] promise in
-                guard let self = self else { return }
-                self.store.collection(collection)
-                    .addSnapshotListener { querySnapshot, error in
-                        if let error = error {
-                            promise(.failure(MoyangError.other(error)))
-                        }
-                        if let query = querySnapshot {
-                            let objectList = query.documents.compactMap { document in
-                                try? document.data(as: T.self)
-                            }
-                            _ = query.documents.compactMap { document in
-                                Log.i(document.data())
-                            }
-                            promise(.success(objectList))
-                        } else {
-                            promise(.failure(MoyangError.emptyData))
-                        }
-                    }
-            }.eraseToAnyPublisher()
+    func addListener<T: Codable>(ref: CollectionReference,
+                                 type: T.Type) -> PassthroughSubject<[T], MoyangError> {
+        let listener = PassthroughSubject<[T], MoyangError>()
+        ref.addSnapshotListener { querySnapshot, error in
+            if let error = error {
+                listener.send(completion: .failure(.other(error)))
+            }
+            if let query = querySnapshot {
+                let objectList = query.documents.compactMap { document in
+                    try? document.data(as: T.self)
+                }
+                listener.send(objectList)
+            } else {
+                listener.send(completion: .failure(.decodingFailed))
+            }
         }
+        return listener
+    }
 }

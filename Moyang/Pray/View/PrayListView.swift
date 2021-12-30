@@ -30,9 +30,6 @@ struct PrayListView: View {
                 .foregroundColor(Color.black)
         }))
         .background(Color(UIColor.sheep))
-        .onAppear {
-            vm.fetchPrayList()
-        }
     }
 }
 

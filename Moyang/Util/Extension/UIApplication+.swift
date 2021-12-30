@@ -16,9 +16,4 @@ extension UIApplication {
             .first?.windows
             .filter({ $0.isKeyWindow }).first?
             .windowScene?.statusBarManager?.statusBarFrame.height ?? 48 }
-    
-    @nonobjc class var bottomInset: CGFloat { max(UIApplication.shared
-        .windows
-        .first?
-        .safeAreaInsets.bottom ?? 0, 20) }
 }

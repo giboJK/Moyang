@@ -28,6 +28,10 @@ class PrayRepoImpl: PrayRepo {
         return service.addDocument(pray, ref: ref)
     }
     
+    func addPraySubjectListener() -> PassthroughSubject<[PraySubject], MoyangError> {
+        
+    }
+    
     func fetchPraySubject() -> AnyPublisher<PraySubject, MoyangError> {
         return Future<PraySubject, MoyangError> { [weak self] promise in
             guard let self = self else { return }
@@ -52,8 +56,7 @@ class PrayRepoImpl: PrayRepo {
         }.eraseToAnyPublisher()
     }
     
-    func addSummaryListener() -> PassthroughSubject<[PraySubject], MoyangError> {
-        return service.addListener(collection: collectionName,
-                                   type: [PraySubject].self)
-    }
+//    func addPraySubjectListListener() -> PassthroughSubject<[PraySubject], MoyangError> {
+//        return
+//    }
 }
