@@ -36,10 +36,6 @@ class PrayListVM: ObservableObject {
                 self.prayCardVMs = [item]
             }.store(in: &cancellables)
     }
-    
-    func add(_ pray: PraySubject) {
-        prayRepo.add(pray)
-    }
 }
 
 extension PrayListVM {

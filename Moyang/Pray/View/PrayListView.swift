@@ -34,10 +34,6 @@ struct PrayListView: View {
             vm.fetchPrayList()
         }
     }
-    
-    private func addPray() {
-        presentationMode.wrappedValue.dismiss()
-    }
 }
 
 struct PrayListView_Previews: PreviewProvider {

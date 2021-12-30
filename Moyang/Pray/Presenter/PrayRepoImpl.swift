@@ -11,30 +11,22 @@ import FirebaseFirestoreSwift
 import Combine
 
 class PrayRepoImpl: PrayRepo {
+    private let service = FireStoreService()
     private let store = Firestore.firestore()
     private let collectionName = "PRAY_SUBJECT"
     
     
     func add(_ pray: PraySubject) -> AnyPublisher<Bool, MoyangError> {
-        return Future<Bool, MoyangError> { [weak self] promise in
-            guard let self = self else { return }
-            do {
-                var documentName = "TEST"
-                if let userName = UserData.shared.userID {
-                    documentName = userName
-                }
-                _ = try self.store
-                    .collection(self.collectionName)
-                    .document(documentName)
-                    .collection(pray.createdTimestamp)
-                    .addDocument(from: pray)
-                promise(.success(true))
-            } catch {
-                promise(.failure(MoyangError.writingFailed))
-            }
-        }.eraseToAnyPublisher()
+        var documentName = "TEST"
+        if let userName = UserData.shared.userID {
+            documentName = userName
+        }
+        let ref = service.store
+            .collection(self.collectionName)
+            .document(documentName)
+            .collection(pray.createdTimestamp)
+        return service.addDocument(pray, ref: ref)
     }
-    
     
     func fetchPraySubject() -> AnyPublisher<PraySubject, MoyangError> {
         return Future<PraySubject, MoyangError> { [weak self] promise in
@@ -58,5 +50,10 @@ class PrayRepoImpl: PrayRepo {
                     }
                 }
         }.eraseToAnyPublisher()
+    }
+    
+    func addSummaryListener() -> PassthroughSubject<[PraySubject], MoyangError> {
+        return service.addListener(collection: collectionName,
+                                   type: [PraySubject].self)
     }
 }

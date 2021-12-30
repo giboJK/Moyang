@@ -12,4 +12,7 @@ protocol PrayRepo {
     func add(_ pray: PraySubject) -> AnyPublisher<Bool, MoyangError>
     
     func fetchPraySubject() -> AnyPublisher<PraySubject, MoyangError>
+    
+    // For firebase
+    func addSummaryListener() -> PassthroughSubject<[PraySubject], MoyangError>
 }

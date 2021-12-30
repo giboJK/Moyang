@@ -13,7 +13,20 @@ class FireStoreService {
     
     deinit { Log.i(self) }
     
-    private let store = Firestore.firestore()
+    let store = Firestore.firestore()
+    
+    func addDocument<T: Codable>(_ object: T, ref: CollectionReference) -> AnyPublisher<Bool, MoyangError> {
+        return Future<Bool, MoyangError> { promise in
+            do {
+                _ = try ref
+                    .addDocument(from: object)
+                promise(.success(true))
+            } catch {
+                promise(.failure(MoyangError.writingFailed))
+            }
+        }.eraseToAnyPublisher()
+
+    }
     
     func fetchObject<T: Codable>(collection: String,
                                  type: T.Type) -> AnyPublisher<T, MoyangError> {
