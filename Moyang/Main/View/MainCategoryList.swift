@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct MainCategoryList: View {
-    @ObservedObject var prayListVM = PrayListVM(prayRepo: PrayRepoImpl())
     @ObservedObject var vm = MainCategoryVM(repo: SummaryRepoImpl())
     private let cellRepo = CellRepoImpl()
     
@@ -21,7 +20,7 @@ struct MainCategoryList: View {
                         CellPreviewCard(vm: cellCardVM)
                     }
                 }
-                NavigationLink(destination: PrayListView(vm: prayListVM)) {
+                NavigationLink(destination: PrayListView(vm: PrayListVM(prayRepo: PrayRepoImpl()))) {
                     if let prayCardVM = vm.prayCardVM {
                         PrayPreviewCard(vm: prayCardVM)
                     }

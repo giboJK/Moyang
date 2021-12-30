@@ -25,7 +25,18 @@ class FireStoreService {
                 promise(.failure(MoyangError.writingFailed))
             }
         }.eraseToAnyPublisher()
-        
+    }
+    
+    func addDocument<T: Codable>(_ object: T,
+                                 ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> {
+        return Future<Bool, MoyangError> { promise in
+            do {
+                _ = try ref.setData(from: object)
+                promise(.success(true))
+            } catch {
+                promise(.failure(MoyangError.writingFailed))
+            }
+        }.eraseToAnyPublisher()
     }
         
     func addListener<T: Codable>(ref: CollectionReference,
@@ -68,6 +79,7 @@ class FireStoreService {
                 listener.send(completion: .failure(.decodingFailed))
             }
         }
+        
         return listener
     }
 }

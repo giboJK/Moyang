@@ -30,6 +30,11 @@ struct PrayListView: View {
                 .foregroundColor(Color.black)
         }))
         .background(Color(UIColor.sheep))
+        .onLoad(perform: fetchData)
+    }
+    
+    private func fetchData() {
+        vm.fetchPrayList()
     }
 }
 

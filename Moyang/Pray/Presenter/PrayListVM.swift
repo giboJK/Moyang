@@ -18,7 +18,6 @@ class PrayListVM: ObservableObject {
 
     init(prayRepo: PrayRepo) {
         self.prayRepo = prayRepo
-        fetchPrayList()
     }
 
     deinit {
@@ -27,14 +26,19 @@ class PrayListVM: ObservableObject {
     }
     
     func fetchPrayList() {
-        prayRepo.fetchPraySubject()
-            .map { praySubject in
-                PrayCardVM.init(pray: praySubject)
+        prayRepo.addPraySubjectListListener()
+            .map { praySubjectList -> [PrayCardVM] in
+                var list = [PrayCardVM]()
+                praySubjectList.forEach { praySubject in
+                    list.append(PrayCardVM.init(pray: praySubject))
+                }
+                return list
             }
             .sink { completion in
                 Log.i(completion)
             } receiveValue: { item in
-                self.prayCardVMs = [item]
+                self.prayCardVMs = item
+                Log.w(self.prayCardVMs)
             }.store(in: &cancellables)
     }
 }

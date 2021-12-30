@@ -91,10 +91,10 @@ struct PrayAddView: View {
                 Button(action: {
                     activeAlert = .select
                     vm.showingAlert = true
-                }) {
+                }, label: {
                     Image(systemName: "info.circle")
                         .foregroundColor(.black)
-                }
+                })
             }
             Spacer()
         }
@@ -103,7 +103,7 @@ struct PrayAddView: View {
             vm.addPray()
         }))
         .background(Color(UIColor.bgColor))
-        .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 0))
+        .padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20))
         .alert(isPresented: $vm.showingAlert) {
             if activeAlert == .warning {
                 return Alert(title: Text(vm.alertTitle), message: Text(""))

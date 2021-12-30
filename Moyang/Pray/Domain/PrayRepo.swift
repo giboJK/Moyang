@@ -13,6 +13,5 @@ protocol PrayRepo {
     
     func fetchPraySubject() -> AnyPublisher<PraySubject, MoyangError>
     
-    // For firebase
-//    func addSummaryListener() -> PassthroughSubject<[PraySubject], MoyangError>
+    func addPraySubjectListListener() -> PassthroughSubject<[PraySubject], MoyangError>
 }
