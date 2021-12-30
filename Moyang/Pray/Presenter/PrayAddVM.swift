@@ -70,7 +70,7 @@ class PrayAddVM: ObservableObject {
                 if isSaved {
                     self?.performBusinessLogic()
                 } else {
-                    showingAlert = true
+                    self?.showingAlert = true
                     self?.alertTitle = "네트워크 오류"
                 }
             }).store(in: &cancellables)
