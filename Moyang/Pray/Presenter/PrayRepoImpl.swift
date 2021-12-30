@@ -15,20 +15,24 @@ class PrayRepoImpl: PrayRepo {
     private let collectionName = "PRAY_SUBJECT"
     
     
-    func add(_ pray: PraySubject) {
-        do {
-            var documentName = "TEST"
-            if let userName = UserData.shared.userID {
-                documentName = userName
+    func add(_ pray: PraySubject) -> AnyPublisher<Bool, MoyangError> {
+        return Future<Bool, MoyangError> { [weak self] promise in
+            guard let self = self else { return }
+            do {
+                var documentName = "TEST"
+                if let userName = UserData.shared.userID {
+                    documentName = userName
+                }
+                _ = try self.store
+                    .collection(self.collectionName)
+                    .document(documentName)
+                    .collection(pray.createdTimestamp)
+                    .addDocument(from: pray)
+                promise(.success(true))
+            } catch {
+                promise(.failure(MoyangError.writingFailed))
             }
-            _ = try store
-                .collection(collectionName)
-                .document(documentName)
-                .collection(pray.createdTimestamp)
-                .addDocument(from: pray)
-        } catch {
-            Log.e(MoyangError.writingFailed)
-        }
+        }.eraseToAnyPublisher()
     }
     
     

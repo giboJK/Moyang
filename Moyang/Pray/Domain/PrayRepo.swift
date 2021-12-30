@@ -9,7 +9,7 @@
 import Combine
 
 protocol PrayRepo {
-    func add(_ pray: PraySubject)
+    func add(_ pray: PraySubject) -> AnyPublisher<Bool, MoyangError>
     
     func fetchPraySubject() -> AnyPublisher<PraySubject, MoyangError>
 }

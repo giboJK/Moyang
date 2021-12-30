@@ -10,14 +10,14 @@ import SwiftUI
 
 struct PrayAddView: View {
     @ObservedObject var vm: PrayAddVM
-    
     @FocusState var isPraySubjectInputActive: Bool
+    @Environment(\.presentationMode) var presentationMode
     
     private enum ActiveAlert {
         case warning, select
     }
-    @State private var activeAlert: ActiveAlert = .warning
     
+    @State private var activeAlert: ActiveAlert = .warning
     
     var body: some View {
         VStack {
@@ -118,6 +118,11 @@ struct PrayAddView: View {
                     activeAlert = .warning
                 }))
                 
+            }
+        }
+        .onReceive(vm.viewDismissalModePublisher) { shouldDismiss in
+            if shouldDismiss {
+                self.presentationMode.wrappedValue.dismiss()
             }
         }
     }

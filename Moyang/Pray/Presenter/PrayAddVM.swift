@@ -20,6 +20,19 @@ class PrayAddVM: ObservableObject {
     @Published var showingAlert = false
     @Published var isAlarmOn = false
     
+    var viewDismissalModePublisher = PassthroughSubject<Bool, Never>()
+    private var shouldDismissView = false {
+        didSet {
+            viewDismissalModePublisher.send(shouldDismissView)
+        }
+    }
+
+    func performBusinessLogic() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.shouldDismissView = true
+        }
+    }
+    
     var alertTitle = ""
     
     init(prayRepo: PrayRepo) {
@@ -45,12 +58,22 @@ class PrayAddVM: ObservableObject {
         }
         
         let prayTimeCode = PrayTime(rawValue: prayTime)!
-        prayRepo.add(PraySubject(id: Date().toString("yyyy-mm-dd hh:mm:ss a"),
-                                 createdTimestamp: Date().toString("yyyy-mm-dd hh:mm:ss a"),
+        prayRepo.add(PraySubject(id: Date().toString("yyyy-MM-dd hh:mm:ss a"),
+                                 createdTimestamp: Date().toString("yyyy-MM-dd hh:mm:ss a"),
                                  praySubject: praySubject,
                                  prayAlarmTime: alarmTime.toString("hh:mm a"),
                                  prayDayList: prayDayList,
                                  prayTime: prayTimeCode.code))
+            .sink(receiveCompletion: { Log.i($0) },
+            receiveValue: { [weak self] isSaved in
+                Log.d(isSaved)
+                if isSaved {
+                    self?.performBusinessLogic()
+                } else {
+                    showingAlert = true
+                    self?.alertTitle = "네트워크 오류"
+                }
+            }).store(in: &cancellables)
     }
 }
 
