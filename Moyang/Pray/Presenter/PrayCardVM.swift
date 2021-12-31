@@ -9,13 +9,15 @@
 import SwiftUI
 import Combine
 
-class PrayCardVM: ObservableObject {
+class PrayCardVM: ObservableObject, Identifiable {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var pray: PraySubject
+    @Published var id: String
     
     init(pray: PraySubject) {
         self.pray = pray
+        self.id = pray.id
     }
     
     deinit {

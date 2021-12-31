@@ -38,7 +38,6 @@ class PrayListVM: ObservableObject {
                 Log.i(completion)
             } receiveValue: { item in
                 self.prayCardVMs = item
-                Log.w(self.prayCardVMs)
             }.store(in: &cancellables)
     }
 }

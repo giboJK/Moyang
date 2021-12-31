@@ -16,17 +16,16 @@ struct PrayListView: View {
     @State private var newPraySubject = false
     
     var body: some View {
+        NavigationLink(destination: PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl())),
+                       isActive: $newPraySubject) { EmptyView() }
         VStack {
-            NavigationLink(destination: PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl())),
-                           isActive: $newPraySubject) { EmptyView() }
-            Text("Add New Pray")
-                .foregroundColor(.blue)
-            Spacer()
+            List(vm.prayCardVMs, id: \.id) { prayCardVM in
+                PrayCardView(vm: prayCardVM)
+            }
         }
         .navigationBarItems(trailing: Button(action: { newPraySubject.toggle()},
                                              label: {
             Image(systemName: "plus")
-                .accessibilityLabel("Adding a new pray")
                 .foregroundColor(Color.black)
         }))
         .background(Color(UIColor.sheep))
