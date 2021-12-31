@@ -22,6 +22,7 @@ struct PrayListView: View {
             List(vm.prayCardVMs, id: \.id) { prayCardVM in
                 PrayCardView(vm: prayCardVM)
             }
+            .listStyle(.plain)
         }
         .navigationBarItems(trailing: Button(action: { newPraySubject.toggle()},
                                              label: {
@@ -29,6 +30,7 @@ struct PrayListView: View {
                 .foregroundColor(Color.black)
         }))
         .background(Color(UIColor.sheep))
+        .navigationTitle("기도 목록")
         .onLoad(perform: fetchData)
     }
     
