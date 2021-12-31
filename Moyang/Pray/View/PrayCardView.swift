@@ -28,9 +28,12 @@ struct PrayCardView: View {
             }
             Spacer()
             HStack {
+                Image(systemName: "clock")
+                Text(vm.pray.prayTime)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                Spacer()
                 Text("다음 기도 시간")
                     .font(.system(size: 14, weight: .regular, design: .default))
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
                 Spacer()
                 Text(vm.pray.prayAlarmTime)
                     .font(.system(size: 14, weight: .regular, design: .default))

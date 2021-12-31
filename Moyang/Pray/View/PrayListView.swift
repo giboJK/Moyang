@@ -20,7 +20,11 @@ struct PrayListView: View {
                        isActive: $newPraySubject) { EmptyView() }
         VStack {
             List(vm.prayCardVMs, id: \.id) { prayCardVM in
-                PrayCardView(vm: prayCardVM)
+                NavigationLink {
+                    PrayView()
+                } label: {
+                    PrayCardView(vm: prayCardVM)
+                }
             }
             .listStyle(.plain)
         }
