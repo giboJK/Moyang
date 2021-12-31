@@ -27,10 +27,8 @@ class PrayAddVM: ObservableObject {
         }
     }
 
-    func performBusinessLogic() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.shouldDismissView = true
-        }
+    func prayIsAdded() {
+        self.shouldDismissView = true
     }
     
     var alertTitle = ""
@@ -66,9 +64,8 @@ class PrayAddVM: ObservableObject {
                                  prayTime: prayTimeCode.code))
             .sink(receiveCompletion: { Log.i($0) },
             receiveValue: { [weak self] isSaved in
-                Log.d(isSaved)
                 if isSaved {
-                    self?.performBusinessLogic()
+                    self?.prayIsAdded()
                 } else {
                     self?.showingAlert = true
                     self?.alertTitle = "네트워크 오류"
