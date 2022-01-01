@@ -1,9 +1,47 @@
-{
-    "id":"3124400001",
-    "create_timestamp":"2021-12-25 09:09:44 AM",
-    "pray_subject":"기도제목 기도제목. 내 정당함에 집중하지 않게 해주세요.",
-    "is_alarm_on":false,
-    "pray_alarm_time":"06:30 pm",
-    "pray_day_list":["mon", "thu", "sun"],
-    "pray_time":"3분"
-}
+[
+    {
+        "id":"3124400001",
+        "create_timestamp":"2021-12-25 09:09:44 AM",
+        "pray_subject":"내 정당함에 집중하지 않게 해주세요.",
+        "is_alarm_on":false,
+        "pray_alarm_time":"06:30 pm",
+        "pray_day_list":["sun", "mon", "thu"],
+        "pray_time":"3분"
+    },
+    {
+        "id":"2eqwdasfq3",
+        "create_timestamp":"2021-12-25 09:09:44 AM",
+        "pray_subject":"주님의 뜻을 듣게 해주세요",
+        "is_alarm_on":false,
+        "pray_alarm_time":"06:30 pm",
+        "pray_day_list":["sun"],
+        "pray_time":"3분"
+    },
+    {
+        "id":"21eqwdesv",
+        "create_timestamp":"2021-12-25 09:09:44 AM",
+        "pray_subject":"믿음, 소망, 사랑 그 중에 제일은 사랑이라",
+        "is_alarm_on":false,
+        "pray_alarm_time":"06:30 pm",
+        "pray_day_list":["sun", "mon", "fri"],
+        "pray_time":"3분"
+    },
+    {
+        "id":"asdq3svcvwd",
+        "create_timestamp":"2021-12-25 09:09:44 AM",
+        "pray_subject":"기도제목 기도제목.",
+        "is_alarm_on":false,
+        "pray_alarm_time":"06:30 pm",
+        "pray_day_list":["sun", "sat"],
+        "pray_time":"3분"
+    },
+    {
+        "id":"24rwrgebsfwef",
+        "create_timestamp":"2021-12-25 09:09:44 AM",
+        "pray_subject":"기도제목 기도제목. 내 정당함에 집중하지 않게 해주세요.",
+        "is_alarm_on":false,
+        "pray_alarm_time":"06:30 pm",
+        "pray_day_list":["wed"],
+        "pray_time":"3분"
+    }
+]

@@ -130,6 +130,6 @@ struct PrayAddView: View {
 
 struct PrayAddView_Previews: PreviewProvider {
     static var previews: some View {
-        PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl(service: FireStoreServiceMock())))
+        PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl(service: FirestoreServiceImpl())))
     }
 }

@@ -11,6 +11,7 @@ import SwiftUI
 struct MainCategoryList: View {
     @ObservedObject var vm = MainCategoryVM(repo: SummaryRepoImpl())
     private let cellRepo = CellRepoImpl()
+    private let prayRepo = PrayRepoImpl(service: FirestoreServiceImpl())
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -20,7 +21,7 @@ struct MainCategoryList: View {
                         CellPreviewCard(vm: cellCardVM)
                     }
                 }
-                NavigationLink(destination: PrayListView(vm: PrayListVM(prayRepo: PrayRepoImpl(service: FirestoreServiceImpl())))) {
+                NavigationLink(destination: PrayListView(vm: PrayListVM(prayRepo: prayRepo))) {
                     if let prayCardVM = vm.prayCardVM {
                         PrayPreviewCard(vm: prayCardVM)
                     }
