@@ -37,6 +37,11 @@ class PrayAddVM: ObservableObject {
         self.prayRepo = prayRepo
     }
     
+    init(prayRepo: PrayRepo, pray: Pray) {
+        self.prayRepo = prayRepo
+        self.praySubject = pray.praySubject
+    }
+    
     deinit {
         Log.i(self)
         cancellables.removeAll()
@@ -56,14 +61,15 @@ class PrayAddVM: ObservableObject {
         }
         
         let prayTimeCode = PrayTime(rawValue: prayTime)!
-        prayRepo.add(PraySubject(id: Date().toString("yyyy-MM-dd hh:mm:ss a"),
-                                 createdTimestamp: Date().toString("yyyy-MM-dd hh:mm:ss a"),
-                                 praySubject: praySubject,
-                                 prayAlarmTime: alarmTime.toString("hh:mm a"),
-                                 prayDayList: prayDayList,
-                                 prayTime: prayTimeCode.code))
+        prayRepo.add(Pray(id: Date().toString("yyyy-MM-dd hh:mm:ss a"),
+                          createdTimestamp: Date().toString("yyyy-MM-dd hh:mm:ss a"),
+                          praySubject: praySubject,
+                          isAlarmOn: isAlarmOn,
+                          prayAlarmTime: alarmTime.toString("hh:mm a"),
+                          prayDayList: prayDayList,
+                          prayTime: prayTimeCode.code))
             .sink(receiveCompletion: { Log.i($0) },
-            receiveValue: { [weak self] isSaved in
+                  receiveValue: { [weak self] isSaved in
                 if isSaved {
                     self?.prayIsAdded()
                 } else {

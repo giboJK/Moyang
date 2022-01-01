@@ -18,6 +18,7 @@ struct Summary: Codable {
     let qtSubject: String
     let prayId: String
     let praySubject: String
+    let prayIsAlarmOn: Bool
     let prayAlarmTime: String
     let prayCreatedTimestamp: String
     let prayDayList: [String]
@@ -34,6 +35,7 @@ struct Summary: Codable {
         case qtSubject = "qt_subject"
         case prayId = "pray_id"
         case praySubject = "pray_subject"
+        case prayIsAlarmOn = "pray_is_alarm_on"
         case prayAlarmTime = "pray_alarm_time"
         case prayCreatedTimestamp = "pray_created_timestamp"
         case prayDayList = "pray_day_list"

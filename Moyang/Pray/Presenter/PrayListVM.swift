@@ -49,7 +49,7 @@ extension PrayListVM {
         let alarmTime: String
         let prayTime: String
 
-        init(praySubject: PraySubject) {
+        init(praySubject: Pray) {
             id = praySubject.id
             subject = praySubject.praySubject
             alarmTime = praySubject.prayAlarmTime

@@ -12,7 +12,7 @@ final class DummyData: ObservableObject {
     @Published var cellPreview: CellPreview = load("CellPreview.json")
     @Published var cellInfo: CellInfo = load("CellInfo.json")
     @Published var cellPrayInfo: CellPrayInfo = load("CellPray.json")
-    @Published var praySubject: PraySubject = load("PraySubject.json")
+    @Published var praySubject: Pray = load("Pray.json")
 }
 
 func load<T: Decodable>(_ filename: String) -> T {

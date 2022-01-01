@@ -12,10 +12,10 @@ import Combine
 class PrayCardVM: ObservableObject, Identifiable {
     private var cancellables = Set<AnyCancellable>()
     
-    @Published var pray: PraySubject
+    @Published var pray: Pray
     @Published var id: String
     
-    init(pray: PraySubject) {
+    init(pray: Pray) {
         self.pray = pray
         self.id = pray.id
     }

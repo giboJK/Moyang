@@ -8,11 +8,12 @@
 
 import Foundation
 
-struct PraySubject: Codable, Identifiable {
+struct Pray: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
     let createdTimestamp: String
     let praySubject: String
+    let isAlarmOn: Bool
     let prayAlarmTime: String
     let prayDayList: [String]
     let prayTime: String
@@ -21,7 +22,8 @@ struct PraySubject: Codable, Identifiable {
         case id
         case createdTimestamp = "create_timestamp"
         case praySubject = "pray_subject"
-        case prayAlarmTime = "alarm_time"
+        case isAlarmOn = "is_alarm_on"
+        case prayAlarmTime = "pray_alarm_time"
         case prayDayList = "pray_day_list"
         case prayTime = "pray_time"
     }

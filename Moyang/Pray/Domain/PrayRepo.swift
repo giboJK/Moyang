@@ -9,9 +9,9 @@
 import Combine
 
 protocol PrayRepo {
-    func add(_ pray: PraySubject) -> AnyPublisher<Bool, MoyangError>
+    func add(_ pray: Pray) -> AnyPublisher<Bool, MoyangError>
     
-    func fetchPraySubject() -> AnyPublisher<PraySubject, MoyangError>
+    func fetchPraySubject() -> AnyPublisher<Pray, MoyangError>
     
-    func addPraySubjectListListener() -> PassthroughSubject<[PraySubject], MoyangError>
+    func addPraySubjectListListener() -> PassthroughSubject<[Pray], MoyangError>
 }

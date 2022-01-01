@@ -13,10 +13,10 @@ import Combine
 class PrayRepoImpl: PrayRepo {
     private let service = FireStoreService()
     private let store = Firestore.firestore()
-    private let collectionName = "PRAY_SUBJECT"
+    private let collectionName = "PRAY"
     
     
-    func add(_ pray: PraySubject) -> AnyPublisher<Bool, MoyangError> {
+    func add(_ pray: Pray) -> AnyPublisher<Bool, MoyangError> {
         var documentName = "TEST"
         if let userName = UserData.shared.userID {
             documentName = userName
@@ -29,11 +29,11 @@ class PrayRepoImpl: PrayRepo {
         return service.addDocument(pray, ref: ref)
     }
     
-    func fetchPraySubject() -> AnyPublisher<PraySubject, MoyangError> {
+    func fetchPraySubject() -> AnyPublisher<Pray, MoyangError> {
         return Empty(completeImmediately: false).eraseToAnyPublisher()
     }
     
-    func addPraySubjectListListener() -> PassthroughSubject<[PraySubject], MoyangError> {
+    func addPraySubjectListListener() -> PassthroughSubject<[Pray], MoyangError> {
         var documentName = "TEST"
         if let userName = UserData.shared.userID {
             documentName = userName
@@ -42,6 +42,6 @@ class PrayRepoImpl: PrayRepo {
             .collection(self.collectionName)
             .document(documentName)
             .collection("MY_PRAY")
-        return service.addListener(ref: ref, type: PraySubject.self)
+        return service.addListener(ref: ref, type: Pray.self)
     }
 }

@@ -41,13 +41,14 @@ class MainCategoryVM: ObservableObject {
     }
     
     private func makePrayCardVM(prayCardItem: PrayCardItem) {
-        let praySubject = PraySubject(id: prayCardItem.id,
-                                      createdTimestamp: prayCardItem.createdTimestamp,
-                                      praySubject: prayCardItem.praySubject,
-                                      prayAlarmTime: prayCardItem.prayAlarmTime,
-                                      prayDayList: prayCardItem.prayDayList,
-                                      prayTime: prayCardItem.prayTime)
-        prayCardVM = PrayCardVM.init(pray: praySubject)
+        let pray = Pray(id: prayCardItem.id,
+                        createdTimestamp: prayCardItem.createdTimestamp,
+                        praySubject: prayCardItem.praySubject,
+                        isAlarmOn: prayCardItem.prayIsAlarmOn,
+                        prayAlarmTime: prayCardItem.prayAlarmTime,
+                        prayDayList: prayCardItem.prayDayList,
+                        prayTime: prayCardItem.prayTime)
+        prayCardVM = PrayCardVM.init(pray: pray)
     }
 }
 
@@ -91,6 +92,7 @@ extension MainCategoryVM {
         let id: String
         let praySubject: String
         let createdTimestamp: String
+        let prayIsAlarmOn: Bool
         let prayAlarmTime: String
         let prayDayList: [String]
         let prayTime: String
@@ -99,6 +101,7 @@ extension MainCategoryVM {
             id = summary.prayId
             praySubject = summary.praySubject
             createdTimestamp = summary.prayCreatedTimestamp
+            prayIsAlarmOn = summary.prayIsAlarmOn
             prayAlarmTime = summary.prayAlarmTime
             prayDayList = summary.prayDayList
             prayTime = summary.prayTime

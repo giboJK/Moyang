@@ -10,13 +10,19 @@ import SwiftUI
 struct PrayCardView: View {
     @ObservedObject var vm: PrayCardVM
     
+    @State private var editPraySubject = false
+    
     var body: some View {
         VStack {
             HStack {
                 Text("나의 기도")
                     .font(.system(size: 16, weight: .bold, design: .default))
                 Spacer()
-                Image(systemName: "pencil")
+                Button {
+                    editPraySubject.toggle()
+                } label: {
+                    Image(systemName: "pencil")
+                }
             }
             .padding(.top, 10)
             Divider().padding(-5)

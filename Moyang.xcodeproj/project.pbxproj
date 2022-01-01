@@ -16,7 +16,7 @@
 		242D745F274282F00053EF2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 242D7461274282F00053EF2A /* Localizable.strings */; };
 		242D7464274283710053EF2A /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D7463274283710053EF2A /* Strings.swift */; };
 		244933EB27775B8F000DDE01 /* PrayCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244933EA27775B8F000DDE01 /* PrayCardView.swift */; };
-		244933ED277765BB000DDE01 /* PraySubject.json in Resources */ = {isa = PBXBuildFile; fileRef = 244933EC277765BB000DDE01 /* PraySubject.json */; };
+		244933ED277765BB000DDE01 /* Pray.json in Resources */ = {isa = PBXBuildFile; fileRef = 244933EC277765BB000DDE01 /* Pray.json */; };
 		246BD7A827240A96005C4E0B /* DailySummaryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7A527240A96005C4E0B /* DailySummaryVM.swift */; };
 		246BD7A927240A96005C4E0B /* DailySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7A727240A96005C4E0B /* DailySummaryView.swift */; };
 		246BD7AC27240AB9005C4E0B /* MainCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7AB27240AB9005C4E0B /* MainCategoryList.swift */; };
@@ -24,7 +24,7 @@
 		246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B027240AD4005C4E0B /* PrayListView.swift */; };
 		246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B127240AD4005C4E0B /* PrayView.swift */; };
 		246BD7C127240AD4005C4E0B /* PrayPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B227240AD4005C4E0B /* PrayPreviewCard.swift */; };
-		246BD7C227240AD4005C4E0B /* PraySubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B527240AD4005C4E0B /* PraySubject.swift */; };
+		246BD7C227240AD4005C4E0B /* Pray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B527240AD4005C4E0B /* Pray.swift */; };
 		246BD7C327240AD4005C4E0B /* PrayRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7B627240AD4005C4E0B /* PrayRepo.swift */; };
 		246BD7C627240AD4005C4E0B /* PrayListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BB27240AD4005C4E0B /* PrayListVM.swift */; };
 		246BD7C727240AD4005C4E0B /* PrayCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */; };
@@ -102,7 +102,7 @@
 		242D7462274282F30053EF2A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		242D7463274283710053EF2A /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		244933EA27775B8F000DDE01 /* PrayCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayCardView.swift; sourceTree = "<group>"; };
-		244933EC277765BB000DDE01 /* PraySubject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PraySubject.json; sourceTree = "<group>"; };
+		244933EC277765BB000DDE01 /* Pray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Pray.json; sourceTree = "<group>"; };
 		246BD7A527240A96005C4E0B /* DailySummaryVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryVM.swift; sourceTree = "<group>"; };
 		246BD7A727240A96005C4E0B /* DailySummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryView.swift; sourceTree = "<group>"; };
 		246BD7AB27240AB9005C4E0B /* MainCategoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoryList.swift; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 		246BD7B027240AD4005C4E0B /* PrayListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayListView.swift; sourceTree = "<group>"; };
 		246BD7B127240AD4005C4E0B /* PrayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayView.swift; sourceTree = "<group>"; };
 		246BD7B227240AD4005C4E0B /* PrayPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayPreviewCard.swift; sourceTree = "<group>"; };
-		246BD7B527240AD4005C4E0B /* PraySubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PraySubject.swift; sourceTree = "<group>"; };
+		246BD7B527240AD4005C4E0B /* Pray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pray.swift; sourceTree = "<group>"; };
 		246BD7B627240AD4005C4E0B /* PrayRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayRepo.swift; sourceTree = "<group>"; };
 		246BD7BB27240AD4005C4E0B /* PrayListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayListVM.swift; sourceTree = "<group>"; };
 		246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayCardVM.swift; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 		246BD7B327240AD4005C4E0B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				246BD7B527240AD4005C4E0B /* PraySubject.swift */,
+				246BD7B527240AD4005C4E0B /* Pray.swift */,
 				246BD7B627240AD4005C4E0B /* PrayRepo.swift */,
 			);
 			path = Domain;
@@ -385,7 +385,7 @@
 		249B903127259C7F00B53682 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				244933EC277765BB000DDE01 /* PraySubject.json */,
+				244933EC277765BB000DDE01 /* Pray.json */,
 				249B903727259FD300B53682 /* CellPreview.json */,
 				24B6A2562726C40E0065112A /* CellInfo.json */,
 				24BF6E93274FBF620004B24E /* CellPray.json */,
@@ -649,7 +649,7 @@
 				248FEC152723A11600321E5E /* Colors.xcassets in Resources */,
 				24B57BBC2760B37A00630C4C /* GoogleService-Info.plist in Resources */,
 				24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */,
-				244933ED277765BB000DDE01 /* PraySubject.json in Resources */,
+				244933ED277765BB000DDE01 /* Pray.json in Resources */,
 				242D745F274282F00053EF2A /* Localizable.strings in Resources */,
 				249B903827259FD300B53682 /* CellPreview.json in Resources */,
 				24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */,
@@ -809,7 +809,7 @@
 				246BD7CD27240ADB005C4E0B /* QuestionView.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* CellPreview.swift in Sources */,
 				24BB327C27656735002131BF /* MainCategoryVM.swift in Sources */,
-				246BD7C227240AD4005C4E0B /* PraySubject.swift in Sources */,
+				246BD7C227240AD4005C4E0B /* Pray.swift in Sources */,
 				08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */,
 				24EA9B4827579BDC004FB585 /* CellMemberPrayEditView.swift in Sources */,
 				24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */,
