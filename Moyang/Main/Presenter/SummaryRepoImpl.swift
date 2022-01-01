@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 import Combine
 
 class SummaryRepoImpl: SummaryRepo {
-    private let service = FireStoreService()
+    private let service = FirestoreServiceImpl()
     private let collectionName = "DAILY"
     
     init() {

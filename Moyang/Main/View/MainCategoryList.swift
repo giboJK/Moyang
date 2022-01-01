@@ -20,7 +20,7 @@ struct MainCategoryList: View {
                         CellPreviewCard(vm: cellCardVM)
                     }
                 }
-                NavigationLink(destination: PrayListView(vm: PrayListVM(prayRepo: PrayRepoImpl()))) {
+                NavigationLink(destination: PrayListView(vm: PrayListVM(prayRepo: PrayRepoImpl(service: FirestoreServiceImpl())))) {
                     if let prayCardVM = vm.prayCardVM {
                         PrayPreviewCard(vm: prayCardVM)
                     }

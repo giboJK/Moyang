@@ -1,5 +1,5 @@
 //
-//  FireStoreService.swift
+//  FireStoreServiceImpl.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/12/15.
@@ -9,11 +9,11 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-class FireStoreService {
+class FirestoreServiceImpl: FirestoreService {
     
     deinit { Log.i(self) }
     
-    let store = Firestore.firestore()
+    var store = Firestore.firestore()
     
     func addDocument<T: Codable>(_ object: T,
                                  ref: CollectionReference) -> AnyPublisher<Bool, MoyangError> {

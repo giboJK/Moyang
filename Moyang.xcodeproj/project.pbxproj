@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
+		08CE42012780059A003352E0 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE42002780059A003352E0 /* FirestoreService.swift */; };
+		08CE4203278009B2003352E0 /* FirestoreServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4202278009B2003352E0 /* FirestoreServiceMock.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		24151DCE274A2A3E00DD38CE /* CellPrayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */; };
@@ -50,7 +52,7 @@
 		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
 		24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
-		24B47FF7276A1BD3003130E6 /* FireStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B47FF6276A1BD3003130E6 /* FireStoreService.swift */; };
+		24B47FF7276A1BD3003130E6 /* FirestoreServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */; };
 		24B57BBC2760B37A00630C4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */; };
 		24B6A2552726BEB00065112A /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* CellInfo.swift */; };
 		24B6A2572726C40E0065112A /* CellInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* CellInfo.json */; };
@@ -94,6 +96,8 @@
 
 /* Begin PBXFileReference section */
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
+		08CE42002780059A003352E0 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		08CE4202278009B2003352E0 /* FirestoreServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceMock.swift; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayListView.swift; sourceTree = "<group>"; };
@@ -136,7 +140,7 @@
 		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
 		24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssembly.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
-		24B47FF6276A1BD3003130E6 /* FireStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreService.swift; sourceTree = "<group>"; };
+		24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceImpl.swift; sourceTree = "<group>"; };
 		24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24B6A2542726BEB00065112A /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
 		24B6A2562726C40E0065112A /* CellInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellInfo.json; sourceTree = "<group>"; };
@@ -408,7 +412,9 @@
 			isa = PBXGroup;
 			children = (
 				24B6E31E275F81CE00AD2E53 /* MoyangError.swift */,
-				24B47FF6276A1BD3003130E6 /* FireStoreService.swift */,
+				24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */,
+				08CE42002780059A003352E0 /* FirestoreService.swift */,
+				08CE4202278009B2003352E0 /* FirestoreServiceMock.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -781,6 +787,7 @@
 				244933EB27775B8F000DDE01 /* PrayCardView.swift in Sources */,
 				24D0D3292723145F006FF67B /* Date+.swift in Sources */,
 				24BB8032275645C100BE2988 /* NewCellPrayVM.swift in Sources */,
+				08CE4203278009B2003352E0 /* FirestoreServiceMock.swift in Sources */,
 				24EA9B4A2757A4AB004FB585 /* CellPrayListRow.swift in Sources */,
 				246BD7BE27240AD4005C4E0B /* PrayAddView.swift in Sources */,
 				24D0D32D272314F7006FF67B /* Log.swift in Sources */,
@@ -814,6 +821,7 @@
 				24EA9B4827579BDC004FB585 /* CellMemberPrayEditView.swift in Sources */,
 				24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */,
 				248FEC1D2723AB0300321E5E /* Assets.swift in Sources */,
+				08CE42012780059A003352E0 /* FirestoreService.swift in Sources */,
 				242D745C274267C80053EF2A /* MainCard.swift in Sources */,
 				246BD7C327240AD4005C4E0B /* PrayRepo.swift in Sources */,
 				246BD7F527240AE4005C4E0B /* CellSubjectHistoryView.swift in Sources */,
@@ -829,7 +837,7 @@
 				084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
-				24B47FF7276A1BD3003130E6 /* FireStoreService.swift in Sources */,
+				24B47FF7276A1BD3003130E6 /* FirestoreServiceImpl.swift in Sources */,
 				24D7BB33274D17C100CC8B7C /* CellPrayInfo.swift in Sources */,
 				246BD7A827240A96005C4E0B /* DailySummaryVM.swift in Sources */,
 			);

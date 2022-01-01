@@ -11,10 +11,12 @@ import FirebaseFirestoreSwift
 import Combine
 
 class PrayRepoImpl: PrayRepo {
-    private let service = FireStoreService()
-    private let store = Firestore.firestore()
+    private let service: FirestoreService
     private let collectionName = "PRAY"
     
+    init(service: FirestoreService) {
+        self.service = service
+    }
     
     func add(_ pray: Pray) -> AnyPublisher<Bool, MoyangError> {
         var documentName = "TEST"

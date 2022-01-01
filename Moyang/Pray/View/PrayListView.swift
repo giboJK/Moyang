@@ -16,7 +16,7 @@ struct PrayListView: View {
     @State private var newPraySubject = false
     
     var body: some View {
-        NavigationLink(destination: PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl())),
+        NavigationLink(destination: PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl(service: FirestoreServiceImpl()))),
                        isActive: $newPraySubject) { EmptyView() }
         VStack {
             List(vm.prayCardVMs, id: \.id) { prayCardVM in
@@ -44,6 +44,6 @@ struct PrayListView: View {
 
 struct PrayListView_Previews: PreviewProvider {
     static var previews: some View {
-        PrayListView(vm: PrayListVM(prayRepo: PrayRepoImpl()))
+        PrayListView(vm: PrayListVM(prayRepo: PrayRepoImpl(service: FireStoreServiceMock())))
     }
 }
