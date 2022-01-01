@@ -28,6 +28,7 @@ class FireStoreServiceMock: FirestoreService {
     
     func addListener<T>(ref: CollectionReference, type: T.Type) -> PassthroughSubject<[T], MoyangError> where T : Decodable, T : Encodable {
         let subject = PassthroughSubject<[T], MoyangError>()
+        Log.w(String(describing: type))
         return subject
     }
 }

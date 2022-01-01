@@ -52,9 +52,9 @@ struct PrayCardView: View {
 }
 
 struct PrayCardView_Previews: PreviewProvider {
-    static let praySubject = DummyData().praySubject
+    static let pray = DummyData().pray
     static var previews: some View {
-        PrayCardView(vm: PrayCardVM(pray: praySubject))
+        PrayCardView(vm: PrayCardVM(pray: pray))
             .previewLayout(.fixed(width: 414, height: 250))
     }
 }

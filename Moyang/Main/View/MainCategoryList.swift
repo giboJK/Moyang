@@ -33,7 +33,6 @@ struct MainCategoryList: View {
             vm.fetchSummary()
         }
     }
-    
 }
 
 enum MainCategory: String {

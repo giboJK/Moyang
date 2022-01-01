@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
+		08A1B7CA27804A010085BE18 /* PrayList.json in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B7C927804A010085BE18 /* PrayList.json */; };
 		08CE42012780059A003352E0 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE42002780059A003352E0 /* FirestoreService.swift */; };
 		08CE4203278009B2003352E0 /* FirestoreServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4202278009B2003352E0 /* FirestoreServiceMock.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
@@ -96,6 +97,7 @@
 
 /* Begin PBXFileReference section */
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
+		08A1B7C927804A010085BE18 /* PrayList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrayList.json; sourceTree = "<group>"; };
 		08CE42002780059A003352E0 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		08CE4202278009B2003352E0 /* FirestoreServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceMock.swift; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 		249B903127259C7F00B53682 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				08A1B7C927804A010085BE18 /* PrayList.json */,
 				244933EC277765BB000DDE01 /* Pray.json */,
 				249B903727259FD300B53682 /* CellPreview.json */,
 				24B6A2562726C40E0065112A /* CellInfo.json */,
@@ -660,6 +663,7 @@
 				249B903827259FD300B53682 /* CellPreview.json in Resources */,
 				24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */,
 				24B6A2572726C40E0065112A /* CellInfo.json in Resources */,
+				08A1B7CA27804A010085BE18 /* PrayList.json in Resources */,
 				24BF6E94274FBF620004B24E /* CellPray.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
