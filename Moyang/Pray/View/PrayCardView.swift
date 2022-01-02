@@ -38,11 +38,13 @@ struct PrayCardView: View {
                 Text(vm.pray.prayTime)
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 Spacer()
-                Text("다음 기도 시간")
-                    .font(.system(size: 14, weight: .regular, design: .default))
-                Spacer()
-                Text(vm.pray.prayAlarmTime)
-                    .font(.system(size: 14, weight: .regular, design: .default))
+                if vm.pray.isAlarmOn {
+                    Text("다음 기도 시간")
+                        .font(.system(size: 14, weight: .regular, design: .default))
+                    Spacer()
+                    Text(vm.pray.prayAlarmTime)
+                        .font(.system(size: 14, weight: .regular, design: .default))
+                }
             }
             .padding(.bottom, 10)
         }
