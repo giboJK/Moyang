@@ -15,7 +15,7 @@ struct PrayCardView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("나의 기도")
+                Text(vm.prayType.title)
                     .font(.system(size: 16, weight: .bold, design: .default))
                 Spacer()
                 Button {

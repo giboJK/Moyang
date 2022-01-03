@@ -19,13 +19,29 @@ struct PrayListView: View {
         NavigationLink(destination: PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl(service: FirestoreServiceImpl()))),
                        isActive: $newPraySubject) { EmptyView() }
         VStack {
-            List(vm.prayCardVMs, id: \.id) { prayCardVM in
-                ZStack {
-                    NavigationLink(destination: PrayView()) { }.opacity(0.0)
-                    PrayCardView(vm: prayCardVM)
-                }.listRowSeparator(.hidden)
-            }
-            .listStyle(.plain)
+            List {
+                Section(header: Text(PrayType.group.rawValue)) {
+                    ForEach(self.vm.prayCardVMs, id: \.id) { prayCardVM in
+                        if prayCardVM.prayType == .group {
+                            ZStack {
+                                NavigationLink(destination: PrayView()) { }.opacity(0.0)
+                                PrayCardView(vm: prayCardVM)
+                            }.listRowSeparator(.hidden)
+                        }
+                    }
+                }
+                Section(header: Text(PrayType.my.rawValue)) {
+                    ForEach(self.vm.prayCardVMs, id: \.id) { prayCardVM in
+                        if prayCardVM.prayType == .my {
+                            ZStack {
+                                NavigationLink(destination: PrayView()) { }.opacity(0.0)
+                                PrayCardView(vm: prayCardVM)
+                            }.listRowSeparator(.hidden)
+                        }
+                    }
+                }
+            }.listStyle(.grouped)
+            
         }
         .navigationBarItems(trailing: Button(action: { newPraySubject.toggle()},
                                              label: {

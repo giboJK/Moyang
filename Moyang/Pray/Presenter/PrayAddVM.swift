@@ -62,6 +62,7 @@ class PrayAddVM: ObservableObject {
         
         let prayTimeCode = PrayTime(rawValue: prayTime)!
         prayRepo.add(Pray(id: Date().toString("yyyy-MM-dd hh:mm:ss a"),
+                          type: PrayType.my.rawValue,
                           createdTimestamp: Date().toString("yyyy-MM-dd hh:mm:ss a"),
                           praySubject: praySubject,
                           isAlarmOn: isAlarmOn,

@@ -14,10 +14,12 @@ class PrayCardVM: ObservableObject, Identifiable {
     
     @Published var pray: Pray
     @Published var id: String
+    @Published var prayType: PrayType
     
     init(pray: Pray) {
         self.pray = pray
         self.id = pray.id
+        self.prayType = PrayType(rawValue: pray.type) ?? .my
     }
     
     deinit {

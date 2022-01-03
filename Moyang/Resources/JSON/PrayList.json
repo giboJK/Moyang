@@ -1,6 +1,7 @@
 [
     {
         "id":"3124400001",
+        "pray_type":"my",
         "create_timestamp":"2021-12-25 09:09:44 AM",
         "pray_subject":"내 정당함에 집중하지 않게 해주세요.",
         "is_alarm_on":false,
@@ -10,6 +11,7 @@
     },
     {
         "id":"2eqwdasfq3",
+        "pray_type":"group",
         "create_timestamp":"2021-12-25 09:09:44 AM",
         "pray_subject":"주님의 뜻을 듣게 해주세요",
         "is_alarm_on":true,
@@ -19,6 +21,7 @@
     },
     {
         "id":"21eqwdesv",
+        "pray_type":"group",
         "create_timestamp":"2021-12-25 09:09:44 AM",
         "pray_subject":"믿음, 소망, 사랑 그 중에 제일은 사랑이라",
         "is_alarm_on":true,
@@ -28,6 +31,7 @@
     },
     {
         "id":"asdq3svcvwd",
+        "pray_type":"my",
         "create_timestamp":"2021-12-25 09:09:44 AM",
         "pray_subject":"기도제목 기도제목.",
         "is_alarm_on":false,
@@ -37,6 +41,7 @@
     },
     {
         "id":"24rwrgebsfwef",
+        "pray_type":"group",
         "create_timestamp":"2021-12-25 09:09:44 AM",
         "pray_subject":"기도제목 기도제목. 되게 긴 기도제목~~~~ 되게 긴 기도제목~~~~ 되게 긴 기도제목~~~~ 되게 긴 기도제목~~~~ 되게 긴 기도제목~~~~ .",
         "is_alarm_on":false,

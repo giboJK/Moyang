@@ -42,6 +42,7 @@ class MainCategoryVM: ObservableObject {
     
     private func makePrayCardVM(prayCardItem: PrayCardItem) {
         let pray = Pray(id: prayCardItem.id,
+                        type: prayCardItem.prayType,
                         createdTimestamp: prayCardItem.createdTimestamp,
                         praySubject: prayCardItem.praySubject,
                         isAlarmOn: prayCardItem.prayIsAlarmOn,
@@ -90,6 +91,7 @@ extension MainCategoryVM {
     
     struct PrayCardItem: Identifiable {
         let id: String
+        let prayType: String
         let praySubject: String
         let createdTimestamp: String
         let prayIsAlarmOn: Bool
@@ -99,6 +101,7 @@ extension MainCategoryVM {
         
         init(summary: Summary) {
             id = summary.prayId
+            prayType = summary.prayTime
             praySubject = summary.praySubject
             createdTimestamp = summary.prayCreatedTimestamp
             prayIsAlarmOn = summary.prayIsAlarmOn
