@@ -1,0 +1,57 @@
+{
+    "id":"31200001",
+    "cell_name":"정김기보셀",
+    "cell_pray_list":[
+        {
+            "date_string":"2021-10-24",
+            "member_pray_list":[
+                {
+                    "member_name":"고기보",
+                    "pray":"기도제목"
+                },
+                {
+                    "member_name":"정김기보",
+                    "pray":"기도제목2"
+                },
+                {
+                    "member_name":"기기보",
+                    "pray":"기도제목3"
+                }
+            ]
+        },
+        {
+            "date_string":"2021-10-31",
+            "member_pray_list":[
+                {
+                    "member_name":"고기보",
+                    "pray":"기도제목 - 1"
+                },
+                {
+                    "member_name":"정김기보",
+                    "pray":"기도제목2 - 2"
+                },
+                {
+                    "member_name":"기기보",
+                    "pray":"기도제목3 - 3"
+                }
+            ]
+        },
+        {
+            "date_string":"2021-11-07",
+            "member_pray_list":[
+                {
+                    "member_name":"고기보",
+                    "pray":"기도제목3123"
+                },
+                {
+                    "member_name":"정김기보",
+                    "pray":"정김김기도제목2"
+                },
+                {
+                    "member_name":"기기보",
+                    "pray":"기기기기기도제목3"
+                }
+            ]
+        }
+    ]
+}

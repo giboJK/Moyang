@@ -40,7 +40,7 @@ class CellPrayListVM: ObservableObject, Identifiable {
 }
 
 extension CellPrayListVM {
-    typealias Identifier = Int
+    typealias Identifier = String
     struct CellPrayListItem: Hashable {
         let id: Identifier
         let cellName: String
