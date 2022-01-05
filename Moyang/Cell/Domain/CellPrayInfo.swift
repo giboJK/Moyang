@@ -21,7 +21,7 @@ struct CellPrayInfo: Codable, Identifiable {
     }
 }
 
-// MARK: - PrayList
+// MARK: - CellPrayList
 struct CellPrayList: Codable {
     let dateString: String
     let memberPrayList: [CellMemberPray]
@@ -32,6 +32,7 @@ struct CellPrayList: Codable {
     }
 }
 
+// MARK: - CellMemberPray
 struct CellMemberPray: Codable {
     let memberName: String
     let pray: String

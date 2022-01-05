@@ -78,9 +78,9 @@ extension CellMeetingVM {
         
         init(cellInfo: CellInfo) {
             cellName = cellInfo.cellName
-            talkingSubject = cellInfo.talkingSubject
-            questionList = cellInfo.questionList
-            dateString = cellInfo.dateString
+            talkingSubject = "셀모임 주제~"
+            questionList = ["아하하하 1", "우라라라라 2", "그우어ㅓ어3", "잇츠 퀘스쳔4"]
+            dateString = "2022-01-02"
         }
     }
 }
