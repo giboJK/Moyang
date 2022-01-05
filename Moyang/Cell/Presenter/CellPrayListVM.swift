@@ -21,7 +21,8 @@ class CellPrayListVM: ObservableObject, Identifiable {
     }
     
     func loadData() {
-        let cellPrayListItem = CellPrayListItem(data: DummyData().cellPrayInfo)
+        let cellPrayListItem = CellPrayListItem(data: DummyData().cellPrayInfo,
+                                                member: DummyData().cellInfo.memberList)
         nameSorteditemList = cellPrayListItem.nameSortedItemList
         dateSorteditemList = cellPrayListItem.dateSortedItemList
     }
@@ -40,14 +41,14 @@ class CellPrayListVM: ObservableObject, Identifiable {
 }
 
 extension CellPrayListVM {
-    typealias Identifier = Int
+    typealias Identifier = String
     struct CellPrayListItem: Hashable {
         let id: Identifier
         let cellName: String
         let nameSortedItemList: [NameSortedMemberPrayItem]
         let dateSortedItemList: [DateSortedMemberPrayItem]
         
-        init(data: CellPrayInfo) {
+        init(data: CellPrayInfo, member: [CellMemberInfo]) {
             self.id = data.id
             self.cellName = data.cellName
             
@@ -55,22 +56,21 @@ extension CellPrayListVM {
             var dateSorted = [DateSortedMemberPrayItem]()
             for i in 0 ..< data.cellPrayList.count {
                 dateSorted.append(DateSortedMemberPrayItem(date: data.cellPrayList[i].dateString,
-                                                           memberList: data.cellPrayList[i].memberList,
-                                                           prayList: data.cellPrayList[i].prayList))
+                                                           prayItemList: data.cellPrayList[i].memberPrayList))
             }
             
-            if let firstItem = data.cellPrayList.first {
-                for i in 0 ..< firstItem.memberList.count {
-                    var dateList = [String]()
-                    var prayList = [String]()
-                    data.cellPrayList.forEach { listItem in
-                        dateList.append(listItem.dateString)
-                        prayList.append(listItem.prayList[i])
+            for i in 0 ..< member.count {
+                var dateList = [String]()
+                var prayList = [String]()
+                for j in 0 ..< data.cellPrayList.count {
+                    if let memberPray = data.cellPrayList[j].memberPrayList.first { $0.memberName == member[i].memberName } {
+                        dateList.append(data.cellPrayList[j].dateString)
+                        prayList.append(memberPray.pray)
                     }
-                    nameSorted.append(NameSortedMemberPrayItem(name: firstItem.memberList[i],
-                                                               dateList: dateList,
-                                                               prayList: prayList))
                 }
+                
+                nameSorted.append(NameSortedMemberPrayItem(name: member[i].memberName,
+                                                           dateList: dateList, prayList: prayList))
             }
             
             self.nameSortedItemList = nameSorted.sorted { $0.name < $1.name }
@@ -104,11 +104,11 @@ extension CellPrayListVM {
         let date: String
         let prayItemList: [(member: String, pray: String)]
         
-        init(date: String, memberList: [String], prayList: [String]) {
+        init(date: String, prayItemList: [CellMemberPray]) {
             self.date = date
             var newPrayItemList = [(String, String)]()
-            for i in 0 ..< memberList.count {
-                newPrayItemList.append((memberList[i], prayList[i]))
+            for i in 0 ..< prayItemList.count {
+                newPrayItemList.append((prayItemList[i].memberName, prayItemList[i].pray))
             }
             self.prayItemList = newPrayItemList
         }
