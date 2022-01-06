@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 
 class CellRepoImpl: CellRepo {
     private let service: FirestoreService
-    private let collectionName = "PRAY"
+    private let collectionName = "COMMUNITY"
     
     init(service: FirestoreService) {
         self.service = service
@@ -57,6 +57,5 @@ class CellRepoImpl: CellRepo {
             .document(documentName)
             .collection("MY_PRAY")
         return service.addListener(ref: ref, type: CellPrayInfo.self)
-        
     }
 }

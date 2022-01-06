@@ -81,6 +81,7 @@
 		24D7BB31274D179200CC8B7C /* CellPrayListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB30274D179200CC8B7C /* CellPrayListVM.swift */; };
 		24D7BB33274D17C100CC8B7C /* CellPrayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB32274D17C000CC8B7C /* CellPrayInfo.swift */; };
 		24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB53BA27479DAA00F861EC /* UINavigationController+.swift */; };
+		24E779CE2787308D00C732D6 /* CellMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E779CD2787308D00C732D6 /* CellMember.swift */; };
 		24EA9B4827579BDC004FB585 /* CellMemberPrayEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EA9B4727579BDC004FB585 /* CellMemberPrayEditView.swift */; };
 		24EA9B4A2757A4AB004FB585 /* CellPrayListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EA9B492757A4AB004FB585 /* CellPrayListRow.swift */; };
 /* End PBXBuildFile section */
@@ -172,6 +173,7 @@
 		24D7BB30274D179200CC8B7C /* CellPrayListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayListVM.swift; sourceTree = "<group>"; };
 		24D7BB32274D17C000CC8B7C /* CellPrayInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayInfo.swift; sourceTree = "<group>"; };
 		24DB53BA27479DAA00F861EC /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
+		24E779CD2787308D00C732D6 /* CellMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellMember.swift; sourceTree = "<group>"; };
 		24EA9B4727579BDC004FB585 /* CellMemberPrayEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellMemberPrayEditView.swift; sourceTree = "<group>"; };
 		24EA9B492757A4AB004FB585 /* CellPrayListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayListRow.swift; sourceTree = "<group>"; };
 		2928AF0E9E86176E64F5A826 /* Pods-MoyangTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoyangTests.release.xcconfig"; path = "Target Support Files/Pods-MoyangTests/Pods-MoyangTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				246BD7E727240AE4005C4E0B /* CellPreview.swift */,
 				24B6A2542726BEB00065112A /* CellInfo.swift */,
 				24D7BB32274D17C000CC8B7C /* CellPrayInfo.swift */,
+				24E779CD2787308D00C732D6 /* CellMember.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -802,6 +805,7 @@
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */,
 				24B8BCED2764C7FF005B0A9F /* SummaryRepoImpl.swift in Sources */,
+				24E779CE2787308D00C732D6 /* CellMember.swift in Sources */,
 				246BD7F727240AE4005C4E0B /* CellRepo.swift in Sources */,
 				246BD7FC27240AFA005C4E0B /* QTPreviewCard.swift in Sources */,
 				24B8BCEF2764C939005B0A9F /* Summary.swift in Sources */,

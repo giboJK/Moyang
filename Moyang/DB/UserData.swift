@@ -9,6 +9,7 @@ import Foundation
 
 class UserData {
     static let shared = UserData()
+    var myInfo: CellMemberDetail?
     
     var isNotFirstLaunch: Bool {
         get {

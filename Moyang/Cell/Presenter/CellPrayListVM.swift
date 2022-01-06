@@ -63,7 +63,8 @@ extension CellPrayListVM {
                 var dateList = [String]()
                 var prayList = [String]()
                 for j in 0 ..< data.cellPrayList.count {
-                    if let memberPray = data.cellPrayList[j].memberPrayList.first { $0.memberName == member[i].name } {
+                    if let memberPray = data.cellPrayList[j]
+                        .memberPrayList.first(where: { $0.memberName == member[i].name }) {
                         dateList.append(data.cellPrayList[j].dateString)
                         prayList.append(memberPray.pray)
                     }
