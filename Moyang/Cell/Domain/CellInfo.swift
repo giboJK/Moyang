@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 struct CellInfo: Codable, Identifiable {
-    typealias Identifier = Int
+    typealias Identifier = String
     let id: Identifier
     let cellName: String
-    let leader: CellMemberInfo
-    let memberList: [CellMemberInfo]
+    let leader: CellMember
+    let memberList: [CellMember]
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -23,8 +23,8 @@ struct CellInfo: Codable, Identifiable {
     }
 }
 
-struct CellMemberInfo: Codable, Identifiable {
-    typealias Identifier = Int
+struct CellMemberDetail: Codable, Identifiable {
+    typealias Identifier = String
     let id: Identifier
     var memberName: String
     var age: Int

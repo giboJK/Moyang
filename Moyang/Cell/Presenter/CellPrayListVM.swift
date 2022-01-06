@@ -48,7 +48,7 @@ extension CellPrayListVM {
         let nameSortedItemList: [NameSortedMemberPrayItem]
         let dateSortedItemList: [DateSortedMemberPrayItem]
         
-        init(data: CellPrayInfo, member: [CellMemberInfo]) {
+        init(data: CellPrayInfo, member: [CellMember]) {
             self.id = data.id
             self.cellName = data.cellName
             
@@ -63,13 +63,13 @@ extension CellPrayListVM {
                 var dateList = [String]()
                 var prayList = [String]()
                 for j in 0 ..< data.cellPrayList.count {
-                    if let memberPray = data.cellPrayList[j].memberPrayList.first { $0.memberName == member[i].memberName } {
+                    if let memberPray = data.cellPrayList[j].memberPrayList.first { $0.memberName == member[i].name } {
                         dateList.append(data.cellPrayList[j].dateString)
                         prayList.append(memberPray.pray)
                     }
                 }
                 
-                nameSorted.append(NameSortedMemberPrayItem(name: member[i].memberName,
+                nameSorted.append(NameSortedMemberPrayItem(name: member[i].name,
                                                            dateList: dateList, prayList: prayList))
             }
             
