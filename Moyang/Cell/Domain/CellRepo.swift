@@ -10,6 +10,10 @@ import Foundation
 import Combine
 
 protocol CellRepo {
-    static func fetchCellPreview() -> AnyPublisher<CellPreview, Error>
-    static func fetchCellInfo() -> AnyPublisher<CellInfo, Error>
+    func fetchCellPreview() -> AnyPublisher<CellPreview, Error>
+    func fetchCellInfo() -> AnyPublisher<CellInfo, Error>
+    
+    func add(_ cellPrayInfo: CellPrayInfo) -> AnyPublisher<Bool, MoyangError>
+    
+    func addCellPrayListListener() -> PassthroughSubject<CellPrayInfo, MoyangError>
 }

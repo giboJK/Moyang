@@ -10,70 +10,33 @@ import SwiftUI
 import Combine
 
 class CellMeetingVM: ObservableObject {
-    @Published private(set) var state = State.idle
     @Published var answerList: [String] = Array(repeating: "", count: 10)
+    @Published var cellInfo: CellInfoItem
     
     private var disposables = Set<AnyCancellable>()
-    private let input = PassthroughSubject<Event, Never>()
     
     private var cellRepo: CellRepo
     
     init(cellRepo: CellRepo) {
         self.cellRepo = cellRepo
-        
-        Publishers.system(initial: state,
-                          reduce: Self.reduce,
-                          scheduler: RunLoop.main,
-                          feedbacks: [
-                            Self.whenLoading(),
-                            Self.userInput(input: input.eraseToAnyPublisher())
-                          ]
-        ).assign(to: \.state, on: self)
-            .store(in: &disposables)
+        cellInfo = CellInfoItem(cellInfo: CellInfo(id: "",
+                                                   cellName: "",
+                                                   leader: CellMember(id: "", name: "", profileURL: ""),
+                                                   memberList: []))
     }
     
     deinit {
         Log.i(self)
         disposables.removeAll()
     }
-    
-    func send(event: Event) {
-        input.send(event)
-    }
-    
-    static func whenLoading() -> Feedback<State, Event> {
-        Feedback { (state: State) -> AnyPublisher<Event, Never> in
-            guard case .loading = state else { return Empty().eraseToAnyPublisher() }
-            return CellRepoImpl.fetchCellInfo()
-                .map { CellMeetingVM.CellInfoItem(cellInfo: $0) }
-                .map(Event.onCellInfoLoaded)
-                .catch { Just(Event.onFailedToLoadCellInfo($0)) }
-                .eraseToAnyPublisher()
-        }
-    }
-}
-
-extension CellMeetingVM {
-    enum State {
-        case idle
-        case loading
-        case loaded(CellMeetingVM.CellInfoItem)
-        case error(Error)
-    }
-    
-    enum Event {
-        case onAppear
-        case onCellInfoLoaded(CellMeetingVM.CellInfoItem)
-        case onFailedToLoadCellInfo(Error)
-    }
 }
 
 extension CellMeetingVM {
     typealias Identifier = Int
     struct CellInfoItem {
-        let cellName: String
+        var cellName: String
         let talkingSubject: String
-        let questionList: [String]
+        var questionList: [String]
         let dateString: String
         
         init(cellInfo: CellInfo) {
@@ -82,38 +45,5 @@ extension CellMeetingVM {
             questionList = ["아하하하 1", "우라라라라 2", "그우어ㅓ어3", "잇츠 퀘스쳔4"]
             dateString = "2022-01-02"
         }
-    }
-}
-
-extension CellMeetingVM {
-    static func reduce(_ state: State, _ event: Event) -> State {
-        switch state {
-        case .idle:
-            switch event {
-            case .onAppear:
-                return .loading
-            default:
-                return state
-            }
-        case .loading:
-            switch event {
-            case .onFailedToLoadCellInfo(let error):
-                return .error(error)
-            case .onCellInfoLoaded(let cellInfo):
-                return .loaded(cellInfo)
-            default:
-                return state
-            }
-        case .loaded:
-            return state
-        case .error:
-            return state
-        }
-    }
-}
-
-extension CellMeetingVM {
-    static func userInput(input: AnyPublisher<Event, Never>) -> Feedback<State, Event> {
-        Feedback { _ in input}
     }
 }

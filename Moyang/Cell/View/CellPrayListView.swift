@@ -75,6 +75,6 @@ struct CellPrayListView: View {
 
 struct CellPrayListView_Previews: PreviewProvider {
     static var previews: some View {
-        CellPrayListView(viewModel: CellPrayListVM(cellRepo: CellRepoImpl()))
+        CellPrayListView(viewModel: CellPrayListVM(cellRepo: CellRepoImpl(service: FirestoreServiceImpl())))
     }
 }

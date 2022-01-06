@@ -26,7 +26,7 @@ class NewCellPrayVM: ObservableObject, Identifiable {
         
         var memberNewPrayList = [MemberNewPray]()
         cellInfo.memberList.forEach {
-            memberNewPrayList.append(MemberNewPray(name: $0.memberName))
+            memberNewPrayList.append(MemberNewPray(name: $0.name))
         }
         self.memberNewPrayList = memberNewPrayList
     }

@@ -1,55 +1,31 @@
 {
-    "id":100001,
+    "id":"100001",
     "cell_name":"정김기보셀",
     "leader": {
-        "id":200001,
-        "member_name":"정김기보",
-        "age":30,
-        "sex":"Male",
-        "birth":"1989-06-30"
+        "id":"200001",
+        "name":"정김기보",
+        "url":"https://picsum.photos/id/537"
     },
     "member_list":[
         {
-            "id":200001,
-            "member_name":"정김기보",
-            "age":30,
-            "sex":"Male",
-            "birth":"1989-06-30"
+            "id":"200001",
+            "name":"정김기보",
+            "url":"https://picsum.photos/id/537"
         },
         {
-            "id":200002,
-            "member_name":"이름이름이이름",
-            "age":31,
-            "sex":"Male",
-            "birth":"1989-06-30"
+            "id":"200005",
+            "name":"정기보 정",
+            "url":"https://picsum.photos/id/237"
         },
         {
-            "id":200003,
-            "member_name":"초이름입니다",
-            "age":32,
-            "sex":"Male",
-            "birth":"1989-06-30"
+            "id":"200006",
+            "name":"오기보",
+            "url":"https://picsum.photos/seed/picsum/200/300"
         },
         {
-            "id":200004,
-            "member_name":"고기보",
-            "age":33,
-            "sex":"Male",
-            "birth":"1989-06-30"
+            "id":"200007",
+            "name":"여기보",
+            "url":"https://picsum.photos/200/300?grayscale"
         },
-        {
-            "id":200005,
-            "member_name":"김기보 정",
-            "age":34,
-            "sex":"Male",
-            "birth":"1989-06-30"
-        },
-        {
-            "id":200007,
-            "member_name":"기기보",
-            "age":36,
-            "sex":"Male",
-            "birth":"1989-06-30"
-        }
     ]
 }
