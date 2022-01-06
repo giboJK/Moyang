@@ -11,6 +11,8 @@
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
 		08A1B7CA27804A010085BE18 /* PrayList.json in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B7C927804A010085BE18 /* PrayList.json */; };
 		08CE42012780059A003352E0 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE42002780059A003352E0 /* FirestoreService.swift */; };
+		08D2D8532787B05F006897A4 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8522787B05F006897A4 /* SignUpView.swift */; };
+		08D2D8552787B074006897A4 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8542787B074006897A4 /* LogInView.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		241426AB278099CB006682B1 /* PrayRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241426AA278099CB006682B1 /* PrayRepoMock.swift */; };
@@ -32,8 +34,6 @@
 		246BD7C627240AD4005C4E0B /* PrayListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BB27240AD4005C4E0B /* PrayListVM.swift */; };
 		246BD7C727240AD4005C4E0B /* PrayCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */; };
 		246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */; };
-		246BD7CD27240ADB005C4E0B /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7CB27240ADB005C4E0B /* QuestionView.swift */; };
-		246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7CC27240ADB005C4E0B /* QuestionCard.swift */; };
 		246BD7F127240AE4005C4E0B /* CellRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */; };
 		246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */; };
 		246BD7F427240AE4005C4E0B /* CellPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E227240AE4005C4E0B /* CellPreviewCard.swift */; };
@@ -100,6 +100,8 @@
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		08A1B7C927804A010085BE18 /* PrayList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrayList.json; sourceTree = "<group>"; };
 		08CE42002780059A003352E0 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		08D2D8522787B05F006897A4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		08D2D8542787B074006897A4 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		241426AA278099CB006682B1 /* PrayRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayRepoMock.swift; sourceTree = "<group>"; };
@@ -122,8 +124,6 @@
 		246BD7BB27240AD4005C4E0B /* PrayListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayListVM.swift; sourceTree = "<group>"; };
 		246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayCardVM.swift; sourceTree = "<group>"; };
 		246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayRepoImpl.swift; sourceTree = "<group>"; };
-		246BD7CB27240ADB005C4E0B /* QuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
-		246BD7CC27240ADB005C4E0B /* QuestionCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionCard.swift; sourceTree = "<group>"; };
 		246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRepoImpl.swift; sourceTree = "<group>"; };
 		246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellMeetingVM.swift; sourceTree = "<group>"; };
 		246BD7E227240AE4005C4E0B /* CellPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPreviewCard.swift; sourceTree = "<group>"; };
@@ -206,6 +206,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08D2D8502787B010006897A4 /* SignupLogin */ = {
+			isa = PBXGroup;
+			children = (
+				08D2D8512787B04C006897A4 /* View */,
+			);
+			path = SignupLogin;
+			sourceTree = "<group>";
+		};
+		08D2D8512787B04C006897A4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				08D2D8522787B05F006897A4 /* SignUpView.swift */,
+				08D2D8542787B074006897A4 /* LogInView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		242D745A274267AA0053EF2A /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,23 +306,6 @@
 				241426AA278099CB006682B1 /* PrayRepoMock.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		246BD7C927240ADB005C4E0B /* Question */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7CA27240ADB005C4E0B /* View */,
-			);
-			path = Question;
-			sourceTree = "<group>";
-		};
-		246BD7CA27240ADB005C4E0B /* View */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7CB27240ADB005C4E0B /* QuestionView.swift */,
-				246BD7CC27240ADB005C4E0B /* QuestionCard.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		246BD7DC27240AE4005C4E0B /* Cell */ = {
@@ -486,7 +486,7 @@
 				248FEC0E2723A07D00321E5E /* Main */,
 				246BD7DC27240AE4005C4E0B /* Cell */,
 				246BD7AD27240AD4005C4E0B /* Pray */,
-				246BD7C927240ADB005C4E0B /* Question */,
+				08D2D8502787B010006897A4 /* SignupLogin */,
 				246BD7F927240AFA005C4E0B /* QT */,
 				246BD7A327240A96005C4E0B /* Daily */,
 				24D0D2FD27230CA6006FF67B /* Preview Content */,
@@ -800,7 +800,9 @@
 				24D0D32D272314F7006FF67B /* Log.swift in Sources */,
 				246BD7AC27240AB9005C4E0B /* MainCategoryList.swift in Sources */,
 				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
+				08D2D8552787B074006897A4 /* LogInView.swift in Sources */,
 				246BD7C127240AD4005C4E0B /* PrayPreviewCard.swift in Sources */,
+				08D2D8532787B05F006897A4 /* SignUpView.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */,
@@ -821,7 +823,6 @@
 				246BD7F627240AE4005C4E0B /* CellMeetingView.swift in Sources */,
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,
 				24BB803727565E2200BE2988 /* LocalDB.swift in Sources */,
-				246BD7CD27240ADB005C4E0B /* QuestionView.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* CellPreview.swift in Sources */,
 				24BB327C27656735002131BF /* MainCategoryVM.swift in Sources */,
 				246BD7C227240AD4005C4E0B /* Pray.swift in Sources */,
@@ -840,7 +841,6 @@
 				24D7BB31274D179200CC8B7C /* CellPrayListVM.swift in Sources */,
 				24755367277CA9AB001908A6 /* UserData.swift in Sources */,
 				246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */,
-				246BD7CE27240ADB005C4E0B /* QuestionCard.swift in Sources */,
 				248FF3F42758D681009688C6 /* CellAssembly.swift in Sources */,
 				084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
