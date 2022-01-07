@@ -13,6 +13,7 @@
 		08CE42012780059A003352E0 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE42002780059A003352E0 /* FirestoreService.swift */; };
 		08D2D8532787B05F006897A4 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8522787B05F006897A4 /* SignUpView.swift */; };
 		08D2D8552787B074006897A4 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8542787B074006897A4 /* LogInView.swift */; };
+		08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8572787B12F006897A4 /* LoginVM.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		241426AB278099CB006682B1 /* PrayRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241426AA278099CB006682B1 /* PrayRepoMock.swift */; };
@@ -102,6 +103,7 @@
 		08CE42002780059A003352E0 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		08D2D8522787B05F006897A4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		08D2D8542787B074006897A4 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		08D2D8572787B12F006897A4 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		241426AA278099CB006682B1 /* PrayRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayRepoMock.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 		08D2D8502787B010006897A4 /* SignupLogin */ = {
 			isa = PBXGroup;
 			children = (
+				08D2D8562787B124006897A4 /* Presenter */,
 				08D2D8512787B04C006897A4 /* View */,
 			);
 			path = SignupLogin;
@@ -221,6 +224,14 @@
 				08D2D8542787B074006897A4 /* LogInView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		08D2D8562787B124006897A4 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				08D2D8572787B12F006897A4 /* LoginVM.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		242D745A274267AA0053EF2A /* CommonView */ = {
@@ -789,6 +800,7 @@
 				246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */,
 				2481EF22276D9D3900C70E26 /* CellCardVM.swift in Sources */,
 				246BD7F127240AE4005C4E0B /* CellRepoImpl.swift in Sources */,
+				08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */,
 				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
 				246BD7C727240AD4005C4E0B /* PrayCardVM.swift in Sources */,
 				244933EB27775B8F000DDE01 /* PrayCardView.swift in Sources */,
