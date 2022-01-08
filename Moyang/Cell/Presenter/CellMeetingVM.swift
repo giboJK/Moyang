@@ -11,18 +11,20 @@ import Combine
 
 class CellMeetingVM: ObservableObject {
     @Published var answerList: [String] = Array(repeating: "", count: 10)
-    @Published var cellInfo: CellInfoItem
+    @Published var cellInfo: GroupInfoItem
     
     private var disposables = Set<AnyCancellable>()
     
-    private var cellRepo: CellRepo
+    private var groupRepo: GroupRepo
     
-    init(cellRepo: CellRepo) {
-        self.cellRepo = cellRepo
-        cellInfo = CellInfoItem(cellInfo: CellInfo(id: "",
-                                                   cellName: "",
-                                                   leader: CellMember(id: "", name: "", profileURL: ""),
-                                                   memberList: []))
+    init(groupRepo: GroupRepo) {
+        self.groupRepo = groupRepo
+        cellInfo = GroupInfoItem(cellInfo: GroupInfo(id: "",
+                                                     groupName: "",
+                                                     leader: CellMember(id: "",
+                                                                        name: "",
+                                                                        profileURL: ""),
+                                                     memberList: []))
     }
     
     deinit {
@@ -33,14 +35,14 @@ class CellMeetingVM: ObservableObject {
 
 extension CellMeetingVM {
     typealias Identifier = Int
-    struct CellInfoItem {
+    struct GroupInfoItem {
         var cellName: String
         let talkingSubject: String
         var questionList: [String]
         let dateString: String
         
-        init(cellInfo: CellInfo) {
-            cellName = cellInfo.cellName
+        init(cellInfo: GroupInfo) {
+            cellName = cellInfo.groupName
             talkingSubject = "셀모임 주제~"
             questionList = ["아하하하 1", "우라라라라 2", "그우어ㅓ어3", "잇츠 퀘스쳔4"]
             dateString = "2022-01-02"

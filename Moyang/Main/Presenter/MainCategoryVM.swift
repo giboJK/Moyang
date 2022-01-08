@@ -33,7 +33,7 @@ class MainCategoryVM: ObservableObject {
     }
     
     private func makeCellCardVM(cellCardItem: CellCardItem) {
-        let cellPreview = CellPreview(cellName: cellCardItem.cellName,
+        let cellPreview = GroupPreview(name: cellCardItem.cellName,
                                       talkingSubject: cellCardItem.talkingSubject,
                                       dateString: cellCardItem.cellMeetingDate,
                                       memberList: cellCardItem.cellMemberList)
@@ -73,7 +73,7 @@ extension MainCategoryVM {
         let cellMemberList: [CellMember]
         
         init(summary: Summary) {
-            cellName = summary.cellName
+            cellName = summary.groupName
             talkingSubject = summary.cellTalkingSubject
             cellMeetingDate = summary.cellMeetingDate
             

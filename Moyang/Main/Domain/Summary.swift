@@ -9,7 +9,7 @@ import Foundation
 
 struct Summary: Codable {
     let cellId: String
-    let cellName: String
+    let groupName: String
     let cellTalkingSubject: String
     let cellMeetingDate: String
     let cellMemberList: [[String: String]]
@@ -27,7 +27,7 @@ struct Summary: Codable {
     
     enum CodingKeys: String, CodingKey {
         case cellId = "cell_id"
-        case cellName = "cell_name"
+        case groupName = "cell_name"
         case cellTalkingSubject = "cell_talking_subject"
         case cellMeetingDate = "cell_meeting_date"
         case cellMemberList = "cell_member_list"

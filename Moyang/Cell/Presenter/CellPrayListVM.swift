@@ -13,16 +13,16 @@ class CellPrayListVM: ObservableObject, Identifiable {
     @Published var dateSorteditemList = [DateSortedMemberPrayItem]()
     @Published var showSortingByName = true
     
-    private let cellRepo: CellRepo
+    private let groupRepo: GroupRepo
     
-    init(cellRepo: CellRepo) {
-        self.cellRepo = cellRepo
+    init(groupRepo: GroupRepo) {
+        self.groupRepo = groupRepo
         loadData()
     }
     
     func loadData() {
         let cellPrayListItem = CellPrayListItem(data: DummyData().cellPrayInfo,
-                                                member: DummyData().cellInfo.memberList)
+                                                member: DummyData().groupInfo.memberList)
         nameSorteditemList = cellPrayListItem.nameSortedItemList
         dateSorteditemList = cellPrayListItem.dateSortedItemList
     }

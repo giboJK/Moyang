@@ -10,13 +10,13 @@ import SwiftUI
 
 struct MainCategoryList: View {
     @ObservedObject var vm = MainCategoryVM(repo: SummaryRepoImpl())
-    private let cellRepo = CellRepoImpl(service: FirestoreServiceImpl())
+    private let cellRepo = GroupRepoImpl(service: FirestoreServiceImpl())
     private let prayRepo = PrayRepoImpl(service: FirestoreServiceImpl())
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
-                NavigationLink(destination: CellMeetingView(vm: CellMeetingVM(cellRepo: cellRepo))) {
+                NavigationLink(destination: CellMeetingView(vm: CellMeetingVM(groupRepo: cellRepo))) {
                     if let cellCardVM = vm.cellCardVM {
                         CellPreviewCard(vm: cellCardVM)
                     }

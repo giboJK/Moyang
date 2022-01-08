@@ -1,5 +1,5 @@
 //
-//  CellRepo.swift
+//  GroupRepo.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/10/19.
@@ -9,9 +9,9 @@
 import Foundation
 import Combine
 
-protocol CellRepo {
-    func fetchCellPreview() -> AnyPublisher<CellPreview, Error>
-    func fetchCellInfo() -> AnyPublisher<CellInfo, Error>
+protocol GroupRepo {
+    func fetchCellPreview() -> AnyPublisher<GroupPreview, Error>
+    func fetchGroupInfo() -> AnyPublisher<GroupInfo, Error>
     
     func add(_ cellPrayInfo: CellPrayInfo) -> AnyPublisher<Bool, MoyangError>
     

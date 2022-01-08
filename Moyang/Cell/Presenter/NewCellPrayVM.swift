@@ -22,7 +22,7 @@ class NewCellPrayVM: ObservableObject, Identifiable {
     }
     
     private func loadCellMemberList() {
-        let cellInfo = DummyData().cellInfo
+        let cellInfo = DummyData().groupInfo
         
         var memberNewPrayList = [MemberNewPray]()
         cellInfo.memberList.forEach {

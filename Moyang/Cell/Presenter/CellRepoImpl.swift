@@ -1,5 +1,5 @@
 //
-//  CellRepoImpl.swift
+//  GroupRepoImpl.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/10/19.
@@ -10,7 +10,7 @@ import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class CellRepoImpl: CellRepo {
+class GroupRepoImpl: GroupRepo {
     private let service: FirestoreService
     private let collectionName = "COMMUNITY"
     
@@ -18,7 +18,7 @@ class CellRepoImpl: CellRepo {
         self.service = service
     }
     
-    func fetchCellPreview() -> AnyPublisher<CellPreview, Error> {
+    func fetchCellPreview() -> AnyPublisher<GroupPreview, Error> {
         return Just(DummyData().cellPreview)
             .setFailureType(to: Error.self)
             .receive(on: DispatchQueue.main)
@@ -26,8 +26,8 @@ class CellRepoImpl: CellRepo {
 //        return Empty(completeImmediately: false).eraseToAnyPublisher()
     }
     
-    func fetchCellInfo() -> AnyPublisher<CellInfo, Error> {
-        return Just(DummyData().cellInfo)
+    func fetchGroupInfo() -> AnyPublisher<GroupInfo, Error> {
+        return Just(DummyData().groupInfo)
             .setFailureType(to: Error.self)
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
@@ -43,7 +43,7 @@ class CellRepoImpl: CellRepo {
             .collection(self.collectionName)
             .document(documentName)
             .collection("MY_PRAY")
-            .document(cellPrayInfo.createdTimestamp)
+            .document(cellPrayInfo.createTimestamp)
         return service.addDocument(cellPrayInfo, ref: ref)
     }
     

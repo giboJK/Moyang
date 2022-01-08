@@ -10,7 +10,7 @@ import Foundation
 class UserData {
     static let shared = UserData()
     var myInfo: CellMemberDetail?
-    var myEmail: String?
+    var groupInfo: GroupInfo?
     
     var isNotFirstLaunch: Bool {
         get {
@@ -30,6 +30,7 @@ class UserData {
         }
     }
     
+    /// Email address
     var userID: String? {
         get {
             return UserDefaults.standard.string(forKey: "USER_ID")

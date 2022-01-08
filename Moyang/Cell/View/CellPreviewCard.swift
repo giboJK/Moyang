@@ -14,7 +14,7 @@ struct CellPreviewCard: View {
     var body: some View {
         VStack {
             HStack {
-                Text(vm.cellPreview.cellName)
+                Text(vm.cellPreview.name)
                     .font(.system(size: 16, weight: .bold, design: .default))
                     .frame(alignment: .center)
                 Spacer()

@@ -65,7 +65,7 @@ struct CellMeetingView: View {
             }
             Divider()
                 .padding(.top, 5)
-            NavigationLink(destination: CellPrayListView(viewModel: CellPrayListVM(cellRepo: CellRepoImpl(service: FirestoreServiceImpl())))) {
+            NavigationLink(destination: CellPrayListView(viewModel: CellPrayListVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
                 HStack {
                     Text("지난기도")
                         .font(.system(size: 17, weight: .bold))
@@ -96,6 +96,6 @@ struct CellMeetingView: View {
 
 struct CellMeetingView_Previews: PreviewProvider {
     static var previews: some View {
-        CellMeetingView(vm: CellMeetingVM(cellRepo: CellRepoImpl(service: FirestoreServiceImpl())))
+        CellMeetingView(vm: CellMeetingVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))
     }
 }
