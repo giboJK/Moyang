@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct MainCategoryList: View {
-    @ObservedObject var vm = MainCategoryVM(repo: SummaryRepoImpl())
+    @ObservedObject var vm = MainCategoryVM(repo: DailyRepoImpl())
     private let cellRepo = GroupRepoImpl(service: FirestoreServiceImpl())
     private let prayRepo = PrayRepoImpl(service: FirestoreServiceImpl())
     
@@ -30,9 +30,6 @@ struct MainCategoryList: View {
         }
         .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
         .background(Color(UIColor.bgColor))
-        .onAppear {
-            vm.fetchSummary()
-        }
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  Summary.swift
+//  DailyPreview.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/12/11.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Summary: Codable {
-    let cellId: String
+struct DailyPreview: Codable {
+    let groupId: String
     let groupName: String
-    let cellTalkingSubject: String
-    let cellMeetingDate: String
-    let cellMemberList: [[String: String]]
+    let groupTalkingSubject: String
+    let groupMeetingDate: String
+    let groupMemberList: [GroupMember]
     let qtId: String
     let qtName: String
     let qtSubject: String
@@ -26,11 +26,11 @@ struct Summary: Codable {
     let prayTime: String
     
     enum CodingKeys: String, CodingKey {
-        case cellId = "cell_id"
-        case groupName = "cell_name"
-        case cellTalkingSubject = "cell_talking_subject"
-        case cellMeetingDate = "cell_meeting_date"
-        case cellMemberList = "cell_member_list"
+        case groupId = "group_id"
+        case groupName = "group_name"
+        case groupTalkingSubject = "group_talking_subject"
+        case groupMeetingDate = "cell_meeting_date"
+        case groupMemberList = "member_list"
         case qtId = "qt_id"
         case qtName = "qt_name"
         case qtSubject = "qt_subject"

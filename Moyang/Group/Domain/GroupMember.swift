@@ -1,5 +1,5 @@
 //
-//  CellMember.swift
+//  GroupMember.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/01/06.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CellMember: Codable, Identifiable {
+struct GroupMember: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
     var name: String
@@ -20,7 +20,7 @@ struct CellMember: Codable, Identifiable {
     }
 }
 
-struct CellMemberDetail: Codable, Identifiable {
+struct GroupMemberDetail: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
     var memberName: String

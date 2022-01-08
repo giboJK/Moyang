@@ -37,8 +37,8 @@ class PrayRepoImpl: PrayRepo {
     
     func addPraySubjectListListener() -> PassthroughSubject<[Pray], MoyangError> {
         var documentName = "TEST"
-        if let userName = UserData.shared.userID {
-            documentName = userName
+        if let userID = UserData.shared.userID {
+            documentName = userID
         }
         let ref = service.store
             .collection(self.collectionName)

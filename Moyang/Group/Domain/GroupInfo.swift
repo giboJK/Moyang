@@ -11,8 +11,8 @@ struct GroupInfo: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
     let groupName: String
-    let leader: CellMember
-    let memberList: [CellMember]
+    let leader: GroupMember
+    let memberList: [GroupMember]
     
     enum CodingKeys: String, CodingKey {
         case id

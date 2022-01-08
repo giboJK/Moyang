@@ -21,7 +21,7 @@ class CellMeetingVM: ObservableObject {
         self.groupRepo = groupRepo
         cellInfo = GroupInfoItem(cellInfo: GroupInfo(id: "",
                                                      groupName: "",
-                                                     leader: CellMember(id: "",
+                                                     leader: GroupMember(id: "",
                                                                         name: "",
                                                                         profileURL: ""),
                                                      memberList: []))

@@ -12,7 +12,7 @@ class CellCardVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var cellPreview: GroupPreview
-    @Published var randomMemberList: [CellMember]
+    @Published var randomMemberList: [GroupMember]
     
     var maxDisplayedMembers = 5
     

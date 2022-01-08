@@ -11,13 +11,13 @@ import SwiftUI
 struct CellPrayInfo: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
-    let createTimestamp: String
+    let createdTimestamp: String
     let cellName: String
     let cellPrayList: [CellPrayList]
     
     enum CodingKeys: String, CodingKey {
         case id
-        case createTimestamp = "create_timestamp"
+        case createdTimestamp = "created_timestamp"
         case cellName = "cell_name"
         case cellPrayList = "cell_pray_list"
     }

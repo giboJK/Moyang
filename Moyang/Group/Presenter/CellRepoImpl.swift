@@ -43,7 +43,7 @@ class GroupRepoImpl: GroupRepo {
             .collection(self.collectionName)
             .document(documentName)
             .collection("MY_PRAY")
-            .document(cellPrayInfo.createTimestamp)
+            .document(cellPrayInfo.createdTimestamp)
         return service.addDocument(cellPrayInfo, ref: ref)
     }
     

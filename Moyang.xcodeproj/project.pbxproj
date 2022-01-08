@@ -48,7 +48,6 @@
 		248FEC102723A08D00321E5E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC0F2723A08D00321E5E /* MainView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
-		248FF3F42758D681009688C6 /* CellAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FF3F32758D681009688C6 /* CellAssembly.swift */; };
 		249B903027259C6400B53682 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249B902F27259C6400B53682 /* DummyData.swift */; };
 		249B903827259FD300B53682 /* GroupPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = 249B903727259FD300B53682 /* GroupPreview.json */; };
 		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
@@ -60,9 +59,9 @@
 		24B6A2572726C40E0065112A /* GroupInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* GroupInfo.json */; };
 		24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6E31E275F81CE00AD2E53 /* MoyangError.swift */; };
 		24B7B4D82753BC5F007BCF9E /* NewCellPrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B7B4D72753BC5F007BCF9E /* NewCellPrayView.swift */; };
-		24B8BCE92764C7AD005B0A9F /* SummaryRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCE82764C7AD005B0A9F /* SummaryRepo.swift */; };
-		24B8BCED2764C7FF005B0A9F /* SummaryRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEC2764C7FF005B0A9F /* SummaryRepoImpl.swift */; };
-		24B8BCEF2764C939005B0A9F /* Summary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEE2764C939005B0A9F /* Summary.swift */; };
+		24B8BCE92764C7AD005B0A9F /* DailyRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */; };
+		24B8BCED2764C7FF005B0A9F /* DailyRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */; };
+		24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEE2764C939005B0A9F /* DailyPreview.swift */; };
 		24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9BF6C275AEB7B0056E694 /* UIColor+.swift */; };
 		24BB327C27656735002131BF /* MainCategoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB327B27656735002131BF /* MainCategoryVM.swift */; };
 		24BB8032275645C100BE2988 /* NewCellPrayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB8031275645C100BE2988 /* NewCellPrayVM.swift */; };
@@ -82,7 +81,7 @@
 		24D7BB31274D179200CC8B7C /* CellPrayListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB30274D179200CC8B7C /* CellPrayListVM.swift */; };
 		24D7BB33274D17C100CC8B7C /* CellPrayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB32274D17C000CC8B7C /* CellPrayInfo.swift */; };
 		24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB53BA27479DAA00F861EC /* UINavigationController+.swift */; };
-		24E779CE2787308D00C732D6 /* CellMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E779CD2787308D00C732D6 /* CellMember.swift */; };
+		24E779CE2787308D00C732D6 /* GroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E779CD2787308D00C732D6 /* GroupMember.swift */; };
 		24EA9B4827579BDC004FB585 /* CellMemberPrayEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EA9B4727579BDC004FB585 /* CellMemberPrayEditView.swift */; };
 		24EA9B4A2757A4AB004FB585 /* CellPrayListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EA9B492757A4AB004FB585 /* CellPrayListRow.swift */; };
 /* End PBXBuildFile section */
@@ -139,7 +138,6 @@
 		248FEC0F2723A08D00321E5E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
-		248FF3F32758D681009688C6 /* CellAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAssembly.swift; sourceTree = "<group>"; };
 		249B902F27259C6400B53682 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		249B903727259FD300B53682 /* GroupPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GroupPreview.json; sourceTree = "<group>"; };
 		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
@@ -151,9 +149,9 @@
 		24B6A2562726C40E0065112A /* GroupInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GroupInfo.json; sourceTree = "<group>"; };
 		24B6E31E275F81CE00AD2E53 /* MoyangError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangError.swift; sourceTree = "<group>"; };
 		24B7B4D72753BC5F007BCF9E /* NewCellPrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCellPrayView.swift; sourceTree = "<group>"; };
-		24B8BCE82764C7AD005B0A9F /* SummaryRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryRepo.swift; sourceTree = "<group>"; };
-		24B8BCEC2764C7FF005B0A9F /* SummaryRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryRepoImpl.swift; sourceTree = "<group>"; };
-		24B8BCEE2764C939005B0A9F /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
+		24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepo.swift; sourceTree = "<group>"; };
+		24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepoImpl.swift; sourceTree = "<group>"; };
+		24B8BCEE2764C939005B0A9F /* DailyPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPreview.swift; sourceTree = "<group>"; };
 		24B9BF6C275AEB7B0056E694 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		24BB327B27656735002131BF /* MainCategoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoryVM.swift; sourceTree = "<group>"; };
 		24BB8031275645C100BE2988 /* NewCellPrayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCellPrayVM.swift; sourceTree = "<group>"; };
@@ -175,7 +173,7 @@
 		24D7BB30274D179200CC8B7C /* CellPrayListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayListVM.swift; sourceTree = "<group>"; };
 		24D7BB32274D17C000CC8B7C /* CellPrayInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayInfo.swift; sourceTree = "<group>"; };
 		24DB53BA27479DAA00F861EC /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
-		24E779CD2787308D00C732D6 /* CellMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellMember.swift; sourceTree = "<group>"; };
+		24E779CD2787308D00C732D6 /* GroupMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMember.swift; sourceTree = "<group>"; };
 		24EA9B4727579BDC004FB585 /* CellMemberPrayEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellMemberPrayEditView.swift; sourceTree = "<group>"; };
 		24EA9B492757A4AB004FB585 /* CellPrayListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayListRow.swift; sourceTree = "<group>"; };
 		2928AF0E9E86176E64F5A826 /* Pods-MoyangTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoyangTests.release.xcconfig"; path = "Target Support Files/Pods-MoyangTests/Pods-MoyangTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -319,15 +317,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		246BD7DC27240AE4005C4E0B /* Cell */ = {
+		246BD7DC27240AE4005C4E0B /* Group */ = {
 			isa = PBXGroup;
 			children = (
-				248FF3F32758D681009688C6 /* CellAssembly.swift */,
 				246BD7E527240AE4005C4E0B /* Domain */,
 				246BD7DD27240AE4005C4E0B /* Presenter */,
 				246BD7E127240AE4005C4E0B /* View */,
 			);
-			path = Cell;
+			path = Group;
 			sourceTree = "<group>";
 		};
 		246BD7DD27240AE4005C4E0B /* Presenter */ = {
@@ -363,7 +360,7 @@
 				246BD7E727240AE4005C4E0B /* GroupPreview.swift */,
 				24B6A2542726BEB00065112A /* GroupInfo.swift */,
 				24D7BB32274D17C000CC8B7C /* CellPrayInfo.swift */,
-				24E779CD2787308D00C732D6 /* CellMember.swift */,
+				24E779CD2787308D00C732D6 /* GroupMember.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -439,8 +436,8 @@
 		24B8BCE72764C798005B0A9F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				24B8BCE82764C7AD005B0A9F /* SummaryRepo.swift */,
-				24B8BCEE2764C939005B0A9F /* Summary.swift */,
+				24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */,
+				24B8BCEE2764C939005B0A9F /* DailyPreview.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -448,7 +445,7 @@
 		24B8BCEB2764C7DD005B0A9F /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				24B8BCEC2764C7FF005B0A9F /* SummaryRepoImpl.swift */,
+				24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */,
 				24BB327B27656735002131BF /* MainCategoryVM.swift */,
 			);
 			path = Presenter;
@@ -495,7 +492,7 @@
 				24D0D32627231442006FF67B /* Util */,
 				242D745A274267AA0053EF2A /* CommonView */,
 				248FEC0E2723A07D00321E5E /* Main */,
-				246BD7DC27240AE4005C4E0B /* Cell */,
+				246BD7DC27240AE4005C4E0B /* Group */,
 				246BD7AD27240AD4005C4E0B /* Pray */,
 				08D2D8502787B010006897A4 /* SignupLogin */,
 				246BD7F927240AFA005C4E0B /* QT */,
@@ -818,18 +815,18 @@
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */,
-				24B8BCED2764C7FF005B0A9F /* SummaryRepoImpl.swift in Sources */,
-				24E779CE2787308D00C732D6 /* CellMember.swift in Sources */,
+				24B8BCED2764C7FF005B0A9F /* DailyRepoImpl.swift in Sources */,
+				24E779CE2787308D00C732D6 /* GroupMember.swift in Sources */,
 				246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */,
 				246BD7FC27240AFA005C4E0B /* QTPreviewCard.swift in Sources */,
-				24B8BCEF2764C939005B0A9F /* Summary.swift in Sources */,
+				24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */,
 				246BD7A927240A96005C4E0B /* DailySummaryView.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
 				24B7B4D82753BC5F007BCF9E /* NewCellPrayView.swift in Sources */,
 				249B903027259C6400B53682 /* DummyData.swift in Sources */,
 				24151DCE274A2A3E00DD38CE /* CellPrayListView.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
-				24B8BCE92764C7AD005B0A9F /* SummaryRepo.swift in Sources */,
+				24B8BCE92764C7AD005B0A9F /* DailyRepo.swift in Sources */,
 				246BD7C627240AD4005C4E0B /* PrayListVM.swift in Sources */,
 				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
 				246BD7F627240AE4005C4E0B /* CellMeetingView.swift in Sources */,
@@ -853,7 +850,6 @@
 				24D7BB31274D179200CC8B7C /* CellPrayListVM.swift in Sources */,
 				24755367277CA9AB001908A6 /* UserData.swift in Sources */,
 				246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */,
-				248FF3F42758D681009688C6 /* CellAssembly.swift in Sources */,
 				084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
