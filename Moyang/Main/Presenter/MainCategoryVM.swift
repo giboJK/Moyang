@@ -17,8 +17,7 @@ class MainCategoryVM: ObservableObject {
     
     init(repo: DailyRepo) {
         self.repo = repo
-        addDailyPreview()
-        //        fetchDailyPreview()
+        fetchDailyPreview()
     }
     
     func fetchDailyPreview() {
@@ -27,62 +26,13 @@ class MainCategoryVM: ObservableObject {
                 Log.i(completion)
             }, receiveValue: { dailyPreview in
                 let item = DailyPreviewItem(data: dailyPreview)
-                self.makeCellCardVM(cellCardItem: item.cellCardItem)
+                self.makeCellCardVM(cellCardItem: item.groupCardItem)
                 self.makePrayCardVM(prayCardItem: item.prayCardItem)
             })
             .store(in: &cancellables)
     }
     
-    func addDailyPreview() {
-        let members = [GroupMember(id: "sadjoqwd",
-                                   name: "김민준",
-                                   profileURL: "http://"),
-                       GroupMember(id: "sadjoq2wd",
-                                   name: "김한결",
-                                   profileURL: "http://"),
-                       GroupMember(id: "sadjdoqwd",
-                                   name: "김지형",
-                                   profileURL: "http://"),
-                       GroupMember(id: "sadjcoqwd",
-                                   name: "박승호",
-                                   profileURL: "http://"),
-                       GroupMember(id: "s1adjoqwd",
-                                   name: "장예람",
-                                   profileURL: "http://"),
-                       GroupMember(id: "sadewjoqwd",
-                                   name: "김연재",
-                                   profileURL: "http://"),
-                       GroupMember(id: "sadj32tefoqwd",
-                                   name: "황보예원",
-                                   profileURL: "http://")]
-        
-        let data = DailyPreview(groupId: "qwlkdmlkwdm",
-                                groupName: "고등부 3-1",
-                                groupTalkingSubject: "몰라 알려주어잉",
-                                groupMeetingDate: "2022-01-09",
-                                groupMemberList: members,
-                                qtId: "ddqwdw3e",
-                                qtName: "qwdwqwidqiw1as",
-                                qtSubject: "큐티는 뭘하나요",
-                                prayId: "dmqomqi",
-                                prayType: PrayType.my.rawValue,
-                                praySubject: "주여 집중과 몰입",
-                                prayIsAlarmOn: false,
-                                prayAlarmTime: "21:00:00 am",
-                                prayCreatedTimestamp: "2022-01-01",
-                                prayDayList: ["mon", "thu", "sat"],
-                                prayTime: PrayTime.five.code)
-        
-        repo.addDailyPreview(data)
-            .sink(receiveCompletion: { completion in
-                Log.i(completion)
-            }, receiveValue: { isSaved in
-                Log.d(isSaved)
-            })
-            .store(in: &cancellables)
-    }
-    
-    private func makeCellCardVM(cellCardItem: CellCardItem) {
+    private func makeCellCardVM(cellCardItem: GroupCardItem) {
         let cellPreview = GroupPreview(name: cellCardItem.cellName,
                                        talkingSubject: cellCardItem.talkingSubject,
                                        dateString: cellCardItem.groupMeetingDate,
@@ -105,18 +55,18 @@ class MainCategoryVM: ObservableObject {
 
 extension MainCategoryVM {
     struct DailyPreviewItem {
-        let cellCardItem: CellCardItem
+        let groupCardItem: GroupCardItem
         let prayCardItem: PrayCardItem
         let qtItem: QTItem
         
         init(data: DailyPreview) {
-            cellCardItem = CellCardItem(data: data)
+            groupCardItem = GroupCardItem(data: data)
             prayCardItem = PrayCardItem(data: data)
             qtItem = QTItem(data: data)
         }
     }
     
-    struct CellCardItem {
+    struct GroupCardItem {
         let cellName: String
         let talkingSubject: String
         let groupMeetingDate: String
@@ -126,16 +76,7 @@ extension MainCategoryVM {
             cellName = data.groupName
             talkingSubject = data.groupTalkingSubject
             groupMeetingDate = data.groupMeetingDate
-            
-            var list = [GroupMember]()
-            if let json = try? JSONSerialization.data(withJSONObject: data.groupMemberList) {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let decodedList = try? decoder.decode([GroupMember].self, from: json) {
-                    list = decodedList
-                }
-            }
-            groupMemberList = list
+            groupMemberList = data.groupMemberList
         }
     }
     

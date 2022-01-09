@@ -25,27 +25,17 @@ class DailyRepoImpl: DailyRepo {
     }
     
     func addDailyPreviewListener() -> PassthroughSubject<DailyPreview, MoyangError> {
-        let ref = service.store.collection(firstCollectionName)
+        let ref = createDocumentRef()
         return service.addListener(ref: ref,
                                    type: DailyPreview.self)
     }
     
     func addDailyPreview(_ data: DailyPreview) -> AnyPublisher<Bool, MoyangError> {
-        let ref = createRef()
+        let ref = createDocumentRef()
         return service.addDocument(data, ref: ref)
     }
     
-    private func createRef() -> CollectionReference {
-        var documentName = "teoeirm@gmail.com"
-        if let userID = UserData.shared.userID {
-            documentName = userID
-        }
-        
-        return service.store
-            .collection(self.firstCollectionName)
-    }
-    
-    private func -> DocumentReference {
+    private func createDocumentRef() -> DocumentReference {
         var documentName = "teoeirm@gmail.com"
         if let userID = UserData.shared.userID {
             documentName = userID

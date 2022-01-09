@@ -38,7 +38,7 @@ class FirestoreServiceImpl: FirestoreService {
             }
         }.eraseToAnyPublisher()
     }
-        
+    
     func addListener<T: Codable>(ref: CollectionReference,
                                  type: T.Type) -> PassthroughSubject<T, MoyangError> {
         let listener = PassthroughSubject<T, MoyangError>()
@@ -80,6 +80,28 @@ class FirestoreServiceImpl: FirestoreService {
             }
         }
         
+        return listener
+    }
+    
+    func addListener<T: Codable>(ref: DocumentReference,
+                                 type: T.Type) -> PassthroughSubject<T, MoyangError> {
+        let listener = PassthroughSubject<T, MoyangError>()
+        
+        ref.addSnapshotListener { documentSnapshot, error in
+            if let error = error {
+                listener.send(completion: .failure(.other(error)))
+            }
+            let decoder = JSONDecoder()
+            let dict = documentSnapshot?.data()
+            if let data = try?  JSONSerialization.data(withJSONObject: dict!, options: []) {
+                do {
+                    let object = try decoder.decode(type, from: data)
+                    listener.send(object)
+                } catch _ {
+                    listener.send(completion: .failure(.decodingFailed))
+                }
+            }
+        }
         return listener
     }
 }

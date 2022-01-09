@@ -17,10 +17,13 @@ protocol FirestoreService {
     
     func addDocument<T: Codable>(_ object: T,
                                  ref: DocumentReference) -> AnyPublisher<Bool, MoyangError>
-        
+    
     func addListener<T: Codable>(ref: CollectionReference,
                                  type: T.Type) -> PassthroughSubject<T, MoyangError>
     
     func addListener<T: Codable>(ref: CollectionReference,
                                  type: T.Type) -> PassthroughSubject<[T], MoyangError>
+    
+    func addListener<T: Codable>(ref: DocumentReference,
+                                 type: T.Type) -> PassthroughSubject<T, MoyangError>
 }
