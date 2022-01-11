@@ -13,6 +13,7 @@ class LoginVM: ObservableObject {
     
     @Published var id: String = ""
     @Published var password: String = ""
+    @Published var isSignupSuccess: Bool = false
     @Published var isLoginSuccess: Bool = false
     @Published var loginError: MoyangError?
     
@@ -23,7 +24,12 @@ class LoginVM: ObservableObject {
     }
     
     func signup() {
-        
+        loginService.signup(id: id, pw: password)
+            .sink { completion in
+                Log.i(completion)
+            } receiveValue: { isSuccess in
+                self.isSignupSuccess = isSuccess
+            }.store(in: &cancellables)
     }
     
     func login() {

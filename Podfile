@@ -23,6 +23,7 @@ def network
 end
 
 def firebase
+  pod 'Firebase/Auth'
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
