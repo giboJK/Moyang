@@ -9,36 +9,41 @@ import SwiftUI
 
 struct LogInView: View {
     @ObservedObject var vm: LoginVM
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
-            Text("Welcome!")
+            Text("Log In your eamil")
                 .font(.largeTitle)
                 .fontWeight(.semibold)
-                .padding(.bottom, 120)
+                .padding(.top, 100)
+                .padding(.bottom, 32)
             TextField("Email", text: $vm.id)
                 .padding()
                 .background(Color(UIColor.sheep200))
                 .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
                 .cornerRadius(12.0)
-                .padding(.bottom, 20)
+                .padding(.bottom, 16)
             SecureField("Password", text: $vm.password)
                 .padding()
                 .background(Color(UIColor.sheep200))
                 .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
                 .cornerRadius(12.0)
-                .padding(.bottom, 20)
-            
+                .padding(.bottom, 24)
             Button(action: {
-                vm.login()
+                vm.signup()
             }, label: {
-                Text("로그인")
+                Text("회원가입")
             })
-                .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
-                .background(Color(UIColor.dessertStone))
-                .foregroundColor(.white)
-                .cornerRadius(16)
+                .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 48,
+                                               height: 52))
+            Spacer()
         }
+        .navigationBarItems(trailing: Button(action: { self.mode.wrappedValue.dismiss()},
+                                             label: {
+            Image(systemName: "")
+                .foregroundColor(Color.black)
+        }))
         .background(Color(UIColor.bgColor))
     }
 }

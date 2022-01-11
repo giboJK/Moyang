@@ -19,6 +19,7 @@
 		08D82957278D2548001E6B61 /* MoyangButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */; };
 		08D82959278D25F0001E6B61 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82958278D25F0001E6B61 /* Font+.swift */; };
 		08D8295B278D3327001E6B61 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295A278D3327001E6B61 /* Color+.swift */; };
+		08D8295F278D8116001E6B61 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295E278D8116001E6B61 /* IntroView.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		241426AB278099CB006682B1 /* PrayRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241426AA278099CB006682B1 /* PrayRepoMock.swift */; };
@@ -113,6 +114,7 @@
 		08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButtonStyle.swift; sourceTree = "<group>"; };
 		08D82958278D25F0001E6B61 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		08D8295A278D3327001E6B61 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		08D8295E278D8116001E6B61 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		241426AA278099CB006682B1 /* PrayRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayRepoMock.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			children = (
 				08D2D8522787B05F006897A4 /* SignUpView.swift */,
 				08D2D8542787B074006897A4 /* LogInView.swift */,
+				08D8295E278D8116001E6B61 /* IntroView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
+				08D8295F278D8116001E6B61 /* IntroView.swift in Sources */,
 				24B47FF7276A1BD3003130E6 /* FirestoreServiceImpl.swift in Sources */,
 				24D7BB33274D17C100CC8B7C /* CellPrayInfo.swift in Sources */,
 				246BD7A827240A96005C4E0B /* DailySummaryVM.swift in Sources */,

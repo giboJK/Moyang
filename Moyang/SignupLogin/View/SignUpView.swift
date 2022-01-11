@@ -11,23 +11,23 @@ struct SignUpView: View {
     @ObservedObject var vm: LoginVM
     var body: some View {
         VStack {
-            Text("Moyang")
+            Text("Create account with your eamil")
                 .font(.largeTitle)
                 .fontWeight(.semibold)
-                .padding(.bottom, 120)
+                .padding(.top, 100)
+                .padding(.bottom, 32)
             TextField("Email", text: $vm.id)
                 .padding()
                 .background(Color(UIColor.sheep200))
                 .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
                 .cornerRadius(12.0)
-                .padding(.bottom, 20)
+                .padding(.bottom, 16)
             SecureField("Password", text: $vm.password)
                 .padding()
                 .background(Color(UIColor.sheep200))
                 .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
                 .cornerRadius(12.0)
-                .padding(.bottom, 20)
-            
+                .padding(.bottom, 24)
             Button(action: {
                 vm.signup()
             }, label: {
@@ -35,6 +35,7 @@ struct SignUpView: View {
             })
                 .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 48,
                                                height: 52))
+            Spacer()
         }
         .background(Color(UIColor.bgColor))
     }
