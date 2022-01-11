@@ -29,7 +29,7 @@ class FirestoreLoginServiceImpl: LoginService {
                 if let error = error {
                     promise(.failure(MoyangError.other(error)))
                 } else {
-                    guard let user = authResult?.user else { return }
+                    guard let user = result?.user else { return }
                     Log.d(user)
                     promise(.success(true))
                 }
