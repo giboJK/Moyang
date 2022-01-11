@@ -11,14 +11,28 @@ import Combine
 class LoginVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var username: String = ""
+    @Published var id: String = ""
     @Published var password: String = ""
+    @Published var isLoginSuccess: Bool = false
+    @Published var loginError: MoyangError?
     
-    init() {
+    private let loginService: LoginService
+    
+    init(loginService: LoginService) {
+        self.loginService = loginService
     }
     
-    func startLogin() {
+    func signup() {
         
+    }
+    
+    func login() {
+        loginService.login(id: id, pw: password)
+            .sink { completion in
+                Log.i(completion)
+            } receiveValue: { isSuccess in
+                self.isLoginSuccess = isSuccess
+            }.store(in: &cancellables)
     }
 
     deinit {

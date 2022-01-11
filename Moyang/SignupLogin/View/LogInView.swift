@@ -16,7 +16,7 @@ struct LogInView: View {
                 .font(.largeTitle)
                 .fontWeight(.semibold)
                 .padding(.bottom, 120)
-            TextField("Username", text: $vm.username)
+            TextField("Email", text: $vm.id)
                 .padding()
                 .background(Color(UIColor.sheep200))
                 .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
@@ -30,7 +30,7 @@ struct LogInView: View {
                 .padding(.bottom, 20)
             
             Button(action: {
-                vm.startLogin()
+                vm.login()
             }, label: {
                 Text("로그인")
             })
@@ -45,6 +45,6 @@ struct LogInView: View {
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView(vm: LoginVM())
+        LogInView(vm: LoginVM(loginService: FirestoreLoginServiceImpl()))
     }
 }
