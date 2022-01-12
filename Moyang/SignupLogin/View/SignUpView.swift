@@ -9,12 +9,13 @@ import SwiftUI
 
 struct SignUpView: View {
     @ObservedObject var vm: LoginVM
+    
     var body: some View {
         VStack {
             Text("Create account with your eamil")
-                .font(.largeTitle)
-                .fontWeight(.semibold)
-                .padding(.top, 100)
+                .frame(width: UIScreen.screenWidth - 48, alignment: .leading)
+                .font(.title)
+                .padding(.top, 20)
                 .padding(.bottom, 32)
             TextField("Email", text: $vm.id)
                 .padding()
@@ -35,6 +36,7 @@ struct SignUpView: View {
             })
                 .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 48,
                                                height: 52))
+                .padding(.bottom, 24)
             Spacer()
         }
         .background(Color(UIColor.bgColor))

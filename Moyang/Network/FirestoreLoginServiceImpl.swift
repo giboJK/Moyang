@@ -27,6 +27,7 @@ class FirestoreLoginServiceImpl: LoginService {
         return Future<Bool, MoyangError> { promise in
             Auth.auth().signIn(withEmail: id, password: pw) { (result, error) in
                 if let error = error {
+                    Log.e(error)
                     promise(.failure(MoyangError.other(error)))
                 } else {
                     guard let user = result?.user else { return }

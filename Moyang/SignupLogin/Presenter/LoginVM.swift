@@ -34,6 +34,7 @@ class LoginVM: ObservableObject {
     
     func login() {
         loginService.login(id: id, pw: password)
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 Log.i(completion)
             } receiveValue: { isSuccess in

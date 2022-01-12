@@ -9,14 +9,13 @@ import SwiftUI
 
 struct LogInView: View {
     @ObservedObject var vm: LoginVM
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
             Text("Log In your eamil")
-                .font(.largeTitle)
-                .fontWeight(.semibold)
-                .padding(.top, 100)
+                .frame(width: UIScreen.screenWidth - 48, alignment: .leading)
+                .font(.title)
+                .padding(.top, 20)
                 .padding(.bottom, 32)
             TextField("Email", text: $vm.id)
                 .padding()
@@ -31,19 +30,15 @@ struct LogInView: View {
                 .cornerRadius(12.0)
                 .padding(.bottom, 24)
             Button(action: {
-                vm.signup()
+                vm.login()
             }, label: {
-                Text("회원가입")
+                Text("로그인")
             })
                 .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 48,
                                                height: 52))
             Spacer()
+            NavigationLink(destination: MainView(), isActive: $vm.isLoginSuccess) { EmptyView() }
         }
-        .navigationBarItems(trailing: Button(action: { self.mode.wrappedValue.dismiss()},
-                                             label: {
-            Image(systemName: "")
-                .foregroundColor(Color.black)
-        }))
         .background(Color(UIColor.bgColor))
     }
 }
