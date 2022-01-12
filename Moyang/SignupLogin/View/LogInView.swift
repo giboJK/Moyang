@@ -23,6 +23,7 @@ struct LogInView: View {
                 .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
                 .cornerRadius(12.0)
                 .padding(.bottom, 16)
+                .keyboardType(.emailAddress)
             SecureField("Password", text: $vm.password)
                 .padding()
                 .background(Color(UIColor.sheep200))
@@ -36,6 +37,7 @@ struct LogInView: View {
             })
                 .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 48,
                                                height: 52))
+            IndicatorView().hidden(!vm.isLoadingUserData)
             Spacer()
             NavigationLink(destination: MainView(), isActive: $vm.isLoginSuccess) { EmptyView() }
         }

@@ -14,8 +14,10 @@ class LoginVM: ObservableObject {
     @Published var id: String = ""
     @Published var password: String = ""
     @Published var isSignupSuccess: Bool = false
+    
     @Published var isLoginSuccess: Bool = false
     @Published var loginError: MoyangError?
+    @Published var isLoadingUserData: Bool = false
     
     private let loginService: LoginService
     
@@ -40,6 +42,10 @@ class LoginVM: ObservableObject {
             } receiveValue: { isSuccess in
                 self.isLoginSuccess = isSuccess
             }.store(in: &cancellables)
+    }
+    
+    private func fetchUserData() {
+        
     }
 
     deinit {
