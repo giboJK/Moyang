@@ -20,7 +20,7 @@ struct GroupMember: Codable, Identifiable {
     }
 }
 
-struct GroupMemberDetail: Codable, Identifiable {
+struct MemberDetail: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
     var memberName: String

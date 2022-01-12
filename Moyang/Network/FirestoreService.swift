@@ -26,4 +26,10 @@ protocol FirestoreService {
     
     func addListener<T: Codable>(ref: DocumentReference,
                                  type: T.Type) -> PassthroughSubject<T, MoyangError>
+    
+    func fetchObject<T: Codable>(ref: CollectionReference,
+                                 type: T.Type) -> AnyPublisher<T, MoyangError>
+    
+    func fetchObject<T: Codable>(ref: DocumentReference,
+                                 type: T.Type) -> AnyPublisher<T, MoyangError>
 }

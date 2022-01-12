@@ -10,4 +10,5 @@ import Combine
 protocol LoginService {
     func signup(id: String, pw: String) -> AnyPublisher<Bool, MoyangError>
     func login(id: String, pw: String) -> AnyPublisher<Bool, MoyangError>
+    func fetchUserData() -> AnyPublisher<MemberDetail, MoyangError> 
 }

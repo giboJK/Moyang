@@ -92,8 +92,8 @@ class FirestoreServiceImpl: FirestoreService {
                 listener.send(completion: .failure(.other(error)))
             }
             let decoder = JSONDecoder()
-            let dict = documentSnapshot?.data()
-            if let data = try?  JSONSerialization.data(withJSONObject: dict!, options: []) {
+            if let dict = documentSnapshot?.data(),
+               let data = try? JSONSerialization.data(withJSONObject: dict, options: []) {
                 do {
                     let object = try decoder.decode(type, from: data)
                     listener.send(object)
@@ -103,5 +103,15 @@ class FirestoreServiceImpl: FirestoreService {
             }
         }
         return listener
+    }
+    
+    func fetchObject<T: Codable>(ref: CollectionReference,
+                                 type: T.Type) -> AnyPublisher<T, MoyangError> {
+        return Empty(completeImmediately: false).eraseToAnyPublisher()
+    }
+    
+    func fetchObject<T: Codable>(ref: DocumentReference,
+                                 type: T.Type) -> AnyPublisher<T, MoyangError> {
+        return Empty(completeImmediately: false).eraseToAnyPublisher()
     }
 }

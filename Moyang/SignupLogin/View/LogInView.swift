@@ -47,6 +47,6 @@ struct LogInView: View {
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView(vm: LoginVM(loginService: FirestoreLoginServiceImpl()))
+        LogInView(vm: LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
     }
 }

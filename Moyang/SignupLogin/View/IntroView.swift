@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IntroView: View {
-    let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl())
+    let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
     
     var body: some View {
         NavigationView {
