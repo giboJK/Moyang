@@ -112,6 +112,23 @@ class FirestoreServiceImpl: FirestoreService {
     
     func fetchObject<T: Codable>(ref: DocumentReference,
                                  type: T.Type) -> AnyPublisher<T, MoyangError> {
-        return Empty(completeImmediately: false).eraseToAnyPublisher()
+        return Future<T, MoyangError> { promise in
+            ref.addSnapshotListener { documentSnapshot, error in
+                if let error = error {
+                    promise(.failure(MoyangError.other(error)))
+                }
+                
+                let decoder = JSONDecoder()
+                if let dict = documentSnapshot?.data(),
+                   let data = try? JSONSerialization.data(withJSONObject: dict, options: []) {
+                    do {
+                        let object = try decoder.decode(type, from: data)
+                        promise(.success(object))
+                    } catch let error {
+                        promise(.failure(MoyangError.other(error)))
+                    }
+                }
+            }
+        }.eraseToAnyPublisher()
     }
 }

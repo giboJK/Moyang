@@ -36,9 +36,9 @@ class DailyRepoImpl: DailyRepo {
     }
     
     private func createDocumentRef() -> DocumentReference {
-        var documentName = "teoeirm@gmail.com"
+        var documentName = ""
         if let userID = UserData.shared.userID {
-            documentName = userID
+            documentName = userID.lowercased()
         }
         
         return service.store

@@ -35,17 +35,24 @@ class LoginVM: ObservableObject {
     }
     
     func login() {
+        self.isLoadingUserData = true
         loginService.login(id: id, pw: password)
             .receive(on: DispatchQueue.main)
-            .sink { completion in
-                Log.i(completion)
-            } receiveValue: { isSuccess in
-                self.isLoginSuccess = isSuccess
+            .sink { _ in
+            } receiveValue: { _ in
+                self.fetchUserData()
             }.store(in: &cancellables)
     }
     
     private func fetchUserData() {
-        
+        loginService.fetchUserData()
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                self.isLoadingUserData = false
+            } receiveValue: { memberDetail in
+                UserData.shared.myInfo = memberDetail
+                self.isLoginSuccess = true
+            }.store(in: &cancellables)
     }
 
     deinit {

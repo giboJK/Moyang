@@ -46,7 +46,7 @@ class FirestoreLoginServiceImpl: LoginService {
     
     
     func fetchUserData() -> AnyPublisher<MemberDetail, MoyangError> {
-        guard let userID = UserData.shared.userID else {
+        guard let userID = UserData.shared.userID?.lowercased() else {
             return Empty(completeImmediately: false).eraseToAnyPublisher()
         }
         let ref = service.store
