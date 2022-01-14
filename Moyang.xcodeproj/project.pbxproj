@@ -48,7 +48,6 @@
 		246BD7F627240AE4005C4E0B /* CellMeetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E427240AE4005C4E0B /* CellMeetingView.swift */; };
 		246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E627240AE4005C4E0B /* GroupRepo.swift */; };
 		246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E727240AE4005C4E0B /* GroupPreview.swift */; };
-		246BD7FC27240AFA005C4E0B /* QTPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7FB27240AFA005C4E0B /* QTPreviewCard.swift */; };
 		24755367277CA9AB001908A6 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24755366277CA9AB001908A6 /* UserData.swift */; };
 		2481EF22276D9D3900C70E26 /* CellCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481EF21276D9D3900C70E26 /* CellCardVM.swift */; };
 		248FEC102723A08D00321E5E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC0F2723A08D00321E5E /* MainView.swift */; };
@@ -145,7 +144,6 @@
 		246BD7E427240AE4005C4E0B /* CellMeetingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellMeetingView.swift; sourceTree = "<group>"; };
 		246BD7E627240AE4005C4E0B /* GroupRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupRepo.swift; sourceTree = "<group>"; };
 		246BD7E727240AE4005C4E0B /* GroupPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupPreview.swift; sourceTree = "<group>"; };
-		246BD7FB27240AFA005C4E0B /* QTPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QTPreviewCard.swift; sourceTree = "<group>"; };
 		24755366277CA9AB001908A6 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		2481EF21276D9D3900C70E26 /* CellCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCardVM.swift; sourceTree = "<group>"; };
 		248FEC0F2723A08D00321E5E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -382,22 +380,6 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		246BD7F927240AFA005C4E0B /* QT */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7FA27240AFA005C4E0B /* View */,
-			);
-			path = QT;
-			sourceTree = "<group>";
-		};
-		246BD7FA27240AFA005C4E0B /* View */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7FB27240AFA005C4E0B /* QTPreviewCard.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		248FEC0E2723A07D00321E5E /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +414,10 @@
 		24A6A4A9275A2BCB00D7DB25 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				24D0D334272315FA006FF67B /* Resources */,
+				24BB803327565E0800BE2988 /* DB */,
+				24B6E31D275F81C100AD2E53 /* Network */,
+				24D0D32627231442006FF67B /* Util */,
 				24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */,
 				24D0D2F727230CA3006FF67B /* MoyangApp.swift */,
 				24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */,
@@ -505,16 +491,11 @@
 			isa = PBXGroup;
 			children = (
 				24A6A4A9275A2BCB00D7DB25 /* App */,
-				24B6E31D275F81C100AD2E53 /* Network */,
-				24BB803327565E0800BE2988 /* DB */,
-				24D0D334272315FA006FF67B /* Resources */,
-				24D0D32627231442006FF67B /* Util */,
 				242D745A274267AA0053EF2A /* CommonView */,
 				248FEC0E2723A07D00321E5E /* Main */,
 				246BD7DC27240AE4005C4E0B /* Group */,
 				246BD7AD27240AD4005C4E0B /* Pray */,
 				08D2D8502787B010006897A4 /* SignupLogin */,
-				246BD7F927240AFA005C4E0B /* QT */,
 				246BD7A327240A96005C4E0B /* Daily */,
 				24D0D2FD27230CA6006FF67B /* Preview Content */,
 			);
@@ -841,7 +822,6 @@
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
 				08D82955278D196F001E6B61 /* FirestoreLoginServiceImpl.swift in Sources */,
 				246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */,
-				246BD7FC27240AFA005C4E0B /* QTPreviewCard.swift in Sources */,
 				24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */,
 				246BD7A927240A96005C4E0B /* DailySummaryView.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,

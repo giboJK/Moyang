@@ -26,11 +26,13 @@ struct MemberDetail: Codable, Identifiable {
     var memberName: String
     var sex: String
     var birth: String
+    let groupList: [String]
     
     enum CodingKeys: String, CodingKey {
         case id
         case memberName = "member_name"
         case sex
         case birth
+        case groupList = "group_list"
     }
 }
