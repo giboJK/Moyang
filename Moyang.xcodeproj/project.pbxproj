@@ -21,6 +21,8 @@
 		08D8295B278D3327001E6B61 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295A278D3327001E6B61 /* Color+.swift */; };
 		08D8295F278D8116001E6B61 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295E278D8116001E6B61 /* IntroView.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
+		08FBC5F5279143D8008BC236 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FBC5F4279143D8008BC236 /* DailyView.swift */; };
+		08FBC5F9279143EC008BC236 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FBC5F8279143EC008BC236 /* ProfileView.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		241426AB278099CB006682B1 /* PrayRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241426AA278099CB006682B1 /* PrayRepoMock.swift */; };
 		24151DCE274A2A3E00DD38CE /* CellPrayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */; };
@@ -75,7 +77,6 @@
 		24BF6E94274FBF620004B24E /* CellPrayInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 24BF6E93274FBF620004B24E /* CellPrayInfo.json */; };
 		24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F727230CA3006FF67B /* MoyangApp.swift */; };
 		24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Images.xcassets */; };
-		24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */; };
 		24D0D30927230CA6006FF67B /* MoyangTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D30827230CA6006FF67B /* MoyangTests.swift */; };
 		24D0D325272313AF006FF67B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D324272313AF006FF67B /* .swiftlint.yml */; };
 		24D0D3292723145F006FF67B /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D3282723145F006FF67B /* Date+.swift */; };
@@ -116,6 +117,8 @@
 		08D8295A278D3327001E6B61 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		08D8295E278D8116001E6B61 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
+		08FBC5F4279143D8008BC236 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
+		08FBC5F8279143EC008BC236 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		241426AA278099CB006682B1 /* PrayRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayRepoMock.swift; sourceTree = "<group>"; };
 		24151DCD274A2A3E00DD38CE /* CellPrayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPrayListView.swift; sourceTree = "<group>"; };
@@ -172,7 +175,6 @@
 		24D0D2F427230CA3006FF67B /* Moyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D2F727230CA3006FF67B /* MoyangApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangApp.swift; sourceTree = "<group>"; };
 		24D0D2FB27230CA6006FF67B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		24D0D30427230CA6006FF67B /* MoyangTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoyangTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D30827230CA6006FF67B /* MoyangTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangTests.swift; sourceTree = "<group>"; };
 		24D0D324272313AF006FF67B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -245,6 +247,22 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		08FBC5F6279143DC008BC236 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				08FBC5F7279143E1008BC236 /* View */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		08FBC5F7279143E1008BC236 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				08FBC5F8279143EC008BC236 /* ProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		242D745A274267AA0053EF2A /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				246BD7A727240A96005C4E0B /* DailySummaryView.swift */,
+				08FBC5F4279143D8008BC236 /* DailyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -496,18 +515,10 @@
 				246BD7DC27240AE4005C4E0B /* Group */,
 				246BD7AD27240AD4005C4E0B /* Pray */,
 				08D2D8502787B010006897A4 /* SignupLogin */,
+				08FBC5F6279143DC008BC236 /* Profile */,
 				246BD7A327240A96005C4E0B /* Daily */,
-				24D0D2FD27230CA6006FF67B /* Preview Content */,
 			);
 			path = Moyang;
-			sourceTree = "<group>";
-		};
-		24D0D2FD27230CA6006FF67B /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				24D0D2FE27230CA6006FF67B /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		24D0D30727230CA6006FF67B /* MoyangTests */ = {
@@ -670,7 +681,6 @@
 				24D0D325272313AF006FF67B /* .swiftlint.yml in Resources */,
 				248FEC152723A11600321E5E /* Colors.xcassets in Resources */,
 				24B57BBC2760B37A00630C4C /* GoogleService-Info.plist in Resources */,
-				24D0D2FF27230CA6006FF67B /* Preview Assets.xcassets in Resources */,
 				244933ED277765BB000DDE01 /* Pray.json in Resources */,
 				242D745F274282F00053EF2A /* Localizable.strings in Resources */,
 				249B903827259FD300B53682 /* GroupPreview.json in Resources */,
@@ -813,6 +823,7 @@
 				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
 				08D2D8552787B074006897A4 /* LogInView.swift in Sources */,
 				246BD7C127240AD4005C4E0B /* PrayPreviewCard.swift in Sources */,
+				08FBC5F5279143D8008BC236 /* DailyView.swift in Sources */,
 				08D2D8532787B05F006897A4 /* SignUpView.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
@@ -834,6 +845,7 @@
 				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
 				08D8295B278D3327001E6B61 /* Color+.swift in Sources */,
 				246BD7F627240AE4005C4E0B /* CellMeetingView.swift in Sources */,
+				08FBC5F9279143EC008BC236 /* ProfileView.swift in Sources */,
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,
 				24BB803727565E2200BE2988 /* LocalDB.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */,
@@ -1024,7 +1036,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Moyang/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2427333XUL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1055,7 +1067,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Moyang/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2427333XUL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
