@@ -9,21 +9,25 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-        TabView {
-            DailyView()
-                .tabItem {
-                    Image(systemName: "note.text")
-                    Text("Daily")
-                }
-            
-            ProfileView()
-                .tabItem {
-                    Image(systemName: "person.crop.circle.fill")
-                    Text("Profile")
-                }
+        NavigationView {
+            TabView {
+                DailyView()
+                    .tabItem {
+                        Image(systemName: "note.text")
+                        Text("Daily")
+                    }
+                    .navigationBarHidden(true)
+                    .navigationBarTitleDisplayMode(.inline)
+                
+                ProfileView()
+                    .tabItem {
+                        Image(systemName: "person.crop.circle.fill")
+                        Text("Profile")
+                    }
+                    .navigationBarHidden(true)
+                    .navigationBarTitleDisplayMode(.inline)
+            }
         }
-        .navigationBarHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

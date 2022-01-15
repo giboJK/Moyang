@@ -39,8 +39,10 @@ struct LogInView: View {
                                                height: 52))
             IndicatorView().hidden(!vm.isLoadingUserData)
             Spacer()
-            NavigationLink(destination: MainView(), isActive: $vm.isLoginSuccess) { EmptyView() }
         }
+        .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
+            MainView()
+        })
         .background(Color(UIColor.bgColor))
     }
 }
