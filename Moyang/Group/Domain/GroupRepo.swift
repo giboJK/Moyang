@@ -10,8 +10,8 @@ import Foundation
 import Combine
 
 protocol GroupRepo {
-    func fetchCellPreview() -> AnyPublisher<GroupPreview, Error>
-    func fetchGroupInfo() -> AnyPublisher<GroupInfo, Error>
+    func fetchCellPreview() -> AnyPublisher<GroupPreview, MoyangError>
+    func fetchGroupInfo() -> AnyPublisher<GroupInfo, MoyangError>
     
     func add(_ cellPrayInfo: CellPrayInfo) -> AnyPublisher<Bool, MoyangError>
     

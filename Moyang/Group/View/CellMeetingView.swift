@@ -23,7 +23,7 @@ struct CellMeetingView: View {
             }
             .padding(.bottom, 1)
             HStack {
-                Text(vm.cellInfo.talkingSubject)
+                Text(vm.groupInfo.talkingSubject)
                     .font(.system(size: 15, weight: .regular))
                 Spacer()
                 Button(action: {
@@ -38,14 +38,14 @@ struct CellMeetingView: View {
                     .foregroundColor(Color.black)
             }
             HStack {
-                Text(vm.cellInfo.dateString)
+                Text(vm.groupInfo.dateString)
                     .font(.system(size: 13, weight: .regular))
                 Spacer()
             }
             if showingMemo {
                 ScrollView(.vertical, showsIndicators: true) {
-                    ForEach(0 ..< vm.cellInfo.questionList.count) { i in
-                        let question = vm.cellInfo.questionList[i]
+                    ForEach(0 ..< vm.groupInfo.questionList.count) { i in
+                        let question = vm.groupInfo.questionList[i]
                         HStack {
                             Text("- " + question)
                                 .frame(alignment: .topLeading)
@@ -87,7 +87,7 @@ struct CellMeetingView: View {
             Spacer()
         }
         .foregroundColor(Color.black)
-        .navigationTitle(vm.cellInfo.cellName)
+        .navigationTitle(vm.groupInfo.cellName)
         .padding(EdgeInsets(top: 14, leading: 20, bottom: 0, trailing: 20))
         .background(Color(UIColor.sheep))
         .eraseToAnyView()
@@ -96,6 +96,6 @@ struct CellMeetingView: View {
 
 struct CellMeetingView_Previews: PreviewProvider {
     static var previews: some View {
-        CellMeetingView(vm: GroupMeetingVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))
+        CellMeetingView(vm: GroupMeetingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
     }
 }

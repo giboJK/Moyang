@@ -11,25 +11,37 @@ import Combine
 
 class GroupMeetingVM: ObservableObject {
     @Published var answerList: [String] = Array(repeating: "", count: 10)
-    @Published var gropuInfo: GroupInfoItem
+    @Published var groupInfo: GroupInfoItem
     
-    private var disposables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
-    private var groupRepo: GroupRepo
+    private var repo: GroupRepo
     
-    init(groupRepo: GroupRepo) {
-        self.groupRepo = groupRepo
-        gropuInfo = GroupInfoItem(cellInfo: GroupInfo(id: "",
-                                                      groupName: "",
-                                                      leader: GroupMember(id: "",
-                                                                          name: "",
-                                                                          profileURL: ""),
-                                                      memberList: []))
+    init(repo: GroupRepo) {
+        self.repo = repo
+        groupInfo = GroupInfoItem(data: GroupInfo(id: "",
+                                                  groupName: "",
+                                                  leader: GroupMember(id: "",
+                                                                      name: "",
+                                                                      profileURL: ""),
+                                                  memberList: []))
+        
+        fetchMainGroupInfo()
+    }
+    
+    func fetchMainGroupInfo() {
+        repo.fetchGroupInfo()
+            .sink(receiveCompletion: { completion in
+                Log.i(completion)
+            }, receiveValue: { data in
+                self.groupInfo = GroupInfoItem(data: data)
+            })
+            .store(in: &cancellables)
     }
     
     deinit {
         Log.i(self)
-        disposables.removeAll()
+        cancellables.removeAll()
     }
 }
 
@@ -41,8 +53,8 @@ extension GroupMeetingVM {
         var questionList: [String]
         let dateString: String
         
-        init(cellInfo: GroupInfo) {
-            cellName = cellInfo.groupName
+        init(data: GroupInfo) {
+            cellName = data.groupName
             talkingSubject = "셀모임 주제~"
             questionList = ["아하하하 1", "우라라라라 2", "그우어ㅓ어3", "잇츠 퀘스쳔4"]
             dateString = "2022-01-02"

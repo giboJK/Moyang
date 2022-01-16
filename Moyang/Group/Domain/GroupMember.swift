@@ -27,6 +27,7 @@ struct MemberDetail: Codable, Identifiable {
     var sex: String
     var birth: String
     let groupList: [String]
+    let mainGroup: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -34,5 +35,6 @@ struct MemberDetail: Codable, Identifiable {
         case sex
         case birth
         case groupList = "group_list"
+        case mainGroup = "main_group"
     }
 }

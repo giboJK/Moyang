@@ -18,20 +18,28 @@ class GroupRepoImpl: GroupRepo {
         self.service = service
     }
     
-    func fetchCellPreview() -> AnyPublisher<GroupPreview, Error> {
-        return Just(DummyData().cellPreview)
-            .setFailureType(to: Error.self)
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
-        //        return Empty(completeImmediately: false).eraseToAnyPublisher()
+    func fetchCellPreview() -> AnyPublisher<GroupPreview, MoyangError> {
+        return Empty(completeImmediately: false).eraseToAnyPublisher()
     }
     
-    func fetchGroupInfo() -> AnyPublisher<GroupInfo, Error> {
-        //        return Just(DummyData().groupInfo)
-        //            .setFailureType(to: Error.self)
-        //            .receive(on: DispatchQueue.main)
-        //            .eraseToAnyPublisher()
-        return Empty(completeImmediately: false).eraseToAnyPublisher()
+    func fetchGroupInfo() -> AnyPublisher<GroupInfo, MoyangError> {
+        guard let myInfo = UserData.shared.myInfo else {
+            return Empty(completeImmediately: false).eraseToAnyPublisher()
+        }
+        guard let yearSubString = myInfo.mainGroup.split(separator: "_").first else {
+            return Empty(completeImmediately: false).eraseToAnyPublisher()
+        }
+        guard let groupSubString = myInfo.mainGroup.split(separator: "_").last else {
+            return Empty(completeImmediately: false).eraseToAnyPublisher()
+        }
+        let year = String(yearSubString)
+        let group = String(groupSubString)
+        let ref = service.store
+            .collection(collectionName)
+            .document("YD")
+            .collection(year)
+            .document(group)
+        return service.fetchObject(ref: ref, type: GroupInfo.self)
     }
     
     
