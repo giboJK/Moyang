@@ -1,5 +1,5 @@
 //
-//  CellMeetingVM.swift
+//  GroupMeetingVM.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/10/21.
@@ -9,9 +9,9 @@
 import SwiftUI
 import Combine
 
-class CellMeetingVM: ObservableObject {
+class GroupMeetingVM: ObservableObject {
     @Published var answerList: [String] = Array(repeating: "", count: 10)
-    @Published var cellInfo: GroupInfoItem
+    @Published var gropuInfo: GroupInfoItem
     
     private var disposables = Set<AnyCancellable>()
     
@@ -19,12 +19,12 @@ class CellMeetingVM: ObservableObject {
     
     init(groupRepo: GroupRepo) {
         self.groupRepo = groupRepo
-        cellInfo = GroupInfoItem(cellInfo: GroupInfo(id: "",
-                                                     groupName: "",
-                                                     leader: GroupMember(id: "",
-                                                                        name: "",
-                                                                        profileURL: ""),
-                                                     memberList: []))
+        gropuInfo = GroupInfoItem(cellInfo: GroupInfo(id: "",
+                                                      groupName: "",
+                                                      leader: GroupMember(id: "",
+                                                                          name: "",
+                                                                          profileURL: ""),
+                                                      memberList: []))
     }
     
     deinit {
@@ -33,7 +33,7 @@ class CellMeetingVM: ObservableObject {
     }
 }
 
-extension CellMeetingVM {
+extension GroupMeetingVM {
     typealias Identifier = Int
     struct GroupInfoItem {
         var cellName: String

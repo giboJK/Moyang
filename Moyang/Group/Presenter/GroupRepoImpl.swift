@@ -23,14 +23,15 @@ class GroupRepoImpl: GroupRepo {
             .setFailureType(to: Error.self)
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
-//        return Empty(completeImmediately: false).eraseToAnyPublisher()
+        //        return Empty(completeImmediately: false).eraseToAnyPublisher()
     }
     
     func fetchGroupInfo() -> AnyPublisher<GroupInfo, Error> {
-        return Just(DummyData().groupInfo)
-            .setFailureType(to: Error.self)
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+        //        return Just(DummyData().groupInfo)
+        //            .setFailureType(to: Error.self)
+        //            .receive(on: DispatchQueue.main)
+        //            .eraseToAnyPublisher()
+        return Empty(completeImmediately: false).eraseToAnyPublisher()
     }
     
     

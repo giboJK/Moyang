@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CellMeetingView: View {
-    @ObservedObject var vm: CellMeetingVM
+    @ObservedObject var vm: GroupMeetingVM
     
     @State private var showingMemo = true
     
@@ -96,6 +96,6 @@ struct CellMeetingView: View {
 
 struct CellMeetingView_Previews: PreviewProvider {
     static var previews: some View {
-        CellMeetingView(vm: CellMeetingVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))
+        CellMeetingView(vm: GroupMeetingVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))
     }
 }

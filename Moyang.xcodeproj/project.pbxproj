@@ -43,8 +43,8 @@
 		246BD7C627240AD4005C4E0B /* PrayListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BB27240AD4005C4E0B /* PrayListVM.swift */; };
 		246BD7C727240AD4005C4E0B /* PrayCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */; };
 		246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */; };
-		246BD7F127240AE4005C4E0B /* CellRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */; };
-		246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */; };
+		246BD7F127240AE4005C4E0B /* GroupRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7DE27240AE4005C4E0B /* GroupRepoImpl.swift */; };
+		246BD7F327240AE4005C4E0B /* GroupMeetingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E027240AE4005C4E0B /* GroupMeetingVM.swift */; };
 		246BD7F427240AE4005C4E0B /* CellPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E227240AE4005C4E0B /* CellPreviewCard.swift */; };
 		246BD7F527240AE4005C4E0B /* CellSubjectHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E327240AE4005C4E0B /* CellSubjectHistoryView.swift */; };
 		246BD7F627240AE4005C4E0B /* CellMeetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E427240AE4005C4E0B /* CellMeetingView.swift */; };
@@ -140,8 +140,8 @@
 		246BD7BB27240AD4005C4E0B /* PrayListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayListVM.swift; sourceTree = "<group>"; };
 		246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayCardVM.swift; sourceTree = "<group>"; };
 		246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayRepoImpl.swift; sourceTree = "<group>"; };
-		246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRepoImpl.swift; sourceTree = "<group>"; };
-		246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellMeetingVM.swift; sourceTree = "<group>"; };
+		246BD7DE27240AE4005C4E0B /* GroupRepoImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupRepoImpl.swift; sourceTree = "<group>"; };
+		246BD7E027240AE4005C4E0B /* GroupMeetingVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMeetingVM.swift; sourceTree = "<group>"; };
 		246BD7E227240AE4005C4E0B /* CellPreviewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPreviewCard.swift; sourceTree = "<group>"; };
 		246BD7E327240AE4005C4E0B /* CellSubjectHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellSubjectHistoryView.swift; sourceTree = "<group>"; };
 		246BD7E427240AE4005C4E0B /* CellMeetingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellMeetingView.swift; sourceTree = "<group>"; };
@@ -364,8 +364,8 @@
 		246BD7DD27240AE4005C4E0B /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				246BD7DE27240AE4005C4E0B /* CellRepoImpl.swift */,
-				246BD7E027240AE4005C4E0B /* CellMeetingVM.swift */,
+				246BD7DE27240AE4005C4E0B /* GroupRepoImpl.swift */,
+				246BD7E027240AE4005C4E0B /* GroupMeetingVM.swift */,
 				24D7BB30274D179200CC8B7C /* CellPrayListVM.swift */,
 				24BB8031275645C100BE2988 /* NewCellPrayVM.swift */,
 				2481EF21276D9D3900C70E26 /* CellCardVM.swift */,
@@ -808,7 +808,7 @@
 				24AC737A27468BD7003B9B2F /* Array+.swift in Sources */,
 				246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */,
 				2481EF22276D9D3900C70E26 /* CellCardVM.swift in Sources */,
-				246BD7F127240AE4005C4E0B /* CellRepoImpl.swift in Sources */,
+				246BD7F127240AE4005C4E0B /* GroupRepoImpl.swift in Sources */,
 				08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */,
 				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
 				246BD7C727240AD4005C4E0B /* PrayCardVM.swift in Sources */,
@@ -868,7 +868,7 @@
 				24D7BB31274D179200CC8B7C /* CellPrayListVM.swift in Sources */,
 				08D82953278D192C001E6B61 /* LoginService.swift in Sources */,
 				24755367277CA9AB001908A6 /* UserData.swift in Sources */,
-				246BD7F327240AE4005C4E0B /* CellMeetingVM.swift in Sources */,
+				246BD7F327240AE4005C4E0B /* GroupMeetingVM.swift in Sources */,
 				084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
