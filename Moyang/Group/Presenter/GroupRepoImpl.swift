@@ -43,12 +43,15 @@ class GroupRepoImpl: GroupRepo {
         return service.fetchObject(ref: ref, type: GroupInfo.self)
     }
     
-    func fetchMeetingInfo(parentGroup: String) -> AnyPublisher<MeetingInfo, MoyangError> {
+    func fetchMeetingInfo(parentGroup: String,
+                          date: String) -> AnyPublisher<MeetingInfo, MoyangError> {
         let ref = service.store
             .collection(collectionName)
             .document("YD")
             .collection(year)
             .document(parentGroup)
+            .collection("MEETING")
+            .document(date)
         return service.fetchObject(ref: ref, type: MeetingInfo.self)
     }
     

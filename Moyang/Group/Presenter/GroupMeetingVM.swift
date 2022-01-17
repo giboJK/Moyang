@@ -37,7 +37,7 @@ class GroupMeetingVM: ObservableObject {
     }
     
     func fetchMeetingInfo(parentGroup: String) {
-        repo.fetchMeetingInfo(parentGroup: parentGroup)
+        repo.fetchMeetingInfo(parentGroup: parentGroup, date: "2022-01-16")
             .sink(receiveCompletion: { completion in
                 Log.i(completion)
             }, receiveValue: { [weak self] meetingInfo in

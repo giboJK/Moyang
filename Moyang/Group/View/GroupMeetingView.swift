@@ -17,14 +17,14 @@ struct GroupMeetingView: View {
         VStack {
             HStack {
                 Text("셀 모임 질문")
-                    .font(.system(size: 17, weight: .bold))
+                    .font(.system(size: 19, weight: .bold))
                 Spacer()
                 Image(systemName: "arrow.forward")
             }
             .padding(.bottom, 1)
             HStack {
                 Text(vm.groupInfoItem.talkingSubject)
-                    .font(.system(size: 15, weight: .regular))
+                    .font(.system(size: 16, weight: .regular))
                 Spacer()
                 Button(action: {
                     withAnimation {
