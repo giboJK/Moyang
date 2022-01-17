@@ -63,6 +63,7 @@
 		24B47FF7276A1BD3003130E6 /* FirestoreServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */; };
 		24B57BBC2760B37A00630C4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */; };
 		24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B652AC279584AD007CC58C /* MeetingInfo.swift */; };
+		24B652AF279589BA007CC58C /* IntroVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B652AE279589BA007CC58C /* IntroVM.swift */; };
 		24B6A2552726BEB00065112A /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* GroupInfo.swift */; };
 		24B6A2572726C40E0065112A /* GroupInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* GroupInfo.json */; };
 		24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6E31E275F81CE00AD2E53 /* MoyangError.swift */; };
@@ -161,6 +162,7 @@
 		24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceImpl.swift; sourceTree = "<group>"; };
 		24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24B652AC279584AD007CC58C /* MeetingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInfo.swift; sourceTree = "<group>"; };
+		24B652AE279589BA007CC58C /* IntroVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVM.swift; sourceTree = "<group>"; };
 		24B6A2542726BEB00065112A /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
 		24B6A2562726C40E0065112A /* GroupInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GroupInfo.json; sourceTree = "<group>"; };
 		24B6E31E275F81CE00AD2E53 /* MoyangError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangError.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				08D2D8572787B12F006897A4 /* LoginVM.swift */,
+				24B652AE279589BA007CC58C /* IntroVM.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -835,6 +838,7 @@
 				24B8BCED2764C7FF005B0A9F /* DailyRepoImpl.swift in Sources */,
 				24E779CE2787308D00C732D6 /* GroupMember.swift in Sources */,
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
+				24B652AF279589BA007CC58C /* IntroVM.swift in Sources */,
 				08D82955278D196F001E6B61 /* FirestoreLoginServiceImpl.swift in Sources */,
 				246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */,
 				24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */,

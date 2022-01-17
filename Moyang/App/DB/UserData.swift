@@ -39,4 +39,13 @@ class UserData {
             UserDefaults.standard.set(v, forKey: "USER_ID")
         }
     }
+    
+    var password: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "USER_PW")
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: "USER_PW")
+        }
+    }
 }

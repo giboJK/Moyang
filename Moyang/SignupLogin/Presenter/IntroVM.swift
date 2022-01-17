@@ -1,22 +1,16 @@
 //
-//  LoginVM.swift
+//  IntroVM.swift
 //  Moyang
 //
-//  Created by kibo on 2022/01/07.
+//  Created by 정김기보 on 2022/01/17.
 //
 
 import SwiftUI
 import Combine
 
-class LoginVM: ObservableObject {
+class IntroVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-    
-    @Published var id: String = ""
-    @Published var password: String = ""
-    @Published var isSignupSuccess: Bool = false
-    
     @Published var isLoginSuccess: Bool = false
-    @Published var loginError: MoyangError?
     @Published var isLoadingUserData: Bool = false
     
     private let loginService: LoginService
@@ -25,24 +19,19 @@ class LoginVM: ObservableObject {
         self.loginService = loginService
     }
     
-    func signup() {
-        loginService.signup(id: id, pw: password)
+    deinit { Log.i(self) }
+    
+    func tryAutoLogin() {
+        guard let userID = UserData.shared.userID else { return }
+        guard let pw = UserData.shared.password else { return }
+        
+        loginService.login(id: userID, pw: pw)
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 Log.i(completion)
             } receiveValue: { isSuccess in
-                self.isSignupSuccess = isSuccess
-            }.store(in: &cancellables)
-    }
-    
-    func login() {
-        self.isLoadingUserData = true
-        loginService.login(id: id, pw: password)
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-            } receiveValue: { _ in
-                UserData.shared.userID = self.id
-                UserData.shared.password = self.password
                 self.fetchUserData()
+                self.isLoginSuccess = isSuccess
             }.store(in: &cancellables)
     }
     
@@ -55,10 +44,5 @@ class LoginVM: ObservableObject {
                 UserData.shared.myInfo = memberDetail
                 self.isLoginSuccess = true
             }.store(in: &cancellables)
-    }
-
-    deinit {
-        Log.i(self)
-        cancellables.removeAll()
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IntroView: View {
-    let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
+    @ObservedObject var vm: IntroVM
     
     var body: some View {
         NavigationView {
@@ -20,6 +20,7 @@ struct IntroView: View {
                 
                 Spacer()
                 Button(action: {}) {
+                    let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
                     NavigationLink(destination: SignUpView(vm: loginVM)) {
                         Text("회원가입")
                     }
@@ -29,6 +30,7 @@ struct IntroView: View {
                 .padding(.bottom, 24)
                 
                 Button(action: {}) {
+                    let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
                     NavigationLink(destination: LogInView(vm: loginVM)) {
                         Text("로그인")
                     }
@@ -38,6 +40,12 @@ struct IntroView: View {
                 .padding(.bottom, 24)
                 
             }
+            .onAppear {
+                vm.tryAutoLogin()
+            }
+            .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
+                MainView()
+            })
             .background(Color(UIColor.bgColor))
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarHidden(true)
@@ -47,6 +55,6 @@ struct IntroView: View {
 
 struct IntroView_Previews: PreviewProvider {
     static var previews: some View {
-        IntroView()
+        IntroView(vm: IntroVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
     }
 }
