@@ -1,5 +1,5 @@
 //
-//  CellMeetingView.swift
+//  GroupMeetingView.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/10/19.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CellMeetingView: View {
+struct GroupMeetingView: View {
     @ObservedObject var vm: GroupMeetingVM
     
     @State private var showingMemo = true
@@ -23,7 +23,7 @@ struct CellMeetingView: View {
             }
             .padding(.bottom, 1)
             HStack {
-                Text(vm.groupInfo.talkingSubject)
+                Text(vm.groupInfoItem.talkingSubject)
                     .font(.system(size: 15, weight: .regular))
                 Spacer()
                 Button(action: {
@@ -38,14 +38,14 @@ struct CellMeetingView: View {
                     .foregroundColor(Color.black)
             }
             HStack {
-                Text(vm.groupInfo.dateString)
+                Text(vm.groupInfoItem.meetingDate)
                     .font(.system(size: 13, weight: .regular))
                 Spacer()
             }
             if showingMemo {
                 ScrollView(.vertical, showsIndicators: true) {
-                    ForEach(0 ..< vm.groupInfo.questionList.count) { i in
-                        let question = vm.groupInfo.questionList[i]
+                    ForEach(0 ..< vm.groupInfoItem.questionList.count) { i in
+                        let question = vm.groupInfoItem.questionList[i]
                         HStack {
                             Text("- " + question)
                                 .frame(alignment: .topLeading)
@@ -87,7 +87,7 @@ struct CellMeetingView: View {
             Spacer()
         }
         .foregroundColor(Color.black)
-        .navigationTitle(vm.groupInfo.cellName)
+        .navigationTitle(vm.groupInfoItem.groupName)
         .padding(EdgeInsets(top: 14, leading: 20, bottom: 0, trailing: 20))
         .background(Color(UIColor.sheep))
         .eraseToAnyView()
@@ -96,6 +96,6 @@ struct CellMeetingView: View {
 
 struct CellMeetingView_Previews: PreviewProvider {
     static var previews: some View {
-        CellMeetingView(vm: GroupMeetingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
+        GroupMeetingView(vm: GroupMeetingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
     }
 }

@@ -16,7 +16,7 @@ struct MainCategoryList: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
-                NavigationLink(destination: CellMeetingView(vm: GroupMeetingVM(repo: groupRepo))) {
+                NavigationLink(destination: GroupMeetingView(vm: GroupMeetingVM(repo: groupRepo))) {
                     if let cellCardVM = vm.cellCardVM {
                         CellPreviewCard(vm: cellCardVM)
                     }

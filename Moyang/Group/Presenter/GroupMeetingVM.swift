@@ -11,20 +11,16 @@ import Combine
 
 class GroupMeetingVM: ObservableObject {
     @Published var answerList: [String] = Array(repeating: "", count: 10)
-    @Published var groupInfo: GroupInfoItem
+    @Published var groupInfoItem: GroupInfoItem = GroupInfoItem()
     
     private var cancellables = Set<AnyCancellable>()
+    private var groupInfo: GroupInfo?
     
     private var repo: GroupRepo
     
     init(repo: GroupRepo) {
         self.repo = repo
-        groupInfo = GroupInfoItem(data: GroupInfo(id: "",
-                                                  groupName: "",
-                                                  leader: GroupMember(id: "",
-                                                                      name: "",
-                                                                      profileURL: ""),
-                                                  memberList: []))
+        groupInfoItem = GroupInfoItem()
         
         fetchMainGroupInfo()
     }
@@ -34,7 +30,21 @@ class GroupMeetingVM: ObservableObject {
             .sink(receiveCompletion: { completion in
                 Log.i(completion)
             }, receiveValue: { data in
-                self.groupInfo = GroupInfoItem(data: data)
+                self.groupInfo = data
+                self.fetchMeetingInfo(parentGroup: data.parentGroup)
+            })
+            .store(in: &cancellables)
+    }
+    
+    func fetchMeetingInfo(parentGroup: String) {
+        repo.fetchMeetingInfo(parentGroup: parentGroup)
+            .sink(receiveCompletion: { completion in
+                Log.i(completion)
+            }, receiveValue: { [weak self] meetingInfo in
+                guard let groupInfo = self?.groupInfo else {
+                    return
+                }
+                self?.groupInfoItem = GroupInfoItem(group: groupInfo, meeting: meetingInfo)
             })
             .store(in: &cancellables)
     }
@@ -48,16 +58,23 @@ class GroupMeetingVM: ObservableObject {
 extension GroupMeetingVM {
     typealias Identifier = Int
     struct GroupInfoItem {
-        var cellName: String
+        var groupName: String
         let talkingSubject: String
         var questionList: [String]
-        let dateString: String
+        let meetingDate: String
         
-        init(data: GroupInfo) {
-            cellName = data.groupName
-            talkingSubject = "셀모임 주제~"
-            questionList = ["아하하하 1", "우라라라라 2", "그우어ㅓ어3", "잇츠 퀘스쳔4"]
-            dateString = "2022-01-02"
+        init() {
+            groupName = ""
+            talkingSubject = ""
+            questionList = []
+            meetingDate = ""
+        }
+        
+        init(group: GroupInfo, meeting: MeetingInfo) {
+            groupName = group.groupName
+            talkingSubject = meeting.talkingSubject
+            questionList = meeting.questionList
+            meetingDate = meeting.meetingDate
         }
     }
 }

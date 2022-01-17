@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 class GroupRepoImpl: GroupRepo {
     private let service: FirestoreService
     private let collectionName = "COMMUNITY"
+    private var year: String = ""
     
     init(service: FirestoreService) {
         self.service = service
@@ -32,7 +33,7 @@ class GroupRepoImpl: GroupRepo {
         guard let groupSubString = myInfo.mainGroup.split(separator: "_").last else {
             return Empty(completeImmediately: false).eraseToAnyPublisher()
         }
-        let year = String(yearSubString)
+        year = String(yearSubString)
         let group = String(groupSubString)
         let ref = service.store
             .collection(collectionName)
@@ -42,6 +43,14 @@ class GroupRepoImpl: GroupRepo {
         return service.fetchObject(ref: ref, type: GroupInfo.self)
     }
     
+    func fetchMeetingInfo(parentGroup: String) -> AnyPublisher<MeetingInfo, MoyangError> {
+        let ref = service.store
+            .collection(collectionName)
+            .document("YD")
+            .collection(year)
+            .document(parentGroup)
+        return service.fetchObject(ref: ref, type: MeetingInfo.self)
+    }
     
     func add(_ cellPrayInfo: CellPrayInfo) -> AnyPublisher<Bool, MoyangError> {
         var documentName = "TEST"

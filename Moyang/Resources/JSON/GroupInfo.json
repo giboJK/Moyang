@@ -1,6 +1,7 @@
 {
     "id":"100001",
     "group_name":"정김기보셀",
+    "parent_group":"high",
     "leader": {
         "id":"200001",
         "name":"정김기보",

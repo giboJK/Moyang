@@ -12,6 +12,7 @@ import Combine
 protocol GroupRepo {
     func fetchCellPreview() -> AnyPublisher<GroupPreview, MoyangError>
     func fetchGroupInfo() -> AnyPublisher<GroupInfo, MoyangError>
+    func fetchMeetingInfo(parentGroup: String) -> AnyPublisher<MeetingInfo, MoyangError>
     
     func add(_ cellPrayInfo: CellPrayInfo) -> AnyPublisher<Bool, MoyangError>
     
