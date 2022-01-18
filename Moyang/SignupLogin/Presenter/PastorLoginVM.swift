@@ -33,11 +33,11 @@ class PastorLoginVM: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { _ in
             } receiveValue: { _ in
-                UserData.shared.userID = self.id
-                UserData.shared.password = self.password
-                UserData.shared.isPastor = true
                 if self.pastorList.contains(self.id.lowercased()) {
                     self.fetchUserData()
+                    UserData.shared.userID = self.id
+                    UserData.shared.password = self.password
+                    UserData.shared.isPastor = true
                 } else {
                     self.isLoadingUserData = false
                     Log.e("No user")
