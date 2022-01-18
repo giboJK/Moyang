@@ -27,7 +27,7 @@ struct IntroView: View {
                 }
                 .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 48,
                                                height: 52))
-                .padding(.bottom, 24)
+                .padding(.bottom, 16)
                 
                 Button(action: {}) {
                     let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
@@ -37,8 +37,17 @@ struct IntroView: View {
                 }
                 .buttonStyle(MoyangButtonStyle(.ghost, width: UIScreen.screenWidth - 48,
                                                height: 52))
-                .padding(.bottom, 24)
+                .padding(.bottom, 16)
                 
+                Button(action: {}) {
+                    let loginVM = PastorLoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
+                    NavigationLink(destination: PastorLogInView(vm: loginVM)) {
+                        Text("목회자 로그인")
+                    }
+                }
+                .buttonStyle(MoyangButtonStyle(.ghost, width: UIScreen.screenWidth - 48,
+                                               height: 52))
+                .padding(.bottom, 12)
             }
             .onAppear {
                 vm.tryAutoLogin()

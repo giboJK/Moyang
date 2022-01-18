@@ -37,13 +37,32 @@ class FirestoreLoginServiceImpl: LoginService {
                     promise(.failure(MoyangError.other(error)))
                 } else {
                     guard result?.user != nil else { return }
-                    UserData.shared.userID = id
                     promise(.success(true))
                 }
             }
         }.eraseToAnyPublisher()
     }
     
+    func pastorLogin(id: String, pw: String) -> AnyPublisher<Bool, MoyangError> {
+        return Future<Bool, MoyangError> { promise in
+            Auth.auth().signIn(withEmail: id, password: pw) { (result, error) in
+                if let error = error {
+                    promise(.failure(MoyangError.other(error)))
+                } else {
+                    guard result?.user != nil else { return }
+                    promise(.success(true))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    func fetchPastorList() -> AnyPublisher<PastorList, MoyangError> {
+        let ref = service.store
+            .collection("PASTOR")
+            .document("YD")
+        
+        return service.fetchObject(ref: ref, type: PastorList.self)
+    }
     
     func fetchUserData() -> AnyPublisher<MemberDetail, MoyangError> {
         guard let userID = UserData.shared.userID?.lowercased() else {

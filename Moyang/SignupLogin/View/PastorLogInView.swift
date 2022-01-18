@@ -1,18 +1,18 @@
 //
-//  LogInView.swift
+//  PastorLogInView.swift
 //  Moyang
 //
-//  Created by kibo on 2022/01/07.
+//  Created by kibo on 2022/01/18.
 //
 
 import SwiftUI
 
-struct LogInView: View {
-    @ObservedObject var vm: LoginVM
+struct PastorLogInView: View {
+    @ObservedObject var vm: PastorLoginVM
     
     var body: some View {
         VStack {
-            Text("Log In your eamil")
+            Text("목회자 로그인")
                 .frame(width: UIScreen.screenWidth - 48, alignment: .leading)
                 .font(.title)
                 .padding(.top, 20)
@@ -40,6 +40,9 @@ struct LogInView: View {
             IndicatorView().hidden(!vm.isLoadingUserData)
             Spacer()
         }
+        .onAppear(perform: {
+            vm.fetchPastorList()
+        })
         .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
             MainView()
         })
@@ -47,8 +50,8 @@ struct LogInView: View {
     }
 }
 
-struct LogInView_Previews: PreviewProvider {
+struct PastorLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView(vm: LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+        PastorLogInView(vm: PastorLoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
     }
 }
