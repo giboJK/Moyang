@@ -10,7 +10,7 @@ import SwiftUI
 struct DailyView: View {
     var body: some View {
         ZStack {
-            Color(UIColor.bgColor).ignoresSafeArea()
+            Color.sheep1.ignoresSafeArea()
             VStack(spacing: 0) {
                 HStack {
                     Text("Daily Bread")
@@ -26,7 +26,7 @@ struct DailyView: View {
                     .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
             }
             .padding(.top, 30)
-            .background(Color(UIColor.bgColor))
+            .background(Color.sheep1)
         }
     }
 }

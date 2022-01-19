@@ -38,11 +38,11 @@ struct CellPreviewCard: View {
                     } else {
                         Text(String(member.name.first ?? Character("")))
                             .frame(width: 40, height: 40, alignment: .center)
-                            .background(Color(UIColor.bgColor))
+                            .background(Color.sheep1)
                             .cornerRadius(13)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 13)
-                                    .stroke(Color(Asset.Colors.Dessert.desertStone.color), lineWidth: 1)
+                                    .stroke(Color.desertStone1, lineWidth: 1)
                             ).padding(.top, 1)
                     }
                 }

@@ -19,14 +19,14 @@ struct LogInView: View {
                 .padding(.bottom, 32)
             TextField("Email", text: $vm.id)
                 .padding()
-                .background(Color(UIColor.sheep200))
+                .background(Color.sheep2)
                 .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
                 .cornerRadius(12.0)
                 .padding(.bottom, 20)
                 .keyboardType(.emailAddress)
             SecureField("Password", text: $vm.password)
                 .padding()
-                .background(Color(UIColor.sheep200))
+                .background(Color.sheep2)
                 .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
                 .cornerRadius(12.0)
                 .padding(.bottom, 24)
@@ -43,7 +43,7 @@ struct LogInView: View {
         .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
             MainView(rootIsActive: $vm.isLoginSuccess)
         })
-        .background(Color(UIColor.bgColor))
+        .background(Color.sheep1)
     }
 }
 

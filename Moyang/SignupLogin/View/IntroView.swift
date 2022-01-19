@@ -17,6 +17,7 @@ struct IntroView: View {
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                     .padding(.top, 240)
+                    .foregroundColor(.sky1)
                 
                 Spacer()
                 Button(action: {}) {
@@ -55,7 +56,8 @@ struct IntroView: View {
             .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
                 MainView(rootIsActive: $vm.isLoginSuccess)
             })
-            .background(Color(UIColor.bgColor))
+            .frame(maxWidth: .infinity)
+            .background(Color.sheep1)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarHidden(true)
         }

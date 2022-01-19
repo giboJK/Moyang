@@ -19,4 +19,3 @@ class PastorMainVM: ObservableObject, Identifiable {
         cancellables.removeAll()
     }
 }
-

@@ -22,7 +22,7 @@ struct DailySummaryView: View {
                             .foregroundColor(item.id == 0 ? Color.red : Color.black)
                         Text("chk")
                             .frame(maxWidth: .infinity)
-                            .background(Color(Asset.Colors.Dessert.desertLightStone.color))
+                            .background(Color.desertStone2)
                     }
                 }
             }

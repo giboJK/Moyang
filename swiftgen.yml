@@ -1,21 +1,21 @@
 
 strings:
   inputs:
-    - Moyang/Resources/en.lproj
+    - Moyang/App/Resources/en.lproj
   outputs:
     - templateName: structured-swift5
       params:
         publicAccess: true
         enumName: Strings
-      output: Moyang/Resources/Generated/Strings.swift
+      output: Moyang/App/Resources/Generated/Strings.swift
 xcassets:
   inputs:
-    - Moyang/Resources/Colors.xcassets
-    - Moyang/Resources/Images.xcassets
+    - Moyang/App/Resources/Colors.xcassets
+    - Moyang/App/Resources/Images.xcassets
   outputs:
     - templateName: swift5
       params:
         publicAccess: true
         forceFileNameEnum: true
         forceProvidesNamespaces: true
-      output: Moyang/Resources/Generated/Assets.swift
+      output: Moyang/App/Resources/Generated/Assets.swift

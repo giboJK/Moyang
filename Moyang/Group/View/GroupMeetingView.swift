@@ -57,7 +57,7 @@ struct GroupMeetingView: View {
                             .padding(.bottom, 10)
                             .font(.system(size: 14, weight: .regular, design: .default))
                             .frame(height: 75, alignment: .topLeading)
-                            .colorMultiply(Color(UIColor.sheep))
+                            .colorMultiply(Color.sheep2)
                     }
                 }
                 .transition(.asymmetric(insertion: .opacity, removal: .opacity))
@@ -89,7 +89,7 @@ struct GroupMeetingView: View {
         .foregroundColor(Color.black)
         .navigationTitle(vm.groupInfoItem.groupName)
         .padding(EdgeInsets(top: 14, leading: 20, bottom: 0, trailing: 20))
-        .background(Color(UIColor.sheep))
+        .background(Color.sheep2)
         .eraseToAnyView()
     }
 }

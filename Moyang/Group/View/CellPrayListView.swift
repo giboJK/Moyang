@@ -21,7 +21,7 @@ struct CellPrayListView: View {
                         .frame(width: 16.0, height: 16.0)
                     viewModel.showSortingByName ? Text("이름순") : Text("날짜순")
                 }
-                .foregroundColor(Color(Asset.Colors.Dessert.darkSand200.color))
+                .foregroundColor(Color.darkSand2)
                 .padding(.leading, 15)
                 Spacer()
             }

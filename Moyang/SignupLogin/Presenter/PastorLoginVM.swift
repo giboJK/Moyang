@@ -70,4 +70,3 @@ class PastorLoginVM: ObservableObject {
         cancellables.removeAll()
     }
 }
-

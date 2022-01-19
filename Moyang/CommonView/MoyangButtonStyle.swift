@@ -38,14 +38,14 @@ struct MoyangButtonStyle: ButtonStyle {
             return configuration.label
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(Color.dessertStone)
+                .background(Color.desertStone1)
                 .foregroundColor(.white)
                 .cornerRadius(16)
         case .secondary:
             return configuration.label
                 .font(secondaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(Color.desertLightStone)
+                .background(Color.desertStone2)
                 .foregroundColor(.white)
                 .cornerRadius(16)
         case .ghost:

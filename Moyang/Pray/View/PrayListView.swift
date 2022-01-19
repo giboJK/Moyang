@@ -48,7 +48,7 @@ struct PrayListView: View {
             Image(systemName: "plus")
                 .foregroundColor(Color.black)
         }))
-        .background(Color(UIColor.sheep))
+        .background(Color.sheep1)
         .navigationTitle("기도 목록")
         .onLoad(perform: fetchData)
     }

@@ -21,7 +21,7 @@ struct NewCellPrayView: View {
                     .padding(.bottom, 10)
                     .font(.system(size: 14, weight: .regular, design: .default))
                     .frame(height: 55, alignment: .topLeading)
-                    .colorMultiply(Color(UIColor.sheep))
+                    .colorMultiply(Color.sheep2)
                     .foregroundColor(viewModel.memberNewPrayList[i].pray == "기도제목을 입력하세요" ? .gray : .primary)
                     .onTapGesture {
                         if viewModel.memberNewPrayList[i].pray == "기도제목을 입력하세요" {
