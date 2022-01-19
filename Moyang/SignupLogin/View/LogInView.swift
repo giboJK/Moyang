@@ -41,7 +41,7 @@ struct LogInView: View {
             Spacer()
         }
         .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
-            MainView()
+            MainView(rootIsActive: $vm.isLoginSuccess)
         })
         .background(Color(UIColor.bgColor))
     }

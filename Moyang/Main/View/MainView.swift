@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    @Binding var rootIsActive: Bool
+    
     var body: some View {
         NavigationView {
             TabView {
@@ -19,7 +21,7 @@ struct MainView: View {
                     .navigationBarHidden(true)
                     .navigationBarTitleDisplayMode(.inline)
                 
-                ProfileView()
+                ProfileView(rootIsActive: $rootIsActive)
                     .tabItem {
                         Image(systemName: "person.crop.circle.fill")
                         Text("Profile")
@@ -32,7 +34,8 @@ struct MainView: View {
 }
 
 struct MainView_Previews: PreviewProvider {
+    @State static var value = true
     static var previews: some View {
-        MainView()
+        MainView(rootIsActive: $value)
     }
 }
