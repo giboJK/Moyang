@@ -16,6 +16,7 @@ struct DailyView: View {
                     Text("Daily Bread")
                         .font(.system(size: 24, weight: .black, design: .default))
                         .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 0))
+                        .foregroundColor(.sky1)
                     Spacer()
                 }
                 DailySummaryView(vm: DailySummaryVM())

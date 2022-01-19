@@ -12,6 +12,15 @@ class UserData {
     var myInfo: MemberDetail?
     var groupInfo: GroupInfo?
     
+    func resetUserData() {
+        myInfo = nil
+        groupInfo = nil
+        userName = nil
+        userID = nil
+        password = nil
+        isPastor = nil
+    }
+    
     var isNotFirstLaunch: Bool {
         get {
             return UserDefaults.standard.bool(forKey: "IS_NOT_FIRST_LAUNCH")
