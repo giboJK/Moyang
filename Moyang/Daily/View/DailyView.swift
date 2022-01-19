@@ -18,7 +18,7 @@ struct DailyView: View {
                         .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 0))
                     Spacer()
                 }
-                DailySummaryView(viewModel: DailySummaryVM())
+                DailySummaryView(vm: DailySummaryVM())
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 15, trailing: 0))
                 Divider()
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))

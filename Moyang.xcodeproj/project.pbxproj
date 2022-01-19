@@ -71,6 +71,8 @@
 		24B6A2572726C40E0065112A /* GroupInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B6A2562726C40E0065112A /* GroupInfo.json */; };
 		24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6E31E275F81CE00AD2E53 /* MoyangError.swift */; };
 		24B7B4D82753BC5F007BCF9E /* NewCellPrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B7B4D72753BC5F007BCF9E /* NewCellPrayView.swift */; };
+		24B812F227984BD300BD1B3E /* PastorMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B812F127984BD300BD1B3E /* PastorMainView.swift */; };
+		24B812F627984EA300BD1B3E /* PastorMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B812F527984EA300BD1B3E /* PastorMainVM.swift */; };
 		24B8BCE92764C7AD005B0A9F /* DailyRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */; };
 		24B8BCED2764C7FF005B0A9F /* DailyRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */; };
 		24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEE2764C939005B0A9F /* DailyPreview.swift */; };
@@ -173,6 +175,8 @@
 		24B6A2562726C40E0065112A /* GroupInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GroupInfo.json; sourceTree = "<group>"; };
 		24B6E31E275F81CE00AD2E53 /* MoyangError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangError.swift; sourceTree = "<group>"; };
 		24B7B4D72753BC5F007BCF9E /* NewCellPrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCellPrayView.swift; sourceTree = "<group>"; };
+		24B812F127984BD300BD1B3E /* PastorMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorMainView.swift; sourceTree = "<group>"; };
+		24B812F527984EA300BD1B3E /* PastorMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorMainVM.swift; sourceTree = "<group>"; };
 		24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepo.swift; sourceTree = "<group>"; };
 		24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepoImpl.swift; sourceTree = "<group>"; };
 		24B8BCEE2764C939005B0A9F /* DailyPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPreview.swift; sourceTree = "<group>"; };
@@ -479,6 +483,31 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		24B812F027984A9500BD1B3E /* PastorMain */ = {
+			isa = PBXGroup;
+			children = (
+				24B812F427984E9400BD1B3E /* Presenter */,
+				24B812F327984C0400BD1B3E /* View */,
+			);
+			path = PastorMain;
+			sourceTree = "<group>";
+		};
+		24B812F327984C0400BD1B3E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				24B812F127984BD300BD1B3E /* PastorMainView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		24B812F427984E9400BD1B3E /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				24B812F527984EA300BD1B3E /* PastorMainVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		24B8BCE72764C798005B0A9F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -535,6 +564,7 @@
 				24D0D334272315FA006FF67B /* Resources */,
 				242D745A274267AA0053EF2A /* CommonView */,
 				248FEC0E2723A07D00321E5E /* Main */,
+				24B812F027984A9500BD1B3E /* PastorMain */,
 				246BD7DC27240AE4005C4E0B /* Group */,
 				246BD7AD27240AD4005C4E0B /* Pray */,
 				08D2D8502787B010006897A4 /* SignupLogin */,
@@ -828,6 +858,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24B812F227984BD300BD1B3E /* PastorMainView.swift in Sources */,
 				24AC737A27468BD7003B9B2F /* Array+.swift in Sources */,
 				24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */,
 				246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */,
@@ -837,6 +868,7 @@
 				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
 				246BD7C727240AD4005C4E0B /* PrayCardVM.swift in Sources */,
 				244933EB27775B8F000DDE01 /* PrayCardView.swift in Sources */,
+				24B812F627984EA300BD1B3E /* PastorMainVM.swift in Sources */,
 				24D0D3292723145F006FF67B /* Date+.swift in Sources */,
 				24BB8032275645C100BE2988 /* NewCellPrayVM.swift in Sources */,
 				24EA9B4A2757A4AB004FB585 /* CellPrayListRow.swift in Sources */,
