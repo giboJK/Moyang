@@ -17,6 +17,7 @@ struct SignUpView: View {
                 .font(.title)
                 .padding(.top, 20)
                 .padding(.bottom, 32)
+                .foregroundColor(.sky1)
             TextField("Email", text: $vm.id)
                 .padding()
                 .background(Color.sheep2)
@@ -40,6 +41,7 @@ struct SignUpView: View {
                 .padding(.bottom, 24)
             Spacer()
         }
+        .frame(maxWidth: .infinity)
         .background(Color.sheep1)
     }
 }

@@ -12,6 +12,10 @@ struct GroupMeetingView: View {
     @ObservedObject var vm: GroupMeetingVM
     
     @State private var showingMemo = true
+    init(vm: GroupMeetingVM) {
+        self.vm = vm
+        UITextView.appearance().backgroundColor = .clear
+    }
     
     var body: some View {
         VStack {
@@ -54,10 +58,11 @@ struct GroupMeetingView: View {
                         }
                         .padding(EdgeInsets(top: 0, leading: 4, bottom: -10, trailing: 0))
                         TextEditor(text: $vm.answerList[i])
-                            .padding(.bottom, 10)
                             .font(.system(size: 14, weight: .regular, design: .default))
                             .frame(height: 75, alignment: .topLeading)
-                            .colorMultiply(Color.sheep2)
+                            .foregroundColor(Color.sky1)
+                            .background(Color.sheep1)
+                        Spacer(minLength: 10)
                     }
                 }
                 .transition(.asymmetric(insertion: .opacity, removal: .opacity))
@@ -89,12 +94,12 @@ struct GroupMeetingView: View {
         .foregroundColor(Color.black)
         .navigationTitle(vm.groupInfoItem.groupName)
         .padding(EdgeInsets(top: 14, leading: 20, bottom: 0, trailing: 20))
-        .background(Color.sheep2)
+        .background(Color.sheep1)
         .eraseToAnyView()
     }
 }
 
-struct CellMeetingView_Previews: PreviewProvider {
+struct GroupMeetingView_Previews: PreviewProvider {
     static var previews: some View {
         GroupMeetingView(vm: GroupMeetingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
     }

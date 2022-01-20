@@ -22,13 +22,6 @@ class NewCellPrayVM: ObservableObject, Identifiable {
     }
     
     private func loadCellMemberList() {
-        let cellInfo = DummyData().groupInfo
-        
-        var memberNewPrayList = [MemberNewPray]()
-        cellInfo.memberList.forEach {
-            memberNewPrayList.append(MemberNewPray(name: $0.name))
-        }
-        self.memberNewPrayList = memberNewPrayList
     }
 }
 
