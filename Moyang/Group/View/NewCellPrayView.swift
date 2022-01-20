@@ -8,32 +8,37 @@
 import SwiftUI
 
 struct NewCellPrayView: View {
-    @ObservedObject var viewModel: NewCellPrayVM
+    @ObservedObject var vm: NewCellPrayVM
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
-            ForEach(0 ..< viewModel.memberNewPrayList.count) { i in
+            ForEach(0 ..< vm.itemList.count) { i in
                 HStack {
-                    Text(viewModel.memberNewPrayList[i].name)
+                    Text(vm.itemList[i].name)
+                        .font(.body)
+                        .foregroundColor(.sky1)
                     Spacer()
                 }
-                TextEditor(text: $viewModel.memberNewPrayList[i].pray)
-                    .padding(.bottom, 10)
+                .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+                TextEditor(text: $vm.itemList[i].pray)
                     .font(.system(size: 14, weight: .regular, design: .default))
                     .frame(height: 55, alignment: .topLeading)
-                    .colorMultiply(Color.sheep2)
-                    .foregroundColor(viewModel.memberNewPrayList[i].pray == "기도제목을 입력하세요" ? .gray : .primary)
+                    .foregroundColor(vm.itemList[i].pray == "기도제목을 입력하세요" ? .gray : .sky1)
                     .onTapGesture {
-                        if viewModel.memberNewPrayList[i].pray == "기도제목을 입력하세요" {
-                            viewModel.memberNewPrayList[i].pray = ""
+                        if vm.itemList[i].pray == "기도제목을 입력하세요" {
+                            vm.itemList[i].pray = ""
                         }
                     }
+                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+                Spacer(minLength: 10)
             }
         }
+        .frame(maxWidth: .infinity)
+        .background(Color.sheep1)
         .navigationBarTitle("새 기도제목")
         .toolbar {
             Button("추가") {
-                print("Added")
+                vm.addNewPray()
             }
         }
     }
@@ -41,6 +46,6 @@ struct NewCellPrayView: View {
 
 struct NewCellPrayView_Previews: PreviewProvider {
     static var previews: some View {
-        NewCellPrayView(viewModel: NewCellPrayVM())
+        NewCellPrayView(vm: NewCellPrayVM())
     }
 }

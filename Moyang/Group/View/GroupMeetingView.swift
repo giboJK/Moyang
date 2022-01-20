@@ -80,7 +80,7 @@ struct GroupMeetingView: View {
                 
             }
             .padding(.top, 5)
-            NavigationLink(destination: NewCellPrayView(viewModel: NewCellPrayVM())) {
+            NavigationLink(destination: NewCellPrayView(vm: NewCellPrayVM())) {
                 HStack {
                     Text("새 기도제목")
                         .font(.system(size: 17, weight: .bold))

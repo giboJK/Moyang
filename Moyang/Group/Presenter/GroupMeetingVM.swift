@@ -31,6 +31,7 @@ class GroupMeetingVM: ObservableObject {
                 Log.i(completion)
             }, receiveValue: { data in
                 self.groupInfo = data
+                UserData.shared.groupInfo = data
                 self.fetchMeetingInfo(parentGroup: data.parentGroup)
             })
             .store(in: &cancellables)

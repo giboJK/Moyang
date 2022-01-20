@@ -9,10 +9,9 @@ import SwiftUI
 import Combine
 
 class NewCellPrayVM: ObservableObject, Identifiable {
-    @Published var memberNewPrayList = [MemberNewPray]()
+    @Published var itemList = [NewCellPrayVM.NewPrayItem]()
     @Published var dateString = Date().toString()
     
-    @Published var text: String = ""
     init() {
         loadCellMemberList()
     }
@@ -22,11 +21,22 @@ class NewCellPrayVM: ObservableObject, Identifiable {
     }
     
     private func loadCellMemberList() {
+        Log.w(UserData.shared.groupInfo)
+        guard let groupInfo = UserData.shared.groupInfo else { return }
+        var list = [NewPrayItem]()
+        groupInfo.memberList.forEach { member in
+            list.append(NewPrayItem(name: member.name))
+        }
+        self.itemList = list
+    }
+    
+    func addNewPray() {
+        
     }
 }
 
 extension NewCellPrayVM {
-    struct MemberNewPray: Hashable {
+    struct NewPrayItem: Hashable {
         var name: String
         var pray: String
         
