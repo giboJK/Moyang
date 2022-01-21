@@ -21,10 +21,6 @@ class GroupPrayListVM: ObservableObject, Identifiable {
     }
     
     func loadData() {
-        let cellPrayListItem = CellPrayListItem(data: DummyData().cellPrayInfo,
-                                                member: DummyData().groupInfo.memberList)
-        nameSorteditemList = cellPrayListItem.nameSortedItemList
-        dateSorteditemList = cellPrayListItem.dateSortedItemList
     }
     
     func changeSorting() {
@@ -48,34 +44,11 @@ extension GroupPrayListVM {
         let nameSortedItemList: [NameSortedMemberPrayItem]
         let dateSortedItemList: [DateSortedMemberPrayItem]
         
-        init(data: GroupPray, member: [GroupMember]) {
-            self.id = data.id
-            self.groupName = data.groupName
-            
-            var nameSorted = [NameSortedMemberPrayItem]()
-            var dateSorted = [DateSortedMemberPrayItem]()
-            for i in 0 ..< data.groupPrayList.count {
-                dateSorted.append(DateSortedMemberPrayItem(date: data.groupPrayList[i].dateString,
-                                                           prayItemList: data.groupPrayList[i].memberPrayList))
-            }
-            
-            for i in 0 ..< member.count {
-                var dateList = [String]()
-                var prayList = [String]()
-                for j in 0 ..< data.groupPrayList.count {
-                    if let memberPray = data.groupPrayList[j]
-                        .memberPrayList.first(where: { $0.memberName == member[i].name }) {
-                        dateList.append(data.groupPrayList[j].dateString)
-                        prayList.append(memberPray.pray)
-                    }
-                }
-                
-                nameSorted.append(NameSortedMemberPrayItem(name: member[i].name,
-                                                           dateList: dateList, prayList: prayList))
-            }
-            
-            self.nameSortedItemList = nameSorted.sorted { $0.name < $1.name }
-            self.dateSortedItemList = dateSorted.sorted { $0.date > $1.date }
+        init(member: [GroupMember]) {
+            id = ""
+            groupName = ""
+            self.nameSortedItemList = []
+            self.dateSortedItemList = []
         }
         
         func hash(into hasher: inout Hasher) {

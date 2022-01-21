@@ -11,6 +11,7 @@ struct GroupInfo: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
     let groupName: String
+    let groupPath: String
     let parentGroup: String
     let leader: GroupMember
     let memberList: [GroupMember]
@@ -18,6 +19,7 @@ struct GroupInfo: Codable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case id
         case groupName = "group_name"
+        case groupPath = "group_path"
         case parentGroup = "parent_group"
         case leader = "leader"
         case memberList = "member_list"

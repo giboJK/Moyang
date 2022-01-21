@@ -9,9 +9,8 @@ import Foundation
 import Combine
 
 final class DummyData: ObservableObject {
-    @Published var cellPreview: GroupPreview = load("GroupPreview.json")
+    @Published var preview: GroupPreview = load("GroupPreview.json")
     @Published var groupInfo: GroupInfo = load("GroupInfo.json")
-    @Published var cellPrayInfo: GroupPray = load("CellPrayInfo.json")
     @Published var pray: Pray = load("Pray.json")
     @Published var prayList: [Pray] = load("PrayList.json")
 }

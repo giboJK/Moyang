@@ -55,20 +55,24 @@ class GroupRepoImpl: GroupRepo {
         return service.fetchObject(ref: ref, type: MeetingInfo.self)
     }
     
-    func add(_ data: GroupPray) -> AnyPublisher<Bool, MoyangError> {
-        var documentName = "TEST"
-        if let userName = UserData.shared.userID {
-            documentName = userName
+    func add(_ data: [GroupMemberPray], groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
+        guard let yearSubString = groupInfo.groupPath.split(separator: "_").first else {
+            return Empty(completeImmediately: false).eraseToAnyPublisher()
+        }
+        guard let groupSubString = groupInfo.groupPath.split(separator: "_").last else {
+            return Empty(completeImmediately: false).eraseToAnyPublisher()
         }
         let ref = service.store
             .collection(self.collectionName)
-            .document(documentName)
-            .collection("MY_PRAY")
-            .document(data.createdTimestamp)
+            .document("YD")
+            .collection(String(yearSubString))
+            .document(String(groupSubString))
+            .collection(Date().toString("yyyy-MM-dd hh:mm:ss"))
+        
         return service.addDocument(data, ref: ref)
     }
     
-    func addCellPrayListListener() -> PassthroughSubject<GroupPray, MoyangError> {
+    func addGroupPrayListListener() -> PassthroughSubject<[[GroupMemberPray]], MoyangError> {
         var documentName = "TEST"
         if let userName = UserData.shared.userID {
             documentName = userName
@@ -77,6 +81,6 @@ class GroupRepoImpl: GroupRepo {
             .collection(self.collectionName)
             .document(documentName)
             .collection("MY_PRAY")
-        return service.addListener(ref: ref, type: GroupPray.self)
+        return service.addListener(ref: ref, type: [[GroupMemberPray]].self)
     }
 }

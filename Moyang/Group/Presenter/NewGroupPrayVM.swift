@@ -27,24 +27,39 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
         guard let groupInfo = UserData.shared.groupInfo else { return }
         var list = [NewPrayItem]()
         groupInfo.memberList.forEach { member in
-            list.append(NewPrayItem(name: member.name))
+            list.append(NewPrayItem(member: member))
         }
         self.itemList = list
     }
     
     func addNewPray() {
+        guard let groupInfo = UserData.shared.groupInfo else { return }
+        let id = String.randomString(length: 24)
+        var list = [GroupMemberPray]()
+        itemList.forEach { item in
+            list.append(item.toGroupMemberPray())
+        }
+        
         
     }
 }
 
 extension NewGroupPrayVM {
     struct NewPrayItem: Hashable {
+        var memberID: String
         var name: String
         var pray: String
         
-        init(name: String) {
-            self.name = name
+        init(member: GroupMember) {
+            self.memberID = member.id
+            self.name = member.name
             self.pray = "기도제목을 입력하세요"
+        }
+        
+        func toGroupMemberPray() -> GroupMemberPray {
+            return GroupMemberPray(id: self.memberID,
+                                   memberName: self.name,
+                                   pray: self.pray)
         }
     }
 }
