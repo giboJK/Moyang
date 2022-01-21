@@ -15,7 +15,7 @@ protocol GroupRepo {
     func fetchMeetingInfo(parentGroup: String,
                           date: String) -> AnyPublisher<MeetingInfo, MoyangError>
     
-    func add(_ cellPrayInfo: CellPrayInfo) -> AnyPublisher<Bool, MoyangError>
+    func add(_ cellPrayInfo: GroupPrayInfo) -> AnyPublisher<Bool, MoyangError>
     
-    func addCellPrayListListener() -> PassthroughSubject<CellPrayInfo, MoyangError>
+    func addCellPrayListListener() -> PassthroughSubject<GroupPrayInfo, MoyangError>
 }

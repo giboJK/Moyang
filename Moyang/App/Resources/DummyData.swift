@@ -11,7 +11,7 @@ import Combine
 final class DummyData: ObservableObject {
     @Published var cellPreview: GroupPreview = load("GroupPreview.json")
     @Published var groupInfo: GroupInfo = load("GroupInfo.json")
-    @Published var cellPrayInfo: CellPrayInfo = load("CellPrayInfo.json")
+    @Published var cellPrayInfo: GroupPrayInfo = load("CellPrayInfo.json")
     @Published var pray: Pray = load("Pray.json")
     @Published var prayList: [Pray] = load("PrayList.json")
 }

@@ -1,5 +1,5 @@
 //
-//  NewCellPrayVM.swift
+//  NewGroupPrayVM.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/11/30.
@@ -8,8 +8,8 @@
 import SwiftUI
 import Combine
 
-class NewCellPrayVM: ObservableObject, Identifiable {
-    @Published var itemList = [NewCellPrayVM.NewPrayItem]()
+class NewGroupPrayVM: ObservableObject, Identifiable {
+    @Published var itemList = [NewGroupPrayVM.NewPrayItem]()
     @Published var dateString = Date().toString()
     
     init() {
@@ -21,7 +21,6 @@ class NewCellPrayVM: ObservableObject, Identifiable {
     }
     
     private func loadCellMemberList() {
-        Log.w(UserData.shared.groupInfo)
         guard let groupInfo = UserData.shared.groupInfo else { return }
         var list = [NewPrayItem]()
         groupInfo.memberList.forEach { member in
@@ -35,7 +34,7 @@ class NewCellPrayVM: ObservableObject, Identifiable {
     }
 }
 
-extension NewCellPrayVM {
+extension NewGroupPrayVM {
     struct NewPrayItem: Hashable {
         var name: String
         var pray: String

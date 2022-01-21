@@ -1,5 +1,5 @@
 //
-//  CellPrayInfo.swift
+//  GroupPrayInfo.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/11/23.
@@ -8,12 +8,12 @@
 import Foundation
 import SwiftUI
 
-struct CellPrayInfo: Codable, Identifiable {
+struct GroupPrayInfo: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
     let createdTimestamp: String
     let cellName: String
-    let cellPrayList: [CellPrayList]
+    let cellPrayList: [GroupPrayList]
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -23,10 +23,10 @@ struct CellPrayInfo: Codable, Identifiable {
     }
 }
 
-// MARK: - CellPrayList
-struct CellPrayList: Codable {
+// MARK: - GroupPrayList
+struct GroupPrayList: Codable {
     let dateString: String
-    let memberPrayList: [CellMemberPray]
+    let memberPrayList: [GroupMemberPray]
     
     enum CodingKeys: String, CodingKey {
         case dateString = "date_string"
@@ -34,8 +34,8 @@ struct CellPrayList: Codable {
     }
 }
 
-// MARK: - CellMemberPray
-struct CellMemberPray: Codable {
+// MARK: - GroupMemberPray
+struct GroupMemberPray: Codable {
     let memberName: String
     let pray: String
 

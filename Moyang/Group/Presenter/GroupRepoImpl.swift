@@ -55,7 +55,7 @@ class GroupRepoImpl: GroupRepo {
         return service.fetchObject(ref: ref, type: MeetingInfo.self)
     }
     
-    func add(_ cellPrayInfo: CellPrayInfo) -> AnyPublisher<Bool, MoyangError> {
+    func add(_ cellPrayInfo: GroupPrayInfo) -> AnyPublisher<Bool, MoyangError> {
         var documentName = "TEST"
         if let userName = UserData.shared.userID {
             documentName = userName
@@ -68,7 +68,7 @@ class GroupRepoImpl: GroupRepo {
         return service.addDocument(cellPrayInfo, ref: ref)
     }
     
-    func addCellPrayListListener() -> PassthroughSubject<CellPrayInfo, MoyangError> {
+    func addCellPrayListListener() -> PassthroughSubject<GroupPrayInfo, MoyangError> {
         var documentName = "TEST"
         if let userName = UserData.shared.userID {
             documentName = userName
@@ -77,6 +77,6 @@ class GroupRepoImpl: GroupRepo {
             .collection(self.collectionName)
             .document(documentName)
             .collection("MY_PRAY")
-        return service.addListener(ref: ref, type: CellPrayInfo.self)
+        return service.addListener(ref: ref, type: GroupPrayInfo.self)
     }
 }

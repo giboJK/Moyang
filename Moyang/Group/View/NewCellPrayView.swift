@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewCellPrayView: View {
-    @ObservedObject var vm: NewCellPrayVM
+    @ObservedObject var vm: NewGroupPrayVM
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
@@ -46,6 +46,6 @@ struct NewCellPrayView: View {
 
 struct NewCellPrayView_Previews: PreviewProvider {
     static var previews: some View {
-        NewCellPrayView(vm: NewCellPrayVM())
+        NewCellPrayView(vm: NewGroupPrayVM())
     }
 }

@@ -48,7 +48,7 @@ extension CellPrayListVM {
         let nameSortedItemList: [NameSortedMemberPrayItem]
         let dateSortedItemList: [DateSortedMemberPrayItem]
         
-        init(data: CellPrayInfo, member: [GroupMember]) {
+        init(data: GroupPrayInfo, member: [GroupMember]) {
             self.id = data.id
             self.cellName = data.cellName
             
@@ -105,7 +105,7 @@ extension CellPrayListVM {
         let date: String
         let prayItemList: [(member: String, pray: String)]
         
-        init(date: String, prayItemList: [CellMemberPray]) {
+        init(date: String, prayItemList: [GroupMemberPray]) {
             self.date = date
             var newPrayItemList = [(String, String)]()
             for i in 0 ..< prayItemList.count {
