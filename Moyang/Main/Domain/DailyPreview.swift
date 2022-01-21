@@ -29,7 +29,7 @@ struct DailyPreview: Codable {
         case groupId = "group_id"
         case groupName = "group_name"
         case groupTalkingSubject = "group_talking_subject"
-        case groupMeetingDate = "cell_meeting_date"
+        case groupMeetingDate = "group_meeting_date"
         case groupMemberList = "member_list"
         case qtId = "qt_id"
         case qtName = "qt_name"

@@ -10,12 +10,12 @@ import Foundation
 import Combine
 
 protocol GroupRepo {
-    func fetchCellPreview() -> AnyPublisher<GroupPreview, MoyangError>
+    func fetchGroupPreview() -> AnyPublisher<GroupPreview, MoyangError>
     func fetchGroupInfo() -> AnyPublisher<GroupInfo, MoyangError>
     func fetchMeetingInfo(parentGroup: String,
                           date: String) -> AnyPublisher<MeetingInfo, MoyangError>
     
-    func add(_ cellPrayInfo: GroupPrayInfo) -> AnyPublisher<Bool, MoyangError>
+    func add(_ data: GroupPray) -> AnyPublisher<Bool, MoyangError>
     
-    func addCellPrayListListener() -> PassthroughSubject<GroupPrayInfo, MoyangError>
+    func addCellPrayListListener() -> PassthroughSubject<GroupPray, MoyangError>
 }

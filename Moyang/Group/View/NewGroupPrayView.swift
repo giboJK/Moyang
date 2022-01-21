@@ -1,5 +1,5 @@
 //
-//  NewCellPrayView.swift
+//  NewGroupPrayView.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/11/28.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewCellPrayView: View {
+struct NewGroupPrayView: View {
     @ObservedObject var vm: NewGroupPrayVM
     
     var body: some View {
@@ -46,6 +46,6 @@ struct NewCellPrayView: View {
 
 struct NewCellPrayView_Previews: PreviewProvider {
     static var previews: some View {
-        NewCellPrayView(vm: NewGroupPrayVM())
+        NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
     }
 }

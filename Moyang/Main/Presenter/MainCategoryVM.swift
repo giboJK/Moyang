@@ -13,7 +13,7 @@ class MainCategoryVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     @Published var prayCardVM: PrayCardVM?
-    @Published var cellCardVM: CellCardVM?
+    @Published var groupCardVM: GroupCardVM?
     
     init(repo: DailyRepo) {
         self.repo = repo
@@ -26,18 +26,18 @@ class MainCategoryVM: ObservableObject {
                 Log.i(completion)
             }, receiveValue: { dailyPreview in
                 let item = DailyPreviewItem(data: dailyPreview)
-                self.makeCellCardVM(cellCardItem: item.groupCardItem)
+                self.makeCellCardVM(item: item.groupCardItem)
                 self.makePrayCardVM(prayCardItem: item.prayCardItem)
             })
             .store(in: &cancellables)
     }
     
-    private func makeCellCardVM(cellCardItem: GroupCardItem) {
-        let cellPreview = GroupPreview(name: cellCardItem.cellName,
-                                       talkingSubject: cellCardItem.talkingSubject,
-                                       dateString: cellCardItem.groupMeetingDate,
-                                       memberList: cellCardItem.groupMemberList)
-        cellCardVM = CellCardVM.init(cellPreview: cellPreview)
+    private func makeCellCardVM(item: GroupCardItem) {
+        let preview = GroupPreview(name: item.cellName,
+                                   talkingSubject: item.talkingSubject,
+                                   dateString: item.groupMeetingDate,
+                                   memberList: item.groupMemberList)
+        groupCardVM = GroupCardVM.init(preview: preview)
     }
     
     private func makePrayCardVM(prayCardItem: PrayCardItem) {

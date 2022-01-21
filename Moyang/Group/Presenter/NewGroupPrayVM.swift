@@ -12,7 +12,10 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
     @Published var itemList = [NewGroupPrayVM.NewPrayItem]()
     @Published var dateString = Date().toString()
     
-    init() {
+    private let repo: GroupRepo
+    
+    init(repo: GroupRepo) {
+        self.repo = repo
         loadCellMemberList()
     }
     

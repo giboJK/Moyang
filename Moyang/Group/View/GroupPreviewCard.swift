@@ -1,5 +1,5 @@
 //
-//  CellPreviewCard.swift
+//  GroupPreviewCard.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/10/09.
@@ -8,13 +8,13 @@
 
 import SwiftUI
 
-struct CellPreviewCard: View {
-    @ObservedObject var vm: CellCardVM
+struct GroupPreviewCard: View {
+    @ObservedObject var vm: GroupCardVM
     
     var body: some View {
         VStack {
             HStack {
-                Text(vm.cellPreview.name)
+                Text(vm.preview.name)
                     .font(.system(size: 16, weight: .bold, design: .default))
                     .frame(alignment: .center)
                 Spacer()
@@ -23,7 +23,7 @@ struct CellPreviewCard: View {
             .padding(.top, 10)
             Divider().padding(-5)
             HStack {
-                Text(vm.cellPreview.talkingSubject)
+                Text(vm.preview.talkingSubject)
                     .font(.system(size: 14, weight: .regular, design: .default))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 Spacer()
@@ -48,12 +48,12 @@ struct CellPreviewCard: View {
                 }
                 .padding(.bottom, 10)
                 Spacer()
-                if vm.cellPreview.memberList.count - vm.maxDisplayedMembers > 0 {
+                if vm.preview.memberList.count - vm.maxDisplayedMembers > 0 {
                     Image(systemName: "person.fill")
                         .padding(.trailing, 25)
                         .padding(.bottom, 10)
                         .frame(width: 10, height: 10)
-                    Text("+\(vm.cellPreview.memberList.count - 5)")
+                    Text("+\(vm.preview.memberList.count - 5)")
                         .padding(.bottom, 10)
                 }
             }.frame(height: 45)

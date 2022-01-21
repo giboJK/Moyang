@@ -70,7 +70,7 @@ struct GroupMeetingView: View {
             }
             Divider()
                 .padding(.top, 5)
-            NavigationLink(destination: CellPrayListView(viewModel: CellPrayListVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
+            NavigationLink(destination: GroupPrayListView(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
                 HStack {
                     Text("지난기도")
                         .font(.system(size: 17, weight: .bold))
@@ -80,7 +80,7 @@ struct GroupMeetingView: View {
                 
             }
             .padding(.top, 5)
-            NavigationLink(destination: NewCellPrayView(vm: NewGroupPrayVM())) {
+            NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
                 HStack {
                     Text("새 기도제목")
                         .font(.system(size: 17, weight: .bold))

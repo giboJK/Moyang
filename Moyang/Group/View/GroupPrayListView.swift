@@ -1,5 +1,5 @@
 //
-//  CellPrayListView.swift
+//  GroupPrayListView.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/11/21.
@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct CellPrayListView: View {
-    @ObservedObject var viewModel: CellPrayListVM
+struct GroupPrayListView: View {
+    @ObservedObject var vm: GroupPrayListVM
     
     var body: some View {
         VStack {
             HStack {
                 Button {
-                    viewModel.changeSorting()
+                    vm.changeSorting()
                 } label: {
                     Image(uiImage: Asset.Images.Cell.sortDown.image)
                         .resizable()
                         .frame(width: 16.0, height: 16.0)
-                    viewModel.showSortingByName ? Text("이름순") : Text("날짜순")
+                    vm.showSortingByName ? Text("이름순") : Text("날짜순")
                 }
                 .foregroundColor(Color.darkSand2)
                 .padding(.leading, 15)
@@ -27,8 +27,8 @@ struct CellPrayListView: View {
             }
             .padding(.top, 10)
             .frame(height: 16, alignment: .leading)
-            if viewModel.showSortingByName {
-                List(viewModel.nameSorteditemList, id: \.name) { item in
+            if vm.showSortingByName {
+                List(vm.nameSorteditemList, id: \.name) { item in
                     HStack {
                         Text(item.name.split(separator: "_").first!)
                         Spacer()
@@ -49,7 +49,7 @@ struct CellPrayListView: View {
                 }
                 .listStyle(PlainListStyle())
             } else {
-                List(viewModel.dateSorteditemList, id: \.date) { item in
+                List(vm.dateSorteditemList, id: \.date) { item in
                     HStack {
                         Text(item.date)
                         Spacer()
@@ -75,6 +75,6 @@ struct CellPrayListView: View {
 
 struct CellPrayListView_Previews: PreviewProvider {
     static var previews: some View {
-        CellPrayListView(viewModel: CellPrayListVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))
+        GroupPrayListView(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))
     }
 }

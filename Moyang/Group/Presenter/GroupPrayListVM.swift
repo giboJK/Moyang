@@ -1,5 +1,5 @@
 //
-//  CellPrayListVM.swift
+//  GroupPrayListVM.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/11/23.
@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class CellPrayListVM: ObservableObject, Identifiable {
+class GroupPrayListVM: ObservableObject, Identifiable {
     @Published var nameSorteditemList = [NameSortedMemberPrayItem]()
     @Published var dateSorteditemList = [DateSortedMemberPrayItem]()
     @Published var showSortingByName = true
@@ -40,32 +40,32 @@ class CellPrayListVM: ObservableObject, Identifiable {
     }
 }
 
-extension CellPrayListVM {
+extension GroupPrayListVM {
     typealias Identifier = String
     struct CellPrayListItem: Hashable {
         let id: Identifier
-        let cellName: String
+        let groupName: String
         let nameSortedItemList: [NameSortedMemberPrayItem]
         let dateSortedItemList: [DateSortedMemberPrayItem]
         
-        init(data: GroupPrayInfo, member: [GroupMember]) {
+        init(data: GroupPray, member: [GroupMember]) {
             self.id = data.id
-            self.cellName = data.cellName
+            self.groupName = data.groupName
             
             var nameSorted = [NameSortedMemberPrayItem]()
             var dateSorted = [DateSortedMemberPrayItem]()
-            for i in 0 ..< data.cellPrayList.count {
-                dateSorted.append(DateSortedMemberPrayItem(date: data.cellPrayList[i].dateString,
-                                                           prayItemList: data.cellPrayList[i].memberPrayList))
+            for i in 0 ..< data.groupPrayList.count {
+                dateSorted.append(DateSortedMemberPrayItem(date: data.groupPrayList[i].dateString,
+                                                           prayItemList: data.groupPrayList[i].memberPrayList))
             }
             
             for i in 0 ..< member.count {
                 var dateList = [String]()
                 var prayList = [String]()
-                for j in 0 ..< data.cellPrayList.count {
-                    if let memberPray = data.cellPrayList[j]
+                for j in 0 ..< data.groupPrayList.count {
+                    if let memberPray = data.groupPrayList[j]
                         .memberPrayList.first(where: { $0.memberName == member[i].name }) {
-                        dateList.append(data.cellPrayList[j].dateString)
+                        dateList.append(data.groupPrayList[j].dateString)
                         prayList.append(memberPray.pray)
                     }
                 }
@@ -82,7 +82,7 @@ extension CellPrayListVM {
             hasher.combine(id)
         }
         
-        static func == (lhs: CellPrayListVM.CellPrayListItem, rhs: CellPrayListVM.CellPrayListItem) -> Bool {
+        static func == (lhs: GroupPrayListVM.CellPrayListItem, rhs: GroupPrayListVM.CellPrayListItem) -> Bool {
             return lhs.id == rhs.id
         }
     }
