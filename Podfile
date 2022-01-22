@@ -29,6 +29,10 @@ def firebase
   pod 'FirebaseFirestoreSwift'
 end
 
+def ui
+  pod 'AlertToast'
+end
+
 target 'Moyang' do
   inhibit_all_warnings!
 
@@ -42,6 +46,7 @@ target 'Moyang' do
   
   firebase
   
+  ui
   
   post_install do |installer|
     installer.pods_project.targets.each do |target|

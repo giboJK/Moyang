@@ -21,16 +21,13 @@ class PrayAddVM: ObservableObject {
     @Published var isAlarmOn = false
     
     var viewDismissalModePublisher = PassthroughSubject<Bool, Never>()
+    
     private var shouldDismissView = false {
         didSet {
             viewDismissalModePublisher.send(shouldDismissView)
         }
     }
 
-    func prayIsAdded() {
-        self.shouldDismissView = true
-    }
-    
     var alertTitle = ""
     
     init(prayRepo: PrayRepo) {
@@ -72,7 +69,7 @@ class PrayAddVM: ObservableObject {
             .sink(receiveCompletion: { Log.i($0) },
                   receiveValue: { [weak self] isSaved in
                 if isSaved {
-                    self?.prayIsAdded()
+                    self?.shouldDismissView = true
                 } else {
                     self?.showingAlert = true
                     self?.alertTitle = "네트워크 오류"

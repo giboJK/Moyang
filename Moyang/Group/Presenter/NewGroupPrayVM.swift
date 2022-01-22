@@ -16,6 +16,14 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
     @Published var date = Date()
     @Published var isAddSuccess = false
     
+    var viewDismissalModePublisher = PassthroughSubject<Bool, Never>()
+    
+    private var shouldDismissView = false {
+        didSet {
+            viewDismissalModePublisher.send(shouldDismissView)
+        }
+    }
+
     init(repo: GroupRepo) {
         self.repo = repo
         loadCellMemberList()
@@ -47,6 +55,7 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
                 }
             }) { isAddSuccess in
                 self.isAddSuccess = isAddSuccess
+                self.shouldDismissView = true
             }.store(in: &cancellables)
     }
 }

@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct NewGroupPrayView: View {
     @ObservedObject var vm: NewGroupPrayVM
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
@@ -47,6 +49,14 @@ struct NewGroupPrayView: View {
             Button("추가") {
                 vm.addNewPray()
             }
+        }
+        .onReceive(vm.viewDismissalModePublisher) { shouldDismiss in
+            if shouldDismiss {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
+        .toast(isPresenting: $vm.isAddSuccess) {
+            return AlertToast(type: .complete(.gress), title: "추가 완료 😀")
         }
     }
 }
