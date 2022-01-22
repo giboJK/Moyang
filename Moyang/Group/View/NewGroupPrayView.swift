@@ -12,6 +12,13 @@ struct NewGroupPrayView: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
+            HStack {
+                DatePicker(selection: $vm.date, in: ...Date(), displayedComponents: .date) {
+                    Text("날짜")
+                        .foregroundColor(.sky1)
+                }
+            }
+            .padding(EdgeInsets(top: 0, leading: 20, bottom: 8, trailing: 20))
             ForEach(0 ..< vm.itemList.count) { i in
                 HStack {
                     Text(vm.itemList[i].name)

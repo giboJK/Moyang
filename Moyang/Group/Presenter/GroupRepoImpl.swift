@@ -55,7 +55,7 @@ class GroupRepoImpl: GroupRepo {
         return service.fetchObject(ref: ref, type: MeetingInfo.self)
     }
     
-    func add(_ data: GroupMemberPrayList, groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
+    func add(_ date: Date,  _ data: GroupMemberPrayList, groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
         guard let yearSubString = groupInfo.groupPath.split(separator: "_").first else {
             return Empty(completeImmediately: false).eraseToAnyPublisher()
         }
@@ -70,8 +70,7 @@ class GroupRepoImpl: GroupRepo {
             .collection(year)
             .document(group)
             .collection("PRAY")
-//            .document(Date().toString("yyyy-MM-dd hh:mm:ss"))
-            .document("2022-01-16 12:00:00")
+            .document(date.toString("yyyy-MM-dd hh:mm:ss.SSS"))
         
         return service.addDocument(data, ref: ref)
     }

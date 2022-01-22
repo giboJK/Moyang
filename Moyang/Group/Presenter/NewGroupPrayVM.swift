@@ -13,16 +13,12 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
     private var cancellables: Set<AnyCancellable> = []
     
     @Published var itemList = [NewGroupPrayVM.NewPrayItem]()
-    @Published var dateString = Date().toString()
+    @Published var date = Date()
     @Published var isAddSuccess = false
     
     init(repo: GroupRepo) {
         self.repo = repo
         loadCellMemberList()
-    }
-    
-    func changeDate(date: Date) {
-        dateString = date.toString()
     }
     
     private func loadCellMemberList() {
@@ -36,12 +32,12 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
     
     func addNewPray() {
         guard let groupInfo = UserData.shared.groupInfo else { return }
-        var data = GroupMemberPrayList(list: [])
+        var data = GroupMemberPrayList(id: date.toString("yyyy-MM-dd hh:mm:ss.SSS"), list: [])
         itemList.forEach { item in
             data.list.append(item.toGroupMemberPray())
         }
         
-        repo.add(data, groupInfo: groupInfo)
+        repo.add(date, data, groupInfo: groupInfo)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
