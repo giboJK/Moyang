@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import AlertToast
 
 struct NewGroupPrayView: View {
     @ObservedObject var vm: NewGroupPrayVM
@@ -54,9 +53,6 @@ struct NewGroupPrayView: View {
             if shouldDismiss {
                 self.presentationMode.wrappedValue.dismiss()
             }
-        }
-        .toast(isPresenting: $vm.isAddSuccess) {
-            return AlertToast(type: .complete(.gress), title: "추가 완료 😀")
         }
     }
 }

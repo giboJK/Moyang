@@ -54,7 +54,7 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
                     Log.e(error)
                 }
             }) { isAddSuccess in
-                self.isAddSuccess = isAddSuccess
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewGroupPrayAdded"), object: nil)
                 self.shouldDismissView = true
             }.store(in: &cancellables)
     }

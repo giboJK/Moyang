@@ -17,14 +17,19 @@ class GroupMeetingVM: ObservableObject {
     private var groupInfo: GroupInfo?
     
     private var repo: GroupRepo
+    @Published var isAddSuccess = false
     
     init(repo: GroupRepo) {
         self.repo = repo
         groupInfoItem = GroupInfoItem()
         
         fetchMainGroupInfo()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.newGroupPrayAdded), name: NSNotification.Name(rawValue: "NewGroupPrayAdded"), object: nil)
     }
     
+    @objc func newGroupPrayAdded(notif: NSNotification) {
+          isAddSuccess = true
+    }
     func fetchMainGroupInfo() {
         repo.fetchGroupInfo()
             .sink(receiveCompletion: { completion in

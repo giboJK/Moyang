@@ -28,6 +28,6 @@ struct GroupMemberPrayList: Codable, Identifiable {
 
     enum CodingKeys: String, CodingKey {
         case id
-        case list = "list"
+        case list
     }
 }

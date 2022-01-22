@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct GroupMeetingView: View {
     @ObservedObject var vm: GroupMeetingVM
@@ -95,6 +96,9 @@ struct GroupMeetingView: View {
         .navigationTitle(vm.groupInfoItem.groupName)
         .padding(EdgeInsets(top: 14, leading: 20, bottom: 0, trailing: 20))
         .background(Color.sheep1)
+        .toast(isPresenting: $vm.isAddSuccess) {
+            return AlertToast(type: .complete(.gress), title: "기도 추가 완료 😀")
+        }
         .eraseToAnyView()
     }
 }
