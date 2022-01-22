@@ -20,3 +20,11 @@ struct GroupMemberPray: Codable, Identifiable {
         case pray = "pray"
     }
 }
+
+struct GroupMemberPrayList: Codable {
+    var list: [GroupMemberPray]
+
+    enum CodingKeys: String, CodingKey {
+        case list = "list"
+    }
+}

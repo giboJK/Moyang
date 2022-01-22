@@ -9,10 +9,12 @@ import SwiftUI
 import Combine
 
 class NewGroupPrayVM: ObservableObject, Identifiable {
+    private let repo: GroupRepo
+    private var cancellables: Set<AnyCancellable> = []
+    
     @Published var itemList = [NewGroupPrayVM.NewPrayItem]()
     @Published var dateString = Date().toString()
-    
-    private let repo: GroupRepo
+    @Published var isAddSuccess = false
     
     init(repo: GroupRepo) {
         self.repo = repo
@@ -34,13 +36,22 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
     
     func addNewPray() {
         guard let groupInfo = UserData.shared.groupInfo else { return }
-        let id = String.randomString(length: 24)
-        var list = [GroupMemberPray]()
+        var data = GroupMemberPrayList(list: [])
         itemList.forEach { item in
-            list.append(item.toGroupMemberPray())
+            data.list.append(item.toGroupMemberPray())
         }
         
-        
+        repo.add(data, groupInfo: groupInfo)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    Log.i(completion)
+                case .failure(let error):
+                    Log.e(error)
+                }
+            }) { isAddSuccess in
+                self.isAddSuccess = isAddSuccess
+            }.store(in: &cancellables)
     }
 }
 

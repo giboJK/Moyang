@@ -22,6 +22,7 @@ class FirestoreServiceImpl: FirestoreService {
                 _ = try ref.addDocument(from: object)
                 promise(.success(true))
             } catch {
+                Log.e(error)
                 promise(.failure(MoyangError.writingFailed))
             }
         }.eraseToAnyPublisher()
@@ -97,8 +98,8 @@ class FirestoreServiceImpl: FirestoreService {
                 do {
                     let object = try decoder.decode(type, from: data)
                     listener.send(object)
-                } catch _ {
-                    listener.send(completion: .failure(.decodingFailed))
+                } catch let error {
+                    listener.send(completion: .failure(.other(error)))
                 }
             }
         }
