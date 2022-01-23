@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
+		0843DD3A279DFBAB00CF2395 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0843DD39279DFBAB00CF2395 /* ProfileVM.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
 		08A1B7CA27804A010085BE18 /* PrayList.json in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B7C927804A010085BE18 /* PrayList.json */; };
 		08BE775C2796D010008DC7B0 /* PastorLogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BE775B2796D010008DC7B0 /* PastorLogInView.swift */; };
@@ -113,6 +114,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0843DD39279DFBAB00CF2395 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		08A1B7C927804A010085BE18 /* PrayList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrayList.json; sourceTree = "<group>"; };
 		08BE775B2796D010008DC7B0 /* PastorLogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorLogInView.swift; sourceTree = "<group>"; };
@@ -239,6 +241,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0843DD38279DFB9D00CF2395 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				0843DD39279DFBAB00CF2395 /* ProfileVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		08BE775F2796DAAE008DC7B0 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +291,7 @@
 		08FBC5F6279143DC008BC236 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				0843DD38279DFB9D00CF2395 /* Presenter */,
 				08FBC5F7279143E1008BC236 /* View */,
 			);
 			path = Profile;
@@ -904,6 +915,7 @@
 				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
 				08D2D8552787B074006897A4 /* LogInView.swift in Sources */,
 				246BD7C127240AD4005C4E0B /* PrayPreviewCard.swift in Sources */,
+				0843DD3A279DFBAB00CF2395 /* ProfileVM.swift in Sources */,
 				08FBC5F5279143D8008BC236 /* DailyView.swift in Sources */,
 				08D2D8532787B05F006897A4 /* SignUpView.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,

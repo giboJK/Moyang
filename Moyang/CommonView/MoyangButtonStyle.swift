@@ -39,29 +39,33 @@ struct MoyangButtonStyle: ButtonStyle {
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(Color.desertStone1)
-                .foregroundColor(.white)
+                .foregroundColor(.sheep1)
                 .cornerRadius(16)
+                .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .secondary:
             return configuration.label
                 .font(secondaryFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(Color.desertStone2)
-                .foregroundColor(.white)
+                .foregroundColor(.sheep1)
                 .cornerRadius(16)
+                .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .ghost:
             return configuration.label
                 .font(ghostFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(.clear)
-                .foregroundColor(.black)
+                .foregroundColor(.sky1)
                 .cornerRadius(16)
+                .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .warning:
             return configuration.label
                 .font(warningFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(.red)
-                .foregroundColor(.white)
+                .foregroundColor(.sheep1)
                 .cornerRadius(16)
+                .opacity(configuration.isPressed ? 0.7 : 1.0)
         }
     }
 }

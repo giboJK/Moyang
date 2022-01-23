@@ -10,14 +10,14 @@ import SwiftUI
 import Combine
 
 class GroupMeetingVM: ObservableObject {
-    @Published var answerList: [String] = Array(repeating: "", count: 10)
-    @Published var groupInfoItem: GroupInfoItem = GroupInfoItem()
-    
     private var cancellables = Set<AnyCancellable>()
     private var groupInfo: GroupInfo?
     
     private var repo: GroupRepo
+    
     @Published var isAddSuccess = false
+    @Published var answerList: [String] = Array(repeating: "", count: 10)
+    @Published var groupInfoItem: GroupInfoItem = GroupInfoItem()
     
     init(repo: GroupRepo) {
         self.repo = repo
