@@ -24,7 +24,10 @@ class GroupMeetingVM: ObservableObject {
         groupInfoItem = GroupInfoItem()
         
         fetchMainGroupInfo()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.newGroupPrayAdded), name: NSNotification.Name(rawValue: "NewGroupPrayAdded"), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.newGroupPrayAdded),
+                                               name: NSNotification.Name(rawValue: "NewGroupPrayAdded"),
+                                               object: nil)
     }
     
     @objc func newGroupPrayAdded(notif: NSNotification) {

@@ -8,13 +8,33 @@
 import SwiftUI
 
 struct PastorMainView: View {
+    @Binding var rootIsActive: Bool
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            TabView {
+                GroupManageView()
+                    .tabItem {
+                        Image(systemName: "person.3.fill")
+                        Text("Group")
+                    }
+                    .navigationBarHidden(true)
+                    .navigationBarTitleDisplayMode(.inline)
+                
+                ProfileView(rootIsActive: $rootIsActive)
+                    .tabItem {
+                        Image(systemName: "person.crop.circle.fill")
+                        Text("Profile")
+                    }
+                    .navigationBarHidden(true)
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+        }
     }
 }
-
 struct PastorMainView_Previews: PreviewProvider {
+    @State static var value = true
+    
     static var previews: some View {
-        PastorMainView()
+        PastorMainView(rootIsActive: $value)
     }
 }
