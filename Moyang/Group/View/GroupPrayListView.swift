@@ -70,6 +70,8 @@ struct GroupPrayListView: View {
                 .listStyle(PlainListStyle())
             }
         }
+        .frame(maxWidth: .infinity)
+        .background(Color.sheep1)
     }
 }
 
