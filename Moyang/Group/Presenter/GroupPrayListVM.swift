@@ -9,18 +9,30 @@ import Combine
 import Foundation
 
 class GroupPrayListVM: ObservableObject, Identifiable {
+    private let groupRepo: GroupRepo
+    private var cancellables: Set<AnyCancellable> = []
+    
     @Published var nameSorteditemList = [NameSortedMemberPrayItem]()
     @Published var dateSorteditemList = [DateSortedMemberPrayItem]()
     @Published var showSortingByName = true
     
-    private let groupRepo: GroupRepo
-    
     init(groupRepo: GroupRepo) {
         self.groupRepo = groupRepo
-        loadData()
     }
     
+    deinit { Log.d(self) }
+    
     func loadData() {
+        guard let groupInfo = UserData.shared.groupInfo else { return }
+        groupRepo.addGroupPrayListListener(groupInfo: groupInfo)
+            .sink(receiveCompletion: { completion in
+                Log.i(completion)
+            }, receiveValue: { list in
+                let groupPrayListItem = GroupPrayListItem(data: list, groupInfo: groupInfo)
+                self.nameSorteditemList = groupPrayListItem.nameSortedItemList
+                self.dateSorteditemList = groupPrayListItem.dateSortedItemList
+            })
+            .store(in: &cancellables)
     }
     
     func changeSorting() {
@@ -38,24 +50,48 @@ class GroupPrayListVM: ObservableObject, Identifiable {
 
 extension GroupPrayListVM {
     typealias Identifier = String
-    struct CellPrayListItem: Hashable {
+    struct GroupPrayListItem: Hashable {
         let id: Identifier
         let groupName: String
         let nameSortedItemList: [NameSortedMemberPrayItem]
         let dateSortedItemList: [DateSortedMemberPrayItem]
         
-        init(member: [GroupMember]) {
-            id = ""
-            groupName = ""
-            self.nameSortedItemList = []
-            self.dateSortedItemList = []
+        init(data: [GroupMemberPrayList], groupInfo: GroupInfo) {
+            id = groupInfo.id
+            groupName = groupInfo.groupName
+            
+            var nameSorted = [NameSortedMemberPrayItem]()
+            
+            groupInfo.memberList.forEach { member in
+                var dateList = [String]()
+                var prayList = [String]()
+                data.forEach {
+                    if let pray = $0.list.first(where: { pray in
+                        pray.memberName == member.name
+                    }) {
+                        dateList.append($0.date)
+                        prayList.append(pray.pray)
+                    }
+                }
+                nameSorted.append(NameSortedMemberPrayItem(name: member.name,
+                                                           dateList: dateList,
+                                                           prayList: prayList))
+            }
+            
+            var dateSorted = [DateSortedMemberPrayItem]()
+            data.forEach {
+                dateSorted.append(DateSortedMemberPrayItem(date: $0.date, prayItemList: $0.list))
+            }
+            
+            self.nameSortedItemList = nameSorted.sorted { $0.name < $1.name }
+            self.dateSortedItemList = dateSorted.sorted { $0.date > $1.date }
         }
         
         func hash(into hasher: inout Hasher) {
             hasher.combine(id)
         }
         
-        static func == (lhs: GroupPrayListVM.CellPrayListItem, rhs: GroupPrayListVM.CellPrayListItem) -> Bool {
+        static func == (lhs: GroupPrayListVM.GroupPrayListItem, rhs: GroupPrayListVM.GroupPrayListItem) -> Bool {
             return lhs.id == rhs.id
         }
     }

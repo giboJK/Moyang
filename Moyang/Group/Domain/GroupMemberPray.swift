@@ -24,10 +24,12 @@ struct GroupMemberPray: Codable, Identifiable {
 
 struct GroupMemberPrayList: Codable, Identifiable {
     var id: String
+    var date: String
     var list: [GroupMemberPray]
 
     enum CodingKeys: String, CodingKey {
         case id
+        case date
         case list
     }
 }

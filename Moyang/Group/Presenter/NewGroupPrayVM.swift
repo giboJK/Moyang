@@ -40,7 +40,9 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
     
     func addNewPray() {
         guard let groupInfo = UserData.shared.groupInfo else { return }
-        var data = GroupMemberPrayList(id: date.toString("yyyy-MM-dd hh:mm:ss.SSS"), list: [])
+        var data = GroupMemberPrayList(id: date.toString("yyyy-MM-dd hh:mm:ss.SSS"),
+                                       date: date.toString("yyyy-MM-dd hh:mm:ss"),
+                                       list: [])
         itemList.forEach { item in
             data.list.append(item.toGroupMemberPray())
         }

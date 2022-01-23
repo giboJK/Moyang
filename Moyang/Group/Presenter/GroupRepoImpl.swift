@@ -75,15 +75,24 @@ class GroupRepoImpl: GroupRepo {
         return service.addDocument(data, ref: ref)
     }
     
-    func addGroupPrayListListener() -> PassthroughSubject<GroupMemberPrayList, MoyangError> {
-        var documentName = "TEST"
-        if let userName = UserData.shared.userID {
-            documentName = userName
+    func addGroupPrayListListener(groupInfo: GroupInfo) -> PassthroughSubject<[GroupMemberPrayList], MoyangError> {
+        let listener = PassthroughSubject<[GroupMemberPrayList], MoyangError>()
+        guard let yearSubString = groupInfo.groupPath.split(separator: "_").first else {
+            listener.send(completion: .failure(.invalidURL))
+            return listener
         }
+        guard let groupSubString = groupInfo.groupPath.split(separator: "_").last else {
+            listener.send(completion: .failure(.invalidURL))
+            return listener
+        }
+        let year = String(yearSubString)
+        let group = String(groupSubString)
         let ref = service.store
             .collection(self.collectionName)
-            .document(documentName)
-            .collection("MY_PRAY")
+            .document("YD")
+            .collection(year)
+            .document(group)
+            .collection("PRAY")
         return service.addListener(ref: ref, type: GroupMemberPrayList.self)
     }
 }

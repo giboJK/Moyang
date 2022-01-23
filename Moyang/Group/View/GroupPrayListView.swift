@@ -72,6 +72,10 @@ struct GroupPrayListView: View {
         }
         .frame(maxWidth: .infinity)
         .background(Color.sheep1)
+        .navigationBarTitle("기도제목")
+        .onAppear {
+            vm.loadData()
+        }
     }
 }
 
