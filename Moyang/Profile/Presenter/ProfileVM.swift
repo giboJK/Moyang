@@ -15,18 +15,24 @@ class ProfileVM: ObservableObject {
     init() {
         
     }
+    
+    func loadUserData() {
+        if let myInfo = UserData.shared.myInfo {
+            groupInfoItem = UserItem(userInfo: myInfo)
+        }
+    }
 }
 
 extension ProfileVM {
     struct UserItem {
         var name: String = ""
+        var email: String = ""
         
-        init() {
-            
-        }
+        init() { }
         
-        init(name: String) {
-            self.name = name
+        init(userInfo: MemberDetail) {
+            self.name = userInfo.memberName
+            self.email = userInfo.email
         }
     }
 }

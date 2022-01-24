@@ -37,6 +37,8 @@ public enum Asset {
     }
     public enum Night {
       public static let sky1 = ColorAsset(name: "Sky1")
+      public static let sky2 = ColorAsset(name: "Sky2")
+      public static let sky3 = ColorAsset(name: "Sky3")
     }
     public enum Sheep {
       public static let sheep1 = ColorAsset(name: "sheep1")
@@ -47,6 +49,9 @@ public enum Asset {
     public static let accentColor = ColorAsset(name: "AccentColor")
     public enum Cell {
       public static let sortDown = ImageAsset(name: "sortDown")
+    }
+    public enum Profile {
+      public static let logout = ImageAsset(name: "logout")
     }
   }
 }

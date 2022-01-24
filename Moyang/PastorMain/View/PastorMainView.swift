@@ -20,7 +20,7 @@ struct PastorMainView: View {
                     .navigationBarHidden(true)
                     .navigationBarTitleDisplayMode(.inline)
                 
-                ProfileView(rootIsActive: $rootIsActive)
+                ProfileView(vm: ProfileVM(), rootIsActive: $rootIsActive)
                     .tabItem {
                         Image(systemName: "person.crop.circle.fill")
                         Text("Profile")

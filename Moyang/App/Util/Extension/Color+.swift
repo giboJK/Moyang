@@ -27,4 +27,6 @@ extension Color {
     
     // MARK: - Sky
     static var sky1: Color { Color(Asset.Colors.Night.sky1.color) }
+    static var sky2: Color { Color(Asset.Colors.Night.sky2.color) }
+    static var sky3: Color { Color(Asset.Colors.Night.sky3.color) }
 }
