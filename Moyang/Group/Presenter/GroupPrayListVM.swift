@@ -12,8 +12,8 @@ class GroupPrayListVM: ObservableObject, Identifiable {
     private let groupRepo: GroupRepo
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var nameSorteditemList = [NameSortedMemberPrayItem]()
-    @Published var dateSorteditemList = [DateSortedMemberPrayItem]()
+    @Published var nameItemList = [NameSortedItem]()
+    @Published var dateItemList = [DateSortedItem]()
     @Published var showSortingByName = true
     
     init(groupRepo: GroupRepo) {
@@ -29,8 +29,8 @@ class GroupPrayListVM: ObservableObject, Identifiable {
                 Log.i(completion)
             }, receiveValue: { list in
                 let groupPrayListItem = GroupPrayListItem(data: list, groupInfo: groupInfo)
-                self.nameSorteditemList = groupPrayListItem.nameSortedItemList
-                self.dateSorteditemList = groupPrayListItem.dateSortedItemList
+                self.nameItemList = groupPrayListItem.nameSortedItemList
+                self.dateItemList = groupPrayListItem.dateSortedItemList
             })
             .store(in: &cancellables)
     }
@@ -53,14 +53,14 @@ extension GroupPrayListVM {
     struct GroupPrayListItem: Hashable {
         let id: Identifier
         let groupName: String
-        let nameSortedItemList: [NameSortedMemberPrayItem]
-        let dateSortedItemList: [DateSortedMemberPrayItem]
+        let nameSortedItemList: [NameSortedItem]
+        let dateSortedItemList: [DateSortedItem]
         
         init(data: [GroupMemberPrayList], groupInfo: GroupInfo) {
             id = groupInfo.id
             groupName = groupInfo.groupName
             
-            var nameSorted = [NameSortedMemberPrayItem]()
+            var nameSorted = [NameSortedItem]()
             
             groupInfo.memberList.forEach { member in
                 var dateList = [String]()
@@ -73,14 +73,14 @@ extension GroupPrayListVM {
                         prayList.append(pray.pray)
                     }
                 }
-                nameSorted.append(NameSortedMemberPrayItem(name: member.name,
-                                                           dateList: dateList,
-                                                           prayList: prayList))
+                nameSorted.append(NameSortedItem(name: member.name,
+                                                 dateList: dateList,
+                                                 prayList: prayList))
             }
             
-            var dateSorted = [DateSortedMemberPrayItem]()
+            var dateSorted = [DateSortedItem]()
             data.forEach {
-                dateSorted.append(DateSortedMemberPrayItem(date: $0.date, prayItemList: $0.list))
+                dateSorted.append(DateSortedItem(date: $0.date, prayItemList: $0.list))
             }
             
             self.nameSortedItemList = nameSorted.sorted { $0.name < $1.name }
@@ -96,7 +96,7 @@ extension GroupPrayListVM {
         }
     }
     
-    struct NameSortedMemberPrayItem {
+    struct NameSortedItem {
         let name: String
         let prayItemList: [(date: String, pray: String)]
         
@@ -110,7 +110,7 @@ extension GroupPrayListVM {
         }
     }
     
-    struct DateSortedMemberPrayItem {
+    struct DateSortedItem {
         let date: String
         let prayItemList: [(member: String, pray: String)]
         

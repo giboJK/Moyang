@@ -40,6 +40,37 @@ class FirestoreServiceImpl: FirestoreService {
         }.eraseToAnyPublisher()
     }
     
+    func updateDocument<T: Codable>(_ object: T,
+                                    ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> {
+        return Future<Bool, MoyangError> { promise in
+            if let dict = object.dict {
+                ref.updateData(dict, completion: { error in
+                    if let error = error {
+                        promise(.failure(.other(error)))
+                    } else {
+                        promise(.success(true))
+                    }
+                })
+            } else {
+                promise(.failure(.writingFailed))
+            }
+        }.eraseToAnyPublisher()
+        
+    }
+    
+    func updateDocument(value: [String: Any],
+                        ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> {
+        return Future<Bool, MoyangError> { promise in
+            ref.updateData(value, completion: { error in
+                if let error = error {
+                    promise(.failure(.other(error)))
+                } else {
+                    promise(.success(true))
+                }
+            })
+        }.eraseToAnyPublisher()
+    }
+    
     func addListener<T: Codable>(ref: CollectionReference,
                                  type: T.Type) -> PassthroughSubject<T, MoyangError> {
         let listener = PassthroughSubject<T, MoyangError>()

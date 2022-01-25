@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupPrayListView: View {
     @ObservedObject var vm: GroupPrayListVM
+    private let groupRepo = GroupRepoImpl(service: FirestoreServiceImpl())
     
     var body: some View {
         VStack {
@@ -28,14 +29,14 @@ struct GroupPrayListView: View {
             .padding(.top, 10)
             .frame(height: 16, alignment: .leading)
             if vm.showSortingByName {
-                List(vm.nameSorteditemList, id: \.name) { item in
+                List(vm.nameItemList, id: \.name) { item in
                     HStack {
                         Text(item.name.split(separator: "_").first!)
                         Spacer()
                         Image(systemName: "pencil")
                     }
                     .background(
-                        NavigationLink(destination: CellMemberPrayEditView(name: item.name)) {}
+                        NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: groupRepo))) {}
                             .opacity(0)
                     )
                     .buttonStyle(PlainButtonStyle())
@@ -49,14 +50,14 @@ struct GroupPrayListView: View {
                 }
                 .listStyle(PlainListStyle())
             } else {
-                List(vm.dateSorteditemList, id: \.date) { item in
+                List(vm.dateItemList, id: \.date) { item in
                     HStack {
                         Text(item.date)
                         Spacer()
                         Image(systemName: "pencil")
                     }
                     .background(
-                        NavigationLink(destination: CellMemberPrayEditView(name: item.date)) {}
+                        NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: groupRepo))) {}
                             .opacity(0)
                     )
                     ScrollView(.vertical, showsIndicators: true) {

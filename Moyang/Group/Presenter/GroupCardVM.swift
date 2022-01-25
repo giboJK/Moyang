@@ -14,7 +14,7 @@ class GroupCardVM: ObservableObject {
     @Published var preview: GroupPreview
     @Published var randomMemberList: [GroupMember]
     
-    var maxDisplayedMembers = 5
+    var maxDisplayedMembers = 7
     
     init(preview: GroupPreview) {
         self.preview = preview

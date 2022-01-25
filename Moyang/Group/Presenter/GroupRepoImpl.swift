@@ -9,6 +9,7 @@
 import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Foundation
 
 class GroupRepoImpl: GroupRepo {
     private let service: FirestoreService
@@ -70,7 +71,7 @@ class GroupRepoImpl: GroupRepo {
             .collection(year)
             .document(group)
             .collection("PRAY")
-            .document(date.toString("yyyy-MM-dd hh:mm:ss.SSS"))
+            .document(date.toString("yyyy-MM-dd hh:mm:ss"))
         
         return service.addDocument(data, ref: ref)
     }
@@ -94,5 +95,27 @@ class GroupRepoImpl: GroupRepo {
             .document(group)
             .collection("PRAY")
         return service.addListener(ref: ref, type: GroupMemberPrayList.self)
+    }
+    
+    func updateGroupPray(data: GroupMemberPrayList,
+                         value: [String: Any],
+                         groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
+        guard let yearSubString = groupInfo.groupPath.split(separator: "_").first else {
+            return Empty(completeImmediately: false).eraseToAnyPublisher()
+        }
+        guard let groupSubString = groupInfo.groupPath.split(separator: "_").last else {
+            return Empty(completeImmediately: false).eraseToAnyPublisher()
+        }
+        let year = String(yearSubString)
+        let group = String(groupSubString)
+        let ref = service.store
+            .collection(self.collectionName)
+            .document("YD")
+            .collection(year)
+            .document(group)
+            .collection("PRAY")
+            .document(data.date)
+        
+        return service.updateDocument(value: value, ref: ref)
     }
 }
