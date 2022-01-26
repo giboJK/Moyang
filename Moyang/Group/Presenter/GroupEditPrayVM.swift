@@ -12,8 +12,8 @@ class GroupEditPrayVM: ObservableObject {
     private let groupRepo: GroupRepo
     private var cancellables = Set<AnyCancellable>()
     
-    @Published var nameItem: GroupPrayListVM.NameSortedItem?
-    @Published var dateItem: GroupPrayListVM.DateSortedItem?
+    @Published var nameItem: GroupPrayListVM.NameSortedItem!
+    @Published var dateItem: GroupPrayListVM.DateSortedItem!
     @Published var isNameEdit: Bool = false
     @Published var isEditSuccess = false
     

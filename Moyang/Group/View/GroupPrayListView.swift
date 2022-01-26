@@ -36,7 +36,7 @@ struct GroupPrayListView: View {
                         Image(systemName: "pencil")
                     }
                     .background(
-                        NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: groupRepo))) {}
+                        NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: groupRepo, nameItem: item))) {}
                             .opacity(0)
                     )
                     .buttonStyle(PlainButtonStyle())
@@ -57,7 +57,7 @@ struct GroupPrayListView: View {
                         Image(systemName: "pencil")
                     }
                     .background(
-                        NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: groupRepo))) {}
+                        NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: groupRepo, dateItem: item))) {}
                             .opacity(0)
                     )
                     ScrollView(.vertical, showsIndicators: true) {

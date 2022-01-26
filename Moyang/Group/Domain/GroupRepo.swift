@@ -19,7 +19,7 @@ protocol GroupRepo {
     
     func addGroupPrayListListener(groupInfo: GroupInfo) -> PassthroughSubject<[GroupMemberPrayList], MoyangError>
     
-    func updateGroupPray(data: GroupMemberPrayList,
+    func updateGroupPray(docment: String,
                          value: [String: Any],
                          groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError>
 }

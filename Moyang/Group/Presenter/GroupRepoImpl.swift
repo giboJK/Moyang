@@ -97,7 +97,7 @@ class GroupRepoImpl: GroupRepo {
         return service.addListener(ref: ref, type: GroupMemberPrayList.self)
     }
     
-    func updateGroupPray(data: GroupMemberPrayList,
+    func updateGroupPray(docment: String,
                          value: [String: Any],
                          groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
         guard let yearSubString = groupInfo.groupPath.split(separator: "_").first else {
@@ -114,7 +114,7 @@ class GroupRepoImpl: GroupRepo {
             .collection(year)
             .document(group)
             .collection("PRAY")
-            .document(data.date)
+            .document(docment)
         
         return service.updateDocument(value: value, ref: ref)
     }

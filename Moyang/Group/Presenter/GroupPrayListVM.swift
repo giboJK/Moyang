@@ -56,9 +56,12 @@ extension GroupPrayListVM {
         let nameSortedItemList: [NameSortedItem]
         let dateSortedItemList: [DateSortedItem]
         
+        private let groupMemberPrayList: [GroupMemberPrayList]
+        
         init(data: [GroupMemberPrayList], groupInfo: GroupInfo) {
             id = groupInfo.id
             groupName = groupInfo.groupName
+            self.groupMemberPrayList = data
             
             var nameSorted = [NameSortedItem]()
             
@@ -98,7 +101,7 @@ extension GroupPrayListVM {
     
     struct NameSortedItem {
         let name: String
-        let prayItemList: [(date: String, pray: String)]
+        var prayItemList: [(date: String, pray: String)]
         
         init(name: String, dateList: [String], prayList: [String]) {
             self.name = name
@@ -112,7 +115,7 @@ extension GroupPrayListVM {
     
     struct DateSortedItem {
         let date: String
-        let prayItemList: [(member: String, pray: String)]
+        var prayItemList: [(member: String, pray: String)]
         
         init(date: String, prayItemList: [GroupMemberPray]) {
             self.date = date
