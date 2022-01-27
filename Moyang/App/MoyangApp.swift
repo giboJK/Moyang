@@ -30,8 +30,7 @@ struct MoyangApp: App {
     
     var body: some Scene {
         WindowGroup {
-            let vm = IntroVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
-            IntroView(vm: vm)
+            SplashView()
         }
     }
 }

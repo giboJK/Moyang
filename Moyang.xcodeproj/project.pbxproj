@@ -76,6 +76,9 @@
 		24B7B4D82753BC5F007BCF9E /* NewGroupPrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B7B4D72753BC5F007BCF9E /* NewGroupPrayView.swift */; };
 		24B812F227984BD300BD1B3E /* PastorMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B812F127984BD300BD1B3E /* PastorMainView.swift */; };
 		24B812F627984EA300BD1B3E /* PastorMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B812F527984EA300BD1B3E /* PastorMainVM.swift */; };
+		24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B88EE727A2D6C600D5B001 /* LottieView.swift */; };
+		24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B88EE927A2D77B00D5B001 /* SplashView.swift */; };
+		24B88EEC27A2D86E00D5B001 /* intro.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B88EEB27A2D86E00D5B001 /* intro.json */; };
 		24B8BCE92764C7AD005B0A9F /* DailyRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */; };
 		24B8BCED2764C7FF005B0A9F /* DailyRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */; };
 		24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEE2764C939005B0A9F /* DailyPreview.swift */; };
@@ -186,6 +189,9 @@
 		24B7B4D72753BC5F007BCF9E /* NewGroupPrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupPrayView.swift; sourceTree = "<group>"; };
 		24B812F127984BD300BD1B3E /* PastorMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorMainView.swift; sourceTree = "<group>"; };
 		24B812F527984EA300BD1B3E /* PastorMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorMainVM.swift; sourceTree = "<group>"; };
+		24B88EE727A2D6C600D5B001 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		24B88EE927A2D77B00D5B001 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		24B88EEB27A2D86E00D5B001 /* intro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = intro.json; sourceTree = "<group>"; };
 		24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepo.swift; sourceTree = "<group>"; };
 		24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepoImpl.swift; sourceTree = "<group>"; };
 		24B8BCEE2764C939005B0A9F /* DailyPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPreview.swift; sourceTree = "<group>"; };
@@ -315,6 +321,7 @@
 				242D745B274267C80053EF2A /* MainCard.swift */,
 				08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */,
 				24E60723278EF19E00D5A7F2 /* IndicatorView.swift */,
+				24B88EE727A2D6C600D5B001 /* LottieView.swift */,
 			);
 			path = CommonView;
 			sourceTree = "<group>";
@@ -489,6 +496,7 @@
 				24D0D2F727230CA3006FF67B /* MoyangApp.swift */,
 				24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */,
 				24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */,
+				24B88EE927A2D77B00D5B001 /* SplashView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -544,6 +552,14 @@
 				24B812F527984EA300BD1B3E /* PastorMainVM.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		24B88EE227A2D0CF00D5B001 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				24B88EEB27A2D86E00D5B001 /* intro.json */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		24B8BCE72764C798005B0A9F /* Domain */ = {
@@ -652,6 +668,7 @@
 		24D0D334272315FA006FF67B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				24B88EE227A2D0CF00D5B001 /* Animation */,
 				249B902F27259C6400B53682 /* DummyData.swift */,
 				24D0D2FB27230CA6006FF67B /* Images.xcassets */,
 				249B903127259C7F00B53682 /* JSON */,
@@ -774,6 +791,7 @@
 			files = (
 				24D0D325272313AF006FF67B /* .swiftlint.yml in Resources */,
 				248FEC152723A11600321E5E /* Colors.xcassets in Resources */,
+				24B88EEC27A2D86E00D5B001 /* intro.json in Resources */,
 				24B57BBC2760B37A00630C4C /* GoogleService-Info.plist in Resources */,
 				244933ED277765BB000DDE01 /* Pray.json in Resources */,
 				242D745F274282F00053EF2A /* Localizable.strings in Resources */,
@@ -901,6 +919,7 @@
 			files = (
 				24B812F227984BD300BD1B3E /* PastorMainView.swift in Sources */,
 				24AC737A27468BD7003B9B2F /* Array+.swift in Sources */,
+				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
 				24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */,
 				246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */,
 				2481EF22276D9D3900C70E26 /* GroupCardVM.swift in Sources */,
@@ -950,6 +969,7 @@
 				08D8295B278D3327001E6B61 /* Color+.swift in Sources */,
 				246BD7F627240AE4005C4E0B /* GroupMeetingView.swift in Sources */,
 				08FBC5F9279143EC008BC236 /* ProfileView.swift in Sources */,
+				24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */,
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,
 				24BB803727565E2200BE2988 /* LocalDB.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */,

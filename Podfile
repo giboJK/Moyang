@@ -31,6 +31,7 @@ end
 
 def ui
   pod 'AlertToast'
+  pod 'lottie-ios'
 end
 
 target 'Moyang' do
