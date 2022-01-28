@@ -12,7 +12,7 @@ struct ProfileView: View {
     
     @Binding var rootIsActive: Bool
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Text(vm.groupInfoItem.name)
                 .foregroundColor(.sky1)
                 .font(.system(size: 18, weight: .bold, design: .default))
