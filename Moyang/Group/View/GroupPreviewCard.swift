@@ -42,7 +42,7 @@ struct GroupPreviewCard: View {
                             .cornerRadius(13)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 13)
-                                    .stroke(Color.desertStone1, lineWidth: 1)
+                                    .stroke(Color.wilderness1, lineWidth: 1)
                             ).padding(.top, 1)
                     }
                 }

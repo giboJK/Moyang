@@ -102,7 +102,7 @@ struct PrayAddView: View {
         .navigationBarItems(trailing: Button("완료", action: {
             vm.addPray()
         }))
-        .background(Color(UIColor.sheep1))
+        .background(Color.sheep1)
         .padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20))
         .alert(isPresented: $vm.showingAlert) {
             if activeAlert == .warning {

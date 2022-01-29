@@ -22,28 +22,24 @@ public typealias AssetImageTypeAlias = ImageAsset.Image
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 public enum Asset {
   public enum Colors {
-    public enum Dessert {
-      public static let darkSand1 = ColorAsset(name: "DarkSand1")
-      public static let darkSand2 = ColorAsset(name: "DarkSand2")
-      public static let desertStone1 = ColorAsset(name: "DesertStone1")
-      public static let desertStone2 = ColorAsset(name: "DesertStone2")
-      public static let lightSand = ColorAsset(name: "LightSand")
-      public static let sand = ColorAsset(name: "Sand")
+    public enum Primary {
+      public static let champaign1 = ColorAsset(name: "Champaign 1")
+      public static let mediterranean1 = ColorAsset(name: "Mediterranean 1")
+      public static let nightSky1 = ColorAsset(name: "NightSky1")
+      public static let sheep1 = ColorAsset(name: "Sheep1")
+      public static let wilderness1 = ColorAsset(name: "Wilderness 1")
     }
-    public enum Gress {
-      public static let gress = ColorAsset(name: "Gress")
-      public static let leaf = ColorAsset(name: "Leaf")
-      public static let moss = ColorAsset(name: "Moss")
-    }
-    public enum Night {
-      public static let sky1 = ColorAsset(name: "Sky1")
-      public static let sky2 = ColorAsset(name: "Sky2")
-      public static let sky3 = ColorAsset(name: "Sky3")
-      public static let sky4 = ColorAsset(name: "Sky4")
-    }
-    public enum Sheep {
-      public static let sheep1 = ColorAsset(name: "sheep1")
-      public static let sheep2 = ColorAsset(name: "sheep2")
+    public enum Secondary {
+      public static let champaign2 = ColorAsset(name: "Champaign 2")
+      public static let champaign3 = ColorAsset(name: "Champaign 3")
+      public static let mediterranean2 = ColorAsset(name: "Mediterranean 2")
+      public static let mediterranean3 = ColorAsset(name: "Mediterranean 3")
+      public static let nightSky2 = ColorAsset(name: "NightSky2")
+      public static let nightSky3 = ColorAsset(name: "NightSky3")
+      public static let sheep2 = ColorAsset(name: "Sheep2")
+      public static let sheep3 = ColorAsset(name: "Sheep3")
+      public static let wilderness2 = ColorAsset(name: "Wilderness 2")
+      public static let wilderness3 = ColorAsset(name: "Wilderness 3")
     }
   }
   public enum Images {

@@ -23,14 +23,14 @@ struct DailySummaryView: View {
                             .foregroundColor(item.id == 0 ? Color.red : Color.sky1)
                         Text("chk")
                             .frame(maxWidth: .infinity)
-                            .background(Color.desertStone2)
+                            .background(Color.wilderness1)
                     }
                 }
             }
             .cornerRadius(10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color(Asset.Colors.Dessert.lightSand.color), lineWidth: 1)
+                    .stroke(Color.wilderness2, lineWidth: 1)
             )
         }
         .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))

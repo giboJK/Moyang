@@ -9,23 +9,23 @@ import UIKit
 
 extension UIColor {
     
-    // MARK: - Bg
-    @nonobjc class var sheep1: UIColor { Asset.Colors.Sheep.sheep1.color }
-    @nonobjc class var sheep2: UIColor { Asset.Colors.Sheep.sheep2.color }
+    @nonobjc class var nightSky1: UIColor { Asset.Colors.Primary.nightSky1.color }
+    @nonobjc class var nightSky2: UIColor { Asset.Colors.Secondary.nightSky2.color }
+    @nonobjc class var nightSky3: UIColor { Asset.Colors.Secondary.nightSky3.color }
     
-    // MARK: - Dessert
-    @nonobjc class var darkSand: UIColor { Asset.Colors.Dessert.darkSand1.color }
-    @nonobjc class var darkSand2: UIColor { Asset.Colors.Dessert.darkSand2.color }
-    @nonobjc class var desertStone1: UIColor { Asset.Colors.Dessert.desertStone1.color }
-    @nonobjc class var desertStone2: UIColor { Asset.Colors.Dessert.desertStone2.color }
-    @nonobjc class var lightSand: UIColor { Asset.Colors.Dessert.lightSand.color }
-    @nonobjc class var sand: UIColor { Asset.Colors.Dessert.sand.color }
+    @nonobjc class var sheep1: UIColor { Asset.Colors.Primary.sheep1.color }
+    @nonobjc class var sheep2: UIColor { Asset.Colors.Secondary.sheep2.color }
+    @nonobjc class var sheep3: UIColor { Asset.Colors.Secondary.sheep3.color }
     
-    // MARK: - Gress
-    @nonobjc class var gress: UIColor { Asset.Colors.Gress.gress.color }
-    @nonobjc class var leaf: UIColor { Asset.Colors.Gress.leaf.color }
-    @nonobjc class var moss: UIColor { Asset.Colors.Gress.moss.color }
+    @nonobjc class var wilderness1: UIColor { Asset.Colors.Primary.wilderness1.color }
+    @nonobjc class var wilderness2: UIColor { Asset.Colors.Secondary.wilderness2.color }
+    @nonobjc class var wilderness3: UIColor { Asset.Colors.Secondary.wilderness3.color }
     
-    // MARK: - Sky
-    @nonobjc class var sky1: UIColor { Asset.Colors.Night.sky1.color }
+    @nonobjc class var champaign1: UIColor { Asset.Colors.Primary.champaign1.color }
+    @nonobjc class var champaign2: UIColor { Asset.Colors.Secondary.champaign2.color }
+    @nonobjc class var champaign3: UIColor { Asset.Colors.Secondary.champaign3.color }
+    
+    @nonobjc class var mediterranean1: UIColor { Asset.Colors.Primary.mediterranean1.color }
+    @nonobjc class var mediterranean2: UIColor { Asset.Colors.Secondary.mediterranean2.color }
+    @nonobjc class var mediterranean3: UIColor { Asset.Colors.Secondary.mediterranean3.color }
 }

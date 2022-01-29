@@ -39,7 +39,7 @@ struct MoyangButtonStyle: ButtonStyle {
             return configuration.label
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(Color.desertStone1)
+                .background(Color.wilderness1)
                 .foregroundColor(.sheep1)
                 .cornerRadius(16)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
@@ -47,7 +47,7 @@ struct MoyangButtonStyle: ButtonStyle {
             return configuration.label
                 .font(secondaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(Color.desertStone2)
+                .background(Color.wilderness2)
                 .foregroundColor(.sheep1)
                 .cornerRadius(16)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)

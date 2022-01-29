@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IndicatorView: View {
-    var tintColor: Color = .desertStone1
+    var tintColor: Color = .wilderness1
     var scale: CGFloat = 1.0
     
     var body: some View {

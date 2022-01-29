@@ -22,7 +22,7 @@ struct GroupPrayListView: View {
                         .frame(width: 16.0, height: 16.0)
                     vm.showSortingByName ? Text("이름순") : Text("날짜순")
                 }
-                .foregroundColor(Color.darkSand2)
+                .foregroundColor(Color.wilderness1)
                 .padding(.leading, 15)
                 Spacer()
             }
