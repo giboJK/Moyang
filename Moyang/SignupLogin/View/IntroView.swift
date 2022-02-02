@@ -12,11 +12,10 @@ struct IntroView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 0) {
                 Text("Moyang")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-                    .padding(.top, 240)
+                    .font(Font(uiFont: .systemFont(ofSize: 32, weight: .heavy)))
+                    .padding(.top, 160)
                     .foregroundColor(.nightSky1)
                 
                 Spacer()
