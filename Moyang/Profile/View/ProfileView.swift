@@ -14,7 +14,7 @@ struct ProfileView: View {
     var body: some View {
         VStack(spacing: 0) {
             Text(vm.groupInfoItem.name)
-                .foregroundColor(.sky1)
+                .foregroundColor(.nightSky1)
                 .font(.system(size: 18, weight: .bold, design: .default))
                 .padding(.bottom, 24)
             

@@ -17,10 +17,10 @@ struct DailySummaryView: View {
                 ForEach(vm.items) { item in
                     VStack {
                         Text(item.date.toString("d"))
-                            .foregroundColor(item.id == 0 ? Color.red : Color.sky1)
+                            .foregroundColor(item.id == 0 ? Color.red : Color.nightSky1)
                         Text(item.date.weekDayString())
                             .frame(maxWidth: .infinity)
-                            .foregroundColor(item.id == 0 ? Color.red : Color.sky1)
+                            .foregroundColor(item.id == 0 ? Color.red : Color.nightSky1)
                         Text("chk")
                             .frame(maxWidth: .infinity)
                             .background(Color.wilderness1)

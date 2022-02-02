@@ -16,7 +16,7 @@ struct NewGroupPrayView: View {
             HStack {
                 DatePicker(selection: $vm.date, in: ...Date(), displayedComponents: .date) {
                     Text("날짜")
-                        .foregroundColor(.sky1)
+                        .foregroundColor(.nightSky1)
                 }
             }
             .padding(EdgeInsets(top: 0, leading: 20, bottom: 8, trailing: 20))
@@ -24,14 +24,14 @@ struct NewGroupPrayView: View {
                 HStack {
                     Text(vm.itemList[i].name)
                         .font(.body)
-                        .foregroundColor(.sky1)
+                        .foregroundColor(.nightSky1)
                     Spacer()
                 }
                 .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
                 TextEditor(text: $vm.itemList[i].pray)
                     .font(.system(size: 14, weight: .regular, design: .default))
                     .frame(height: 55, alignment: .topLeading)
-                    .foregroundColor(vm.itemList[i].pray == "기도제목을 입력하세요" ? .gray : .sky1)
+                    .foregroundColor(vm.itemList[i].pray == "기도제목을 입력하세요" ? .gray : .nightSky1)
                     .onTapGesture {
                         if vm.itemList[i].pray == "기도제목을 입력하세요" {
                             vm.itemList[i].pray = ""

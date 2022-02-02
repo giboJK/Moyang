@@ -61,7 +61,7 @@ struct GroupMeetingView: View {
                         TextEditor(text: $vm.answerList[i])
                             .font(.system(size: 14, weight: .regular, design: .default))
                             .frame(height: 75, alignment: .topLeading)
-                            .foregroundColor(Color.sky1)
+                            .foregroundColor(Color.nightSky1)
                             .background(Color.sheep1)
                         Spacer(minLength: 10)
                     }
@@ -97,7 +97,7 @@ struct GroupMeetingView: View {
         .padding(EdgeInsets(top: 14, leading: 20, bottom: 0, trailing: 20))
         .background(Color.sheep1)
         .toast(isPresenting: $vm.isAddSuccess) {
-            return AlertToast(type: .complete(.champaign1), title: "기도 추가 완료 😀")
+            return AlertToast(type: .complete(.sheep3), title: "기도 추가 완료 😀")
         }
         .eraseToAnyView()
     }

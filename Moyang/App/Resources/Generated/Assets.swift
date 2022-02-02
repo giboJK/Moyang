@@ -23,23 +23,21 @@ public typealias AssetImageTypeAlias = ImageAsset.Image
 public enum Asset {
   public enum Colors {
     public enum Primary {
-      public static let champaign1 = ColorAsset(name: "Champaign 1")
-      public static let mediterranean1 = ColorAsset(name: "Mediterranean 1")
+      public static let appleRed1 = ColorAsset(name: "AppleRed1")
       public static let nightSky1 = ColorAsset(name: "NightSky1")
       public static let sheep1 = ColorAsset(name: "Sheep1")
       public static let wilderness1 = ColorAsset(name: "Wilderness 1")
+      public static let ydGreen1 = ColorAsset(name: "YDGreen1")
     }
     public enum Secondary {
-      public static let champaign2 = ColorAsset(name: "Champaign 2")
-      public static let champaign3 = ColorAsset(name: "Champaign 3")
-      public static let mediterranean2 = ColorAsset(name: "Mediterranean 2")
-      public static let mediterranean3 = ColorAsset(name: "Mediterranean 3")
       public static let nightSky2 = ColorAsset(name: "NightSky2")
       public static let nightSky3 = ColorAsset(name: "NightSky3")
       public static let sheep2 = ColorAsset(name: "Sheep2")
       public static let sheep3 = ColorAsset(name: "Sheep3")
+      public static let sheep4 = ColorAsset(name: "Sheep4")
+      public static let sheep5 = ColorAsset(name: "Sheep5")
       public static let wilderness2 = ColorAsset(name: "Wilderness 2")
-      public static let wilderness3 = ColorAsset(name: "Wilderness 3")
+      public static let ydGreen2 = ColorAsset(name: "YDGreen2")
     }
   }
   public enum Images {

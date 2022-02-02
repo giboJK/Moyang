@@ -17,7 +17,7 @@ struct LogInView: View {
                 .font(.title)
                 .padding(.top, 20)
                 .padding(.bottom, 32)
-                .foregroundColor(.sky1)
+                .foregroundColor(.nightSky1)
             TextField("Email", text: $vm.id)
                 .padding()
                 .background(Color.sheep2)

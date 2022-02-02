@@ -17,7 +17,7 @@ struct IntroView: View {
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                     .padding(.top, 240)
-                    .foregroundColor(.sky1)
+                    .foregroundColor(.nightSky1)
                 
                 Spacer()
                 Button(action: {}) {
