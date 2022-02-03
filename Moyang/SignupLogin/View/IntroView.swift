@@ -56,7 +56,7 @@ struct IntroView: View {
                 MainView(rootIsActive: $vm.isLoginSuccess)
             })
             .frame(maxWidth: .infinity)
-            .background(Color.sheep1)
+            .background(Color.sheep2)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarHidden(true)
         }

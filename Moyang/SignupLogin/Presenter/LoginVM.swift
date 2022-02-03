@@ -46,6 +46,10 @@ class LoginVM: ObservableObject {
             }.store(in: &cancellables)
     }
     
+    func findPassword() {
+        
+    }
+    
     private func fetchUserData() {
         loginService.fetchUserData()
             .receive(on: DispatchQueue.main)

@@ -24,20 +24,33 @@ extension View {
 }
 
 extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+            
+            ZStack(alignment: alignment) {
+                placeholder().opacity(shouldShow ? 1 : 0)
+                self
+            }
+        }
+}
+
+extension View {
     func onLoad(perform action: (() -> Void)? = nil) -> some View {
         modifier(ViewDidLoadModifier(perform: action))
     }
 }
 
 struct ViewDidLoadModifier: ViewModifier {
-
+    
     @State private var didLoad = false
     private let action: (() -> Void)?
-
+    
     init(perform action: (() -> Void)? = nil) {
         self.action = action
     }
-
+    
     func body(content: Content) -> some View {
         content.onAppear {
             if didLoad == false {
