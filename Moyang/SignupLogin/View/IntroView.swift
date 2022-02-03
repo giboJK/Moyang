@@ -22,12 +22,12 @@ struct IntroView: View {
                 Button(action: {}) {
                     let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
                     NavigationLink(destination: SignUpView(vm: loginVM)) {
-                        Text("회원가입")
+                        Text("Email 회원가입")
                     }
                 }
-                .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 48,
-                                               height: 52))
-                .padding(.bottom, 16)
+                .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
+                                               height: 50))
+                .padding(.bottom, 20)
                 
                 Button(action: {}) {
                     let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
@@ -35,9 +35,9 @@ struct IntroView: View {
                         Text("로그인")
                     }
                 }
-                .buttonStyle(MoyangButtonStyle(.ghost, width: UIScreen.screenWidth - 48,
-                                               height: 52))
-                .padding(.bottom, 16)
+                .buttonStyle(MoyangButtonStyle(.ghost, width: UIScreen.screenWidth - 80,
+                                               height: 50))
+                .padding(.bottom, 20)
                 
                 Button(action: {}) {
                     let loginVM = PastorLoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
@@ -45,9 +45,9 @@ struct IntroView: View {
                         Text("목회자 로그인")
                     }
                 }
-                .buttonStyle(MoyangButtonStyle(.ghost, width: UIScreen.screenWidth - 48,
-                                               height: 52))
-                .padding(.bottom, 12)
+                .buttonStyle(MoyangButtonStyle(.ghost, width: UIScreen.screenWidth - 80,
+                                               height: 50))
+                .padding(.bottom, 20)
             }
             .onAppear {
                 vm.tryAutoLogin()

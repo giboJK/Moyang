@@ -9,10 +9,10 @@ import SwiftUI
 
 struct MoyangButtonStyle: ButtonStyle {
     
-    let primaryFont = Font(uiFont: .systemFont(ofSize: 20, weight: .semibold))
-    let secondaryFont = Font(uiFont: .systemFont(ofSize: 20, weight: .semibold))
-    let ghostFont = Font(uiFont: .systemFont(ofSize: 20, weight: .regular))
-    let warningFont = Font(uiFont: .systemFont(ofSize: 20, weight: .semibold))
+    let primaryFont = Font(uiFont: .systemFont(ofSize: 16, weight: .bold))
+    let secondaryFont = Font(uiFont: .systemFont(ofSize: 16, weight: .bold))
+    let ghostFont = Font(uiFont: .systemFont(ofSize: 16, weight: .bold))
+    let warningFont = Font(uiFont: .systemFont(ofSize: 16, weight: .bold))
     
     let width: CGFloat
     let height: CGFloat
@@ -20,7 +20,6 @@ struct MoyangButtonStyle: ButtonStyle {
     enum MoyangButtonType {
         case primary
         case secondary
-        case sky
         case ghost
         case warning
     }
@@ -39,7 +38,7 @@ struct MoyangButtonStyle: ButtonStyle {
             return configuration.label
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(Color.wilderness1)
+                .background(Color.ydGreen1)
                 .foregroundColor(.sheep1)
                 .cornerRadius(16)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
@@ -51,27 +50,19 @@ struct MoyangButtonStyle: ButtonStyle {
                 .foregroundColor(.sheep1)
                 .cornerRadius(16)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
-        case .sky:
-            return configuration.label
-                .font(secondaryFont)
-                .frame(width: width, height: height, alignment: .center)
-                .background(Color.sheep2)
-                .foregroundColor(.sheep1)
-                .cornerRadius(16)
-                .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .ghost:
             return configuration.label
                 .font(ghostFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(.clear)
-                .foregroundColor(.nightSky1)
+                .foregroundColor(.ydGreen1)
                 .cornerRadius(16)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .warning:
             return configuration.label
                 .font(warningFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(.red)
+                .background(Color.appleRed1)
                 .foregroundColor(.sheep1)
                 .cornerRadius(16)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)

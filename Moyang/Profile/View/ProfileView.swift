@@ -30,7 +30,7 @@ struct ProfileView: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
-            .buttonStyle(MoyangButtonStyle(.sky, width: UIScreen.screenWidth - 40, height: 52))
+            .buttonStyle(MoyangButtonStyle(.primary, width: UIScreen.screenWidth - 40, height: 52))
             
             Button(action: {
                 
@@ -44,7 +44,7 @@ struct ProfileView: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
-            .buttonStyle(MoyangButtonStyle(.sky, width: UIScreen.screenWidth - 40, height: 52))
+            .buttonStyle(MoyangButtonStyle(.primary, width: UIScreen.screenWidth - 40, height: 52))
             
             Button(action: {
                 
@@ -58,7 +58,7 @@ struct ProfileView: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
-            .buttonStyle(MoyangButtonStyle(.sky, width: UIScreen.screenWidth - 40, height: 52))
+            .buttonStyle(MoyangButtonStyle(.primary, width: UIScreen.screenWidth - 40, height: 52))
             
             Button(action: {
                 UserData.shared.resetUserData()
@@ -75,7 +75,7 @@ struct ProfileView: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
-            .buttonStyle(MoyangButtonStyle(.sky, width: UIScreen.screenWidth - 40, height: 52))
+            .buttonStyle(MoyangButtonStyle(.primary, width: UIScreen.screenWidth - 40, height: 52))
             .padding(.top, 8)
             
             Spacer()
