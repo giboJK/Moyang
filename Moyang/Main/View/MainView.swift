@@ -13,10 +13,10 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             TabView {
-                DailyView()
+                DailyMainView()
                     .tabItem {
                         Image(systemName: "note.text")
-                        Text("Daily")
+                        Text("일용할 양식")
                     }
                     .navigationBarHidden(true)
                     .navigationBarTitleDisplayMode(.inline)

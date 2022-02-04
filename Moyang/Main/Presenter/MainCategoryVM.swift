@@ -17,7 +17,6 @@ class MainCategoryVM: ObservableObject {
     
     init(repo: DailyRepo) {
         self.repo = repo
-        fetchDailyPreview()
     }
     
     func fetchDailyPreview() {

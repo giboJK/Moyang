@@ -27,9 +27,9 @@ struct MainCategoryList: View {
                     }
                 }
             }
+        }.onAppear {
+            vm.fetchDailyPreview()
         }
-        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-        .background(Color.sheep1)
     }
 }
 
