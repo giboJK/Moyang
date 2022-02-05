@@ -71,7 +71,7 @@ struct PastorLogInView: View {
             vm.fetchPastorList()
         })
         .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
-            MainView(rootIsActive: $vm.isLoginSuccess)
+            PastorMainView(rootIsActive: $vm.isLoginSuccess)
         })
         .navigationTitle("목회자 로그인")
         .frame(maxWidth: .infinity)

@@ -9,18 +9,19 @@ import SwiftUI
 import Combine
 
 class CommunityCardListVM: ObservableObject {
-    private let repo: DailyRepo
+    private let repo: DailyRepo?
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var prayCardVM: PrayCardVM?
-    @Published var groupCardVM: GroupCardVM?
+    init() {
+        self.repo = nil
+    }
     
     init(repo: DailyRepo) {
         self.repo = repo
     }
     
     func fetchDailyPreview() {
-        repo.addDailyPreviewListener()
+        repo?.addDailyPreviewListener()
             .sink(receiveCompletion: { completion in
                 Log.i(completion)
             }, receiveValue: { dailyPreview in
@@ -36,7 +37,7 @@ class CommunityCardListVM: ObservableObject {
                                    talkingSubject: item.talkingSubject,
                                    dateString: item.groupMeetingDate,
                                    memberList: item.groupMemberList)
-        groupCardVM = GroupCardVM.init(preview: preview)
+//        groupCardVM = GroupCardVM.init(preview: preview)
     }
     
     private func makePrayCardVM(prayCardItem: PrayCardItem) {
@@ -48,7 +49,7 @@ class CommunityCardListVM: ObservableObject {
                         prayAlarmTime: prayCardItem.prayAlarmTime,
                         prayDayList: prayCardItem.prayDayList,
                         prayTime: prayCardItem.prayTime)
-        prayCardVM = PrayCardVM.init(pray: pray)
+//        prayCardVM = PrayCardVM.init(pray: pray)
     }
 }
 

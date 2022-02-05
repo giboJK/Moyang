@@ -70,7 +70,7 @@ extension GroupPrayListVM {
                 var prayList = [String]()
                 data.forEach {
                     if let pray = $0.list.first(where: { pray in
-                        pray.memberName == member.name
+                        pray.member.name == member.name
                     }) {
                         dateList.append($0.date)
                         prayList.append(pray.pray)
@@ -121,7 +121,7 @@ extension GroupPrayListVM {
             self.date = date
             var newPrayItemList = [(String, String)]()
             for i in 0 ..< prayItemList.count {
-                newPrayItemList.append((prayItemList[i].memberName, prayItemList[i].pray))
+                newPrayItemList.append((prayItemList[i].member.name, prayItemList[i].pray))
             }
             self.prayItemList = newPrayItemList
         }

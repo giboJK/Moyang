@@ -10,11 +10,11 @@ import Foundation
 struct MeetingInfo: Codable {
     let meetingDate: String
     let talkingSubject: String
-    let questionList: [String]
+    let groupQuestionList: [GroupQuestion]
     
     enum CodingKeys: String, CodingKey {
         case meetingDate = "meeting_date"
         case talkingSubject = "talking_subject"
-        case questionList = "question_list"
+        case groupQuestionList = "group_question_list"
     }
 }

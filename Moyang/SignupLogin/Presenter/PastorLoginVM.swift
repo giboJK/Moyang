@@ -34,10 +34,10 @@ class PastorLoginVM: ObservableObject {
             .sink { _ in
             } receiveValue: { _ in
                 if self.pastorList.contains(self.id.lowercased()) {
-                    self.fetchUserData()
                     UserData.shared.userID = self.id
                     UserData.shared.password = self.password
                     UserData.shared.isPastor = true
+                    self.fetchUserData()
                 } else {
                     self.isLoadingUserData = false
                     Log.e("No user")

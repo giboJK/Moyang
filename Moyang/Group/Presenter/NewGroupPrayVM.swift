@@ -63,20 +63,17 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
 }
 
 extension NewGroupPrayVM {
-    struct NewPrayItem: Hashable {
-        var memberID: String
-        var name: String
+    struct NewPrayItem {
+        var member: GroupMember
         var pray: String
         
         init(member: GroupMember) {
-            self.memberID = member.id
-            self.name = member.name
+            self.member = member
             self.pray = "기도제목을 입력하세요"
         }
         
         func toGroupMemberPray() -> GroupMemberPray {
-            return GroupMemberPray(id: self.memberID,
-                                   memberName: self.name,
+            return GroupMemberPray(member: self.member,
                                    pray: self.pray)
         }
     }

@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct PastorMainView: View {
+    @ObservedObject var vm = PastorMainVM()
+    
     @Binding var rootIsActive: Bool
     var body: some View {
         NavigationView {
             TabView {
-                GroupManageView()
+                PastorComunityView()
                     .tabItem {
                         Image(systemName: "person.3.fill")
-                        Text("Group")
+                        Text("공동체")
                     }
                     .navigationBarHidden(true)
                     .navigationBarTitleDisplayMode(.inline)
@@ -23,7 +25,7 @@ struct PastorMainView: View {
                 ProfileView(vm: ProfileVM(), rootIsActive: $rootIsActive)
                     .tabItem {
                         Image(systemName: "person.crop.circle.fill")
-                        Text("Profile")
+                        Text("내 정보")
                     }
                     .navigationBarHidden(true)
                     .navigationBarTitleDisplayMode(.inline)

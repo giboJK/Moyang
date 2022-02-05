@@ -49,10 +49,10 @@ struct GroupMeetingView: View {
             }
             if showingMemo {
                 ScrollView(.vertical, showsIndicators: true) {
-                    ForEach(0 ..< vm.groupInfoItem.questionList.count) { i in
-                        let question = vm.groupInfoItem.questionList[i]
+                    ForEach(0 ..< vm.groupInfoItem.groupQuestionList.count) { i in
+                        let item = vm.groupInfoItem.groupQuestionList[i]
                         HStack {
-                            Text("- " + question)
+                            Text("- " + item.question.sentence)
                                 .frame(alignment: .topLeading)
                                 .font(.system(size: 15, weight: .regular, design: .default))
                             Spacer()

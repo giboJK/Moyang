@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct CommunityMainView: View {
+    @ObservedObject var vm = CommunityMainVM()
+    
     var body: some View {
         ZStack {
             Color.sheep1.ignoresSafeArea()
             VStack(spacing: 0) {
                 SermonCardView()
-                CommunityCardList()
+                CommunityCardList(vm: vm.communityCardListVM,
+                                  communityGroupCardVM: vm.communityGroupCardVM)
                 
             }
             .background(Color.sheep1)

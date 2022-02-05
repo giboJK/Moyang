@@ -9,16 +9,13 @@ import Foundation
 import SwiftUI
 
 // MARK: - GroupMemberPray
-struct GroupMemberPray: Codable, Identifiable {
-    /// member id
-    let id: String
-    let memberName: String
+struct GroupMemberPray: Codable {
+    let member: GroupMember
     let pray: String
 
     enum CodingKeys: String, CodingKey {
-        case id
-        case memberName = "member_name"
-        case pray = "pray"
+        case member
+        case pray
     }
 }
 

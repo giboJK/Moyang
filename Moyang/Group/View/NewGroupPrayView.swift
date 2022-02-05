@@ -22,7 +22,7 @@ struct NewGroupPrayView: View {
             .padding(EdgeInsets(top: 0, leading: 20, bottom: 8, trailing: 20))
             ForEach(0 ..< vm.itemList.count) { i in
                 HStack {
-                    Text(vm.itemList[i].name)
+                    Text(vm.itemList[i].member.name)
                         .font(.body)
                         .foregroundColor(.nightSky1)
                     Spacer()

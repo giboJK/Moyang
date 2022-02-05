@@ -69,20 +69,20 @@ extension GroupMeetingVM {
     struct GroupInfoItem {
         var groupName: String
         let talkingSubject: String
-        var questionList: [String]
+        var groupQuestionList: [GroupQuestion]
         let meetingDate: String
         
         init() {
             groupName = ""
             talkingSubject = ""
-            questionList = []
+            groupQuestionList = []
             meetingDate = ""
         }
         
         init(group: GroupInfo, meeting: MeetingInfo) {
             groupName = group.groupName
             talkingSubject = meeting.talkingSubject
-            questionList = meeting.questionList
+            groupQuestionList = meeting.groupQuestionList
             meetingDate = meeting.meetingDate
         }
     }
