@@ -13,7 +13,7 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             TabView {
-                DailyMainView()
+                CommunityMainView()
                     .tabItem {
                         Image(systemName: "note.text")
                         Text("일용할 양식")

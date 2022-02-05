@@ -1,5 +1,5 @@
 //
-//  MainCategoryVM.swift
+//  CommunityCardListVM.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/12/12.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class MainCategoryVM: ObservableObject {
+class CommunityCardListVM: ObservableObject {
     private let repo: DailyRepo
     private var cancellables: Set<AnyCancellable> = []
     
@@ -52,7 +52,7 @@ class MainCategoryVM: ObservableObject {
     }
 }
 
-extension MainCategoryVM {
+extension CommunityCardListVM {
     struct DailyPreviewItem {
         let groupCardItem: GroupCardItem
         let prayCardItem: PrayCardItem

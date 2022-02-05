@@ -27,3 +27,26 @@ class GroupCardVM: ObservableObject {
         cancellables.removeAll()
     }
 }
+
+extension GroupCardVM {
+    struct GroupPreviewItem {
+        let name: String
+        let date: String
+        let questionList: [String]
+        let lastPrayDate: String
+        let prayList: [String]
+        
+        init(name: String,
+             date: String,
+             questionList: [String],
+             lastPrayDate: String,
+             prayList: [String]
+        ) {
+            self.name = name
+            self.date = date
+            self.questionList = questionList
+            self.lastPrayDate = lastPrayDate
+            self.prayList = prayList
+        }
+    }
+}

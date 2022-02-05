@@ -1,5 +1,5 @@
 //
-//  MainCategoryList.swift
+//  CommunityCardList.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/09/26.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct MainCategoryList: View {
-    @ObservedObject var vm = MainCategoryVM(repo: DailyRepoImpl())
+struct CommunityCardList: View {
+    @ObservedObject var vm = CommunityCardListVM(repo: DailyRepoImpl())
     private let groupRepo = GroupRepoImpl(service: FirestoreServiceImpl())
     private let prayRepo = PrayRepoImpl(service: FirestoreServiceImpl())
     
@@ -40,8 +40,8 @@ enum MainCategory: String {
     case osundosun
 }
 
-struct MainCategoryList_Previews: PreviewProvider {
+struct CommunityCardList_Previews: PreviewProvider {
     static var previews: some View {
-        MainCategoryList()
+        CommunityCardList()
     }
 }
