@@ -12,6 +12,8 @@ class CommunityCardListVM: ObservableObject {
     private let repo: DailyRepo?
     private var cancellables: Set<AnyCancellable> = []
     
+    @Published var communityGroupCardVM = CommunityGroupCardVM()
+    
     init() {
         self.repo = nil
     }

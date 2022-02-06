@@ -10,13 +10,12 @@ import SwiftUI
 
 struct CommunityCardList: View {
     @ObservedObject var vm: CommunityCardListVM
-    let communityGroupCardVM: CommunityGroupCardVM
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
                 NavigationLink(destination: GroupView()) {
-                    CommunityGroupCardView(vm: communityGroupCardVM)
+                    CommunityGroupCardView(vm: vm.communityGroupCardVM)
                 }
                 NavigationLink(destination: PrayView()) {
                     CommunityPrayCardView()
@@ -37,7 +36,6 @@ enum MainCategory: String {
 
 struct CommunityCardList_Previews: PreviewProvider {
     static var previews: some View {
-        CommunityCardList(vm: CommunityCardListVMMock(),
-                          communityGroupCardVM: CommunityGroupCardVMMock())
+        CommunityCardList(vm: CommunityCardListVMMock())
     }
 }

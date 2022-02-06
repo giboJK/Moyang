@@ -16,6 +16,7 @@
 		0880103527AE9A32002E49F0 /* SermonListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880103427AE9A32002E49F0 /* SermonListVM.swift */; };
 		0880103727AEB88C002E49F0 /* CommunityCardListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880103627AEB88C002E49F0 /* CommunityCardListVMMock.swift */; };
 		0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880103827AEBB48002E49F0 /* CommunityMainVM.swift */; };
+		089E8A1B27AF52C700640A39 /* CommunityCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089E8A1A27AF52C700640A39 /* CommunityCardData.swift */; };
 		08A02A5727AE0B460043EEF0 /* MemberDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A02A5627AE0B460043EEF0 /* MemberDetail.swift */; };
 		08A02A5927AE13C90043EEF0 /* CommunityGroupCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A02A5827AE13C90043EEF0 /* CommunityGroupCardView.swift */; };
 		08A02A5B27AE13D40043EEF0 /* CommunityPrayCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A02A5A27AE13D40043EEF0 /* CommunityPrayCardView.swift */; };
@@ -138,6 +139,7 @@
 		0880103427AE9A32002E49F0 /* SermonListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonListVM.swift; sourceTree = "<group>"; };
 		0880103627AEB88C002E49F0 /* CommunityCardListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCardListVMMock.swift; sourceTree = "<group>"; };
 		0880103827AEBB48002E49F0 /* CommunityMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainVM.swift; sourceTree = "<group>"; };
+		089E8A1A27AF52C700640A39 /* CommunityCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCardData.swift; sourceTree = "<group>"; };
 		08A02A5627AE0B460043EEF0 /* MemberDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDetail.swift; sourceTree = "<group>"; };
 		08A02A5827AE13C90043EEF0 /* CommunityGroupCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityGroupCardView.swift; sourceTree = "<group>"; };
 		08A02A5A27AE13D40043EEF0 /* CommunityPrayCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPrayCardView.swift; sourceTree = "<group>"; };
@@ -306,9 +308,18 @@
 			path = Presentor;
 			sourceTree = "<group>";
 		};
+		089E8A1927AF52A600640A39 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				089E8A1A27AF52C700640A39 /* CommunityCardData.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		08A02A6027AE1B8A0043EEF0 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				249B903727259FD300B53682 /* GroupPreview.json */,
 				08A02A6127AE1BAB0043EEF0 /* CommunityGroupCardVMMock.swift */,
 				0880103627AEB88C002E49F0 /* CommunityCardListVMMock.swift */,
 			);
@@ -386,6 +397,7 @@
 		246BD7A327240A96005C4E0B /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				089E8A1927AF52A600640A39 /* Domain */,
 				246BD7A427240A96005C4E0B /* Presenter */,
 				246BD7A627240A96005C4E0B /* View */,
 			);
@@ -543,7 +555,6 @@
 			children = (
 				08A1B7C927804A010085BE18 /* PrayList.json */,
 				244933EC277765BB000DDE01 /* Pray.json */,
-				249B903727259FD300B53682 /* GroupPreview.json */,
 				24B6A2562726C40E0065112A /* GroupInfo.json */,
 				24BF6E93274FBF620004B24E /* CellPrayInfo.json */,
 			);
@@ -1045,6 +1056,7 @@
 				08A02A5727AE0B460043EEF0 /* MemberDetail.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
 				24BB327C27656735002131BF /* CommunityCardListVM.swift in Sources */,
+				089E8A1B27AF52C700640A39 /* CommunityCardData.swift in Sources */,
 				246BD7C227240AD4005C4E0B /* Pray.swift in Sources */,
 				08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */,
 				24EA9B4827579BDC004FB585 /* GroupPrayEditView.swift in Sources */,

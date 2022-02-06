@@ -15,8 +15,7 @@ struct CommunityMainView: View {
             Color.sheep1.ignoresSafeArea()
             VStack(spacing: 0) {
                 SermonCardView()
-                CommunityCardList(vm: vm.communityCardListVM,
-                                  communityGroupCardVM: vm.communityGroupCardVM)
+                CommunityCardList(vm: vm.communityCardListVM)
                 
             }
             .background(Color.sheep1)

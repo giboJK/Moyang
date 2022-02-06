@@ -24,6 +24,7 @@ class IntroVM: ObservableObject {
     func tryAutoLogin() {
         guard let userID = UserData.shared.userID else { return }
         guard let pw = UserData.shared.password else { return }
+        self.isLoadingUserData = true
         
         loginService.login(id: userID, pw: pw)
             .receive(on: DispatchQueue.main)

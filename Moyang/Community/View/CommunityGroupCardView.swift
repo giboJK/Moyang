@@ -11,11 +11,37 @@ struct CommunityGroupCardView: View {
     @ObservedObject var vm: CommunityGroupCardVM
     
     var body: some View {
-        VStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 0) {
+            HStack {
+                Text(vm.item.groupName)
+                Spacer()
+                Image(systemName: "chevron.right")
+            }
+            VStack(spacing: 0) {
+                HStack {
+                    Text("2022.01.30 나눔질문")
+                    Spacer()
+                    Text("1 / 4")
+                }
+                Divider()
+                Text("· 오늘 본문을 보면서")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text("· 귀신들린")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                HStack {
+                    Text("2022.01.30 기도")
+                    Spacer()
+                    Text("Last pray date: 2022.01.31")
+                }.padding(.top, 20)
+                Divider()
+                Text("· 정김기보: 부끄부끄")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text("· 정김기보: 안 부끄부끄로")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .modifier(MainCard())
+            .eraseToAnyView()
         }
-        .modifier(MainCard())
-        .eraseToAnyView()
     }
 }
 

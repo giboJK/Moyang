@@ -12,48 +12,58 @@ struct IntroView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                Text("Moyang")
-                    .font(Font(uiFont: .systemFont(ofSize: 32, weight: .heavy)))
-                    .padding(.top, 160)
-                    .foregroundColor(.nightSky1)
-                
-                Spacer()
-                Button(action: {}) {
-                    let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
-                    NavigationLink(destination: SignUpView(vm: loginVM)) {
-                        Text("Email 회원가입")
+            ZStack {
+                VStack(spacing: 0) {
+                    Text("Moyang")
+                        .font(Font(uiFont: .systemFont(ofSize: 32, weight: .heavy)))
+                        .padding(.top, 160)
+                        .foregroundColor(.nightSky1)
+                    
+                    Spacer()
+                    Button(action: {}) {
+                        let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
+                        NavigationLink(destination: SignUpView(vm: loginVM)) {
+                            Text("Email 회원가입")
+                        }
                     }
-                }
-                .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
-                                               height: 50))
-                .padding(.bottom, 20)
-                
-                Button(action: {}) {
-                    let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
-                    NavigationLink(destination: LogInView(vm: loginVM)) {
-                        Text("로그인")
+                    .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
+                                                   height: 50))
+                    .padding(.bottom, 20)
+                    
+                    Button(action: {}) {
+                        let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
+                        NavigationLink(destination: LogInView(vm: loginVM)) {
+                            Text("로그인")
+                        }
                     }
-                }
-                .buttonStyle(MoyangButtonStyle(.ghost, width: UIScreen.screenWidth - 80,
-                                               height: 50))
-                .padding(.bottom, 20)
-                
-                Button(action: {}) {
-                    let loginVM = PastorLoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
-                    NavigationLink(destination: PastorLogInView(vm: loginVM)) {
-                        Text("목회자 로그인")
+                    .buttonStyle(MoyangButtonStyle(.ghost, width: UIScreen.screenWidth - 80,
+                                                   height: 50))
+                    .padding(.bottom, 20)
+                    
+                    Button(action: {}) {
+                        let loginVM = PastorLoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
+                        NavigationLink(destination: PastorLogInView(vm: loginVM)) {
+                            Text("목회자 로그인")
+                        }
                     }
+                    .buttonStyle(MoyangButtonStyle(.ghost, width: UIScreen.screenWidth - 80,
+                                                   height: 50))
+                    .padding(.bottom, 20)
                 }
-                .buttonStyle(MoyangButtonStyle(.ghost, width: UIScreen.screenWidth - 80,
-                                               height: 50))
-                .padding(.bottom, 20)
+                
+                IndicatorView()
+                    .hidden(!vm.isLoadingUserData)
+                    .frame(width: 40, height: 40, alignment: .center)
             }
             .onAppear {
                 vm.tryAutoLogin()
             }
             .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
-                MainView(rootIsActive: $vm.isLoginSuccess)
+                if UserData.shared.isPastor ?? false {
+                    PastorMainView(rootIsActive: $vm.isLoginSuccess)
+                } else {
+                    MainView(rootIsActive: $vm.isLoginSuccess)
+                }
             })
             .frame(maxWidth: .infinity)
             .background(Color.sheep2)
