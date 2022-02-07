@@ -22,4 +22,3 @@ class CommunityMainVM: ObservableObject {
         disposables.removeAll()
     }
 }
-

@@ -1,14 +1,14 @@
 //
-//  NewSermonVMMock.swift
+//  GroupQuestionListVMMock.swift
 //  Moyang
 //
-//  Created by kibo on 2022/02/06.
+//  Created by 정김기보 on 2022/02/07.
 //
 
-import SwiftUI
-import Combine
+import Foundation
 
-class NewSermonVMMock: NewSermonVM {
+class GroupQuestionListVMMock: GroupQuestionListVM {
+    
     override init() {
         super.init()
         generateFakeItem()
@@ -20,10 +20,6 @@ class NewSermonVMMock: NewSermonVM {
     }
     
     private func generateFakeItem() {
-        title = "한 사람"
-        subtitle = "회복(4)"
-        bible = "누가복음 8:26 - 8:39"
-        
         let aQuestion = Question(sentence: "오늘 본문을 읽고 가장 기억에 남는 장면은 무엇인가? 살면서 놀라운 기적을 경험해 본 일이 있다면 나눠보자",
                                  answer: "목사님의 답답답")
         let aGroupQuestion = GroupQuestion(question: aQuestion,
@@ -37,6 +33,6 @@ class NewSermonVMMock: NewSermonVM {
         let bGroupQuestion = GroupQuestion(question: Question(),
                                            subquestionList: [bSubQuestionOne, bSubQuestionTwo])
         
-        groupQuestionListVM = GroupQuestionListVMMock()
+        self.groupQuestionList = [aGroupQuestion, bGroupQuestion]
     }
 }

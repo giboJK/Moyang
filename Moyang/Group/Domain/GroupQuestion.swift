@@ -8,8 +8,8 @@
 import Foundation
 
 struct GroupQuestion: Codable {
-    let question: Question?
-    let subquestionList: [Question]?
+    var question: Question
+    var subquestionList: [Question]?
     
     enum CodingKeys: String, CodingKey {
         case question
@@ -18,13 +18,25 @@ struct GroupQuestion: Codable {
 }
 
 struct Question: Codable {
-    let sentence: String
-    let answer: String
-    let isAnswered: Bool
+    var sentence: String
+    var answer: String
+    var isAnswered: Bool
     
     enum CodingKeys: String, CodingKey {
         case sentence
         case answer
         case isAnswered = "is_answered"
+    }
+    
+    init() {
+        sentence = ""
+        answer = ""
+        isAnswered = false
+    }
+    
+    init(sentence: String, answer: String) {
+        self.sentence = sentence
+        self.answer = answer
+        isAnswered = false
     }
 }

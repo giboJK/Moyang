@@ -52,7 +52,7 @@ struct GroupMeetingView: View {
                     ForEach(0 ..< vm.groupInfoItem.groupQuestionList.count) { i in
                         let item = vm.groupInfoItem.groupQuestionList[i]
                         HStack {
-                            Text("- " + item.question!.sentence)
+                            Text("- " + item.question.sentence)
                                 .frame(alignment: .topLeading)
                                 .font(.system(size: 15, weight: .regular, design: .default))
                             Spacer()

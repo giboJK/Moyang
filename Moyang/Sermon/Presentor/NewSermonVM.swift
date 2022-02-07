@@ -16,7 +16,7 @@ class NewSermonVM: ObservableObject {
     @Published var bible = ""
     @Published var date = Date()
     @Published var isAddSuccess = false
-    @Published var groupQuestionList = [GroupQuestion]()
+    @Published var groupQuestionListVM = GroupQuestionListVM()
     
     var viewDismissalModePublisher = PassthroughSubject<Bool, Never>()
     
@@ -27,7 +27,6 @@ class NewSermonVM: ObservableObject {
     }
     
     init() {
-        fetchSermonItem()
     }
     
     deinit {
@@ -35,7 +34,4 @@ class NewSermonVM: ObservableObject {
         disposables.removeAll()
     }
     
-    func fetchSermonItem() {
-        
-    }
 }

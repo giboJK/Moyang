@@ -31,4 +31,3 @@ struct MemberDetail: Codable, Identifiable {
         case community
     }
 }
-

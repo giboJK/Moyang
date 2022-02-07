@@ -81,6 +81,9 @@
 		24A55F64279AFE7D007DDE02 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A55F63279AFE7D007DDE02 /* String+.swift */; };
 		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
 		24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */; };
+		24A757B527B1444D00D94002 /* GroupQuestionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A757B427B1444D00D94002 /* GroupQuestionList.swift */; };
+		24A757B727B1445B00D94002 /* GroupQuestionListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A757B627B1445B00D94002 /* GroupQuestionListVM.swift */; };
+		24A757B927B149C500D94002 /* GroupQuestionListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A757B827B149C500D94002 /* GroupQuestionListVMMock.swift */; };
 		24A9B87E279D9C35003468DB /* PastorComunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A9B87D279D9C35003468DB /* PastorComunityView.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
 		24B47FF7276A1BD3003130E6 /* FirestoreServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */; };
@@ -210,6 +213,9 @@
 		24A55F63279AFE7D007DDE02 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
 		24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssembly.swift; sourceTree = "<group>"; };
+		24A757B427B1444D00D94002 /* GroupQuestionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQuestionList.swift; sourceTree = "<group>"; };
+		24A757B627B1445B00D94002 /* GroupQuestionListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQuestionListVM.swift; sourceTree = "<group>"; };
+		24A757B827B149C500D94002 /* GroupQuestionListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQuestionListVMMock.swift; sourceTree = "<group>"; };
 		24A9B87D279D9C35003468DB /* PastorComunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorComunityView.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceImpl.swift; sourceTree = "<group>"; };
@@ -308,6 +314,7 @@
 			children = (
 				0880103127AE9A1B002E49F0 /* SermonListView.swift */,
 				08B142DB27AFB624000952FF /* NewSermonView.swift */,
+				24A757B427B1444D00D94002 /* GroupQuestionList.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -318,6 +325,7 @@
 				08B142D827AFB462000952FF /* Mock */,
 				0880103427AE9A32002E49F0 /* SermonListVM.swift */,
 				08B142DD27AFB810000952FF /* NewSermonVM.swift */,
+				24A757B627B1445B00D94002 /* GroupQuestionListVM.swift */,
 			);
 			path = Presentor;
 			sourceTree = "<group>";
@@ -353,6 +361,7 @@
 			children = (
 				08B142D927AFB46F000952FF /* SermonListVMMock.swift */,
 				08B142DF27AFBD5B000952FF /* NewSermonVMMock.swift */,
+				24A757B827B149C500D94002 /* GroupQuestionListVMMock.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -1032,6 +1041,7 @@
 				24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */,
 				246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */,
 				2481EF22276D9D3900C70E26 /* GroupCardVM.swift in Sources */,
+				24A757B727B1445B00D94002 /* GroupQuestionListVM.swift in Sources */,
 				08A02A5B27AE13D40043EEF0 /* CommunityPrayCardView.swift in Sources */,
 				246BD7F127240AE4005C4E0B /* GroupRepoImpl.swift in Sources */,
 				08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */,
@@ -1071,6 +1081,7 @@
 				24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */,
 				24A55F64279AFE7D007DDE02 /* String+.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
+				24A757B527B1444D00D94002 /* GroupQuestionList.swift in Sources */,
 				24B7B4D82753BC5F007BCF9E /* NewGroupPrayView.swift in Sources */,
 				249B903027259C6400B53682 /* DummyData.swift in Sources */,
 				08B142DE27AFB810000952FF /* NewSermonVM.swift in Sources */,
@@ -1091,6 +1102,7 @@
 				08A02A5727AE0B460043EEF0 /* MemberDetail.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
 				24BB327C27656735002131BF /* CommunityCardListVM.swift in Sources */,
+				24A757B927B149C500D94002 /* GroupQuestionListVMMock.swift in Sources */,
 				089E8A1B27AF52C700640A39 /* CommunityCardData.swift in Sources */,
 				246BD7C227240AD4005C4E0B /* Pray.swift in Sources */,
 				08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */,

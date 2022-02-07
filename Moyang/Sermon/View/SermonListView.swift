@@ -15,8 +15,22 @@ struct SermonListView: View {
             ScrollView(.vertical, showsIndicators: true) {
                 
             }
+            VStack(spacing: 0) {
+                Spacer()
+                Button(action: {}) {
+                    NavigationLink(destination: NewSermonView(vm: NewSermonVM())) {
+                        Text("설교 추가")
+                            .frame(width: UIScreen.screenWidth - 80,
+                                   height: 50)
+                    }
+                }.buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
+                                                height: 50))
+                .padding(.bottom, 10)
+            }
         }
         .navigationTitle("설교 목록")
+        .frame(maxWidth: .infinity)
+        .background(Color.sheep2)
     }
 }
 

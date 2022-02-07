@@ -37,7 +37,6 @@ struct PrayPreviewCard: View {
                     .font(.system(size: 14, weight: .regular, design: .default))
             }
             .padding(.bottom, 10)
-            // TODO: 여기에 시계아이콘이랑 기도시간
         }
         .modifier(MainCard())
         .eraseToAnyView()

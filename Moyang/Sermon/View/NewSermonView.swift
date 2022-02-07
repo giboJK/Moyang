@@ -26,6 +26,7 @@ struct NewSermonView: View {
                     Text("제목")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size: 16, weight: .semibold, design: .default))
+                        .foregroundColor(.nightSky1)
                         .padding(.leading, 24)
                         .padding(.bottom, 4)
                     TextField("", text: $vm.title)
@@ -42,10 +43,11 @@ struct NewSermonView: View {
                     Text("부제목")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size: 16, weight: .semibold, design: .default))
+                        .foregroundColor(.nightSky1)
                         .padding(.leading, 24)
                         .padding(.bottom, 4)
                     TextField("", text: $vm.subtitle)
-                        .placeholder(when: vm.title.isEmpty) {
+                        .placeholder(when: vm.subtitle.isEmpty) {
                             Text("부제목을 입력하세요").foregroundColor(.sheep4)
                         }
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
@@ -58,10 +60,11 @@ struct NewSermonView: View {
                     Text("말씀 구절")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size: 16, weight: .semibold, design: .default))
+                        .foregroundColor(.nightSky1)
                         .padding(.leading, 24)
                         .padding(.bottom, 4)
                     TextField("", text: $vm.bible)
-                        .placeholder(when: vm.title.isEmpty) {
+                        .placeholder(when: vm.bible.isEmpty) {
                             Text("말씀 구절을 입력하세요").foregroundColor(.sheep4)
                         }
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
@@ -70,23 +73,8 @@ struct NewSermonView: View {
                         .foregroundColor(.nightSky1)
                         .cornerRadius(8)
                         .padding(.bottom, 20)
-                    HStack {
-                        Text("질문 목록")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.system(size: 16, weight: .semibold, design: .default))
-                            .padding(.leading, 24)
-                        Spacer()
-                        Button(action: {}, label: {
-                            Image(systemName: "plus.app.fill")
-                                .foregroundColor(.nightSky1)
-                        })
-                            .frame(width: 24, height: 24)
-                            .padding(.trailing, 16)
-                    }
-                    .padding(.bottom, 4)
-                    ForEach(0 ..< vm.groupQuestionList.count) { i in
-                        let item = vm.groupQuestionList[i]
-                    }
+                    GroupQuestionList(vm: vm.groupQuestionListVM)
+                        .padding(.bottom, 64)
                 }
             }
             VStack(spacing: 0) {
@@ -99,7 +87,6 @@ struct NewSermonView: View {
                 .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
                                                height: 50))
                 .padding(.bottom, 10)
-                
             }
         }
         .navigationTitle("새 설교")
