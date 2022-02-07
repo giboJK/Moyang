@@ -8,31 +8,36 @@
 import SwiftUI
 
 struct PastorComunityView: View {
+    //    @State var isSermonList = false
+    
     var body: some View {
         VStack(spacing: 40) {
             Button(action: {}) {
-                NavigationLink(destination: SermonListView()) {
+                NavigationLink(destination: SermonListView(vm: SermonListVM())) {
                     Text("설교 목록")
+                        .frame(width: UIScreen.screenWidth - 80,
+                               height: 50)
                 }
-            }
-            .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
-                                           height: 50))
+            }.buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
+                                            height: 50))
             
             Button(action: {}) {
-                NavigationLink(destination: SermonListView()) {
-                    Text("공동체 그룹 관리")
+                NavigationLink(destination: SermonListView(vm: SermonListVM())) {
+                    Text("공동체 그룹")
+                        .frame(width: UIScreen.screenWidth - 80,
+                               height: 50)
                 }
-            }
-            .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
-                                           height: 50))
+            }.buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
+                                            height: 50))
             
             Button(action: {}) {
-                NavigationLink(destination: SermonListView()) {
+                NavigationLink(destination: SermonListView(vm: SermonListVM())) {
                     Text("공동체 기도 목록")
+                        .frame(width: UIScreen.screenWidth - 80,
+                               height: 50)
                 }
-            }
-            .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
-                                           height: 50))
+            }.buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
+                                            height: 50))
             Spacer()
         }
         .frame(maxWidth: .infinity)

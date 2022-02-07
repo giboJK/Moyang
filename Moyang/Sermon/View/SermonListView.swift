@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct SermonListView: View {
+    @ObservedObject var vm: SermonListVM
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            ScrollView(.vertical, showsIndicators: true) {
+                
+            }
+        }
+        .navigationTitle("설교 목록")
     }
 }
 
 struct SermonListView_Previews: PreviewProvider {
     static var previews: some View {
-        SermonListView()
+        SermonListView(vm: SermonListVMMock())
     }
 }

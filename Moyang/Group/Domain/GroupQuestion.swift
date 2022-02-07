@@ -8,7 +8,7 @@
 import Foundation
 
 struct GroupQuestion: Codable {
-    let question: Question
+    let question: Question?
     let subquestionList: [Question]?
     
     enum CodingKeys: String, CodingKey {

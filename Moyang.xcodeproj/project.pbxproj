@@ -25,6 +25,11 @@
 		08A02A6227AE1BAB0043EEF0 /* CommunityGroupCardVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A02A6127AE1BAB0043EEF0 /* CommunityGroupCardVMMock.swift */; };
 		08A02A6427AE20550043EEF0 /* GroupQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A02A6327AE20550043EEF0 /* GroupQuestion.swift */; };
 		08A1B7CA27804A010085BE18 /* PrayList.json in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B7C927804A010085BE18 /* PrayList.json */; };
+		08B142D727AFAFCC000952FF /* Sermon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B142D627AFAFCC000952FF /* Sermon.swift */; };
+		08B142DA27AFB46F000952FF /* SermonListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B142D927AFB46F000952FF /* SermonListVMMock.swift */; };
+		08B142DC27AFB624000952FF /* NewSermonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B142DB27AFB624000952FF /* NewSermonView.swift */; };
+		08B142DE27AFB810000952FF /* NewSermonVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B142DD27AFB810000952FF /* NewSermonVM.swift */; };
+		08B142E027AFBD5B000952FF /* NewSermonVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B142DF27AFBD5B000952FF /* NewSermonVMMock.swift */; };
 		08BE775C2796D010008DC7B0 /* PastorLogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BE775B2796D010008DC7B0 /* PastorLogInView.swift */; };
 		08BE775E2796D21F008DC7B0 /* PastorLoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BE775D2796D21F008DC7B0 /* PastorLoginVM.swift */; };
 		08BE77612796DAB8008DC7B0 /* PastorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BE77602796DAB8008DC7B0 /* PastorList.swift */; };
@@ -148,6 +153,11 @@
 		08A02A6127AE1BAB0043EEF0 /* CommunityGroupCardVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityGroupCardVMMock.swift; sourceTree = "<group>"; };
 		08A02A6327AE20550043EEF0 /* GroupQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQuestion.swift; sourceTree = "<group>"; };
 		08A1B7C927804A010085BE18 /* PrayList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrayList.json; sourceTree = "<group>"; };
+		08B142D627AFAFCC000952FF /* Sermon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sermon.swift; sourceTree = "<group>"; };
+		08B142D927AFB46F000952FF /* SermonListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonListVMMock.swift; sourceTree = "<group>"; };
+		08B142DB27AFB624000952FF /* NewSermonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSermonView.swift; sourceTree = "<group>"; };
+		08B142DD27AFB810000952FF /* NewSermonVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSermonVM.swift; sourceTree = "<group>"; };
+		08B142DF27AFBD5B000952FF /* NewSermonVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSermonVMMock.swift; sourceTree = "<group>"; };
 		08BE775B2796D010008DC7B0 /* PastorLogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorLogInView.swift; sourceTree = "<group>"; };
 		08BE775D2796D21F008DC7B0 /* PastorLoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorLoginVM.swift; sourceTree = "<group>"; };
 		08BE77602796DAB8008DC7B0 /* PastorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorList.swift; sourceTree = "<group>"; };
@@ -286,6 +296,7 @@
 		0880102F27AE99FD002E49F0 /* Sermon */ = {
 			isa = PBXGroup;
 			children = (
+				08B142D527AFAFC5000952FF /* Domain */,
 				0880103327AE9A23002E49F0 /* Presentor */,
 				0880103027AE9A02002E49F0 /* View */,
 			);
@@ -296,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				0880103127AE9A1B002E49F0 /* SermonListView.swift */,
+				08B142DB27AFB624000952FF /* NewSermonView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -303,7 +315,9 @@
 		0880103327AE9A23002E49F0 /* Presentor */ = {
 			isa = PBXGroup;
 			children = (
+				08B142D827AFB462000952FF /* Mock */,
 				0880103427AE9A32002E49F0 /* SermonListVM.swift */,
+				08B142DD27AFB810000952FF /* NewSermonVM.swift */,
 			);
 			path = Presentor;
 			sourceTree = "<group>";
@@ -322,6 +336,23 @@
 				249B903727259FD300B53682 /* GroupPreview.json */,
 				08A02A6127AE1BAB0043EEF0 /* CommunityGroupCardVMMock.swift */,
 				0880103627AEB88C002E49F0 /* CommunityCardListVMMock.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		08B142D527AFAFC5000952FF /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				08B142D627AFAFCC000952FF /* Sermon.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		08B142D827AFB462000952FF /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				08B142D927AFB46F000952FF /* SermonListVMMock.swift */,
+				08B142DF27AFBD5B000952FF /* NewSermonVMMock.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -996,6 +1027,7 @@
 				24B812F227984BD300BD1B3E /* PastorMainView.swift in Sources */,
 				24AC737A27468BD7003B9B2F /* Array+.swift in Sources */,
 				08A02A5F27AE1B1F0043EEF0 /* GroupView.swift in Sources */,
+				08B142DC27AFB624000952FF /* NewSermonView.swift in Sources */,
 				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
 				24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */,
 				246BD7C027240AD4005C4E0B /* PrayView.swift in Sources */,
@@ -1009,6 +1041,7 @@
 				244933EB27775B8F000DDE01 /* PrayCardView.swift in Sources */,
 				24B812F627984EA300BD1B3E /* PastorMainVM.swift in Sources */,
 				24D0D3292723145F006FF67B /* Date+.swift in Sources */,
+				08B142DA27AFB46F000952FF /* SermonListVMMock.swift in Sources */,
 				24B9B86727A01DA4009FADC8 /* GroupEditPrayVM.swift in Sources */,
 				24BB8032275645C100BE2988 /* NewGroupPrayVM.swift in Sources */,
 				0880103527AE9A32002E49F0 /* SermonListVM.swift in Sources */,
@@ -1032,6 +1065,7 @@
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
 				08A02A5D27AE17370043EEF0 /* CommunityGroupCardVM.swift in Sources */,
 				24B652AF279589BA007CC58C /* IntroVM.swift in Sources */,
+				08B142D727AFAFCC000952FF /* Sermon.swift in Sources */,
 				08D82955278D196F001E6B61 /* FirestoreLoginServiceImpl.swift in Sources */,
 				246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */,
 				24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */,
@@ -1039,6 +1073,7 @@
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
 				24B7B4D82753BC5F007BCF9E /* NewGroupPrayView.swift in Sources */,
 				249B903027259C6400B53682 /* DummyData.swift in Sources */,
+				08B142DE27AFB810000952FF /* NewSermonVM.swift in Sources */,
 				24151DCE274A2A3E00DD38CE /* GroupPrayListView.swift in Sources */,
 				08BE77612796DAB8008DC7B0 /* PastorList.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
@@ -1066,6 +1101,7 @@
 				08CE42012780059A003352E0 /* FirestoreService.swift in Sources */,
 				242D745C274267C80053EF2A /* MainCard.swift in Sources */,
 				246BD7C327240AD4005C4E0B /* PrayRepo.swift in Sources */,
+				08B142E027AFBD5B000952FF /* NewSermonVMMock.swift in Sources */,
 				0880103227AE9A1B002E49F0 /* SermonListView.swift in Sources */,
 				0819D91F27AD1E8A009F97BF /* SermonCardVM.swift in Sources */,
 				246BD7F527240AE4005C4E0B /* GroupSubjectHistoryView.swift in Sources */,
