@@ -22,18 +22,14 @@ class GroupQuestionListVM: ObservableObject {
     }
     
     func addQuestion() {
-        groupQuestionList.append(GroupQuestion(question: Question(),
-                                               subquestionList: nil))
+        groupQuestionList.append(GroupQuestion(question: Question(sentence: "입력하세요", answer: "입력하세요"),
+                                               subquestionList: []))
     }
     
     func addSubQuestion(index: Int) {
         if index >= groupQuestionList.count {
             return 
         }
-        if groupQuestionList[index].subquestionList == nil {
-            groupQuestionList[index].subquestionList = [Question]()
-        } else {
-            groupQuestionList[index].subquestionList?.append(Question())
-        }
+        groupQuestionList[index].subquestionList.append(Question(sentence: "입력하세요", answer: "입력하세요"))
     }
 }

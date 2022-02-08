@@ -9,7 +9,7 @@ import Foundation
 
 struct GroupQuestion: Codable {
     var question: Question
-    var subquestionList: [Question]?
+    var subquestionList: [Question]
     
     enum CodingKeys: String, CodingKey {
         case question
