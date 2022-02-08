@@ -31,14 +31,14 @@ struct NewSermonView: View {
                         .padding(.bottom, 4)
                     TextField("", text: $vm.title)
                         .placeholder(when: vm.title.isEmpty) {
-                            Text("제목을 입력하세요").foregroundColor(.sheep4)
+                            Text("제목").foregroundColor(.sheep4)
                         }
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                         .background(Color.sheep1)
                         .frame(width: UIScreen.screenWidth - 32, height: 40, alignment: .center)
                         .foregroundColor(.nightSky1)
                         .cornerRadius(8)
-                        .padding(.bottom, 20)
+                        .padding(.bottom, 16)
                     
                     Text("부제목")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -48,14 +48,14 @@ struct NewSermonView: View {
                         .padding(.bottom, 4)
                     TextField("", text: $vm.subtitle)
                         .placeholder(when: vm.subtitle.isEmpty) {
-                            Text("부제목을 입력하세요").foregroundColor(.sheep4)
+                            Text("부제목").foregroundColor(.sheep4)
                         }
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                         .background(Color.sheep1)
                         .frame(width: UIScreen.screenWidth - 32, height: 40, alignment: .center)
                         .foregroundColor(.nightSky1)
                         .cornerRadius(8)
-                        .padding(.bottom, 20)
+                        .padding(.bottom, 16)
                     
                     Text("말씀 구절")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -65,14 +65,32 @@ struct NewSermonView: View {
                         .padding(.bottom, 4)
                     TextField("", text: $vm.bible)
                         .placeholder(when: vm.bible.isEmpty) {
-                            Text("말씀 구절을 입력하세요").foregroundColor(.sheep4)
+                            Text("말씀 구절").foregroundColor(.sheep4)
                         }
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                         .background(Color.sheep1)
                         .frame(width: UIScreen.screenWidth - 32, height: 40, alignment: .center)
                         .foregroundColor(.nightSky1)
                         .cornerRadius(8)
-                        .padding(.bottom, 20)
+                        .padding(.bottom, 16)
+                    
+                    Text("예배")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.system(size: 16, weight: .semibold, design: .default))
+                        .foregroundColor(.nightSky1)
+                        .padding(.leading, 24)
+                        .padding(.bottom, 4)
+                    TextField("", text: $vm.worship)
+                        .placeholder(when: vm.worship.isEmpty) {
+                            Text("예배").foregroundColor(.sheep4)
+                        }
+                        .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                        .background(Color.sheep1)
+                        .frame(width: UIScreen.screenWidth - 32, height: 40, alignment: .center)
+                        .foregroundColor(.nightSky1)
+                        .cornerRadius(8)
+                        .padding(.bottom, 16)
+                    
                     GroupQuestionList(vm: vm.groupQuestionListVM)
                         .padding(.bottom, 64)
                 }

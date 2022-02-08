@@ -12,6 +12,7 @@ class GroupQuestionListVM: ObservableObject {
     var disposables = Set<AnyCancellable>()
     
     @Published var groupQuestionList = [GroupQuestion]()
+    @Published var newQuestionAdded = false
     
     init() {
     }
@@ -24,6 +25,8 @@ class GroupQuestionListVM: ObservableObject {
     func addQuestion() {
         groupQuestionList.append(GroupQuestion(question: Question(sentence: "입력하세요", answer: "입력하세요"),
                                                subquestionList: []))
+        newQuestionAdded = true
+        newQuestionAdded = false
     }
     
     func addSubQuestion(index: Int) {

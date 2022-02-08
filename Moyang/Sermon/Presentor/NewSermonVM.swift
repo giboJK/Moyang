@@ -15,6 +15,7 @@ class NewSermonVM: ObservableObject {
     @Published var subtitle = ""
     @Published var bible = ""
     @Published var date = Date()
+    @Published var worship = ""
     @Published var isAddSuccess = false
     @Published var groupQuestionListVM = GroupQuestionListVM()
     

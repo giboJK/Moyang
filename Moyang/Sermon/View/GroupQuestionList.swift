@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupQuestionList: View {
     @ObservedObject var vm: GroupQuestionListVM
+    @State var newQuestion = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -21,12 +22,16 @@ struct GroupQuestionList: View {
                 Spacer()
                 Button(action: {
                     vm.addQuestion()
-                }, label: {
+                    newQuestion.toggle()
+                }) {
                     Image(systemName: "plus.app.fill")
                         .foregroundColor(.nightSky1)
-                })
-                    .frame(width: 24, height: 24)
-                    .padding(.trailing, 16)
+                }
+                .frame(width: 24, height: 24)
+                .padding(.trailing, 16)
+                
+                NavigationLink(destination: NewGroupQuestionView(vm: vm, index: vm.groupQuestionList.count - 1),
+                               isActive: $newQuestion) {}
             }
             .padding(.bottom, 4)
             ForEach(0 ..< vm.groupQuestionList.count, id: \.self) { i in
@@ -37,16 +42,13 @@ struct GroupQuestionList: View {
                             .frame(maxHeight: .infinity, alignment: .top)
                             .font(.system(size: 15, weight: .regular, design: .default))
                             .foregroundColor(.nightSky1)
-                        TextEditor(text: $vm.groupQuestionList[i].question.sentence)
-                            .font(.system(size: 15, weight: .regular, design: .default))
-                            .foregroundColor(vm.groupQuestionList[i].question.sentence == "입력하세요" ? .sheep4 : .nightSky1)
-                            .onTapGesture {
-                                if vm.groupQuestionList[i].question.sentence == "입력하세요" {
-                                    vm.groupQuestionList[i].question.sentence = ""
-                                }
-                            }
-                            .padding(EdgeInsets(top: -8, leading: 8, bottom: 0, trailing: 4))
                         
+                        Text(vm.groupQuestionList[i].question.sentence)
+                            .frame(maxHeight: .infinity, alignment: .topLeading)
+                            .font(.system(size: 15, weight: .regular, design: .default))
+                            .foregroundColor(.nightSky1)
+                            .padding(.leading, 8)
+                        Spacer()
                     }
                     .padding(EdgeInsets(top: 12, leading: 8, bottom: 4, trailing: 8))
                     HStack(spacing: 0) {
@@ -55,30 +57,14 @@ struct GroupQuestionList: View {
                             .font(.system(size: 15, weight: .regular, design: .default))
                             .foregroundColor(.nightSky1)
                         
-                        TextEditor(text: $vm.groupQuestionList[i].question.answer)
+                        Text(vm.groupQuestionList[i].question.answer)
+                            .frame(maxHeight: .infinity, alignment: .topLeading)
                             .font(.system(size: 15, weight: .regular, design: .default))
-                            .foregroundColor(vm.groupQuestionList[i].question.answer == "입력하세요" ? .sheep4 : .nightSky1)
-                            .onTapGesture {
-                                if vm.groupQuestionList[i].question.answer == "입력하세요" {
-                                    vm.groupQuestionList[i].question.answer = ""
-                                }
-                            }
-                            .padding(EdgeInsets(top: -8, leading: 8, bottom: 0, trailing: 4))
-                    }
-                    .padding(EdgeInsets(top: 0, leading: 8, bottom: 4, trailing: 8))
-                    HStack(spacing: 0) {
+                            .foregroundColor(.nightSky1)
+                            .padding(.leading, 8)
                         Spacer()
-                        Button(action: {
-                            vm.addSubQuestion(index: i)
-                        }, label: {
-                            Text("서브질문 추가")
-                                .font(.system(size: 15, weight: .regular, design: .default))
-                                .foregroundColor(.nightSky1)
-                        })
-                            .padding(.trailing, 12)
-                            .tint(.nightSky2)
                     }
-                    .padding(.bottom, 12)
+                    .padding(EdgeInsets(top: 0, leading: 8, bottom: 12, trailing: 8))
                 }
                 .background(Color.sheep1)
                 .cornerRadius(12)
@@ -91,15 +77,13 @@ struct GroupQuestionList: View {
                                 .frame(maxHeight: .infinity, alignment: .top)
                                 .font(.system(size: 15, weight: .regular, design: .default))
                                 .foregroundColor(.nightSky1)
-                            TextEditor(text: $vm.groupQuestionList[i].subquestionList[j].sentence)
+                            
+                            Text(vm.groupQuestionList[i].subquestionList[j].sentence)
+                                .frame(maxHeight: .infinity, alignment: .topLeading)
                                 .font(.system(size: 15, weight: .regular, design: .default))
-                                .foregroundColor(vm.groupQuestionList[i].subquestionList[j].sentence == "입력하세요" ? .sheep4 : .nightSky1)
-                                .onTapGesture {
-                                    if vm.groupQuestionList[i].subquestionList[j].sentence == "입력하세요" {
-                                        vm.groupQuestionList[i].subquestionList[j].sentence = ""
-                                    }
-                                }
-                                .padding(EdgeInsets(top: -8, leading: 8, bottom: 0, trailing: 4))
+                                .foregroundColor(.nightSky1)
+                                .padding(.leading, 8)
+                            Spacer()
                         }
                         .padding(EdgeInsets(top: 12, leading: 8, bottom: 4, trailing: 8))
                         HStack(spacing: 0) {
@@ -107,15 +91,13 @@ struct GroupQuestionList: View {
                                 .frame(maxHeight: .infinity, alignment: .top)
                                 .font(.system(size: 15, weight: .regular, design: .default))
                                 .foregroundColor(.nightSky1)
-                            TextEditor(text: $vm.groupQuestionList[i].subquestionList[j].answer)
+                            
+                            Text(vm.groupQuestionList[i].subquestionList[j].answer)
+                                .frame(maxHeight: .infinity, alignment: .topLeading)
                                 .font(.system(size: 15, weight: .regular, design: .default))
-                                .foregroundColor(vm.groupQuestionList[i].subquestionList[j].answer == "입력하세요" ? .sheep4 : .nightSky1)
-                                .onTapGesture {
-                                    if vm.groupQuestionList[i].subquestionList[j].answer == "입력하세요" {
-                                        vm.groupQuestionList[i].subquestionList[j].answer = ""
-                                    }
-                                }
-                                .padding(EdgeInsets(top: -8, leading: 8, bottom: 0, trailing: 4))
+                                .foregroundColor(.nightSky1)
+                                .padding(.leading, 8)
+                            Spacer()
                         }
                         .padding(EdgeInsets(top: 0, leading: 8, bottom: 4, trailing: 8))
                         
