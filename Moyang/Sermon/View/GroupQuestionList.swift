@@ -35,7 +35,7 @@ struct GroupQuestionList: View {
             }
             .padding(.bottom, 4)
             
-            ForEach(0 ..< vm.groupQuestionList.count, id: \.self) { i in
+            ForEach(vm.groupQuestionList.indices, id: \.self) { i in
                 let item = vm.groupQuestionList[i]
                 VStack(spacing: 0) {
                     HStack(spacing: 0) {
@@ -71,7 +71,7 @@ struct GroupQuestionList: View {
                 .cornerRadius(12)
                 .padding(EdgeInsets(top: 4, leading: 16, bottom: 8, trailing: 16))
                 
-                ForEach(0 ..< item.subquestionList.count, id: \.self) { j in
+                ForEach(item.subquestionList.indices, id: \.self) { j in
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
                             Text("질문")
