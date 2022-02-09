@@ -18,7 +18,7 @@ struct SermonListView: View {
             VStack(spacing: 0) {
                 Spacer()
                 Button(action: {}) {
-                    NavigationLink(destination: NewSermonView(vm: NewSermonVM())) {
+                    NavigationLink(destination: NewSermonView()) {
                         Text("설교 추가")
                             .frame(width: UIScreen.screenWidth - 80,
                                    height: 50)
@@ -36,6 +36,9 @@ struct SermonListView: View {
 
 struct SermonListView_Previews: PreviewProvider {
     static var previews: some View {
-        SermonListView(vm: SermonListVMMock())
+        
+        NavigationView {
+            SermonListView(vm: SermonListVMMock())
+        }.navigationViewStyle(.stack)
     }
 }

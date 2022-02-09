@@ -9,7 +9,10 @@ import SwiftUI
 
 struct NewGroupQuestionView: View {
     @ObservedObject var vm: GroupQuestionListVM
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
     var index: Int
+    var isEdit: Bool
     
     var body: some View {
         ZStack {
@@ -126,7 +129,12 @@ struct NewGroupQuestionView: View {
                     .padding(.bottom, 10)
             }
         }
-        .navigationBarTitle("새 질문")
+        .navigationBarTitle(isEdit ? "질문 수정": "새 질문")
+        .navigationBarItems(trailing: Button(isEdit ? "삭제": "", action: {
+            self.mode.wrappedValue.dismiss()
+            vm.deleteQuestion(index: index)
+        }).foregroundColor(.appleRed1)
+        )
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
     }
@@ -134,6 +142,6 @@ struct NewGroupQuestionView: View {
 
 struct NewGroupQuestionView_Previews: PreviewProvider {
     static var previews: some View {
-        NewGroupQuestionView(vm: GroupQuestionListVMMock(), index: 0)
+        NewGroupQuestionView(vm: GroupQuestionListVMMock(), index: 0, isEdit: true)
     }
 }

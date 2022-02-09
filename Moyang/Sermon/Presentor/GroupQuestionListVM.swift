@@ -35,4 +35,10 @@ class GroupQuestionListVM: ObservableObject {
         }
         groupQuestionList[index].subquestionList.append(Question(sentence: "입력하세요", answer: "입력하세요"))
     }
+    
+    func deleteQuestion(index: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.groupQuestionList.remove(at: index)
+        }
+    }
 }
