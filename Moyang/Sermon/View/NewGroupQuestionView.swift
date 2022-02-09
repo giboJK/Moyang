@@ -14,7 +14,7 @@ struct NewGroupQuestionView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                Text("질문")
+                Text("질문 \(index + 1)")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size: 16, weight: .semibold, design: .default))
                     .foregroundColor(.nightSky1)
@@ -28,7 +28,7 @@ struct NewGroupQuestionView: View {
                             vm.groupQuestionList[index].question.sentence = ""
                         }
                     }
-                    .frame(width: .infinity, height: 100, alignment: .topLeading)
+                    .frame(width: .infinity, height: 80, alignment: .topLeading)
                     .cornerRadius(12)
                     .padding(EdgeInsets(top: 4, leading: 16, bottom: 16, trailing: 16))
                 
@@ -46,7 +46,7 @@ struct NewGroupQuestionView: View {
                             vm.groupQuestionList[index].question.answer = ""
                         }
                     }
-                    .frame(width: .infinity, height: 100, alignment: .topLeading)
+                    .frame(width: .infinity, height: 80, alignment: .topLeading)
                     .cornerRadius(12)
                     .padding(EdgeInsets(top: 4, leading: 16, bottom: 16, trailing: 16))
                 
@@ -67,7 +67,51 @@ struct NewGroupQuestionView: View {
                         .padding(.trailing, 16)
                 }
                 .padding(.bottom, 4)
-                Spacer()
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        ForEach(0..<$vm.groupQuestionList[index].subquestionList.count, id: \.self) { i in
+                            Text("질문 \(i + 1)")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .foregroundColor(.nightSky1)
+                                .padding(EdgeInsets(top: 0, leading: 8, bottom: 4, trailing: 0))
+                            
+                            TextEditor(text: $vm.groupQuestionList[index].subquestionList[i].sentence)
+                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .foregroundColor(vm.groupQuestionList[index].subquestionList[i].sentence == "입력하세요" ? .sheep4 : .nightSky1)
+                                .onTapGesture {
+                                    if vm.groupQuestionList[index].subquestionList[i].sentence == "입력하세요" {
+                                        vm.groupQuestionList[index].subquestionList[i].sentence = ""
+                                    }
+                                }
+                                .frame(width: .infinity, height: 70, alignment: .topLeading)
+                                .cornerRadius(12)
+                                .padding(.bottom, 8)
+                            
+                            Text("답변")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(maxHeight: .infinity, alignment: .top)
+                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .foregroundColor(.nightSky1)
+                                .padding(EdgeInsets(top: 0, leading: 8, bottom: 4, trailing: 0))
+                            
+                            TextEditor(text: $vm.groupQuestionList[index].subquestionList[i].answer)
+                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .foregroundColor(vm.groupQuestionList[index].subquestionList[i].sentence == "입력하세요" ? .sheep4 : .nightSky1)
+                                .onTapGesture {
+                                    if vm.groupQuestionList[index].subquestionList[i].answer == "입력하세요" {
+                                        vm.groupQuestionList[index].subquestionList[i].answer = ""
+                                    }
+                                }
+                                .frame(width: .infinity, height: 70, alignment: .topLeading)
+                                .cornerRadius(12)
+                                .padding(.bottom, 8)
+                            Divider()
+                                .padding(.bottom, 8)
+                        }
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 68, trailing: 16))
             }
             VStack(spacing: 0) {
                 Spacer()
@@ -79,7 +123,7 @@ struct NewGroupQuestionView: View {
                     }
                 }.buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
                                                 height: 50))
-                .padding(.bottom, 10)
+                    .padding(.bottom, 10)
             }
         }
         .navigationBarTitle("새 질문")

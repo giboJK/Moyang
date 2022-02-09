@@ -34,6 +34,7 @@ struct GroupQuestionList: View {
                                isActive: $newQuestion) {}
             }
             .padding(.bottom, 4)
+            
             ForEach(0 ..< vm.groupQuestionList.count, id: \.self) { i in
                 let item = vm.groupQuestionList[i]
                 VStack(spacing: 0) {
