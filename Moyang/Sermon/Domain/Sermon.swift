@@ -11,6 +11,7 @@ struct Sermon: Codable {
     var title: String
     let subtitle: String
     let bible: String
+    let worship: String
     let pastor: String
     let memberID: String
     let date: String
@@ -20,6 +21,7 @@ struct Sermon: Codable {
         case title
         case subtitle
         case bible
+        case worship
         case pastor
         case memberID = "member_id"
         case date

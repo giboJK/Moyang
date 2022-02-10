@@ -97,7 +97,9 @@ struct NewSermonView: View {
             }
             VStack(spacing: 0) {
                 Spacer()
-                Button(action: {}) {
+                Button(action: {
+                    vm.addSermon()
+                }) {
                     Text("완료")
                         .frame(width: UIScreen.screenWidth - 80,
                                height: 50)
@@ -108,6 +110,11 @@ struct NewSermonView: View {
             }
         }
         .navigationTitle("새 설교")
+        .onReceive(vm.viewDismissalModePublisher) { shouldDismiss in
+            if shouldDismiss {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
     }

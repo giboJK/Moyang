@@ -116,25 +116,20 @@ struct NewGroupQuestionView: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 68, trailing: 16))
             }
-            VStack(spacing: 0) {
-                Spacer()
-                Button(action: {}) {
-                    NavigationLink(destination: NewSermonView(vm: NewSermonVM())) {
-                        Text("설교 추가")
-                            .frame(width: UIScreen.screenWidth - 80,
-                                   height: 50)
-                    }
-                }.buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
-                                                height: 50))
-                    .padding(.bottom, 10)
-            }
         }
         .navigationBarTitle(isEdit ? "질문 수정": "새 질문")
         .navigationBarItems(trailing: Button(isEdit ? "삭제": "", action: {
             self.mode.wrappedValue.dismiss()
             vm.deleteQuestion(index: index)
-        }).foregroundColor(.appleRed1)
-        )
+        }).foregroundColor(.appleRed1))
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("완료") {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+            }
+        }
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
     }

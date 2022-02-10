@@ -9,7 +9,9 @@ import SwiftUI
 import Combine
 
 class NewSermonVM: ObservableObject {
-    var disposables = Set<AnyCancellable>()
+    var cancellables = Set<AnyCancellable>()
+    private let repo = SermonRepoImpl(service: FirestoreServiceImpl())
+    
     
     @Published var title = ""
     @Published var subtitle = ""
@@ -32,7 +34,32 @@ class NewSermonVM: ObservableObject {
     
     deinit {
         Log.i(self)
-        disposables.removeAll()
+        cancellables.removeAll()
+    }
+    
+    func addSermon() {
+        guard let userInfo = UserData.shared.myInfo else { Log.e("No userInfo"); return }
+        let sermon = Sermon(title: title,
+                            subtitle: subtitle,
+                            bible: bible,
+                            worship: worship,
+                            pastor: userInfo.memberName,
+                            memberID: userInfo.id,
+                            date: date.toString(format: "yyyy-MM-dd"),
+                            groupQuestionList: groupQuestionListVM.groupQuestionList)
+        
+        repo.add(sermon)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    Log.i(completion)
+                case .failure(let error):
+                    Log.e(error)
+                }
+            }) { _ in
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewSermonAdded"), object: nil)
+                self.shouldDismissView = true
+            }.store(in: &cancellables)
     }
     
 }

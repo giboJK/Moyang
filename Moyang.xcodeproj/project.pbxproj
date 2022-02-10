@@ -77,6 +77,8 @@
 		248FEC102723A08D00321E5E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC0F2723A08D00321E5E /* MainView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
+		2496FE8227B527B600E9DCEE /* SermonRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2496FE8127B527B600E9DCEE /* SermonRepo.swift */; };
+		2496FE8427B5413F00E9DCEE /* SermonRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2496FE8327B5413F00E9DCEE /* SermonRepoImpl.swift */; };
 		249B903027259C6400B53682 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249B902F27259C6400B53682 /* DummyData.swift */; };
 		249B903827259FD300B53682 /* GroupPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = 249B903727259FD300B53682 /* GroupPreview.json */; };
 		24A55F64279AFE7D007DDE02 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A55F63279AFE7D007DDE02 /* String+.swift */; };
@@ -210,6 +212,8 @@
 		248FEC0F2723A08D00321E5E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		2496FE8127B527B600E9DCEE /* SermonRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonRepo.swift; sourceTree = "<group>"; };
+		2496FE8327B5413F00E9DCEE /* SermonRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonRepoImpl.swift; sourceTree = "<group>"; };
 		249B902F27259C6400B53682 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		249B903727259FD300B53682 /* GroupPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GroupPreview.json; sourceTree = "<group>"; };
 		24A55F63279AFE7D007DDE02 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
@@ -329,6 +333,7 @@
 				0880103427AE9A32002E49F0 /* SermonListVM.swift */,
 				08B142DD27AFB810000952FF /* NewSermonVM.swift */,
 				24A757B627B1445B00D94002 /* GroupQuestionListVM.swift */,
+				2496FE8327B5413F00E9DCEE /* SermonRepoImpl.swift */,
 			);
 			path = Presentor;
 			sourceTree = "<group>";
@@ -354,6 +359,7 @@
 		08B142D527AFAFC5000952FF /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				2496FE8127B527B600E9DCEE /* SermonRepo.swift */,
 				08B142D627AFAFCC000952FF /* Sermon.swift */,
 			);
 			path = Domain;
@@ -1047,6 +1053,7 @@
 				24A757B727B1445B00D94002 /* GroupQuestionListVM.swift in Sources */,
 				08A02A5B27AE13D40043EEF0 /* CommunityPrayCardView.swift in Sources */,
 				246BD7F127240AE4005C4E0B /* GroupRepoImpl.swift in Sources */,
+				2496FE8427B5413F00E9DCEE /* SermonRepoImpl.swift in Sources */,
 				08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */,
 				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
 				246BD7C727240AD4005C4E0B /* PrayCardVM.swift in Sources */,
@@ -1102,6 +1109,7 @@
 				2434ED4927B2998D0091289B /* NewGroupQuestionView.swift in Sources */,
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,
 				24BB803727565E2200BE2988 /* LocalDB.swift in Sources */,
+				2496FE8227B527B600E9DCEE /* SermonRepo.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */,
 				08A02A5727AE0B460043EEF0 /* MemberDetail.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
