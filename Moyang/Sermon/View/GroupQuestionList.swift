@@ -43,13 +43,13 @@ struct GroupQuestionList: View {
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
                             Text("질문 \(i + 1)")
-                                .frame(maxHeight: .infinity, alignment: .top)
-                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .frame(width: 48, height: 24, alignment: .topLeading)
+                                .font(.system(size: 14, weight: .regular, design: .default))
                                 .foregroundColor(.nightSky1)
                             
                             Text(vm.groupQuestionList[i].question.sentence)
-                                .frame(maxHeight: .infinity, alignment: .topLeading)
-                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .frame(height: 24, alignment: .topLeading)
+                                .font(.system(size: 14, weight: .regular, design: .default))
                                 .foregroundColor(.nightSky1)
                                 .padding(.leading, 8)
                             Spacer()
@@ -57,13 +57,13 @@ struct GroupQuestionList: View {
                         .padding(EdgeInsets(top: 12, leading: 8, bottom: 4, trailing: 8))
                         HStack(spacing: 0) {
                             Text("답변")
-                                .frame(maxHeight: .infinity, alignment: .top)
-                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .frame(width: 48, height: 24, alignment: .topLeading)
+                                .font(.system(size: 14, weight: .regular, design: .default))
                                 .foregroundColor(.nightSky1)
                             
                             Text(vm.groupQuestionList[i].question.answer)
-                                .frame(maxHeight: .infinity, alignment: .topLeading)
-                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .frame(height: 24, alignment: .topLeading)
+                                .font(.system(size: 14, weight: .regular, design: .default))
                                 .foregroundColor(.nightSky1)
                                 .padding(.leading, 8)
                             Spacer()
@@ -71,7 +71,7 @@ struct GroupQuestionList: View {
                         .padding(EdgeInsets(top: 0, leading: 8, bottom: 4, trailing: 8))
                         
                         Text(item.subquestionList.isEmpty ? "하위질문 없음" : "하위질문 \(item.subquestionList.count)개")
-                            .foregroundColor(item.subquestionList.isEmpty ? .sheep4 : .nightSky1)
+                            .foregroundColor(item.subquestionList.isEmpty ? .sheep4 : .nightSky2)
                             .font(.system(size: 14, weight: .regular, design: .default))
                             .frame(maxWidth: .infinity, alignment: .trailing)
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 8))

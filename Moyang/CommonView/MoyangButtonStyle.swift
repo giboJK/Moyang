@@ -19,6 +19,7 @@ struct MoyangButtonStyle: ButtonStyle {
     
     enum MoyangButtonType {
         case primary
+        case black
         case secondary
         case ghost
         case warning
@@ -39,6 +40,14 @@ struct MoyangButtonStyle: ButtonStyle {
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(Color.ydGreen1)
+                .foregroundColor(.sheep1)
+                .cornerRadius(16)
+                .opacity(configuration.isPressed ? 0.7 : 1.0)
+        case .black:
+            return configuration.label
+                .font(primaryFont)
+                .frame(width: width, height: height, alignment: .center)
+                .background(Color.nightSky1)
                 .foregroundColor(.sheep1)
                 .cornerRadius(16)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
