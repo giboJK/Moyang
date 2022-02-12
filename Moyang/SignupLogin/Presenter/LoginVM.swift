@@ -21,9 +21,6 @@ class LoginVM: ObservableObject {
     
     @Published var moveToProfileSetView: Bool = false
     
-    @Published var isValidEmail: Bool = false
-    @Published var isValidPW: Bool = false
-    
     init(loginService: LoginService) {
         self.loginService = loginService
     }
@@ -70,7 +67,7 @@ class LoginVM: ObservableObject {
                 case .noData:
                     self.moveToProfileSetView = true
                 case .other:
-                    // TODO: 잘못된 정보입니다.
+                    // TODO: 잘못된 정보입니다. 팝업
                     Log.e(error)
                 default:
                     break

@@ -39,6 +39,6 @@ struct SermonListView_Previews: PreviewProvider {
         
         NavigationView {
             SermonListView(vm: SermonListVMMock())
-        }.navigationViewStyle(.stack)
+        }
     }
 }

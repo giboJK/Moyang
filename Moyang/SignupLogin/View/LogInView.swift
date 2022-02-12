@@ -51,6 +51,7 @@ struct LogInView: View {
                                                    width: UIScreen.screenWidth - 80,
                                                    height: 50))
                     .padding(.bottom, 20)
+                    .disabled(!vm.id.isValidEmail || (vm.password.count < 6) )
                 
                 Button(action: {
                     vm.findPassword()
@@ -88,6 +89,8 @@ struct LogInView: View {
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView(vm: LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+        NavigationView {
+            LogInView(vm: LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+        }
     }
 }

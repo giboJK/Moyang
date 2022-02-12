@@ -17,6 +17,8 @@ struct MoyangButtonStyle: ButtonStyle {
     let width: CGFloat
     let height: CGFloat
     
+    @Environment(\.isEnabled) var isEnabled
+    
     enum MoyangButtonType {
         case primary
         case black
@@ -39,7 +41,7 @@ struct MoyangButtonStyle: ButtonStyle {
             return configuration.label
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(Color.ydGreen1)
+                .background(isEnabled ? Color.ydGreen1 : Color.sheep5)
                 .foregroundColor(.sheep1)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
@@ -47,8 +49,8 @@ struct MoyangButtonStyle: ButtonStyle {
             return configuration.label
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(Color.nightSky1)
-                .foregroundColor(.sheep1)
+                .background(isEnabled ? Color.nightSky1 : Color.sheep5)
+                .foregroundColor(isEnabled ? .sheep1 : Color.sheep3)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .secondary:

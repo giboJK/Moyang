@@ -51,6 +51,7 @@ struct SignUpView: View {
                                                 width: UIScreen.screenWidth - 80,
                                                 height: 50))
                     .padding(.bottom, 20)
+                    .disabled(!vm.id.isValidEmail || (vm.password.count < 6) )
             }
             
             IndicatorView()
@@ -66,6 +67,8 @@ struct SignUpView: View {
 struct SignUpView_Previews: PreviewProvider {
     
     static var previews: some View {
-        SignUpView(vm: LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+        NavigationView {
+            SignUpView(vm: LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+        }
     }
 }

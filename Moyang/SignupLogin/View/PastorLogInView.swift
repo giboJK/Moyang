@@ -30,6 +30,7 @@ struct PastorLogInView: View {
                     .cornerRadius(8)
                     .padding(.bottom, 20)
                     .keyboardType(.emailAddress)
+                
                 SecureField("", text: $vm.password)
                     .placeholder(when: vm.password.isEmpty) {
                         Text("Password").foregroundColor(.sheep4)
@@ -40,6 +41,7 @@ struct PastorLogInView: View {
                     .foregroundColor(.nightSky1)
                     .cornerRadius(8)
                     .padding(.bottom, 32)
+                
                 Button(action: {
                     vm.login()
                 }, label: {
@@ -49,6 +51,8 @@ struct PastorLogInView: View {
                                                    width: UIScreen.screenWidth - 80,
                                                    height: 50))
                     .padding(.bottom, 20)
+                    .disabled(!vm.id.isValidEmail || (vm.password.count < 6) )
+                
                 Button(action: {
                     vm.findPassword()
                 }, label: {
@@ -82,6 +86,8 @@ struct PastorLogInView: View {
 
 struct PastorLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        PastorLogInView(vm: PastorLoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+        NavigationView {
+            PastorLogInView(vm: PastorLoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+        }
     }
 }
