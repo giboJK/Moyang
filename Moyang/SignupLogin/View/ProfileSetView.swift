@@ -12,6 +12,8 @@ struct ProfileSetView: View {
         VStack(spacing: 0) {
             Text("여기는 대성당들의 시대가 차장와써~")
         }
+        .frame(maxWidth: .infinity)
+        .background(Color.sheep2)
     }
 }
 

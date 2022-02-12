@@ -15,7 +15,7 @@ struct PastorLogInView: View {
             VStack(spacing: 0) {
                 Text("Moyang")
                     .font(Font(uiFont: .systemFont(ofSize: 36, weight: .heavy)))
-                    .padding(.top, 152 - UIApplication.statusBarHeight)
+                    .padding(.top, 120 - UIApplication.statusBarHeight)
                     .foregroundColor(.nightSky1)
                 
                 Spacer()

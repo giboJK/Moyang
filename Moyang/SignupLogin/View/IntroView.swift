@@ -16,7 +16,7 @@ struct IntroView: View {
                 VStack(spacing: 0) {
                     Text("Moyang")
                         .font(Font(uiFont: .systemFont(ofSize: 36, weight: .heavy)))
-                        .padding(.top, 160 - UIApplication.statusBarHeight)
+                        .padding(.top, 128 - UIApplication.statusBarHeight)
                         .foregroundColor(.nightSky1)
                     
                     Spacer()
