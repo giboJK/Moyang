@@ -36,7 +36,8 @@ struct SignUpView: View {
             }, label: {
                 Text("회원가입")
             })
-                .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 48,
+                .buttonStyle(MoyangButtonStyle(.black,
+                                               width: UIScreen.screenWidth - 48,
                                                height: 52))
                 .padding(.bottom, 24)
             Spacer()

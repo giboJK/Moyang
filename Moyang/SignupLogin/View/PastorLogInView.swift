@@ -45,7 +45,8 @@ struct PastorLogInView: View {
                 }, label: {
                     Text("로그인")
                 })
-                    .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
+                    .buttonStyle(MoyangButtonStyle(.black,
+                                                   width: UIScreen.screenWidth - 80,
                                                    height: 50))
                     .padding(.bottom, 20)
                 Button(action: {

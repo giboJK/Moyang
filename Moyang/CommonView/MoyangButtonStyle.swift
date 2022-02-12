@@ -64,7 +64,7 @@ struct MoyangButtonStyle: ButtonStyle {
                 .font(ghostFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(.clear)
-                .foregroundColor(.ydGreen1)
+                .foregroundColor(.nightSky1)
                 .cornerRadius(16)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .warning:

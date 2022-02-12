@@ -151,6 +151,9 @@ class FirestoreServiceImpl: FirestoreService {
                 }
                 
                 let decoder = JSONDecoder()
+                if documentSnapshot?.data()?.isEmpty ?? true {
+                    promise(.failure(MoyangError.noData))
+                }
                 if let dict = documentSnapshot?.data(),
                    let data = try? JSONSerialization.data(withJSONObject: dict, options: []) {
                     do {

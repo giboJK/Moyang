@@ -64,13 +64,10 @@ class FirestoreLoginServiceImpl: LoginService {
         return service.fetchObject(ref: ref, type: PastorList.self)
     }
     
-    func fetchUserData() -> AnyPublisher<MemberDetail, MoyangError> {
-        guard let userID = UserData.shared.userID?.lowercased() else {
-            return Empty(completeImmediately: false).eraseToAnyPublisher()
-        }
+    func fetchUserData(id: String) -> AnyPublisher<MemberDetail, MoyangError> {
         let ref = service.store
             .collection(self.collectionName)
-            .document(userID)
+            .document(id)
         
         return service.fetchObject(ref: ref, type: MemberDetail.self)
     }

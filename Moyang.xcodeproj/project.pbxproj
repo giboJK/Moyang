@@ -16,6 +16,7 @@
 		0880103527AE9A32002E49F0 /* SermonListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880103427AE9A32002E49F0 /* SermonListVM.swift */; };
 		0880103727AEB88C002E49F0 /* CommunityCardListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880103627AEB88C002E49F0 /* CommunityCardListVMMock.swift */; };
 		0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880103827AEBB48002E49F0 /* CommunityMainVM.swift */; };
+		0894AC6827B6B09F0011F167 /* ProfileSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894AC6727B6B09F0011F167 /* ProfileSetView.swift */; };
 		089E8A1B27AF52C700640A39 /* CommunityCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089E8A1A27AF52C700640A39 /* CommunityCardData.swift */; };
 		08A02A5727AE0B460043EEF0 /* MemberDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A02A5627AE0B460043EEF0 /* MemberDetail.swift */; };
 		08A02A5927AE13C90043EEF0 /* CommunityGroupCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A02A5827AE13C90043EEF0 /* CommunityGroupCardView.swift */; };
@@ -150,6 +151,7 @@
 		0880103427AE9A32002E49F0 /* SermonListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonListVM.swift; sourceTree = "<group>"; };
 		0880103627AEB88C002E49F0 /* CommunityCardListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCardListVMMock.swift; sourceTree = "<group>"; };
 		0880103827AEBB48002E49F0 /* CommunityMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainVM.swift; sourceTree = "<group>"; };
+		0894AC6727B6B09F0011F167 /* ProfileSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetView.swift; sourceTree = "<group>"; };
 		089E8A1A27AF52C700640A39 /* CommunityCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCardData.swift; sourceTree = "<group>"; };
 		08A02A5627AE0B460043EEF0 /* MemberDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDetail.swift; sourceTree = "<group>"; };
 		08A02A5827AE13C90043EEF0 /* CommunityGroupCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityGroupCardView.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 				08D2D8542787B074006897A4 /* LogInView.swift */,
 				08D8295E278D8116001E6B61 /* IntroView.swift */,
 				08BE775B2796D010008DC7B0 /* PastorLogInView.swift */,
+				0894AC6727B6B09F0011F167 /* ProfileSetView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1108,6 +1111,7 @@
 				08A02A6427AE20550043EEF0 /* GroupQuestion.swift in Sources */,
 				2434ED4927B2998D0091289B /* NewGroupQuestionView.swift in Sources */,
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,
+				0894AC6827B6B09F0011F167 /* ProfileSetView.swift in Sources */,
 				24BB803727565E2200BE2988 /* LocalDB.swift in Sources */,
 				2496FE8227B527B600E9DCEE /* SermonRepo.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */,

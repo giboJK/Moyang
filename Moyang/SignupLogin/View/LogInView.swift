@@ -45,7 +45,8 @@ struct LogInView: View {
                 }, label: {
                     Text("로그인")
                 })
-                    .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
+                    .buttonStyle(MoyangButtonStyle(.black,
+                                                   width: UIScreen.screenWidth - 80,
                                                    height: 50))
                     .padding(.bottom, 20)
                 Button(action: {
@@ -64,15 +65,22 @@ struct LogInView: View {
             }
         
             IndicatorView()
-                .hidden(!vm.isLoadingUserData)
+                .hidden(vm.isLoadingUserDataFinished)
                 .frame(width: 40, height: 40, alignment: .center)
         }
-        .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
+        .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: self.didDismiss, content: {
             MainView(rootIsActive: $vm.isLoginSuccess)
+        })
+        .fullScreenCover(isPresented: $vm.moveToProfileSetView, onDismiss: self.didDismiss, content: {
+            ProfileSetView()
         })
         .navigationTitle("로그인")
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
+    }
+    
+    func didDismiss() {
+        
     }
 }
 

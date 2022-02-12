@@ -34,10 +34,7 @@ class PastorLoginVM: ObservableObject {
             .sink { _ in
             } receiveValue: { _ in
                 if self.pastorList.contains(self.id.lowercased()) {
-                    UserData.shared.userID = self.id
-                    UserData.shared.password = self.password
-                    UserData.shared.isPastor = true
-                    self.fetchUserData()
+                    self.fetchUserData(id: self.id.lowercased())
                 } else {
                     self.isLoadingUserData = false
                     Log.e("No user")
@@ -58,12 +55,15 @@ class PastorLoginVM: ObservableObject {
         
     }
     
-    private func fetchUserData() {
-        loginService.fetchUserData()
+    private func fetchUserData(id: String) {
+        loginService.fetchUserData(id: id)
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 self.isLoadingUserData = false
             } receiveValue: { memberDetail in
+                UserData.shared.userID = self.id
+                UserData.shared.password = self.password
+                UserData.shared.isPastor = true
                 UserData.shared.myInfo = memberDetail
                 self.isLoginSuccess = true
             }.store(in: &cancellables)

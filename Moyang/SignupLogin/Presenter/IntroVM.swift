@@ -31,13 +31,13 @@ class IntroVM: ObservableObject {
             .sink { completion in
                 Log.i(completion)
             } receiveValue: { isSuccess in
-                self.fetchUserData()
+                self.fetchUserData(id: userID)
                 self.isLoginSuccess = isSuccess
             }.store(in: &cancellables)
     }
     
-    private func fetchUserData() {
-        loginService.fetchUserData()
+    private func fetchUserData(id: String) {
+        loginService.fetchUserData(id: id)
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 self.isLoadingUserData = false

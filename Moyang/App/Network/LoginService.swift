@@ -12,5 +12,5 @@ protocol LoginService {
     func login(id: String, pw: String) -> AnyPublisher<Bool, MoyangError>
     func pastorLogin(id: String, pw: String) -> AnyPublisher<Bool, MoyangError>
     func fetchPastorList() -> AnyPublisher<PastorList, MoyangError>
-    func fetchUserData() -> AnyPublisher<MemberDetail, MoyangError> 
+    func fetchUserData(id: String) -> AnyPublisher<MemberDetail, MoyangError>
 }
