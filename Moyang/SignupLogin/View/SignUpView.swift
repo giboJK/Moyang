@@ -12,12 +12,6 @@ struct SignUpView: View {
     
     var body: some View {
         VStack {
-            Text("Create account with your eamil")
-                .frame(width: UIScreen.screenWidth - 48, alignment: .leading)
-                .font(.title)
-                .padding(.top, 20)
-                .padding(.bottom, 32)
-                .foregroundColor(.nightSky1)
             TextField("Email", text: $vm.id)
                 .padding()
                 .background(Color.sheep2)
@@ -42,8 +36,9 @@ struct SignUpView: View {
                 .padding(.bottom, 24)
             Spacer()
         }
+        .navigationTitle("회원가입")
         .frame(maxWidth: .infinity)
-        .background(Color.sheep1)
+        .background(Color.sheep2)
     }
 }
 

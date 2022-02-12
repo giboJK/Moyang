@@ -18,6 +18,7 @@ struct MoyangApp: App {
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .sheep2
         appearance.titleTextAttributes = [.foregroundColor: UIColor.nightSky1]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.nightSky1]
 
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().tintColor = .nightSky1

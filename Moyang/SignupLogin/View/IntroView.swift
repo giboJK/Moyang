@@ -68,8 +68,6 @@ struct IntroView: View {
             })
             .frame(maxWidth: .infinity)
             .background(Color.sheep2)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarHidden(true)
         }
     }
 }
