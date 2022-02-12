@@ -15,8 +15,8 @@ struct IntroView: View {
             ZStack {
                 VStack(spacing: 0) {
                     Text("Moyang")
-                        .font(Font(uiFont: .systemFont(ofSize: 32, weight: .heavy)))
-                        .padding(.top, 160)
+                        .font(Font(uiFont: .systemFont(ofSize: 36, weight: .heavy)))
+                        .padding(.top, 160 - UIApplication.statusBarHeight)
                         .foregroundColor(.nightSky1)
                     
                     Spacer()
@@ -24,6 +24,7 @@ struct IntroView: View {
                         let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
                         NavigationLink(destination: SignUpView(vm: loginVM)) {
                             Text("Email 회원가입")
+                                .frame(width: UIScreen.screenWidth - 80, height: 50)
                         }
                     }
                     .buttonStyle(MoyangButtonStyle(.black,

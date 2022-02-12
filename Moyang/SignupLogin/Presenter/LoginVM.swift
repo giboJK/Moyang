@@ -21,6 +21,9 @@ class LoginVM: ObservableObject {
     
     @Published var moveToProfileSetView: Bool = false
     
+    @Published var isValidEmail: Bool = false
+    @Published var isValidPW: Bool = false
+    
     init(loginService: LoginService) {
         self.loginService = loginService
     }

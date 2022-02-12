@@ -16,4 +16,17 @@ extension UIApplication {
             .first?.windows
             .filter({ $0.isKeyWindow }).first?
             .windowScene?.statusBarManager?.statusBarFrame.height ?? 48 }
+    
+    static var appVersion: String? {
+        guard let dict = Bundle.main.infoDictionary else { return nil }
+        guard let version = dict["CFBundleShortVersionString"] as? String else { return nil }
+        return version
+    }
+    
+    static var appVersionWithBuild: String? {
+        guard let dict = Bundle.main.infoDictionary else { return nil }
+        guard let build = dict["CFBundleVersion"] as? String else { return nil }
+        guard let version = dict["CFBundleShortVersionString"] as? String else { return nil }
+        return version + "." + build
+    }
 }

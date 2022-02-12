@@ -41,7 +41,7 @@ struct MoyangButtonStyle: ButtonStyle {
                 .frame(width: width, height: height, alignment: .center)
                 .background(Color.ydGreen1)
                 .foregroundColor(.sheep1)
-                .cornerRadius(16)
+                .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .black:
             return configuration.label
@@ -49,7 +49,7 @@ struct MoyangButtonStyle: ButtonStyle {
                 .frame(width: width, height: height, alignment: .center)
                 .background(Color.nightSky1)
                 .foregroundColor(.sheep1)
-                .cornerRadius(16)
+                .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .secondary:
             return configuration.label
@@ -57,7 +57,7 @@ struct MoyangButtonStyle: ButtonStyle {
                 .frame(width: width, height: height, alignment: .center)
                 .background(Color.wilderness2)
                 .foregroundColor(.sheep1)
-                .cornerRadius(16)
+                .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .ghost:
             return configuration.label
@@ -65,7 +65,7 @@ struct MoyangButtonStyle: ButtonStyle {
                 .frame(width: width, height: height, alignment: .center)
                 .background(.clear)
                 .foregroundColor(.nightSky1)
-                .cornerRadius(16)
+                .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .warning:
             return configuration.label
@@ -73,7 +73,7 @@ struct MoyangButtonStyle: ButtonStyle {
                 .frame(width: width, height: height, alignment: .center)
                 .background(Color.appleRed1)
                 .foregroundColor(.sheep1)
-                .cornerRadius(16)
+                .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         }
     }

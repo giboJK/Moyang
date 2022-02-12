@@ -16,68 +16,26 @@ struct ProfileView: View {
             Text(vm.groupInfoItem.name)
                 .foregroundColor(.nightSky1)
                 .font(.system(size: 18, weight: .bold, design: .default))
-                .padding(.bottom, 24)
+                .padding(.bottom, 32)
             
-            Button(action: {
-                
-            }) {
-                HStack {
-                    Text("My account")
-                        .foregroundColor(.sheep1)
-                        .font(Font(uiFont: .systemFont(ofSize: 18, weight: .regular)))
-                    Spacer()
-                    Image(systemName: "person.crop.circle")
-                }
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-            }
-            .buttonStyle(MoyangButtonStyle(.primary, width: UIScreen.screenWidth - 40, height: 52))
-            
-            Button(action: {
-                
-            }) {
-                HStack {
-                    Text("Help & support")
-                        .foregroundColor(.sheep1)
-                        .font(Font(uiFont: .systemFont(ofSize: 18, weight: .regular)))
-                    Spacer()
-                    Image(systemName: "questionmark.circle")
-                }
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-            }
-            .buttonStyle(MoyangButtonStyle(.primary, width: UIScreen.screenWidth - 40, height: 52))
-            
-            Button(action: {
-                
-            }) {
-                HStack {
-                    Text("Email us")
-                        .foregroundColor(.sheep1)
-                        .font(Font(uiFont: .systemFont(ofSize: 18, weight: .regular)))
-                    Spacer()
-                    Image(systemName: "envelope")
-                }
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-            }
-            .buttonStyle(MoyangButtonStyle(.primary, width: UIScreen.screenWidth - 40, height: 52))
             
             Button(action: {
                 UserData.shared.resetUserData()
                 self.rootIsActive = false
             }) {
                 HStack {
-                    Text("Logout")
-                        .foregroundColor(.sheep1)
-                        .font(Font(uiFont: .systemFont(ofSize: 18, weight: .regular)))
+                    Text("로그아웃")
+                        .padding(.leading, 24)
                     Spacer()
                     Image(uiImage: Asset.Images.Profile.logout.image)
                         .renderingMode(.template)
                         .foregroundColor(.white)
+                        .padding(.trailing, 20)
                 }
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-            }
-            .buttonStyle(MoyangButtonStyle(.primary, width: UIScreen.screenWidth - 40, height: 52))
-            .padding(.top, 8)
-            
+            }.buttonStyle(MoyangButtonStyle(.black,
+                                            width: UIScreen.screenWidth - 80,
+                                            height: 50))
+                .padding(.bottom, 24)
             Spacer()
         }
         .padding(.top, 30)

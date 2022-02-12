@@ -11,30 +11,51 @@ struct SignUpView: View {
     @ObservedObject var vm: LoginVM
     
     var body: some View {
-        VStack {
-            TextField("Email", text: $vm.id)
-                .padding()
-                .background(Color.sheep2)
-                .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
-                .cornerRadius(12.0)
-                .padding(.bottom, 16)
-                .keyboardType(.emailAddress)
-            SecureField("Password", text: $vm.password)
-                .padding()
-                .background(Color.sheep2)
-                .frame(width: UIScreen.screenWidth - 48, height: 52, alignment: .center)
-                .cornerRadius(12.0)
-                .padding(.bottom, 24)
-            Button(action: {
-                vm.signup()
-            }, label: {
-                Text("회원가입")
-            })
-                .buttonStyle(MoyangButtonStyle(.black,
-                                               width: UIScreen.screenWidth - 48,
-                                               height: 52))
-                .padding(.bottom, 24)
-            Spacer()
+        ZStack {
+            VStack(spacing: 0) {
+                Text("Moyang")
+                    .font(Font(uiFont: .systemFont(ofSize: 36, weight: .heavy)))
+                    .padding(.top, 152 - UIApplication.statusBarHeight)
+                    .foregroundColor(.nightSky1)
+                
+                Spacer()
+                TextField("", text: $vm.id)
+                    .placeholder(when: vm.id.isEmpty) {
+                        Text("Email").foregroundColor(.sheep4)
+                    }
+                    .padding()
+                    .background(Color.sheep1)
+                    .frame(width: UIScreen.screenWidth - 80, height: 50, alignment: .center)
+                    .foregroundColor(.nightSky1)
+                    .cornerRadius(8)
+                    .padding(.bottom, 20)
+                    .keyboardType(.emailAddress)
+                
+                SecureField("", text: $vm.password)
+                    .placeholder(when: vm.password.isEmpty) {
+                        Text("Password").foregroundColor(.sheep4)
+                    }
+                    .padding()
+                    .background(Color.sheep1)
+                    .frame(width: UIScreen.screenWidth - 80, height: 50, alignment: .center)
+                    .foregroundColor(.nightSky1)
+                    .cornerRadius(8)
+                    .padding(.bottom, 32)
+                
+                Button(action: {
+                    vm.signup()
+                }) {
+                    Text("회원가입")
+                        .frame(width: UIScreen.screenWidth - 80, height: 50)
+                }.buttonStyle(MoyangButtonStyle(.black,
+                                                width: UIScreen.screenWidth - 80,
+                                                height: 50))
+                    .padding(.bottom, 20)
+            }
+            
+            IndicatorView()
+                .hidden(vm.isLoadingUserDataFinished)
+                .frame(width: 40, height: 40, alignment: .center)
         }
         .navigationTitle("회원가입")
         .frame(maxWidth: .infinity)
