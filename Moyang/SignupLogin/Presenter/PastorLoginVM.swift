@@ -29,7 +29,7 @@ class PastorLoginVM: ObservableObject {
     
     func login() {
         self.isLoadingUserData = true
-        loginService.pastorLogin(id: id, pw: password)
+        loginService.pastorLogin(id: id, pw: password, type: .email)
             .receive(on: DispatchQueue.main)
             .sink { _ in
             } receiveValue: { _ in
@@ -43,7 +43,7 @@ class PastorLoginVM: ObservableObject {
     }
     
     func fetchPastorList() {
-        loginService.fetchPastorList()
+        loginService.fetchPastorList(type: .email)
             .receive(on: DispatchQueue.main)
             .sink { _ in
             } receiveValue: { obj in
@@ -56,7 +56,7 @@ class PastorLoginVM: ObservableObject {
     }
     
     private func fetchUserData(id: String) {
-        loginService.fetchUserData(id: id)
+        loginService.fetchUserData(id: id, type: .email)
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 self.isLoadingUserData = false

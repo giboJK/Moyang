@@ -26,7 +26,7 @@ class LoginVM: ObservableObject {
     }
     
     func signup() {
-        loginService.signup(id: id, pw: password)
+        loginService.signup(id: id, pw: password, type: .email)
             .sink { completion in
                 Log.i(completion)
             } receiveValue: { isSuccess in
@@ -36,7 +36,7 @@ class LoginVM: ObservableObject {
     
     func login() {
         self.isLoadingUserDataFinished = false
-        loginService.login(id: id, pw: password)
+        loginService.login(id: id, pw: password, type: .email)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 Log.i(completion)
@@ -59,7 +59,7 @@ class LoginVM: ObservableObject {
     }
     
     private func fetchUserData(id: String) {
-        loginService.fetchUserData(id: id)
+        loginService.fetchUserData(id: id, type: .email)
             .receive(on: DispatchQueue.main)
             .catch { error -> AnyPublisher<MemberDetail, MoyangError> in
                 self.isLoadingUserDataFinished = true

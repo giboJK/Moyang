@@ -10,6 +10,7 @@ import Foundation
 struct MemberDetail: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
+    let authType: String
     var memberName: String
     var birth: String
     var email: String
@@ -20,6 +21,7 @@ struct MemberDetail: Codable, Identifiable {
     
     enum CodingKeys: String, CodingKey {
         case id
+        case authType = "auth_type"
         case memberName = "member_name"
         case birth
         case email

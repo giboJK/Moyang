@@ -38,6 +38,8 @@
 		08D2D8532787B05F006897A4 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8522787B05F006897A4 /* SignUpView.swift */; };
 		08D2D8552787B074006897A4 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8542787B074006897A4 /* LogInView.swift */; };
 		08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8572787B12F006897A4 /* LoginVM.swift */; };
+		08D449F227B94020004B0D8A /* ProfileSetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D449F127B94020004B0D8A /* ProfileSetVM.swift */; };
+		08D449F427B94D4B004B0D8A /* NavigationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D449F327B94D4B004B0D8A /* NavigationUtil.swift */; };
 		08D82953278D192C001E6B61 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82952278D192C001E6B61 /* LoginService.swift */; };
 		08D82955278D196F001E6B61 /* FirestoreLoginServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82954278D196F001E6B61 /* FirestoreLoginServiceImpl.swift */; };
 		08D82957278D2548001E6B61 /* MoyangButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */; };
@@ -173,6 +175,8 @@
 		08D2D8522787B05F006897A4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		08D2D8542787B074006897A4 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		08D2D8572787B12F006897A4 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		08D449F127B94020004B0D8A /* ProfileSetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetVM.swift; sourceTree = "<group>"; };
+		08D449F327B94D4B004B0D8A /* NavigationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtil.swift; sourceTree = "<group>"; };
 		08D82952278D192C001E6B61 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		08D82954278D196F001E6B61 /* FirestoreLoginServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreLoginServiceImpl.swift; sourceTree = "<group>"; };
 		08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButtonStyle.swift; sourceTree = "<group>"; };
@@ -414,6 +418,7 @@
 				08D2D8572787B12F006897A4 /* LoginVM.swift */,
 				24B652AE279589BA007CC58C /* IntroVM.swift */,
 				08BE775D2796D21F008DC7B0 /* PastorLoginVM.swift */,
+				08D449F127B94020004B0D8A /* ProfileSetVM.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -770,6 +775,7 @@
 			children = (
 				24D0D3272723144C006FF67B /* Extension */,
 				24D0D32C272314F7006FF67B /* Log.swift */,
+				08D449F327B94D4B004B0D8A /* NavigationUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1104,6 +1110,7 @@
 				24B8BCE92764C7AD005B0A9F /* DailyRepo.swift in Sources */,
 				246BD7C627240AD4005C4E0B /* PrayListVM.swift in Sources */,
 				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
+				08D449F227B94020004B0D8A /* ProfileSetVM.swift in Sources */,
 				08D8295B278D3327001E6B61 /* Color+.swift in Sources */,
 				246BD7F627240AE4005C4E0B /* GroupMeetingView.swift in Sources */,
 				08FBC5F9279143EC008BC236 /* ProfileView.swift in Sources */,
@@ -1154,6 +1161,7 @@
 				08D8295F278D8116001E6B61 /* IntroView.swift in Sources */,
 				24B47FF7276A1BD3003130E6 /* FirestoreServiceImpl.swift in Sources */,
 				24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */,
+				08D449F427B94D4B004B0D8A /* NavigationUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

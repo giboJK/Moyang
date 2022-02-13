@@ -18,7 +18,7 @@ class FirestoreLoginServiceImpl: LoginService {
         self.service = service
     }
     
-    func signup(id: String, pw: String) -> AnyPublisher<Bool, MoyangError> {
+    func signup(id: String, pw: String, type: LoginType) -> AnyPublisher<Bool, MoyangError> {
         return Future<Bool, MoyangError> { promise in
             Auth.auth().createUser(withEmail: id, password: pw) { _, error in
                 if let error = error {
@@ -30,7 +30,7 @@ class FirestoreLoginServiceImpl: LoginService {
         }.eraseToAnyPublisher()
     }
     
-    func login(id: String, pw: String) -> AnyPublisher<Bool, MoyangError> {
+    func login(id: String, pw: String, type: LoginType) -> AnyPublisher<Bool, MoyangError> {
         return Future<Bool, MoyangError> { promise in
             Auth.auth().signIn(withEmail: id, password: pw) { (result, error) in
                 if let error = error {
@@ -43,7 +43,7 @@ class FirestoreLoginServiceImpl: LoginService {
         }.eraseToAnyPublisher()
     }
     
-    func pastorLogin(id: String, pw: String) -> AnyPublisher<Bool, MoyangError> {
+    func pastorLogin(id: String, pw: String, type: LoginType) -> AnyPublisher<Bool, MoyangError> {
         return Future<Bool, MoyangError> { promise in
             Auth.auth().signIn(withEmail: id, password: pw) { (result, error) in
                 if let error = error {
@@ -56,19 +56,33 @@ class FirestoreLoginServiceImpl: LoginService {
         }.eraseToAnyPublisher()
     }
     
-    func fetchPastorList() -> AnyPublisher<PastorList, MoyangError> {
+    func fetchPastorList(type: LoginType) -> AnyPublisher<PastorList, MoyangError> {
         let ref = service.store
             .collection("PASTOR")
             .document("YD")
+            .collection("AUTH")
+            .document(type.rawValue)
         
         return service.fetchObject(ref: ref, type: PastorList.self)
     }
     
-    func fetchUserData(id: String) -> AnyPublisher<MemberDetail, MoyangError> {
+    func fetchUserData(id: String, type: LoginType) -> AnyPublisher<MemberDetail, MoyangError> {
         let ref = service.store
-            .collection(self.collectionName)
+            .collection("USER")
+            .document("AUTH")
+            .collection(type.rawValue)
             .document(id)
         
         return service.fetchObject(ref: ref, type: MemberDetail.self)
+    }
+    
+    func setUserData(memberDetail: MemberDetail) -> AnyPublisher<Bool, MoyangError> {
+        let ref = service.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(memberDetail.authType)
+            .document(memberDetail.id)
+        
+        return service.addDocument(memberDetail, ref: ref)
     }
 }

@@ -26,7 +26,7 @@ class IntroVM: ObservableObject {
         guard let pw = UserData.shared.password else { return }
         self.isLoadingUserData = true
         
-        loginService.login(id: userID, pw: pw)
+        loginService.login(id: userID, pw: pw, type: .email)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 Log.i(completion)
@@ -37,7 +37,7 @@ class IntroVM: ObservableObject {
     }
     
     private func fetchUserData(id: String) {
-        loginService.fetchUserData(id: id)
+        loginService.fetchUserData(id: id, type: .email)
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 self.isLoadingUserData = false
