@@ -21,7 +21,7 @@ struct ProfileView: View {
             
             Button(action: {
                 UserData.shared.resetUserData()
-                NavigationUtil.popToRootView()
+                self.rootIsActive = false
             }) {
                 HStack {
                     Text("로그아웃")

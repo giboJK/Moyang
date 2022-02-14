@@ -75,7 +75,7 @@ struct LogInView: View {
             MainView(rootIsActive: $vm.isLoginSuccess)
         })
         .fullScreenCover(isPresented: $vm.moveToProfileSetView, onDismiss: self.didDismiss, content: {
-            ProfileSetView(email: vm.id)
+            ProfileSetView(rootIsActive: $vm.isLoginSuccess, email: vm.id)
         })
         .navigationTitle("로그인")
         .frame(maxWidth: .infinity)

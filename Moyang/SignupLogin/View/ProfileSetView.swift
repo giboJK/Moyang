@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileSetView: View {
+    @Binding var rootIsActive: Bool
     @ObservedObject var vm = ProfileSetVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
     let email: String
     
@@ -68,7 +69,8 @@ struct ProfileSetView: View {
 }
 
 struct ProfileSetView_Previews: PreviewProvider {
+    @State static var value = true
     static var previews: some View {
-        ProfileSetView(email: "test@test.com")
+        ProfileSetView(rootIsActive: $value, email: "test@test.com")
     }
 }

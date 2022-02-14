@@ -10,7 +10,7 @@ import UIKit
 
 struct NavigationUtil {
     static func popToRootView() {
-        findNavigationController(viewController: UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController)?
+        findNavigationController(viewController: UIApplication.keyWindow?.rootViewController)?
             .popToRootViewController(animated: true)
     }
     
@@ -25,6 +25,10 @@ struct NavigationUtil {
         
         for childViewController in viewController.children {
             return findNavigationController(viewController: childViewController)
+        }
+        
+        if let nav = viewController.navigationController {
+            return nav
         }
         
         return nil
