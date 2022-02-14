@@ -13,7 +13,7 @@ class ProfileSetVM: ObservableObject {
     private let loginService: LoginService
     
     @Published var name: String = ""
-    @Published var birth: String = ""
+    @Published var birth: Date?
     
     @Published var isAddSuccess: Bool = false
     @Published var isAddingData: Bool = false
@@ -25,11 +25,14 @@ class ProfileSetVM: ObservableObject {
     deinit { Log.i(self) }
     
     func setUserProfile(email: String) {
+        guard let birth = birth else {
+            return
+        }
         let memberDetail = MemberDetail(id: UUID().uuidString,
                                         authType: "EMAIL",
                                         memberName: name,
-                                        birth: birth,
-                                        email: email,
+                                        birth: birth.toString("yyyy.MM.dd"),
+                                        email: email.lowercased(),
                                         groupList: [],
                                         mainGroup: "",
                                         startDate: Date().toString("yyyy.MM.dd"),

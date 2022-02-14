@@ -81,7 +81,7 @@ class FirestoreLoginServiceImpl: LoginService {
             .collection("USER")
             .document("AUTH")
             .collection(memberDetail.authType)
-            .document(memberDetail.id)
+            .document(memberDetail.email)
         
         return service.addDocument(memberDetail, ref: ref)
     }

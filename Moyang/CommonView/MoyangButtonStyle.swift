@@ -25,6 +25,7 @@ struct MoyangButtonStyle: ButtonStyle {
         case secondary
         case ghost
         case warning
+        case negative
     }
     
     let type: MoyangButtonType
@@ -75,6 +76,14 @@ struct MoyangButtonStyle: ButtonStyle {
                 .frame(width: width, height: height, alignment: .center)
                 .background(Color.appleRed1)
                 .foregroundColor(.sheep1)
+                .cornerRadius(12)
+                .opacity(configuration.isPressed ? 0.7 : 1.0)
+        case .negative:
+            return configuration.label
+                .font(ghostFont)
+                .frame(width: width, height: height, alignment: .center)
+                .background(.clear)
+                .foregroundColor(.appleRed1)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         }

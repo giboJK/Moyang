@@ -14,6 +14,13 @@ struct ProfileSetView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
+                Text("기본정보 입력")
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                    .padding(EdgeInsets(top: 104 - UIApplication.statusBarHeight, leading: 16, bottom: 100, trailing: 0))
+                    .font(.system(size: 32, weight: .bold, design: .default))
+                    .foregroundColor(.nightSky1)
+                
+                
                 TextField("", text: $vm.name)
                     .placeholder(when: vm.name.isEmpty) {
                         Text("이름").foregroundColor(.sheep4)
@@ -25,17 +32,17 @@ struct ProfileSetView: View {
                     .cornerRadius(8)
                     .padding(.bottom, 20)
                     .keyboardType(.emailAddress)
-                
-                SecureField("", text: $vm.birth)
-                    .placeholder(when: vm.birth.isEmpty) {
-                        Text("생일").foregroundColor(.sheep4)
-                    }
+                DatePickerTextField(textColor: .nightSky1,
+                                    placeholder: "생일",
+                                    placeholderColor: .sheep4,
+                                    date: $vm.birth)
                     .padding()
                     .background(Color.sheep1)
                     .frame(width: UIScreen.screenWidth - 80, height: 50, alignment: .center)
                     .foregroundColor(.nightSky1)
                     .cornerRadius(8)
-                    .padding(.bottom, 32)
+                
+                Spacer()
                 
                 Button(action: {
                     vm.setUserProfile(email: email)
@@ -46,7 +53,7 @@ struct ProfileSetView: View {
                                                 width: UIScreen.screenWidth - 80,
                                                 height: 50))
                     .padding(.bottom, 20)
-                    .disabled(!vm.birth.isEmpty || (vm.name.count >= 2) )
+                    .disabled((vm.birth == nil) || (vm.name.count < 2) )
             }
             IndicatorView()
                 .hidden(!vm.isAddingData)
