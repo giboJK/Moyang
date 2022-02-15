@@ -51,6 +51,7 @@ struct SermonCardView: View {
         }
         .frame(width: .infinity, height: 177, alignment: .leading)
         .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 24))
+        .background(Color.sheep1)
     }
 }
 

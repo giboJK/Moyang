@@ -16,6 +16,7 @@ struct CommunityMainView: View {
             VStack(spacing: 0) {
                 SermonCardView()
                 CommunityCardList(vm: vm.communityCardListVM)
+                    .padding(.top, 28)
                 
             }
             .background(Color.sheep2)

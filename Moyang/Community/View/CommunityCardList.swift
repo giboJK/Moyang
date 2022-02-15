@@ -13,7 +13,7 @@ struct CommunityCardList: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 28) {
+            VStack(spacing: 24) {
                 if vm.hasGroup {
                     NavigationLink(destination: GroupView()) {
                         CommunityGroupCardView(vm: vm.communityGroupCardVM)
