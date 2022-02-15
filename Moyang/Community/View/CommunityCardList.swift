@@ -13,9 +13,15 @@ struct CommunityCardList: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 20) {
-                NavigationLink(destination: GroupView()) {
+            VStack(spacing: 28) {
+                if vm.hasGroup {
+                    NavigationLink(destination: GroupView()) {
+                        CommunityGroupCardView(vm: vm.communityGroupCardVM)
+                            .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    }
+                } else {
                     CommunityGroupCardView(vm: vm.communityGroupCardVM)
+                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
                 NavigationLink(destination: PrayView()) {
                     CommunityPrayCardView()
@@ -24,6 +30,7 @@ struct CommunityCardList: View {
         }.onAppear {
             vm.fetchDailyPreview()
         }
+        .background(Color.sheep2)
     }
 }
 
@@ -36,6 +43,8 @@ enum MainCategory: String {
 
 struct CommunityCardList_Previews: PreviewProvider {
     static var previews: some View {
-        CommunityCardList(vm: CommunityCardListVMMock())
+        NavigationView {
+            CommunityCardList(vm: CommunityCardListVMMock())
+        }
     }
 }

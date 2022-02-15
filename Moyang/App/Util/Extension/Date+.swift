@@ -13,6 +13,13 @@ extension Date {
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
         return calendar.startOfDay(for: self)
     }
+    
+    var endOfDay: Date {
+        let cal = Calendar.current
+        var components = DateComponents()
+        components.day = 1
+        return cal.date(byAdding: components, to: self.startOfDay)!.addingTimeInterval(-1)
+    }
 
     func stringToDate(dateString: String) -> Date {
         let dateFormatter = DateFormatter()
@@ -111,5 +118,56 @@ extension Date {
         }
         
         return count
+    }
+}
+
+extension Date {
+    var firstDayOfWeek: Date {
+        var beginningOfWeek = Date()
+        var interval = TimeInterval()
+        
+        _ = Calendar.current.dateInterval(of: .weekOfYear, start: &beginningOfWeek, interval: &interval, for: self)
+        return beginningOfWeek
+    }
+    
+    func addWeeks(_ numWeeks: Int) -> Date {
+        var components = DateComponents()
+        components.weekOfYear = numWeeks
+        
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+    
+    func weeksAgo(_ numWeeks: Int) -> Date {
+        return addWeeks(-numWeeks)
+    }
+    
+    func addDays(_ numDays: Int) -> Date {
+        var components = DateComponents()
+        components.day = numDays
+        
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+    
+    func daysAgo(_ numDays: Int) -> Date {
+        return addDays(-numDays)
+    }
+    
+    func addHours(_ numHours: Int) -> Date {
+        var components = DateComponents()
+        components.hour = numHours
+        
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+    
+    func hoursAgo(_ numHours: Int) -> Date {
+        return addHours(-numHours)
+    }
+    
+    func addMinutes(_ numMinutes: Double) -> Date {
+        return self.addingTimeInterval(60 * numMinutes)
+    }
+    
+    func minutesAgo(_ numMinutes: Double) -> Date {
+        return addMinutes(-numMinutes)
     }
 }

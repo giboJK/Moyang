@@ -17,7 +17,7 @@ class SermonListVMMock: SermonListVM {
     
     deinit {
         Log.i(self)
-        disposables.removeAll()
+        cancellables.removeAll()
     }
     
     private func fetchSermonItem() {

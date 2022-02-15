@@ -18,13 +18,16 @@ struct CommunityMainView: View {
                 CommunityCardList(vm: vm.communityCardListVM)
                 
             }
-            .background(Color.sheep1)
+            .background(Color.sheep2)
         }
     }
 }
 
 struct CommunityMainView_Previews: PreviewProvider {
     static var previews: some View {
-        CommunityMainView()
+        NavigationView {
+            CommunityMainView()
+        }
+        .navigationBarHidden(true)
     }
 }

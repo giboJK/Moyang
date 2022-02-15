@@ -38,4 +38,29 @@ class SermonRepoImpl: SermonRepo {
         
         return service.addDocument(sermon, ref: ref)
     }
+    
+    func fetchSermonList() -> PassthroughSubject<[Sermon], MoyangError> {
+        let userInfo = UserData.shared.myInfo!
+        // TODO: parentGroup로 바꾸어야 함
+        let mainGroup = userInfo.mainGroup
+        guard let yearSubString = mainGroup.split(separator: "_").first else {
+            Log.e("")
+            return PassthroughSubject<[Sermon], MoyangError>()
+        }
+        guard let groupSubString = mainGroup.split(separator: "_").last else {
+            Log.e("")
+            return PassthroughSubject<[Sermon], MoyangError>()
+        }
+        let year = String(yearSubString)
+        let group = String(groupSubString)
+        
+        let ref = service.store
+            .collection(collectionName)
+            .document("YD")
+            .collection(year)
+            .document(group)
+            .collection("SERMON")
+        
+        return service.addListener(ref: ref, type: Sermon.self)
+    }
 }

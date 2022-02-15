@@ -15,6 +15,6 @@ class CommunityCardListVMMock: CommunityCardListVM {
     }
     
     override func fetchDailyPreview() {
-        
+        communityGroupCardVM = CommunityGroupCardVMMock()
     }
 }

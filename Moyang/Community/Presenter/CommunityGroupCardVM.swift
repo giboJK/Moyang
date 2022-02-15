@@ -11,7 +11,7 @@ import Combine
 class CommunityGroupCardVM: ObservableObject {
     private var disposables = Set<AnyCancellable>()
     
-    @Published var item = CommunityGroupCardVM.GroupItem()
+    @Published var item = CommunityGroupCardVM.GroupMeetingItem()
     
     init() {
         fetchGroupItem()
@@ -28,36 +28,47 @@ class CommunityGroupCardVM: ObservableObject {
 }
 
 extension CommunityGroupCardVM {
-    struct GroupItem {
+    struct GroupMeetingItem {
         let groupName: String
-        let questionDate: String
-        let questionList: [String]
+        let meetingDate: String
+        let groupQuestion: [GroupQuestion]
         let prayRegisterDate: String
         let lastestPrayDate: String
         let prayList: GroupMemberPrayList?
+        var totalQuestionCount = 0
+        var answeredQuestionCount = 0
         
         init() {
             groupName = ""
-            questionDate = ""
-            questionList = []
+            meetingDate = ""
+            groupQuestion = []
             prayRegisterDate = ""
             lastestPrayDate = ""
             prayList = nil
         }
         
         init(groupName: String,
-             questionDate: String,
-             questionList: [String],
+             meetingDate: String,
+             groupQuestion: [GroupQuestion],
              prayRegisterDate: String,
              lastestPrayDate: String,
              prayList: GroupMemberPrayList?
         ) {
             self.groupName = groupName
-            self.questionDate = questionDate
-            self.questionList = questionList
+            self.meetingDate = meetingDate
+            self.groupQuestion = groupQuestion
             self.prayRegisterDate = prayRegisterDate
             self.lastestPrayDate = lastestPrayDate
             self.prayList = prayList
+            self.totalQuestionCount = groupQuestion.count
+            var answered = 0
+            groupQuestion.forEach { groupQuestion in
+                if groupQuestion.question.isAnswered {
+                    answered += 1
+                }
+            }
+            self.answeredQuestionCount = answered
+            
         }
     }
 }

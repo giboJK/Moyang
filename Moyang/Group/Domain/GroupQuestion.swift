@@ -34,9 +34,9 @@ struct Question: Codable {
         isAnswered = false
     }
     
-    init(sentence: String, answer: String) {
+    init(sentence: String, answer: String, isAnswered: Bool = false) {
         self.sentence = sentence
         self.answer = answer
-        isAnswered = false
+        self.isAnswered = isAnswered
     }
 }

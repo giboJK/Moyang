@@ -10,10 +10,9 @@ import SwiftUI
 struct MainCard: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
-            .foregroundColor(Color.black)
-            .background(Color.white)
-            .cornerRadius(10)
+            .foregroundColor(Color.nightSky1)
+            .background(Color.sheep1)
+            .cornerRadius(12)
             .shadow(color: .gray.opacity(0.4), radius: 4, x: 3.0, y: 3)
     }
 }
