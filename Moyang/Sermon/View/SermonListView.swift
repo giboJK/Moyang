@@ -2,43 +2,19 @@
 //  SermonListView.swift
 //  Moyang
 //
-//  Created by kibo on 2022/02/05.
+//  Created by 정김기보 on 2022/02/16.
 //
 
 import SwiftUI
 
 struct SermonListView: View {
-    @ObservedObject var vm: SermonListVM
-    
     var body: some View {
-        ZStack {
-            ScrollView(.vertical, showsIndicators: true) {
-                
-            }
-            VStack(spacing: 0) {
-                Spacer()
-                Button(action: {}) {
-                    NavigationLink(destination: NewSermonView()) {
-                        Text("설교 추가")
-                            .frame(width: UIScreen.screenWidth - 80,
-                                   height: 50)
-                    }
-                }.buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
-                                                height: 50))
-                .padding(.bottom, 10)
-            }
-        }
-        .navigationTitle("설교 목록")
-        .frame(maxWidth: .infinity)
-        .background(Color.sheep2)
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 struct SermonListView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        NavigationView {
-            SermonListView(vm: SermonListVMMock())
-        }
+        SermonListView()
     }
 }
