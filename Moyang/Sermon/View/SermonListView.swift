@@ -88,9 +88,11 @@ struct SermonListView: View {
             VStack(spacing: 0) {
                 Spacer()
                 Button(action: {
-                    
                 }) {
-                    Image(systemName: "plus")
+                    NavigationLink(destination: NavigationLazyView(NewSermonView())) {
+                        Image(systemName: "plus")
+                    }
+                    
                 }
                 .buttonStyle(MoyangButtonStyle(.black,
                                                width: 80,
@@ -108,7 +110,6 @@ struct SermonListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             SermonListView(vm: SermonListVMMock())
-//        SermonListView()
         }
     }
 }
