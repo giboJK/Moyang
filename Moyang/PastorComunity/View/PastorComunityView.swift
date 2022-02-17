@@ -13,6 +13,7 @@ struct PastorComunityView: View {
     var body: some View {
         VStack(spacing: 40) {
             Button(action: {}) {
+//                NavigationLink(destination: SermonListView()) {
                 NavigationLink(destination: SermonListView(vm: SermonListVM())) {
                     Text("설교 목록")
                         .frame(width: UIScreen.screenWidth - 80,
@@ -23,7 +24,7 @@ struct PastorComunityView: View {
                                             height: 50))
             
             Button(action: {}) {
-                NavigationLink(destination: SermonListView(vm: SermonListVM())) {
+                NavigationLink(destination: EmptyView()) {
                     Text("공동체 그룹")
                         .frame(width: UIScreen.screenWidth - 80,
                                height: 50)
@@ -33,7 +34,7 @@ struct PastorComunityView: View {
                                             height: 50))
             
             Button(action: {}) {
-                NavigationLink(destination: SermonListView(vm: SermonListVM())) {
+                NavigationLink(destination: EmptyView()) {
                     Text("공동체 기도 목록")
                         .frame(width: UIScreen.screenWidth - 80,
                                height: 50)

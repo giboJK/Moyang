@@ -13,6 +13,7 @@ class CommunityCardListVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     @Published var communityGroupCardVM = CommunityGroupCardVM()
+    @Published var communityPrayCardVM = CommunityPrayCardVM()
     @Published var hasGroup: Bool = false
     
     init() {

@@ -32,7 +32,6 @@ class IntroVM: ObservableObject {
                 Log.i(completion)
             } receiveValue: { isSuccess in
                 self.fetchUserData(id: userID)
-                self.isLoginSuccess = isSuccess
             }.store(in: &cancellables)
     }
     

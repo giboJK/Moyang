@@ -8,13 +8,45 @@
 import SwiftUI
 
 struct SermonListView: View {
+    @ObservedObject var vm: SermonListVM
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 0) {
+                    ForEach(vm.itemList.indices, id: \.self) { i in
+                        
+                        
+                        
+                        
+                    }
+                }
+            }
+            
+            VStack(spacing: 0) {
+                Spacer()
+                Button(action: {
+                    
+                }) {
+                    Image(systemName: "plus")
+                }
+                .buttonStyle(MoyangButtonStyle(.black,
+                                               width: 80,
+                                               height: 50))
+                .padding(.bottom, 10)
+            }
+        }
+        .navigationTitle("설교 목록")
+        .frame(maxWidth: .infinity)
+        .background(Color.sheep2)
     }
 }
 
 struct SermonListView_Previews: PreviewProvider {
     static var previews: some View {
-        SermonListView()
+        NavigationView {
+            SermonListView(vm: SermonListVMMock())
+//        SermonListView()
+        }
     }
 }

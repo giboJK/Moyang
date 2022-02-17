@@ -23,7 +23,7 @@ class SermonListVM: ObservableObject {
         cancellables.removeAll()
     }
     
-    private func fetchSermonItem() {
+    func fetchSermonItem() {
         repo.fetchSermonList()
             .sink(receiveCompletion: { completion in
                 Log.i(completion)

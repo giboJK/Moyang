@@ -60,7 +60,6 @@ struct CommunityGroupCardView: View {
                         .background(Color.sheep3)
                         .padding(.bottom, 12)
                         
-                    
                     ForEach(0..<min(2, vm.item.groupQuestion.count), id: \.self) { i in
                         let item = vm.item.groupQuestion[i]
                         if item.question.isAnswered {
@@ -127,43 +126,6 @@ struct CommunityGroupCardView: View {
                 .modifier(MainCard())
                 .eraseToAnyView()
             }
-            
-            //            VStack(spacing: 0) {
-            //                HStack {
-            //                    Text(vm.item.groupName)
-            //                        .padding(.leading, 8)
-            //                        .font(.system(size: 16, weight: .semibold, design: .default))
-            //                        .foregroundColor(.nightSky1)
-            //                    Spacer()
-            //                    Image(systemName: "chevron.right")
-            //                }
-            //                .padding(.bottom, 8)
-            //
-            //                VStack(spacing: 0) {
-            //                    HStack {
-            //                        Text("2022.01.30 나눔질문")
-            //                        Spacer()
-            //                        Text("1 / 4")
-            //                    }
-            //                    Divider()
-            //                    Text("· 오늘 본문을 보면서")
-            //                        .frame(maxWidth: .infinity, alignment: .leading)
-            //                    Text("· 귀신들린")
-            //                        .frame(maxWidth: .infinity, alignment: .leading)
-            //                    HStack {
-            //                        Text("2022.01.30 기도")
-            //                        Spacer()
-            //                        Text("Last pray date: 2022.01.31")
-            //                    }.padding(.top, 20)
-            //                    Divider()
-            //                    Text("· 정김기보: 부끄부끄")
-            //                        .frame(maxWidth: .infinity, alignment: .leading)
-            //                    Text("· 정김기보: 안 부끄부끄로")
-            //                        .frame(maxWidth: .infinity, alignment: .leading)
-            //                }
-            //                .modifier(MainCard())
-            //                .eraseToAnyView()
-            //            }
         }
     }
 }

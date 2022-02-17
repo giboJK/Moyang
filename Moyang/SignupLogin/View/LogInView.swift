@@ -51,7 +51,7 @@ struct LogInView: View {
                                                    width: UIScreen.screenWidth - 80,
                                                    height: 50))
                     .padding(.bottom, 20)
-                    .disabled(!vm.id.isValidEmail || (vm.password.count < 6) )
+                    .disabled(!vm.id.isValidEmail || (vm.password.count < 6))
                 
                 Button(action: {
                     vm.findPassword()
