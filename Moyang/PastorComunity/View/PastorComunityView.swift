@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct PastorComunityView: View {
-    //    @State var isSermonList = false
     
     var body: some View {
         VStack(spacing: 40) {
             Button(action: {}) {
-//                NavigationLink(destination: SermonListView()) {
-                NavigationLink(destination: SermonListView(vm: SermonListVM())) {
+                NavigationLink(destination: NavigationLazyView(SermonListView(vm: SermonListVM()))) {
                     Text("설교 목록")
                         .frame(width: UIScreen.screenWidth - 80,
                                height: 50)
