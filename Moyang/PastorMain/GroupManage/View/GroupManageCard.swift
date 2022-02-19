@@ -27,7 +27,7 @@ struct GroupManageCard: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.nightSky1)
                         .font(.system(size: 15, weight: .regular, design: .default))
-                        .padding(.trailing, 12)
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12))
                 }
                 .padding(.top, 8)
                 HStack(spacing: 0) {
@@ -40,7 +40,7 @@ struct GroupManageCard: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.nightSky1)
                         .font(.system(size: 15, weight: .regular, design: .default))
-                        .padding(.trailing, 12)
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12))
                 }
                 .padding(.bottom, 8)
             }

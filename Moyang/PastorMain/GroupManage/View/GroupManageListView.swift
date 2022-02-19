@@ -26,7 +26,7 @@ struct GroupManageListView: View {
                 Spacer()
                 Button(action: {
                 }) {
-                    NavigationLink(destination: NavigationLazyView(NewSermonView())) {
+                    NavigationLink(destination: NavigationLazyView(AddNewGroupView(vm: AddNewGroupVM()))) {
                         Image(systemName: "plus")
                     }
                 }
