@@ -79,6 +79,7 @@
 		24755367277CA9AB001908A6 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24755366277CA9AB001908A6 /* UserData.swift */; };
 		2481EF22276D9D3900C70E26 /* GroupCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481EF21276D9D3900C70E26 /* GroupCardVM.swift */; };
 		248AF71D27C06BF4004AA283 /* SermonPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248AF71C27C06BF4004AA283 /* SermonPreviewCard.swift */; };
+		248AF71F27C09B2E004AA283 /* GroupManageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248AF71E27C09B2E004AA283 /* GroupManageCard.swift */; };
 		248FEC102723A08D00321E5E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC0F2723A08D00321E5E /* MainView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
@@ -226,6 +227,7 @@
 		24755366277CA9AB001908A6 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		2481EF21276D9D3900C70E26 /* GroupCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCardVM.swift; sourceTree = "<group>"; };
 		248AF71C27C06BF4004AA283 /* SermonPreviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonPreviewCard.swift; sourceTree = "<group>"; };
+		248AF71E27C09B2E004AA283 /* GroupManageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManageCard.swift; sourceTree = "<group>"; };
 		248FEC0F2723A08D00321E5E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -752,6 +754,7 @@
 			isa = PBXGroup;
 			children = (
 				24B9B6FE27BFE90A007A12C6 /* GroupManageListView.swift */,
+				248AF71E27C09B2E004AA283 /* GroupManageCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1184,6 +1187,7 @@
 				0894AC6827B6B09F0011F167 /* ProfileSetView.swift in Sources */,
 				24BB803727565E2200BE2988 /* LocalDB.swift in Sources */,
 				2496FE8227B527B600E9DCEE /* SermonRepo.swift in Sources */,
+				248AF71F27C09B2E004AA283 /* GroupManageCard.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */,
 				08A02A5727AE0B460043EEF0 /* MemberDetail.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,

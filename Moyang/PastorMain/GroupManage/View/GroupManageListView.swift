@@ -11,7 +11,39 @@ struct GroupManageListView: View {
     @ObservedObject var vm: GroupManageListVM
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            List {
+                ForEach(vm.itemList) { item in
+                    GroupManageCard(item: item)
+                        .listRowSeparator(.hidden)
+                }
+                .onDelete(perform: deleteItems)
+                .listRowBackground(Color.clear)
+            }.padding(EdgeInsets(top: 8, leading: 0, bottom: 72, trailing: 0))
+                .listStyle(.plain)
+            
+            VStack(spacing: 0) {
+                Spacer()
+                Button(action: {
+                }) {
+                    NavigationLink(destination: NavigationLazyView(NewSermonView())) {
+                        Image(systemName: "plus")
+                    }
+                }
+                .buttonStyle(MoyangButtonStyle(.black,
+                                               width: 80,
+                                               height: 50))
+                .padding(.bottom, 10)
+                .listRowSeparator(.hidden, edges: .all)
+            }
+        }
+        .navigationTitle("공동체 그룹")
+        .frame(maxWidth: .infinity)
+        .background(Color.sheep2)
+    }
+    
+    func deleteItems(at offsets: IndexSet) {
+        vm.itemList.remove(atOffsets: offsets)
     }
 }
 

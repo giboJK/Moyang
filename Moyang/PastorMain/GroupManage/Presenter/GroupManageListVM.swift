@@ -27,13 +27,15 @@ class GroupManageListVM: ObservableObject {
 }
 
 extension GroupManageListVM {
-    struct GroupItem {
+    struct GroupItem: Identifiable {
+        let id: String
         let name: String
         let leader: GroupMember
         let memberList: [GroupMember]
         let parentGroup: String
         
         init(groupInfo: GroupInfo) {
+            id = UUID().uuidString
             name = groupInfo.groupName
             leader = groupInfo.leader
             memberList = groupInfo.memberList

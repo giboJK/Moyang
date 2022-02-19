@@ -20,7 +20,7 @@ struct SermonListView: View {
                 }
                 .onDelete(perform: deleteItems)
                 .listRowBackground(Color.clear)
-            }.padding(EdgeInsets(top: 0, leading: 0, bottom: 72, trailing: 0))
+            }.padding(EdgeInsets(top: 8, leading: 0, bottom: 72, trailing: 0))
                 .listStyle(.plain)
             
             VStack(spacing: 0) {
