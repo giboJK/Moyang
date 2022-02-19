@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewSermonView: View {
-    @ObservedObject var vm: NewSermonVM = NewSermonVM()
+    @StateObject var vm: NewSermonVM = NewSermonVM()
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {

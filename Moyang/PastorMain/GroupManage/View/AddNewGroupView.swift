@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddNewGroupView: View {
-    @ObservedObject var vm: AddNewGroupVM
+    @StateObject var vm: AddNewGroupVM
     
     var body: some View {
         
@@ -16,6 +16,8 @@ struct AddNewGroupView: View {
             Text("소속")
                 .foregroundColor(.nightSky1)
                 .font(.system(size: 16, weight: .semibold, design: .default))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(EdgeInsets(top: 20, leading: 24, bottom: 4, trailing: 24))
             TextField("", text: $vm.division)
                 .placeholder(when: vm.division.isEmpty) {
                     Text("소속").foregroundColor(.sheep4)
@@ -27,9 +29,12 @@ struct AddNewGroupView: View {
                 .cornerRadius(8)
                 .padding(.bottom, 16)
             
-            Text("셀 이름")
+            Text("그룹 이름")
                 .foregroundColor(.nightSky1)
                 .font(.system(size: 16, weight: .semibold, design: .default))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(EdgeInsets(top: 0, leading: 24, bottom: 4, trailing: 24))
+            
             TextField("", text: $vm.name)
                 .placeholder(when: vm.name.isEmpty) {
                     Text("셀 이름").foregroundColor(.sheep4)
@@ -44,9 +49,14 @@ struct AddNewGroupView: View {
             Text("리더")
                 .foregroundColor(.nightSky1)
                 .font(.system(size: 16, weight: .semibold, design: .default))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(EdgeInsets(top: 0, leading: 24, bottom: 4, trailing: 24))
             Text("구성원")
                 .foregroundColor(.nightSky1)
                 .font(.system(size: 16, weight: .semibold, design: .default))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(EdgeInsets(top: 0, leading: 24, bottom: 4, trailing: 24))
+            Spacer()
             
         }
         .navigationTitle("새 그룹 추가")
