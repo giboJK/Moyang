@@ -78,6 +78,7 @@
 		246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E727240AE4005C4E0B /* GroupPreview.swift */; };
 		24755367277CA9AB001908A6 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24755366277CA9AB001908A6 /* UserData.swift */; };
 		2481EF22276D9D3900C70E26 /* GroupCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481EF21276D9D3900C70E26 /* GroupCardVM.swift */; };
+		248AF71D27C06BF4004AA283 /* SermonPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248AF71C27C06BF4004AA283 /* SermonPreviewCard.swift */; };
 		248FEC102723A08D00321E5E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC0F2723A08D00321E5E /* MainView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
@@ -109,6 +110,9 @@
 		24B8BCE92764C7AD005B0A9F /* DailyRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */; };
 		24B8BCED2764C7FF005B0A9F /* DailyRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */; };
 		24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEE2764C939005B0A9F /* DailyPreview.swift */; };
+		24B9B6FF27BFE90A007A12C6 /* GroupManageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B6FE27BFE90A007A12C6 /* GroupManageListView.swift */; };
+		24B9B70227BFE93A007A12C6 /* GroupManageListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B70127BFE93A007A12C6 /* GroupManageListVM.swift */; };
+		24B9B70527BFF012007A12C6 /* GroupManageListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B70427BFF012007A12C6 /* GroupManageListVMMock.swift */; };
 		24B9B86727A01DA4009FADC8 /* GroupEditPrayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B86627A01DA4009FADC8 /* GroupEditPrayVM.swift */; };
 		24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B86827A03B5F009FADC8 /* Encodable+.swift */; };
 		24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9BF6C275AEB7B0056E694 /* UIColor+.swift */; };
@@ -221,6 +225,7 @@
 		246BD7E727240AE4005C4E0B /* GroupPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupPreview.swift; sourceTree = "<group>"; };
 		24755366277CA9AB001908A6 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		2481EF21276D9D3900C70E26 /* GroupCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCardVM.swift; sourceTree = "<group>"; };
+		248AF71C27C06BF4004AA283 /* SermonPreviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonPreviewCard.swift; sourceTree = "<group>"; };
 		248FEC0F2723A08D00321E5E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -253,6 +258,9 @@
 		24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepo.swift; sourceTree = "<group>"; };
 		24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepoImpl.swift; sourceTree = "<group>"; };
 		24B8BCEE2764C939005B0A9F /* DailyPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPreview.swift; sourceTree = "<group>"; };
+		24B9B6FE27BFE90A007A12C6 /* GroupManageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManageListView.swift; sourceTree = "<group>"; };
+		24B9B70127BFE93A007A12C6 /* GroupManageListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManageListVM.swift; sourceTree = "<group>"; };
+		24B9B70427BFF012007A12C6 /* GroupManageListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManageListVMMock.swift; sourceTree = "<group>"; };
 		24B9B86627A01DA4009FADC8 /* GroupEditPrayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEditPrayVM.swift; sourceTree = "<group>"; };
 		24B9B86827A03B5F009FADC8 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		24B9BF6C275AEB7B0056E694 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
@@ -338,6 +346,7 @@
 				24A757B427B1444D00D94002 /* GroupQuestionList.swift */,
 				2434ED4827B2998D0091289B /* NewGroupQuestionView.swift */,
 				24D1F53527BD45FD0026D65D /* SermonListView.swift */,
+				248AF71C27C06BF4004AA283 /* SermonPreviewCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -680,6 +689,9 @@
 		24B812F027984A9500BD1B3E /* PastorMain */ = {
 			isa = PBXGroup;
 			children = (
+				24B9B6FC27BFE8EE007A12C6 /* GroupManage */,
+				24A9B87B279D9C08003468DB /* PastorComunity */,
+				0880102F27AE99FD002E49F0 /* Sermon */,
 				24B812F427984E9400BD1B3E /* Presenter */,
 				24B812F327984C0400BD1B3E /* View */,
 			);
@@ -727,6 +739,40 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		24B9B6FC27BFE8EE007A12C6 /* GroupManage */ = {
+			isa = PBXGroup;
+			children = (
+				24B9B70027BFE92D007A12C6 /* Presenter */,
+				24B9B6FD27BFE8F7007A12C6 /* View */,
+			);
+			path = GroupManage;
+			sourceTree = "<group>";
+		};
+		24B9B6FD27BFE8F7007A12C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				24B9B6FE27BFE90A007A12C6 /* GroupManageListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		24B9B70027BFE92D007A12C6 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				24B9B70327BFE93E007A12C6 /* Mock */,
+				24B9B70127BFE93A007A12C6 /* GroupManageListVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		24B9B70327BFE93E007A12C6 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				24B9B70427BFF012007A12C6 /* GroupManageListVMMock.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
 		24BB803327565E0800BE2988 /* DB */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,8 +812,6 @@
 				242D745A274267AA0053EF2A /* CommonView */,
 				248FEC0E2723A07D00321E5E /* Main */,
 				24B812F027984A9500BD1B3E /* PastorMain */,
-				24A9B87B279D9C08003468DB /* PastorComunity */,
-				0880102F27AE99FD002E49F0 /* Sermon */,
 				246BD7DC27240AE4005C4E0B /* Group */,
 				246BD7AD27240AD4005C4E0B /* Pray */,
 				08D2D8502787B010006897A4 /* SignupLogin */,
@@ -1116,6 +1160,7 @@
 				246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */,
 				24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */,
 				24A55F64279AFE7D007DDE02 /* String+.swift in Sources */,
+				248AF71D27C06BF4004AA283 /* SermonPreviewCard.swift in Sources */,
 				082371B527BA7C2B0050420E /* TermsView.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
 				24A757B527B1444D00D94002 /* GroupQuestionList.swift in Sources */,
@@ -1142,6 +1187,7 @@
 				246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */,
 				08A02A5727AE0B460043EEF0 /* MemberDetail.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
+				24B9B70527BFF012007A12C6 /* GroupManageListVMMock.swift in Sources */,
 				24BB327C27656735002131BF /* CommunityCardListVM.swift in Sources */,
 				24A757B927B149C500D94002 /* GroupQuestionListVMMock.swift in Sources */,
 				089E8A1B27AF52C700640A39 /* CommunityCardData.swift in Sources */,
@@ -1155,6 +1201,7 @@
 				08CE42012780059A003352E0 /* FirestoreService.swift in Sources */,
 				242D745C274267C80053EF2A /* MainCard.swift in Sources */,
 				246BD7C327240AD4005C4E0B /* PrayRepo.swift in Sources */,
+				24B9B6FF27BFE90A007A12C6 /* GroupManageListView.swift in Sources */,
 				08B142E027AFBD5B000952FF /* NewSermonVMMock.swift in Sources */,
 				0819D91F27AD1E8A009F97BF /* SermonCardVM.swift in Sources */,
 				246BD7F527240AE4005C4E0B /* GroupSubjectHistoryView.swift in Sources */,
@@ -1170,6 +1217,7 @@
 				08D82953278D192C001E6B61 /* LoginService.swift in Sources */,
 				0819D91D27AD1E52009F97BF /* SermonCardView.swift in Sources */,
 				08A02A5927AE13C90043EEF0 /* CommunityGroupCardView.swift in Sources */,
+				24B9B70227BFE93A007A12C6 /* GroupManageListVM.swift in Sources */,
 				24755367277CA9AB001908A6 /* UserData.swift in Sources */,
 				24D1F53227BD3B110026D65D /* CommunityPrayCardVM.swift in Sources */,
 				246BD7F327240AE4005C4E0B /* GroupMeetingVM.swift in Sources */,

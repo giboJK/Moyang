@@ -39,7 +39,8 @@ class SermonListVM: ObservableObject {
 }
 
 extension SermonListVM {
-    struct SermonItem {
+    struct SermonItem: Identifiable {
+        let id: String
         let title: String
         let subtitle: String
         let bible: String
@@ -47,6 +48,7 @@ extension SermonListVM {
         let date: String
         
         init(sermon: Sermon) {
+            id = UUID().uuidString
             title = sermon.title
             subtitle = sermon.subtitle
             bible = sermon.bible
