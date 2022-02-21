@@ -58,10 +58,7 @@ struct SearchBar: View {
 }
 
 struct SearchBar_Previews: PreviewProvider {
-    @State static var text = ""
-    @State static var isEditing = false
-    
     static var previews: some View {
-        SearchBar(text: $text, isEditing: $isEditing)
+        SearchBar(text: .constant(""), isEditing: .constant(false))
     }
 }

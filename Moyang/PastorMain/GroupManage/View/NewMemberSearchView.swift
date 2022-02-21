@@ -18,19 +18,21 @@ struct NewMemberSearchView: View {
         .compactMap { Locale.current.localizedString(forRegionCode: $0) }
     
     var body: some View {
-        List {
-            Section.init(header: SearchBar(text: $searchText, isEditing: $isEditing),
-                         content: {
+        VStack {
+            SearchBar(text: $searchText, isEditing: $isEditing)
+                .padding(EdgeInsets(top: 0, leading: 12, bottom: 8, trailing: 12))
+            List {
                 ForEach(countryList
                             .filter { searchText.isEmpty ? true : $0.contains(searchText) },
                         id: \.self) { country in
                     Text(country)
                         .listRowSeparator(.hidden)
+                        .foregroundColor(.nightSky1)
                 }
-                    .listRowBackground(Color.clear)
-            })
+                        .listRowBackground(Color.clear)
+            }
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
         .navigationTitle(title)
         .navigationBarHidden(isEditing)
         .background(Color.sheep2)
