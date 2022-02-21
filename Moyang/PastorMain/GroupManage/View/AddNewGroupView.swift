@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AddNewGroupView: View {
     @StateObject var vm: AddNewGroupVM
+    @State var newLeader = false
+    @State var newMember = false
     
     var body: some View {
         
@@ -46,18 +48,60 @@ struct AddNewGroupView: View {
                 .cornerRadius(8)
                 .padding(.bottom, 16)
             
-            Text("리더")
-                .foregroundColor(.nightSky1)
-                .font(.system(size: 16, weight: .semibold, design: .default))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(EdgeInsets(top: 0, leading: 24, bottom: 4, trailing: 24))
-            Text("구성원")
-                .foregroundColor(.nightSky1)
-                .font(.system(size: 16, weight: .semibold, design: .default))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(EdgeInsets(top: 0, leading: 24, bottom: 4, trailing: 24))
-            Spacer()
+            HStack(spacing: 0) {
+                Text("리더")
+                    .foregroundColor(.nightSky1)
+                    .font(.system(size: 16, weight: .semibold, design: .default))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(EdgeInsets(top: 0, leading: 24, bottom: 4, trailing: 24))
+                Spacer()
+                Button(action: {
+                    //                    vm.addQuestion()
+                    newLeader.toggle()
+                }) {
+                    Image(systemName: "plus.app.fill")
+                        .foregroundColor(.nightSky1)
+                }
+                .frame(width: 24, height: 24)
+                .padding(.trailing, 16)
+                
+                NavigationLink(destination: NewMemberSearchView(title: "리더 추가",
+                                                                vm: AddNewGroupVM()),
+                               isActive: $newLeader) {}
+            }
             
+            Text(vm.leaderName)
+                .foregroundColor(.nightSky1)
+                .font(.system(size: 16, weight: .semibold, design: .default))
+                .background(Color.sheep1)
+            
+            HStack(spacing: 0) {
+                Text("구성원")
+                    .foregroundColor(.nightSky1)
+                    .font(.system(size: 16, weight: .semibold, design: .default))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(EdgeInsets(top: 0, leading: 24, bottom: 4, trailing: 24))
+                Spacer()
+                Button(action: {
+                    newMember.toggle()
+                }) {
+                    Image(systemName: "plus.app.fill")
+                        .foregroundColor(.nightSky1)
+                }
+                .frame(width: 24, height: 24)
+                .padding(.trailing, 16)
+                
+                NavigationLink(destination: NewMemberSearchView(title: "구성원 추가",
+                                                                vm: AddNewGroupVM()),
+                               isActive: $newMember) {}
+            }
+            
+            Text(vm.leaderName)
+                .foregroundColor(.nightSky1)
+                .font(.system(size: 16, weight: .semibold, design: .default))
+                .background(Color.sheep1)
+            
+            Spacer()
         }
         .navigationTitle("새 그룹 추가")
         .frame(maxWidth: .infinity)

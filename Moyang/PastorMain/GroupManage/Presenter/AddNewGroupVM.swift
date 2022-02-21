@@ -16,6 +16,8 @@ class AddNewGroupVM: ObservableObject {
     @Published var leaderName = ""
     @Published var memberList = [String]()
     
+    @Published var keyword = ""
+    
     init() {
     }
     
