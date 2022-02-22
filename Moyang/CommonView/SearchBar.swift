@@ -16,23 +16,26 @@ struct SearchBar: View {
             HStack {
                 TextField("", text: $text)
                     .placeholder(when: text.isEmpty) {
-                        Text("Search...").foregroundColor(.sheep4)
+                        Text("이름").foregroundColor(.sheep4)
                     }
                     .padding(8)
                     .padding(.horizontal, 28)
                     .background(Color.sheep1)
                     .foregroundColor(.nightSky1)
                     .font(.system(size: 16, weight: .regular, design: .default))
-                    .cornerRadius(8)
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.sheep4, lineWidth: 1)
+                    )
                     .onTapGesture {
                         withAnimation {
-                            isEditing.toggle()
+                            isEditing = true
                         }
                     }
                 if isEditing && text.count != 0 {
                     Button(action: {
                         withAnimation {
-                            isEditing.toggle()
                             self.text = ""
                         }
                     }) {
@@ -52,8 +55,6 @@ struct SearchBar: View {
                 Spacer()
             }
         }
-        .cornerRadius(8)
-        .border(Color.nightSky3)
     }
 }
 

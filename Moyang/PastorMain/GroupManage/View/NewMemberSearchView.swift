@@ -14,18 +14,17 @@ struct NewMemberSearchView: View {
     @State private var searchText = ""
     @State private var isEditing = false
     
-    let countryList = Locale.isoRegionCodes
-        .compactMap { Locale.current.localizedString(forRegionCode: $0) }
     
     var body: some View {
         VStack {
             SearchBar(text: $searchText, isEditing: $isEditing)
-                .padding(EdgeInsets(top: 0, leading: 12, bottom: 8, trailing: 12))
+                .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
             List {
-                ForEach(countryList
-                            .filter { searchText.isEmpty ? true : $0.contains(searchText) },
-                        id: \.self) { country in
-                    Text(country)
+                ForEach(vm.totalItemList
+                            .filter { searchText.isEmpty ? true : $0.name.contains(searchText) }) { item in
+                    MemberSearchRow(name: item.name,
+                                    email: item.email,
+                                    birth: item.birth)
                         .listRowSeparator(.hidden)
                         .foregroundColor(.nightSky1)
                 }
@@ -36,6 +35,7 @@ struct NewMemberSearchView: View {
         .navigationTitle(title)
         .navigationBarHidden(isEditing)
         .background(Color.sheep2)
+        .preferredColorScheme(.light)
         .animation(.linear(duration: 0.25), value: isEditing)
         .toolbar {
             Button("확인") {

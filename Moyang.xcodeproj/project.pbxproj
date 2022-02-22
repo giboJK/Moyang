@@ -50,6 +50,8 @@
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		08FBC5F5279143D8008BC236 /* CommunityMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FBC5F4279143D8008BC236 /* CommunityMainView.swift */; };
 		08FBC5F9279143EC008BC236 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FBC5F8279143EC008BC236 /* ProfileView.swift */; };
+		08FEC8F627C48D4700C57110 /* MemberRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEC8F527C48D4700C57110 /* MemberRepo.swift */; };
+		08FEC8F827C48D8F00C57110 /* MemberRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		241426AB278099CB006682B1 /* PrayRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241426AA278099CB006682B1 /* PrayRepoMock.swift */; };
 		24151DCE274A2A3E00DD38CE /* GroupPrayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24151DCD274A2A3E00DD38CE /* GroupPrayListView.swift */; };
@@ -203,6 +205,8 @@
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		08FBC5F4279143D8008BC236 /* CommunityMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainView.swift; sourceTree = "<group>"; };
 		08FBC5F8279143EC008BC236 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		08FEC8F527C48D4700C57110 /* MemberRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepo.swift; sourceTree = "<group>"; };
+		08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepoImpl.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		241426AA278099CB006682B1 /* PrayRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayRepoMock.swift; sourceTree = "<group>"; };
 		24151DCD274A2A3E00DD38CE /* GroupPrayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayListView.swift; sourceTree = "<group>"; };
@@ -473,6 +477,14 @@
 				08FBC5F8279143EC008BC236 /* ProfileView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		08FEC8F427C48D3C00C57110 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				08FEC8F527C48D4700C57110 /* MemberRepo.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		242D745A274267AA0053EF2A /* CommonView */ = {
@@ -757,6 +769,7 @@
 		24B9B6FC27BFE8EE007A12C6 /* GroupManage */ = {
 			isa = PBXGroup;
 			children = (
+				08FEC8F427C48D3C00C57110 /* Domain */,
 				24B9B70027BFE92D007A12C6 /* Presenter */,
 				24B9B6FD27BFE8F7007A12C6 /* View */,
 			);
@@ -781,6 +794,7 @@
 				24B9B70327BFE93E007A12C6 /* Mock */,
 				24B9B70127BFE93A007A12C6 /* GroupManageListVM.swift */,
 				248AF72227C0ABCF004AA283 /* AddNewGroupVM.swift */,
+				08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1169,6 +1183,7 @@
 				0843DD3A279DFBAB00CF2395 /* ProfileVM.swift in Sources */,
 				08FBC5F5279143D8008BC236 /* CommunityMainView.swift in Sources */,
 				08D2D8532787B05F006897A4 /* SignUpView.swift in Sources */,
+				08FEC8F827C48D8F00C57110 /* MemberRepoImpl.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */,
@@ -1220,6 +1235,7 @@
 				246BD7C227240AD4005C4E0B /* Pray.swift in Sources */,
 				08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */,
 				24EA9B4827579BDC004FB585 /* GroupPrayEditView.swift in Sources */,
+				08FEC8F627C48D4700C57110 /* MemberRepo.swift in Sources */,
 				08D82959278D25F0001E6B61 /* Font+.swift in Sources */,
 				248AF72527C0AC52004AA283 /* AddNewGroupVMMock.swift in Sources */,
 				24D1F53627BD45FD0026D65D /* SermonListView.swift in Sources */,
