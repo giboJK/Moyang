@@ -15,8 +15,8 @@ class AddNewGroupVM: ObservableObject {
     @Published var division = ""
     @Published var name = ""
     @Published var leaderName = ""
-    @Published var totalItemList = [AddNewGroupVM.SearchMemberItem]()
-    @Published var selectedItemList = [AddNewGroupVM.SearchMemberItem]()
+    @Published var itemList = [AddNewGroupVM.SearchMemberItem]()
+    var count = 0
     
     @Published var keyword = ""
     
@@ -28,7 +28,7 @@ class AddNewGroupVM: ObservableObject {
         Log.i(self)
         cancellables.removeAll()
     }
-
+    
     func fetchMemberList() {
         repo.fetchMemberList()
             .sink { completion in
@@ -45,20 +45,24 @@ class AddNewGroupVM: ObservableObject {
             itemList.append(SearchMemberItem(memberDetail: $0))
         }
         
-        totalItemList = itemList
+        self.itemList = itemList
     }
     
-    func selectMember() {
-        
+    func toggleMemberSelection(item: SearchMemberItem) {
+        if let index = itemList.firstIndex(where: { $0.id == item.id }) {
+            itemList[index].isSelected = !itemList[index].isSelected
+        }
+        count = itemList.filter { $0.isSelected }.count
     }
 }
 
 extension AddNewGroupVM {
-    struct SearchMemberItem: Identifiable {
+    struct SearchMemberItem: Identifiable, Hashable {
         let id: String
         let name: String
         let email: String
         let birth: String
+        var isSelected: Bool = false
         
         init(memberDetail: MemberDetail) {
             id = memberDetail.id
