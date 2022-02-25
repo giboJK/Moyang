@@ -65,8 +65,8 @@ struct AddNewGroupView: View {
                 .frame(width: 24, height: 24)
                 .padding(.trailing, 16)
                 
-                NavigationLink(destination: NewMemberSearchView(title: "리더 추가",
-                                                                vm: AddNewGroupVM()),
+                NavigationLink(destination: NewMemberSearchView(isLeaderSelectionMode: true,
+                                                                vm: vm),
                                isActive: $newLeader) {}
             }
             
@@ -91,8 +91,8 @@ struct AddNewGroupView: View {
                 .frame(width: 24, height: 24)
                 .padding(.trailing, 16)
                 
-                NavigationLink(destination: NewMemberSearchView(title: "구성원 추가",
-                                                                vm: AddNewGroupVM()),
+                NavigationLink(destination: NewMemberSearchView(isLeaderSelectionMode: false,
+                                                                vm: vm),
                                isActive: $newMember) {}
             }
             
@@ -106,6 +106,11 @@ struct AddNewGroupView: View {
         .navigationTitle("새 그룹 추가")
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
+        .toolbar {
+            Button("완료") {
+                vm.addNewGroup()
+            }
+        }
     }
 }
 

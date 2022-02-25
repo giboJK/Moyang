@@ -11,40 +11,94 @@ struct MemberSearchRow: View {
     var name: String
     var email: String
     var birth: String
-    var isSelected: Bool
+    var isLeaderSelectionMode: Bool
+    var isLeader: Bool
+    var isMember: Bool
     
     var body: some View {
-        HStack(spacing: 0) {
-            if isSelected {
-                Image(systemName: "checkmark")
-                    .tint(.sheep2)
-            }
-            VStack(spacing: 0) {
-                HStack(spacing: 0) {
-                    Text(name)
-                        .foregroundColor(isSelected ? .sheep1 : .nightSky1)
-                        .font(.system(size: 16, weight: .regular, design: .default))
-                        .padding(.leading, 24)
-                    Spacer()
-                    Text(birth)
-                        .foregroundColor(isSelected ? .sheep1 : .nightSky1)
-                        .font(.system(size: 16, weight: .regular, design: .default))
-                        .padding(.trailing, 24)
+        if isLeaderSelectionMode {
+            let fontColor = isMember ? Color.sheep4 : Color.nightSky1
+            HStack(spacing: 0) {
+                if isLeader {
+                    Image(systemName: "checkmark.circle.fill")
+                        .tint(.nightSky3)
+                        .padding(.trailing, 8)
                 }
-                HStack(spacing: 0) {
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        Text(name)
+                            .foregroundColor(isLeader ? .ydGreen1 : fontColor)
+                            .font(.system(size: 16, weight: .regular, design: .default))
+                        
+                        Spacer()
+                        Text(birth)
+                            .foregroundColor(isLeader ? .ydGreen1 : fontColor)
+                            .font(.system(size: 16, weight: .regular, design: .default))
+                            .padding(.trailing, 20)
+                    }
+                    .padding(.bottom, 4)
                     Text(email)
-                        .foregroundColor(isSelected ? .sheep1 : .nightSky1)
+                        .foregroundColor(isLeader ? .ydGreen1 : fontColor)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size: 16, weight: .regular, design: .default))
-                        .padding(.leading, 24)
-                    Spacer()
+                        .padding(.bottom, 4)
+                    
+                    if isMember {
+                        Text("멤버로 선택됨")
+                            .foregroundColor(fontColor)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.system(size: 14, weight: .regular, design: .default))
+                    }
+                }.background(Color.sheep1)
+            }
+            .padding(.leading, 20)
+        } else {
+            let fontColor = isLeader ? Color.sheep4 : Color.nightSky1
+            HStack(spacing: 0) {
+                if isMember {
+                    Image(systemName: "checkmark.circle.fill")
+                        .tint(.nightSky3)
+                        .padding(.trailing, 8)
                 }
-            }.background(isSelected ? Color.nightSky3 : Color.sheep1)
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        Text(name)
+                            .foregroundColor(isMember ? .ydGreen1 : fontColor)
+                            .font(.system(size: 16, weight: .regular, design: .default))
+                        
+                        Spacer()
+                        Text(birth)
+                            .foregroundColor(isMember ? .ydGreen1 : fontColor)
+                            .font(.system(size: 16, weight: .regular, design: .default))
+                            .padding(.trailing, 20)
+                    }
+                    .padding(.bottom, 4)
+                    Text(email)
+                        .foregroundColor(isMember ? .ydGreen1 : fontColor)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.system(size: 16, weight: .regular, design: .default))
+                        .padding(.bottom, 4)
+                    
+                    if isLeader {
+                        Text("리더로 선택됨")
+                            .foregroundColor(fontColor)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.system(size: 14, weight: .regular, design: .default))
+                    }
+                }.background(Color.sheep1)
+            }
+            .padding(.leading, 20)
         }
     }
 }
 
 struct MemberSearchRow_Previews: PreviewProvider {
     static var previews: some View {
-        MemberSearchRow(name: "정김기", email: "test@test.com", birth: "2022.02.22", isSelected: false)
+        MemberSearchRow(name: "정김기",
+                        email: "test@test.com",
+                        birth: "2022.02.22",
+                        isLeaderSelectionMode: true,
+                        isLeader: false,
+                        isMember: true)
     }
 }

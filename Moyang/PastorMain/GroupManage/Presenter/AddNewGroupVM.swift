@@ -15,8 +15,10 @@ class AddNewGroupVM: ObservableObject {
     @Published var division = ""
     @Published var name = ""
     @Published var leaderName = ""
-    @Published var itemList = [AddNewGroupVM.SearchMemberItem]()
-    var count = 0
+    @Published var memberItemList = [AddNewGroupVM.SearchMemberItem]()
+    @Published var leaderItemList = [AddNewGroupVM.SearchMemberItem]()
+    var leaderCount = 0
+    var membercount = 0
     
     @Published var keyword = ""
     
@@ -45,14 +47,27 @@ class AddNewGroupVM: ObservableObject {
             itemList.append(SearchMemberItem(memberDetail: $0))
         }
         
-        self.itemList = itemList
+        self.memberItemList = itemList
+    }
+    
+    func toggleLeaderSelection(item: SearchMemberItem) {
+        if let index = leaderItemList.firstIndex(where: { $0.id == item.id }) {
+            leaderItemList[index].isLeader = !leaderItemList[index].isLeader
+            leaderItemList[index].isMember = false
+        }
+        leaderCount = leaderItemList.filter { $0.isLeader }.count
     }
     
     func toggleMemberSelection(item: SearchMemberItem) {
-        if let index = itemList.firstIndex(where: { $0.id == item.id }) {
-            itemList[index].isSelected = !itemList[index].isSelected
+        if let index = memberItemList.firstIndex(where: { $0.id == item.id }) {
+            memberItemList[index].isMember = !memberItemList[index].isMember
+            leaderItemList[index].isLeader = false
         }
-        count = itemList.filter { $0.isSelected }.count
+        membercount = memberItemList.filter { $0.isMember }.count
+    }
+    
+    func addNewGroup() {
+        
     }
 }
 
@@ -63,6 +78,8 @@ extension AddNewGroupVM {
         let email: String
         let birth: String
         var isSelected: Bool = false
+        var isLeader: Bool = false
+        var isMember: Bool = false
         
         init(memberDetail: MemberDetail) {
             id = memberDetail.id

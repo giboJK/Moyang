@@ -8,24 +8,30 @@
 import SwiftUI
 
 struct NewMemberSearchView: View {
-    var title: String
+    var isLeaderSelectionMode: Bool
     @StateObject var vm: AddNewGroupVM
     
     @State private var searchText = ""
     @State private var isEditing = false
     
-    
     var body: some View {
-        VStack {
+        let itemList = isLeaderSelectionMode ? vm.leaderItemList : vm.memberItemList
+        VStack(spacing: 0) {
             SearchBar(text: $searchText, isEditing: $isEditing)
-                .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
-            List(vm.itemList.filter { searchText.isEmpty ? true : $0.name.contains(searchText) }) { item in
+                .padding(EdgeInsets(top: 8, leading: 12, bottom: 4, trailing: 12))
+            Divider()
+                .padding(.bottom, 4)
+                .foregroundColor(.sheep4)
+            List(itemList
+                    .filter { searchText.isEmpty ? true : $0.name.contains(searchText) }) { item in
                 MemberSearchRow(name: item.name,
                                 email: item.email,
                                 birth: item.birth,
-                                isSelected: item.isSelected)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
+                                isLeaderSelectionMode: isLeaderSelectionMode,
+                                isLeader: item.isLeader,
+                                isMember: item.isMember)
+                    .listRowBackground(Color.sheep1)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                     .gesture(
                         TapGesture()
                             .onEnded({ _ in
@@ -33,15 +39,14 @@ struct NewMemberSearchView: View {
                             })
                     )
             }
-            .listStyle(.plain)
+                    .listStyle(.plain)
         }
-        .navigationTitle(title)
-        .navigationBarHidden(isEditing)
-        .background(Color.sheep2)
+        .navigationTitle(isLeaderSelectionMode ? "리더 추가" : "구성원 추가")
+        .background(Color.sheep1)
         .preferredColorScheme(.light)
-        .animation(.linear(duration: 0.25), value: isEditing)
         .toolbar {
-            Button("확인(\(vm.count))") {
+            let count: Int = isLeaderSelectionMode ? vm.leaderCount : vm.membercount
+            Button("확인(\(count))") {
                 Log.d("확인")
             }
         }
@@ -51,7 +56,7 @@ struct NewMemberSearchView: View {
 struct NewMemberSearchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            NewMemberSearchView(title: "리더 추가", vm: AddNewGroupVMMock())
+            NewMemberSearchView(isLeaderSelectionMode: true, vm: AddNewGroupVMMock())
         }
     }
 }

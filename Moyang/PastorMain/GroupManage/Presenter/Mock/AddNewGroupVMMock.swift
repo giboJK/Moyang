@@ -64,10 +64,15 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    startDate: "",
                                    community: "YD")
         let itemE = SearchMemberItem(memberDetail: memberE)
-        itemList.append(contentsOf: [itemA,
-                                     itemB,
-                                     itemC,
-                                     itemD,
-                                     itemE])
+        leaderItemList.append(contentsOf: [itemA,
+                                           itemB,
+                                           itemC,
+                                           itemD,
+                                           itemE])
+        memberItemList.append(contentsOf: [itemA,
+                                           itemB,
+                                           itemC,
+                                           itemD,
+                                           itemE])
     }
 }
