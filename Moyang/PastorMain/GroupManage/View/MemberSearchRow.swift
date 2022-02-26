@@ -21,7 +21,7 @@ struct MemberSearchRow: View {
             HStack(spacing: 0) {
                 if isLeader {
                     Image(systemName: "checkmark.circle.fill")
-                        .tint(.nightSky3)
+                        .foregroundColor(.nightSky3)
                         .padding(.trailing, 8)
                 }
                 VStack(spacing: 0) {
@@ -57,7 +57,7 @@ struct MemberSearchRow: View {
             HStack(spacing: 0) {
                 if isMember {
                     Image(systemName: "checkmark.circle.fill")
-                        .tint(.nightSky3)
+                        .foregroundColor(.nightSky3)
                         .padding(.trailing, 8)
                 }
                 VStack(spacing: 0) {

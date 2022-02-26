@@ -23,8 +23,12 @@ struct PickerTextField: UIViewRepresentable {
         self.pickerView.delegate = context.coordinator
         self.pickerView.dataSource = context.coordinator
         
-        self.textField.placeholder = self.placeholder
         self.textField.inputView = self.pickerView
+        self.textField.textColor = .nightSky1
+        self.textField.attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.sheep4]
+        )
         
         // Configure Accessory View
         let toolbar = UIToolbar()

@@ -41,7 +41,7 @@ struct SearchBar: View {
                     }) {
                         Image(systemName: "xmark.circle.fill")
                             .frame(width: 20, height: 20)
-                            .tint(.nightSky1)
+                            .foregroundColor(.nightSky1)
                     }
                     .padding(.trailing, 4)
                     .transition(.slide)
@@ -50,7 +50,7 @@ struct SearchBar: View {
             HStack {
                 Image(systemName: "magnifyingglass")
                     .frame(width: 20, height: 20)
-                    .tint(.nightSky1)
+                    .foregroundColor(.nightSky1)
                     .padding(.leading, 8)
                 Spacer()
             }

@@ -54,18 +54,14 @@ struct AddNewGroupView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(EdgeInsets(top: 0, leading: 24, bottom: 4, trailing: 24))
                 Spacer()
-                Button(action: {
-                    newLeader.toggle()
-                }) {
+                
+                NavigationLink(destination: NewMemberSearchView(isLeaderSelectionMode: true,
+                                                                vm: vm)) {
                     Image(systemName: "plus.app.fill")
                         .foregroundColor(.nightSky1)
+                        .frame(width: 24, height: 24)
+                        .padding(.trailing, 16)
                 }
-                .frame(width: 24, height: 24)
-                .padding(.trailing, 16)
-                
-                NavigationLink(destination: NavigationLazyView(NewMemberSearchView(isLeaderSelectionMode: true,
-                                                                                   vm: vm)),
-                               isActive: $newLeader) {}
             }
             
             Text(vm.leaderListName.isEmpty ? "리더 없음" : vm.leaderListName)
@@ -84,18 +80,14 @@ struct AddNewGroupView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(EdgeInsets(top: 0, leading: 24, bottom: 4, trailing: 24))
                 Spacer()
-                Button(action: {
-                    newMember.toggle()
-                }) {
+                
+                NavigationLink(destination: NewMemberSearchView(isLeaderSelectionMode: false,
+                                                                vm: vm)) {
                     Image(systemName: "plus.app.fill")
                         .foregroundColor(.nightSky1)
+                        .frame(width: 24, height: 24)
+                        .padding(.trailing, 16)
                 }
-                .frame(width: 24, height: 24)
-                .padding(.trailing, 16)
-                
-                NavigationLink(destination: NavigationLazyView(NewMemberSearchView(isLeaderSelectionMode: false,
-                                                                                   vm: vm)),
-                               isActive: $newMember) {}
             }
             Text(vm.memberListName.isEmpty ? "멤버 없음" : vm.memberListName)
                 .foregroundColor(vm.memberListName.isEmpty ? .sheep4 : .nightSky1)

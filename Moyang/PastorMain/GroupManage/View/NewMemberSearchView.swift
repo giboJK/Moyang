@@ -10,7 +10,6 @@ import SwiftUI
 struct NewMemberSearchView: View {
     var isLeaderSelectionMode: Bool
     @StateObject var vm: AddNewGroupVM
-    @Environment(\.presentationMode) var presentationMode
     
     @State private var showingAlert = false
     
@@ -76,13 +75,6 @@ struct NewMemberSearchView: View {
         }
         .navigationTitle(isLeaderSelectionMode ? "리더 추가" : "구성원 추가")
         .background(Color.sheep1)
-        .preferredColorScheme(.light)
-//        .toolbar {
-//            let count: Int = isLeaderSelectionMode ? vm.leaderCount : vm.memberCount
-//            Button("확인(\(count))") {
-//                self.presentationMode.wrappedValue.dismiss()
-//            }
-//        }
     }
 }
 

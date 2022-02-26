@@ -40,8 +40,8 @@ class AddNewGroupVM: ObservableObject {
         repo.fetchMemberList()
             .sink { completion in
                 Log.d(completion)
-            } receiveValue: { list in
-                self.memberDetailToSearchMemberItem(list: list)
+            } receiveValue: { [weak self] list in
+                self?.memberDetailToSearchMemberItem(list: list)
                 
             }.store(in: &cancellables)
     }
@@ -53,6 +53,7 @@ class AddNewGroupVM: ObservableObject {
         }
         
         self.memberItemList = itemList
+        self.leaderItemList = itemList
     }
     
     func toggleLeaderSelection(item: SearchMemberItem) {
