@@ -15,15 +15,14 @@ struct AddNewGroupView: View {
     var body: some View {
         
         VStack(spacing: 0) {
-            Text("소속")
+            Text("소속 공동체")
                 .foregroundColor(.nightSky1)
                 .font(.system(size: 16, weight: .semibold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(EdgeInsets(top: 20, leading: 24, bottom: 4, trailing: 24))
-            TextField("", text: $vm.division)
-                .placeholder(when: vm.division.isEmpty) {
-                    Text("소속").foregroundColor(.sheep4)
-                }
+            PickerTextField(data: vm.divisionList,
+                            placeholder: "소속 공동체",
+                            lastSelectedIndex: $vm.selectedIndex)
                 .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                 .background(Color.sheep1)
                 .frame(width: UIScreen.screenWidth - 32, height: 40, alignment: .center)
@@ -39,7 +38,7 @@ struct AddNewGroupView: View {
             
             TextField("", text: $vm.name)
                 .placeholder(when: vm.name.isEmpty) {
-                    Text("셀 이름").foregroundColor(.sheep4)
+                    Text("그룹 이름").foregroundColor(.sheep4)
                 }
                 .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                 .background(Color.sheep1)
@@ -49,14 +48,13 @@ struct AddNewGroupView: View {
                 .padding(.bottom, 16)
             
             HStack(spacing: 0) {
-                Text("리더")
+                Text("리더 (\(vm.leaderCount)명)")
                     .foregroundColor(.nightSky1)
                     .font(.system(size: 16, weight: .semibold, design: .default))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(EdgeInsets(top: 0, leading: 24, bottom: 4, trailing: 24))
                 Spacer()
                 Button(action: {
-                    //                    vm.addQuestion()
                     newLeader.toggle()
                 }) {
                     Image(systemName: "plus.app.fill")
@@ -65,18 +63,22 @@ struct AddNewGroupView: View {
                 .frame(width: 24, height: 24)
                 .padding(.trailing, 16)
                 
-                NavigationLink(destination: NewMemberSearchView(isLeaderSelectionMode: true,
-                                                                vm: vm),
+                NavigationLink(destination: NavigationLazyView(NewMemberSearchView(isLeaderSelectionMode: true,
+                                                                                   vm: vm)),
                                isActive: $newLeader) {}
             }
             
-            Text(vm.leaderName)
-                .foregroundColor(.nightSky1)
-                .font(.system(size: 16, weight: .semibold, design: .default))
+            Text(vm.leaderListName.isEmpty ? "리더 없음" : vm.leaderListName)
+                .foregroundColor(vm.leaderListName.isEmpty ? .sheep4 : .nightSky1)
+                .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 4))
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.sheep1)
+                .cornerRadius(8)
+                .font(.system(size: 16, weight: .semibold, design: .default))
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
             
             HStack(spacing: 0) {
-                Text("구성원")
+                Text("멤버 (\(vm.memberCount)명)")
                     .foregroundColor(.nightSky1)
                     .font(.system(size: 16, weight: .semibold, design: .default))
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -91,16 +93,18 @@ struct AddNewGroupView: View {
                 .frame(width: 24, height: 24)
                 .padding(.trailing, 16)
                 
-                NavigationLink(destination: NewMemberSearchView(isLeaderSelectionMode: false,
-                                                                vm: vm),
+                NavigationLink(destination: NavigationLazyView(NewMemberSearchView(isLeaderSelectionMode: false,
+                                                                                   vm: vm)),
                                isActive: $newMember) {}
             }
-            
-            Text(vm.leaderName)
-                .foregroundColor(.nightSky1)
-                .font(.system(size: 16, weight: .semibold, design: .default))
+            Text(vm.memberListName.isEmpty ? "멤버 없음" : vm.memberListName)
+                .foregroundColor(vm.memberListName.isEmpty ? .sheep4 : .nightSky1)
+                .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 4))
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.sheep1)
-            
+                .cornerRadius(8)
+                .font(.system(size: 16, weight: .semibold, design: .default))
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
             Spacer()
         }
         .navigationTitle("새 그룹 추가")

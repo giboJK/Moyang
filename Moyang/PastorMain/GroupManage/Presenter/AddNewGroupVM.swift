@@ -14,11 +14,16 @@ class AddNewGroupVM: ObservableObject {
     
     @Published var division = ""
     @Published var name = ""
-    @Published var leaderName = ""
+    @Published var leaderListName = ""
+    @Published var memberListName = ""
     @Published var memberItemList = [AddNewGroupVM.SearchMemberItem]()
     @Published var leaderItemList = [AddNewGroupVM.SearchMemberItem]()
+    @Published var divisionList = ["청년부", "고등부", "기타"]
+    
+    @Published var selectedIndex: Int?
+    
     var leaderCount = 0
-    var membercount = 0
+    var memberCount = 0
     
     @Published var keyword = ""
     
@@ -55,7 +60,13 @@ class AddNewGroupVM: ObservableObject {
             leaderItemList[index].isLeader = !leaderItemList[index].isLeader
             leaderItemList[index].isMember = false
         }
-        leaderCount = leaderItemList.filter { $0.isLeader }.count
+        leaderCount = leaderItemList
+            .filter { $0.isLeader }.count
+        leaderListName = String(leaderItemList
+                                    .filter { $0.isLeader }
+                                    .map { $0.name }
+                                    .reduce("") { $0 + ", " + $1 }
+                                    .dropFirst(2))
     }
     
     func toggleMemberSelection(item: SearchMemberItem) {
@@ -63,7 +74,13 @@ class AddNewGroupVM: ObservableObject {
             memberItemList[index].isMember = !memberItemList[index].isMember
             leaderItemList[index].isLeader = false
         }
-        membercount = memberItemList.filter { $0.isMember }.count
+        memberCount = memberItemList
+            .filter { $0.isMember }.count
+        memberListName = String(memberItemList
+                                    .filter { $0.isLeader }
+                                    .map { $0.name }
+                                    .reduce("") { $0 + ", " + $1 }
+                                    .dropFirst(2))
     }
     
     func addNewGroup() {

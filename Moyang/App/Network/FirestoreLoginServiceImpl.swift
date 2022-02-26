@@ -71,7 +71,7 @@ class FirestoreLoginServiceImpl: LoginService {
             .collection("USER")
             .document("AUTH")
             .collection(type.rawValue)
-            .document(id)
+            .document(id.lowercased())
         
         return service.fetchObject(ref: ref, type: MemberDetail.self)
     }

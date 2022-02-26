@@ -22,7 +22,7 @@ struct PastorComunityView: View {
                                             height: 50))
             
             Button(action: {}) {
-                NavigationLink(destination: NavigationLazyView(GroupManageListView(vm: GroupManageListVM()))) {
+                NavigationLink(destination: GroupManageListView(vm: GroupManageListVM())) {
                     Text("공동체 그룹")
                         .frame(width: UIScreen.screenWidth - 80,
                                height: 50)

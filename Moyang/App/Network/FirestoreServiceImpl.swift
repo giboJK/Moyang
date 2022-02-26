@@ -17,6 +17,7 @@ class FirestoreServiceImpl: FirestoreService {
     
     func addDocument<T: Codable>(_ object: T,
                                  ref: CollectionReference) -> AnyPublisher<Bool, MoyangError> {
+        Log.e(ref.path)
         return Future<Bool, MoyangError> { promise in
             do {
                 _ = try ref.addDocument(from: object)
@@ -30,6 +31,7 @@ class FirestoreServiceImpl: FirestoreService {
     
     func addDocument<T: Codable>(_ object: T,
                                  ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> {
+        Log.e(ref.path)
         return Future<Bool, MoyangError> { promise in
             do {
                 _ = try ref.setData(from: object)
@@ -42,6 +44,7 @@ class FirestoreServiceImpl: FirestoreService {
     
     func updateDocument<T: Codable>(_ object: T,
                                     ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> {
+        Log.e(ref.path)
         return Future<Bool, MoyangError> { promise in
             if let dict = object.dict {
                 ref.updateData(dict, completion: { error in
@@ -60,6 +63,7 @@ class FirestoreServiceImpl: FirestoreService {
     
     func updateDocument(value: [String: Any],
                         ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> {
+        Log.e(ref.path)
         return Future<Bool, MoyangError> { promise in
             ref.updateData(value, completion: { error in
                 if let error = error {
@@ -73,6 +77,7 @@ class FirestoreServiceImpl: FirestoreService {
     
     func addListener<T: Codable>(ref: CollectionReference,
                                  type: T.Type) -> PassthroughSubject<T, MoyangError> {
+        Log.e(ref.path)
         let listener = PassthroughSubject<T, MoyangError>()
         ref.addSnapshotListener { querySnapshot, error in
             if let error = error {
@@ -97,6 +102,7 @@ class FirestoreServiceImpl: FirestoreService {
     
     func addListener<T: Codable>(ref: CollectionReference,
                                  type: T.Type) -> PassthroughSubject<[T], MoyangError> {
+        Log.e(ref.path)
         let listener = PassthroughSubject<[T], MoyangError>()
         ref.addSnapshotListener { querySnapshot, error in
             if let error = error {
@@ -117,6 +123,7 @@ class FirestoreServiceImpl: FirestoreService {
     
     func addListener<T: Codable>(ref: DocumentReference,
                                  type: T.Type) -> PassthroughSubject<T, MoyangError> {
+        Log.e(ref.path)
         let listener = PassthroughSubject<T, MoyangError>()
         
         ref.addSnapshotListener { documentSnapshot, error in
@@ -144,6 +151,7 @@ class FirestoreServiceImpl: FirestoreService {
     
     func fetchObject<T: Codable>(ref: DocumentReference,
                                  type: T.Type) -> AnyPublisher<T, MoyangError> {
+        Log.e(ref.path)
         return Future<T, MoyangError> { promise in
             ref.addSnapshotListener { documentSnapshot, error in
                 if let error = error {

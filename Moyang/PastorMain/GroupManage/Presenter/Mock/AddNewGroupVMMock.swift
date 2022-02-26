@@ -23,7 +23,8 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    mainGroup: "",
                                    startDate: "",
                                    community: "YD")
-        let itemA = SearchMemberItem(memberDetail: memberA)
+        var itemA = SearchMemberItem(memberDetail: memberA)
+        itemA.isLeader = true
         let memberB = MemberDetail(id: UUID().uuidString,
                                    authType: "email",
                                    memberName: "정김기",
@@ -33,7 +34,8 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    mainGroup: "",
                                    startDate: "",
                                    community: "YD")
-        let itemB = SearchMemberItem(memberDetail: memberB)
+        var itemB = SearchMemberItem(memberDetail: memberB)
+        itemB.isMember = true
         let memberC = MemberDetail(id: UUID().uuidString,
                                    authType: "email",
                                    memberName: "김기보",
@@ -43,7 +45,8 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    mainGroup: "",
                                    startDate: "",
                                    community: "YD")
-        let itemC = SearchMemberItem(memberDetail: memberC)
+        var itemC = SearchMemberItem(memberDetail: memberC)
+        itemC.isMember = true
         let memberD = MemberDetail(id: UUID().uuidString,
                                    authType: "email",
                                    memberName: "기보",
@@ -56,7 +59,7 @@ class AddNewGroupVMMock: AddNewGroupVM {
         let itemD = SearchMemberItem(memberDetail: memberD)
         let memberE = MemberDetail(id: UUID().uuidString,
                                    authType: "email",
-                                   memberName: "정김기보",
+                                   memberName: "길고길고 긴 이름 이름하야 정김기보",
                                    birth: "1989.06.30",
                                    email: "tete@tete.com",
                                    groupList: [],
