@@ -12,7 +12,7 @@ struct DailyPreview: Codable {
     let groupName: String
     let groupTalkingSubject: String
     let groupMeetingDate: String
-    let groupMemberList: [GroupMember]
+    let groupMemberList: [Member]
     let qtId: String
     let qtName: String
     let qtSubject: String

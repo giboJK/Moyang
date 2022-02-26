@@ -57,7 +57,6 @@ class NewSermonVM: ObservableObject {
                     Log.e(error)
                 }
             }) { _ in
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewSermonAdded"), object: nil)
                 self.shouldDismissView = true
             }.store(in: &cancellables)
     }

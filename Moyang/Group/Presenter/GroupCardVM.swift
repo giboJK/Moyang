@@ -12,7 +12,7 @@ class GroupCardVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var preview: GroupPreview
-    @Published var randomMemberList: [GroupMember]
+    @Published var randomMemberList: [Member]
     
     var maxDisplayedMembers = 7
     

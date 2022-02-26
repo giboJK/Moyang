@@ -64,10 +64,10 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
 
 extension NewGroupPrayVM {
     struct NewPrayItem {
-        var member: GroupMember
+        var member: Member
         var pray: String
         
-        init(member: GroupMember) {
+        init(member: Member) {
             self.member = member
             self.pray = "기도제목을 입력하세요"
         }

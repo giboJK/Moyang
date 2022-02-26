@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddNewGroupView: View {
     @StateObject var vm: AddNewGroupVM
+    @Environment(\.presentationMode) var presentationMode
     @State var newLeader = false
     @State var newMember = false
     
@@ -100,6 +101,11 @@ struct AddNewGroupView: View {
             Spacer()
         }
         .navigationTitle("새 그룹 추가")
+        .onReceive(vm.viewDismissalModePublisher) { shouldDismiss in
+            if shouldDismiss {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
         .toolbar {

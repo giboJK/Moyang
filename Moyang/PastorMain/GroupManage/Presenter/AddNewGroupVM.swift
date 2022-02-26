@@ -11,6 +11,8 @@ import Combine
 class AddNewGroupVM: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     private let repo = MemberRepoImpl(service: FirestoreServiceImpl())
+    private let groupRepo = GroupRepoImpl(service: FirestoreServiceImpl())
+    
     
     @Published var division = ""
     @Published var name = ""
@@ -18,9 +20,20 @@ class AddNewGroupVM: ObservableObject {
     @Published var memberListName = ""
     @Published var memberItemList = [AddNewGroupVM.SearchMemberItem]()
     @Published var leaderItemList = [AddNewGroupVM.SearchMemberItem]()
-    @Published var divisionList = ["청년부", "고등부", "기타"]
+    @Published var divisionList = ["청년부", "고등부"]
+    
+    private let youthID = "DFEB77B8-2578-4909-ADBB-175890BDAA4F"
+    private let highID = "DAB794ED-01E6-4B68-9ED8-29DA932E5A31"
     
     @Published var selectedIndex: Int?
+    
+    var viewDismissalModePublisher = PassthroughSubject<Bool, Never>()
+    
+    var shouldDismissView = false {
+        didSet {
+            viewDismissalModePublisher.send(shouldDismissView)
+        }
+    }
     
     var leaderCount = 0
     var memberCount = 0
@@ -85,7 +98,35 @@ class AddNewGroupVM: ObservableObject {
     }
     
     func addNewGroup() {
+        var leaderList = [Member]()
+        leaderItemList.filter { $0.isLeader == true }.forEach { item in
+            leaderList.append(Member(id: item.id,
+                                     name: item.name,
+                                     profileURL: ""))
+        }
         
+        var memberList = [Member]()
+        memberItemList.filter { $0.isMember == true }.forEach { item in
+            memberList.append(Member(id: item.id,
+                                     name: item.name,
+                                     profileURL: ""))
+        }
+        
+        let parentGroup = selectedIndex! == 0 ? youthID : highID
+        let groupInfo = GroupInfo(id: UUID().uuidString,
+                                  createdDate: Date().toString("yyyy.MM.dd"),
+                                  groupName: name,
+                                  parentGroup: parentGroup,
+                                  leaderList: leaderList,
+                                  memberList: memberList)
+        
+        groupRepo.addNewGroup(groupInfo: groupInfo)
+            .sink { completion in
+                Log.d(completion)
+            } receiveValue: { _ in
+                self.shouldDismissView = true
+            }.store(in: &cancellables)
+
     }
 }
 

@@ -54,12 +54,12 @@ struct GroupManageCard: View {
 struct GroupManageCard_Previews: PreviewProvider {
     static var previews: some View {
         GroupManageCard(item: GroupManageListVM.GroupItem(groupInfo: GroupInfo(id: UUID().uuidString,
+                                                                               createdDate: Date().toString("yyyy.MM.dd"),
                                                                                groupName: "깐부셀",
-                                                                               groupPath: "",
                                                                                parentGroup: "yd_youth",
-                                                                               leader: GroupMember(id: UUID().uuidString,
+                                                                               leaderList: [Member(id: UUID().uuidString,
                                                                                                    name: "조경환",
-                                                                                                   profileURL: ""),
+                                                                                                   profileURL: "")],
                                                                                memberList: [])))
     }
 }

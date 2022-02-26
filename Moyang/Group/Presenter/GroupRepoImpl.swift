@@ -57,19 +57,15 @@ class GroupRepoImpl: GroupRepo {
     }
     
     func add(_ date: Date,  _ data: GroupMemberPrayList, groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
-        guard let yearSubString = groupInfo.groupPath.split(separator: "_").first else {
-            return Empty(completeImmediately: false).eraseToAnyPublisher()
-        }
-        guard let groupSubString = groupInfo.groupPath.split(separator: "_").last else {
+        guard let yearSubString = groupInfo.createdDate.split(separator: ".").first else {
             return Empty(completeImmediately: false).eraseToAnyPublisher()
         }
         let year = String(yearSubString)
-        let group = String(groupSubString)
         let ref = service.store
             .collection(self.collectionName)
             .document("YD")
             .collection(year)
-            .document(group)
+            .document(groupInfo.id)
             .collection("PRAY")
             .document(date.toString("yyyy-MM-dd hh:mm:ss"))
         
@@ -78,21 +74,16 @@ class GroupRepoImpl: GroupRepo {
     
     func addGroupPrayListListener(groupInfo: GroupInfo) -> PassthroughSubject<[GroupMemberPrayList], MoyangError> {
         let listener = PassthroughSubject<[GroupMemberPrayList], MoyangError>()
-        guard let yearSubString = groupInfo.groupPath.split(separator: "_").first else {
-            listener.send(completion: .failure(.invalidURL))
-            return listener
-        }
-        guard let groupSubString = groupInfo.groupPath.split(separator: "_").last else {
+        guard let yearSubString = groupInfo.createdDate.split(separator: ".").first else {
             listener.send(completion: .failure(.invalidURL))
             return listener
         }
         let year = String(yearSubString)
-        let group = String(groupSubString)
         let ref = service.store
             .collection(self.collectionName)
             .document("YD")
             .collection(year)
-            .document(group)
+            .document(groupInfo.id)
             .collection("PRAY")
         return service.addListener(ref: ref, type: GroupMemberPrayList.self)
     }
@@ -100,22 +91,27 @@ class GroupRepoImpl: GroupRepo {
     func updateGroupPray(docment: String,
                          value: [String: Any],
                          groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
-        guard let yearSubString = groupInfo.groupPath.split(separator: "_").first else {
-            return Empty(completeImmediately: false).eraseToAnyPublisher()
-        }
-        guard let groupSubString = groupInfo.groupPath.split(separator: "_").last else {
+        guard let yearSubString = groupInfo.createdDate.split(separator: ".").first else {
             return Empty(completeImmediately: false).eraseToAnyPublisher()
         }
         let year = String(yearSubString)
-        let group = String(groupSubString)
         let ref = service.store
             .collection(self.collectionName)
             .document("YD")
             .collection(year)
-            .document(group)
+            .document(groupInfo.id)
             .collection("PRAY")
             .document(docment)
         
         return service.updateDocument(value: value, ref: ref)
+    }
+    
+    func addNewGroup(groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
+        let ref = service.store
+            .collection(self.collectionName)
+            .document("YD")
+            .collection("2022")
+            .document(groupInfo.id)
+        return service.addDocument(groupInfo, ref: ref)
     }
 }

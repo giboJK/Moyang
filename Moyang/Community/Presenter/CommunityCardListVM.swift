@@ -74,7 +74,7 @@ extension CommunityCardListVM {
         let cellName: String
         let talkingSubject: String
         let groupMeetingDate: String
-        let groupMemberList: [GroupMember]
+        let groupMemberList: [Member]
         
         init(data: DailyPreview) {
             cellName = data.groupName

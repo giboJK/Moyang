@@ -30,14 +30,14 @@ extension GroupManageListVM {
     struct GroupItem: Identifiable {
         let id: String
         let name: String
-        let leader: GroupMember
-        let memberList: [GroupMember]
+        let leader: Member
+        let memberList: [Member]
         let parentGroup: String
         
         init(groupInfo: GroupInfo) {
             id = UUID().uuidString
             name = groupInfo.groupName
-            leader = groupInfo.leader
+            leader = groupInfo.leaderList[0]
             memberList = groupInfo.memberList
             parentGroup = groupInfo.parentGroup
         }

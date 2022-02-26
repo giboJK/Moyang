@@ -10,7 +10,7 @@ import SwiftUI
 
 // MARK: - GroupMemberPray
 struct GroupMemberPray: Codable {
-    let member: GroupMember
+    let member: Member
     let pray: String
 
     enum CodingKeys: String, CodingKey {

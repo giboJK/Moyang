@@ -14,7 +14,7 @@ struct GroupPreview: Codable {
     let talkingSubject: String
     let dateString: String
     
-    let memberList: [GroupMember]
+    let memberList: [Member]
     
     enum CodingKeys: String, CodingKey {
         case name = "name"
