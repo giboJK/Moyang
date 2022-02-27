@@ -31,7 +31,7 @@ class FirestoreServiceImpl: FirestoreService {
     
     func addDocument<T: Codable>(_ object: T,
                                  ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> {
-        Log.e(ref.path)
+        Log.d(ref.path)
         return Future<Bool, MoyangError> { promise in
             do {
                 _ = try ref.setData(from: object)
@@ -72,6 +72,21 @@ class FirestoreServiceImpl: FirestoreService {
                     promise(.success(true))
                 }
             })
+        }.eraseToAnyPublisher()
+    }
+    
+    func appendValueToList(value: Any,
+                           key: String,
+                           ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> {
+        Log.d(ref.path)
+        return Future<Bool, MoyangError> { promise in
+            ref.updateData([key: FieldValue.arrayUnion([value])]) { error in
+                if let error = error {
+                    promise(.failure(.other(error)))
+                } else {
+                    promise(.success(true))
+                }
+            }
         }.eraseToAnyPublisher()
     }
     

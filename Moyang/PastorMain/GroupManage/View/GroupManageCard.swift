@@ -59,6 +59,7 @@ struct GroupManageCard_Previews: PreviewProvider {
                                                                                parentGroup: "yd_youth",
                                                                                leaderList: [Member(id: UUID().uuidString,
                                                                                                    name: "조경환",
+                                                                                                   email: "test@test.com",
                                                                                                    profileURL: "")],
                                                                                memberList: [])))
     }

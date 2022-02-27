@@ -102,6 +102,7 @@ class AddNewGroupVM: ObservableObject {
         leaderItemList.filter { $0.isLeader == true }.forEach { item in
             leaderList.append(Member(id: item.id,
                                      name: item.name,
+                                     email: item.email,
                                      profileURL: ""))
         }
         
@@ -109,6 +110,7 @@ class AddNewGroupVM: ObservableObject {
         memberItemList.filter { $0.isMember == true }.forEach { item in
             memberList.append(Member(id: item.id,
                                      name: item.name,
+                                     email: item.email,
                                      profileURL: ""))
         }
         

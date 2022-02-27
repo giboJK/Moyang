@@ -10,12 +10,14 @@ import Foundation
 struct Member: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
-    var name: String
+    let name: String
+    let email: String
     let profileURL: String
     
     enum CodingKeys: String, CodingKey {
         case id
-        case name = "name"
+        case name
+        case email
         case profileURL = "url"
     }
 }

@@ -112,6 +112,30 @@ class GroupRepoImpl: GroupRepo {
             .document("YD")
             .collection("2022")
             .document(groupInfo.id)
+        
+        // TODO: - 일단 루프 돌면서 업데이트를 고고
+        groupInfo.leaderList.forEach { member in
+            let ref = service.store
+                .collection("USER")
+                .document("AUTH")
+                .collection("EMAIL")
+                .document(member.email)
+            _ = service.appendValueToList(value: groupInfo.id,
+                                          key: "group_list",
+                                          ref: ref)
+        }
+        
+        groupInfo.memberList.forEach { member in
+            let ref = service.store
+                .collection("USER")
+                .document("AUTH")
+                .collection("EMAIL")
+                .document(member.email)
+            _ = service.appendValueToList(value: groupInfo.id,
+                                          key: "group_list",
+                                          ref: ref)
+        }
+        
         return service.addDocument(groupInfo, ref: ref)
     }
 }

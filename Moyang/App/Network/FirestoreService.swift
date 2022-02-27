@@ -24,6 +24,10 @@ protocol FirestoreService {
     func updateDocument(value: [String: Any],
                         ref: DocumentReference) -> AnyPublisher<Bool, MoyangError>
     
+    func appendValueToList(value: Any,
+                           key: String,
+                           ref: DocumentReference) -> AnyPublisher<Bool, MoyangError>
+    
     func addListener<T: Codable>(ref: CollectionReference,
                                  type: T.Type) -> PassthroughSubject<T, MoyangError>
     
