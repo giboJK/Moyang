@@ -10,6 +10,9 @@ import SwiftUI
 struct ProfileSetView: View {
     @Binding var rootIsActive: Bool
     @ObservedObject var vm = ProfileSetVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
+    
+    @Environment(\.dismiss) private var dismiss
+    
     let email: String
     
     var body: some View {
@@ -24,7 +27,7 @@ struct ProfileSetView: View {
                     .frame(width: UIScreen.screenWidth - 80, height: 50, alignment: .center)
                     .foregroundColor(.nightSky1)
                     .cornerRadius(8)
-                    .padding(.bottom, 20)
+                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
                     .keyboardType(.emailAddress)
                 DatePickerTextField(textColor: .nightSky1,
                                     placeholder: "생일",
@@ -53,9 +56,13 @@ struct ProfileSetView: View {
                 .hidden(!vm.isAddingData)
                 .frame(width: 40, height: 40, alignment: .center)
         }
-        .fullScreenCover(isPresented: $vm.isAddSuccess, onDismiss: nil, content: {
+        
+        .fullScreenCover(isPresented: $vm.isAddSuccess, onDismiss: {
+            dismiss()
+        }, content: {
             MainView(rootIsActive: $vm.isAddSuccess)
         })
+        .navigationTitle("회원정보 입력")
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
     }

@@ -70,20 +70,16 @@ struct LogInView: View {
             IndicatorView()
                 .hidden(vm.isLoadingUserDataFinished)
                 .frame(width: 40, height: 40, alignment: .center)
-//            NavigationLink(
-//                destination: ProfileSetView(rootIsActive: $vm.isLoginSuccess, email: vm.id),
-//                isActive: $vm.isLoginSuccess
-//            ) {
-//                EmptyView()
-//            }
-//            .isDetailLink(false)
             
+            NavigationLink(
+                destination: ProfileSetView(rootIsActive: $vm.moveToProfileSetView, email: vm.id),
+                isActive: $vm.moveToProfileSetView
+            ) {
+                EmptyView()
+            }
         }
         .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: self.didDismiss, content: {
             MainView(rootIsActive: $vm.isLoginSuccess)
-        })
-        .fullScreenCover(isPresented: $vm.moveToProfileSetView, onDismiss: self.didDismiss, content: {
-            ProfileSetView(rootIsActive: $vm.isLoginSuccess, email: vm.id)
         })
         .navigationTitle("로그인")
         .frame(maxWidth: .infinity)
