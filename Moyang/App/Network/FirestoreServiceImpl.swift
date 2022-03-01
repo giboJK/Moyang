@@ -160,7 +160,29 @@ class FirestoreServiceImpl: FirestoreService {
     
     func fetchObject<T: Codable>(ref: CollectionReference,
                                  type: T.Type) -> AnyPublisher<T, MoyangError> {
-        return Empty(completeImmediately: false).eraseToAnyPublisher()
+        Log.d(ref.path)
+        return Future<T, MoyangError> { promise in
+            ref.addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    promise(.failure(MoyangError.other(error)))
+                }
+                
+                
+                if let query = querySnapshot {
+                    let objectList = query.documents.compactMap { document in
+                        try? document.data(as: T.self)
+                    }
+                    
+                    if let object = objectList.last {
+                        promise(.success(object))
+                    } else {
+                        promise(.failure(MoyangError.emptyData))
+                    }
+                } else {
+                    promise(.failure(MoyangError.decodingFailed))
+                }
+            }
+        }.eraseToAnyPublisher()
     }
     
     func fetchObject<T: Codable>(ref: DocumentReference,

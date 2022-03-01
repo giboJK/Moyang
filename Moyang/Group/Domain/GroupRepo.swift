@@ -10,7 +10,6 @@ import Foundation
 import Combine
 
 protocol GroupRepo {
-    func fetchGroupPreview() -> AnyPublisher<GroupPreview, MoyangError>
     func fetchGroupInfo() -> AnyPublisher<GroupInfo, MoyangError>
     func fetchMeetingInfo(parentGroup: String,
                           date: String) -> AnyPublisher<MeetingInfo, MoyangError>

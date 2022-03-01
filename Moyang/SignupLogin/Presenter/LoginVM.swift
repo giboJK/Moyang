@@ -73,7 +73,7 @@ class LoginVM: ObservableObject {
                 }
                 return Empty(completeImmediately: false).eraseToAnyPublisher()
             }
-            .sink { completion in
+            .sink { _ in
                 self.isLoadingUserDataFinished = true
             } receiveValue: { memberDetail in
                 UserData.shared.userID = self.id

@@ -10,8 +10,8 @@ import Combine
 
 class CommunityCardListVMMock: CommunityCardListVM {
     
-    init() {
-        super.init(repo: CommunityListService())
+    override init() {
+        super.init()
     }
     
     override func fetchCommunityData() {

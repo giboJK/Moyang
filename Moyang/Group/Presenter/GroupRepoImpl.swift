@@ -20,27 +20,18 @@ class GroupRepoImpl: GroupRepo {
         self.service = service
     }
     
-    func fetchGroupPreview() -> AnyPublisher<GroupPreview, MoyangError> {
-        return Empty(completeImmediately: false).eraseToAnyPublisher()
-    }
-    
     func fetchGroupInfo() -> AnyPublisher<GroupInfo, MoyangError> {
         guard let myInfo = UserData.shared.myInfo else {
             return Empty(completeImmediately: false).eraseToAnyPublisher()
         }
-        guard let yearSubString = myInfo.mainGroup.split(separator: "_").first else {
-            return Empty(completeImmediately: false).eraseToAnyPublisher()
+        guard let groupID = myInfo.groupList.first else {
+            return Empty().eraseToAnyPublisher()
         }
-        guard let groupSubString = myInfo.mainGroup.split(separator: "_").last else {
-            return Empty(completeImmediately: false).eraseToAnyPublisher()
-        }
-        year = String(yearSubString)
-        let group = String(groupSubString)
         let ref = service.store
-            .collection(collectionName)
+            .collection("COMMUNITY")
             .document("YD")
-            .collection(year)
-            .document(group)
+            .collection("2022")
+            .document(groupID)
         return service.fetchObject(ref: ref, type: GroupInfo.self)
     }
     
@@ -113,7 +104,6 @@ class GroupRepoImpl: GroupRepo {
             .collection("2022")
             .document(groupInfo.id)
         
-        // TODO: - 일단 루프 돌면서 업데이트를 고고
         groupInfo.leaderList.forEach { member in
             let ref = service.store
                 .collection("USER")

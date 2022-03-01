@@ -30,7 +30,7 @@ class IntroVM: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 Log.i(completion)
-            } receiveValue: { isSuccess in
+            } receiveValue: { _ in
                 self.fetchUserData(id: userID)
             }.store(in: &cancellables)
     }

@@ -55,4 +55,8 @@ class SermonRepoImpl: SermonRepo {
         
         return service.addListener(ref: ref, type: Sermon.self)
     }
+    
+    func fetchLatestSermon() -> AnyPublisher<Sermon, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
 }

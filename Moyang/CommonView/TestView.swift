@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TestView: View {
-    @State var isActive : Bool = false
+    @State var isActive: Bool = false
 
     var body: some View {
         NavigationView {
@@ -24,7 +24,7 @@ struct TestView: View {
 }
 
 struct ContentView2: View {
-    @Binding var rootIsActive : Bool
+    @Binding var rootIsActive: Bool
 
     var body: some View {
         NavigationLink(destination: ContentView3(shouldPopToRootView: self.$rootIsActive)) {
@@ -35,12 +35,12 @@ struct ContentView2: View {
 }
 
 struct ContentView3: View {
-    @Binding var shouldPopToRootView : Bool
+    @Binding var shouldPopToRootView: Bool
 
     var body: some View {
         VStack {
             Text("Hello, World #3!")
-            Button (action: { self.shouldPopToRootView = false } ){
+            Button(action: { self.shouldPopToRootView = false }) {
                 Text("Pop to root")
             }
         }.navigationBarTitle("Three")

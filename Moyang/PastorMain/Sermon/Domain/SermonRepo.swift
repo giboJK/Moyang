@@ -11,4 +11,5 @@ import Combine
 protocol SermonRepo {
     func add(_ sermon: Sermon) -> AnyPublisher<Bool, MoyangError>
     func fetchSermonList() -> PassthroughSubject<[Sermon], MoyangError>
+    func fetchLatestSermon() -> AnyPublisher<Sermon, MoyangError>
 }
