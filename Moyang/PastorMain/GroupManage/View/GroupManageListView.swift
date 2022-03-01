@@ -14,7 +14,7 @@ struct GroupManageListView: View {
         ZStack {
             List {
                 ForEach(vm.itemList) { item in
-                    GroupManageCard(item: item)
+                    GroupManageCardRow(item: item)
                         .listRowSeparator(.hidden)
                 }
                 .onDelete(perform: deleteItems)

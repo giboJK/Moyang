@@ -58,7 +58,6 @@ class FirestoreServiceImpl: FirestoreService {
                 promise(.failure(.writingFailed))
             }
         }.eraseToAnyPublisher()
-        
     }
     
     func updateDocument(value: [String: Any],
