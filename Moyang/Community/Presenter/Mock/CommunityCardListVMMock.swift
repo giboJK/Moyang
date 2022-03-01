@@ -10,11 +10,11 @@ import Combine
 
 class CommunityCardListVMMock: CommunityCardListVM {
     
-    override init() {
-        super.init()
+    init() {
+        super.init(repo: CommunityListService())
     }
     
-    override func fetchDailyPreview() {
+    override func fetchCommunityData() {
         communityGroupCardVM = CommunityGroupCardVMMock()
     }
 }

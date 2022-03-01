@@ -22,7 +22,8 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    groupList: [],
                                    mainGroup: "",
                                    startDate: "",
-                                   community: "YD")
+                                   community: "YD",
+                                   isPastor: false)
         var itemA = SearchMemberItem(memberDetail: memberA)
         itemA.isLeader = true
         let memberB = MemberDetail(id: UUID().uuidString,
@@ -33,7 +34,8 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    groupList: [],
                                    mainGroup: "",
                                    startDate: "",
-                                   community: "YD")
+                                   community: "YD",
+                                   isPastor: false)
         var itemB = SearchMemberItem(memberDetail: memberB)
         itemB.isMember = true
         let memberC = MemberDetail(id: UUID().uuidString,
@@ -44,7 +46,8 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    groupList: [],
                                    mainGroup: "",
                                    startDate: "",
-                                   community: "YD")
+                                   community: "YD",
+                                   isPastor: false)
         var itemC = SearchMemberItem(memberDetail: memberC)
         itemC.isMember = true
         let memberD = MemberDetail(id: UUID().uuidString,
@@ -55,7 +58,8 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    groupList: [],
                                    mainGroup: "",
                                    startDate: "",
-                                   community: "YD")
+                                   community: "YD",
+                                   isPastor: false)
         let itemD = SearchMemberItem(memberDetail: memberD)
         let memberE = MemberDetail(id: UUID().uuidString,
                                    authType: "email",
@@ -65,7 +69,8 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    groupList: [],
                                    mainGroup: "",
                                    startDate: "",
-                                   community: "YD")
+                                   community: "YD",
+                                   isPastor: false)
         let itemE = SearchMemberItem(memberDetail: memberE)
         leaderItemList.append(contentsOf: [itemA,
                                            itemB,

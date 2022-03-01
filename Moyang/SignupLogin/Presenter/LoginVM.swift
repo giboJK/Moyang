@@ -10,7 +10,7 @@ import Combine
 
 class LoginVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-    private let loginService: LoginService
+    private let loginService: LoginService = FirestoreLoginServiceImpl(service: FirestoreServiceImpl())
     
     @Published var id: String = ""
     @Published var password: String = ""
@@ -21,8 +21,7 @@ class LoginVM: ObservableObject {
     
     @Published var moveToProfileSetView: Bool = false
     
-    init(loginService: LoginService) {
-        self.loginService = loginService
+    init() {
     }
     
     func signup() {

@@ -18,6 +18,7 @@ struct MemberDetail: Codable, Identifiable {
     let mainGroup: String
     let startDate: String
     let community: String
+    let isPastor: Bool
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -29,5 +30,6 @@ struct MemberDetail: Codable, Identifiable {
         case mainGroup = "main_group"
         case startDate = "start_date"
         case community
+        case isPastor = "is_pastor"
     }
 }

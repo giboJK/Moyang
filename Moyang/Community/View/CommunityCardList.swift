@@ -28,7 +28,7 @@ struct CommunityCardList: View {
                 }
             }
         }.onAppear {
-            vm.fetchDailyPreview()
+            vm.fetchCommunityData()
         }
         .background(Color.sheep2)
     }

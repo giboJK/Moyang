@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var vm: ProfileVM
-    
+
     @Binding var rootIsActive: Bool
+    
     var body: some View {
         VStack(spacing: 0) {
             Text(vm.groupInfoItem.name)

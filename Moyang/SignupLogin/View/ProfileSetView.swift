@@ -15,13 +15,6 @@ struct ProfileSetView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                Text("기본정보 입력")
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                    .padding(EdgeInsets(top: 104 - UIApplication.statusBarHeight, leading: 16, bottom: 100, trailing: 0))
-                    .font(.system(size: 32, weight: .bold, design: .default))
-                    .foregroundColor(.nightSky1)
-                
-                
                 TextField("", text: $vm.name)
                     .placeholder(when: vm.name.isEmpty) {
                         Text("이름").foregroundColor(.sheep4)

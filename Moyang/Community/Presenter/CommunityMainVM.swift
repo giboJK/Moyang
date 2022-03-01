@@ -11,7 +11,7 @@ import Combine
 class CommunityMainVM: ObservableObject {
     private var disposables = Set<AnyCancellable>()
     
-    @Published var communityCardListVM = CommunityCardListVM()
+    @Published var communityCardListVM = CommunityCardListVM(repo: CommunityListService())
     @Published var communityGroupCardVM = CommunityGroupCardVM()
     
     init() {

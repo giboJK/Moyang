@@ -70,6 +70,14 @@ struct LogInView: View {
             IndicatorView()
                 .hidden(vm.isLoadingUserDataFinished)
                 .frame(width: 40, height: 40, alignment: .center)
+//            NavigationLink(
+//                destination: ProfileSetView(rootIsActive: $vm.isLoginSuccess, email: vm.id),
+//                isActive: $vm.isLoginSuccess
+//            ) {
+//                EmptyView()
+//            }
+//            .isDetailLink(false)
+            
         }
         .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: self.didDismiss, content: {
             MainView(rootIsActive: $vm.isLoginSuccess)
@@ -90,7 +98,7 @@ struct LogInView: View {
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            LogInView(vm: LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+            LogInView(vm: LoginVM())
         }
     }
 }

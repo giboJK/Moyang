@@ -21,7 +21,7 @@ struct IntroView: View {
                     
                     Spacer()
                     Button(action: {}) {
-                        let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
+                        let loginVM = LoginVM()
                         NavigationLink(destination: SignUpView(vm: loginVM)) {
                             Text("Email 회원가입")
                                 .frame(width: UIScreen.screenWidth - 80, height: 50)
@@ -33,7 +33,7 @@ struct IntroView: View {
                     .padding(.bottom, 20)
                     
                     Button(action: {}) {
-                        let loginVM = LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
+                        let loginVM = LoginVM()
                         NavigationLink(destination: LogInView(vm: loginVM)) {
                             Text("로그인")
                         }

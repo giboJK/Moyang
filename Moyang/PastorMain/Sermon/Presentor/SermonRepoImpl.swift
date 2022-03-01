@@ -20,19 +20,11 @@ class SermonRepoImpl: SermonRepo {
     func add(_ sermon: Sermon) -> AnyPublisher<Bool, MoyangError> {
         let userInfo = UserData.shared.myInfo!
         let mainGroup = userInfo.mainGroup
-        guard let yearSubString = mainGroup.split(separator: "_").first else {
-            return Empty(completeImmediately: false).eraseToAnyPublisher()
-        }
-        guard let groupSubString = mainGroup.split(separator: "_").last else {
-            return Empty(completeImmediately: false).eraseToAnyPublisher()
-        }
-        let year = String(yearSubString)
-        let group = String(groupSubString)
         let ref = service.store
             .collection(collectionName)
             .document("YD")
-            .collection(year)
-            .document(group)
+            .collection("2022")
+            .document(mainGroup)
             .collection("SERMON")
             .document(sermon.date)
         

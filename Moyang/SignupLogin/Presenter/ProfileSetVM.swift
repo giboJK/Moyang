@@ -36,7 +36,8 @@ class ProfileSetVM: ObservableObject {
                                         groupList: [],
                                         mainGroup: "",
                                         startDate: Date().toString("yyyy.MM.dd"),
-                                        community: "YD")
+                                        community: "YD",
+                                        isPastor: false)
         
         loginService.setUserData(memberDetail: memberDetail)
             .sink(receiveCompletion: { completion in

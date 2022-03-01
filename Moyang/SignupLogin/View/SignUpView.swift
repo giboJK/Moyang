@@ -68,7 +68,7 @@ struct SignUpView_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            SignUpView(vm: LoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+            SignUpView(vm: LoginVM())
         }
     }
 }

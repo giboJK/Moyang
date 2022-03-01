@@ -41,6 +41,8 @@
 		08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8572787B12F006897A4 /* LoginVM.swift */; };
 		08D449F227B94020004B0D8A /* ProfileSetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D449F127B94020004B0D8A /* ProfileSetVM.swift */; };
 		08D449F427B94D4B004B0D8A /* NavigationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D449F327B94D4B004B0D8A /* NavigationUtil.swift */; };
+		08D7DAB927CE1D56004CDC9E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D7DAB827CE1D56004CDC9E /* TestView.swift */; };
+		08D7DABC27CE244E004CDC9E /* LoginVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D7DABB27CE244E004CDC9E /* LoginVMMock.swift */; };
 		08D82953278D192C001E6B61 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82952278D192C001E6B61 /* LoginService.swift */; };
 		08D82955278D196F001E6B61 /* FirestoreLoginServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82954278D196F001E6B61 /* FirestoreLoginServiceImpl.swift */; };
 		08D82957278D2548001E6B61 /* MoyangButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */; };
@@ -114,9 +116,7 @@
 		24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B88EE727A2D6C600D5B001 /* LottieView.swift */; };
 		24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B88EE927A2D77B00D5B001 /* SplashView.swift */; };
 		24B88EEC27A2D86E00D5B001 /* intro.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B88EEB27A2D86E00D5B001 /* intro.json */; };
-		24B8BCE92764C7AD005B0A9F /* DailyRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */; };
 		24B8BCED2764C7FF005B0A9F /* DailyRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */; };
-		24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEE2764C939005B0A9F /* DailyPreview.swift */; };
 		24B9AEDA27C1C4D9005391DA /* NewMemberSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9AED927C1C4D9005391DA /* NewMemberSearchView.swift */; };
 		24B9AEDC27C1C6DD005391DA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9AEDB27C1C6DD005391DA /* SearchBar.swift */; };
 		24B9B6FF27BFE90A007A12C6 /* GroupManageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B6FE27BFE90A007A12C6 /* GroupManageListView.swift */; };
@@ -197,6 +197,8 @@
 		08D2D8572787B12F006897A4 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		08D449F127B94020004B0D8A /* ProfileSetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetVM.swift; sourceTree = "<group>"; };
 		08D449F327B94D4B004B0D8A /* NavigationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtil.swift; sourceTree = "<group>"; };
+		08D7DAB827CE1D56004CDC9E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		08D7DABB27CE244E004CDC9E /* LoginVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVMMock.swift; sourceTree = "<group>"; };
 		08D82952278D192C001E6B61 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		08D82954278D196F001E6B61 /* FirestoreLoginServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreLoginServiceImpl.swift; sourceTree = "<group>"; };
 		08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButtonStyle.swift; sourceTree = "<group>"; };
@@ -272,9 +274,7 @@
 		24B88EE727A2D6C600D5B001 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		24B88EE927A2D77B00D5B001 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		24B88EEB27A2D86E00D5B001 /* intro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = intro.json; sourceTree = "<group>"; };
-		24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepo.swift; sourceTree = "<group>"; };
 		24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepoImpl.swift; sourceTree = "<group>"; };
-		24B8BCEE2764C939005B0A9F /* DailyPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPreview.swift; sourceTree = "<group>"; };
 		24B9AED927C1C4D9005391DA /* NewMemberSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMemberSearchView.swift; sourceTree = "<group>"; };
 		24B9AEDB27C1C6DD005391DA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		24B9B6FE27BFE90A007A12C6 /* GroupManageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManageListView.swift; sourceTree = "<group>"; };
@@ -456,12 +456,21 @@
 		08D2D8562787B124006897A4 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				08D7DABA27CE243B004CDC9E /* Mock */,
 				08D2D8572787B12F006897A4 /* LoginVM.swift */,
 				24B652AE279589BA007CC58C /* IntroVM.swift */,
 				08BE775D2796D21F008DC7B0 /* PastorLoginVM.swift */,
 				08D449F127B94020004B0D8A /* ProfileSetVM.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		08D7DABA27CE243B004CDC9E /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				08D7DABB27CE244E004CDC9E /* LoginVMMock.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		08FBC5F6279143DC008BC236 /* Profile */ = {
@@ -500,6 +509,7 @@
 				24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */,
 				24B9AEDB27C1C6DD005391DA /* SearchBar.swift */,
 				08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */,
+				08D7DAB827CE1D56004CDC9E /* TestView.swift */,
 			);
 			path = CommonView;
 			sourceTree = "<group>";
@@ -755,8 +765,6 @@
 		24B8BCE72764C798005B0A9F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				24B8BCE82764C7AD005B0A9F /* DailyRepo.swift */,
-				24B8BCEE2764C939005B0A9F /* DailyPreview.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1198,7 +1206,6 @@
 				08B142D727AFAFCC000952FF /* Sermon.swift in Sources */,
 				08D82955278D196F001E6B61 /* FirestoreLoginServiceImpl.swift in Sources */,
 				246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */,
-				24B8BCEF2764C939005B0A9F /* DailyPreview.swift in Sources */,
 				08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */,
 				24A55F64279AFE7D007DDE02 /* String+.swift in Sources */,
 				248AF71D27C06BF4004AA283 /* SermonPreviewCard.swift in Sources */,
@@ -1211,7 +1218,6 @@
 				24151DCE274A2A3E00DD38CE /* GroupPrayListView.swift in Sources */,
 				08BE77612796DAB8008DC7B0 /* PastorList.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
-				24B8BCE92764C7AD005B0A9F /* DailyRepo.swift in Sources */,
 				246BD7C627240AD4005C4E0B /* PrayListVM.swift in Sources */,
 				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
 				08D449F227B94020004B0D8A /* ProfileSetVM.swift in Sources */,
@@ -1225,10 +1231,12 @@
 				0894AC6827B6B09F0011F167 /* ProfileSetView.swift in Sources */,
 				24BB803727565E2200BE2988 /* LocalDB.swift in Sources */,
 				2496FE8227B527B600E9DCEE /* SermonRepo.swift in Sources */,
+				08D7DAB927CE1D56004CDC9E /* TestView.swift in Sources */,
 				248AF71F27C09B2E004AA283 /* GroupManageCardRow.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */,
 				08A02A5727AE0B460043EEF0 /* MemberDetail.swift in Sources */,
 				24B9AEDC27C1C6DD005391DA /* SearchBar.swift in Sources */,
+				08D7DABC27CE244E004CDC9E /* LoginVMMock.swift in Sources */,
 				24B9AEDA27C1C4D9005391DA /* NewMemberSearchView.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
 				24B9B70527BFF012007A12C6 /* GroupManageListVMMock.swift in Sources */,
