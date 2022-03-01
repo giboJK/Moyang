@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LogInView: View {
     @ObservedObject var vm: LoginVM
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
@@ -87,7 +88,7 @@ struct LogInView: View {
     }
     
     func didDismiss() {
-        
+        dismiss()
     }
 }
 

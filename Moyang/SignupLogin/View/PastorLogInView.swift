@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PastorLogInView: View {
     @ObservedObject var vm: PastorLoginVM
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
@@ -75,12 +76,16 @@ struct PastorLogInView: View {
         .onAppear(perform: {
             vm.fetchPastorList()
         })
-        .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
+        .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: self.didDismiss, content: {
             PastorMainView(rootIsActive: $vm.isLoginSuccess)
         })
         .navigationTitle("목회자 로그인")
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
+    }
+    
+    func didDismiss() {
+        dismiss()
     }
 }
 
