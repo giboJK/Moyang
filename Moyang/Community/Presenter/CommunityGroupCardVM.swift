@@ -9,32 +9,52 @@ import SwiftUI
 import Combine
 
 class CommunityGroupCardVM: ObservableObject {
-    private var disposables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
+    private let service: SermonRepo & GroupRepo = CommunityListService()
     
     @Published var item = CommunityGroupCardVM.GroupMeetingItem()
     
     init() {
-        fetchGroupItem()
     }
     
     deinit {
         Log.i(self)
-        disposables.removeAll()
+        cancellables.removeAll()
     }
     
-    func fetchGroupItem() {
-        
+    func fetchLastSermon() {
+        guard let groupInfo = UserData.shared.groupInfo else {
+            return
+        }
+        service.fetchLatestSermon()
+            .sink(receiveCompletion: { completion in
+                Log.i(completion)
+            }, receiveValue: { data in
+                Log.w(data)
+                self.item = GroupMeetingItem(groupName: groupInfo.groupName, sermon: data)
+            })
+            .store(in: &cancellables)
+    }
+    
+    func fetchLatestGroupPray() {
+        service.fetchLatestGroupPray()
+            .sink(receiveCompletion: { completion in
+                Log.i(completion)
+            }, receiveValue: { data in
+                Log.w(data)
+            })
+            .store(in: &cancellables)
     }
 }
 
 extension CommunityGroupCardVM {
     struct GroupMeetingItem {
-        let groupName: String
-        let meetingDate: String
-        let groupQuestion: [GroupQuestion]
-        let prayRegisterDate: String
-        let lastestPrayDate: String
-        let prayList: GroupMemberPrayList?
+        var groupName: String
+        var meetingDate: String
+        var groupQuestion: [GroupQuestion]
+        var prayRegisterDate: String
+        var lastestPrayDate: String
+        var prayList: GroupMemberPrayList?
         var totalQuestionCount = 0
         var answeredQuestionCount = 0
         
@@ -45,6 +65,23 @@ extension CommunityGroupCardVM {
             prayRegisterDate = ""
             lastestPrayDate = ""
             prayList = nil
+        }
+        
+        init(groupName: String, sermon: Sermon) {
+            self.groupName = groupName
+            self.meetingDate = sermon.date
+            self.groupQuestion = sermon.groupQuestionList
+            self.prayRegisterDate = ""
+            self.lastestPrayDate = ""
+            self.prayList = nil
+            self.totalQuestionCount = groupQuestion.count
+            var answered = 0
+            groupQuestion.forEach { groupQuestion in
+                if groupQuestion.question.isAnswered {
+                    answered += 1
+                }
+            }
+            self.answeredQuestionCount = answered
         }
         
         init(groupName: String,

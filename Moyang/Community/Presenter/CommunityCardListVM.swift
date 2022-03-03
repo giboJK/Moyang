@@ -28,9 +28,9 @@ class CommunityCardListVM: ObservableObject {
             }, receiveValue: { data in
                 self.groupInfo = data
                 UserData.shared.groupInfo = data
-                self.fetchLastSermon()
-                self.fetchGroupPray()
                 self.hasGroup = true
+                self.communityGroupCardVM.fetchLatestGroupPray()
+                self.communityGroupCardVM.fetchLastSermon()
             })
             .store(in: &cancellables)
     }

@@ -20,7 +20,7 @@ class CommunityGroupCardVMMock: CommunityGroupCardVM {
         disposables.removeAll()
     }
     
-    override func fetchGroupItem() {
+    override func fetchLastSermon() {
         let subQuestionOne = Question(sentence: "귀신들린 광인이 있던 동네는 어디였고, 그 주민들은 무엇을 하고 있었는가?",
                                       answer: "거라사 지방.")
         let subQuestionTwo = Question(sentence: "예수님이 기적을 펼치시고 사람들의 반응은 어떠했는가?",
