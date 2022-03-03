@@ -61,6 +61,22 @@ class CommunityListService: SermonRepo & GroupRepo {
         return .init()
     }
     
+    func fetchLatestGroupPray() -> AnyPublisher<GroupMemberPray, MoyangError> {
+        guard let myInfo = UserData.shared.myInfo else {
+            return Empty().eraseToAnyPublisher()
+        }
+        guard let groupInfo = UserData.shared.groupInfo else {
+            return Empty().eraseToAnyPublisher()
+        }
+        let ref = service.store
+            .collection("COMMUNITY")
+            .document(myInfo.community)
+            .collection("2022")
+            .document(groupInfo.parentGroup)
+            .collection("PRAY")
+        return service.fetchObject(ref: ref, type: GroupMemberPray.self)
+    }
+    
     func updateGroupPray(docment: String, value: [String: Any], groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
         return Empty().eraseToAnyPublisher()
     }

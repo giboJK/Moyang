@@ -116,7 +116,7 @@
 		24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B88EE727A2D6C600D5B001 /* LottieView.swift */; };
 		24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B88EE927A2D77B00D5B001 /* SplashView.swift */; };
 		24B88EEC27A2D86E00D5B001 /* intro.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B88EEB27A2D86E00D5B001 /* intro.json */; };
-		24B8BCED2764C7FF005B0A9F /* DailyRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */; };
+		24B8BCED2764C7FF005B0A9F /* CommunityListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8BCEC2764C7FF005B0A9F /* CommunityListService.swift */; };
 		24B9AEDA27C1C4D9005391DA /* NewMemberSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9AED927C1C4D9005391DA /* NewMemberSearchView.swift */; };
 		24B9AEDC27C1C6DD005391DA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9AEDB27C1C6DD005391DA /* SearchBar.swift */; };
 		24B9B6FF27BFE90A007A12C6 /* GroupManageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B6FE27BFE90A007A12C6 /* GroupManageListView.swift */; };
@@ -274,7 +274,7 @@
 		24B88EE727A2D6C600D5B001 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		24B88EE927A2D77B00D5B001 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		24B88EEB27A2D86E00D5B001 /* intro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = intro.json; sourceTree = "<group>"; };
-		24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRepoImpl.swift; sourceTree = "<group>"; };
+		24B8BCEC2764C7FF005B0A9F /* CommunityListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityListService.swift; sourceTree = "<group>"; };
 		24B9AED927C1C4D9005391DA /* NewMemberSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMemberSearchView.swift; sourceTree = "<group>"; };
 		24B9AEDB27C1C6DD005391DA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		24B9B6FE27BFE90A007A12C6 /* GroupManageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManageListView.swift; sourceTree = "<group>"; };
@@ -772,7 +772,7 @@
 		24B8BCEB2764C7DD005B0A9F /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				24B8BCEC2764C7FF005B0A9F /* DailyRepoImpl.swift */,
+				24B8BCEC2764C7FF005B0A9F /* CommunityListService.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1198,7 +1198,7 @@
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */,
-				24B8BCED2764C7FF005B0A9F /* DailyRepoImpl.swift in Sources */,
+				24B8BCED2764C7FF005B0A9F /* CommunityListService.swift in Sources */,
 				24E779CE2787308D00C732D6 /* Member.swift in Sources */,
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
 				08A02A5D27AE17370043EEF0 /* CommunityGroupCardVM.swift in Sources */,

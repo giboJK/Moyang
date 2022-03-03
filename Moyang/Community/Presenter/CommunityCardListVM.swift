@@ -29,12 +29,24 @@ class CommunityCardListVM: ObservableObject {
                 self.groupInfo = data
                 UserData.shared.groupInfo = data
                 self.fetchLastSermon()
+                self.fetchGroupPray()
+                self.hasGroup = true
             })
             .store(in: &cancellables)
     }
     
     func fetchLastSermon() {
         service.fetchLatestSermon()
+            .sink(receiveCompletion: { completion in
+                Log.i(completion)
+            }, receiveValue: { data in
+                Log.w(data)
+            })
+            .store(in: &cancellables)
+    }
+    
+    func fetchGroupPray() {
+        service.fetchLatestGroupPray()
             .sink(receiveCompletion: { completion in
                 Log.i(completion)
             }, receiveValue: { data in

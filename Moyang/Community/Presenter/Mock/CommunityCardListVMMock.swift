@@ -16,5 +16,6 @@ class CommunityCardListVMMock: CommunityCardListVM {
     
     override func fetchCommunityData() {
         communityGroupCardVM = CommunityGroupCardVMMock()
+        hasGroup = true
     }
 }
