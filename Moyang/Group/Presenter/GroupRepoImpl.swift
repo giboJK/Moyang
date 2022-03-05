@@ -79,7 +79,7 @@ class GroupRepoImpl: GroupRepo {
         return service.addListener(ref: ref, type: GroupMemberPrayList.self)
     }
     
-    func fetchLatestGroupPray() -> AnyPublisher<GroupMemberPray, MoyangError> {
+    func fetchLatestGroupPray() -> AnyPublisher<GroupMemberPrayList, MoyangError> {
         return Empty().eraseToAnyPublisher()
     }
     

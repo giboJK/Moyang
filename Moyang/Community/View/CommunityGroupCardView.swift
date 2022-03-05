@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CommunityGroupCardView: View {
-    @ObservedObject var vm: CommunityGroupCardVM
+    @StateObject var vm: CommunityGroupCardVM
     
     var body: some View {
-        if vm.item.groupName.isEmpty {
+        if vm.groupName.isEmpty {
             VStack(spacing: 0) {
                 HStack {
                     Text("공동체")
@@ -37,7 +37,7 @@ struct CommunityGroupCardView: View {
         } else {
             VStack(spacing: 0) {
                 HStack {
-                    Text(vm.item.groupName)
+                    Text(vm.groupName)
                         .padding(.leading, 8)
                         .font(.system(size: 16, weight: .semibold, design: .default))
                         .foregroundColor(.nightSky1)
@@ -48,11 +48,11 @@ struct CommunityGroupCardView: View {
                 
                 VStack(spacing: 0) {
                     HStack {
-                        Text(vm.item.meetingDate + " 나눔 질문")
+                        Text(vm.sermonItem.meetingDate + " 나눔 질문")
                             .font(.system(size: 15, weight: .regular, design: .default))
                             .foregroundColor(.nightSky1)
                         Spacer()
-                        Text("\(vm.item.answeredQuestionCount) / \(vm.item.totalQuestionCount)")
+                        Text("\(vm.sermonItem.answeredQuestionCount) / \(vm.sermonItem.totalQuestionCount)")
                             .font(.system(size: 15, weight: .regular, design: .default))
                             .foregroundColor(.nightSky1)
                     }.padding(EdgeInsets(top: 16, leading: 12, bottom: 8, trailing: 12))
@@ -60,8 +60,8 @@ struct CommunityGroupCardView: View {
                         .background(Color.sheep3)
                         .padding(.bottom, 12)
                         
-                    ForEach(0..<min(2, vm.item.groupQuestion.count), id: \.self) { i in
-                        let item = vm.item.groupQuestion[i]
+                    ForEach(0..<min(2, vm.sermonItem.groupQuestion.count), id: \.self) { i in
+                        let item = vm.sermonItem.groupQuestion[i]
                         if item.question.isAnswered {
                             HStack(spacing: 0) {
                                 Image(systemName: "checkmark")
@@ -83,7 +83,7 @@ struct CommunityGroupCardView: View {
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 4, trailing: 16))
                     
                     HStack(spacing: 0) {
-                        Text(vm.item.prayRegisterDate + " 기도")
+                        Text(vm.prayItem.prayRegisterDate + " 기도")
                             .font(.system(size: 15, weight: .regular, design: .default))
                             .foregroundColor(.nightSky1)
                         Spacer()
@@ -91,23 +91,24 @@ struct CommunityGroupCardView: View {
                             .font(.system(size: 14, weight: .regular, design: .default))
                             .foregroundColor(.sheep4)
                             .padding(.trailing, 4)
-                        Text(vm.item.lastestPrayDate)
+                        Text(vm.prayItem.lastestPrayDate)
                             .font(.system(size: 14, weight: .regular, design: .default))
                             .foregroundColor(.sheep4)
                     }.padding(EdgeInsets(top: 16, leading: 12, bottom: 8, trailing: 12))
                     Divider()
                         .background(Color.sheep3)
                         .padding(.bottom, 12)
-                    if let prayList = vm.item.prayList {
+                    if let prayList = vm.prayItem.prayList {
                         ForEach(0..<min(2, prayList.list.count), id: \.self) { i in
                             let item = prayList.list[i]
                             HStack(spacing: 0) {
                                 Text("· \(item.member.name)")
                                     .font(.system(size: 15, weight: .regular, design: .default))
-                                    .padding(.trailing, 4)
+                                    .padding(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 8))
                                 Text(item.pray)
                                     .font(.system(size: 15, weight: .regular, design: .default))
-                                    .padding(.trailing, 4)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.trailing, 12)
                             }
                         }
                     } else {

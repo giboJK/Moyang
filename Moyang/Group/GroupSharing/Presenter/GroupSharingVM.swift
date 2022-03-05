@@ -11,7 +11,6 @@ import Combine
 
 class GroupSharingVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
-    private var groupInfo: GroupInfo?
     
     private var repo: GroupRepo
     
@@ -20,12 +19,18 @@ class GroupSharingVM: ObservableObject {
     
     init(repo: GroupRepo) {
         self.repo = repo
-        groupInfoItem = GroupInfoItem()
+        setData()
     }
     
     deinit {
         Log.i(self)
         cancellables.removeAll()
+    }
+    
+    func setData() {
+        guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
+        guard let sermon = UserData.shared.sermon else { Log.e(""); return }
+        groupInfoItem = GroupInfoItem(group: groupInfo, sermon: sermon)
     }
 }
 
@@ -44,11 +49,11 @@ extension GroupSharingVM {
             meetingDate = ""
         }
         
-        init(group: GroupInfo, meeting: MeetingInfo) {
+        init(group: GroupInfo, sermon: Sermon) {
             groupName = group.groupName
-            talkingSubject = meeting.talkingSubject
-            groupQuestionList = meeting.groupQuestionList
-            meetingDate = meeting.meetingDate
+            talkingSubject = sermon.title
+            groupQuestionList = sermon.groupQuestionList
+            meetingDate = sermon.date
         }
     }
 }

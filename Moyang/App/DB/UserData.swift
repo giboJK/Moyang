@@ -11,6 +11,7 @@ class UserData {
     static let shared = UserData()
     var myInfo: MemberDetail?
     var groupInfo: GroupInfo?
+    var sermon: Sermon?
     
     func resetUserData() {
         myInfo = nil

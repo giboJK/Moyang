@@ -12,8 +12,6 @@ class CommunityCardListVM: ObservableObject {
     private let service: SermonRepo & GroupRepo = CommunityListService()
     private var cancellables: Set<AnyCancellable> = []
     
-    private var groupInfo: GroupInfo?
-    
     @Published var communityGroupCardVM = CommunityGroupCardVM()
     @Published var communityPrayCardVM = CommunityPrayCardVM()
     @Published var hasGroup: Bool = false
@@ -26,39 +24,12 @@ class CommunityCardListVM: ObservableObject {
             .sink(receiveCompletion: { completion in
                 Log.i(completion)
             }, receiveValue: { data in
-                self.groupInfo = data
                 UserData.shared.groupInfo = data
                 self.hasGroup = true
                 self.communityGroupCardVM.fetchLatestGroupPray()
                 self.communityGroupCardVM.fetchLastSermon()
             })
             .store(in: &cancellables)
-    }
-    
-    func fetchLastSermon() {
-        service.fetchLatestSermon()
-            .sink(receiveCompletion: { completion in
-                Log.i(completion)
-            }, receiveValue: { data in
-                Log.w(data)
-            })
-            .store(in: &cancellables)
-    }
-    
-    func fetchGroupPray() {
-        service.fetchLatestGroupPray()
-            .sink(receiveCompletion: { completion in
-                Log.i(completion)
-            }, receiveValue: { data in
-                Log.w(data)
-            })
-            .store(in: &cancellables)
-    }
-    
-    private func makeCellCardVM(item: GroupCardItem) {
-    }
-    
-    private func makePrayCardVM(prayCardItem: PrayCardItem) {
     }
 }
 

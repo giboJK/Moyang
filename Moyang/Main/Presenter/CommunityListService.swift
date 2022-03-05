@@ -61,7 +61,7 @@ class CommunityListService: SermonRepo & GroupRepo {
         return .init()
     }
     
-    func fetchLatestGroupPray() -> AnyPublisher<GroupMemberPray, MoyangError> {
+    func fetchLatestGroupPray() -> AnyPublisher<GroupMemberPrayList, MoyangError> {
         guard let myInfo = UserData.shared.myInfo else {
             return Empty().eraseToAnyPublisher()
         }
@@ -72,9 +72,9 @@ class CommunityListService: SermonRepo & GroupRepo {
             .collection("COMMUNITY")
             .document(myInfo.community)
             .collection("2022")
-            .document(groupInfo.parentGroup)
+            .document(groupInfo.id)
             .collection("PRAY")
-        return service.fetchObject(ref: ref, type: GroupMemberPray.self)
+        return service.fetchObject(ref: ref, type: GroupMemberPrayList.self)
     }
     
     func updateGroupPray(docment: String, value: [String: Any], groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {

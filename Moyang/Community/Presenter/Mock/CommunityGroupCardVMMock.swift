@@ -21,6 +21,7 @@ class CommunityGroupCardVMMock: CommunityGroupCardVM {
     }
     
     override func fetchLastSermon() {
+        groupName = "셀이름"
         let subQuestionOne = Question(sentence: "귀신들린 광인이 있던 동네는 어디였고, 그 주민들은 무엇을 하고 있었는가?",
                                       answer: "거라사 지방.")
         let subQuestionTwo = Question(sentence: "예수님이 기적을 펼치시고 사람들의 반응은 어떠했는가?",
@@ -35,12 +36,5 @@ class CommunityGroupCardVMMock: CommunityGroupCardVM {
                                            subquestionList: [subQuestionOne, subQuestionTwo])
         
         let groupQuestionList = [aGroupQuestion, bGroupQuestion]
-        
-        item = GroupMeetingItem(groupName: "깐부셀",
-                                meetingDate: Date().toString(format: "yyyy.MM.dd"),
-                                groupQuestion: groupQuestionList,
-                                prayRegisterDate: Date().daysAgo(7).toString(format: "yyyy.MM.dd"),
-                                lastestPrayDate: Date().daysAgo(3).toString(format: "yyyy.MM.dd"),
-                                prayList: nil)
     }
 }
