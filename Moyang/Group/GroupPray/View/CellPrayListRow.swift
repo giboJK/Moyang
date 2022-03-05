@@ -15,13 +15,18 @@ struct CellPrayListRow: View {
         VStack {
             HStack {
                 Text(info.split(separator: "_").first ?? "")
+                    .font(.system(size: 16, weight: .regular, design: .default))
+                    .foregroundColor(.nightSky1)
                 Spacer()
             }
             HStack {
                 Text(pray)
+                    .font(.system(size: 16, weight: .regular, design: .default))
+                    .foregroundColor(.nightSky1)
                 Spacer()
             }
         }
+        .background(Color.sheep1)
     }
 }
 
