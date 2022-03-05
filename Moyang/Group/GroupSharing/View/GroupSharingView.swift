@@ -1,5 +1,5 @@
 //
-//  GroupMeetingView.swift
+//  GroupSharingView.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/10/19.
@@ -9,11 +9,11 @@
 import SwiftUI
 import AlertToast
 
-struct GroupMeetingView: View {
-    @ObservedObject var vm: GroupMeetingVM
+struct GroupSharingView: View {
+    @ObservedObject var vm: GroupSharingVM
     
     @State private var showingMemo = true
-    init(vm: GroupMeetingVM) {
+    init(vm: GroupSharingVM) {
         self.vm = vm
         UITextView.appearance().backgroundColor = .clear
     }
@@ -22,7 +22,7 @@ struct GroupMeetingView: View {
         VStack {
             HStack {
                 Text("셀 모임 질문")
-                    .font(.system(size: 19, weight: .bold))
+                    .font(.system(size: 16, weight: .bold))
                 Spacer()
                 Image(systemName: "arrow.forward")
             }
@@ -70,41 +70,17 @@ struct GroupMeetingView: View {
                 .frame(height: 280)
             }
             Divider()
-                .padding(.top, 5)
-            NavigationLink(destination: GroupPrayListView(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
-                HStack {
-                    Text("지난기도")
-                        .font(.system(size: 17, weight: .bold))
-                    Spacer()
-                    Image(systemName: "arrow.forward")
-                }
-                
-            }
-            .padding(.top, 5)
-            NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
-                HStack {
-                    Text("새 기도제목")
-                        .font(.system(size: 17, weight: .bold))
-                    Spacer()
-                    Image(systemName: "plus")
-                }
-            }
-            .padding(.top, 5)
             Spacer()
         }
         .foregroundColor(Color.black)
         .navigationTitle(vm.groupInfoItem.groupName)
         .padding(EdgeInsets(top: 14, leading: 20, bottom: 0, trailing: 20))
         .background(Color.sheep1)
-        .toast(isPresenting: $vm.isAddSuccess) {
-            return AlertToast(type: .complete(.sheep3), title: "기도 추가 완료 😀")
-        }
-        .eraseToAnyView()
     }
 }
 
 struct GroupMeetingView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupMeetingView(vm: GroupMeetingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
+        GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
     }
 }

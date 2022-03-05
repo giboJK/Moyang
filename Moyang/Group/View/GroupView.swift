@@ -6,10 +6,30 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct GroupView: View {
+    @State var tabIndex = 0
+    @StateObject var vm = GroupVM()
+    
     var body: some View {
-        Text("그룹")
+        VStack{
+            TopTabBar(tabIndex: $tabIndex)
+            if tabIndex == 0 {
+                GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
+            }
+            else {
+                GroupPrayListView(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))
+                
+            }
+            Spacer()
+        }
+        .padding(.top, 10)
+        .frame(maxWidth: .infinity)
+        .background(Color.sheep1)
+        .toast(isPresenting: $vm.newPrayAddSuccess) {
+            return AlertToast(type: .complete(.sheep3), title: "기도 추가 완료 😀")
+        }
     }
 }
 

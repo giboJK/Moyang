@@ -30,6 +30,5 @@ struct CellPrayListRow_Previews: PreviewProvider {
         Group {
             CellPrayListRow(info: "이름1", pray: "기도 제목1")
         }
-        .previewLayout(.fixed(width: 360, height: 70))
     }
 }
