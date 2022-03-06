@@ -9,8 +9,8 @@ import Combine
 import Foundation
 
 class GroupPrayListVM: ObservableObject, Identifiable {
-    private let groupRepo: GroupRepo
-    private var cancellables: Set<AnyCancellable> = []
+    let groupRepo: GroupRepo
+    var cancellables: Set<AnyCancellable> = []
     
     @Published var nameItemList = [NameSortedItem]()
     @Published var dateItemList = [DateSortedItem]()

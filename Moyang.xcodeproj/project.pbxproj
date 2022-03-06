@@ -39,6 +39,7 @@
 		08D2D8532787B05F006897A4 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8522787B05F006897A4 /* SignUpView.swift */; };
 		08D2D8552787B074006897A4 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8542787B074006897A4 /* LogInView.swift */; };
 		08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8572787B12F006897A4 /* LoginVM.swift */; };
+		08D33DFD27D4E64100C77735 /* GroupPrayListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D33DFC27D4E64100C77735 /* GroupPrayListVMMock.swift */; };
 		08D449F227B94020004B0D8A /* ProfileSetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D449F127B94020004B0D8A /* ProfileSetVM.swift */; };
 		08D449F427B94D4B004B0D8A /* NavigationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D449F327B94D4B004B0D8A /* NavigationUtil.swift */; };
 		08D7DAB927CE1D56004CDC9E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D7DAB827CE1D56004CDC9E /* TestView.swift */; };
@@ -195,6 +196,7 @@
 		08D2D8522787B05F006897A4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		08D2D8542787B074006897A4 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		08D2D8572787B12F006897A4 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		08D33DFC27D4E64100C77735 /* GroupPrayListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayListVMMock.swift; sourceTree = "<group>"; };
 		08D449F127B94020004B0D8A /* ProfileSetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetVM.swift; sourceTree = "<group>"; };
 		08D449F327B94D4B004B0D8A /* NavigationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtil.swift; sourceTree = "<group>"; };
 		08D7DAB827CE1D56004CDC9E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 			children = (
 				24D7BB30274D179200CC8B7C /* GroupPrayListVM.swift */,
 				24BB8031275645C100BE2988 /* NewGroupPrayVM.swift */,
+				08D33DFC27D4E64100C77735 /* GroupPrayListVMMock.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1315,6 +1318,7 @@
 				08A02A6227AE1BAB0043EEF0 /* CommunityGroupCardVMMock.swift in Sources */,
 				08D82957278D2548001E6B61 /* MoyangButtonStyle.swift in Sources */,
 				24BB803527565E1300BE2988 /* RealmManager.swift in Sources */,
+				08D33DFD27D4E64100C77735 /* GroupPrayListVMMock.swift in Sources */,
 				24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */,
 				24D7BB31274D179200CC8B7C /* GroupPrayListVM.swift in Sources */,
 				08BE775C2796D010008DC7B0 /* PastorLogInView.swift in Sources */,

@@ -113,6 +113,6 @@ struct GroupPrayListView: View {
 
 struct CellPrayListView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupPrayListView(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))
+        GroupPrayListView(vm: GroupPrayListVMMock())
     }
 }
