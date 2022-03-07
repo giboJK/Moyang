@@ -26,10 +26,11 @@ class GroupPrayListVMMock: GroupPrayListVM {
                              profileURL: "")
         
         memberPrayList.append(GroupMemberPray(member: memberA,
-                                              pray: "기도제목 1입니다"))
+                                              pray: "기도제목 1입니다\nasdsad\ndadd"))
         memberPrayList.append(GroupMemberPray(member: memberB,
-                                              pray: "기도제목 22입니다"))
-        let data = [GroupMemberPrayList(id: "asdsadsadsad", date: "2022.03.22", list: memberPrayList)]
+                                              pray: "기도제목 22입니다\nr3ewffff"))
+        var data = [GroupMemberPrayList(id: "asdsadsadsad", date: "2022.03.22", list: memberPrayList)]
+        data.append(GroupMemberPrayList(id: "ddadsadsad", date: "2022.03.20", list: memberPrayList))
         
         
         let groupPrayListItem = GroupPrayListItem(data: data, groupInfo: GroupInfo(id: UUID().uuidString,

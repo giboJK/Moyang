@@ -76,7 +76,8 @@ extension GroupPrayListVM {
                         prayList.append(pray.pray)
                     }
                 }
-                nameSorted.append(NameSortedItem(name: member.name,
+                nameSorted.append(NameSortedItem(id: member.id,
+                                                 name: member.name,
                                                  dateList: dateList,
                                                  prayList: prayList))
             }
@@ -99,11 +100,13 @@ extension GroupPrayListVM {
         }
     }
     
-    struct NameSortedItem {
+    struct NameSortedItem: Identifiable {
+        let id: String
         let name: String
         var prayItemList: [(date: String, pray: String)]
         
-        init(name: String, dateList: [String], prayList: [String]) {
+        init(id: String, name: String, dateList: [String], prayList: [String]) {
+            self.id = id
             self.name = name
             var newPrayItemList = [(String, String)]()
             for i in 0 ..< dateList.count {

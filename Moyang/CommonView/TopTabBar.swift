@@ -28,6 +28,13 @@ struct TopTabBar: View {
     }
 }
 
+struct TopTabBar_Previews: PreviewProvider {
+    @State var tabIndex = 0
+    static var previews: some View {
+        TopTabBar(tabIndex: $tabIndex)
+    }
+}
+
 struct TabBarButton: View {
     let text: String
     @Binding var isSelected: Bool
@@ -35,7 +42,7 @@ struct TabBarButton: View {
         Text(text)
             .foregroundColor(.nightSky1)
             .fontWeight(isSelected ? .heavy : .regular)
-            .font(.system(size: 16, weight: .regular, design: .default))
+            .font(.system(size: 17, weight: .semibold, design: .default))
             .padding(.bottom,10)
             .border(width: isSelected ? 2 : 1, edges: [.bottom], color: .black)
     }

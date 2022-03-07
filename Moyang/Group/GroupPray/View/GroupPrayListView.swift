@@ -27,63 +27,32 @@ struct GroupPrayListView: View {
                             .font(.system(size: 16, weight: .regular, design: .default))
                     }
                     .foregroundColor(Color.nightSky1)
-                    .padding(.leading, 15)
                     Spacer()
                 }
-                .padding(.top, 10)
-                .frame(height: 16, alignment: .leading)
+                .padding(EdgeInsets(top: 16, leading: 24, bottom: 12, trailing: 0))
+                .frame(height: 24, alignment: .leading)
                 
                 if vm.showSortingByName {
                     List {
-                        ForEach(vm.nameItemList, id: \.name) { item in
-                            HStack {
-                                Text(item.name.split(separator: "_").first!)
-                                    .font(.system(size: 16, weight: .semibold, design: .default))
-                                    .foregroundColor(.nightSky1)
-                                Spacer()
-                                Image(systemName: "pencil")
-                                    .foregroundColor(.nightSky1)
-                            }
-                            .background(
-                                NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: groupRepo, nameItem: item))) {}
-                                    .opacity(0)
-                            )
-                            ScrollView(.vertical, showsIndicators: true) {
-                                ForEach(item.prayItemList, id: \.date) { item in
-                                    CellPrayListRow(info: item.date, pray: item.pray)
-                                        .padding(.bottom, 10)
-                                }
-                            }
-                            .frame(maxHeight: 160)
+                        ForEach(vm.nameItemList) { item in
+                            GroupNameSortedRow(item: item)
+                                .frame(maxHeight: 160)
+                                .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)
                     }
-                    .padding(EdgeInsets(top: 8, leading: 0, bottom: 72, trailing: 0))
+                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 72, trailing: 0))
                     .listStyle(.plain)
                 } else {
                     List {
                         ForEach(vm.dateItemList, id: \.date) { item in
-                            HStack {
-                                Text(item.date)
-                                    .font(.system(size: 16, weight: .semibold, design: .default))
-                                    .foregroundColor(.nightSky1)
-                                Spacer()
-                                Image(systemName: "pencil")
-                                    .foregroundColor(.nightSky1)
-                            }
-                            .background(NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: groupRepo, dateItem: item))) {}
-                                            .opacity(0))
-                            ScrollView(.vertical, showsIndicators: true) {
-                                ForEach(item.prayItemList, id: \.member) { item in
-                                    CellPrayListRow(info: item.member, pray: item.pray)
-                                        .padding(.bottom, 10)
-                                }
-                            }
-                            .frame(maxHeight: 160)
+                            GroupDateSortedRow(item: item)
+                                .frame(maxHeight: 180)
+                                .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)
                     }
-                    .padding(EdgeInsets(top: 8, leading: 0, bottom: 72, trailing: 0))
+                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 72, trailing: 0))
                     .listStyle(.plain)
                 }
             }
@@ -103,7 +72,7 @@ struct GroupPrayListView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .background(Color.sheep1)
+        .background(Color.sheep2)
         .navigationBarTitle("기도제목")
         .onAppear {
             vm.loadData()
