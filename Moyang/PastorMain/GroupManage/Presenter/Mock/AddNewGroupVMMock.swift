@@ -23,6 +23,7 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    mainGroup: "",
                                    startDate: "",
                                    community: "YD",
+                                   grade: 1,
                                    isPastor: false)
         var itemA = SearchMemberItem(memberDetail: memberA)
         itemA.isLeader = true
@@ -35,6 +36,7 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    mainGroup: "",
                                    startDate: "",
                                    community: "YD",
+                                   grade: 1,
                                    isPastor: false)
         var itemB = SearchMemberItem(memberDetail: memberB)
         itemB.isMember = true
@@ -47,6 +49,7 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    mainGroup: "",
                                    startDate: "",
                                    community: "YD",
+                                   grade: 1,
                                    isPastor: false)
         var itemC = SearchMemberItem(memberDetail: memberC)
         itemC.isMember = true
@@ -59,6 +62,7 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    mainGroup: "",
                                    startDate: "",
                                    community: "YD",
+                                   grade: 1,
                                    isPastor: false)
         let itemD = SearchMemberItem(memberDetail: memberD)
         let memberE = MemberDetail(id: UUID().uuidString,
@@ -70,6 +74,7 @@ class AddNewGroupVMMock: AddNewGroupVM {
                                    mainGroup: "",
                                    startDate: "",
                                    community: "YD",
+                                   grade: 1,
                                    isPastor: false)
         let itemE = SearchMemberItem(memberDetail: memberE)
         leaderItemList.append(contentsOf: [itemA,

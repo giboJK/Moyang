@@ -11,7 +11,7 @@ import Combine
 class ProfileVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published var groupInfoItem: UserItem = UserItem()
-    
+    @Published var levelDesc: String = ""
     init() {
         
     }
@@ -19,6 +19,10 @@ class ProfileVM: ObservableObject {
     func loadUserData() {
         if let myInfo = UserData.shared.myInfo {
             groupInfoItem = UserItem(userInfo: myInfo)
+            
+            if let userLevel = UserLevel(rawValue: myInfo.grade) {
+                self.levelDesc = userLevel.levelDesc
+            }
         }
     }
 }

@@ -37,6 +37,7 @@ class ProfileSetVM: ObservableObject {
                                         mainGroup: "",
                                         startDate: Date().toString("yyyy.MM.dd"),
                                         community: "YD",
+                                        grade: 1,
                                         isPastor: false)
         
         loginService.setUserData(memberDetail: memberDetail)

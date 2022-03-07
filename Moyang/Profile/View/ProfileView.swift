@@ -14,34 +14,103 @@ struct ProfileView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Text(vm.groupInfoItem.name)
-                .foregroundColor(.nightSky1)
-                .font(.system(size: 18, weight: .bold, design: .default))
-                .padding(.bottom, 32)
+            HStack(spacing: 0) {
+                Text(vm.groupInfoItem.name + "님,\n안녕하세요")
+                    .foregroundColor(.nightSky1)
+                    .font(.system(size: 18, weight: .bold, design: .default))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 28)
+            }
+            .padding(.bottom, 8)
+            Text(vm.levelDesc)
+                .foregroundColor(.ydGreen1)
+                .font(.system(size: 16, weight: .regular, design: .default))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 28)
+                .padding(.bottom, 28)
             
-            
-            Button(action: {
-                UserData.shared.resetUserData()
-                self.rootIsActive = false
-            }) {
-                HStack {
-                    Text("로그아웃")
-                        .padding(.leading, 24)
-                    Spacer()
-                    Image(uiImage: Asset.Images.Profile.logout.image)
-                        .renderingMode(.template)
-                        .foregroundColor(.white)
-                        .padding(.trailing, 20)
+            VStack(spacing: 0) {
+                Button(action: {
+    //                UserData.shared.resetUserData()
+    //                self.rootIsActive = false
+                }) {
+                    Text("내 정보")
+                        .padding(.leading, 32)
+                        .font(.system(size: 16, weight: .regular, design: .default))
+                        .foregroundColor(.nightSky1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 50)
                 }
-            }.buttonStyle(MoyangButtonStyle(.black,
-                                            width: UIScreen.screenWidth - 80,
-                                            height: 50))
+                .background(Color.sheep1)
+                Divider()
+                    .background(Color.sheep3)
+                    .padding(.leading, 28)
+                
+                Button(action: {
+    //                UserData.shared.resetUserData()
+    //                self.rootIsActive = false
+                }) {
+                    Text("기도 시간")
+                        .padding(.leading, 32)
+                        .font(.system(size: 16, weight: .regular, design: .default))
+                        .foregroundColor(.nightSky1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 50)
+                }
+                .background(Color.sheep1)
+                Divider()
+                    .background(Color.sheep3)
+                    .padding(.leading, 28)
+                
+                Button(action: {
+    //                UserData.shared.resetUserData()
+    //                self.rootIsActive = false
+                }) {
+                    Text("공지사항")
+                        .padding(.leading, 32)
+                        .font(.system(size: 16, weight: .regular, design: .default))
+                        .foregroundColor(.nightSky1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 50)
+                }
+                .background(Color.sheep1)
+                Divider()
+                    .background(Color.sheep3)
+                    .padding(.leading, 28)
+                
+                Button(action: {
+    //                UserData.shared.resetUserData()
+    //                self.rootIsActive = false
+                }) {
+                    Text("문의하기")
+                        .padding(.leading, 32)
+                        .font(.system(size: 16, weight: .regular, design: .default))
+                        .foregroundColor(.nightSky1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 50)
+                }
+                .background(Color.sheep1)
                 .padding(.bottom, 24)
+                
+                Button(action: {
+                    UserData.shared.resetUserData()
+                    self.rootIsActive = false
+                }) {
+                    Text("로그아웃")
+                        .padding(.leading, 32)
+                        .font(.system(size: 16, weight: .regular, design: .default))
+                        .foregroundColor(.nightSky1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 50)
+                }
+                .background(Color.sheep1)
+            }
+            
             Spacer()
         }
         .padding(.top, 30)
         .frame(maxWidth: .infinity)
-        .background(Color.sheep1)
+        .background(Color.sheep2)
         .onLoad {
             vm.loadUserData()
         }

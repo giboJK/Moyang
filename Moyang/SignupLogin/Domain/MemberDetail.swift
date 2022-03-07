@@ -18,6 +18,7 @@ struct MemberDetail: Codable, Identifiable {
     let mainGroup: String
     let startDate: String
     let community: String
+    let grade: Int
     let isPastor: Bool
     
     enum CodingKeys: String, CodingKey {
@@ -30,6 +31,28 @@ struct MemberDetail: Codable, Identifiable {
         case mainGroup = "main_group"
         case startDate = "start_date"
         case community
+        case grade
         case isPastor = "is_pastor"
+    }
+}
+
+
+enum UserLevel: Int {
+    case seed = 1
+    case leaf = 2
+    case fruit = 3
+    case tree = 4
+    
+    var levelDesc: String {
+        switch self {
+        case .seed:
+            return "새싹 그리스도인"
+        case .leaf:
+            return "풀잎 그리스도인"
+        case .fruit:
+            return "열매 그리스도인"
+        case .tree:
+            return "나무 그리스도인"
+        }
     }
 }
