@@ -13,7 +13,7 @@ struct GroupPrayListView: View {
     
     var body: some View {
         ZStack {
-            VStack {
+            VStack(spacing: 0) {
                 HStack {
                     Button {
                         vm.changeSorting()
@@ -29,7 +29,7 @@ struct GroupPrayListView: View {
                     .foregroundColor(Color.nightSky1)
                     Spacer()
                 }
-                .padding(EdgeInsets(top: 16, leading: 24, bottom: 12, trailing: 0))
+                .padding(EdgeInsets(top: 32, leading: 24, bottom: 12, trailing: 0))
                 .frame(height: 24, alignment: .leading)
                 
                 if vm.showSortingByName {

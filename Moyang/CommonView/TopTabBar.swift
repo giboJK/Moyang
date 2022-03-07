@@ -29,9 +29,8 @@ struct TopTabBar: View {
 }
 
 struct TopTabBar_Previews: PreviewProvider {
-    @State var tabIndex = 0
     static var previews: some View {
-        TopTabBar(tabIndex: $tabIndex)
+        TopTabBar(tabIndex: .constant(0))
     }
 }
 
@@ -43,8 +42,8 @@ struct TabBarButton: View {
             .foregroundColor(.nightSky1)
             .fontWeight(isSelected ? .heavy : .regular)
             .font(.system(size: 17, weight: .semibold, design: .default))
-            .padding(.bottom,10)
-            .border(width: isSelected ? 2 : 1, edges: [.bottom], color: .black)
+            .padding(.bottom, 8)
+            .border(width: isSelected ? 2 : 1, edges: [.bottom], color: .nightSky1)
     }
 }
 

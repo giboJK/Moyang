@@ -13,7 +13,7 @@ struct GroupView: View {
     @StateObject var vm = GroupVM()
     
     var body: some View {
-        VStack{
+        VStack(spacing: 0) {
             TopTabBar(tabIndex: $tabIndex)
             if tabIndex == 0 {
                 GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
@@ -24,7 +24,6 @@ struct GroupView: View {
             }
             Spacer()
         }
-        .padding(.top, 10)
         .frame(maxWidth: .infinity)
         .background(Color.sheep1)
         .toast(isPresenting: $vm.newPrayAddSuccess) {
