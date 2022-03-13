@@ -21,8 +21,7 @@ struct IntroView: View {
                     
                     Spacer()
                     Button(action: {}) {
-                        let loginVM = LoginVM()
-                        NavigationLink(destination: SignUpView(vm: loginVM)) {
+                        NavigationLink(destination: PrivacyPolicyView()) {
                             Text("Email 회원가입")
                                 .frame(width: UIScreen.screenWidth - 80, height: 50)
                         }
