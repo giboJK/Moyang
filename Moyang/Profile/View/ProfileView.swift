@@ -50,7 +50,7 @@ struct ProfileView: View {
     //                UserData.shared.resetUserData()
     //                self.rootIsActive = false
                 }) {
-                    Text("기도 시간")
+                    Text("공동체")
                         .padding(.leading, 32)
                         .font(.system(size: 16, weight: .regular, design: .default))
                         .foregroundColor(.nightSky1)
@@ -58,6 +58,39 @@ struct ProfileView: View {
                         .frame(height: 50)
                 }
                 .background(Color.sheep1)
+                Divider()
+                    .background(Color.sheep3)
+                    .padding(.leading, 28)
+                
+                HStack(spacing: 0) {
+                    Text("기도 시간")
+                        .padding(.leading, 32)
+                        .font(.system(size: 16, weight: .regular, design: .default))
+                        .foregroundColor(.nightSky1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 50)
+                    Spacer()
+                        .frame(maxWidth: .infinity)
+                    
+                    DatePicker("", selection: $vm.alarmDate, displayedComponents: .hourAndMinute)
+                        .accentColor(.ydGreen1)
+                        .colorInvert()
+                        .colorMultiply(.ydGreen1)
+                        .onChange(of: vm.alarmDate) { newValue in
+                            vm.setAlarmTime()
+                        }
+                    
+                    Button(action: {
+                        vm.toggleAlarmOn()
+                    }) {
+                        Toggle("", isOn: $vm.isAlarmOn)
+                            .padding(.trailing, 24)
+                            .toggleStyle(SwitchToggleStyle(tint: .ydGreen1))
+                    }
+                    .background(Color.sheep1)
+                }
+                .background(Color.sheep1)
+                
                 Divider()
                     .background(Color.sheep3)
                     .padding(.leading, 28)

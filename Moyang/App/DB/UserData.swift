@@ -67,4 +67,22 @@ class UserData {
             UserDefaults.standard.set(v, forKey: "IS_PASTOR")
         }
     }
+    
+    var isAlarmOn: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "IS_ALARM_ON")
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: "IS_ALARM_ON")
+        }
+    }
+    
+    var alarmTiem: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "ALARM_TIME")
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: "ALARM_TIME")
+        }
+    }
 }

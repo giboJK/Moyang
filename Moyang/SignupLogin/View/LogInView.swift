@@ -85,6 +85,11 @@ struct LogInView: View {
         .navigationTitle("로그인")
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
+        .alert(isPresented: $vm.showInvalidPWPopUp, content: { () -> Alert in
+            Alert(title: Text(vm.errorTitle),
+                  message: Text(vm.errorMessage),
+                  dismissButton: .default(Text("확인")))
+                })
     }
     
     func didDismiss() {

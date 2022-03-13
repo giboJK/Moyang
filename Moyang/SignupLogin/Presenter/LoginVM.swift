@@ -21,6 +21,10 @@ class LoginVM: ObservableObject {
     
     @Published var moveToProfileSetView: Bool = false
     
+    @Published var showInvalidPWPopUp: Bool = false
+    var errorTitle: String = "로그인 오류"
+    var errorMessage: String = ""
+    
     init() {
     }
     
@@ -38,7 +42,22 @@ class LoginVM: ObservableObject {
         loginService.login(id: id, pw: password, type: .email)
             .receive(on: DispatchQueue.main)
             .sink { completion in
-                Log.i(completion)
+                switch completion {
+                case .failure(let error):
+                    switch error {
+                    case .passwordInvalid:
+                        self.showInvalidPWPopUp = true
+                        self.errorMessage = "유효하지 않은 비밀번호입니다"
+                    case .noUser:
+                        self.showInvalidPWPopUp = true
+                        self.errorMessage = "등록되지 않은 사용자입니다"
+                    default:
+                        Log.i(completion)
+                    }
+                case .finished:
+                    break
+                }
+                self.isLoadingUserDataFinished = true
             } receiveValue: { _ in
                 self.fetchUserData(id: self.id.lowercased())
             }.store(in: &cancellables)
@@ -65,11 +84,8 @@ class LoginVM: ObservableObject {
                 switch error {
                 case .noData:
                     self.moveToProfileSetView = true
-                case .other:
-                    // TODO: 잘못된 정보입니다. 팝업
-                    Log.e(error)
                 default:
-                    break
+                    Log.e(error)
                 }
                 return Empty(completeImmediately: false).eraseToAnyPublisher()
             }

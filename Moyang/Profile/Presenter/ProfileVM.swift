@@ -12,6 +12,9 @@ class ProfileVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published var groupInfoItem: UserItem = UserItem()
     @Published var levelDesc: String = ""
+    @Published var isAlarmOn: Bool = false
+    @Published var alarmDate: Date = Date()
+    
     init() {
         
     }
@@ -24,6 +27,29 @@ class ProfileVM: ObservableObject {
                 self.levelDesc = userLevel.levelDesc
             }
         }
+        
+        self.isAlarmOn = UserData.shared.isAlarmOn
+        
+        
+        if let alarmTime = UserData.shared.alarmTiem?.toDate() {
+            self.alarmDate = alarmTime
+        }
+    }
+    
+    func toggleAlarmOn() {
+        isAlarmOn.toggle()
+        
+        if isAlarmOn {
+            UserData.shared.alarmTiem = self.alarmDate.toString(format: "yyyy-MM-dd HH:mm:ss")
+            Log.w("")
+        }
+        Log.w("")
+    }
+    
+    func setAlarmTime() {
+        UserData.shared.alarmTiem = self.alarmDate.toString(format: "yyyy-MM-dd HH:mm:ss")
+        isAlarmOn = true
+        Log.w("")
     }
 }
 
