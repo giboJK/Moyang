@@ -11,7 +11,10 @@ import Combine
 class ProfileVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published var groupInfoItem: UserItem = UserItem()
-    @Published var levelDesc: String = ""
+    @Published var name: String = "이름"
+    @Published var email: String = "이메일"
+    
+    @Published var levelDesc: String = "새싹 그리스도인"
     @Published var isAlarmOn: Bool = false
     @Published var alarmDate: Date = Date()
     

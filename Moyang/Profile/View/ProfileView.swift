@@ -8,38 +8,41 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @ObservedObject var vm: ProfileVM
+    @StateObject var vm: ProfileVM
 
     @Binding var rootIsActive: Bool
     
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                Text(vm.groupInfoItem.name + "님,\n안녕하세요")
-                    .foregroundColor(.nightSky1)
-                    .font(.system(size: 18, weight: .bold, design: .default))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 28)
+                Image(systemName: "person.crop.circle")
+                    .font(.system(size: 64, weight: .regular))
+                    .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 16))
+                    .tint(.nightSky1)
+                
+                VStack(spacing: 0) {
+                    Text(vm.groupInfoItem.name + "님,\n안녕하세요")
+                        .foregroundColor(.nightSky1)
+                        .font(.system(size: 18, weight: .bold, design: .default))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(vm.levelDesc)
+                        .foregroundColor(.ydGreen1)
+                        .font(.system(size: 15, weight: .regular, design: .default))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
             }
-            .padding(.bottom, 8)
-            Text(vm.levelDesc)
-                .foregroundColor(.ydGreen1)
-                .font(.system(size: 16, weight: .regular, design: .default))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 28)
-                .padding(.bottom, 28)
+            .padding(.bottom, 20)
             
             VStack(spacing: 0) {
-                Button(action: {
-    //                UserData.shared.resetUserData()
-    //                self.rootIsActive = false
-                }) {
-                    Text("내 정보")
-                        .padding(.leading, 32)
-                        .font(.system(size: 16, weight: .regular, design: .default))
-                        .foregroundColor(.nightSky1)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .frame(height: 50)
+                Button(action: {}) {
+                    NavigationLink(destination: MyInfoView(vm: vm)) {
+                        Text("내 정보")
+                            .padding(.leading, 32)
+                            .font(.system(size: 16, weight: .regular, design: .default))
+                            .foregroundColor(.nightSky1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(height: 50)
+                    }
                 }
                 .background(Color.sheep1)
                 Divider()
@@ -75,7 +78,7 @@ struct ProfileView: View {
                     DatePicker("", selection: $vm.alarmDate, displayedComponents: .hourAndMinute)
                         .accentColor(.ydGreen1)
                         .colorInvert()
-                        .colorMultiply(.ydGreen1)
+                        .colorMultiply(vm.isAlarmOn ? .ydGreen1 : .sheep4)
                         .onChange(of: vm.alarmDate) { newValue in
                             vm.setAlarmTime()
                         }
@@ -153,6 +156,8 @@ struct ProfileView: View {
 struct ProfileView_Previews: PreviewProvider {
     @State static var value = true
     static var previews: some View {
-        ProfileView(vm: ProfileVM(), rootIsActive: $value)
+        NavigationView {
+            ProfileView(vm: ProfileVM(), rootIsActive: $value)
+        }
     }
 }
