@@ -33,7 +33,7 @@ struct GroupNameSortedRow: View {
                 ForEach(item.prayItemList, id: \.date) { item in
                     VStack {
                         HStack(spacing: 0) {
-                            Text(item.date)
+                            Text(item.date.split(separator: " ").first ?? "")
                                 .font(.system(size: 15, weight: .regular, design: .default))
                                 .foregroundColor(.nightSky1)
                                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 8))

@@ -36,7 +36,7 @@ struct GroupPrayListView: View {
                     List {
                         ForEach(vm.nameItemList) { item in
                             GroupNameSortedRow(item: item)
-                                .frame(maxHeight: 160)
+                                .frame(maxHeight: 260)
                                 .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)
@@ -47,7 +47,7 @@ struct GroupPrayListView: View {
                     List {
                         ForEach(vm.dateItemList, id: \.date) { item in
                             GroupDateSortedRow(item: item)
-                                .frame(maxHeight: 180)
+                                .frame(maxHeight: 260)
                                 .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)
@@ -58,15 +58,27 @@ struct GroupPrayListView: View {
             }
             VStack(spacing: 0) {
                 Spacer()
-                Button(action: {
-                }) {
-                    NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
-                        Image(systemName: "plus")
+                HStack(spacing: 0) {
+                    Button(action: {
+                    }) {
+                        NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
+                            Image(systemName: "plus")
+                        }
                     }
+                    .buttonStyle(MoyangButtonStyle(.black,
+                                                   width: 100,
+                                                   height: 50))
+                    .padding(.trailing, 28)
+                    Button(action: {
+                    }) {
+                        NavigationLink(destination: GroupPrayView()) {
+                            Text("기도하기")
+                        }
+                    }
+                    .buttonStyle(MoyangButtonStyle(.black,
+                                                   width: 100,
+                                                   height: 50))
                 }
-                .buttonStyle(MoyangButtonStyle(.black,
-                                               width: 80,
-                                               height: 50))
                 .padding(.bottom, 10)
                 .listRowSeparator(.hidden, edges: .all)
             }
