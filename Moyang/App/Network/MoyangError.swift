@@ -16,6 +16,7 @@ enum MoyangError: Error {
     case noData
     case other(Error)
     case noUser
+    case notVerified
     case passwordInvalid
     
     static func map(_ error: Error) -> MoyangError {

@@ -14,13 +14,16 @@ class LoginVM: ObservableObject {
     
     @Published var id: String = ""
     @Published var password: String = ""
-    @Published var isSignupSuccess: Bool = false
     
-    @Published var isLoginSuccess: Bool = false
     @Published var isLoadingUserDataFinished: Bool = true
     
     @Published var moveToProfileSetView: Bool = false
     
+    @Published var isSignupSuccess: Bool = false
+    var signupTitle: String = "회원가입 이메일 발송"
+    var signupMessage: String = "이메일을 확인해주세요"
+    
+    @Published var isLoginSuccess: Bool = false
     @Published var showInvalidPWPopUp: Bool = false
     var errorTitle: String = "로그인 오류"
     var errorMessage: String = ""
@@ -51,6 +54,9 @@ class LoginVM: ObservableObject {
                     case .noUser:
                         self.showInvalidPWPopUp = true
                         self.errorMessage = "등록되지 않은 사용자입니다"
+                    case .notVerified:
+                        self.showInvalidPWPopUp = true
+                        self.errorMessage = "인증되지 않은 사용자입니다. 인증 메일을 확인해주세요."
                     default:
                         Log.i(completion)
                     }

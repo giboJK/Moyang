@@ -24,7 +24,13 @@ class FirestoreLoginServiceImpl: LoginService {
                 if let error = error {
                     promise(.failure(MoyangError.other(error)))
                 } else {
-                    promise(.success(true))
+                    Auth.auth().currentUser?.sendEmailVerification(completion: { error in
+                        if let error = error {
+                            promise(.failure(MoyangError.other(error)))
+                        } else {
+                            promise(.success(true))
+                        }
+                    })
                 }
             }
         }.eraseToAnyPublisher()
@@ -43,8 +49,21 @@ class FirestoreLoginServiceImpl: LoginService {
                         promise(.failure(MoyangError.other(error)))
                     }
                 } else {
-                    guard result?.user != nil else { return }
-                    promise(.success(true))
+                    if let result = result {
+                        if result.user.isEmailVerified {
+                            promise(.success(true))
+                        } else {
+                            promise(.failure(MoyangError.notVerified))
+                            Log.d(Auth.auth().currentUser)
+                            Auth.auth().currentUser?.sendEmailVerification(completion: { error in
+                                if let error = error {
+                                    promise(.failure(MoyangError.other(error)))
+                                }
+                            })
+                        }
+                    } else {
+                        promise(.failure(MoyangError.noUser))
+                    }
                 }
             }
         }.eraseToAnyPublisher()

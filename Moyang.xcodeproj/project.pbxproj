@@ -108,7 +108,6 @@
 		24A9B87E279D9C35003468DB /* PastorComunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A9B87D279D9C35003468DB /* PastorComunityView.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
 		24B47FF7276A1BD3003130E6 /* FirestoreServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */; };
-		24B57BBC2760B37A00630C4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */; };
 		24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B652AC279584AD007CC58C /* MeetingInfo.swift */; };
 		24B652AF279589BA007CC58C /* IntroVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B652AE279589BA007CC58C /* IntroVM.swift */; };
 		24B6A2552726BEB00065112A /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* GroupInfo.swift */; };
@@ -152,6 +151,7 @@
 		24D1F53627BD45FD0026D65D /* SermonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1F53527BD45FD0026D65D /* SermonListView.swift */; };
 		24D7BB31274D179200CC8B7C /* GroupPrayListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB30274D179200CC8B7C /* GroupPrayListVM.swift */; };
 		24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */; };
+		24DABE7227E8610C0008D132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24DABE7127E8610C0008D132 /* GoogleService-Info.plist */; };
 		24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB53BA27479DAA00F861EC /* UINavigationController+.swift */; };
 		24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E60723278EF19E00D5A7F2 /* IndicatorView.swift */; };
 		24E779CE2787308D00C732D6 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E779CD2787308D00C732D6 /* Member.swift */; };
@@ -275,7 +275,6 @@
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceImpl.swift; sourceTree = "<group>"; };
 		24B492D027989DAB005CAA5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24B652AC279584AD007CC58C /* MeetingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInfo.swift; sourceTree = "<group>"; };
 		24B652AE279589BA007CC58C /* IntroVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVM.swift; sourceTree = "<group>"; };
 		24B6A2542726BEB00065112A /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
@@ -321,6 +320,7 @@
 		24D1F53527BD45FD0026D65D /* SermonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonListView.swift; sourceTree = "<group>"; };
 		24D7BB30274D179200CC8B7C /* GroupPrayListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayListVM.swift; sourceTree = "<group>"; };
 		24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberPray.swift; sourceTree = "<group>"; };
+		24DABE7127E8610C0008D132 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24DB53BA27479DAA00F861EC /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		24E60723278EF19E00D5A7F2 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		24E779CD2787308D00C732D6 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
@@ -761,11 +761,11 @@
 		24A6A4A9275A2BCB00D7DB25 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				24DABE7127E8610C0008D132 /* GoogleService-Info.plist */,
 				24BB803327565E0800BE2988 /* DB */,
 				24B6E31D275F81C100AD2E53 /* Network */,
 				24D0D334272315FA006FF67B /* Resources */,
 				24D0D32627231442006FF67B /* Util */,
-				24B57BBB2760B37A00630C4C /* GoogleService-Info.plist */,
 				24D0D2F727230CA3006FF67B /* MoyangApp.swift */,
 				24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */,
 				24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */,
@@ -1116,12 +1116,12 @@
 				24D0D325272313AF006FF67B /* .swiftlint.yml in Resources */,
 				248FEC152723A11600321E5E /* Colors.xcassets in Resources */,
 				24B88EEC27A2D86E00D5B001 /* intro.json in Resources */,
-				24B57BBC2760B37A00630C4C /* GoogleService-Info.plist in Resources */,
 				244933ED277765BB000DDE01 /* Pray.json in Resources */,
 				242D745F274282F00053EF2A /* Localizable.strings in Resources */,
 				249B903827259FD300B53682 /* GroupPreview.json in Resources */,
 				24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */,
 				24B6A2572726C40E0065112A /* GroupInfo.json in Resources */,
+				24DABE7227E8610C0008D132 /* GoogleService-Info.plist in Resources */,
 				08A1B7CA27804A010085BE18 /* PrayList.json in Resources */,
 				24BF6E94274FBF620004B24E /* CellPrayInfo.json in Resources */,
 			);

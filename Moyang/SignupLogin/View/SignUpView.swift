@@ -61,6 +61,11 @@ struct SignUpView: View {
         .navigationTitle("회원가입")
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
+        .alert(isPresented: $vm.isSignupSuccess, content: { () -> Alert in
+            Alert(title: Text(vm.signupTitle),
+                  message: Text(vm.signupMessage),
+                  dismissButton: .default(Text("확인")))
+                })
     }
 }
 
