@@ -17,6 +17,9 @@ class GroupEditPrayVM: ObservableObject {
     @Published var isNameEdit: Bool = false
     @Published var isEditSuccess = false
     
+    @Published var prayTitle = ""
+    @Published var prayContents = ""
+    
     var maxDisplayedMembers = 5
     
     init(groupRepo: GroupRepo,
@@ -26,9 +29,22 @@ class GroupEditPrayVM: ObservableObject {
         if let nameItem = nameItem {
             self.nameItem = nameItem
             self.isNameEdit = true
+            prayTitle = nameItem.name + "을 위한 기도"
+            nameItem.prayItemList.forEach { (date: String, pray: String) in
+                prayContents += date + " "
+                prayContents += pray
+                prayContents += "\n\n"
+            }
         } else if let dateItem = dateItem {
             self.dateItem = dateItem
             self.isNameEdit = false
+            prayTitle = dateItem.date + " 기도"
+            
+            dateItem.prayItemList.forEach { (member: String, pray: String) in
+                prayContents += member + " "
+                prayContents += pray
+                prayContents += "\n\n"
+            }
         }
     }
     

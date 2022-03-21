@@ -58,29 +58,16 @@ struct GroupPrayListView: View {
             }
             VStack(spacing: 0) {
                 Spacer()
-                HStack(spacing: 0) {
-                    Button(action: {
-                    }) {
-                        NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
-                            Image(systemName: "plus")
-                        }
+                Button(action: {
+                }) {
+                    NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
+                        Image(systemName: "plus")
                     }
-                    .buttonStyle(MoyangButtonStyle(.black,
-                                                   width: 100,
-                                                   height: 50))
-                    .padding(.trailing, 28)
-                    Button(action: {
-                    }) {
-                        NavigationLink(destination: GroupPrayView()) {
-                            Text("기도하기")
-                        }
-                    }
-                    .buttonStyle(MoyangButtonStyle(.black,
-                                                   width: 100,
-                                                   height: 50))
                 }
+                .buttonStyle(MoyangButtonStyle(.black,
+                                               width: 100,
+                                               height: 50))
                 .padding(.bottom, 10)
-                .listRowSeparator(.hidden, edges: .all)
             }
         }
         .frame(maxWidth: .infinity)

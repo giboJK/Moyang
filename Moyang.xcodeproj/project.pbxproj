@@ -129,6 +129,8 @@
 		24B9B86727A01DA4009FADC8 /* GroupEditPrayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B86627A01DA4009FADC8 /* GroupEditPrayVM.swift */; };
 		24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B86827A03B5F009FADC8 /* Encodable+.swift */; };
 		24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9BF6C275AEB7B0056E694 /* UIColor+.swift */; };
+		24BA95D927E586CA0030751C /* GroupPrayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA95D827E586CA0030751C /* GroupPrayVM.swift */; };
+		24BA95DB27E587190030751C /* GroupPrayVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA95DA27E587190030751C /* GroupPrayVMMock.swift */; };
 		24BB327C27656735002131BF /* CommunityCardListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB327B27656735002131BF /* CommunityCardListVM.swift */; };
 		24BB8032275645C100BE2988 /* NewGroupPrayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB8031275645C100BE2988 /* NewGroupPrayVM.swift */; };
 		24BB803527565E1300BE2988 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB803427565E1300BE2988 /* RealmManager.swift */; };
@@ -294,6 +296,8 @@
 		24B9B86627A01DA4009FADC8 /* GroupEditPrayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEditPrayVM.swift; sourceTree = "<group>"; };
 		24B9B86827A03B5F009FADC8 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		24B9BF6C275AEB7B0056E694 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		24BA95D827E586CA0030751C /* GroupPrayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayVM.swift; sourceTree = "<group>"; };
+		24BA95DA27E587190030751C /* GroupPrayVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayVMMock.swift; sourceTree = "<group>"; };
 		24BB327B27656735002131BF /* CommunityCardListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCardListVM.swift; sourceTree = "<group>"; };
 		24BB8031275645C100BE2988 /* NewGroupPrayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupPrayVM.swift; sourceTree = "<group>"; };
 		24BB803427565E1300BE2988 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -668,6 +672,8 @@
 			isa = PBXGroup;
 			children = (
 				246BD7BB27240AD4005C4E0B /* PrayListVM.swift */,
+				24BA95D827E586CA0030751C /* GroupPrayVM.swift */,
+				24BA95DA27E587190030751C /* GroupPrayVMMock.swift */,
 				246BD7BC27240AD4005C4E0B /* PrayCardVM.swift */,
 				246BD7BD27240AD4005C4E0B /* PrayRepoImpl.swift */,
 				08D897AD2778604D0065E103 /* PrayAddVM.swift */,
@@ -1360,6 +1366,7 @@
 				08A02A5927AE13C90043EEF0 /* CommunityGroupCardView.swift in Sources */,
 				24B9B70227BFE93A007A12C6 /* GroupManageListVM.swift in Sources */,
 				24755367277CA9AB001908A6 /* UserData.swift in Sources */,
+				24BA95DB27E587190030751C /* GroupPrayVMMock.swift in Sources */,
 				24D1F53227BD3B110026D65D /* CommunityPrayCardVM.swift in Sources */,
 				246BD7F327240AE4005C4E0B /* GroupSharingVM.swift in Sources */,
 				084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */,
@@ -1371,6 +1378,7 @@
 				24B47FF7276A1BD3003130E6 /* FirestoreServiceImpl.swift in Sources */,
 				085208D127D59F8B00259A4B /* GroupDateSortedRow.swift in Sources */,
 				24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */,
+				24BA95D927E586CA0030751C /* GroupPrayVM.swift in Sources */,
 				08D449F427B94D4B004B0D8A /* NavigationUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1548,7 +1556,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.Moyang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1582,7 +1590,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.Moyang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
