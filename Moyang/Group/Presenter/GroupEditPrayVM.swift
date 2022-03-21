@@ -29,7 +29,7 @@ class GroupEditPrayVM: ObservableObject {
         if let nameItem = nameItem {
             self.nameItem = nameItem
             self.isNameEdit = true
-            prayTitle = nameItem.name + "을 위한 기도"
+            prayTitle = nameItem.name + " 기도"
             nameItem.prayItemList.forEach { (date: String, pray: String) in
                 prayContents += date + " "
                 prayContents += pray

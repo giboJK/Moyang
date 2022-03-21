@@ -13,6 +13,10 @@ disabled_rules:
 
 force_cast: warning
 
+large_tuple:
+    warning: 3
+    error: 5
+    
 line_length:
     warning: 150
     error: 200

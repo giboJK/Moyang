@@ -54,7 +54,6 @@ class FirestoreLoginServiceImpl: LoginService {
                             promise(.success(true))
                         } else {
                             promise(.failure(MoyangError.notVerified))
-                            Log.d(Auth.auth().currentUser)
                             Auth.auth().currentUser?.sendEmailVerification(completion: { error in
                                 if let error = error {
                                     promise(.failure(MoyangError.other(error)))
