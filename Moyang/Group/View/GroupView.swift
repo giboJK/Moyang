@@ -15,6 +15,7 @@ struct GroupView: View {
     var body: some View {
         VStack(spacing: 0) {
             TopTabBar(tabIndex: $tabIndex)
+                .frame(height: 40)
             if tabIndex == 0 {
                 GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
             } else {

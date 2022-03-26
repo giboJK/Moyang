@@ -26,7 +26,7 @@ extension String {
 
 
 extension String {
-    func toDate(withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
+    func toDate(_ format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
 
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(identifier: "Asia/Tehran")

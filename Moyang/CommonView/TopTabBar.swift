@@ -14,13 +14,12 @@ struct TopTabBar: View {
         HStack(spacing: 20) {
             TabBarButton(text: "나눔", isSelected: .constant(tabIndex == 0))
                 .onTapGesture { onButtonTapped(index: 0) }
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             TabBarButton(text: "기도", isSelected: .constant(tabIndex == 1))
                 .onTapGesture { onButtonTapped(index: 1) }
-                .frame(maxWidth: .infinity)
-            Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .border(width: 1, edges: [.bottom], color: .nightSky1)
+        .border(width: 1, edges: [.bottom], color: .sheep4)
     }
     
     private func onButtonTapped(index: Int) {
@@ -39,10 +38,11 @@ struct TabBarButton: View {
     @Binding var isSelected: Bool
     var body: some View {
         Text(text)
-            .foregroundColor(.nightSky1)
+            .foregroundColor(isSelected ? .nightSky1 : .sheep4)
             .fontWeight(isSelected ? .heavy : .regular)
             .font(.system(size: 17, weight: .semibold, design: .default))
             .padding(.bottom, 8)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .border(width: isSelected ? 2 : 1, edges: [.bottom], color: .nightSky1)
     }
 }

@@ -30,10 +30,13 @@ class GroupEditPrayVM: ObservableObject {
             self.nameItem = nameItem
             self.isNameEdit = true
             prayTitle = nameItem.name + " 기도"
-            nameItem.prayItemList.forEach { (date: String, pray: String) in
-                prayContents += date + " "
-                prayContents += pray
-                prayContents += "\n\n"
+            nameItem.prayItemList.forEach { (dateString: String, pray: String) in
+                if let date = dateString.toDate("yyyy-MM-dd HH:mm:ss") {
+                    let fixedDateString = date.toString("yyyy-MM-dd")
+                    prayContents += fixedDateString + "\n"
+                    prayContents += pray
+                    prayContents += "\n\n"
+                }
             }
         } else if let dateItem = dateItem {
             self.dateItem = dateItem
@@ -41,7 +44,7 @@ class GroupEditPrayVM: ObservableObject {
             prayTitle = dateItem.date + " 기도"
             
             dateItem.prayItemList.forEach { (member: String, pray: String) in
-                prayContents += member + " "
+                prayContents += member + "\n"
                 prayContents += pray
                 prayContents += "\n\n"
             }

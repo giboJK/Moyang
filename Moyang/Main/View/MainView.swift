@@ -32,6 +32,7 @@ struct MainView: View {
                 Text("Profile")
             }
         }
+        .accentColor(.ydGreen1)
     }
 }
 

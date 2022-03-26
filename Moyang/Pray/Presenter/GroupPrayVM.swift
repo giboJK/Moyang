@@ -23,6 +23,16 @@ class GroupPrayVM: ObservableObject {
     @Published var type: String = "m4a"
     @Published var isPlaying: Bool = false
     
+    @Published var isAmenSaved: Bool = false
+    
+    var viewDismissalModePublisher = PassthroughSubject<Bool, Never>()
+    
+    private var shouldDismissView = false {
+        didSet {
+            viewDismissalModePublisher.send(shouldDismissView)
+        }
+    }
+
     init(title: String, pray: String) {
         self.title = title
         self.pray = pray
@@ -103,6 +113,9 @@ class GroupPrayVM: ObservableObject {
     }
     
     func amen() {
-        
+        isAmenSaved = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+            self.shouldDismissView = true
+        }
     }
 }

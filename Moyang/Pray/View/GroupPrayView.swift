@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
-
+import AlertToast
 
 struct GroupPrayView: View {
     @StateObject var vm: GroupPrayVM
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: 0) {
@@ -22,8 +23,8 @@ struct GroupPrayView: View {
             Text(vm.pray)
                 .font(.system(size: 17, weight: .regular, design: .default))
                 .foregroundColor(.sheep1)
-                .frame(width: .infinity, alignment: .topLeading)
-                .padding(EdgeInsets(top: 28, leading: 40, bottom: 40, trailing: 40))
+                .frame(width: UIScreen.main.bounds.width - 56, alignment: .topLeading)
+                .padding(EdgeInsets(top: 28, leading: 40, bottom: 40, trailing: 28))
             Spacer()
             
             Button {
@@ -57,8 +58,16 @@ struct GroupPrayView: View {
         .background(
             LinearGradient(gradient: Gradient(colors: [.nightSky3, .nightSky2]), startPoint: .top, endPoint: .bottom)
         )
+        .toast(isPresenting: $vm.isAmenSaved) {
+            return AlertToast(type: .complete(.sheep3), title: "아멘 😀")
+        }
         .onDisappear {
             vm.stopSong()
+        }
+        .onReceive(vm.viewDismissalModePublisher) { shouldDismiss in
+            if shouldDismiss {
+                self.dismiss()
+            }
         }
     }
 }
