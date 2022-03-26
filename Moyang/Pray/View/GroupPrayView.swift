@@ -67,7 +67,7 @@ struct GroupPrayView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             GroupPrayView(vm: GroupPrayVMMock(title: "정김기보 기도",
-                                              pray: "기도\n도도도도도\n기도도도도도도오오오오오오오 기도이오오오오오오 기도는 기도다 기도일세 기도도도돗\n\n 돗도로돗 기돗"))
+                                              pray: "기도\n도도도도도\n기도도도도오오오 기도이오오오 기도는 기도다 기도일세 기도도도돗\n\n 돗도로돗 기돗"))
         }
         .navigationBarTitleDisplayMode(.inline)
     }

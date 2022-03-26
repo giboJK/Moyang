@@ -16,7 +16,7 @@ class GroupPrayVM: ObservableObject {
     var time: Int = 0
     
     @Published var title: String = ""
-    @Published var pray: String = "praysong"
+    @Published var pray: String = ""
     @Published var timeString: String = "00:00:00"
     
     @Published var songName: String = "praysong"
