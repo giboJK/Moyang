@@ -44,7 +44,6 @@ class CommunityGroupCardVM: ObservableObject {
             .sink(receiveCompletion: { completion in
                 Log.i(completion)
             }, receiveValue: { data in
-                Log.w(data)
                 self.prayItem = GroupPrayItem(groupMemberPrayList: data)
             })
             .store(in: &cancellables)
@@ -79,7 +78,8 @@ extension CommunityGroupCardVM {
         var lastestPrayDate: String = ""
         var prayList: GroupMemberPrayList?
         
-        init(){}
+        init() {
+        }
         
         init(groupMemberPrayList: GroupMemberPrayList) {
             prayRegisterDate = groupMemberPrayList.date

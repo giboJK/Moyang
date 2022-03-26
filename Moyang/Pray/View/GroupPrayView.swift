@@ -57,6 +57,9 @@ struct GroupPrayView: View {
         .background(
             LinearGradient(gradient: Gradient(colors: [.nightSky3, .nightSky2]), startPoint: .top, endPoint: .bottom)
         )
+        .onDisappear {
+            vm.stopSong()
+        }
     }
 }
 

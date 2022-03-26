@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct CommunityCardList: View {
-    @ObservedObject var vm: CommunityCardListVM
+    @StateObject var vm: CommunityCardListVM
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 24) {
                 if vm.hasGroup {
-                    NavigationLink(destination: GroupView()) {
+                    NavigationLink(destination: NavigationLazyView(GroupView(vm: GroupVM()))) {
                         CommunityGroupCardView(vm: vm.communityGroupCardVM)
                             .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                     }
@@ -23,12 +23,15 @@ struct CommunityCardList: View {
                     CommunityGroupCardView(vm: vm.communityGroupCardVM)
                         .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
-                NavigationLink(destination: PrayView()) {
+                NavigationLink(destination: NavigationLazyView(PrayView())) {
                     CommunityPrayCardView(vm: vm.communityPrayCardVM)
                 }
             }
-        }.onAppear {
+        }.onLoad {
             vm.fetchCommunityData()
+        }
+        .onAppear {
+         
         }
         .background(Color.sheep2)
     }

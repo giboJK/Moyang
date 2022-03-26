@@ -29,10 +29,19 @@ class GroupPrayVM: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             self.playSong()
         }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch _ {
+            Log.e("error")
+        }
+        UIApplication.shared.isIdleTimerDisabled = true
     }
     
     deinit {
         Log.i(self)
+        UIApplication.shared.isIdleTimerDisabled = false
+        stopSong()
         cancellables.removeAll()
     }
     
@@ -83,7 +92,14 @@ class GroupPrayVM: ObservableObject {
     func pauseSong() {
         isPlaying = false
         prayTimer?.invalidate()
-        player?.stop()
+        player?.pause()
+    }
+    
+    func stopSong() {
+        isPlaying = false
+        prayTimer?.invalidate()
+        player?.pause()
+        player = nil
     }
     
     func amen() {
