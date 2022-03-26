@@ -11,23 +11,25 @@ struct MainView: View {
     @Binding var rootIsActive: Bool
     
     var body: some View {
-        NavigationView {
-            TabView {
+        TabView {
+            NavigationView {
                 CommunityMainView()
-                    .tabItem {
-                        Image(systemName: "note.text")
-                        Text("일용할 양식")
-                    }
                     .navigationBarHidden(true)
                     .navigationBarTitleDisplayMode(.inline)
-                
+            }
+            .tabItem {
+                Image(systemName: "note.text")
+                Text("일용할 양식")
+            }
+            
+            NavigationView {
                 ProfileView(vm: ProfileVM(), rootIsActive: $rootIsActive)
-                    .tabItem {
-                        Image(systemName: "person.crop.circle.fill")
-                        Text("Profile")
-                    }
                     .navigationBarHidden(true)
                     .navigationBarTitleDisplayMode(.inline)
+            }
+            .tabItem {
+                Image(systemName: "person.crop.circle.fill")
+                Text("Profile")
             }
         }
     }
