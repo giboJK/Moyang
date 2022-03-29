@@ -73,6 +73,10 @@ extension NewGroupPrayVM {
         }
         
         func toGroupMemberPray() -> GroupMemberPray {
+            if self.pray == "기도제목을 입력하세요" {
+                return GroupMemberPray(member: self.member,
+                                       pray: "")
+            }
             return GroupMemberPray(member: self.member,
                                    pray: self.pray)
         }

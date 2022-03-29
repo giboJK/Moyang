@@ -28,7 +28,7 @@ struct GroupSharingView: View {
             }
             .padding(.bottom, 1)
             HStack {
-                Text(vm.groupInfoItem.talkingSubject)
+                Text(vm.talkingSubject)
                     .font(.system(size: 16, weight: .regular))
                 Spacer()
                 Button(action: {
@@ -43,14 +43,14 @@ struct GroupSharingView: View {
                     .foregroundColor(Color.black)
             }
             HStack {
-                Text(vm.groupInfoItem.meetingDate)
+                Text(vm.meetingDate)
                     .font(.system(size: 13, weight: .regular))
                 Spacer()
             }
             if showingMemo {
                 ScrollView(.vertical, showsIndicators: true) {
-                    ForEach(0 ..< vm.groupInfoItem.groupQuestionList.count) { i in
-                        let item = vm.groupInfoItem.groupQuestionList[i]
+                    ForEach(0 ..< vm.groupQuestionList.count) { i in
+                        let item = vm.groupQuestionList[i]
                         HStack {
                             Text("- " + item.question.sentence)
                                 .frame(alignment: .topLeading)
@@ -73,7 +73,7 @@ struct GroupSharingView: View {
             Spacer()
         }
         .foregroundColor(Color.black)
-        .navigationTitle(vm.groupInfoItem.groupName)
+        .navigationTitle(vm.groupName)
         .padding(EdgeInsets(top: 14, leading: 20, bottom: 0, trailing: 20))
         .background(Color.sheep1)
     }

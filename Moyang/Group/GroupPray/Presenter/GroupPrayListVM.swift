@@ -78,8 +78,8 @@ extension GroupPrayListVM {
                 }
                 nameSorted.append(NameSortedItem(id: member.id,
                                                  name: member.name,
-                                                 dateList: dateList,
-                                                 prayList: prayList))
+                                                 dateList: dateList.reversed(),
+                                                 prayList: prayList.reversed()))
             }
             
             var dateSorted = [DateSortedItem]()

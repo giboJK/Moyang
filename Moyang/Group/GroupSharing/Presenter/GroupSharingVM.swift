@@ -15,11 +15,15 @@ class GroupSharingVM: ObservableObject {
     private var repo: GroupRepo
     
     @Published var answerList: [String] = Array(repeating: "", count: 10)
-    @Published var groupInfoItem: GroupInfoItem = GroupInfoItem()
+    @Published var groupName = ""
+    @Published var talkingSubject: String = ""
+    @Published var groupQuestionList: [GroupQuestion] = []
+    @Published var meetingDate: String = ""
     
     init(repo: GroupRepo) {
         self.repo = repo
-        setData()
+        setGroupData()
+        setSermonData()
     }
     
     deinit {
@@ -27,33 +31,15 @@ class GroupSharingVM: ObservableObject {
         cancellables.removeAll()
     }
     
-    func setData() {
+    func setGroupData() {
         guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
-        guard let sermon = UserData.shared.sermon else { Log.e(""); return }
-        groupInfoItem = GroupInfoItem(group: groupInfo, sermon: sermon)
+        groupName = groupInfo.groupName
     }
-}
-
-extension GroupSharingVM {
-    typealias Identifier = Int
-    struct GroupInfoItem {
-        var groupName: String
-        let talkingSubject: String
-        var groupQuestionList: [GroupQuestion]
-        let meetingDate: String
-        
-        init() {
-            groupName = ""
-            talkingSubject = ""
-            groupQuestionList = []
-            meetingDate = ""
-        }
-        
-        init(group: GroupInfo, sermon: Sermon) {
-            groupName = group.groupName
-            talkingSubject = sermon.title
-            groupQuestionList = sermon.groupQuestionList
-            meetingDate = sermon.date
-        }
+    
+    func setSermonData() {
+        guard let sermon = UserData.shared.sermon else { Log.e(""); return }
+        talkingSubject = sermon.title
+        groupQuestionList = sermon.groupQuestionList
+        meetingDate = sermon.date
     }
 }

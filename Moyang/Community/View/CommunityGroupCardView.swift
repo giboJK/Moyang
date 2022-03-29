@@ -99,17 +99,20 @@ struct CommunityGroupCardView: View {
                         .background(Color.sheep3)
                         .padding(.bottom, 12)
                     if let prayList = vm.prayItem.prayList {
-                        ForEach(0..<min(2, prayList.list.count), id: \.self) { i in
+                        ForEach(0..<min(4, prayList.list.count), id: \.self) { i in
                             let item = prayList.list[i]
                             HStack(spacing: 0) {
                                 Text("· \(item.member.name)")
-                                    .font(.system(size: 15, weight: .regular, design: .default))
+                                    .font(.system(size: 16, weight: .regular, design: .default))
                                     .padding(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 8))
                                 Text(item.pray)
-                                    .font(.system(size: 15, weight: .regular, design: .default))
+                                    .font(.system(size: 16, weight: .regular, design: .default))
+                                    .truncationMode(.tail)
+                                    .lineLimit(1)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(.trailing, 12)
                             }
+                            .padding(.bottom, 4)
                         }
                     } else {
                         VStack(spacing: 0) {
