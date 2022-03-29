@@ -20,11 +20,15 @@ struct GroupPrayView: View {
                 .padding(EdgeInsets(top: 44, leading: 0, bottom: 0, trailing: 0))
                 .frame(width: .infinity, alignment: .center)
             
-            Text(vm.pray)
-                .font(.system(size: 17, weight: .regular, design: .default))
-                .foregroundColor(.sheep1)
-                .frame(width: UIScreen.main.bounds.width - 56, alignment: .topLeading)
-                .padding(EdgeInsets(top: 28, leading: 40, bottom: 40, trailing: 28))
+            ScrollView(.vertical, showsIndicators: false) {
+                Text(vm.pray)
+                    .font(.system(size: 17, weight: .regular, design: .default))
+                    .foregroundColor(.sheep1)
+                    .frame(width: .infinity, alignment: .topLeading)
+            }
+            .frame(width: .infinity)
+            .padding(EdgeInsets(top: 28, leading: 28, bottom: 40, trailing: 28))
+            
             Spacer()
             
             Button {
