@@ -89,6 +89,8 @@ struct GroupPrayEditView: View {
 
 struct CellMemberPrayEditView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))
+        ZStack {
+            GroupPrayEditView(vm: GroupEditPrayVMMock())
+        }
     }
 }

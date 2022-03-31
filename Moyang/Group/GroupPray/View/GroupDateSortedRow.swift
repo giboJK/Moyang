@@ -18,14 +18,14 @@ struct GroupDateSortedRow: View {
                     .foregroundColor(.nightSky1)
                     .padding(EdgeInsets(top: 12, leading: 12, bottom: 0, trailing: 0))
                 Spacer()
-                Image(systemName: "pencil")
-                    .foregroundColor(.nightSky1)
+                Text("더 보기")
+                    .font(.system(size: 16, weight: .regular, design: .default))
+                    .foregroundColor(.sheep4)
                     .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 12))
             }
             .background(
                 NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl()),
                                                                                                      dateItem: item))) {}
-                    .opacity(0)
             )
             Divider()
                 .padding(EdgeInsets(top: 4, leading: 0, bottom: 8, trailing: 0))

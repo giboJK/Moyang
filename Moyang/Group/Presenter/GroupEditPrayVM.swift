@@ -10,7 +10,7 @@ import Combine
 
 class GroupEditPrayVM: ObservableObject {
     private let groupRepo: GroupRepo
-    private var cancellables = Set<AnyCancellable>()
+    var cancellables = Set<AnyCancellable>()
     
     @Published var nameItem: GroupPrayListVM.NameSortedItem!
     @Published var dateItem: GroupPrayListVM.DateSortedItem!
@@ -70,5 +70,36 @@ class GroupEditPrayVM: ObservableObject {
     
     private func editDateItemPray() {
         
+    }
+}
+
+// MARK: - GroupEditPrayVMMock
+class GroupEditPrayVMMock: GroupEditPrayVM {
+    
+    deinit {
+        Log.i(self)
+        cancellables.removeAll()
+    }
+    
+    init() {
+        super.init(groupRepo: GroupRepoMock(), nameItem: nil, dateItem: nil)
+        isNameEdit = true
+        prayTitle = "ghdhghhg"
+        prayContents = "asdasdsd asdlkmasld msadk saldkm salk"
+        randomData()
+    }
+    
+    func randomData() {
+        self.nameItem = GroupPrayListVM.NameSortedItem(id: UUID().uuidString,
+                                                       name: "asd",
+                                                       dateList: [Date().toString("yyyy-MM-dd")],
+                                                       prayList: ["rlrlrl eheheh"])
+        let memberA = Member(id: UUID().uuidString,
+                             name: "asd",
+                             email: "test@test.com",
+                             profileURL: "")
+        self.dateItem = GroupPrayListVM.DateSortedItem(date: Date().toString("yyyy-MM-dd"),
+                                                       prayItemList: [GroupMemberPray(member: memberA,
+                                                                                      pray: "ass asldksad ksalmd")])
     }
 }

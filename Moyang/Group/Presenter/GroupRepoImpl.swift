@@ -133,3 +133,33 @@ class GroupRepoImpl: GroupRepo {
         return service.addDocument(groupInfo, ref: ref)
     }
 }
+
+class GroupRepoMock: GroupRepo {
+    func fetchGroupInfo() -> AnyPublisher<GroupInfo, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func fetchMeetingInfo(parentGroup: String, date: String) -> AnyPublisher<MeetingInfo, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func add(_ date: Date, _ data: GroupMemberPrayList, groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func addGroupPrayListListener(groupInfo: GroupInfo) -> PassthroughSubject<[GroupMemberPrayList], MoyangError> {
+        return .init()
+    }
+    
+    func fetchLatestGroupPray() -> AnyPublisher<GroupMemberPrayList, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func updateGroupPray(docment: String, value: [String: Any], groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func addNewGroup(groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+}

@@ -79,7 +79,7 @@ struct ProfileView: View {
                         .accentColor(.ydGreen1)
                         .colorInvert()
                         .colorMultiply(vm.isAlarmOn ? .ydGreen1 : .sheep4)
-                        .onChange(of: vm.alarmDate) { newValue in
+                        .onChange(of: vm.alarmDate) { _ in
                             vm.setAlarmTime()
                         }
                     

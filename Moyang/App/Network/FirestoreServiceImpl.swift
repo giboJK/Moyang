@@ -211,3 +211,48 @@ class FirestoreServiceImpl: FirestoreService {
         }.eraseToAnyPublisher()
     }
 }
+
+class FirestoreServiceMock: FirestoreService {
+    deinit { Log.i(self) }
+    var store = Firestore.firestore()
+    
+    func addDocument<T>(_ object: T, ref: CollectionReference) -> AnyPublisher<Bool, MoyangError> where T: Decodable, T: Encodable {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func addDocument<T>(_ object: T, ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> where T: Decodable, T: Encodable {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func updateDocument<T>(_ object: T, ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> where T: Decodable, T: Encodable {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func updateDocument(value: [String: Any], ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func appendValueToList(value: Any, key: String, ref: DocumentReference) -> AnyPublisher<Bool, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func addListener<T>(ref: CollectionReference, type: T.Type) -> PassthroughSubject<T, MoyangError> where T: Decodable, T: Encodable {
+        return .init()
+    }
+    
+    func addListener<T>(ref: CollectionReference, type: T.Type) -> PassthroughSubject<[T], MoyangError> where T: Decodable, T: Encodable {
+        return .init()
+    }
+    
+    func addListener<T>(ref: DocumentReference, type: T.Type) -> PassthroughSubject<T, MoyangError> where T: Decodable, T: Encodable {
+        return .init()
+    }
+    
+    func fetchObject<T>(ref: CollectionReference, type: T.Type) -> AnyPublisher<T, MoyangError> where T: Decodable, T: Encodable {
+        return Empty().eraseToAnyPublisher()
+    }
+    
+    func fetchObject<T>(ref: DocumentReference, type: T.Type) -> AnyPublisher<T, MoyangError> where T: Decodable, T: Encodable {
+        return Empty().eraseToAnyPublisher()
+    }
+}
