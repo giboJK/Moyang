@@ -10,6 +10,7 @@ import SwiftUI
 struct GroupPrayEditView: View {
     @ObservedObject var vm: GroupEditPrayVM
     @FocusState private var focus: Bool
+    @State private var isPraying: Bool = false
     
     var body: some View {
         ZStack {
@@ -58,11 +59,9 @@ struct GroupPrayEditView: View {
             VStack(spacing: 0) {
                 Spacer()
                 Button(action: {
+                    isPraying.toggle()
                 }) {
-                    NavigationLink(destination: GroupPrayView(vm: GroupPrayVM(title: vm.prayTitle,
-                                                                              pray: vm.prayContents))) {
                         Text("기도하기")
-                    }
                 }
                 .buttonStyle(MoyangButtonStyle(.black,
                                                width: 100,
@@ -73,6 +72,9 @@ struct GroupPrayEditView: View {
         .frame(maxWidth: .infinity)
         .background(Color.sheep1)
         .navigationBarTitle(vm.isNameEdit ? vm.nameItem.name : vm.dateItem.date)
+        .fullScreenCover(isPresented: $isPraying, content: {
+            GroupPrayView(vm: GroupPrayVM(title: vm.prayTitle, pray: vm.prayContents))
+        })
         .toolbar {
             Button("수정") {
                 vm.editPray()

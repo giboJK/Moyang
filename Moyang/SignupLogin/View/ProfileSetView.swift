@@ -55,7 +55,6 @@ struct ProfileSetView: View {
                 .hidden(!vm.isAddingData)
                 .frame(width: 40, height: 40, alignment: .center)
         }
-        
         .fullScreenCover(isPresented: $vm.isAddSuccess, onDismiss: {
             dismiss()
         }, content: {

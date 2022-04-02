@@ -14,10 +14,28 @@ struct GroupPrayView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Text(vm.timeString)
-                .font(.system(size: 16, weight: .regular, design: .default))
+            HStack(spacing: 0) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .font(.title2)
+                        .foregroundColor(.sheep1)
+                }
+                .padding(.leading, 8)
+                Spacer()
+            }
+        .padding(EdgeInsets(top: 12, leading: 0, bottom: 20, trailing: 0))
+
+            Text(vm.title)
+                .font(.system(size: 16, weight: .semibold, design: .default))
                 .foregroundColor(.sheep1)
-                .padding(EdgeInsets(top: 44, leading: 0, bottom: 0, trailing: 0))
+                .padding(EdgeInsets(top: 0, leading: 24, bottom: 20, trailing: 24))
+                .frame(width: UIScreen.main.bounds.width - 48, alignment: .center)
+
+            Text(vm.timeString)
+                .font(.system(size: 15, weight: .regular, design: .default))
+                .foregroundColor(.sheep1)
                 .frame(width: .infinity, alignment: .center)
             
             ScrollView(.vertical, showsIndicators: false) {
@@ -78,10 +96,7 @@ struct GroupPrayView: View {
 
 struct GroupPrayView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            GroupPrayView(vm: GroupPrayVMMock(title: "정김기보 기도",
-                                              pray: "기도\n도도도도도\n기도도도도오오오 기도이오오오 기도는 기도다 기도일세 기도도도돗\n\n 돗도로돗 기돗"))
-        }
-        .navigationBarTitleDisplayMode(.inline)
+        GroupPrayView(vm: GroupPrayVMMock(title: "정김기보 기도",
+                                          pray: "기도\n도도도도도\n기도도도도오오오 기도이오오오 기도는 기도다 기도일세 기도도도돗\n\n 돗도로돗 기돗"))
     }
 }
