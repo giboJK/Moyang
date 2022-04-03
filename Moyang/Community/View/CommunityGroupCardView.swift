@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CommunityGroupCardView: View {
     @StateObject var vm: CommunityGroupCardVM
+    @State private var isShowingPopover = false
     
     var body: some View {
         if vm.groupName.isEmpty {
@@ -36,30 +37,41 @@ struct CommunityGroupCardView: View {
             }
         } else {
             VStack(spacing: 0) {
-                HStack {
-                    Text(vm.groupName)
+                HStack(spacing: 0) {
+                    //                    Text(vm.groupName)
+                    Text("공동체안에서 함께해요")
                         .padding(.leading, 8)
                         .font(.system(size: 16, weight: .semibold, design: .default))
                         .foregroundColor(.nightSky1)
+                    Button(action: {
+                        self.isShowingPopover = true
+                    }) {
+                        Image(systemName: "info.circle")
+                            .padding(.leading, 4)
+                            .font(.system(size: 14, weight: .regular, design: .default))
+                            .foregroundColor(.nightSky3)
+                    }
+                    .alwaysPopover(isPresented: $isShowingPopover) {
+                        GroupCardPopover()
+                    }
                     Spacer()
-                    Image(systemName: "chevron.right")
                 }
                 .padding(.bottom, 8)
                 
                 VStack(spacing: 0) {
-                    HStack {
-                        Text(vm.sermonItem.meetingDate + " 나눔 질문")
+                    HStack(spacing: 0) {
+                        Text(vm.groupName)
                             .font(.system(size: 15, weight: .regular, design: .default))
                             .foregroundColor(.nightSky1)
                         Spacer()
-                        Text("\(vm.sermonItem.answeredQuestionCount) / \(vm.sermonItem.totalQuestionCount)")
-                            .font(.system(size: 15, weight: .regular, design: .default))
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 14, weight: .semibold, design: .default))
                             .foregroundColor(.nightSky1)
-                    }.padding(EdgeInsets(top: 16, leading: 12, bottom: 8, trailing: 12))
+                    }.padding(EdgeInsets(top: 12, leading: 12, bottom: 8, trailing: 12))
                     Divider()
                         .background(Color.sheep3)
                         .padding(.bottom, 12)
-                        
+                    
                     ForEach(0..<min(2, vm.sermonItem.groupQuestion.count), id: \.self) { i in
                         let item = vm.sermonItem.groupQuestion[i]
                         if item.question.isAnswered {
@@ -126,7 +138,7 @@ struct CommunityGroupCardView: View {
                     }
                     Spacer()
                 }
-                .frame(maxWidth: .infinity, idealHeight: 208, alignment: .center)
+                .frame(maxWidth: .infinity, idealHeight: 188, alignment: .center)
                 .modifier(MainCard())
                 .eraseToAnyView()
             }
@@ -137,5 +149,15 @@ struct CommunityGroupCardView: View {
 struct CommunityGroupCardView_Previews: PreviewProvider {
     static var previews: some View {
         CommunityGroupCardView(vm: CommunityGroupCardVMMock())
+    }
+}
+
+struct GroupCardPopover: View {
+    var body: some View {
+        Text("매번 유저가 속한 공동체 중 한 공동체가 노출됩니다.")
+            .font(.system(size: 14, weight: .regular, design: .default))
+            .foregroundColor(.nightSky3)
+            .padding()
+            .background(Color.sheep1)
     }
 }
