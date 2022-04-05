@@ -74,20 +74,20 @@ struct AlwaysPopoverModifier<PopoverContent>: ViewModifier where PopoverContent:
             sourceVC.present(contentController, animated: true)
         }
     }
-    
-    private struct InternalAnchorView: UIViewRepresentable {
-        typealias UIViewType = UIView
-        let uiView: UIView
-        
-        func makeUIView(context: Self.Context) -> Self.UIViewType {
-            uiView
-        }
-        
-        func updateUIView(_ uiView: Self.UIViewType, context: Self.Context) { }
-    }
 }
 
-class ContentViewController<V>: UIHostingController<V>, UIPopoverPresentationControllerDelegate where V:View {
+private struct InternalAnchorView: UIViewRepresentable {
+    typealias UIViewType = UIView
+    let uiView: UIView
+    
+    func makeUIView(context: Self.Context) -> Self.UIViewType {
+        uiView
+    }
+    
+    func updateUIView(_ uiView: Self.UIViewType, context: Self.Context) { }
+}
+
+class ContentViewController<V>: UIHostingController<V>, UIPopoverPresentationControllerDelegate where V: View {
     var isPresented: Binding<Bool>
     
     init(rootView: V, isPresented: Binding<Bool>) {
