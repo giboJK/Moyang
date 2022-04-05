@@ -29,7 +29,7 @@ struct GroupPrayEditView: View {
                             TextEditor(text: $vm.nameItem.prayItemList[i].pray)
                                 .focused($focus)
                                 .font(.system(size: 16, weight: .regular, design: .default))
-                                .frame(maxHeight: 72, alignment: .topLeading)
+                                .frame(minHeight: 100, maxHeight: 140, alignment: .topLeading)
                                 .foregroundColor(.nightSky1)
                                 .padding(EdgeInsets(top: 0, leading: 20, bottom: 8, trailing: 20))
                         }
@@ -46,7 +46,7 @@ struct GroupPrayEditView: View {
                             TextEditor(text: $vm.dateItem.prayItemList[i].pray)
                                 .focused($focus)
                                 .font(.system(size: 16, weight: .regular, design: .default))
-                                .frame(maxHeight: 72, alignment: .topLeading)
+                                .frame(minHeight: 100, maxHeight: 140, alignment: .topLeading)
                                 .foregroundColor(.nightSky1)
                                 .padding(EdgeInsets(top: 0, leading: 20, bottom: 8, trailing: 20))
                         }

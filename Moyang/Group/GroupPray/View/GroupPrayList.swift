@@ -1,5 +1,5 @@
 //
-//  GroupPrayListView.swift
+//  GroupPrayList.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/11/21.
@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-struct GroupPrayListView: View {
+struct GroupPrayList: View {
     @ObservedObject var vm: GroupPrayListVM
-    private let groupRepo = GroupRepoImpl(service: FirestoreServiceImpl())
     
     var body: some View {
         ZStack {
@@ -60,7 +59,7 @@ struct GroupPrayListView: View {
                 Spacer()
                 Button(action: {
                 }) {
-                    NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))) {
+                    NavigationLink(destination: NewGroupPrayView()) {
                         Image(systemName: "plus")
                     }
                 }
@@ -81,6 +80,6 @@ struct GroupPrayListView: View {
 
 struct CellPrayListView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupPrayListView(vm: GroupPrayListVMMock())
+        GroupPrayList(vm: GroupPrayListVMMock())
     }
 }

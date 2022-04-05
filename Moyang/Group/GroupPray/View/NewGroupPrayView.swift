@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewGroupPrayView: View {
-    @ObservedObject var vm: NewGroupPrayVM
+    @StateObject var vm = NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl()))
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -17,9 +17,11 @@ struct NewGroupPrayView: View {
                 DatePicker(selection: $vm.date, in: ...Date(), displayedComponents: .date) {
                     Text("날짜")
                         .foregroundColor(.nightSky1)
+                        .font(.system(size: 15, weight: .regular, design: .default))
                 }
             }
-            .padding(EdgeInsets(top: 0, leading: 20, bottom: 8, trailing: 20))
+            .padding(EdgeInsets(top: 4, leading: 20, bottom: 8, trailing: 20))
+            
             ForEach(0 ..< vm.itemList.count) { i in
                 HStack {
                     Text(vm.itemList[i].member.name)
@@ -59,6 +61,6 @@ struct NewGroupPrayView: View {
 
 struct NewCellPrayView_Previews: PreviewProvider {
     static var previews: some View {
-        NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
+        NewGroupPrayView()
     }
 }

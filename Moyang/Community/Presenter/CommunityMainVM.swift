@@ -12,7 +12,6 @@ class CommunityMainVM: ObservableObject {
     private var disposables = Set<AnyCancellable>()
     
     @Published var communityCardListVM = CommunityCardListVM()
-    @Published var communityGroupCardVM = CommunityGroupCardVM()
     
     init() {
     }

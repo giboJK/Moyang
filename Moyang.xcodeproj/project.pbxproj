@@ -64,7 +64,8 @@
 		08FEC8F827C48D8F00C57110 /* MemberRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		241426AB278099CB006682B1 /* PrayRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241426AA278099CB006682B1 /* PrayRepoMock.swift */; };
-		24151DCE274A2A3E00DD38CE /* GroupPrayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24151DCD274A2A3E00DD38CE /* GroupPrayListView.swift */; };
+		24151DCE274A2A3E00DD38CE /* GroupPrayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24151DCD274A2A3E00DD38CE /* GroupPrayList.swift */; };
+		2426743727FC766F00056235 /* CommunityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2426743627FC766F00056235 /* CommunityList.swift */; };
 		242D745C274267C80053EF2A /* MainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D745B274267C80053EF2A /* MainCard.swift */; };
 		242D745F274282F00053EF2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 242D7461274282F00053EF2A /* Localizable.strings */; };
 		242D7464274283710053EF2A /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D7463274283710053EF2A /* Strings.swift */; };
@@ -231,7 +232,8 @@
 		08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepoImpl.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		241426AA278099CB006682B1 /* PrayRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayRepoMock.swift; sourceTree = "<group>"; };
-		24151DCD274A2A3E00DD38CE /* GroupPrayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayListView.swift; sourceTree = "<group>"; };
+		24151DCD274A2A3E00DD38CE /* GroupPrayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayList.swift; sourceTree = "<group>"; };
+		2426743627FC766F00056235 /* CommunityList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityList.swift; sourceTree = "<group>"; };
 		242D745B274267C80053EF2A /* MainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCard.swift; sourceTree = "<group>"; };
 		242D7460274282F00053EF2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		242D7462274282F30053EF2A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -527,7 +529,7 @@
 		08D8875F27D32A0200E32959 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				24151DCD274A2A3E00DD38CE /* GroupPrayListView.swift */,
+				24151DCD274A2A3E00DD38CE /* GroupPrayList.swift */,
 				24B7B4D72753BC5F007BCF9E /* NewGroupPrayView.swift */,
 				24EA9B4727579BDC004FB585 /* GroupPrayEditView.swift */,
 				085208CE27D59BE000259A4B /* GroupNameSortedRow.swift */,
@@ -627,6 +629,7 @@
 				246BD7AB27240AB9005C4E0B /* CommunityCardList.swift */,
 				08A02A5827AE13C90043EEF0 /* CommunityGroupCardView.swift */,
 				08A02A5A27AE13D40043EEF0 /* CommunityPrayCardView.swift */,
+				2426743627FC766F00056235 /* CommunityList.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -734,7 +737,6 @@
 		248FEC0E2723A07D00321E5E /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				24B8BCE72764C798005B0A9F /* Domain */,
 				24B8BCEB2764C7DD005B0A9F /* Presenter */,
 				246BD7AA27240AB2005C4E0B /* View */,
 			);
@@ -840,13 +842,6 @@
 				24B88EEB27A2D86E00D5B001 /* intro.json */,
 			);
 			path = Animation;
-			sourceTree = "<group>";
-		};
-		24B8BCE72764C798005B0A9F /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
 			sourceTree = "<group>";
 		};
 		24B8BCEB2764C7DD005B0A9F /* Presenter */ = {
@@ -1296,6 +1291,7 @@
 				08A02A5D27AE17370043EEF0 /* CommunityGroupCardVM.swift in Sources */,
 				24B652AF279589BA007CC58C /* IntroVM.swift in Sources */,
 				08B142D727AFAFCC000952FF /* Sermon.swift in Sources */,
+				2426743727FC766F00056235 /* CommunityList.swift in Sources */,
 				08D82955278D196F001E6B61 /* FirestoreLoginServiceImpl.swift in Sources */,
 				246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */,
 				08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */,
@@ -1311,7 +1307,7 @@
 				249B903027259C6400B53682 /* DummyData.swift in Sources */,
 				24E8F07E27DDD7280036C0F0 /* WebView.swift in Sources */,
 				08B142DE27AFB810000952FF /* NewSermonVM.swift in Sources */,
-				24151DCE274A2A3E00DD38CE /* GroupPrayListView.swift in Sources */,
+				24151DCE274A2A3E00DD38CE /* GroupPrayList.swift in Sources */,
 				08BE77612796DAB8008DC7B0 /* PastorList.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
 				246BD7C627240AD4005C4E0B /* PrayListVM.swift in Sources */,

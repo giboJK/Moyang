@@ -38,7 +38,6 @@ struct CommunityGroupCardView: View {
         } else {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
-                    //                    Text(vm.groupName)
                     Text("공동체안에서 함께해요")
                         .padding(.leading, 8)
                         .font(.system(size: 16, weight: .semibold, design: .default))
@@ -55,6 +54,14 @@ struct CommunityGroupCardView: View {
                         GroupCardPopover()
                     }
                     Spacer()
+                    Button(action: {}) {
+                        NavigationLink(destination: NavigationLazyView(CommunityList())) {
+                            Text("모두 보기")
+                                .foregroundColor(.sheep4)
+                                .font(.system(size: 14, weight: .regular, design: .default))
+                                .padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 4))
+                        }
+                    }
                 }
                 .padding(.bottom, 8)
                 

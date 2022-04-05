@@ -24,6 +24,5 @@ protocol GroupRepo {
                          groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError>
     
     
-    //
     func addNewGroup(groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError>
 }

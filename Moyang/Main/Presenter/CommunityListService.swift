@@ -38,7 +38,7 @@ class CommunityListService: SermonRepo & GroupRepo {
         guard let myInfo = UserData.shared.myInfo else {
             return Empty(completeImmediately: false).eraseToAnyPublisher()
         }
-        guard let groupID = myInfo.groupList.first else {
+        guard let groupID = myInfo.groupList.randomElement() else {
             return Empty().eraseToAnyPublisher()
         }
         let ref = service.store
