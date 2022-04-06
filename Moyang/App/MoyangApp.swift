@@ -8,6 +8,7 @@
 import SwiftUI
 import Swinject
 import Firebase
+import GoogleSignIn
 
 @main
 struct MoyangApp: App {

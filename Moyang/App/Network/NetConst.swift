@@ -9,6 +9,4 @@ import Foundation
 import GoogleSignIn
 
 class NetConst {
-    static let googleClientID = "274457020126-gcfd4thnkl1jkl3nsbe6fubljksqrumj.apps.googleusercontent.com"
-    static let signInConfig = GIDConfiguration.init(clientID: NetConst.googleClientID)
 }
