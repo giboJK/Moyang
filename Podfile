@@ -20,6 +20,7 @@ end
 
 def network
   pod 'Alamofire'
+  pod 'GoogleSignIn', :inhibit_warnings => true
 end
 
 def firebase

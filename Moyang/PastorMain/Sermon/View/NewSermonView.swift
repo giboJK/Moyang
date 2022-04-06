@@ -102,10 +102,10 @@ struct NewSermonView: View {
                 }) {
                     Text("완료")
                         .frame(width: UIScreen.screenWidth - 80,
-                               height: 50)
+                               height: 52)
                 }
                 .buttonStyle(MoyangButtonStyle(width: UIScreen.screenWidth - 80,
-                                               height: 50))
+                                               height: 52))
                 .padding(.bottom, 10)
             }
         }

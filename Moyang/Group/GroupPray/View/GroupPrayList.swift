@@ -65,7 +65,7 @@ struct GroupPrayList: View {
                 }
                 .buttonStyle(MoyangButtonStyle(.black,
                                                width: 100,
-                                               height: 50))
+                                               height: 52))
                 .padding(.bottom, 10)
             }
         }

@@ -22,7 +22,7 @@ struct IntroView: View {
                     Spacer()
                     Button(action: {}) {
                         NavigationLink(destination: PrivacyPolicyView()) {
-                            Text("Email 회원가입")
+                            Text("회원가입")
                                 .frame(width: UIScreen.screenWidth - 80, height: 50)
                         }
                     }

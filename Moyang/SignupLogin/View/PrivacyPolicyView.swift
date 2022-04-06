@@ -28,8 +28,7 @@ struct PrivacyPolicyView: View {
                     .padding(.trailing, 20)
                 
                 Button(action: {}) {
-                    let loginVM = LoginVM()
-                    NavigationLink(destination: SignUpView(vm: loginVM)) {
+                    NavigationLink(destination: SignUpView()) {
                         Text("동의")
                             .frame(width: UIScreen.screenWidth - 80, height: 50)
                     }

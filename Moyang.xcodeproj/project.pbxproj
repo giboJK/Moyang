@@ -40,7 +40,7 @@
 		08BE775E2796D21F008DC7B0 /* PastorLoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BE775D2796D21F008DC7B0 /* PastorLoginVM.swift */; };
 		08BE77612796DAB8008DC7B0 /* PastorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BE77602796DAB8008DC7B0 /* PastorList.swift */; };
 		08CE42012780059A003352E0 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE42002780059A003352E0 /* FirestoreService.swift */; };
-		08D2D8532787B05F006897A4 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8522787B05F006897A4 /* SignUpView.swift */; };
+		08D2D8532787B05F006897A4 /* SignUpEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8522787B05F006897A4 /* SignUpEmailView.swift */; };
 		08D2D8552787B074006897A4 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8542787B074006897A4 /* LogInView.swift */; };
 		08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8572787B12F006897A4 /* LoginVM.swift */; };
 		08D33DFD27D4E64100C77735 /* GroupPrayListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D33DFC27D4E64100C77735 /* GroupPrayListVMMock.swift */; };
@@ -58,6 +58,9 @@
 		08D8876427D32A5900E32959 /* GroupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8876327D32A5900E32959 /* GroupVM.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */; };
+		08EBCFBE27FDD1E800BDCB14 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBD27FDD1E800BDCB14 /* SignUpView.swift */; };
+		08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */; };
+		08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFC127FDD78A00BDCB14 /* NetConst.swift */; };
 		08FBC5F5279143D8008BC236 /* CommunityMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FBC5F4279143D8008BC236 /* CommunityMainView.swift */; };
 		08FBC5F9279143EC008BC236 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FBC5F8279143EC008BC236 /* ProfileView.swift */; };
 		08FEC8F627C48D4700C57110 /* MemberRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEC8F527C48D4700C57110 /* MemberRepo.swift */; };
@@ -209,7 +212,7 @@
 		08BE775D2796D21F008DC7B0 /* PastorLoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorLoginVM.swift; sourceTree = "<group>"; };
 		08BE77602796DAB8008DC7B0 /* PastorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorList.swift; sourceTree = "<group>"; };
 		08CE42002780059A003352E0 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
-		08D2D8522787B05F006897A4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		08D2D8522787B05F006897A4 /* SignUpEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpEmailView.swift; sourceTree = "<group>"; };
 		08D2D8542787B074006897A4 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		08D2D8572787B12F006897A4 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		08D33DFC27D4E64100C77735 /* GroupPrayListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayListVMMock.swift; sourceTree = "<group>"; };
@@ -227,6 +230,9 @@
 		08D8876327D32A5900E32959 /* GroupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVM.swift; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
+		08EBCFBD27FDD1E800BDCB14 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
+		08EBCFC127FDD78A00BDCB14 /* NetConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConst.swift; sourceTree = "<group>"; };
 		08FBC5F4279143D8008BC236 /* CommunityMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainView.swift; sourceTree = "<group>"; };
 		08FBC5F8279143EC008BC236 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		08FEC8F527C48D4700C57110 /* MemberRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepo.swift; sourceTree = "<group>"; };
@@ -469,13 +475,14 @@
 		08D2D8512787B04C006897A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				08D2D8522787B05F006897A4 /* SignUpView.swift */,
+				08D2D8522787B05F006897A4 /* SignUpEmailView.swift */,
 				08D2D8542787B074006897A4 /* LogInView.swift */,
 				08D8295E278D8116001E6B61 /* IntroView.swift */,
 				08BE775B2796D010008DC7B0 /* PastorLogInView.swift */,
 				0894AC6727B6B09F0011F167 /* ProfileSetView.swift */,
 				082371B427BA7C2B0050420E /* TermsView.swift */,
 				24E8F07B27DDD6860036C0F0 /* PrivacyPolicyView.swift */,
+				08EBCFBD27FDD1E800BDCB14 /* SignUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -596,6 +603,7 @@
 				08D7DAB827CE1D56004CDC9E /* TestView.swift */,
 				08D8875D27D317DA00E32959 /* TopTabBar.swift */,
 				24E8F07D27DDD7280036C0F0 /* WebView.swift */,
+				08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */,
 			);
 			path = CommonView;
 			sourceTree = "<group>";
@@ -807,6 +815,7 @@
 				08CE42002780059A003352E0 /* FirestoreService.swift */,
 				08D82952278D192C001E6B61 /* LoginService.swift */,
 				08D82954278D196F001E6B61 /* FirestoreLoginServiceImpl.swift */,
+				08EBCFC127FDD78A00BDCB14 /* NetConst.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1248,6 +1257,7 @@
 				24AC737A27468BD7003B9B2F /* Array+.swift in Sources */,
 				08A02A5F27AE1B1F0043EEF0 /* GroupView.swift in Sources */,
 				08B142DC27AFB624000952FF /* NewSermonView.swift in Sources */,
+				08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */,
 				24BF681927C3C537000E1E91 /* MemberSearchRow.swift in Sources */,
 				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
 				24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */,
@@ -1282,8 +1292,9 @@
 				246BD7C127240AD4005C4E0B /* PrayPreviewCard.swift in Sources */,
 				0843DD3A279DFBAB00CF2395 /* ProfileVM.swift in Sources */,
 				24E8F07C27DDD6860036C0F0 /* PrivacyPolicyView.swift in Sources */,
+				08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */,
 				08FBC5F5279143D8008BC236 /* CommunityMainView.swift in Sources */,
-				08D2D8532787B05F006897A4 /* SignUpView.swift in Sources */,
+				08D2D8532787B05F006897A4 /* SignUpEmailView.swift in Sources */,
 				08FEC8F827C48D8F00C57110 /* MemberRepoImpl.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
@@ -1304,6 +1315,7 @@
 				08D8875E27D317DA00E32959 /* TopTabBar.swift in Sources */,
 				082371B527BA7C2B0050420E /* TermsView.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
+				08EBCFBE27FDD1E800BDCB14 /* SignUpView.swift in Sources */,
 				24FAEF0B27E2146C00B2DA81 /* GroupPrayView.swift in Sources */,
 				24A757B527B1444D00D94002 /* GroupQuestionList.swift in Sources */,
 				24B7B4D82753BC5F007BCF9E /* NewGroupPrayView.swift in Sources */,

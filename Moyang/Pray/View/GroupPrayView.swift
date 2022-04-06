@@ -31,7 +31,7 @@ struct GroupPrayView: View {
                 .font(.system(size: 16, weight: .semibold, design: .default))
                 .foregroundColor(.sheep1)
                 .padding(EdgeInsets(top: 0, leading: 24, bottom: 20, trailing: 24))
-                .frame(width: UIScreen.main.bounds.width - 48, alignment: .center)
+                .frame(width: UIScreen.screenWidth - 48, alignment: .center)
 
             Text(vm.timeString)
                 .font(.system(size: 15, weight: .regular, design: .default))
@@ -71,7 +71,7 @@ struct GroupPrayView: View {
             })
                 .buttonStyle(MoyangButtonStyle(.black,
                                                width: UIScreen.screenWidth - 80,
-                                               height: 50))
+                                               height: 52))
                 .padding(.bottom, 20)
                 .disabled(vm.time < 10)
         }

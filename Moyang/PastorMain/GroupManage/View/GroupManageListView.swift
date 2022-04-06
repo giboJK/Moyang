@@ -32,7 +32,7 @@ struct GroupManageListView: View {
                 }
                 .buttonStyle(MoyangButtonStyle(.black,
                                                width: 80,
-                                               height: 50))
+                                               height: 52))
                 .padding(.bottom, 10)
                 .listRowSeparator(.hidden, edges: .all)
             }
