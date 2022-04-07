@@ -45,7 +45,6 @@
 		08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8572787B12F006897A4 /* LoginVM.swift */; };
 		08D33DFD27D4E64100C77735 /* GroupPrayListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D33DFC27D4E64100C77735 /* GroupPrayListVMMock.swift */; };
 		08D449F227B94020004B0D8A /* ProfileSetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D449F127B94020004B0D8A /* ProfileSetVM.swift */; };
-		08D449F427B94D4B004B0D8A /* NavigationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D449F327B94D4B004B0D8A /* NavigationUtil.swift */; };
 		08D7DAB927CE1D56004CDC9E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D7DAB827CE1D56004CDC9E /* TestView.swift */; };
 		08D7DABC27CE244E004CDC9E /* LoginVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D7DABB27CE244E004CDC9E /* LoginVMMock.swift */; };
 		08D82953278D192C001E6B61 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82952278D192C001E6B61 /* LoginService.swift */; };
@@ -217,7 +216,6 @@
 		08D2D8572787B12F006897A4 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		08D33DFC27D4E64100C77735 /* GroupPrayListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayListVMMock.swift; sourceTree = "<group>"; };
 		08D449F127B94020004B0D8A /* ProfileSetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetVM.swift; sourceTree = "<group>"; };
-		08D449F327B94D4B004B0D8A /* NavigationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtil.swift; sourceTree = "<group>"; };
 		08D7DAB827CE1D56004CDC9E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		08D7DABB27CE244E004CDC9E /* LoginVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVMMock.swift; sourceTree = "<group>"; };
 		08D82952278D192C001E6B61 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
@@ -966,7 +964,6 @@
 			isa = PBXGroup;
 			children = (
 				24D0D32C272314F7006FF67B /* Log.swift */,
-				08D449F327B94D4B004B0D8A /* NavigationUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1397,7 +1394,6 @@
 				085208D127D59F8B00259A4B /* GroupDateSortedRow.swift in Sources */,
 				24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */,
 				24BA95D927E586CA0030751C /* GroupPrayVM.swift in Sources */,
-				08D449F427B94D4B004B0D8A /* NavigationUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

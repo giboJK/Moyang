@@ -11,6 +11,7 @@ import Firebase
 
 struct SignUpView: View {
     @StateObject var vm = SignUpVM()
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: 0) {
@@ -33,7 +34,7 @@ struct SignUpView: View {
             
             GoogleSignInButton()
                 .onTapGesture {
-                    vm.signIn()
+                    vm.googleSignIn()
                 }
                 .frame(width: UIScreen.screenWidth - 80, height: 52)
                 .padding(EdgeInsets(top: 0, leading: 36, bottom: 32, trailing: 36))
@@ -41,6 +42,12 @@ struct SignUpView: View {
         .navigationTitle("회원가입")
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
+        .alert(isPresented: $vm.isSignupSuccess, content: { () -> Alert in
+            Alert(title: Text(vm.signupTitle),
+                  message: Text(vm.signupMessage),
+                  dismissButton: .default(Text("확인"), action: {
+            }))
+        })
     }
 }
 
@@ -52,15 +59,12 @@ struct SignUpView_Previews: PreviewProvider {
 
 
 class SignUpVM: ObservableObject {
-    enum SignInState {
-        case signedIn
-        case signedOut
-    }
+    @Published var isSignupSuccess: Bool = false
+    var signupTitle: String = "회원가입 성공"
+    var signupMessage: String = "로그인해주세요"
     
-    @Published var state: SignInState = .signedOut
     
-    func signIn() {
-        // 1
+    func googleSignIn() {
         if GIDSignIn.sharedInstance.hasPreviousSignIn() {
             GIDSignIn.sharedInstance.restorePreviousSignIn { [unowned self] user, error in
                 authenticateUser(for: user, with: error)
@@ -78,37 +82,25 @@ class SignUpVM: ObservableObject {
             }
         }
     }
+    
     private func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
-        // 1
+        
         if let error = error {
             Log.e(error.localizedDescription)
             return
         }
         
-        // 2
         guard let authentication = user?.authentication, let idToken = authentication.idToken else { return }
         
         let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
         
-        // 3
         Auth.auth().signIn(with: credential) { [unowned self] (_, error) in
             if let error = error {
                 Log.e(error.localizedDescription)
             } else {
-                self.state = .signedIn
+                Log.d("Google signin success")
+                self.isSignupSuccess = true
             }
-        }
-    }
-    
-    func signOut() {
-        GIDSignIn.sharedInstance.signOut()
-        
-        do {
-            try Auth.auth().signOut()
-            
-            state = .signedOut
-        } catch {
-            Log.e(error.localizedDescription)
         }
     }
 }

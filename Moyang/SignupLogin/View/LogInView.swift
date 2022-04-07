@@ -54,6 +54,13 @@ struct LogInView: View {
                     .padding(.bottom, 20)
                     .disabled(!vm.id.isValidEmail || (vm.password.count < 6))
                 
+                GoogleSignInButton()
+                    .onTapGesture {
+                        vm.googleSignIn()
+                    }
+                    .frame(width: UIScreen.screenWidth - 80, height: 52)
+                    .padding(EdgeInsets(top: 0, leading: 36, bottom: 20, trailing: 36))
+                
                 Button(action: {
                     vm.findPassword()
                 }, label: {
