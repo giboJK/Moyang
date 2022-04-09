@@ -57,6 +57,7 @@
 		08D8876427D32A5900E32959 /* GroupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8876327D32A5900E32959 /* GroupVM.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */; };
+		08EB322E2801740C007CFDCB /* Charts in Resources */ = {isa = PBXBuildFile; fileRef = 08EB322D2801740C007CFDCB /* Charts */; };
 		08EBCFBE27FDD1E800BDCB14 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBD27FDD1E800BDCB14 /* SignUpView.swift */; };
 		08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */; };
 		08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFC127FDD78A00BDCB14 /* NetConst.swift */; };
@@ -228,6 +229,7 @@
 		08D8876327D32A5900E32959 /* GroupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVM.swift; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
+		08EB322D2801740C007CFDCB /* Charts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Charts; sourceTree = "<group>"; };
 		08EBCFBD27FDD1E800BDCB14 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		08EBCFC127FDD78A00BDCB14 /* NetConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConst.swift; sourceTree = "<group>"; };
@@ -941,6 +943,7 @@
 				24B492D027989DAB005CAA5A /* Info.plist */,
 				24A6A4A9275A2BCB00D7DB25 /* App */,
 				242D745A274267AA0053EF2A /* CommonView */,
+				08EB322D2801740C007CFDCB /* Charts */,
 				248FEC0E2723A07D00321E5E /* Main */,
 				24B812F027984A9500BD1B3E /* PastorMain */,
 				246BD7DC27240AE4005C4E0B /* Group */,
@@ -1121,6 +1124,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08EB322E2801740C007CFDCB /* Charts in Resources */,
 				24DABE7327E89E680008D132 /* praysong.m4a in Resources */,
 				24D0D325272313AF006FF67B /* .swiftlint.yml in Resources */,
 				248FEC152723A11600321E5E /* Colors.xcassets in Resources */,
@@ -1553,7 +1557,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2427333XUL;
 				ENABLE_PREVIEWS = YES;
@@ -1570,7 +1574,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.Moyang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1587,7 +1591,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2427333XUL;
 				ENABLE_PREVIEWS = YES;
@@ -1604,7 +1608,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.j2kb.Moyang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
