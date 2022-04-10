@@ -67,6 +67,7 @@ class LoginVM: ObservableObject {
                 }
                 self.isLoadingUserDataFinished = true
             } receiveValue: { _ in
+                self.setUserAuthAndEmail(type: .email, email: self.id.lowercased())
                 self.fetchUserData(id: self.id.lowercased())
             }.store(in: &cancellables)
     }
@@ -85,7 +86,10 @@ class LoginVM: ObservableObject {
     }
     
     private func fetchUserData(id: String) {
-        loginService.fetchUserData(id: id, type: .email)
+        guard let authTypeStr = UserData.shared.authType,
+              let authType = AuthType(rawValue: authTypeStr) else { Log.e("Auth type error") ;return }
+        
+        loginService.fetchUserData(id: id, type: authType)
             .receive(on: DispatchQueue.main)
             .catch { error -> AnyPublisher<MemberDetail, MoyangError> in
                 self.isLoadingUserDataFinished = true
@@ -147,11 +151,17 @@ class LoginVM: ObservableObject {
             } else {
                 Log.d("Google signin success")
                 if let email = user?.profile?.email {
+                    self.setUserAuthAndEmail(type: .google, email: email.lowercased())
                     self.fetchUserData(id: email.lowercased())
                 } else {
                     Log.e("Invalid email")
                 }
             }
         }
+    }
+    
+    private func setUserAuthAndEmail(type: AuthType, email: String) {
+        UserData.shared.authType = AuthType.google.rawValue
+        UserData.shared.userID = email
     }
 }

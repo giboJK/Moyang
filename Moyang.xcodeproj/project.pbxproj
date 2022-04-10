@@ -138,8 +138,6 @@
 		24BA95DB27E587190030751C /* GroupPrayVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA95DA27E587190030751C /* GroupPrayVMMock.swift */; };
 		24BB327C27656735002131BF /* CommunityCardListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB327B27656735002131BF /* CommunityCardListVM.swift */; };
 		24BB8032275645C100BE2988 /* NewGroupPrayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB8031275645C100BE2988 /* NewGroupPrayVM.swift */; };
-		24BB803527565E1300BE2988 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB803427565E1300BE2988 /* RealmManager.swift */; };
-		24BB803727565E2200BE2988 /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB803627565E2200BE2988 /* LocalDB.swift */; };
 		24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */; };
 		24BF681927C3C537000E1E91 /* MemberSearchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BF681827C3C537000E1E91 /* MemberSearchRow.swift */; };
 		24BF6E94274FBF620004B24E /* CellPrayInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 24BF6E93274FBF620004B24E /* CellPrayInfo.json */; };
@@ -312,8 +310,6 @@
 		24BA95DA27E587190030751C /* GroupPrayVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayVMMock.swift; sourceTree = "<group>"; };
 		24BB327B27656735002131BF /* CommunityCardListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCardListVM.swift; sourceTree = "<group>"; };
 		24BB8031275645C100BE2988 /* NewGroupPrayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupPrayVM.swift; sourceTree = "<group>"; };
-		24BB803427565E1300BE2988 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
-		24BB803627565E2200BE2988 /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
 		24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		24BF681827C3C537000E1E91 /* MemberSearchRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchRow.swift; sourceTree = "<group>"; };
 		24BF6E93274FBF620004B24E /* CellPrayInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellPrayInfo.json; sourceTree = "<group>"; };
@@ -909,8 +905,6 @@
 		24BB803327565E0800BE2988 /* DB */ = {
 			isa = PBXGroup;
 			children = (
-				24BB803427565E1300BE2988 /* RealmManager.swift */,
-				24BB803627565E2200BE2988 /* LocalDB.swift */,
 				24755366277CA9AB001908A6 /* UserData.swift */,
 			);
 			path = DB;
@@ -1337,7 +1331,6 @@
 				2434ED4927B2998D0091289B /* NewGroupQuestionView.swift in Sources */,
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,
 				0894AC6827B6B09F0011F167 /* ProfileSetView.swift in Sources */,
-				24BB803727565E2200BE2988 /* LocalDB.swift in Sources */,
 				2496FE8227B527B600E9DCEE /* SermonRepo.swift in Sources */,
 				08D7DAB927CE1D56004CDC9E /* TestView.swift in Sources */,
 				248AF71F27C09B2E004AA283 /* GroupManageCardRow.swift in Sources */,
@@ -1374,7 +1367,6 @@
 				08A02A6227AE1BAB0043EEF0 /* CommunityGroupCardVMMock.swift in Sources */,
 				08D82957278D2548001E6B61 /* MoyangButtonStyle.swift in Sources */,
 				08BD5CA927DF1F560003DF5A /* MyInfoView.swift in Sources */,
-				24BB803527565E1300BE2988 /* RealmManager.swift in Sources */,
 				08D33DFD27D4E64100C77735 /* GroupPrayListVMMock.swift in Sources */,
 				24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */,
 				24D7BB31274D179200CC8B7C /* GroupPrayListVM.swift in Sources */,
@@ -1557,7 +1549,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2427333XUL;
 				ENABLE_PREVIEWS = YES;
@@ -1591,7 +1583,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2427333XUL;
 				ENABLE_PREVIEWS = YES;

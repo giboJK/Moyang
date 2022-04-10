@@ -56,3 +56,8 @@ enum UserLevel: Int {
         }
     }
 }
+
+enum AuthType: String {
+    case email = "EMAIL"
+    case google = "GOOGLE"
+}

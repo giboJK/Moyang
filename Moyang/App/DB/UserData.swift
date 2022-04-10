@@ -40,6 +40,15 @@ class UserData {
         }
     }
     
+    var authType: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "AUTH_TYPE")
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: "AUTH_TYPE")
+        }
+    }
+    
     /// Email address
     var userID: String? {
         get {
