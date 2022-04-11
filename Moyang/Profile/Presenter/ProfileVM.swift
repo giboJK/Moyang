@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import GoogleSignIn
+import Firebase
 
 class ProfileVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
@@ -17,6 +19,8 @@ class ProfileVM: ObservableObject {
     @Published var levelDesc: String = "새싹 그리스도인"
     @Published var isAlarmOn: Bool = false
     @Published var alarmDate: Date = Date()
+    
+    @Published var logoutResult: Result<Bool, Error>?
     
     init() {
         
@@ -53,6 +57,38 @@ class ProfileVM: ObservableObject {
         UserData.shared.alarmTiem = self.alarmDate.toString(format: "yyyy-MM-dd HH:mm:ss")
         isAlarmOn = true
         Log.w("")
+    }
+    
+    func logout() {
+        if UserData.shared.authType == AuthType.google.rawValue {
+            googleSignOut()
+        } else {
+            emailSignOut()
+        }
+    }
+    
+    private func emailSignOut() {
+        do {
+            UserData.shared.resetUserData()
+            try Auth.auth().signOut()
+            logoutResult = .success(true)
+        } catch {
+            Log.e(error)
+            logoutResult = .failure(error)
+        }
+    }
+    
+    private func googleSignOut() {
+        GIDSignIn.sharedInstance.signOut()
+        
+        do {
+            UserData.shared.resetUserData()
+            try Auth.auth().signOut()
+            logoutResult = .success(true)
+        } catch {
+            Log.e(error)
+            logoutResult = .failure(error)
+        }
     }
 }
 

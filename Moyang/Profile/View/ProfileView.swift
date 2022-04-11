@@ -129,8 +129,7 @@ struct ProfileView: View {
                 .padding(.bottom, 24)
                 
                 Button(action: {
-                    UserData.shared.resetUserData()
-                    self.rootIsActive = false
+                    vm.logout()
                 }) {
                     Text("로그아웃")
                         .padding(.leading, 32)
@@ -147,9 +146,19 @@ struct ProfileView: View {
         .padding(.top, 30)
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
-        .onLoad {
+        .onReceive(vm.$logoutResult, perform: { result in
+            switch result {
+            case .success:
+                self.rootIsActive = false
+            case .failure(let error):
+                Log.e(error)
+            case .none:
+                break
+            }
+        })
+        .onLoad(perform: {
             vm.loadUserData()
-        }
+        })
     }
 }
 
