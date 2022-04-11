@@ -92,7 +92,7 @@ struct PastorLogInView: View {
 struct PastorLoginView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PastorLogInView(vm: PastorLoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+            PastorLogInView(vm: PastorLoginVM(loginService: FSLoginService(service: FirestoreServiceImpl())))
         }
     }
 }

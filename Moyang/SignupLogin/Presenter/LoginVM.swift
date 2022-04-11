@@ -7,12 +7,10 @@
 
 import SwiftUI
 import Combine
-import GoogleSignIn
-import Firebase
 
 class LoginVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-    private let loginService: LoginService = FirestoreLoginServiceImpl(service: FirestoreServiceImpl())
+    private let loginService: LoginService = FSLoginService(service: FirestoreServiceImpl())
     
     @Published var id: String = ""
     @Published var password: String = ""
@@ -33,6 +31,11 @@ class LoginVM: ObservableObject {
     init() {
     }
     
+    deinit {
+        Log.i(self)
+        cancellables.removeAll()
+    }
+    
     func signup() {
         loginService.signup(id: id, pw: password, type: .email)
             .sink { completion in
@@ -42,11 +45,11 @@ class LoginVM: ObservableObject {
             }.store(in: &cancellables)
     }
     
-    func login() {
+    func emailLogin() {
         self.isLoadingUserDataFinished = false
-        loginService.login(id: id, pw: password, type: .email)
-            .receive(on: DispatchQueue.main)
+        loginService.emailLogin(id: id, pw: password)
             .sink { completion in
+                self.isLoadingUserDataFinished = true
                 switch completion {
                 case .failure(let error):
                     switch error {
@@ -65,24 +68,28 @@ class LoginVM: ObservableObject {
                 case .finished:
                     break
                 }
-                self.isLoadingUserDataFinished = true
             } receiveValue: { _ in
                 self.setUserAuthAndEmail(type: .email, email: self.id.lowercased())
                 self.fetchUserData(id: self.id.lowercased())
             }.store(in: &cancellables)
     }
     
-    func findPassword() {
-        
+    func googleLogin() {
+        isLoadingUserDataFinished = false
+        loginService.googleLogin()
+            .sink { _ in
+                self.isLoadingUserDataFinished = true
+            } receiveValue: { email in
+                self.setUserAuthAndEmail(type: .google, email: email.lowercased())
+                self.fetchUserData(id: email.lowercased())
+            }.store(in: &cancellables)
     }
     
-    func resetData() {
-        id = ""
-        password = ""
-        isSignupSuccess = false
-        isLoginSuccess = false
+    
+    private func setUserAuthAndEmail(type: AuthType, email: String) {
         isLoadingUserDataFinished = true
-        moveToProfileSetView = false
+        UserData.shared.authType = type.rawValue
+        UserData.shared.userID = email
     }
     
     private func fetchUserData(id: String) {
@@ -90,7 +97,6 @@ class LoginVM: ObservableObject {
               let authType = AuthType(rawValue: authTypeStr) else { Log.e("Auth type error") ;return }
         
         loginService.fetchUserData(id: id, type: authType)
-            .receive(on: DispatchQueue.main)
             .catch { error -> AnyPublisher<MemberDetail, MoyangError> in
                 self.isLoadingUserDataFinished = true
                 switch error {
@@ -102,7 +108,6 @@ class LoginVM: ObservableObject {
                 return Empty(completeImmediately: false).eraseToAnyPublisher()
             }
             .sink { _ in
-                self.isLoadingUserDataFinished = true
             } receiveValue: { memberDetail in
                 UserData.shared.userID = self.id
                 UserData.shared.password = self.password
@@ -111,57 +116,7 @@ class LoginVM: ObservableObject {
             }.store(in: &cancellables)
     }
     
-    deinit {
-        Log.i(self)
-        cancellables.removeAll()
-    }
-    
-    func googleSignIn() {
-        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
-            GIDSignIn.sharedInstance.restorePreviousSignIn { [unowned self] user, error in
-                authenticateUser(for: user, with: error)
-            }
-        } else {
-            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-            
-            let configuration = GIDConfiguration(clientID: clientID)
-            
-            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-            guard let rootViewController = windowScene.windows.first?.rootViewController else { return }
-            
-            GIDSignIn.sharedInstance.signIn(with: configuration, presenting: rootViewController) { [unowned self] user, error in
-                authenticateUser(for: user, with: error)
-            }
-        }
-    }
-    
-    private func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
-        if let error = error {
-            Log.e(error.localizedDescription)
-            return
-        }
+    func findPassword() {
         
-        guard let authentication = user?.authentication, let idToken = authentication.idToken else { return }
-        
-        let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
-        
-        Auth.auth().signIn(with: credential) { [unowned self] (_, error) in
-            if let error = error {
-                Log.e(error.localizedDescription)
-            } else {
-                Log.d("Google signin success")
-                if let email = user?.profile?.email {
-                    self.setUserAuthAndEmail(type: .google, email: email.lowercased())
-                    self.fetchUserData(id: email.lowercased())
-                } else {
-                    Log.e("Invalid email")
-                }
-            }
-        }
-    }
-    
-    private func setUserAuthAndEmail(type: AuthType, email: String) {
-        UserData.shared.authType = AuthType.google.rawValue
-        UserData.shared.userID = email
     }
 }

@@ -17,26 +17,45 @@ class IntroVM: ObservableObject {
     
     init(loginService: LoginService) {
         self.loginService = loginService
+        tryAutoLogin()
     }
     
     deinit { Log.i(self) }
     
-    func tryAutoLogin() {
+    private func tryAutoLogin() {
+        if UserData.shared.authType == AuthType.google.rawValue {
+            googleLogin()
+        } else {
+            emailLogin()
+        }
+    }
+    
+    private func emailLogin() {
         guard let userID = UserData.shared.userID else { return }
         guard let pw = UserData.shared.password else { return }
+        
         self.isLoadingUserData = true
         
-        loginService.login(id: userID, pw: pw, type: .email)
+        loginService.emailLogin(id: userID, pw: pw)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 Log.i(completion)
             } receiveValue: { _ in
-                self.fetchUserData(id: userID)
+                self.fetchUserData(id: userID, type: .email)
             }.store(in: &cancellables)
     }
     
-    private func fetchUserData(id: String) {
-        loginService.fetchUserData(id: id, type: .email)
+    private func googleLogin() {
+        loginService.googleLogin()
+            .sink { _ in
+                self.isLoadingUserData = true
+            } receiveValue: { email in
+                self.fetchUserData(id: email.lowercased(), type: .google)
+            }.store(in: &cancellables)
+    }
+    
+    private func fetchUserData(id: String, type: AuthType) {
+        loginService.fetchUserData(id: id, type: type)
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 self.isLoadingUserData = false

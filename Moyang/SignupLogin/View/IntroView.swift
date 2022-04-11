@@ -42,7 +42,7 @@ struct IntroView: View {
                     .padding(.bottom, 20)
                     
                     Button(action: {}) {
-                        let loginVM = PastorLoginVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
+                        let loginVM = PastorLoginVM(loginService: FSLoginService(service: FirestoreServiceImpl()))
                         NavigationLink(destination: PastorLogInView(vm: loginVM)) {
                             Text("목회자 로그인")
                         }
@@ -55,9 +55,6 @@ struct IntroView: View {
                 IndicatorView()
                     .hidden(!vm.isLoadingUserData)
                     .frame(width: 40, height: 40, alignment: .center)
-            }
-            .onAppear {
-                vm.tryAutoLogin()
             }
             .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
                 if UserData.shared.isPastor ?? false {
@@ -74,6 +71,6 @@ struct IntroView: View {
 
 struct IntroView_Previews: PreviewProvider {
     static var previews: some View {
-        IntroView(vm: IntroVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl())))
+        IntroView(vm: IntroVM(loginService: FSLoginService(service: FirestoreServiceImpl())))
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileSetView: View {
-    @StateObject var vm = ProfileSetVM(loginService: FirestoreLoginServiceImpl(service: FirestoreServiceImpl()))
+    @StateObject var vm = ProfileSetVM(loginService: FSLoginService(service: FirestoreServiceImpl()))
     
     @Environment(\.dismiss) private var dismiss
     

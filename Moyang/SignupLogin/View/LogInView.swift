@@ -44,7 +44,7 @@ struct LogInView: View {
                     .padding(.bottom, 32)
                 
                 Button(action: {
-                    vm.login()
+                    vm.emailLogin()
                 }, label: {
                     Text("로그인")
                 })
@@ -56,7 +56,7 @@ struct LogInView: View {
                 
                 GoogleSignInButton()
                     .onTapGesture {
-                        vm.googleSignIn()
+                        vm.googleLogin()
                     }
                     .frame(width: UIScreen.screenWidth - 80, height: 52)
                     .padding(EdgeInsets(top: 0, leading: 36, bottom: 20, trailing: 36))
