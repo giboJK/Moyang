@@ -10,7 +10,7 @@ import Combine
 
 class LoginVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-    private let loginService: LoginService = FSLoginService(service: FirestoreServiceImpl())
+    private let loginService: LoginService = FSLoginService(service: FSServiceImpl())
     
     @Published var id: String = ""
     @Published var password: String = ""

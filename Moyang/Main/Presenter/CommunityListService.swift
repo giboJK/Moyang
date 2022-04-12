@@ -85,7 +85,7 @@ class CommunityListService: SermonRepo & GroupRepo {
         return Empty().eraseToAnyPublisher()
     }
     
-    private let service = FirestoreServiceImpl()
+    private let service = FSServiceImpl()
     
     init() {
     }

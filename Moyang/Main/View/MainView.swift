@@ -23,7 +23,8 @@ struct MainView: View {
             }
             
             NavigationView {
-                ProfileView(vm: ProfileVM(), rootIsActive: $rootIsActive)
+                ProfileView(vm: ProfileVM(loginService: FSLoginService(service: FSServiceImpl())),
+                            rootIsActive: $rootIsActive)
                     .navigationBarHidden(true)
                     .navigationBarTitleDisplayMode(.inline)
             }

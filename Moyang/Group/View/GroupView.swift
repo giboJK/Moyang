@@ -17,9 +17,9 @@ struct GroupView: View {
             TopTabBar(tabIndex: $tabIndex)
                 .frame(height: 40)
             if tabIndex == 0 {
-                GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
+                GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FSServiceImpl())))
             } else {
-                GroupPrayList(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl())))
+                GroupPrayList(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FSServiceImpl())))
             }
             Spacer()
         }

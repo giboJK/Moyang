@@ -81,6 +81,6 @@ struct GroupSharingView: View {
 
 struct GroupMeetingView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FirestoreServiceImpl())))
+        GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FSServiceMock())))
     }
 }

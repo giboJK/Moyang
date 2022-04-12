@@ -113,7 +113,7 @@
 		24A757B927B149C500D94002 /* GroupQuestionListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A757B827B149C500D94002 /* GroupQuestionListVMMock.swift */; };
 		24A9B87E279D9C35003468DB /* PastorComunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A9B87D279D9C35003468DB /* PastorComunityView.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
-		24B47FF7276A1BD3003130E6 /* FirestoreServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */; };
+		24B47FF7276A1BD3003130E6 /* FSServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B47FF6276A1BD3003130E6 /* FSServiceImpl.swift */; };
 		24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B652AC279584AD007CC58C /* MeetingInfo.swift */; };
 		24B652AF279589BA007CC58C /* IntroVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B652AE279589BA007CC58C /* IntroVM.swift */; };
 		24B6A2552726BEB00065112A /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* GroupInfo.swift */; };
@@ -284,7 +284,7 @@
 		24A757B827B149C500D94002 /* GroupQuestionListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQuestionListVMMock.swift; sourceTree = "<group>"; };
 		24A9B87D279D9C35003468DB /* PastorComunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorComunityView.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
-		24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceImpl.swift; sourceTree = "<group>"; };
+		24B47FF6276A1BD3003130E6 /* FSServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSServiceImpl.swift; sourceTree = "<group>"; };
 		24B492D027989DAB005CAA5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		24B652AC279584AD007CC58C /* MeetingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInfo.swift; sourceTree = "<group>"; };
 		24B652AE279589BA007CC58C /* IntroVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVM.swift; sourceTree = "<group>"; };
@@ -807,7 +807,7 @@
 			isa = PBXGroup;
 			children = (
 				24B6E31E275F81CE00AD2E53 /* MoyangError.swift */,
-				24B47FF6276A1BD3003130E6 /* FirestoreServiceImpl.swift */,
+				24B47FF6276A1BD3003130E6 /* FSServiceImpl.swift */,
 				08CE42002780059A003352E0 /* FirestoreService.swift */,
 				08D82952278D192C001E6B61 /* LoginService.swift */,
 				08D82954278D196F001E6B61 /* FSLoginService.swift */,
@@ -1386,7 +1386,7 @@
 				2426743927FC833900056235 /* CommunityListVM.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
 				08D8295F278D8116001E6B61 /* IntroView.swift in Sources */,
-				24B47FF7276A1BD3003130E6 /* FirestoreServiceImpl.swift in Sources */,
+				24B47FF7276A1BD3003130E6 /* FSServiceImpl.swift in Sources */,
 				085208D127D59F8B00259A4B /* GroupDateSortedRow.swift in Sources */,
 				24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */,
 				24BA95D927E586CA0030751C /* GroupPrayVM.swift in Sources */,

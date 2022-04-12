@@ -42,7 +42,7 @@ struct IntroView: View {
                     .padding(.bottom, 20)
                     
                     Button(action: {}) {
-                        let loginVM = PastorLoginVM(loginService: FSLoginService(service: FirestoreServiceImpl()))
+                        let loginVM = PastorLoginVM(loginService: FSLoginService(service: FSServiceImpl()))
                         NavigationLink(destination: PastorLogInView(vm: loginVM)) {
                             Text("목회자 로그인")
                         }
@@ -71,6 +71,6 @@ struct IntroView: View {
 
 struct IntroView_Previews: PreviewProvider {
     static var previews: some View {
-        IntroView(vm: IntroVM(loginService: FSLoginService(service: FirestoreServiceImpl())))
+        IntroView(vm: IntroVM(loginService: FSLoginService(service: FSServiceMock())))
     }
 }

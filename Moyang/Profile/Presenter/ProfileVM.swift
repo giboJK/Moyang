@@ -12,6 +12,7 @@ import Firebase
 
 class ProfileVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
+    private var loginService: LoginService
     @Published var groupInfoItem: UserItem = UserItem()
     @Published var name: String = "이름"
     @Published var email: String = "이메일"
@@ -22,8 +23,8 @@ class ProfileVM: ObservableObject {
     
     @Published var logoutResult: Result<Bool, Error>?
     
-    init() {
-        
+    init(loginService: LoginService) {
+        self.loginService = loginService
     }
     
     func loadUserData() {
@@ -60,34 +61,14 @@ class ProfileVM: ObservableObject {
     }
     
     func logout() {
-        if UserData.shared.authType == AuthType.google.rawValue {
-            googleSignOut()
-        } else {
-            emailSignOut()
-        }
-    }
-    
-    private func emailSignOut() {
-        do {
-            UserData.shared.resetUserData()
-            try Auth.auth().signOut()
-            logoutResult = .success(true)
-        } catch {
-            Log.e(error)
-            logoutResult = .failure(error)
-        }
-    }
-    
-    private func googleSignOut() {
-        GIDSignIn.sharedInstance.signOut()
-        
-        do {
-            UserData.shared.resetUserData()
-            try Auth.auth().signOut()
-            logoutResult = .success(true)
-        } catch {
-            Log.e(error)
-            logoutResult = .failure(error)
+        loginService.logout { [weak self] result in
+            switch result {
+            case .success(let isSuccess):
+                self?.logoutResult = .success(isSuccess)
+            case .failure(let error):
+                Log.e(error)
+                self?.logoutResult = .failure(error)
+            }
         }
     }
 }

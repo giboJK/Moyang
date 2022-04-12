@@ -10,7 +10,7 @@ import Combine
 
 class SermonListVM: ObservableObject {
     var cancellables = Set<AnyCancellable>()
-    private let repo = SermonRepoImpl(service: FirestoreServiceImpl())
+    private let repo = SermonRepoImpl(service: FSServiceImpl())
     
     @Published var itemList = [SermonItem]()
     

@@ -10,8 +10,8 @@ import Combine
 
 class AddNewGroupVM: ObservableObject {
     var cancellables = Set<AnyCancellable>()
-    private let repo = MemberRepoImpl(service: FirestoreServiceImpl())
-    private let groupRepo = GroupRepoImpl(service: FirestoreServiceImpl())
+    private let repo = MemberRepoImpl(service: FSServiceImpl())
+    private let groupRepo = GroupRepoImpl(service: FSServiceImpl())
     
     
     @Published var division = ""

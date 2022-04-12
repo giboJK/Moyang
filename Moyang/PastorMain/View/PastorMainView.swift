@@ -12,25 +12,29 @@ struct PastorMainView: View {
     
     @Binding var rootIsActive: Bool
     var body: some View {
-        NavigationView {
-            TabView {
+        TabView {
+            NavigationView {
                 PastorComunityView()
-                    .tabItem {
-                        Image(systemName: "person.3.fill")
-                        Text("공동체")
-                    }
-                    .navigationBarHidden(true)
-                    .navigationBarTitleDisplayMode(.inline)
-                
-                ProfileView(vm: ProfileVM(), rootIsActive: $rootIsActive)
-                    .tabItem {
-                        Image(systemName: "person.crop.circle.fill")
-                        Text("내 정보")
-                    }
                     .navigationBarHidden(true)
                     .navigationBarTitleDisplayMode(.inline)
             }
+            .tabItem {
+                Image(systemName: "person.3.fill")
+                Text("공동체")
+            }
+            
+            NavigationView {
+                ProfileView(vm: ProfileVM(loginService: FSLoginService(service: FSServiceImpl())),
+                            rootIsActive: $rootIsActive)
+                    .navigationBarHidden(true)
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            .tabItem {
+                Image(systemName: "person.crop.circle.fill")
+                Text("Profile")
+            }
         }
+        .accentColor(.ydGreen1)
     }
 }
 struct PastorMainView_Previews: PreviewProvider {

@@ -17,7 +17,7 @@ struct SplashView: View {
             }
         }
         .fullScreenCover(isPresented: $isCompleted, onDismiss: nil, content: {
-            let vm = IntroVM(loginService: FSLoginService(service: FirestoreServiceImpl()))
+            let vm = IntroVM(loginService: FSLoginService(service: FSServiceImpl()))
             IntroView(vm: vm)
         })
         .edgesIgnoringSafeArea(.all)

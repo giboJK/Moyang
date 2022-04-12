@@ -32,6 +32,6 @@ struct MyInfoView: View {
 
 struct MyInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        MyInfoView(vm: ProfileVM())
+        MyInfoView(vm: ProfileVM(loginService: FSLoginService(service: FSServiceMock())))
     }
 }

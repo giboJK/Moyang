@@ -166,7 +166,7 @@ struct ProfileView_Previews: PreviewProvider {
     @State static var value = true
     static var previews: some View {
         NavigationView {
-            ProfileView(vm: ProfileVM(), rootIsActive: $value)
+            ProfileView(vm: ProfileVM(loginService: FSLoginService(service: FSServiceMock())), rootIsActive: $value)
         }
     }
 }

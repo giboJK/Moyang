@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewGroupPrayView: View {
-    @StateObject var vm = NewGroupPrayVM(repo: GroupRepoImpl(service: FirestoreServiceImpl()))
+    @StateObject var vm = NewGroupPrayVM(repo: GroupRepoImpl(service: FSServiceImpl()))
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {

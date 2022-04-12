@@ -1,5 +1,5 @@
 //
-//  FireStoreServiceImpl.swift
+//  FSServiceImpl.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2021/12/15.
@@ -9,7 +9,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-class FirestoreServiceImpl: FirestoreService {
+class FSServiceImpl: FirestoreService {
     
     deinit { Log.i(self) }
     
@@ -212,7 +212,7 @@ class FirestoreServiceImpl: FirestoreService {
     }
 }
 
-class FirestoreServiceMock: FirestoreService {
+class FSServiceMock: FirestoreService {
     deinit { Log.i(self) }
     var store = Firestore.firestore()
     

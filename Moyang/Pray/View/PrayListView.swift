@@ -16,7 +16,7 @@ struct PrayListView: View {
     @State private var newPraySubject = false
     
     var body: some View {
-        NavigationLink(destination: PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl(service: FirestoreServiceImpl()))),
+        NavigationLink(destination: PrayAddView(vm: PrayAddVM(prayRepo: PrayRepoImpl(service: FSServiceImpl()))),
                        isActive: $newPraySubject) { EmptyView() }
         VStack {
             List {

@@ -160,4 +160,35 @@ class FSLoginService: LoginService {
         
         return service.addDocument(memberDetail, ref: ref)
     }
+    
+    func logout(completion: @escaping (Result<Bool, Error>) -> Void) {
+        if UserData.shared.authType == AuthType.google.rawValue {
+            googleSignOut(completion: completion)
+        } else {
+            emailSignOut(completion: completion)
+        }
+    }
+    
+    private func emailSignOut(completion: @escaping (Result<Bool, Error>) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            UserData.shared.resetUserData()
+            completion(.success(true))
+        } catch {
+            Log.e(error)
+            completion(.failure(error))
+        }
+    }
+    
+    private func googleSignOut(completion: @escaping (Result<Bool, Error>) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            UserData.shared.resetUserData()
+            GIDSignIn.sharedInstance.signOut()
+            completion(.success(true))
+        } catch {
+            Log.e(error)
+            completion(.failure(error))
+        }
+    }
 }

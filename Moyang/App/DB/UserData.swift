@@ -14,6 +14,7 @@ class UserData {
     var sermon: Sermon?
     
     func resetUserData() {
+        authType = AuthType.none.rawValue
         myInfo = nil
         groupInfo = nil
         userName = nil

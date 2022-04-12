@@ -24,7 +24,7 @@ struct GroupDateSortedRow: View {
                     .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 12))
             }
             .background(
-                NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FirestoreServiceImpl()),
+                NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
                                                                                                      dateItem: item))) {}
             )
             Divider()

@@ -15,9 +15,11 @@ protocol LoginService {
     func fetchPastorList(type: AuthType) -> AnyPublisher<PastorList, MoyangError>
     func fetchUserData(id: String, type: AuthType) -> AnyPublisher<MemberDetail, MoyangError>
     func setUserData(memberDetail: MemberDetail) -> AnyPublisher<Bool, MoyangError>
+    func logout(completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
 enum AuthType: String {
+    case none = "NONE"
     case email = "EMAIL"
     case google = "GOOGLE"
 }
