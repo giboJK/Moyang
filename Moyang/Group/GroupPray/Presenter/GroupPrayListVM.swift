@@ -109,7 +109,7 @@ extension GroupPrayListVM {
             self.id = id
             self.name = name
             var newPrayItemList = [(String, String)]()
-            for i in 0 ..< dateList.count {
+            for i in 0 ..< dateList.count where !prayList[i].isEmpty {
                 newPrayItemList.append((dateList[i], prayList[i]))
             }
             self.prayItemList = newPrayItemList

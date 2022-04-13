@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupPrayList: View {
     @ObservedObject var vm: GroupPrayListVM
+    @State private var isShowingNewGroupPrayView = false
     
     var body: some View {
         ZStack {
@@ -57,15 +58,16 @@ struct GroupPrayList: View {
             }
             VStack(spacing: 0) {
                 Spacer()
-                Button(action: {
-                }) {
-                    NavigationLink(destination: NewGroupPrayView()) {
+                NavigationLink(destination: NewGroupPrayView(), isActive: $isShowingNewGroupPrayView) {
+                    Button(action: {
+                        isShowingNewGroupPrayView = true
+                    }) {
                         Image(systemName: "plus")
                     }
+                    .buttonStyle(MoyangButtonStyle(.black,
+                                                   width: 100,
+                                                   height: 52))
                 }
-                .buttonStyle(MoyangButtonStyle(.black,
-                                               width: 100,
-                                               height: 52))
                 .padding(.bottom, 10)
             }
         }
