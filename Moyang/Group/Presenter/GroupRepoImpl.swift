@@ -29,10 +29,22 @@ class GroupRepoImpl: GroupRepo {
         }
         let ref = service.store
             .collection("COMMUNITY")
-            .document("YD")
+            .document(myInfo.community.uppercased())
             .collection("2022")
             .document(groupID)
         return service.fetchObject(ref: ref, type: GroupInfo.self)
+    }
+    func fetchGroupInfoList(groupList: [String]) -> AnyPublisher<[GroupInfo], MoyangError> {
+        guard let myInfo = UserData.shared.myInfo else {
+            return Empty(completeImmediately: false).eraseToAnyPublisher()
+        }
+        let query = service.store
+            .collection("COMMUNITY")
+            .document(myInfo.community.uppercased())
+            .collection("2022")
+            .whereField("id", in: groupList)
+            
+        return service.fetchDocumentsWithQuery(query: query, type: GroupInfo.self)
     }
     
     func fetchMeetingInfo(parentGroup: String,
@@ -135,6 +147,10 @@ class GroupRepoImpl: GroupRepo {
 }
 
 class GroupRepoMock: GroupRepo {
+    func fetchGroupInfoList(groupList: [String]) -> AnyPublisher<[GroupInfo], MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
     func fetchGroupInfo() -> AnyPublisher<GroupInfo, MoyangError> {
         return Empty().eraseToAnyPublisher()
     }

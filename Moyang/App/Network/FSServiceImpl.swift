@@ -210,6 +210,38 @@ class FSServiceImpl: FirestoreService {
             }
         }.eraseToAnyPublisher()
     }
+    
+    func fetchDocumentsWithQuery<T: Codable>(query: Query,
+                                             type: T.Type) -> AnyPublisher<[T], MoyangError> {
+        Log.d(query)
+        return Future<[T], MoyangError> { promise in
+            query.getDocuments { querySnapshot, error in
+                if let error = error {
+                    promise(.failure(MoyangError.other(error)))
+                }
+                if let querySnapshot = querySnapshot {
+                    if querySnapshot.documents.isEmpty {
+                        promise(.failure(MoyangError.noData))
+                    } else {
+                        
+                        let decoder = JSONDecoder()
+                        var objectList = [T]()
+                        querySnapshot.documents.forEach { queryDocumentSnapshot in
+                            if let data = try? JSONSerialization.data(withJSONObject: queryDocumentSnapshot.data(), options: []) {
+                                do {
+                                    let object = try decoder.decode(type, from: data)
+                                    objectList.append(object)
+                                } catch let error {
+                                    promise(.failure(MoyangError.other(error)))
+                                }
+                            }
+                        }
+                        promise(.success(objectList))
+                    }
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
 }
 
 class FSServiceMock: FirestoreService {
@@ -255,4 +287,9 @@ class FSServiceMock: FirestoreService {
     func fetchObject<T>(ref: DocumentReference, type: T.Type) -> AnyPublisher<T, MoyangError> where T: Decodable, T: Encodable {
         return Empty().eraseToAnyPublisher()
     }
+    
+    func fetchDocumentsWithQuery<T>(query: Query, type: T.Type) -> AnyPublisher<[T], MoyangError> where T : Decodable, T : Encodable {
+        return Empty().eraseToAnyPublisher()
+    }
+    
 }

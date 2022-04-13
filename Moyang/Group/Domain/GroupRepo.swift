@@ -11,6 +11,7 @@ import Combine
 
 protocol GroupRepo {
     func fetchGroupInfo() -> AnyPublisher<GroupInfo, MoyangError>
+    func fetchGroupInfoList(groupList: [String]) -> AnyPublisher<[GroupInfo], MoyangError>
     func fetchMeetingInfo(parentGroup: String,
                           date: String) -> AnyPublisher<MeetingInfo, MoyangError>
     

@@ -42,4 +42,7 @@ protocol FirestoreService {
     
     func fetchObject<T: Codable>(ref: DocumentReference,
                                  type: T.Type) -> AnyPublisher<T, MoyangError>
+    
+    func fetchDocumentsWithQuery<T: Codable>(query: Query,
+                                             type: T.Type) -> AnyPublisher<[T], MoyangError>
 }

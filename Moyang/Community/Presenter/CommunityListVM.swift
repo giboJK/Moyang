@@ -9,7 +9,8 @@ import SwiftUI
 import Combine
 
 class CommunityListVM: ObservableObject {
-    private var disposables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
+    private let groupRepo = GroupRepoImpl(service: FSServiceImpl())
     
     @Published var church: String = ""
     @Published var itemList: [CommunityListItem] = []
@@ -20,15 +21,21 @@ class CommunityListVM: ObservableObject {
     
     deinit {
         Log.i(self)
-        disposables.removeAll()
+        cancellables.removeAll()
     }
     
     private func fetchCommunityList() {
-        guard let groupInfo = UserData.shared.groupInfo else {
-            return
-        }
+        guard let groupList = UserData.shared.myInfo?.groupList,
+              let churchInfo = UserData.shared.myInfo?.church else { return }
+        church = churchInfo.name
         
-        
+        groupRepo.fetchGroupInfoList(groupList: groupList)
+            .sink { completion in
+                Log.d(completion)
+            } receiveValue: { list in
+                Log.d(list)
+            }.store(in: &cancellables)
+
     }
 }
 

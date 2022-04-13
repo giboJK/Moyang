@@ -20,6 +20,7 @@ struct MemberDetail: Codable, Identifiable {
     let community: String
     let grade: Int
     let isPastor: Bool
+    let church: ChurchInfo?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -33,6 +34,7 @@ struct MemberDetail: Codable, Identifiable {
         case community
         case grade
         case isPastor = "is_pastor"
+        case church
     }
 }
 
