@@ -43,7 +43,7 @@ struct PrayListView: View {
             }.listStyle(.grouped)
             
         }
-        .navigationBarItems(trailing: Button(action: { newPraySubject.toggle()},
+        .navigationBarItems(trailing: Button(action: { newPraySubject.toggle() },
                                              label: {
             Image(systemName: "plus")
                 .foregroundColor(Color.black)

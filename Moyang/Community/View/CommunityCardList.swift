@@ -15,7 +15,7 @@ struct CommunityCardList: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 24) {
                 if vm.hasGroup {
-                    NavigationLink(destination: NavigationLazyView(GroupView(vm: GroupVM()))) {
+                    NavigationLink(destination: NavigationLazyView(GroupView(vm: GroupVM(groupInfo: nil)))) {
                         CommunityGroupCardView(vm: vm.communityGroupCardVM)
                             .padding(EdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16))
                     }

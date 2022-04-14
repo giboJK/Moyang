@@ -12,8 +12,14 @@ class GroupVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var newPrayAddSuccess = false
+    var groupInfo: GroupInfo?
     
-    init() {
+    init(groupInfo: GroupInfo?) {
+        if groupInfo == nil {
+            self.groupInfo = UserData.shared.groupInfo
+        } else {
+            self.groupInfo = groupInfo
+        }
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.newGroupPrayAdded),
                                                name: NSNotification.Name(rawValue: "NewGroupPrayAdded"),

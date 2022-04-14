@@ -17,7 +17,8 @@ struct GroupView: View {
             TopTabBar(tabIndex: $tabIndex)
                 .frame(height: 40)
             if tabIndex == 0 {
-                GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FSServiceImpl())))
+                GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FSServiceImpl()),
+                                                    groupInfo: vm.groupInfo))
             } else {
                 GroupPrayList(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FSServiceImpl())))
             }
@@ -33,6 +34,6 @@ struct GroupView: View {
 
 struct GroupView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupView(vm: GroupVM())
+        GroupView(vm: GroupVM(groupInfo: nil))
     }
 }

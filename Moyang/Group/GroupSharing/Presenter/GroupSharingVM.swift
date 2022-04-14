@@ -20,9 +20,9 @@ class GroupSharingVM: ObservableObject {
     @Published var groupQuestionList: [GroupQuestion] = []
     @Published var meetingDate: String = ""
     
-    init(repo: GroupRepo) {
+    init(repo: GroupRepo, groupInfo: GroupInfo?) {
         self.repo = repo
-        setGroupData()
+        setGroupData(groupInfo: groupInfo)
         setSermonData()
     }
     
@@ -31,8 +31,8 @@ class GroupSharingVM: ObservableObject {
         cancellables.removeAll()
     }
     
-    func setGroupData() {
-        guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
+    private func setGroupData(groupInfo: GroupInfo?) {
+        guard let groupInfo = groupInfo else { Log.e(""); return }
         groupName = groupInfo.groupName
     }
     

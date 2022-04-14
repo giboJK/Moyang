@@ -37,9 +37,8 @@ struct CommunityList: View {
                 .padding(EdgeInsets(top: 15, leading: 28, bottom: 15, trailing: 0))
 
                 List {
-                    ForEach(vm.itemList) { item in
-                        CommunityListRow(item: item)
-                            .listRowSeparator(.hidden)
+                    ForEach(vm.itemList) { groupInfo in
+                        CommunityListRow(item: groupInfo)
                     }
                     .listRowBackground(Color.clear)
                 }.padding(.leading, 32)
@@ -62,12 +61,27 @@ struct CommunityList_Previews: PreviewProvider {
 }
 
 struct CommunityListRow: View {
-    var item: CommunityListVM.CommunityListItem
+    var item: GroupInfo
+    @State private var isShowingGroupView = false
     var body: some View {
         HStack(spacing: 0) {
-            Text(item.name)
+            Text(item.groupName)
+                .font(.system(size: 16, weight: .regular, design: .default))
+                .foregroundColor(.nightSky1)
+            
             Spacer()
+            
+            NavigationLink(destination: GroupView(vm: GroupVM(groupInfo: item)), isActive: $isShowingGroupView) {
+                Button(action: {
+                    isShowingGroupView = true
+                }) {
+                    Image(systemName: "arrow.right")
+                        .font(.system(size: 16, weight: .regular, design: .default))
+                        .foregroundColor(.nightSky1)
+                }
+            }
+            .frame(width: 20)
         }
-        .background(Color.sheep1)
+        .frame(height: 48)
     }
 }

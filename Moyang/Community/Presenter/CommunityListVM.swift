@@ -13,7 +13,7 @@ class CommunityListVM: ObservableObject {
     private let groupRepo = GroupRepoImpl(service: FSServiceImpl())
     
     @Published var church: String = ""
-    @Published var itemList: [CommunityListItem] = []
+    @Published var itemList: [GroupInfo] = []
     
     init() {
         fetchCommunityList()
@@ -32,23 +32,9 @@ class CommunityListVM: ObservableObject {
         groupRepo.fetchGroupInfoList(groupList: groupList)
             .sink { completion in
                 Log.d(completion)
-            } receiveValue: { list in
+            } receiveValue: { [weak self] list in
                 Log.d(list)
+                self?.itemList = list
             }.store(in: &cancellables)
-
-    }
-}
-
-extension CommunityListVM {
-    typealias Identifier = String
-    struct CommunityListItem: Identifiable {
-        let id: Identifier
-        let name: String
-        
-        init(id: String, name: String
-        ) {
-            self.id = id
-            self.name = name
-        }
     }
 }
