@@ -10,7 +10,7 @@ import Foundation
 
 class GroupPrayListVMMock: GroupPrayListVM {
     init() {
-        super.init(groupRepo: GroupRepoImpl(service: FSServiceImpl()))
+        super.init(groupRepo: GroupRepoImpl(service: FSServiceImpl()), groupInfo: nil)
     }
     
     override func loadData() {

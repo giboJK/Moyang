@@ -11,19 +11,26 @@ import Foundation
 class GroupPrayListVM: ObservableObject, Identifiable {
     let groupRepo: GroupRepo
     var cancellables: Set<AnyCancellable> = []
+    var groupInfo: GroupInfo?
     
     @Published var nameItemList = [NameSortedItem]()
     @Published var dateItemList = [DateSortedItem]()
     @Published var showSortingByName = true
     
-    init(groupRepo: GroupRepo) {
+    init(groupRepo: GroupRepo, groupInfo: GroupInfo?) {
         self.groupRepo = groupRepo
+        if groupInfo == nil {
+            self.groupInfo = UserData.shared.groupInfo
+        } else {
+            self.groupInfo = groupInfo
+        }
+        loadData()
     }
     
     deinit { Log.d(self) }
     
     func loadData() {
-        guard let groupInfo = UserData.shared.groupInfo else { return }
+        guard let groupInfo = groupInfo else { return }
         groupRepo.addGroupPrayListListener(groupInfo: groupInfo)
             .sink(receiveCompletion: { completion in
                 Log.i(completion)

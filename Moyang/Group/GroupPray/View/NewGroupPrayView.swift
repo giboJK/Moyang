@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewGroupPrayView: View {
-    @StateObject var vm = NewGroupPrayVM(repo: GroupRepoImpl(service: FSServiceImpl()))
+    @StateObject var vm: NewGroupPrayVM
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -61,6 +61,7 @@ struct NewGroupPrayView: View {
 
 struct NewCellPrayView_Previews: PreviewProvider {
     static var previews: some View {
-        NewGroupPrayView()
+        NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FSServiceImpl()),
+                                            groupInfo: nil))
     }
 }

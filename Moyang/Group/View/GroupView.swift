@@ -20,7 +20,8 @@ struct GroupView: View {
                 GroupSharingView(vm: GroupSharingVM(repo: GroupRepoImpl(service: FSServiceImpl()),
                                                     groupInfo: vm.groupInfo))
             } else {
-                GroupPrayList(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FSServiceImpl())))
+                GroupPrayList(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
+                                                  groupInfo: vm.groupInfo))
             }
             Spacer()
         }

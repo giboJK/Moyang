@@ -36,7 +36,7 @@ struct GroupPrayList: View {
                     List {
                         ForEach(vm.nameItemList) { item in
                             GroupNameSortedRow(item: item)
-                                .frame(maxHeight: 260)
+                                .frame(maxHeight: 160)
                                 .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)
@@ -47,7 +47,7 @@ struct GroupPrayList: View {
                     List {
                         ForEach(vm.dateItemList, id: \.date) { item in
                             GroupDateSortedRow(item: item)
-                                .frame(maxHeight: 260)
+                                .frame(maxHeight: 160)
                                 .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)
@@ -58,7 +58,9 @@ struct GroupPrayList: View {
             }
             VStack(spacing: 0) {
                 Spacer()
-                NavigationLink(destination: NewGroupPrayView(), isActive: $isShowingNewGroupPrayView) {
+                NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FSServiceImpl()),
+                                                                                groupInfo: vm.groupInfo)),
+                               isActive: $isShowingNewGroupPrayView) {
                     Button(action: {
                         isShowingNewGroupPrayView = true
                     }) {
@@ -68,15 +70,12 @@ struct GroupPrayList: View {
                                                    width: 100,
                                                    height: 52))
                 }
-                .padding(.bottom, 10)
+                               .padding(.bottom, 10)
             }
         }
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
         .navigationBarTitle("기도제목")
-        .onAppear {
-            vm.loadData()
-        }
     }
 }
 

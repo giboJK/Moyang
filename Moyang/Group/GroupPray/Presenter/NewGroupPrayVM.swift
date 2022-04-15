@@ -11,6 +11,7 @@ import Combine
 class NewGroupPrayVM: ObservableObject, Identifiable {
     private let repo: GroupRepo
     private var cancellables: Set<AnyCancellable> = []
+    var groupInfo: GroupInfo?
     
     @Published var itemList = [NewGroupPrayVM.NewPrayItem]()
     @Published var date = Date()
@@ -24,13 +25,18 @@ class NewGroupPrayVM: ObservableObject, Identifiable {
         }
     }
 
-    init(repo: GroupRepo) {
+    init(repo: GroupRepo, groupInfo: GroupInfo?) {
         self.repo = repo
+        if groupInfo == nil {
+            self.groupInfo = UserData.shared.groupInfo
+        } else {
+            self.groupInfo = groupInfo
+        }
         loadCellMemberList()
     }
     
     private func loadCellMemberList() {
-        guard let groupInfo = UserData.shared.groupInfo else { return }
+        guard let groupInfo = groupInfo else { return }
         var list = [NewPrayItem]()
         groupInfo.memberList.forEach { member in
             list.append(NewPrayItem(member: member))
