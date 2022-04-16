@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GroupPrayList: View {
-    @ObservedObject var vm: GroupPrayListVM
+    @StateObject var vm: GroupPrayListVM
     @State private var isShowingNewGroupPrayView = false
     
     var body: some View {
