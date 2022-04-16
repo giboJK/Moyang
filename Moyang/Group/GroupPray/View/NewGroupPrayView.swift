@@ -16,31 +16,37 @@ struct NewGroupPrayView: View {
             HStack {
                 DatePicker(selection: $vm.date, in: ...Date(), displayedComponents: .date) {
                     Text("날짜")
+                        .font(.system(size: 16, weight: .regular, design: .default))
                         .foregroundColor(.nightSky1)
-                        .font(.system(size: 15, weight: .regular, design: .default))
                 }
             }
             .padding(EdgeInsets(top: 4, leading: 20, bottom: 8, trailing: 20))
             
-            ForEach(0 ..< vm.itemList.count) { i in
-                HStack {
-                    Text(vm.itemList[i].member.name)
-                        .font(.body)
-                        .foregroundColor(.nightSky1)
-                    Spacer()
-                }
-                .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-                TextEditor(text: $vm.itemList[i].pray)
-                    .font(.system(size: 14, weight: .regular, design: .default))
-                    .frame(height: 55, alignment: .topLeading)
-                    .foregroundColor(vm.itemList[i].pray == "기도제목을 입력하세요" ? .gray : .nightSky1)
-                    .onTapGesture {
-                        if vm.itemList[i].pray == "기도제목을 입력하세요" {
-                            vm.itemList[i].pray = ""
-                        }
+            ForEach(vm.itemList.indices, id: \.self) { i in
+                VStack(spacing: 0) {
+                    HStack {
+                        Text(vm.itemList[i].member.name)
+                            .font(.body)
+                            .font(.system(size: 15, weight: .regular, design: .default))
+                            .foregroundColor(.nightSky1)
+                        Spacer()
                     }
-                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-                Spacer(minLength: 10)
+                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 4, trailing: 20))
+                    TextEditor(text: $vm.itemList[i].pray)
+                        .font(.system(size: 14, weight: .regular, design: .default))
+                        .frame(minHeight: 88, alignment: .topLeading)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.sheep4, lineWidth: 1)
+                        )
+                        .foregroundColor(vm.itemList[i].pray == "기도제목을 입력하세요" ? .gray : .nightSky1)
+                        .onTapGesture {
+                            if vm.itemList[i].pray == "기도제목을 입력하세요" {
+                                vm.itemList[i].pray = ""
+                            }
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 12, trailing: 20))
+                }
             }
         }
         .frame(maxWidth: .infinity)

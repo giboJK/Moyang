@@ -145,7 +145,7 @@ struct CommunityGroupCardView: View {
                     }
                     Spacer()
                 }
-                .frame(maxWidth: .infinity, idealHeight: 188, alignment: .center)
+                .frame(maxWidth: .infinity, alignment: .center)
                 .modifier(MainCard())
                 .eraseToAnyView()
             }
