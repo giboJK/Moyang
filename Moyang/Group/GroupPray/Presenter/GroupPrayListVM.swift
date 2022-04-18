@@ -126,12 +126,17 @@ extension GroupPrayListVM {
     struct DateSortedItem {
         let date: String
         var prayItemList: [(member: String, pray: String)]
+        var count: Int
         
         init(date: String, prayItemList: [GroupMemberPray]) {
             self.date = date
             var newPrayItemList = [(String, String)]()
+            self.count = 0
             for i in 0 ..< prayItemList.count {
                 newPrayItemList.append((prayItemList[i].member.name, prayItemList[i].pray))
+                if !prayItemList[i].pray.isEmpty {
+                    count += 1
+                }
             }
             self.prayItemList = newPrayItemList
         }

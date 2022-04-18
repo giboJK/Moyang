@@ -36,7 +36,7 @@ struct GroupPrayList: View {
                     List {
                         ForEach(vm.nameItemList) { item in
                             GroupNameSortedRow(item: item)
-                                .frame(maxHeight: 160)
+                                .frame(maxHeight: 180)
                                 .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)
@@ -47,7 +47,6 @@ struct GroupPrayList: View {
                     List {
                         ForEach(vm.dateItemList, id: \.date) { item in
                             GroupDateSortedRow(item: item)
-                                .frame(maxHeight: 160)
                                 .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)
