@@ -33,7 +33,7 @@ struct SermonListView: View {
                 }
                 .buttonStyle(MoyangButtonStyle(.black,
                                                width: 80,
-                                               height: 52))
+                                               height: 48))
                 .padding(.bottom, 10)
                 .listRowSeparator(.hidden, edges: .all)
             }

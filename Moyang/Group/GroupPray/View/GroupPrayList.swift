@@ -36,7 +36,7 @@ struct GroupPrayList: View {
                     List {
                         ForEach(vm.nameItemList) { item in
                             GroupNameSortedRow(item: item)
-                                .frame(maxHeight: 180)
+                                .frame(maxHeight: 160)
                                 .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)
@@ -67,7 +67,7 @@ struct GroupPrayList: View {
                     }
                     .buttonStyle(MoyangButtonStyle(.black,
                                                    width: 100,
-                                                   height: 52))
+                                                   height: 48))
                 }
                                .padding(.bottom, 10)
             }

@@ -40,7 +40,7 @@ struct GroupSharingView: View {
                     Image(systemName: "arrowtriangle.down.fill") :
                     Image(systemName: "arrowtriangle.up.fill")
                 })
-                    .foregroundColor(Color.black)
+                    .foregroundColor(Color.nightSky1)
             }
             HStack {
                 Text(vm.meetingDate)

@@ -110,14 +110,14 @@ extension GroupPrayListVM {
     struct NameSortedItem: Identifiable {
         let id: String
         let name: String
-        var prayItemList: [(date: String, pray: String)]
+        var prayItemList: [(date: String, pray: String, isShowing: Bool)]
         
         init(id: String, name: String, dateList: [String], prayList: [String]) {
             self.id = id
             self.name = name
-            var newPrayItemList = [(String, String)]()
+            var newPrayItemList = [(String, String, Bool)]()
             for i in 0 ..< dateList.count where !prayList[i].isEmpty {
-                newPrayItemList.append((dateList[i], prayList[i]))
+                newPrayItemList.append((dateList[i], prayList[i], true))
             }
             self.prayItemList = newPrayItemList
         }
@@ -125,15 +125,15 @@ extension GroupPrayListVM {
     
     struct DateSortedItem {
         let date: String
-        var prayItemList: [(member: String, pray: String)]
+        var prayItemList: [(member: String, pray: String, isShowing: Bool)]
         var count: Int
         
         init(date: String, prayItemList: [GroupMemberPray]) {
             self.date = date
-            var newPrayItemList = [(String, String)]()
+            var newPrayItemList = [(String, String, Bool)]()
             self.count = 0
             for i in 0 ..< prayItemList.count {
-                newPrayItemList.append((prayItemList[i].member.name, prayItemList[i].pray))
+                newPrayItemList.append((prayItemList[i].member.name, prayItemList[i].pray, true))
                 if !prayItemList[i].pray.isEmpty {
                     count += 1
                 }

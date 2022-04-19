@@ -58,7 +58,7 @@ struct LogInView: View {
                     .onTapGesture {
                         vm.googleLogin()
                     }
-                    .frame(width: UIScreen.screenWidth - 80, height: 52)
+                    .frame(width: UIScreen.screenWidth - 80, height: 48)
                     .padding(EdgeInsets(top: 0, leading: 36, bottom: 20, trailing: 36))
                 
                 Button(action: {

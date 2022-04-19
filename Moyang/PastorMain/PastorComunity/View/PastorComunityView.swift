@@ -15,31 +15,31 @@ struct PastorComunityView: View {
                 NavigationLink(destination: NavigationLazyView(SermonListView(vm: SermonListVM()))) {
                     Text("설교 목록")
                         .frame(width: UIScreen.screenWidth - 80,
-                               height: 52)
+                               height: 48)
                 }
             }.buttonStyle(MoyangButtonStyle(.black,
                                             width: UIScreen.screenWidth - 80,
-                                            height: 52))
+                                            height: 48))
             
             Button(action: {}) {
                 NavigationLink(destination: GroupManageListView(vm: GroupManageListVM())) {
                     Text("공동체 그룹")
                         .frame(width: UIScreen.screenWidth - 80,
-                               height: 52)
+                               height: 48)
                 }
             }.buttonStyle(MoyangButtonStyle(.black,
                                             width: UIScreen.screenWidth - 80,
-                                            height: 52))
+                                            height: 48))
             
             Button(action: {}) {
                 NavigationLink(destination: EmptyView()) {
                     Text("공동체 기도 목록")
                         .frame(width: UIScreen.screenWidth - 80,
-                               height: 52)
+                               height: 48)
                 }
             }.buttonStyle(MoyangButtonStyle(.black,
                                             width: UIScreen.screenWidth - 80,
-                                            height: 52))
+                                            height: 48))
             Spacer()
         }
         .frame(maxWidth: .infinity)

@@ -30,7 +30,7 @@ struct GroupDateSortedRow: View {
             }
         }
         .background(
-            NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
+            NavigationLink(destination: GroupDateSortedPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
                                                                               dateItem: item))) {}
                 .opacity(0)
         )

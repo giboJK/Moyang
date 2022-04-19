@@ -16,28 +16,33 @@ struct GroupNameSortedRow: View {
                 Text(item.name)
                     .font(.system(size: 16, weight: .semibold, design: .default))
                     .foregroundColor(.nightSky1)
-                    .padding(EdgeInsets(top: 12, leading: 12, bottom: 0, trailing: 0))
+                    .padding(EdgeInsets(top: 12, leading: 12, bottom: 8, trailing: 0))
                 Spacer()
             }
             Divider()
-                .padding(EdgeInsets(top: 4, leading: 0, bottom: 8, trailing: 0))
+                .padding(.bottom, 8)
             if let item = item.prayItemList.first {
                 VStack {
                     HStack(spacing: 0) {
-                        Text(item.date.split(separator: " ").first ?? "")
-                            .font(.system(size: 15, weight: .regular, design: .default))
-                            .foregroundColor(.nightSky1)
-                            .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 8))
-                            .frame(maxHeight: .infinity, alignment: .top)
+                        VStack(spacing: 0) {
+                            Text(item.date.split(separator: " ").first ?? "")
+                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .foregroundColor(.nightSky1)
+                                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 8))
+                            Spacer()
+                        }
                         
-                        Text(item.pray)
-                            .font(.system(size: 15, weight: .regular, design: .default))
-                            .foregroundColor(.nightSky1)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.trailing, 16)
+                        VStack(spacing: 0) {
+                            Text(item.pray)
+                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .foregroundColor(.nightSky1)
+                                .padding(.trailing, 12)
+                            Spacer()
+                        }
+                        
+                        Spacer()
                     }
                 }
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0))
             } else {
                 HStack(spacing: 0) {
                     Text("기도제목을 공유해보세요 😄")
@@ -49,7 +54,7 @@ struct GroupNameSortedRow: View {
             }
         }
         .background(
-            NavigationLink(destination: GroupPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
+            NavigationLink(destination: GroupNameSortedPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
                                                                               nameItem: item))) {}
                 .opacity(0)
         )

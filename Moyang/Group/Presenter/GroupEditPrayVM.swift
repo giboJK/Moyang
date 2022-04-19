@@ -14,7 +14,6 @@ class GroupEditPrayVM: ObservableObject {
     
     @Published var nameItem: GroupPrayListVM.NameSortedItem!
     @Published var dateItem: GroupPrayListVM.DateSortedItem!
-    @Published var isNameEdit: Bool = false
     @Published var isEditSuccess = false
     
     @Published var prayTitle = ""
@@ -28,9 +27,8 @@ class GroupEditPrayVM: ObservableObject {
         self.groupRepo = groupRepo
         if let nameItem = nameItem {
             self.nameItem = nameItem
-            self.isNameEdit = true
             prayTitle = nameItem.name + " 기도"
-            nameItem.prayItemList.forEach { (dateString: String, pray: String) in
+            nameItem.prayItemList.forEach { (dateString: String, pray: String, _ isShowing: Bool) in
                 if let date = dateString.toDate("yyyy-MM-dd HH:mm:ss") {
                     let fixedDateString = date.toString("yyyy-MM-dd")
                     prayContents += fixedDateString + "\n"
@@ -40,10 +38,9 @@ class GroupEditPrayVM: ObservableObject {
             }
         } else if let dateItem = dateItem {
             self.dateItem = dateItem
-            self.isNameEdit = false
             prayTitle = dateItem.date + " 기도"
             
-            dateItem.prayItemList.forEach { (member: String, pray: String) in
+            dateItem.prayItemList.forEach { (member: String, pray: String, _ isShowing: Bool) in
                 prayContents += member + "\n"
                 prayContents += pray
                 prayContents += "\n\n"
@@ -83,7 +80,6 @@ class GroupEditPrayVMMock: GroupEditPrayVM {
     
     init() {
         super.init(groupRepo: GroupRepoMock(), nameItem: nil, dateItem: nil)
-        isNameEdit = true
         prayTitle = "ghdhghhg"
         prayContents = "asdasdsd asdlkmasld msadk saldkm salk"
         randomData()

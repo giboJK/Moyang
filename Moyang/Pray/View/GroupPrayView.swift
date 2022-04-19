@@ -71,7 +71,7 @@ struct GroupPrayView: View {
             })
                 .buttonStyle(MoyangButtonStyle(.black,
                                                width: UIScreen.screenWidth - 80,
-                                               height: 52))
+                                               height: 48))
                 .padding(.bottom, 20)
                 .disabled(vm.time < 10)
         }

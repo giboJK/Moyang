@@ -36,7 +36,7 @@ struct SignUpView: View {
                 .onTapGesture {
                     vm.googleSignIn()
                 }
-                .frame(width: UIScreen.screenWidth - 80, height: 52)
+                .frame(width: UIScreen.screenWidth - 80, height: 48)
                 .padding(EdgeInsets(top: 0, leading: 36, bottom: 32, trailing: 36))
         }
         .navigationTitle("회원가입")
