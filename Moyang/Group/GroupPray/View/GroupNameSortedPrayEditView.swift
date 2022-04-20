@@ -15,7 +15,7 @@ struct GroupNameSortedPrayEditView: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollView(.vertical, showsIndicators: true) {
-                VStack(spacing: 12) {
+                VStack(spacing: 16) {
                     ForEach(0 ..< vm.nameItem!.prayItemList.count, id: \.self) { i in
                         SortedPrayEditRow(focus: _focus,
                                           title: $vm.nameItem.prayItemList[i].date,

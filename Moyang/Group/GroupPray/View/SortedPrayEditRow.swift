@@ -39,7 +39,7 @@ struct SortedPrayEditRow: View {
                     .padding(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4))
                     .focused($focus)
                     .font(.system(size: 15, weight: .regular, design: .default))
-                    .frame(minHeight: 64, alignment: .topLeading)
+                    .frame(minHeight: 72, maxHeight: 288, alignment: .topLeading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color.sheep4, lineWidth: 0.5)
