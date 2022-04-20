@@ -9,12 +9,12 @@ import SwiftUI
 
 struct GroupPrayList: View {
     @StateObject var vm: GroupPrayListVM
-    @State private var isShowingNewGroupPrayView = false
+    @State private var showingNewGroupPrayView = false
+    @State private var showingNewMyPrayView = false
     
     var body: some View {
-        ZStack {
             VStack(spacing: 0) {
-                HStack {
+                HStack(spacing: 0) {
                     Button {
                         vm.changeSorting()
                     } label: {
@@ -24,10 +24,36 @@ struct GroupPrayList: View {
                         let title = vm.showSortingByName ? "이름순" : "날짜순"
                         Text(title)
                             .foregroundColor(.nightSky1)
-                            .font(.system(size: 16, weight: .regular, design: .default))
+                            .font(.system(size: 16, weight: .semibold, design: .default))
                     }
                     .foregroundColor(Color.nightSky1)
                     Spacer()
+                    NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FSServiceImpl()),
+                                                                                    groupInfo: vm.groupInfo)),
+                                   isActive: $showingNewGroupPrayView) {
+                        Button(action: {
+                            showingNewGroupPrayView = true
+                        }) {
+                            Text("그룹 기도 ") + Text(Image(systemName: "plus"))
+                        }
+                        .buttonStyle(MoyangButtonStyle(.secondary,
+                                                       width: 100,
+                                                       height: 24))
+                    }
+                                   .padding(.trailing, 8)
+                    NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FSServiceImpl()),
+                                                                                    groupInfo: vm.groupInfo)),
+                                   isActive: $showingNewMyPrayView) {
+                        Button(action: {
+                            showingNewMyPrayView = true
+                        }) {
+                            Text("내 기도 ") + Text(Image(systemName: "plus"))
+                        }
+                        .buttonStyle(MoyangButtonStyle(.secondary,
+                                                       width: 84,
+                                                       height: 24))
+                    }
+                                   .padding(.trailing, 16)
                 }
                 .padding(EdgeInsets(top: 32, leading: 24, bottom: 12, trailing: 0))
                 .frame(height: 24, alignment: .leading)
@@ -41,7 +67,7 @@ struct GroupPrayList: View {
                         }
                         .listRowBackground(Color.clear)
                     }
-                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 72, trailing: 0))
+                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 0))
                     .listStyle(.plain)
                 } else {
                     List {
@@ -51,27 +77,10 @@ struct GroupPrayList: View {
                         }
                         .listRowBackground(Color.clear)
                     }
-                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 72, trailing: 0))
+                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 0))
                     .listStyle(.plain)
                 }
             }
-            VStack(spacing: 0) {
-                Spacer()
-                NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FSServiceImpl()),
-                                                                                groupInfo: vm.groupInfo)),
-                               isActive: $isShowingNewGroupPrayView) {
-                    Button(action: {
-                        isShowingNewGroupPrayView = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                    .buttonStyle(MoyangButtonStyle(.black,
-                                                   width: 100,
-                                                   height: 48))
-                }
-                               .padding(.bottom, 10)
-            }
-        }
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
         .navigationBarTitle("기도제목")

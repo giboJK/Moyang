@@ -19,7 +19,7 @@ struct GroupDateSortedPrayEditView: View {
                     ForEach(0 ..< vm.dateItem!.prayItemList.count, id: \.self) { i in
                         SortedPrayEditRow(focus: _focus,
                                           title: $vm.dateItem.prayItemList[i].member,
-                                          pray: $vm.nameItem.prayItemList[i].pray)
+                                          pray: $vm.dateItem.prayItemList[i].pray)
                     }
                 }
             }

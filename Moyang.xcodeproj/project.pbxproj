@@ -64,6 +64,11 @@
 		08FBC5F5279143D8008BC236 /* CommunityMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FBC5F4279143D8008BC236 /* CommunityMainView.swift */; };
 		08FBC5F9279143EC008BC236 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FBC5F8279143EC008BC236 /* ProfileView.swift */; };
 		08FE02E328101519007EE5BE /* SortedPrayEditRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FE02E228101519007EE5BE /* SortedPrayEditRow.swift */; };
+		08FE02E728104716007EE5BE /* GroupPrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FE02E628104716007EE5BE /* GroupPrayView.swift */; };
+		08FE02E928104DED007EE5BE /* GroupPrayNotePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FE02E828104DED007EE5BE /* GroupPrayNotePreview.swift */; };
+		08FE02EC2810510B007EE5BE /* GroupPrayNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FE02EB2810510B007EE5BE /* GroupPrayNoteView.swift */; };
+		08FE02EE28105358007EE5BE /* GroupPrayNoteSmallCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FE02ED28105358007EE5BE /* GroupPrayNoteSmallCard.swift */; };
+		08FE02F128105373007EE5BE /* GroupPrayNoteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FE02F028105373007EE5BE /* GroupPrayNoteVM.swift */; };
 		08FEC8F627C48D4700C57110 /* MemberRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEC8F527C48D4700C57110 /* MemberRepo.swift */; };
 		08FEC8F827C48D8F00C57110 /* MemberRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
@@ -237,6 +242,11 @@
 		08FBC5F4279143D8008BC236 /* CommunityMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainView.swift; sourceTree = "<group>"; };
 		08FBC5F8279143EC008BC236 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		08FE02E228101519007EE5BE /* SortedPrayEditRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedPrayEditRow.swift; sourceTree = "<group>"; };
+		08FE02E628104716007EE5BE /* GroupPrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayView.swift; sourceTree = "<group>"; };
+		08FE02E828104DED007EE5BE /* GroupPrayNotePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayNotePreview.swift; sourceTree = "<group>"; };
+		08FE02EB2810510B007EE5BE /* GroupPrayNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayNoteView.swift; sourceTree = "<group>"; };
+		08FE02ED28105358007EE5BE /* GroupPrayNoteSmallCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayNoteSmallCard.swift; sourceTree = "<group>"; };
+		08FE02F028105373007EE5BE /* GroupPrayNoteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayNoteVM.swift; sourceTree = "<group>"; };
 		08FEC8F527C48D4700C57110 /* MemberRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepo.swift; sourceTree = "<group>"; };
 		08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepoImpl.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -550,6 +560,7 @@
 				085208CE27D59BE000259A4B /* GroupNameSortedRow.swift */,
 				085208D027D59F8B00259A4B /* GroupDateSortedRow.swift */,
 				08FE02E228101519007EE5BE /* SortedPrayEditRow.swift */,
+				08FE02E628104716007EE5BE /* GroupPrayView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -586,6 +597,25 @@
 				08BD5CA827DF1F560003DF5A /* MyInfoView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		08FE02EA28104E3A007EE5BE /* PrayNote */ = {
+			isa = PBXGroup;
+			children = (
+				08FE02EF28105363007EE5BE /* Presenter */,
+				08FE02E828104DED007EE5BE /* GroupPrayNotePreview.swift */,
+				08FE02EB2810510B007EE5BE /* GroupPrayNoteView.swift */,
+				08FE02ED28105358007EE5BE /* GroupPrayNoteSmallCard.swift */,
+			);
+			path = PrayNote;
+			sourceTree = "<group>";
+		};
+		08FE02EF28105363007EE5BE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				08FE02F028105373007EE5BE /* GroupPrayNoteVM.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		08FEC8F427C48D3C00C57110 /* Domain */ = {
@@ -710,6 +740,7 @@
 				246BD7E527240AE4005C4E0B /* Domain */,
 				08D8875B27D3155300E32959 /* GroupSharing */,
 				08D8875A27D3151100E32959 /* GroupPray */,
+				08FE02EA28104E3A007EE5BE /* PrayNote */,
 				246BD7DD27240AE4005C4E0B /* Presenter */,
 				246BD7E127240AE4005C4E0B /* View */,
 			);
@@ -1289,6 +1320,7 @@
 				246BD7BE27240AD4005C4E0B /* PrayAddView.swift in Sources */,
 				241426AB278099CB006682B1 /* PrayRepoMock.swift in Sources */,
 				24D0D32D272314F7006FF67B /* Log.swift in Sources */,
+				08FE02F128105373007EE5BE /* GroupPrayNoteVM.swift in Sources */,
 				24A9B87E279D9C35003468DB /* PastorComunityView.swift in Sources */,
 				246BD7AC27240AB9005C4E0B /* CommunityCardList.swift in Sources */,
 				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
@@ -1303,6 +1335,7 @@
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */,
+				08FE02E728104716007EE5BE /* GroupPrayView.swift in Sources */,
 				24B8BCED2764C7FF005B0A9F /* CommunityListService.swift in Sources */,
 				24E779CE2787308D00C732D6 /* Member.swift in Sources */,
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
@@ -1314,6 +1347,7 @@
 				246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */,
 				08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */,
 				24A55F64279AFE7D007DDE02 /* String+.swift in Sources */,
+				08FE02EE28105358007EE5BE /* GroupPrayNoteSmallCard.swift in Sources */,
 				248AF71D27C06BF4004AA283 /* SermonPreviewCard.swift in Sources */,
 				085208CF27D59BE100259A4B /* GroupNameSortedRow.swift in Sources */,
 				08D8875E27D317DA00E32959 /* TopTabBar.swift in Sources */,
@@ -1366,6 +1400,7 @@
 				248AF72527C0AC52004AA283 /* AddNewGroupVMMock.swift in Sources */,
 				24D1F53627BD45FD0026D65D /* SermonListView.swift in Sources */,
 				24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */,
+				08FE02E928104DED007EE5BE /* GroupPrayNotePreview.swift in Sources */,
 				248FEC1D2723AB0300321E5E /* Assets.swift in Sources */,
 				08CE42012780059A003352E0 /* FirestoreService.swift in Sources */,
 				242D745C274267C80053EF2A /* MainCard.swift in Sources */,
@@ -1395,6 +1430,7 @@
 				0880103727AEB88C002E49F0 /* CommunityCardListVMMock.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
 				24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */,
+				08FE02EC2810510B007EE5BE /* GroupPrayNoteView.swift in Sources */,
 				2426743927FC833900056235 /* CommunityListVM.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
 				08D8295F278D8116001E6B61 /* IntroView.swift in Sources */,

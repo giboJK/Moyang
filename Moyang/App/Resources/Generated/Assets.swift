@@ -32,6 +32,7 @@ public enum Asset {
     public enum Secondary {
       public static let nightSky2 = ColorAsset(name: "NightSky2")
       public static let nightSky3 = ColorAsset(name: "NightSky3")
+      public static let nightSky4 = ColorAsset(name: "NightSky4")
       public static let sheep2 = ColorAsset(name: "Sheep2")
       public static let sheep3 = ColorAsset(name: "Sheep3")
       public static let sheep4 = ColorAsset(name: "Sheep4")
