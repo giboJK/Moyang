@@ -540,6 +540,7 @@
 		08D8875F27D32A0200E32959 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				24FAEF0A27E2146C00B2DA81 /* GroupPrayView.swift */,
 				24151DCD274A2A3E00DD38CE /* GroupPrayList.swift */,
 				24B7B4D72753BC5F007BCF9E /* NewGroupPrayView.swift */,
 				24EA9B4727579BDC004FB585 /* GroupNameSortedPrayEditView.swift */,
@@ -675,7 +676,6 @@
 				246BD7B127240AD4005C4E0B /* PrayView.swift */,
 				246BD7B227240AD4005C4E0B /* PrayPreviewCard.swift */,
 				244933EA27775B8F000DDE01 /* PrayCardView.swift */,
-				24FAEF0A27E2146C00B2DA81 /* GroupPrayView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
