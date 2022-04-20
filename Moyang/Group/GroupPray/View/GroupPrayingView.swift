@@ -1,5 +1,5 @@
 //
-//  GroupPrayView.swift
+//  GroupPrayingView.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/03/16.
@@ -8,8 +8,8 @@
 import SwiftUI
 import AlertToast
 
-struct GroupPrayView: View {
-    @StateObject var vm: GroupPrayVM
+struct GroupPrayingView: View {
+    @StateObject var vm: GroupPrayingVM
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -94,9 +94,9 @@ struct GroupPrayView: View {
     }
 }
 
-struct GroupPrayView_Previews: PreviewProvider {
+struct GroupPrayingView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupPrayView(vm: GroupPrayVMMock(title: "정김기보 기도",
-                                          pray: "기도\n도도도도도\n기도도도도오오오 기도이오오오 기도는 기도다 기도일세 기도도도돗\n\n 돗도로돗 기돗"))
+        GroupPrayingView(vm: GroupPrayingVMMock(title: "정김기보 기도",
+                                                pray: "기도\n도도도도도\n기도도도도오오오 기도이오오오 기도는 기도다 기도일세 기도도도돗\n\n 돗도로돗 기돗"))
     }
 }

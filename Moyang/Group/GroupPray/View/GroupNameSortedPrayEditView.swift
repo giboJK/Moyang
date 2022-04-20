@@ -41,7 +41,7 @@ struct GroupNameSortedPrayEditView: View {
         .background(Color.sheep1)
         .navigationBarTitle(vm.nameItem.name)
         .fullScreenCover(isPresented: $isPraying, content: {
-            GroupPrayView(vm: GroupPrayVM(title: vm.prayTitle, pray: vm.prayContents))
+            GroupPrayingView(vm: GroupPrayingVM(title: vm.prayTitle, pray: vm.prayContents))
         })
         .toolbar {
             Button("수정") {
