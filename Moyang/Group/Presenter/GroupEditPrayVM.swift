@@ -28,7 +28,7 @@ class GroupEditPrayVM: ObservableObject {
         if let nameItem = nameItem {
             self.nameItem = nameItem
             prayTitle = nameItem.name + " 기도"
-            nameItem.prayItemList.forEach { (dateString: String, pray: String, _ isShowing: Bool) in
+            nameItem.prayItemList.forEach { (dateString: String, pray: String) in
                 if let date = dateString.toDate("yyyy-MM-dd HH:mm:ss") {
                     let fixedDateString = date.toString("yyyy-MM-dd")
                     prayContents += fixedDateString + "\n"

@@ -110,14 +110,14 @@ extension GroupPrayListVM {
     struct NameSortedItem: Identifiable {
         let id: String
         let name: String
-        var prayItemList: [(date: String, pray: String, isShowing: Bool)]
+        var prayItemList: [(date: String, pray: String)]
         
         init(id: String, name: String, dateList: [String], prayList: [String]) {
             self.id = id
             self.name = name
-            var newPrayItemList = [(String, String, Bool)]()
+            var newPrayItemList = [(String, String)]()
             for i in 0 ..< dateList.count where !prayList[i].isEmpty {
-                newPrayItemList.append((dateList[i], prayList[i], true))
+                newPrayItemList.append((dateList[i], prayList[i]))
             }
             self.prayItemList = newPrayItemList
         }

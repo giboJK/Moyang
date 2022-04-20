@@ -49,7 +49,7 @@ struct GroupSharingView: View {
             }
             if showingMemo {
                 ScrollView(.vertical, showsIndicators: true) {
-                    ForEach(0 ..< vm.groupQuestionList.count) { i in
+                    ForEach(0 ..< vm.groupQuestionList.count, id: \.self) { i in
                         let item = vm.groupQuestionList[i]
                         HStack {
                             Text("- " + item.question.sentence)

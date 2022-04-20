@@ -63,6 +63,7 @@
 		08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFC127FDD78A00BDCB14 /* NetConst.swift */; };
 		08FBC5F5279143D8008BC236 /* CommunityMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FBC5F4279143D8008BC236 /* CommunityMainView.swift */; };
 		08FBC5F9279143EC008BC236 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FBC5F8279143EC008BC236 /* ProfileView.swift */; };
+		08FE02E328101519007EE5BE /* SortedPrayEditRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FE02E228101519007EE5BE /* SortedPrayEditRow.swift */; };
 		08FEC8F627C48D4700C57110 /* MemberRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEC8F527C48D4700C57110 /* MemberRepo.swift */; };
 		08FEC8F827C48D8F00C57110 /* MemberRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
@@ -235,6 +236,7 @@
 		08EBCFC127FDD78A00BDCB14 /* NetConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConst.swift; sourceTree = "<group>"; };
 		08FBC5F4279143D8008BC236 /* CommunityMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainView.swift; sourceTree = "<group>"; };
 		08FBC5F8279143EC008BC236 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		08FE02E228101519007EE5BE /* SortedPrayEditRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedPrayEditRow.swift; sourceTree = "<group>"; };
 		08FEC8F527C48D4700C57110 /* MemberRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepo.swift; sourceTree = "<group>"; };
 		08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepoImpl.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -544,6 +546,7 @@
 				24BA6F85280EED0D000F5BD5 /* GroupDateSortedPrayEditView.swift */,
 				085208CE27D59BE000259A4B /* GroupNameSortedRow.swift */,
 				085208D027D59F8B00259A4B /* GroupDateSortedRow.swift */,
+				08FE02E228101519007EE5BE /* SortedPrayEditRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1338,6 +1341,7 @@
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,
 				0894AC6827B6B09F0011F167 /* ProfileSetView.swift in Sources */,
 				2496FE8227B527B600E9DCEE /* SermonRepo.swift in Sources */,
+				08FE02E328101519007EE5BE /* SortedPrayEditRow.swift in Sources */,
 				08D7DAB927CE1D56004CDC9E /* TestView.swift in Sources */,
 				248AF71F27C09B2E004AA283 /* GroupManageCardRow.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */,

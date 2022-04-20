@@ -13,46 +13,29 @@ struct GroupDateSortedPrayEditView: View {
     @State private var isPraying: Bool = false
     
     var body: some View {
-        ZStack {
+        VStack(spacing: 0) {
             ScrollView(.vertical, showsIndicators: true) {
-                VStack(spacing: 0) {
-                    ForEach(0 ..< vm.dateItem!.prayItemList.count ) { i in
-                        Text(vm.dateItem.prayItemList[i].member)
-                            .font(.system(size: 16, weight: .regular, design: .default))
-                            .foregroundColor(.nightSky1)
-                            .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 20))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Divider()
-                            .padding(.leading, 16)
-                            .frame(height: 1)
-                        TextEditor(text: $vm.dateItem.prayItemList[i].pray)
-                            .focused($focus)
-                            .font(.system(size: 16, weight: .regular, design: .default))
-                            .frame(maxHeight: 240, alignment: .topLeading)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.sheep4, lineWidth: 0.5)
-                            )
-                            .foregroundColor(.nightSky1)
-                            .padding(EdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20))
+                VStack(spacing: 12) {
+                    ForEach(0 ..< vm.dateItem!.prayItemList.count, id: \.self) { i in
+                        SortedPrayEditRow(focus: _focus,
+                                          title: $vm.dateItem.prayItemList[i].member,
+                                          pray: $vm.nameItem.prayItemList[i].pray)
                     }
                 }
-                Spacer()
             }
-            .padding(.top, 12)
+            .padding(EdgeInsets(top: 12, leading: 16, bottom: 4, trailing: 16))
+            .foregroundColor(.nightSky1)
             
-            VStack(spacing: 0) {
-                Spacer()
-                Button(action: {
-                    isPraying.toggle()
-                }) {
-                        Text("기도하기")
-                }
-                .buttonStyle(MoyangButtonStyle(.black,
-                                               width: 100,
-                                               height: 48))
-                .padding(.bottom, 10)
+            Spacer()
+            Button(action: {
+                isPraying.toggle()
+            }) {
+                Text("기도하기")
             }
+            .buttonStyle(MoyangButtonStyle(.black,
+                                           width: 100,
+                                           height: 48))
+            .padding(.bottom, 12)
         }
         .frame(maxWidth: .infinity)
         .background(Color.sheep1)
