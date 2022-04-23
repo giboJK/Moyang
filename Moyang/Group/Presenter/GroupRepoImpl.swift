@@ -144,6 +144,20 @@ class GroupRepoImpl: GroupRepo {
         
         return service.addDocument(groupInfo, ref: ref)
     }
+    func fetchIndividualPrayList(member: Member, groupID: String, limit: Int) -> AnyPublisher<[GroupIndividualPray], MoyangError> {
+        // TODO auth다 값 DB에 업데이트 해야 함..
+        let query = service.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(member.auth!)
+            .document(member.email)
+            .collection("PRAY")
+            .whereField("group_id", in: [groupID])
+            .order(by: "date", descending: true)
+            .limit(to: 1)
+            
+        return service.fetchDocumentsWithQuery(query: query, type: GroupIndividualPray.self)
+    }
 }
 
 class GroupRepoMock: GroupRepo {
@@ -176,6 +190,9 @@ class GroupRepoMock: GroupRepo {
     }
     
     func addNewGroup(groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    func fetchIndividualPrayList(member: Member, groupID: String, limit: Int) -> AnyPublisher<[GroupIndividualPray], MoyangError> {
         return Empty().eraseToAnyPublisher()
     }
 }

@@ -43,7 +43,7 @@ struct MoyangButtonStyle: ButtonStyle {
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(isEnabled ? Color.ydGreen1 : Color.sheep5)
-                .foregroundColor(.sheep1)
+                .foregroundColor(isEnabled ? .sheep1 : .sheep3)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .black:
@@ -59,7 +59,7 @@ struct MoyangButtonStyle: ButtonStyle {
                 .font(secondaryFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(isEnabled ? Color.nightSky3 : Color.sheep5)
-                .foregroundColor(.sheep1)
+                .foregroundColor(isEnabled ? .sheep1 : .sheep3)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .ghost:
@@ -67,7 +67,7 @@ struct MoyangButtonStyle: ButtonStyle {
                 .font(ghostFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(.clear)
-                .foregroundColor(.nightSky1)
+                .foregroundColor(isEnabled ? .nightSky1 : .sheep3)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .warning:
@@ -75,7 +75,7 @@ struct MoyangButtonStyle: ButtonStyle {
                 .font(warningFont)
                 .frame(width: width, height: height, alignment: .center)
                 .background(Color.appleRed1)
-                .foregroundColor(.sheep1)
+                .foregroundColor(isEnabled ? .sheep1 : .sheep3)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
         case .negative:

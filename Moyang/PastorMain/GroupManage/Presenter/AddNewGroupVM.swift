@@ -103,7 +103,8 @@ class AddNewGroupVM: ObservableObject {
             leaderList.append(Member(id: item.id,
                                      name: item.name,
                                      email: item.email,
-                                     profileURL: ""))
+                                     profileURL: "",
+                                     auth: item.auth))
         }
         
         var memberList = [Member]()
@@ -111,7 +112,8 @@ class AddNewGroupVM: ObservableObject {
             memberList.append(Member(id: item.id,
                                      name: item.name,
                                      email: item.email,
-                                     profileURL: ""))
+                                     profileURL: "",
+                                     auth: item.auth))
         }
         
         let parentGroup = selectedIndex! == 0 ? youthID : highID
@@ -138,6 +140,7 @@ extension AddNewGroupVM {
         let name: String
         let email: String
         let birth: String
+        let auth: String
         var isSelected: Bool = false
         var isLeader: Bool = false
         var isMember: Bool = false
@@ -147,6 +150,7 @@ extension AddNewGroupVM {
             name = memberDetail.memberName
             email = memberDetail.email
             birth = memberDetail.birth
+            auth = memberDetail.authType
         }
     }
 }

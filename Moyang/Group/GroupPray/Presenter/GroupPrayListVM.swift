@@ -16,6 +16,7 @@ class GroupPrayListVM: ObservableObject, Identifiable {
     @Published var nameItemList = [NameSortedItem]()
     @Published var dateItemList = [DateSortedItem]()
     @Published var showSortingByName = true
+    @Published var isLeader = false
     
     init(groupRepo: GroupRepo, groupInfo: GroupInfo?) {
         self.groupRepo = groupRepo
@@ -25,6 +26,7 @@ class GroupPrayListVM: ObservableObject, Identifiable {
             self.groupInfo = groupInfo
         }
         loadData()
+        setIsLeader()
     }
     
     deinit { Log.d(self) }
@@ -40,18 +42,26 @@ class GroupPrayListVM: ObservableObject, Identifiable {
                 self.dateItemList = groupPrayListItem.dateSortedItemList
             })
             .store(in: &cancellables)
+        
+        groupInfo.memberList.forEach {
+            groupRepo.fetchIndividualPrayList(member: $0, groupID: groupInfo.id, limit: 1)
+                .sink(receiveCompletion: { completion in
+                    Log.i(completion)
+                }, receiveValue: { list in
+                    Log.w(list)
+                })
+                .store(in: &cancellables)
+        }
     }
     
     func changeSorting() {
         showSortingByName.toggle()
     }
     
-    func editNamePray() {
-        
-    }
-    
-    func editDatePray() {
-        
+    func setIsLeader() {
+        isLeader = groupInfo?.leaderList.contains(where: { member in
+            member.id == UserData.shared.myInfo?.id ?? ""
+        }) ?? false
     }
 }
 

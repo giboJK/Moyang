@@ -36,10 +36,12 @@ struct GroupPrayList: View {
                         }) {
                             Text("그룹 기도 ") + Text(Image(systemName: "plus"))
                         }
-                        .buttonStyle(MoyangButtonStyle(.secondary,
+                        .buttonStyle(MoyangButtonStyle(.black,
                                                        width: 100,
                                                        height: 24))
+                        .disabled(!vm.isLeader)
                     }
+                                   .disabled(!vm.isLeader)
                                    .padding(.trailing, 8)
                     NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FSServiceImpl()),
                                                                                     groupInfo: vm.groupInfo)),
@@ -49,7 +51,7 @@ struct GroupPrayList: View {
                         }) {
                             Text("내 기도 ") + Text(Image(systemName: "plus"))
                         }
-                        .buttonStyle(MoyangButtonStyle(.secondary,
+                        .buttonStyle(MoyangButtonStyle(.black,
                                                        width: 84,
                                                        height: 24))
                     }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 // MARK: - GroupMemberPray
 struct GroupMemberPray: Codable {

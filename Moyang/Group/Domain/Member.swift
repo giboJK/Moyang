@@ -13,11 +13,13 @@ struct Member: Codable, Identifiable {
     let name: String
     let email: String
     let profileURL: String
+    let auth: String?
     
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case email
         case profileURL = "url"
+        case auth
     }
 }

@@ -10,6 +10,10 @@ import FirebaseFirestoreSwift
 import Combine
 
 class CommunityListService: SermonRepo & GroupRepo {
+    func fetchIndividualPrayList(member: Member, groupID: String, limit: Int) -> AnyPublisher<[GroupIndividualPray], MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
     func fetchGroupInfoList(groupList: [String]) -> AnyPublisher<[GroupInfo], MoyangError> {
         return Empty().eraseToAnyPublisher()
     }

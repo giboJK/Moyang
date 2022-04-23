@@ -31,7 +31,7 @@ struct GroupDateSortedRow: View {
         }
         .background(
             NavigationLink(destination: GroupDateSortedPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
-                                                                              dateItem: item))) {}
+                                                                                        dateItem: item))) {}
                 .opacity(0)
         )
         .background(Color.sheep1)
@@ -45,7 +45,8 @@ struct GroupDateSortedRow_Previews: PreviewProvider {
                                                                 prayItemList: [GroupMemberPray(member: Member(id: UUID().uuidString,
                                                                                                               name: "테스트",
                                                                                                               email: "test@test.com",
-                                                                                                              profileURL: ""),
+                                                                                                              profileURL: "",
+                                                                                                              auth: "GOOGLE"),
                                                                                                pray: "기도 제목오오옥")]))
     }
 }

@@ -13,7 +13,7 @@ struct GroupPrayView: View {
         VStack(spacing: 0) {
             GroupPrayList(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
                                               groupInfo: groupInfo))
-            .frame(height: 360)
+            .frame(height: 380)
             GroupPrayNotePreview()
                 .frame(height: 148)
             Spacer()

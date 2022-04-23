@@ -26,4 +26,8 @@ protocol GroupRepo {
     
     
     func addNewGroup(groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError>
+    
+    func fetchIndividualPrayList(member: Member,
+                                 groupID: String,
+                                 limit: Int) -> AnyPublisher<[GroupIndividualPray], MoyangError>
 }

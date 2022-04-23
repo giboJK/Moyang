@@ -19,11 +19,13 @@ class GroupPrayListVMMock: GroupPrayListVM {
         let memberA = Member(id: UUID().uuidString,
                              name: "이름 A",
                              email: "",
-                             profileURL: "")
+                             profileURL: "",
+                             auth: "EMAIL")
         let memberB = Member(id: UUID().uuidString,
                              name: "이름 B",
                              email: "",
-                             profileURL: "")
+                             profileURL: "",
+                             auth: "EMAIL")
         
         memberPrayList.append(GroupMemberPray(member: memberA,
                                               pray: "기도제목 1입니다\nasdsad\ndadd"))

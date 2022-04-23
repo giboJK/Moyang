@@ -93,7 +93,8 @@ class GroupEditPrayVMMock: GroupEditPrayVM {
         let memberA = Member(id: UUID().uuidString,
                              name: "asd",
                              email: "test@test.com",
-                             profileURL: "")
+                             profileURL: "",
+                             auth: "EMAIL")
         self.dateItem = GroupPrayListVM.DateSortedItem(date: Date().toString("yyyy-MM-dd"),
                                                        prayItemList: [GroupMemberPray(member: memberA,
                                                                                       pray: "ass asldksad ksalmd")])
