@@ -1,8 +1,8 @@
 //
 //  NewMemberPrayView.swift
-//  
+//  Moyang
 //
-//  Created by kibo on 2022/04/23.
+//  Created by kibo on 2022/04/24.
 //
 
 import SwiftUI

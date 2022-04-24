@@ -18,6 +18,10 @@ class CommunityListService: SermonRepo & GroupRepo {
         return Empty().eraseToAnyPublisher()
     }
     
+    func add(_ data: GroupIndividualPray, myInfo: MemberDetail) -> AnyPublisher<Bool, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
     func add(_ sermon: Sermon) -> AnyPublisher<Bool, MoyangError> {
         return Empty().eraseToAnyPublisher()
     }

@@ -158,6 +158,10 @@ class GroupRepoImpl: GroupRepo {
             
         return service.fetchDocumentsWithQuery(query: query, type: GroupIndividualPray.self)
     }
+    
+    func add(_ data: GroupIndividualPray, myInfo: MemberDetail) -> AnyPublisher<Bool, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
 }
 
 class GroupRepoMock: GroupRepo {
@@ -193,6 +197,9 @@ class GroupRepoMock: GroupRepo {
         return Empty().eraseToAnyPublisher()
     }
     func fetchIndividualPrayList(member: Member, groupID: String, limit: Int) -> AnyPublisher<[GroupIndividualPray], MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    func add(_ data: GroupIndividualPray, myInfo: MemberDetail) -> AnyPublisher<Bool, MoyangError> {
         return Empty().eraseToAnyPublisher()
     }
 }

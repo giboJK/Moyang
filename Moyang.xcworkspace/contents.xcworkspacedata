@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/kibo/Projects/pp/ios/Moyang/Moyang/Group/GroupPray/View/NewMemberPrayView.swift">
-   </FileRef>
-   <FileRef
       location = "group:Moyang.xcodeproj">
    </FileRef>
    <FileRef

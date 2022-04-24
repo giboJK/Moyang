@@ -16,6 +16,7 @@ protocol GroupRepo {
                           date: String) -> AnyPublisher<MeetingInfo, MoyangError>
     
     func add(_ date: Date, _ data: GroupMemberPrayList, groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError>
+    func add(_ data: GroupIndividualPray, myInfo: MemberDetail) -> AnyPublisher<Bool, MoyangError>
     
     func addGroupPrayListListener(groupInfo: GroupInfo) -> PassthroughSubject<[GroupMemberPrayList], MoyangError>
     
