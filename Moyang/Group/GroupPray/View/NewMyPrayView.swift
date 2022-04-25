@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewMyPrayView: View {
     @StateObject var vm: NewMyPrayVM
+    @FocusState private var focus: Bool
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -17,13 +18,14 @@ struct NewMyPrayView: View {
                 Text(vm.name)
                     .foregroundColor(.nightSky1)
                     .font(.system(size: 16, weight: .regular, design: .default))
-                    .padding(.leading, 24)
                 Spacer()
+                DatePicker(selection: $vm.date, in: ...Date(), displayedComponents: .date) {}
             }
-            .padding(.top, 20)
+            .padding(EdgeInsets(top: 12, leading: 24, bottom: 16, trailing: 20))
             
             TextEditor(text: $vm.pray)
                 .font(.system(size: 15, weight: .regular, design: .default))
+                .focused($focus)
                 .frame(height: .infinity, alignment: .topLeading)
                 .foregroundColor(.nightSky1)
                 .background(Color.sheep2)
@@ -31,7 +33,7 @@ struct NewMyPrayView: View {
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(Color.sheep4, lineWidth: 1)
                 )
-                .padding(EdgeInsets(top: 12, leading: 20, bottom: 32, trailing: 20))
+                .padding(EdgeInsets(top: 0, leading: 20, bottom: 24, trailing: 20))
             Spacer()
         }
         .frame(maxWidth: .infinity)
@@ -40,6 +42,12 @@ struct NewMyPrayView: View {
         .toolbar {
             Button("추가") {
                 vm.addNewPray()
+            }
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("완료") { focus = false }
             }
         }
         .onReceive(vm.viewDismissalModePublisher) { shouldDismiss in
