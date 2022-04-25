@@ -13,7 +13,7 @@ import Firebase
 class ProfileVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var loginService: LoginService
-    @Published var groupInfoItem: UserItem = UserItem()
+    @Published var infoItem: UserItem = UserItem()
     @Published var name: String = "이름"
     @Published var email: String = "이메일"
     
@@ -29,7 +29,7 @@ class ProfileVM: ObservableObject {
     
     func loadUserData() {
         if let myInfo = UserData.shared.myInfo {
-            groupInfoItem = UserItem(userInfo: myInfo)
+            infoItem = UserItem(userInfo: myInfo)
             
             if let userLevel = UserLevel(rawValue: myInfo.grade) {
                 self.levelDesc = userLevel.levelDesc

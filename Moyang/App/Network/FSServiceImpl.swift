@@ -288,8 +288,7 @@ class FSServiceMock: FirestoreService {
         return Empty().eraseToAnyPublisher()
     }
     
-    func fetchDocumentsWithQuery<T>(query: Query, type: T.Type) -> AnyPublisher<[T], MoyangError> where T : Decodable, T : Encodable {
+    func fetchDocumentsWithQuery<T>(query: Query, type: T.Type) -> AnyPublisher<[T], MoyangError> where T: Decodable, T: Encodable {
         return Empty().eraseToAnyPublisher()
     }
-    
 }

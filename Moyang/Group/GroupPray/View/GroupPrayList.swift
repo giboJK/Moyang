@@ -43,8 +43,8 @@ struct GroupPrayList: View {
                     }
                                    .disabled(!vm.isLeader)
                                    .padding(.trailing, 8)
-                    NavigationLink(destination: NewGroupPrayView(vm: NewGroupPrayVM(repo: GroupRepoImpl(service: FSServiceImpl()),
-                                                                                    groupInfo: vm.groupInfo)),
+                    NavigationLink(destination: NewMyPrayView(vm: NewMyPrayVM(repo: GroupRepoImpl(service: FSServiceImpl()),
+                                                                              groupInfo: vm.groupInfo)),
                                    isActive: $showingNewMyPrayView) {
                         Button(action: {
                             showingNewMyPrayView = true

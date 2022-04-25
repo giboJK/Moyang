@@ -33,7 +33,6 @@ class SermonRepoImpl: SermonRepo {
     
     func fetchSermonList() -> PassthroughSubject<[Sermon], MoyangError> {
         let userInfo = UserData.shared.myInfo!
-        // TODO: parentGroup로 바꾸어야 함
         let mainGroup = userInfo.mainGroup
         guard let yearSubString = mainGroup.split(separator: "_").first else {
             Log.e("")

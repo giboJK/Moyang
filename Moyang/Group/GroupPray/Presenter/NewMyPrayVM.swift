@@ -1,5 +1,5 @@
 //
-//  NewMemberPrayVM.swift
+//  NewMyPrayVM.swift
 //  Moyang
 //
 //  Created by kibo on 2022/04/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class NewMemberPrayVM: ObservableObject {
+class NewMyPrayVM: ObservableObject {
     private let repo: GroupRepo
     private var cancellables: Set<AnyCancellable> = []
     var groupInfo: GroupInfo?
@@ -33,7 +33,7 @@ class NewMemberPrayVM: ObservableObject {
         } else {
             self.groupInfo = groupInfo
         }
-        
+        loadMyInfo()
     }
     
     private func loadMyInfo() {
@@ -48,5 +48,18 @@ class NewMemberPrayVM: ObservableObject {
         let item = GroupIndividualPray(groupID: groupInfo.id,
                                        date: date.toString("yyyy-MM-dd hh:mm:ss"),
                                        pray: pray)
+        
+        repo.add(item, myInfo: myInfo)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    Log.i(completion)
+                case .failure(let error):
+                    Log.e(error)
+                }
+            }) { _ in
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewGroupPrayAdded"), object: nil)
+                self.shouldDismissView = true
+            }.store(in: &cancellables)
     }
 }

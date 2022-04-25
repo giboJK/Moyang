@@ -145,7 +145,6 @@ class GroupRepoImpl: GroupRepo {
         return service.addDocument(groupInfo, ref: ref)
     }
     func fetchIndividualPrayList(member: Member, groupID: String, limit: Int) -> AnyPublisher<[GroupIndividualPray], MoyangError> {
-        // TODO auth다 값 DB에 업데이트 해야 함..
         let query = service.store
             .collection("USER")
             .document("AUTH")
@@ -160,7 +159,14 @@ class GroupRepoImpl: GroupRepo {
     }
     
     func add(_ data: GroupIndividualPray, myInfo: MemberDetail) -> AnyPublisher<Bool, MoyangError> {
-        return Empty().eraseToAnyPublisher()
+        let ref = service.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(myInfo.authType)
+            .document(myInfo.email)
+            .collection("PRAY")
+        
+        return service.addDocument(data, ref: ref)
     }
 }
 

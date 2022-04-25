@@ -21,7 +21,7 @@ struct ProfileView: View {
                     .tint(.nightSky1)
                 
                 VStack(spacing: 0) {
-                    Text(vm.groupInfoItem.name + "님,\n안녕하세요")
+                    Text(vm.infoItem.name + "님,\n안녕하세요")
                         .foregroundColor(.nightSky1)
                         .font(.system(size: 18, weight: .bold, design: .default))
                         .frame(maxWidth: .infinity, alignment: .leading)
