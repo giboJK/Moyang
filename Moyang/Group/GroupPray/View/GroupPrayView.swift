@@ -16,7 +16,7 @@ struct GroupPrayView: View {
                                                   groupInfo: groupInfo))
                 .frame(height: 380)
                 GroupPrayNotePreview()
-                    .frame(height: 348)
+                    .frame(height: 240)
                 Spacer()
             }
         }
