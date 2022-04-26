@@ -60,7 +60,6 @@
 		08D8876427D32A5900E32959 /* GroupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8876327D32A5900E32959 /* GroupVM.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */; };
-		08EB322E2801740C007CFDCB /* Charts in Resources */ = {isa = PBXBuildFile; fileRef = 08EB322D2801740C007CFDCB /* Charts */; };
 		08EBCFBE27FDD1E800BDCB14 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBD27FDD1E800BDCB14 /* SignUpView.swift */; };
 		08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */; };
 		08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFC127FDD78A00BDCB14 /* NetConst.swift */; };
@@ -152,6 +151,11 @@
 		24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */; };
 		24BF681927C3C537000E1E91 /* MemberSearchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BF681827C3C537000E1E91 /* MemberSearchRow.swift */; };
 		24BF6E94274FBF620004B24E /* CellPrayInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 24BF6E93274FBF620004B24E /* CellPrayInfo.json */; };
+		24C8AFE72818241600A1E8A1 /* j2kb.radar.html in Resources */ = {isa = PBXBuildFile; fileRef = 24C8AFE52818241600A1E8A1 /* j2kb.radar.html */; };
+		24C8AFE82818241600A1E8A1 /* j2kb.line.html in Resources */ = {isa = PBXBuildFile; fileRef = 24C8AFE62818241600A1E8A1 /* j2kb.line.html */; };
+		24C8AFEC2818241F00A1E8A1 /* moyang.chart.lang.js in Resources */ = {isa = PBXBuildFile; fileRef = 24C8AFE92818241F00A1E8A1 /* moyang.chart.lang.js */; };
+		24C8AFED2818241F00A1E8A1 /* moyang.chart.js in Resources */ = {isa = PBXBuildFile; fileRef = 24C8AFEA2818241F00A1E8A1 /* moyang.chart.js */; };
+		24C8AFEE2818241F00A1E8A1 /* chart.min.3.7.1.js in Resources */ = {isa = PBXBuildFile; fileRef = 24C8AFEB2818241F00A1E8A1 /* chart.min.3.7.1.js */; };
 		24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F727230CA3006FF67B /* MoyangApp.swift */; };
 		24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Images.xcassets */; };
 		24D0D30927230CA6006FF67B /* MoyangTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D30827230CA6006FF67B /* MoyangTests.swift */; };
@@ -241,7 +245,6 @@
 		08D8876327D32A5900E32959 /* GroupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVM.swift; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
-		08EB322D2801740C007CFDCB /* Charts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Charts; sourceTree = "<group>"; };
 		08EBCFBD27FDD1E800BDCB14 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		08EBCFC127FDD78A00BDCB14 /* NetConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConst.swift; sourceTree = "<group>"; };
@@ -335,6 +338,11 @@
 		24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		24BF681827C3C537000E1E91 /* MemberSearchRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchRow.swift; sourceTree = "<group>"; };
 		24BF6E93274FBF620004B24E /* CellPrayInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CellPrayInfo.json; sourceTree = "<group>"; };
+		24C8AFE52818241600A1E8A1 /* j2kb.radar.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = j2kb.radar.html; sourceTree = "<group>"; };
+		24C8AFE62818241600A1E8A1 /* j2kb.line.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = j2kb.line.html; sourceTree = "<group>"; };
+		24C8AFE92818241F00A1E8A1 /* moyang.chart.lang.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = moyang.chart.lang.js; sourceTree = "<group>"; };
+		24C8AFEA2818241F00A1E8A1 /* moyang.chart.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = moyang.chart.js; sourceTree = "<group>"; };
+		24C8AFEB2818241F00A1E8A1 /* chart.min.3.7.1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chart.min.3.7.1.js; sourceTree = "<group>"; };
 		24D0D2F427230CA3006FF67B /* Moyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D2F727230CA3006FF67B /* MoyangApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangApp.swift; sourceTree = "<group>"; };
 		24D0D2FB27230CA6006FF67B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -959,6 +967,26 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
+		24C8AFE32818240800A1E8A1 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				24C8AFE62818241600A1E8A1 /* j2kb.line.html */,
+				24C8AFE52818241600A1E8A1 /* j2kb.radar.html */,
+				24C8AFE42818240D00A1E8A1 /* js */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		24C8AFE42818240D00A1E8A1 /* js */ = {
+			isa = PBXGroup;
+			children = (
+				24C8AFEB2818241F00A1E8A1 /* chart.min.3.7.1.js */,
+				24C8AFEA2818241F00A1E8A1 /* moyang.chart.js */,
+				24C8AFE92818241F00A1E8A1 /* moyang.chart.lang.js */,
+			);
+			path = js;
+			sourceTree = "<group>";
+		};
 		24D0D2EB27230CA3006FF67B = {
 			isa = PBXGroup;
 			children = (
@@ -986,7 +1014,6 @@
 				24B492D027989DAB005CAA5A /* Info.plist */,
 				24A6A4A9275A2BCB00D7DB25 /* App */,
 				242D745A274267AA0053EF2A /* CommonView */,
-				08EB322D2801740C007CFDCB /* Charts */,
 				248FEC0E2723A07D00321E5E /* Main */,
 				24B812F027984A9500BD1B3E /* PastorMain */,
 				246BD7DC27240AE4005C4E0B /* Group */,
@@ -1037,6 +1064,7 @@
 		24D0D334272315FA006FF67B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				24C8AFE32818240800A1E8A1 /* Charts */,
 				24FAEF0C27E2152F00B2DA81 /* Music */,
 				24B88EE227A2D0CF00D5B001 /* Animation */,
 				249B902F27259C6400B53682 /* DummyData.swift */,
@@ -1167,16 +1195,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08EB322E2801740C007CFDCB /* Charts in Resources */,
 				24DABE7327E89E680008D132 /* praysong.m4a in Resources */,
 				24D0D325272313AF006FF67B /* .swiftlint.yml in Resources */,
+				24C8AFE82818241600A1E8A1 /* j2kb.line.html in Resources */,
 				248FEC152723A11600321E5E /* Colors.xcassets in Resources */,
+				24C8AFEE2818241F00A1E8A1 /* chart.min.3.7.1.js in Resources */,
 				24B88EEC27A2D86E00D5B001 /* intro.json in Resources */,
+				24C8AFED2818241F00A1E8A1 /* moyang.chart.js in Resources */,
 				244933ED277765BB000DDE01 /* Pray.json in Resources */,
 				242D745F274282F00053EF2A /* Localizable.strings in Resources */,
+				24C8AFE72818241600A1E8A1 /* j2kb.radar.html in Resources */,
 				249B903827259FD300B53682 /* GroupPreview.json in Resources */,
 				24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */,
 				24B6A2572726C40E0065112A /* GroupInfo.json in Resources */,
+				24C8AFEC2818241F00A1E8A1 /* moyang.chart.lang.js in Resources */,
 				24DABE7227E8610C0008D132 /* GoogleService-Info.plist in Resources */,
 				08A1B7CA27804A010085BE18 /* PrayList.json in Resources */,
 				24BF6E94274FBF620004B24E /* CellPrayInfo.json in Resources */,
