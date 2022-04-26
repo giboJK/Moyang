@@ -15,7 +15,7 @@ class GroupPrayListVM: ObservableObject, Identifiable {
     
     @Published var nameItemList = [NameSortedItem]()
     @Published var dateItemList = [DateSortedItem]()
-    @Published var showSortingByName = true
+    @Published var showSortingByMember = true
     @Published var isLeader = false
     
     init(groupRepo: GroupRepo, groupInfo: GroupInfo?) {
@@ -38,24 +38,29 @@ class GroupPrayListVM: ObservableObject, Identifiable {
                 Log.i(completion)
             }, receiveValue: { list in
                 let groupPrayListItem = GroupPrayListItem(data: list, groupInfo: groupInfo)
-                self.nameItemList = groupPrayListItem.nameSortedItemList
                 self.dateItemList = groupPrayListItem.dateSortedItemList
             })
             .store(in: &cancellables)
         
-        groupInfo.memberList.forEach {
-            groupRepo.fetchIndividualPrayList(member: $0, groupID: groupInfo.id, limit: 1)
+        groupInfo.memberList.forEach { member in
+            groupRepo.fetchIndividualPrayList(member: member, groupID: groupInfo.id, limit: 1)
                 .sink(receiveCompletion: { completion in
                     Log.i(completion)
                 }, receiveValue: { list in
                     Log.w(list)
+                    if let item = list.first {
+                        self.nameItemList.append(NameSortedItem(id: member.id,
+                                                                name: member.name,
+                                                                dateList: [item.date],
+                                                                prayList: [item.pray]))
+                    }
                 })
                 .store(in: &cancellables)
         }
     }
     
     func changeSorting() {
-        showSortingByName.toggle()
+        showSortingByMember.toggle()
     }
     
     func setIsLeader() {

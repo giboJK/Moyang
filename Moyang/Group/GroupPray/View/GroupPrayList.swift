@@ -21,7 +21,7 @@ struct GroupPrayList: View {
                         Image(uiImage: Asset.Images.Cell.sortDown.image)
                             .resizable()
                             .frame(width: 16.0, height: 16.0)
-                        let title = vm.showSortingByName ? "이름순" : "날짜순"
+                        let title = vm.showSortingByMember ? "개인기도" : "그룹기도"
                         Text(title)
                             .foregroundColor(.nightSky1)
                             .font(.system(size: 16, weight: .semibold, design: .default))
@@ -60,7 +60,7 @@ struct GroupPrayList: View {
                 .padding(EdgeInsets(top: 32, leading: 24, bottom: 12, trailing: 0))
                 .frame(height: 24, alignment: .leading)
                 
-                if vm.showSortingByName {
+                if vm.showSortingByMember {
                     List {
                         ForEach(vm.nameItemList) { item in
                             GroupNameSortedRow(item: item)
