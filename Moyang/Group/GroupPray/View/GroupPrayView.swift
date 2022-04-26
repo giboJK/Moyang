@@ -10,13 +10,15 @@ import SwiftUI
 struct GroupPrayView: View {
     var groupInfo: GroupInfo?
     var body: some View {
-        VStack(spacing: 0) {
-            GroupPrayList(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
-                                              groupInfo: groupInfo))
-            .frame(height: 380)
-            GroupPrayNotePreview()
-                .frame(height: 148)
-            Spacer()
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 0) {
+                GroupPrayList(vm: GroupPrayListVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
+                                                  groupInfo: groupInfo))
+                .frame(height: 380)
+                GroupPrayNotePreview()
+                    .frame(height: 348)
+                Spacer()
+            }
         }
     }
 }

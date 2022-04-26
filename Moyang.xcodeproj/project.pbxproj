@@ -972,19 +972,11 @@
 			children = (
 				24C8AFE62818241600A1E8A1 /* j2kb.line.html */,
 				24C8AFE52818241600A1E8A1 /* j2kb.radar.html */,
-				24C8AFE42818240D00A1E8A1 /* js */,
-			);
-			path = Charts;
-			sourceTree = "<group>";
-		};
-		24C8AFE42818240D00A1E8A1 /* js */ = {
-			isa = PBXGroup;
-			children = (
 				24C8AFEB2818241F00A1E8A1 /* chart.min.3.7.1.js */,
 				24C8AFEA2818241F00A1E8A1 /* moyang.chart.js */,
 				24C8AFE92818241F00A1E8A1 /* moyang.chart.lang.js */,
 			);
-			path = js;
+			path = Charts;
 			sourceTree = "<group>";
 		};
 		24D0D2EB27230CA3006FF67B = {

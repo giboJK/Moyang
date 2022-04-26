@@ -31,6 +31,9 @@ struct GroupPrayNotePreview: View {
             }
             .padding(.top, 20)
             Spacer()
+            if let url = Bundle.main.url(forResource: "j2kb.line", withExtension: "html") {
+                WebView(url: url)
+            }
         }
         .background(Color.sheep3)
     }
