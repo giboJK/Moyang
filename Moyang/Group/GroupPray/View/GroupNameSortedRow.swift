@@ -55,7 +55,7 @@ struct GroupNameSortedRow: View {
         }
         .background(
             NavigationLink(destination: GroupNameSortedPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
-                                                                              nameItem: item))) {}
+                                                                                        nameItem: item))) {}
                 .opacity(0)
         )
         .background(Color.sheep1)
@@ -65,8 +65,11 @@ struct GroupNameSortedRow: View {
 
 struct GroupNameSortedRow_Previews: PreviewProvider {
     static var previews: some View {
-        GroupNameSortedRow(item: GroupPrayListVM.NameSortedItem(id: UUID().uuidString,
-                                                                name: "이름A",
+        GroupNameSortedRow(item: GroupPrayListVM.NameSortedItem(member: Member(id: "",
+                                                                               name: "ds",
+                                                                               email: "sadasd",
+                                                                               profileURL: "",
+                                                                               auth: ""),
                                                                 dateList: ["2022.03.01",
                                                                            "2022.03.03",
                                                                            "2022.03.05"],

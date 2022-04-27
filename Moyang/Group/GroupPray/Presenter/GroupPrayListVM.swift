@@ -49,8 +49,7 @@ class GroupPrayListVM: ObservableObject, Identifiable {
                 }, receiveValue: { list in
                     Log.w(list)
                     if let item = list.first {
-                        self.nameItemList.append(NameSortedItem(id: member.id,
-                                                                name: member.name,
+                        self.nameItemList.append(NameSortedItem(member: member,
                                                                 dateList: [item.date],
                                                                 prayList: [item.pray]))
                     }
@@ -98,8 +97,7 @@ extension GroupPrayListVM {
                         prayList.append(pray.pray)
                     }
                 }
-                nameSorted.append(NameSortedItem(id: member.id,
-                                                 name: member.name,
+                nameSorted.append(NameSortedItem(member: member,
                                                  dateList: dateList.reversed(),
                                                  prayList: prayList.reversed()))
             }
@@ -125,11 +123,13 @@ extension GroupPrayListVM {
     struct NameSortedItem: Identifiable {
         let id: String
         let name: String
+        let memberID: String
         var prayItemList: [(date: String, pray: String)]
         
-        init(id: String, name: String, dateList: [String], prayList: [String]) {
-            self.id = id
-            self.name = name
+        init(member: Member, dateList: [String], prayList: [String]) {
+            self.id = member.id
+            self.name = member.name
+            self.memberID = member.id
             var newPrayItemList = [(String, String)]()
             for i in 0 ..< dateList.count where !prayList[i].isEmpty {
                 newPrayItemList.append((dateList[i], prayList[i]))

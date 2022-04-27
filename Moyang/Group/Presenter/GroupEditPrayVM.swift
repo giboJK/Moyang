@@ -53,6 +53,10 @@ class GroupEditPrayVM: ObservableObject {
         cancellables.removeAll()
     }
     
+    private func loadMemberPray() {
+        
+    }
+    
     func editPray() {
         if nameItem != nil {
             editNameItemPray()
@@ -86,15 +90,14 @@ class GroupEditPrayVMMock: GroupEditPrayVM {
     }
     
     func randomData() {
-        self.nameItem = GroupPrayListVM.NameSortedItem(id: UUID().uuidString,
-                                                       name: "asd",
-                                                       dateList: [Date().toString("yyyy-MM-dd")],
-                                                       prayList: ["rlrlrl eheheh"])
         let memberA = Member(id: UUID().uuidString,
                              name: "asd",
                              email: "test@test.com",
                              profileURL: "",
                              auth: "EMAIL")
+        self.nameItem = GroupPrayListVM.NameSortedItem(member: memberA,
+                                                       dateList: [Date().toString("yyyy-MM-dd")],
+                                                       prayList: ["rlrlrl eheheh"])
         self.dateItem = GroupPrayListVM.DateSortedItem(date: Date().toString("yyyy-MM-dd"),
                                                        prayItemList: [GroupMemberPray(member: memberA,
                                                                                       pray: "ass asldksad ksalmd")])
