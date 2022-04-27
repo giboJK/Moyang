@@ -67,6 +67,11 @@ class GroupEditPrayVM: ObservableObject {
                     self.nameItem.append((id: UUID().uuidString,
                                           date: item.date,
                                           pray: item.pray))
+                    
+                    self.prayContents.append(item.date)
+                    self.prayContents.append("\n")
+                    self.prayContents.append(item.pray)
+                    self.prayContents.append("\n\n\n")
                 }
             })
             .store(in: &cancellables)
