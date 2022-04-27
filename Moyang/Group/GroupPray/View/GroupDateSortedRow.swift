@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupDateSortedRow: View {
     var item: GroupPrayListVM.DateSortedItem
+    var groupInfo: GroupInfo?
     
     var body: some View {
         VStack(spacing: 0) {
@@ -31,7 +32,8 @@ struct GroupDateSortedRow: View {
         }
         .background(
             NavigationLink(destination: GroupDateSortedPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
-                                                                                        dateItem: item))) {}
+                                                                                        dateItem: item,
+                                                                                        groupInfo: groupInfo))) {}
                 .opacity(0)
         )
         .background(Color.sheep1)

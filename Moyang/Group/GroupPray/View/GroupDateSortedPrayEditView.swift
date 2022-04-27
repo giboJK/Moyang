@@ -16,10 +16,10 @@ struct GroupDateSortedPrayEditView: View {
         VStack(spacing: 0) {
             ScrollView(.vertical, showsIndicators: true) {
                 VStack(spacing: 16) {
-                    ForEach(0 ..< vm.dateItem!.prayItemList.count, id: \.self) { i in
+                    ForEach(0 ..< vm.dateItem.count, id: \.self) { i in
                         SortedPrayEditRow(focus: _focus,
-                                          title: $vm.dateItem.prayItemList[i].member,
-                                          pray: $vm.dateItem.prayItemList[i].pray)
+                                          title: $vm.dateItem[i].member,
+                                          pray: $vm.dateItem[i].pray)
                     }
                 }
             }
@@ -39,7 +39,7 @@ struct GroupDateSortedPrayEditView: View {
         }
         .frame(maxWidth: .infinity)
         .background(Color.sheep1)
-        .navigationBarTitle(vm.dateItem.date)
+        .navigationBarTitle(vm.date)
         .fullScreenCover(isPresented: $isPraying, content: {
             GroupPrayingView(vm: GroupPrayingVM(title: vm.prayTitle, pray: vm.prayContents))
         })

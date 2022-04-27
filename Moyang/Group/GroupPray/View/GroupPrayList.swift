@@ -63,7 +63,7 @@ struct GroupPrayList: View {
                 if vm.showSortingByMember {
                     List {
                         ForEach(vm.nameItemList) { item in
-                            GroupNameSortedRow(item: item)
+                            GroupNameSortedRow(item: item, groupInfo: vm.groupInfo)
                                 .frame(maxHeight: 160)
                                 .listRowSeparator(.hidden)
                         }
@@ -74,7 +74,7 @@ struct GroupPrayList: View {
                 } else {
                     List {
                         ForEach(vm.dateItemList, id: \.date) { item in
-                            GroupDateSortedRow(item: item)
+                            GroupDateSortedRow(item: item, groupInfo: vm.groupInfo)
                                 .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)

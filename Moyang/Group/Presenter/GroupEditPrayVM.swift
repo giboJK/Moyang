@@ -11,33 +11,31 @@ import Combine
 class GroupEditPrayVM: ObservableObject {
     private let groupRepo: GroupRepo
     var cancellables = Set<AnyCancellable>()
+    var groupInfo: GroupInfo?
     
-    @Published var nameItem: GroupPrayListVM.NameSortedItem!
-    @Published var dateItem: GroupPrayListVM.DateSortedItem!
+    @Published var nameItem = [(id: String, date: String, pray: String)]()
+    @Published var dateItem = [(member: String, pray: String, isShowing: Bool)]()
     @Published var isEditSuccess = false
     
     @Published var prayTitle = ""
     @Published var prayContents = ""
+    @Published var date = ""
+    @Published var name = ""
     
     var maxDisplayedMembers = 5
     
     init(groupRepo: GroupRepo,
          nameItem: GroupPrayListVM.NameSortedItem? = nil,
-         dateItem: GroupPrayListVM.DateSortedItem? = nil) {
+         dateItem: GroupPrayListVM.DateSortedItem? = nil,
+         groupInfo: GroupInfo?) {
         self.groupRepo = groupRepo
+        self.groupInfo = groupInfo
         if let nameItem = nameItem {
-            self.nameItem = nameItem
-            prayTitle = nameItem.name + " 기도"
-            nameItem.prayItemList.forEach { (dateString: String, pray: String) in
-                if let date = dateString.toDate("yyyy-MM-dd HH:mm:ss") {
-                    let fixedDateString = date.toString("yyyy-MM-dd")
-                    prayContents += fixedDateString + "\n"
-                    prayContents += pray
-                    prayContents += "\n\n"
-                }
-            }
+            name = nameItem.member.name
+            prayTitle = nameItem.member.name + " 기도"
+            loadMemberPray(member: nameItem.member)
         } else if let dateItem = dateItem {
-            self.dateItem = dateItem
+            date = dateItem.date
             prayTitle = dateItem.date + " 기도"
             
             dateItem.prayItemList.forEach { (member: String, pray: String, _ isShowing: Bool) in
@@ -53,14 +51,31 @@ class GroupEditPrayVM: ObservableObject {
         cancellables.removeAll()
     }
     
-    private func loadMemberPray() {
-        
+    private func loadMemberPray(member: Member) {
+        guard let groupInfo = groupInfo else {
+            return
+        }
+
+        groupRepo.fetchIndividualPrayList(member: member,
+                                          groupID: groupInfo.id,
+                                          limit: 20)
+            .sink(receiveCompletion: { completion in
+                Log.i(completion)
+            }, receiveValue: { list in
+                Log.w(list)
+                list.forEach { item in
+                    self.nameItem.append((id: UUID().uuidString,
+                                          date: item.date,
+                                          pray: item.pray))
+                }
+            })
+            .store(in: &cancellables)
     }
     
     func editPray() {
-        if nameItem != nil {
+        if !nameItem.isEmpty {
             editNameItemPray()
-        } else if dateItem != nil {
+        } else if !dateItem.isEmpty {
             editDateItemPray()
         }
     }
@@ -83,23 +98,14 @@ class GroupEditPrayVMMock: GroupEditPrayVM {
     }
     
     init() {
-        super.init(groupRepo: GroupRepoMock(), nameItem: nil, dateItem: nil)
+        super.init(groupRepo: GroupRepoMock(), nameItem: nil, dateItem: nil, groupInfo: nil)
         prayTitle = "ghdhghhg"
         prayContents = "asdasdsd asdlkmasld msadk saldkm salk"
         randomData()
     }
     
     func randomData() {
-        let memberA = Member(id: UUID().uuidString,
-                             name: "asd",
-                             email: "test@test.com",
-                             profileURL: "",
-                             auth: "EMAIL")
-        self.nameItem = GroupPrayListVM.NameSortedItem(member: memberA,
-                                                       dateList: [Date().toString("yyyy-MM-dd")],
-                                                       prayList: ["rlrlrl eheheh"])
-        self.dateItem = GroupPrayListVM.DateSortedItem(date: Date().toString("yyyy-MM-dd"),
-                                                       prayItemList: [GroupMemberPray(member: memberA,
-                                                                                      pray: "ass asldksad ksalmd")])
+        self.nameItem = []
+        self.dateItem = []
     }
 }

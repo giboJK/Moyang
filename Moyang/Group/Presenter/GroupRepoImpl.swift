@@ -153,7 +153,7 @@ class GroupRepoImpl: GroupRepo {
             .collection("PRAY")
             .whereField("group_id", in: [groupID])
             .order(by: "date", descending: true)
-            .limit(to: 1)
+            .limit(to: limit)
             
         return service.fetchDocumentsWithQuery(query: query, type: GroupIndividualPray.self)
     }

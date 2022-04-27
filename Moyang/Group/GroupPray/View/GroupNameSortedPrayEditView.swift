@@ -16,10 +16,10 @@ struct GroupNameSortedPrayEditView: View {
         VStack(spacing: 0) {
             ScrollView(.vertical, showsIndicators: true) {
                 VStack(spacing: 16) {
-                    ForEach(0 ..< vm.nameItem!.prayItemList.count, id: \.self) { i in
+                    ForEach(0 ..< vm.nameItem.count, id: \.self) { i in
                         SortedPrayEditRow(focus: _focus,
-                                          title: $vm.nameItem.prayItemList[i].date,
-                                          pray: $vm.nameItem.prayItemList[i].pray)
+                                          title: $vm.nameItem[i].date,
+                                          pray: $vm.nameItem[i].pray)
                     }
                 }
             }
@@ -39,7 +39,7 @@ struct GroupNameSortedPrayEditView: View {
         }
         .frame(maxWidth: .infinity)
         .background(Color.sheep1)
-        .navigationBarTitle(vm.nameItem.name)
+        .navigationBarTitle(vm.name)
         .fullScreenCover(isPresented: $isPraying, content: {
             GroupPrayingView(vm: GroupPrayingVM(title: vm.prayTitle, pray: vm.prayContents))
         })
