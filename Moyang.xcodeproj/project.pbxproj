@@ -170,6 +170,7 @@
 		24D1F53627BD45FD0026D65D /* SermonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1F53527BD45FD0026D65D /* SermonListView.swift */; };
 		24D7BB31274D179200CC8B7C /* GroupPrayListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB30274D179200CC8B7C /* GroupPrayListVM.swift */; };
 		24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */; };
+		24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */; };
 		24DABE7227E8610C0008D132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24DABE7127E8610C0008D132 /* GoogleService-Info.plist */; };
 		24DABE7327E89E680008D132 /* praysong.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 24FAEF0D27E2153800B2DA81 /* praysong.m4a */; };
 		24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB53BA27479DAA00F861EC /* UINavigationController+.swift */; };
@@ -359,6 +360,7 @@
 		24D1F53527BD45FD0026D65D /* SermonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonListView.swift; sourceTree = "<group>"; };
 		24D7BB30274D179200CC8B7C /* GroupPrayListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayListVM.swift; sourceTree = "<group>"; };
 		24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberPray.swift; sourceTree = "<group>"; };
+		24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCenter.swift; sourceTree = "<group>"; };
 		24DABE7127E8610C0008D132 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24DB53BA27479DAA00F861EC /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		24E60723278EF19E00D5A7F2 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
@@ -1029,6 +1031,7 @@
 			isa = PBXGroup;
 			children = (
 				24D0D32C272314F7006FF67B /* Log.swift */,
+				24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1375,6 +1378,7 @@
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
 				08A02A5D27AE17370043EEF0 /* CommunityGroupCardVM.swift in Sources */,
 				24B652AF279589BA007CC58C /* IntroVM.swift in Sources */,
+				24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */,
 				08B142D727AFAFCC000952FF /* Sermon.swift in Sources */,
 				2426743727FC766F00056235 /* CommunityList.swift in Sources */,
 				08D82955278D196F001E6B61 /* FSLoginService.swift in Sources */,

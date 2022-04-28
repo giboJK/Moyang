@@ -157,4 +157,20 @@ extension Date {
     func minutesAgo(_ numMinutes: Double) -> Date {
         return addMinutes(-numMinutes)
     }
+    
+    /// Initialize a new date with given components.
+    init(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int = 0, nanosecond: Int = 0) {
+        var components = DateComponents()
+        components.year = year
+        components.month = month
+        components.day = day
+        components.hour = hour
+        components.minute = minute
+        components.second = second
+        components.nanosecond = nanosecond
+        components.timeZone = .current
+        components.calendar = .current
+        let calendar = Calendar(identifier: .gregorian)
+        self = calendar.date(from: components)!
+    }
 }
