@@ -9,9 +9,11 @@ import SwiftUI
 import Combine
 
 class GroupEditPrayVM: ObservableObject {
-    private let groupRepo: GroupRepo
+    let groupRepo: GroupRepo
     var cancellables = Set<AnyCancellable>()
     var groupInfo: GroupInfo?
+    var memberID: String = ""
+    var dateList: [String] = []
     
     @Published var nameItem = [(id: String, date: String, pray: String)]()
     @Published var dateItem = [(member: String, pray: String, isShowing: Bool)]()
@@ -31,6 +33,7 @@ class GroupEditPrayVM: ObservableObject {
         self.groupRepo = groupRepo
         self.groupInfo = groupInfo
         if let nameItem = nameItem {
+            memberID = nameItem.member.id
             name = nameItem.member.name
             prayTitle = nameItem.member.name + " 기도"
             loadMemberPray(member: nameItem.member)

@@ -41,7 +41,12 @@ struct GroupDateSortedPrayEditView: View {
         .background(Color.sheep1)
         .navigationBarTitle(vm.date)
         .fullScreenCover(isPresented: $isPraying, content: {
-            GroupPrayingView(vm: GroupPrayingVM(title: vm.prayTitle, pray: vm.prayContents))
+            GroupPrayingView(vm: GroupPrayingVM(groupRepo: vm.groupRepo,
+                                                groupInfo: vm.groupInfo!,
+                                                title: vm.prayTitle,
+                                                pray: vm.prayContents,
+                                                dateID: vm.date,
+                                                dateList: vm.dateList))
         })
         .toolbar {
             Button("수정") {

@@ -52,9 +52,9 @@ struct IntroView: View {
                     .padding(.bottom, 20)
                 }
                 
-                IndicatorView()
+                IndicatorView(tintColor: .ydGreen1, scale: 1.2)
                     .hidden(!vm.isLoadingUserData)
-                    .frame(width: 40, height: 40, alignment: .center)
+                    .frame(alignment: .center)
             }
             .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
                 if UserData.shared.isPastor ?? false {
