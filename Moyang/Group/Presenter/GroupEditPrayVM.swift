@@ -37,8 +37,8 @@ class GroupEditPrayVM: ObservableObject {
         } else if let dateItem = dateItem {
             date = dateItem.date
             prayTitle = dateItem.date + " 기도"
-            
             dateItem.prayItemList.forEach { (member: String, pray: String, _ isShowing: Bool) in
+                self.dateItem.append((member: member, pray: pray, isShowing: isShowing))
                 prayContents += member + "\n"
                 prayContents += pray
                 prayContents += "\n\n"
@@ -106,10 +106,6 @@ class GroupEditPrayVMMock: GroupEditPrayVM {
         super.init(groupRepo: GroupRepoMock(), nameItem: nil, dateItem: nil, groupInfo: nil)
         prayTitle = "ghdhghhg"
         prayContents = "asdasdsd asdlkmasld msadk saldkm salk"
-        randomData()
-    }
-    
-    func randomData() {
         self.nameItem = []
         self.dateItem = []
     }
