@@ -153,5 +153,16 @@ extension GroupPrayListVM {
             }
             self.prayItemList = newPrayItemList
         }
+        
+        func makeContents() -> (id: String, title: String, pray: String) {
+            let title = "\(date) 기도"
+            var prayContents = ""
+            prayItemList.forEach { (member: String, pray: String, _ isShowing: Bool) in
+                prayContents += member + "\n"
+                prayContents += pray
+                prayContents += "\n\n"
+            }
+            return (date, title, prayContents)
+        }
     }
 }

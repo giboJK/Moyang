@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupDateSortedRow: View {
     var item: GroupPrayListVM.DateSortedItem
+    var itemList: [GroupPrayListVM.DateSortedItem]
     var groupInfo: GroupInfo?
     
     var body: some View {
@@ -33,6 +34,7 @@ struct GroupDateSortedRow: View {
         .background(
             NavigationLink(destination: GroupDateSortedPrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FSServiceImpl()),
                                                                                         dateItem: item,
+                                                                                        dateItemList: itemList,
                                                                                         groupInfo: groupInfo))) {}
                 .opacity(0)
         )
@@ -49,6 +51,7 @@ struct GroupDateSortedRow_Previews: PreviewProvider {
                                                                                                               email: "test@test.com",
                                                                                                               profileURL: "",
                                                                                                               auth: "GOOGLE"),
-                                                                                               pray: "기도 제목오오옥")]))
+                                                                                               pray: "기도 제목오오옥")]),
+                           itemList: [])
     }
 }

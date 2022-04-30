@@ -13,7 +13,7 @@ class GroupEditPrayVM: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     var groupInfo: GroupInfo?
     var memberID: String = ""
-    var dateList: [String] = []
+    var dateItemList: [GroupPrayListVM.DateSortedItem] = []
     
     @Published var nameItem = [(id: String, date: String, pray: String)]()
     @Published var dateItem = [(member: String, pray: String, isShowing: Bool)]()
@@ -24,11 +24,10 @@ class GroupEditPrayVM: ObservableObject {
     @Published var date = ""
     @Published var name = ""
     
-    var maxDisplayedMembers = 5
-    
     init(groupRepo: GroupRepo,
          nameItem: GroupPrayListVM.NameSortedItem? = nil,
          dateItem: GroupPrayListVM.DateSortedItem? = nil,
+         dateItemList: [GroupPrayListVM.DateSortedItem] = [],
          groupInfo: GroupInfo?) {
         self.groupRepo = groupRepo
         self.groupInfo = groupInfo
@@ -38,6 +37,7 @@ class GroupEditPrayVM: ObservableObject {
             prayTitle = nameItem.member.name + " 기도"
             loadMemberPray(member: nameItem.member)
         } else if let dateItem = dateItem {
+            self.dateItemList = dateItemList
             date = dateItem.date
             prayTitle = dateItem.date + " 기도"
             dateItem.prayItemList.forEach { (member: String, pray: String, _ isShowing: Bool) in

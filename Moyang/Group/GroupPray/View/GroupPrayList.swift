@@ -74,7 +74,9 @@ struct GroupPrayList: View {
                 } else {
                     List {
                         ForEach(vm.dateItemList, id: \.date) { item in
-                            GroupDateSortedRow(item: item, groupInfo: vm.groupInfo)
+                            GroupDateSortedRow(item: item,
+                                               itemList: vm.dateItemList,
+                                               groupInfo: vm.groupInfo)
                                 .listRowSeparator(.hidden)
                         }
                         .listRowBackground(Color.clear)

@@ -46,7 +46,7 @@ struct GroupDateSortedPrayEditView: View {
                                                 title: vm.prayTitle,
                                                 pray: vm.prayContents,
                                                 dateID: vm.date,
-                                                dateList: vm.dateList))
+                                                dateItemList: vm.dateItemList))
         })
         .toolbar {
             Button("수정") {

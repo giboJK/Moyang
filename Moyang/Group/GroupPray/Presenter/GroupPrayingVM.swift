@@ -19,7 +19,7 @@ class GroupPrayingVM: ObservableObject {
     
     var contentList = [(id: String, title: String, pray:String)]()
     var memberList: [Member]?
-    var dateList: [String]?
+    var dateItemList: [GroupPrayListVM.DateSortedItem]?
     var prayIndex = 0
     
     @Published var title: String = ""
@@ -55,12 +55,16 @@ class GroupPrayingVM: ObservableObject {
         startSong()
     }
     
-    init(groupRepo: GroupRepo, groupInfo: GroupInfo, title: String, pray: String, dateID: String, dateList: [String] ) {
+    init(groupRepo: GroupRepo,
+         groupInfo: GroupInfo,
+         title: String,
+         pray: String,
+         dateID: String,
+         dateItemList: [GroupPrayListVM.DateSortedItem] ) {
         self.groupRepo = groupRepo
         self.groupInfo = groupInfo
-        self.title = title
-        self.pray = pray
-        self.dateList = dateList
+        self.dateItemList = dateItemList
+        initPrayIndex(date: dateID, dateItemList: dateItemList)
         contentList.append((id: dateID, title: title, pray: pray))
         startSong()
     }
@@ -100,6 +104,21 @@ class GroupPrayingVM: ObservableObject {
         Log.d("\(prayIndex) \(isNextPrayEnable) \(isPrevPrayEnable)")
     }
     
+    func initPrayIndex(date: String, dateItemList: [GroupPrayListVM.DateSortedItem]) {
+        prayIndex = dateItemList.firstIndex(where: { $0.date == date }) ?? 0
+        isNextPrayEnable = (prayIndex != max(0, dateItemList.count - 1))
+        isPrevPrayEnable = (prayIndex != 0)
+        
+        dateItemList.forEach { item in
+            contentList.append(item.makeContents())
+        }
+        
+        self.title = contentList[prayIndex].title
+        self.pray = contentList[prayIndex].pray
+        
+        Log.d("\(prayIndex) \(isNextPrayEnable) \(isPrevPrayEnable)")
+    }
+    
     func nextPray() {
         if memberList != nil {
             nextMemberPray()
@@ -122,7 +141,16 @@ class GroupPrayingVM: ObservableObject {
     }
     
     private func nextDatePray() {
+        guard let dateList = dateItemList else {
+            Log.e("dateList is empty")
+            return
+        }
+        prayIndex = min(prayIndex + 1, max(0, dateList.count - 1))
         
+        isNextPrayEnable = (prayIndex != max(0, dateList.count - 1))
+        isPrevPrayEnable = (prayIndex != 0)
+        
+        fetchPray()
     }
     
     func prevPray() {
@@ -147,7 +175,16 @@ class GroupPrayingVM: ObservableObject {
     }
     
     private func prevDatePray() {
+        guard let dateList = dateItemList else {
+            Log.e("dateList is empty")
+            return
+        }
+        prayIndex = max(0, prayIndex - 1)
         
+        isNextPrayEnable = (prayIndex != max(0, dateList.count - 1))
+        isPrevPrayEnable = (prayIndex != 0)
+        
+        fetchPray()
     }
     
     private func fetchPray() {
@@ -199,7 +236,21 @@ class GroupPrayingVM: ObservableObject {
     }
     
     private func fetchDatePray() {
-        
+        guard let dateItemList = dateItemList else {
+            Log.e("dateItemList is empty")
+            return
+        }
+        isLoading = true
+        if let index = contentList.firstIndex(where: { (id: String, _, _) in
+            return id == dateItemList[prayIndex].date
+        }) {
+            isLoading = false
+            title = contentList[index].title
+            pray = contentList[index].pray
+        } else {
+            isLoading = false
+            // TODO: Fetching more date item
+        }
     }
     
     func nextSong() {
