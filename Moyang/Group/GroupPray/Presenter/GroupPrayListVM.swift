@@ -45,7 +45,20 @@ class GroupPrayListVM: ObservableObject, Identifiable {
         groupInfo.memberList.forEach { member in
             groupRepo.fetchIndividualPrayList(member: member, groupID: groupInfo.id, limit: 1)
                 .sink(receiveCompletion: { completion in
-                    Log.i(completion)
+                    switch completion {
+                    case .failure(let moyangError):
+                        let error = moyangError as MoyangError
+                        switch error {
+                        case .noData:
+                            self.nameItemList.append(NameSortedItem(member: member,
+                                                                    dateList: [Date().toString("yyyy-MM-dd")],
+                                                                    prayList: ["기도제목을 추가해보세요 😊"]))
+                        default:
+                            break
+                        }
+                    case .finished:
+                        Log.i(completion)
+                    }
                 }, receiveValue: { list in
                     Log.w(list)
                     if let item = list.first {
