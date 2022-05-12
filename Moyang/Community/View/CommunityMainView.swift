@@ -11,17 +11,15 @@ struct CommunityMainView: View {
     @StateObject var vm = CommunityMainVM()
     
     var body: some View {
-        Log.d(Self._printChanges())
         return ZStack {
             Color.sheep1.ignoresSafeArea()
             VStack(spacing: 0) {
                 SermonCardView()
                 CommunityCardList(vm: vm.communityCardListVM)
                     .padding(.top, 28)
-                
             }
-            .background(Color.sheep2)
         }
+        .navigationBarHidden(true)
     }
 }
 

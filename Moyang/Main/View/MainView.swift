@@ -18,8 +18,8 @@ struct MainView: View {
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Image(systemName: "note.text")
-                Text("일용할 양식")
+                Image(uiImage: Asset.Images.Tabbar.cross.image)
+                Text("공동체")
             }
             
             NavigationView {

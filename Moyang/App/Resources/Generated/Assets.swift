@@ -49,6 +49,9 @@ public enum Asset {
     public enum Profile {
       public static let logout = ImageAsset(name: "logout")
     }
+    public enum Tabbar {
+      public static let cross = ImageAsset(name: "cross")
+    }
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

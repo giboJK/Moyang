@@ -30,9 +30,6 @@ struct CommunityCardList: View {
         }.onLoad {
             vm.fetchCommunityData()
         }
-        .onAppear {
-         
-        }
         .background(Color.sheep2)
     }
 }
