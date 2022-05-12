@@ -113,14 +113,21 @@ class ReminderCenter {
         let minString = timeComponents[1]
         if ampm == "PM" {
             if var hourInt = Int(timeComponents[0]) {
-                hourInt += 12
+                if hourInt != 12 {
+                    hourInt += 12
+                }
                 hourString = "\(hourInt)"
             } else {
                 Log.e("Time Error")
                 return
             }
         } else {
-            hourString = timeComponents[0]
+            if var hourInt = Int(timeComponents[0]) {
+                if hourInt == 12 {
+                    hourInt = 00
+                }
+                hourString = "\(hourInt)"
+            }
         }
         fixedTime = hourString + ":" + minString
         setNotification(type: type, time: fixedTime)
