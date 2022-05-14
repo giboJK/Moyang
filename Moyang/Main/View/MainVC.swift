@@ -16,7 +16,6 @@ class MainVC: UITabBarController, VCType {
     // MARK: - Properties
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
-    var coordinator: MainVCDelegate?
 
     // MARK: - UI
     let communityMainVC = CommunityMainVC()
@@ -54,8 +53,4 @@ class MainVC: UITabBarController, VCType {
 //        guard let vm = vm else { Log.e("vm is nil"); return }
 //        let input = VM.Input()
     }
-}
-
-protocol MainVCDelegate: AnyObject {
-
 }
