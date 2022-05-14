@@ -10,6 +10,8 @@ disabled_rules:
 - vertical_whitespace
 - comma
 - multiple_closures_with_trailing_closure
+- comment_spacing
+- orphaned_doc_comment
 
 force_cast: warning
 
@@ -18,11 +20,11 @@ large_tuple:
     error: 5
     
 line_length:
-    warning: 150
+    warning: 160
     error: 200
 
 file_length:
-    warning: 550
+    warning: 600
     error: 700
 
 type_name:

@@ -10,30 +10,29 @@ import SwiftUI
 struct MainView: View {
     @Binding var rootIsActive: Bool
     
-    @Environment(\.horizontalSizeClass) var sizeClass
-    
     var body: some View {
         NavigationView {
-            TabView {
-                CommunityMainView()
-                    .navigationBarHidden(true)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .tabItem {
-                        Image(uiImage: Asset.Images.Tabbar.cross.image)
-                        Text("공동체")
-                    }
-                
-                ProfileView(vm: ProfileVM(loginService: FSLoginService(service: FSServiceImpl())),
-                            rootIsActive: $rootIsActive)
+//            TabView(selection: $currentTab) {
+//                CommunityMainView()
+//                    .navigationBarHidden(true)
+//                    .tabItem {
+//                        Image(uiImage: Asset.Images.Tabbar.cross.image)
+//                        Text("공동체")
+//                    }
+//
+//                ProfileView(vm: ProfileVM(loginService: FSLoginService(service: FSServiceImpl())),
+//                            rootIsActive: $rootIsActive)
+//                .navigationBarHidden(true)
+//                .tabItem {
+//                    Image(systemName: "person.crop.circle.fill")
+//                    Text("Profile")
+//                }
+//            }
+            MainViewRepresentable()
                 .navigationBarHidden(true)
-                .navigationBarTitleDisplayMode(.inline)
-                .tabItem {
-                    Image(systemName: "person.crop.circle.fill")
-                    Text("Profile")
-                }
-            }
-            .accentColor(.ydGreen1)
+                .accentColor(.ydGreen1)
         }
+        .navigationViewStyle(.columns)
     }
 }
 
@@ -42,4 +41,16 @@ struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView(rootIsActive: $value)
     }
+}
+
+struct MainViewRepresentable: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> MainVC {
+        let vc = MainVC()
+        return vc
+    }
+    
+    func updateUIViewController(_ uiViewController: MainVC, context: Context) {
+    }
+    
+    typealias UIViewControllerType = MainVC
 }

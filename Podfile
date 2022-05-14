@@ -18,6 +18,12 @@ def di
   pod 'SwinjectAutoregistration', :inhibit_warnings => true
 end
 
+def rx
+  pod 'RxSwift'
+  pod 'RxCocoa', :inhibit_warnings => true
+  pod 'RxGesture'
+end
+
 def network
   pod 'Alamofire'
   pod 'GoogleSignIn', :inhibit_warnings => true
@@ -33,6 +39,9 @@ end
 def ui
   pod 'AlertToast'
   pod 'lottie-ios'
+  
+  pod 'SnapKit', :inhibit_warnings => true
+  pod 'Then'
 end
 
 target 'Moyang' do
@@ -45,6 +54,8 @@ target 'Moyang' do
   network
   
   di
+  
+  rx
   
   firebase
   
