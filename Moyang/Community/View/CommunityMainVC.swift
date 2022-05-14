@@ -8,17 +8,16 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import SwiftUI
 import SnapKit
-import Then
 
 class CommunityMainVC: UIViewController, VCType {
     typealias VM = DummyVM
     // MARK: - Properties
     var disposeBag: DisposeBag = DisposeBag()
-    var vm: VM?
-    var coordinator: CommunityMainVCDelegate?
-
+    
     // MARK: - UI
+    let contentView = UIHostingController(rootView: CommunityMainView())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,24 +28,31 @@ class CommunityMainVC: UIViewController, VCType {
 
     deinit { Log.i(self) }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     func setupUI() {
         title = "공동체"
+        addChild(contentView)
+        view.addSubview(contentView.view)
+        setupConstraints()
     }
-
-    // MARK: - Binding
+    
+    fileprivate func setupConstraints() {
+        contentView.view.translatesAutoresizingMaskIntoConstraints = false
+        contentView.view.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+    
     func bind() {
-        bindVM()
+        // Do nothing
     }
-
-    private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
-    }
-}
-
-protocol CommunityMainVCDelegate: AnyObject {
-
 }

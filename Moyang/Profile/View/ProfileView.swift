@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject var vm: ProfileVM
+    @StateObject var vm: ProfileVM = ProfileVM(loginService: FSLoginService(service: FSServiceImpl()))
 
-    @Binding var rootIsActive: Bool
-    
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
@@ -146,16 +144,6 @@ struct ProfileView: View {
         .padding(.top, 30)
         .frame(maxWidth: .infinity)
         .background(Color.sheep2)
-        .onReceive(vm.$logoutResult, perform: { result in
-            switch result {
-            case .success:
-                self.rootIsActive = false
-            case .failure(let error):
-                Log.e(error)
-            case .none:
-                break
-            }
-        })
         .onLoad(perform: {
             vm.loadUserData()
         })
@@ -163,10 +151,9 @@ struct ProfileView: View {
 }
 
 struct ProfileView_Previews: PreviewProvider {
-    @State static var value = true
     static var previews: some View {
         NavigationView {
-            ProfileView(vm: ProfileVM(loginService: FSLoginService(service: FSServiceMock())), rootIsActive: $value)
+            ProfileView()
         }
     }
 }

@@ -20,8 +20,7 @@ struct MainView: View {
 //                        Text("공동체")
 //                    }
 //
-//                ProfileView(vm: ProfileVM(loginService: FSLoginService(service: FSServiceImpl())),
-//                            rootIsActive: $rootIsActive)
+//                ProfileView(rootIsActive: $rootIsActive)
 //                .navigationBarHidden(true)
 //                .tabItem {
 //                    Image(systemName: "person.crop.circle.fill")

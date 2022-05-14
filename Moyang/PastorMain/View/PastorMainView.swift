@@ -24,8 +24,7 @@ struct PastorMainView: View {
             }
             
             NavigationView {
-                ProfileView(vm: ProfileVM(loginService: FSLoginService(service: FSServiceImpl())),
-                            rootIsActive: $rootIsActive)
+                ProfileView()
                     .navigationBarHidden(true)
                     .navigationBarTitleDisplayMode(.inline)
             }

@@ -30,10 +30,11 @@ class MainVC: UITabBarController, VCType {
 
     deinit { Log.i(self) }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-    
+
     func setupUI() {
         self.setViewControllers([communityMainVC, profileVC], animated: false)
         guard let items = tabBar.items else { return }
