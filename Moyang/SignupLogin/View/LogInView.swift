@@ -87,7 +87,7 @@ struct LogInView: View {
             }
         }
         .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: self.didDismiss, content: {
-            MainView(rootIsActive: $vm.isLoginSuccess)
+            MainView()
         })
         .navigationTitle("로그인")
         .frame(maxWidth: .infinity)

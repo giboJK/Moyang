@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IntroView: View {
-    @ObservedObject var vm: IntroVM
+    @StateObject var vm: IntroVM
     
     var body: some View {
         NavigationView {
@@ -56,11 +56,12 @@ struct IntroView: View {
                     .hidden(!vm.isLoadingUserData)
                     .frame(alignment: .center)
             }
+            .preferredColorScheme(.light)
             .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: nil, content: {
                 if UserData.shared.isPastor ?? false {
                     PastorMainView(rootIsActive: $vm.isLoginSuccess)
                 } else {
-                    MainView(rootIsActive: $vm.isLoginSuccess)
+                    MainView()
                 }
             })
             .frame(maxWidth: .infinity)

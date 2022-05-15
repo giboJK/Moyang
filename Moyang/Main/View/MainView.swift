@@ -8,37 +8,39 @@
 import SwiftUI
 
 struct MainView: View {
-    @Binding var rootIsActive: Bool
+    @Environment(\.dismiss) private var dismiss
+    @StateObject var vm = MainVM()
     
     var body: some View {
         NavigationView {
-//            TabView(selection: $currentTab) {
-//                CommunityMainView()
-//                    .navigationBarHidden(true)
-//                    .tabItem {
-//                        Image(uiImage: Asset.Images.Tabbar.cross.image)
-//                        Text("공동체")
-//                    }
-//
-//                ProfileView(rootIsActive: $rootIsActive)
-//                .navigationBarHidden(true)
-//                .tabItem {
-//                    Image(systemName: "person.crop.circle.fill")
-//                    Text("Profile")
-//                }
-//            }
-            MainViewRepresentable()
-                .navigationBarHidden(true)
-                .accentColor(.ydGreen1)
+            ZStack {
+                MainViewRepresentable()
+                    .navigationBarHidden(true)
+                    .accentColor(.ydGreen1)
+                    .edgesIgnoringSafeArea(.all)
+            }
+            .preferredColorScheme(.light)
         }
+        .onReceive(vm.$logoutResult, perform: { result in
+            switch result {
+            case .success(let isSuccess):
+                if isSuccess {
+                    Log.e("🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵 - User Logout - 🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵")
+                    dismiss()
+                } else {
+                    Log.e("🔴🔴🔴 Logout Error")
+                }
+            default:
+                Log.e("🔴🔴🔴 Logout Error")
+            }
+        })
         .navigationViewStyle(.columns)
     }
 }
 
 struct MainView_Previews: PreviewProvider {
-    @State static var value = true
     static var previews: some View {
-        MainView(rootIsActive: $value)
+        MainView()
     }
 }
 

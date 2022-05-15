@@ -58,7 +58,7 @@ struct ProfileSetView: View {
         .fullScreenCover(isPresented: $vm.isAddSuccess, onDismiss: {
             dismiss()
         }, content: {
-            MainView(rootIsActive: $vm.isAddSuccess)
+            MainView()
         })
         .navigationTitle("회원정보 입력")
         .frame(maxWidth: .infinity)

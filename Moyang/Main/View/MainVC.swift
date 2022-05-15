@@ -12,7 +12,7 @@ import SnapKit
 import Then
 
 class MainVC: UITabBarController, VCType {
-    typealias VM = MainVM
+    typealias VM = DummyVM
     // MARK: - Properties
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
@@ -47,11 +47,6 @@ class MainVC: UITabBarController, VCType {
 
     // MARK: - Binding
     func bind() {
-        bindVM()
-    }
-
-    private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        // Do nothing
     }
 }

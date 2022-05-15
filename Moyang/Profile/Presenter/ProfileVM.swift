@@ -65,6 +65,7 @@ class ProfileVM: ObservableObject {
             switch result {
             case .success(let isSuccess):
                 self?.logoutResult = .success(isSuccess)
+                NotificationCenter.default.post(name: NSNotification.Name("LOGOUT_SUCCESS"), object: nil, userInfo: nil)
             case .failure(let error):
                 Log.e(error)
                 self?.logoutResult = .failure(error)

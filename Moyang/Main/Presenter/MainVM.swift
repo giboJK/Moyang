@@ -2,31 +2,27 @@
 //  MainVM.swift
 //  Moyang
 //
-//  Created by 정김기보 on 2022/05/14.
+//  Created by 정김기보 on 2022/05/15.
 //
 
-import RxSwift
-import RxCocoa
+import SwiftUI
+import Combine
+import GoogleSignIn
+import Firebase
 
-class MainVM: VMType {
-    var disposeBag: DisposeBag = DisposeBag()
-
+class MainVM: ObservableObject {
+    private var cancellables = Set<AnyCancellable>()
+    
+    @Published var logoutResult: Result<Bool, Error>?
+    
     init() {
-    }
-
-    deinit { Log.i(self) }
-}
-
-extension MainVM {
-    struct Input {
+        NotificationCenter.default.addObserver(self, selector: #selector(logoutSuccess),
+                                               name: NSNotification.Name("LOGOUT_SUCCESS"), object: nil)
 
     }
-
-    struct Output {
-
-    }
-
-    func transform(input: Input) -> Output {
-        return Output()
+    
+    @objc func logoutSuccess() {
+        Log.e("")
+        logoutResult = .success(true)
     }
 }
