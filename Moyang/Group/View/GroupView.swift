@@ -29,6 +29,10 @@ struct GroupView: View {
         .toast(isPresenting: $vm.newPrayAddSuccess) {
             return AlertToast(type: .complete(.sheep3), title: "기도 추가 완료 😀")
         }
+        .toolbar {
+            Button("정보") {
+            }
+        }
     }
 }
 

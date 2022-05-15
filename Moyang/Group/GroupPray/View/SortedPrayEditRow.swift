@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct SortedPrayEditRow: View {
+    @ObservedObject var vm: GroupEditPrayVM
     @State private var showingPray = true
-    @FocusState var focus: Bool
-    @Binding var title: String
-    @Binding var pray: String
+    var title: String
+    var pray: String
+    @State private var showingSheet = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -35,15 +36,24 @@ struct SortedPrayEditRow: View {
                 .padding(.bottom, 4)
             
             if showingPray {
-                TextEditor(text: $pray)
-                    .padding(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4))
-                    .focused($focus)
+                Text(pray)
+                    .padding(EdgeInsets(top: 4, leading: 8, bottom: 8, trailing: 4))
                     .font(.system(size: 15, weight: .regular, design: .default))
-                    .frame(minHeight: 72, maxHeight: 288, alignment: .topLeading)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.sheep4, lineWidth: 0.5)
-                    )
+                    .frame(minHeight: 72, maxHeight: 300)
+                    .multilineTextAlignment(.leading)
+                    .foregroundColor(.nightSky1)
+                    .background(Color.sheep2)
+                    .cornerRadius(12)
+                    .onTapGesture {
+                        showingSheet.toggle()
+                    }
+                    .sheet(isPresented: $showingSheet) {
+                        NavigationView {
+                            PrayEditView(vm: vm)
+                        }
+                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationTitle(title)
+                    }
             }
         }
     }

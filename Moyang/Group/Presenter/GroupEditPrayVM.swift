@@ -15,8 +15,8 @@ class GroupEditPrayVM: ObservableObject {
     var memberID: String = ""
     var dateItemList: [GroupPrayListVM.DateSortedItem] = []
     
-    @Published var nameItem = [(id: String, date: String, pray: String)]()
-    @Published var dateItem = [(member: String, pray: String, isShowing: Bool)]()
+    @Published var nameItem = [NameItem]()
+    @Published var dateItem = [DateItem]()
     @Published var isEditSuccess = false
     
     @Published var prayTitle = ""
@@ -41,7 +41,7 @@ class GroupEditPrayVM: ObservableObject {
             date = dateItem.date
             prayTitle = dateItem.date + " 기도"
             dateItem.prayItemList.forEach { (member: String, pray: String, _ isShowing: Bool) in
-                self.dateItem.append((member: member, pray: pray, isShowing: isShowing))
+                self.dateItem.append(DateItem(member: member, pray: pray))
                 prayContents += member + "\n"
                 prayContents += pray
                 prayContents += "\n\n"
@@ -67,9 +67,8 @@ class GroupEditPrayVM: ObservableObject {
             }, receiveValue: { list in
                 Log.w(list)
                 list.forEach { item in
-                    self.nameItem.append((id: UUID().uuidString,
-                                          date: item.date,
-                                          pray: item.pray))
+                    self.nameItem.append(NameItem(date: item.date,
+                                                  pray: item.pray))
                     
                     self.prayContents.append(item.date)
                     self.prayContents.append("\n")
@@ -96,6 +95,34 @@ class GroupEditPrayVM: ObservableObject {
         
     }
 }
+
+
+extension GroupEditPrayVM {
+    struct NameItem: Identifiable {
+        let id: String
+        let date: String
+        let pray: String
+        
+        init(date: String, pray: String) {
+            id = UUID().uuidString
+            self.date = date
+            self.pray = pray
+        }
+    }
+    
+    struct DateItem: Identifiable {
+        let id: String
+        let member: String
+        let pray: String
+        
+        init(member: String, pray: String) {
+            id = UUID().uuidString
+            self.member = member
+            self.pray = pray
+        }
+    }
+}
+
 
 // MARK: - GroupEditPrayVMMock
 class GroupEditPrayVMMock: GroupEditPrayVM {

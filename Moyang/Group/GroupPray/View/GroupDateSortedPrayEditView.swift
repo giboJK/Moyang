@@ -9,21 +9,22 @@ import SwiftUI
 
 struct GroupDateSortedPrayEditView: View {
     @StateObject var vm: GroupEditPrayVM
-    @FocusState private var focus: Bool
     @State private var isPraying: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView(.vertical, showsIndicators: true) {
-                VStack(spacing: 16) {
-                    ForEach(0 ..< vm.dateItem.count, id: \.self) { i in
-                        SortedPrayEditRow(focus: _focus,
-                                          title: $vm.dateItem[i].member,
-                                          pray: $vm.dateItem[i].pray)
-                    }
+            List {
+                ForEach(vm.dateItem) { item in
+                    SortedPrayEditRow(vm: vm,
+                                      title: item.member,
+                                      pray: item.pray)
+                    .listRowSeparator(.hidden)
                 }
+                .onDelete(perform: delete)
+                .listRowBackground(Color.clear)
             }
-            .padding(EdgeInsets(top: 12, leading: 16, bottom: 4, trailing: 16))
+            .listStyle(.plain)
+            .padding(EdgeInsets(top: 12, leading: 0, bottom: 8, trailing: 0))
             .foregroundColor(.nightSky1)
             
             Spacer()
@@ -49,16 +50,15 @@ struct GroupDateSortedPrayEditView: View {
                                                 dateItemList: vm.dateItemList))
         })
         .toolbar {
-            Button("수정") {
+            Button("편집") {
                 vm.editPray()
             }
         }
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button("완료") { focus = false }
-            }
-        }
+    }
+    
+    func delete(at offsets: IndexSet) {
+        Log.e("")
+        //        users.remove(atOffsets: offsets)
     }
 }
 

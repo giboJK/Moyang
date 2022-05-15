@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct GroupNameSortedPrayEditView: View {
-    @StateObject var vm: GroupEditPrayVM
-    @FocusState private var focus: Bool
+    @ObservedObject var vm: GroupEditPrayVM
     @State private var isPraying: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView(.vertical, showsIndicators: true) {
-                VStack(spacing: 16) {
-                    ForEach(0 ..< vm.nameItem.count, id: \.self) { i in
-                        SortedPrayEditRow(focus: _focus,
-                                          title: $vm.nameItem[i].date,
-                                          pray: $vm.nameItem[i].pray)
-                    }
+            List {
+                ForEach(vm.nameItem) { item in
+                    SortedPrayEditRow(vm: vm,
+                                      title: item.date,
+                                      pray: item.pray)
+                    .listRowSeparator(.hidden)
                 }
+                .onDelete(perform: delete)
+                .listRowBackground(Color.clear)
             }
-            .padding(EdgeInsets(top: 12, leading: 16, bottom: 4, trailing: 16))
+            .listStyle(.plain)
+            .padding(EdgeInsets(top: 12, leading: 0, bottom: 8, trailing: 0))
             .foregroundColor(.nightSky1)
             
             Spacer()
@@ -48,17 +49,12 @@ struct GroupNameSortedPrayEditView: View {
                                                 memberID: vm.memberID,
                                                 memberList: vm.groupInfo?.memberList ?? []))
         })
-        .toolbar {
-            Button("수정") {
-                vm.editPray()
-            }
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button("완료") { focus = false }
-            }
-        }
+        .navigationBarItems(trailing: EditButton())
+    }
+    
+    func delete(at offsets: IndexSet) {
+        Log.e("")
+        //        users.remove(atOffsets: offsets)
     }
 }
 

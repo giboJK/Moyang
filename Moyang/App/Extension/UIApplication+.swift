@@ -17,9 +17,6 @@ extension UIApplication {
             .filter({ $0.isKeyWindow }).first?
         .windowScene?.statusBarManager?.statusBarFrame.height ?? 48 }
     
-    @nonobjc class var bottomInset: CGFloat { UIApplication.shared.windows.first?
-        .safeAreaInsets.bottom ?? 0 }
-    
     static var appVersion: String? {
         guard let dict = Bundle.main.infoDictionary else { return nil }
         guard let version = dict["CFBundleShortVersionString"] as? String else { return nil }
