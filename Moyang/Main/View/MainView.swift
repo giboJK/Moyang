@@ -13,14 +13,11 @@ struct MainView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                MainViewRepresentable()
-                    .navigationBarHidden(true)
-                    .accentColor(.ydGreen1)
-                    .edgesIgnoringSafeArea(.all)
-            }
-            .preferredColorScheme(.light)
+            MainViewRepresentable()
+                .navigationBarHidden(true)
+                .accentColor(.ydGreen1)
         }
+        .preferredColorScheme(.light)
         .onReceive(vm.$logoutResult, perform: { result in
             switch result {
             case .success(let isSuccess):
