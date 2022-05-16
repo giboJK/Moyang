@@ -39,10 +39,14 @@ class MainVC: UITabBarController, VCType {
         self.setViewControllers([communityMainVC, profileVC], animated: false)
         guard let items = tabBar.items else { return }
         let images = [Asset.Images.Tabbar.cross.image, UIImage(systemName: "person.crop.circle.fill")] as [UIImage?]
+        let titles = ["공동체", "내 정보"]
         for i in 0 ..< images.count {
             items[i].image = images[i]
+            items[i].title = titles[i]
         }
         tabBar.backgroundColor = .sheep1
+        Log.w(tabBar.frame.width)
+        Log.w(tabBar.frame.origin)
     }
 
     // MARK: - Binding
