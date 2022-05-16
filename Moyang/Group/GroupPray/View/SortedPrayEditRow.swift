@@ -40,7 +40,7 @@ struct SortedPrayEditRow: View {
                     .padding(EdgeInsets(top: 4, leading: 8, bottom: 8, trailing: 4))
                     .font(.system(size: 15, weight: .regular, design: .default))
                     .frame(minHeight: 72, maxHeight: 300)
-                    .frame(maxWidth: .infinity, alignment: .topLeading)    // << here 
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(.nightSky1)
                     .background(Color.sheep2)
@@ -51,12 +51,12 @@ struct SortedPrayEditRow: View {
                     .sheet(isPresented: $showingSheet) {
                         NavigationView {
                             PrayEditView(vm: vm, title: title, pray: pray)
+                                .navigationBarTitleDisplayMode(.inline)
+                                .navigationTitle(title)
                         }
-                        .navigationBarTitleDisplayMode(.inline)
-                        .navigationTitle(title)
                     }
             }
         }
-        .frame(maxWidth: .infinity)    // << here
+        .frame(maxWidth: .infinity)
     }
 }

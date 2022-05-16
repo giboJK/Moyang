@@ -11,18 +11,21 @@ struct PrayEditView: View {
     @Environment(\.dismiss) private var dismiss
     
     @StateObject var vm: GroupEditPrayVM
-    @FocusState var focus: Bool
     var title: String
     var pray: String
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 0) {
-                TextEditor(text: $vm.editingPray)
-                Spacer()
-            }
+            TextEditor(text: $vm.editingPray)
+                .font(.system(size: 15, weight: .regular, design: .default))
+                .frame(minHeight: 72, maxHeight: 440)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .foregroundColor(Color.nightSky1)
+                .background(Color.sheep1)
+            
             Spacer()
         }
+        .frame(maxWidth: .infinity)
         .background(Color.sheep2)
         .toolbar {
             ToolbarItem(placement: .navigation) {
@@ -32,12 +35,6 @@ struct PrayEditView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("저장") { }
-            }
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button("완료") { focus = false }
             }
         }
         .onAppear {
