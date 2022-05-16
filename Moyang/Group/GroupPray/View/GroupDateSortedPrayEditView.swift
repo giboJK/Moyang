@@ -49,11 +49,7 @@ struct GroupDateSortedPrayEditView: View {
                                                 dateID: vm.date,
                                                 dateItemList: vm.dateItemList))
         })
-        .toolbar {
-            Button("편집") {
-                vm.editPray()
-            }
-        }
+        .navigationBarItems(trailing: EditButton())
     }
     
     func delete(at offsets: IndexSet) {

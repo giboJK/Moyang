@@ -24,6 +24,8 @@ class GroupEditPrayVM: ObservableObject {
     @Published var date = ""
     @Published var name = ""
     
+    @Published var editingPray = ""
+    
     init(groupRepo: GroupRepo,
          nameItem: GroupPrayListVM.NameSortedItem? = nil,
          dateItem: GroupPrayListVM.DateSortedItem? = nil,
@@ -79,19 +81,18 @@ class GroupEditPrayVM: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func editPray() {
-        if !nameItem.isEmpty {
-            editNameItemPray()
-        } else if !dateItem.isEmpty {
-            editDateItemPray()
+    
+    func setNameEditingPray(title: String) {
+        if let item = nameItem.first(where: { $0.date == title }) {
+            editingPray = item.pray
         }
     }
     
-    private func editNameItemPray() {
+    func editNameItemPray(date: String, pray: String) {
         
     }
     
-    private func editDateItemPray() {
+    func editDateItemPray(date: String, name: String, pray: String) {
         
     }
 }

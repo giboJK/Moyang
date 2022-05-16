@@ -12,11 +12,13 @@ struct PrayEditView: View {
     
     @StateObject var vm: GroupEditPrayVM
     @FocusState var focus: Bool
+    var title: String
+    var pray: String
     
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+                TextEditor(text: $vm.editingPray)
                 Spacer()
             }
             Spacer()
@@ -38,12 +40,17 @@ struct PrayEditView: View {
                 Button("완료") { focus = false }
             }
         }
+        .onAppear {
+            vm.setNameEditingPray(title: title)
+        }
     }
 }
 
 struct PrayEditView_Previews: PreviewProvider {
     static var previews: some View {
         PrayEditView(vm: GroupEditPrayVM(groupRepo: GroupRepoImpl(service: FSServiceMock()),
-                                         groupInfo: nil))
+                                         groupInfo: nil),
+                     title: "",
+                     pray: "")
     }
 }
