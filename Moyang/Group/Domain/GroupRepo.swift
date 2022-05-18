@@ -25,6 +25,7 @@ protocol GroupRepo {
                          value: [String: Any],
                          groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError>
     
+    func updateIndividualPray(_ data: GroupIndividualPray, myInfo: MemberDetail) -> AnyPublisher<Bool, MoyangError>
     
     func addNewGroup(groupInfo: GroupInfo) -> AnyPublisher<Bool, MoyangError>
     

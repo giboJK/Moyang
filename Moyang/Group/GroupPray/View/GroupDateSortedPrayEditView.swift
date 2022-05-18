@@ -16,6 +16,7 @@ struct GroupDateSortedPrayEditView: View {
             List {
                 ForEach(vm.dateItem) { item in
                     SortedPrayEditRow(vm: vm,
+                                      prayId: item.id,
                                       title: item.member,
                                       pray: item.pray)
                     .listRowSeparator(.hidden)

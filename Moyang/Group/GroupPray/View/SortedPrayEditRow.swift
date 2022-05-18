@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct SortedPrayEditRow: View {
     @ObservedObject var vm: GroupEditPrayVM
     @State private var showingPray = true
+    var prayId: String
     var title: String
     var pray: String
     @State private var showingSheet = false
+    @State private var showingError = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -46,11 +49,18 @@ struct SortedPrayEditRow: View {
                     .background(Color.sheep2)
                     .cornerRadius(12)
                     .onTapGesture {
-                        showingSheet.toggle()
+                        if vm.memberID.elementsEqual(UserData.shared.myInfo?.id ?? "") {
+                            showingSheet.toggle()
+                        } else {
+                            showingError.toggle()
+                        }
+                    }
+                    .toast(isPresenting: $showingError) {
+                        return AlertToast(type: .error(.appleRed1), title: "다른 사람의 기도는 수정할 수 없어요😢")
                     }
                     .sheet(isPresented: $showingSheet) {
                         NavigationView {
-                            PrayEditView(vm: vm, title: title, pray: pray)
+                            PrayEditView(vm: vm, prayId: prayId, title: title)
                                 .navigationBarTitleDisplayMode(.inline)
                                 .navigationTitle(title)
                         }

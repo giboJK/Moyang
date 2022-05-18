@@ -45,7 +45,8 @@ class NewMyPrayVM: ObservableObject {
         guard let myInfo = UserData.shared.myInfo else { return }
         guard let groupInfo = groupInfo else { return }
         
-        let item = GroupIndividualPray(groupID: groupInfo.id,
+        let item = GroupIndividualPray(id: UUID().uuidString,
+                                       groupID: groupInfo.id,
                                        date: date.toString("yyyy-MM-dd hh:mm:ss"),
                                        pray: pray)
         

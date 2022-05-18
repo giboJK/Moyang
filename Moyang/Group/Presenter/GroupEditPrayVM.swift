@@ -60,36 +60,44 @@ class GroupEditPrayVM: ObservableObject {
         guard let groupInfo = groupInfo else {
             return
         }
-
+        
         groupRepo.fetchIndividualPrayList(member: member,
                                           groupID: groupInfo.id,
                                           limit: 20)
-            .sink(receiveCompletion: { completion in
-                Log.i(completion)
-            }, receiveValue: { list in
-                Log.w(list)
-                list.forEach { item in
-                    self.nameItem.append(NameItem(date: item.date,
-                                                  pray: item.pray))
-                    
-                    self.prayContents.append(item.date)
-                    self.prayContents.append("\n")
-                    self.prayContents.append(item.pray)
-                    self.prayContents.append("\n\n\n")
-                }
-            })
-            .store(in: &cancellables)
+        .sink(receiveCompletion: { completion in
+            Log.i(completion)
+        }, receiveValue: { list in
+            Log.w(list)
+            list.forEach { item in
+                self.nameItem.append(NameItem(id: item.id,
+                                              groupId: item.groupID,
+                                              date: item.date,
+                                              pray: item.pray))
+                
+                self.prayContents.append(item.date)
+                self.prayContents.append("\n")
+                self.prayContents.append(item.pray)
+                self.prayContents.append("\n\n\n")
+            }
+        })
+        .store(in: &cancellables)
     }
     
     
-    func setNameEditingPray(title: String) {
-        if let item = nameItem.first(where: { $0.date == title }) {
+    func setNameEditingPray(id: String) {
+        if let item = nameItem.first(where: { $0.id == id }) {
             editingPray = item.pray
         }
     }
     
-    func editNameItemPray(date: String, pray: String) {
-        
+    func editNameItemPray(id: String) {
+        if let item = nameItem.first(where: { $0.id == id }) {
+            let newItem = GroupIndividualPray(id: item.id,
+                                              groupID: item.groupId,
+                                              date: item.date,
+                                              pray: editingPray)
+            groupRepo.updateIndividualPray(newItem, myInfo: UserData.shared.myInfo!)
+        }
     }
     
     func editDateItemPray(date: String, name: String, pray: String) {
@@ -101,11 +109,13 @@ class GroupEditPrayVM: ObservableObject {
 extension GroupEditPrayVM {
     struct NameItem: Identifiable {
         let id: String
+        let groupId: String
         let date: String
         let pray: String
         
-        init(date: String, pray: String) {
-            id = UUID().uuidString
+        init(id: String, groupId: String, date: String, pray: String) {
+            self.id = id
+            self.groupId = groupId
             self.date = date
             self.pray = pray
         }

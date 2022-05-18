@@ -91,6 +91,18 @@ class GroupRepoImpl: GroupRepo {
         return service.addListener(ref: ref, type: GroupMemberPrayList.self)
     }
     
+    func updateIndividualPray(_ data: GroupIndividualPray, myInfo: MemberDetail) -> AnyPublisher<Bool, MoyangError> {
+        let ref = service.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(myInfo.authType)
+            .document(myInfo.email)
+            .collection("PRAY")
+            .document(data.id)
+        
+        return service.updateDocument(data, ref: ref)
+    }
+    
     func fetchLatestGroupPray() -> AnyPublisher<GroupMemberPrayList, MoyangError> {
         return Empty().eraseToAnyPublisher()
     }
@@ -165,12 +177,17 @@ class GroupRepoImpl: GroupRepo {
             .collection(myInfo.authType)
             .document(myInfo.email)
             .collection("PRAY")
+            .document(data.id)
         
         return service.addDocument(data, ref: ref)
     }
 }
 
 class GroupRepoMock: GroupRepo {
+    func updateIndividualPray(_ data: GroupIndividualPray, myInfo: MemberDetail) -> AnyPublisher<Bool, MoyangError> {
+        return Empty().eraseToAnyPublisher()
+    }
+    
     func fetchGroupInfoList(groupList: [String]) -> AnyPublisher<[GroupInfo], MoyangError> {
         return Empty().eraseToAnyPublisher()
     }
