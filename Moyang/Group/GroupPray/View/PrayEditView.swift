@@ -43,6 +43,14 @@ struct PrayEditView: View {
         .onAppear {
             vm.setNameEditingPray(id: prayId)
         }
+        .onReceive(vm.$prayEditResult, perform: { result in
+            switch result {
+            case .success:
+                dismiss()
+            default:
+                Log.e("Error")
+            }
+        })
     }
 }
 

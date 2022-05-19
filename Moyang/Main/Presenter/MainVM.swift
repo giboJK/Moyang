@@ -24,5 +24,6 @@ class MainVM: ObservableObject {
     @objc func logoutSuccess() {
         Log.e("")
         logoutResult = .success(true)
+        logoutResult = nil
     }
 }

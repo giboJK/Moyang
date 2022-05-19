@@ -26,6 +26,8 @@ class GroupEditPrayVM: ObservableObject {
     
     @Published var editingPray = ""
     
+    @Published var prayEditResult: Result<Bool, Error>?
+    
     init(groupRepo: GroupRepo,
          nameItem: GroupPrayListVM.NameSortedItem? = nil,
          dateItem: GroupPrayListVM.DateSortedItem? = nil,
@@ -97,6 +99,12 @@ class GroupEditPrayVM: ObservableObject {
                                               date: item.date,
                                               pray: editingPray)
             groupRepo.updateIndividualPray(newItem, myInfo: UserData.shared.myInfo!)
+                .sink { completion in
+                    Log.d(completion)
+                    self.prayEditResult = nil
+                } receiveValue: { _ in
+                    self.prayEditResult = .success(true)
+                }.store(in: &cancellables)
         }
     }
     
