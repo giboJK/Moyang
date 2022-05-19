@@ -27,7 +27,7 @@ struct CommunityGroupCardView: View {
                     Spacer()
                     Text("소속된 공동체가 없습니다.\n교역자에게 문의하세요.")
                         .multilineTextAlignment(.center)
-                        .font(.system(size: 14, weight: .regular, design: .default))
+                        .font(.system(size: 15, weight: .regular, design: .default))
                         .foregroundColor(.sheep4)
                     Spacer()
                 }
@@ -58,7 +58,7 @@ struct CommunityGroupCardView: View {
                         NavigationLink(destination: NavigationLazyView(CommunityList())) {
                             Text("모두 보기")
                                 .foregroundColor(.sheep4)
-                                .font(.system(size: 14, weight: .regular, design: .default))
+                                .font(.system(size: 15, weight: .regular, design: .default))
                                 .padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 4))
                         }
                     }

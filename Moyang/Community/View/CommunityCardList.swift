@@ -17,16 +17,17 @@ struct CommunityCardList: View {
                 if vm.hasGroup {
                     NavigationLink(destination: NavigationLazyView(GroupView(vm: GroupVM(groupInfo: nil)))) {
                         CommunityGroupCardView(vm: vm.communityGroupCardVM)
-                            .padding(EdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16))
+                            .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                     }
                 } else {
                     CommunityGroupCardView(vm: vm.communityGroupCardVM)
-                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16))
+                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
                 NavigationLink(destination: NavigationLazyView(PrayView())) {
                     CommunityPrayCardView(vm: vm.communityPrayCardVM)
                 }
             }
+            .padding(.top, 20)
         }.onLoad {
             vm.fetchCommunityData()
         }
