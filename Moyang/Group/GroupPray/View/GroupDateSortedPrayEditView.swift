@@ -43,19 +43,13 @@ struct GroupDateSortedPrayEditView: View {
         .background(Color.sheep1)
         .navigationBarTitle(vm.date)
         .fullScreenCover(isPresented: $isPraying, content: {
-            GroupPrayingView(vm: GroupPrayingVM(groupRepo: vm.groupRepo,
-                                                groupInfo: vm.groupInfo!,
-                                                title: vm.prayTitle,
-                                                pray: vm.prayContents,
-                                                dateID: vm.date,
-                                                dateItemList: vm.dateItemList))
+            GroupPrayingView()
         })
         .navigationBarItems(trailing: EditButton())
     }
     
     func delete(at offsets: IndexSet) {
         Log.e("")
-        //        users.remove(atOffsets: offsets)
     }
 }
 

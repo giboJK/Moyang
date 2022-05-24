@@ -21,6 +21,7 @@ struct MemberDetail: Codable, Identifiable {
     let grade: Int
     let isPastor: Bool
     let church: ChurchInfo?
+    let tags: [String]
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -35,6 +36,7 @@ struct MemberDetail: Codable, Identifiable {
         case grade
         case isPastor = "is_pastor"
         case church
+        case tags
     }
 }
 

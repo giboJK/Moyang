@@ -42,7 +42,7 @@ class ProfileSetVM: ObservableObject {
                                         community: "YD",
                                         grade: 1,
                                         isPastor: false,
-                                        church: nil)
+                                        church: nil, tags: [])
         
         loginService.setUserData(memberDetail: memberDetail)
             .sink(receiveCompletion: { completion in

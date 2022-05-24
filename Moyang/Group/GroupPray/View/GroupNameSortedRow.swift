@@ -64,19 +64,3 @@ struct GroupNameSortedRow: View {
         .cornerRadius(12)
     }
 }
-
-struct GroupNameSortedRow_Previews: PreviewProvider {
-    static var previews: some View {
-        GroupNameSortedRow(item: GroupPrayListVM.NameSortedItem(member: Member(id: "",
-                                                                               name: "ds",
-                                                                               email: "sadasd",
-                                                                               profileURL: "",
-                                                                               auth: ""),
-                                                                dateList: ["2022.03.01",
-                                                                           "2022.03.03",
-                                                                           "2022.03.05"],
-                                                                prayList: ["기도제목 11",
-                                                                           "기도제목 2222",
-                                                                           "정말로 너무너무 길다랗고 길다란 기도제목입니다아아아~~ 112345"]))
-    }
-}

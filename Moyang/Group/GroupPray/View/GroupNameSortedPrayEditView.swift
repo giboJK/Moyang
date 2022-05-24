@@ -43,26 +43,18 @@ struct GroupNameSortedPrayEditView: View {
         .background(Color.sheep1)
         .navigationBarTitle(vm.name)
         .fullScreenCover(isPresented: $isPraying, content: {
-            GroupPrayingView(vm: GroupPrayingVM(groupRepo: vm.groupRepo,
-                                                groupInfo: vm.groupInfo!,
-                                                title: vm.prayTitle,
-                                                pray: vm.prayContents,
-                                                memberID: vm.memberID,
-                                                memberList: vm.groupInfo?.memberList ?? []))
+//            GroupPrayingView(vm: GroupPrayingVM(groupRepo: vm.groupRepo,
+//                                                groupInfo: vm.groupInfo!,
+//                                                title: vm.prayTitle,
+//                                                pray: vm.prayContents,
+//                                                memberID: vm.memberID,
+//                                                memberList: vm.groupInfo?.memberList ?? []))
+            GroupPrayingView()
         })
         .navigationBarItems(trailing: EditButton())
     }
     
     func delete(at offsets: IndexSet) {
         Log.e("")
-        //        users.remove(atOffsets: offsets)
-    }
-}
-
-struct GroupNameSortedPrayEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            GroupNameSortedPrayEditView(vm: GroupEditPrayVMMock())
-        }
     }
 }
