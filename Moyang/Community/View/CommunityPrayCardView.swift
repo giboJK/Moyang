@@ -40,9 +40,3 @@ struct CommunityPrayCardView: View {
         }
     }
 }
-
-struct CommunityPrayCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        CommunityPrayCardView(vm: CommunityPrayCardVMMock())
-    }
-}

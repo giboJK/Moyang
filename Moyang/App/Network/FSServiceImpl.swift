@@ -196,7 +196,7 @@ class FSServiceImpl: FirestoreService {
                 
                 let decoder = JSONDecoder()
                 if documentSnapshot?.data()?.isEmpty ?? true {
-                    promise(.failure(MoyangError.noData))
+                    promise(.failure(MoyangError.emptyData))
                 }
                 if let dict = documentSnapshot?.data(),
                    let data = try? JSONSerialization.data(withJSONObject: dict, options: []) {
@@ -221,7 +221,7 @@ class FSServiceImpl: FirestoreService {
                 }
                 if let querySnapshot = querySnapshot {
                     if querySnapshot.documents.isEmpty {
-                        promise(.failure(MoyangError.noData))
+                        promise(.failure(MoyangError.emptyData))
                     } else {
                         
                         let decoder = JSONDecoder()

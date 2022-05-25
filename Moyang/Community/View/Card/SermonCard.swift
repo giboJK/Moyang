@@ -1,5 +1,5 @@
 //
-//  SermonCardView.swift
+//  SermonCard.swift
 //  Moyang
 //
 //  Created by kibo on 2022/02/04.
@@ -11,7 +11,7 @@ import RxSwift
 import Then
 import SnapKit
 
-class SermonCardView: UIView {
+class SermonCard: UIView {
     typealias VM = CommunityMainVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: CommunityMainVM?

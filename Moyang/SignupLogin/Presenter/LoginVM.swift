@@ -100,7 +100,7 @@ class LoginVM: ObservableObject {
             .catch { error -> AnyPublisher<MemberDetail, MoyangError> in
                 self.isLoadingUserDataFinished = true
                 switch error {
-                case .noData:
+                case .emptyData:
                     self.moveToProfileSetView = true
                 default:
                     Log.e(error)

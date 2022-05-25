@@ -41,11 +41,3 @@ enum MainCategory: String {
     case pray
     case osundosun
 }
-
-struct CommunityCardList_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            CommunityCardList(vm: CommunityCardListVMMock())
-        }
-    }
-}

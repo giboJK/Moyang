@@ -153,12 +153,6 @@ struct CommunityGroupCardView: View {
     }
 }
 
-struct CommunityGroupCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        CommunityGroupCardView(vm: CommunityGroupCardVMMock())
-    }
-}
-
 struct GroupCardPopover: View {
     var body: some View {
         Text("매번 유저가 속한 공동체 중 한 공동체가 노출됩니다.")

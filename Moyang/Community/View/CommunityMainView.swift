@@ -19,12 +19,3 @@ struct CommunityMainView: View {
         .navigationBarHidden(true)
     }
 }
-
-struct CommunityMainView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            CommunityMainView()
-        }
-        .navigationBarHidden(true)
-    }
-}

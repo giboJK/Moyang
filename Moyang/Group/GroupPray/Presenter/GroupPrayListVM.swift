@@ -49,7 +49,7 @@ class GroupPrayListVM: ObservableObject, Identifiable {
                     case .failure(let moyangError):
                         let error = moyangError as MoyangError
                         switch error {
-                        case .noData:
+                        case .emptyData:
                             self.nameItemList.append(NameSortedItem(member: member,
                                                                     dateList: [Date().toString("yyyy-MM-dd")],
                                                                     prayList: ["기도제목을 추가해보세요 😊"]))

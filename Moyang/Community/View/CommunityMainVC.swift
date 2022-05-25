@@ -18,7 +18,8 @@ class CommunityMainVC: UIViewController, VCType {
     var vm: CommunityMainVM?
     
     // MARK: - UI
-    let sermonCardView = SermonCardView()
+    let sermonCard = SermonCard()
+    lazy var scrollView = CommunityMainScrollView(disposeBag: disposeBag)
     let contentView = UIHostingController(rootView: CommunityMainView())
 
     override func viewDidLoad() {
@@ -42,25 +43,39 @@ class CommunityMainVC: UIViewController, VCType {
     
     func setupUI() {
         title = "공동체"
-        setupSermonCardView()
-        addChild(contentView)
-        view.addSubview(contentView.view)
-        setupConstraints()
+        view.backgroundColor = .nightSky3
+        setupSermonCard()
+        setupScrollView()
+//        addChild(contentView)
+//        view.addSubview(contentView.view)
+//        setupConstraints()
     }
     
-    private func setupSermonCardView() {
-        view.addSubview(sermonCardView)
-        sermonCardView.snp.makeConstraints {
+    private func setupSermonCard() {
+        view.addSubview(sermonCard)
+        sermonCard.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.right.equalToSuperview()
             $0.height.equalTo(240)
         }
     }
+    private func setupScrollView() {
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(sermonCard.snp.bottom)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        scrollView.layer.cornerRadius = 16
+        scrollView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        scrollView.layer.masksToBounds = true
+        scrollView.backgroundColor = .sheep2
+    }
     
     fileprivate func setupConstraints() {
         contentView.view.translatesAutoresizingMaskIntoConstraints = false
         contentView.view.snp.makeConstraints {
-            $0.top.equalTo(sermonCardView.snp.bottom).offset(20)
+            $0.top.equalTo(sermonCard.snp.bottom).offset(20)
             $0.left.right.left.equalToSuperview()
         }
     }
