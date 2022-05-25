@@ -5,58 +5,144 @@
 //  Created by kibo on 2022/02/04.
 //
 
-import SwiftUI
+import UIKit
+import RxCocoa
+import RxSwift
+import Then
+import SnapKit
 
-struct SermonCardView: View {
-    @ObservedObject var vm = SermonCardVM()
+class SermonCardView: UIView {
+    typealias VM = CommunityMainVM
+    var disposeBag: DisposeBag = DisposeBag()
+    var vm: CommunityMainVM?
     
-    var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Text(vm.item.subtitle)
-                    .foregroundColor(.ydGreen1)
-                    .font(.system(size: 20, weight: .bold, design: .default))
-                    .padding(.bottom, 8)
-                Spacer()
-            }
-            HStack {
-                Text(vm.item.title)
-                    .foregroundColor(.ydGreen1)
-                    .font(.system(size: 40, weight: .bold, design: .default))
-                    .padding(.bottom, 8)
-                Spacer()
-            }
-            HStack {
-                Text(vm.item.bible)
-                    .foregroundColor(.ydGreen1)
-                    .font(.system(size: 18, weight: .semibold, design: .default))
-                    .padding(.bottom, 12)
-                Spacer()
-            }
-            HStack(spacing: 0) {
-                Text(vm.item.pastor)
-                    .foregroundColor(.ydGreen1)
-                    .font(.system(size: 20, weight: .bold, design: .default))
-                Spacer()
-                Text(vm.item.date)
-                    .foregroundColor(.ydGreen2)
-                    .font(.system(size: 18, weight: .regular, design: .default))
-                    .padding(.trailing, 4)
-                Text(vm.item.worshipName)
-                    .foregroundColor(.ydGreen2)
-                    .font(.system(size: 18, weight: .regular, design: .default))
-                    .padding(.trailing, 4)
-                
-            }
-        }
-        .frame(width: .infinity, height: 177, alignment: .leading)
-        .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 24))
-        .background(Color.sheep1)
-    }
-}
+    // MARK: - UI
+    let largeConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
 
-struct SermonCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        SermonCardView()
+    lazy var newsButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "bell", withConfiguration: largeConfig), for: .normal)
+        $0.tintColor = .sheep1
+    }
+    lazy var sermonCalendarButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "calendar", withConfiguration: largeConfig), for: .normal)
+        $0.tintColor = .sheep1
+    }
+    let subTitleLabel = UILabel().then {
+        $0.text = "Testttt"
+        $0.font = .systemFont(ofSize: 20, weight: .bold)
+        $0.textColor = .sheep1
+    }
+    let titleLabel = UILabel().then {
+        $0.text = "Testttt"
+        $0.font = .systemFont(ofSize: 36, weight: .bold)
+        $0.textColor = .sheep1
+    }
+    let bibleLabel = UILabel().then {
+        $0.text = "Testttt"
+        $0.font = .systemFont(ofSize: 18, weight: .semibold)
+        $0.textColor = .sheep1
+    }
+    let pastorLabel = UILabel().then {
+        $0.text = "Testttt"
+        $0.font = .systemFont(ofSize: 18, weight: .bold)
+        $0.textColor = .sheep1
+    }
+    let dateLabel = UILabel().then {
+        $0.text = "Testttt"
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.textColor = .sheep2
+        $0.textAlignment = .right
+    }
+    let worshipLabel = UILabel().then {
+        $0.text = "Testttt"
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.textColor = .sheep2
+        $0.textAlignment = .right
+    }
+    
+    init() {
+        super.init(frame: .zero)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    private func setupUI() {
+        backgroundColor = .nightSky3
+        setupNewsButton()
+        setupSermonCalendarButton()
+        setupSubTitleLabel()
+        setupTitleLabel()
+        setupBibleLabel()
+        setupPastorLabel()
+        setupDateLabel()
+        setupWorshipLabel()
+        
+    }
+    private func setupNewsButton() {
+        addSubview(newsButton)
+        newsButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 8)
+            $0.right.equalToSuperview().inset(16)
+            $0.size.equalTo(24)
+        }
+    }
+    private func setupSermonCalendarButton() {
+        addSubview(sermonCalendarButton)
+        sermonCalendarButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 8)
+            $0.right.equalTo(newsButton.snp.left).offset(-12)
+            $0.size.equalTo(24)
+        }
+    }
+    private func setupSubTitleLabel() {
+        addSubview(subTitleLabel)
+        subTitleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 40)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.right.equalToSuperview().inset(160)
+        }
+    }
+    private func setupTitleLabel() {
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 72)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.right.equalToSuperview().inset(160)
+        }
+    }
+    private func setupBibleLabel() {
+        addSubview(bibleLabel)
+        bibleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 128)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.right.equalToSuperview().inset(160)
+        }
+    }
+    private func setupPastorLabel() {
+        addSubview(pastorLabel)
+        pastorLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 156)
+            $0.left.equalToSuperview().inset(24)
+            $0.right.equalToSuperview().inset(160)
+        }
+    }
+    private func setupDateLabel() {
+        addSubview(dateLabel)
+        dateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 132)
+            $0.left.equalToSuperview().inset(260)
+            $0.right.equalToSuperview().inset(24)
+        }
+    }
+    private func setupWorshipLabel() {
+        addSubview(worshipLabel)
+        worshipLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 156)
+            $0.left.equalToSuperview().inset(260)
+            $0.right.equalToSuperview().inset(24)
+        }
     }
 }

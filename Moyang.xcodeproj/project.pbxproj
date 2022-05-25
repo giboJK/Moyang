@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
 		0819D91D27AD1E52009F97BF /* SermonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819D91C27AD1E51009F97BF /* SermonCardView.swift */; };
-		0819D91F27AD1E8A009F97BF /* SermonCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819D91E27AD1E8A009F97BF /* SermonCardVM.swift */; };
 		082371B527BA7C2B0050420E /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B427BA7C2B0050420E /* TermsView.swift */; };
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		0843DD3A279DFBAB00CF2395 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0843DD39279DFBAB00CF2395 /* ProfileVM.swift */; };
@@ -204,7 +203,6 @@
 
 /* Begin PBXFileReference section */
 		0819D91C27AD1E51009F97BF /* SermonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonCardView.swift; sourceTree = "<group>"; };
-		0819D91E27AD1E8A009F97BF /* SermonCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonCardVM.swift; sourceTree = "<group>"; };
 		082371B427BA7C2B0050420E /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		0843DD39279DFBAB00CF2395 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
@@ -701,7 +699,6 @@
 				0880103827AEBB48002E49F0 /* CommunityMainVM.swift */,
 				24BB327B27656735002131BF /* CommunityCardListVM.swift */,
 				08A02A5C27AE17370043EEF0 /* CommunityGroupCardVM.swift */,
-				0819D91E27AD1E8A009F97BF /* SermonCardVM.swift */,
 				24D1F53127BD3B110026D65D /* CommunityPrayCardVM.swift */,
 				2426743827FC833900056235 /* CommunityListVM.swift */,
 			);
@@ -1480,7 +1477,6 @@
 				246BD7C327240AD4005C4E0B /* PrayRepo.swift in Sources */,
 				24B9B6FF27BFE90A007A12C6 /* GroupManageListView.swift in Sources */,
 				08B142E027AFBD5B000952FF /* NewSermonVMMock.swift in Sources */,
-				0819D91F27AD1E8A009F97BF /* SermonCardVM.swift in Sources */,
 				24B6A2552726BEB00065112A /* GroupInfo.swift in Sources */,
 				24E0AB1D283D1ECF00F52505 /* GroupPrayingVC.swift in Sources */,
 				24C877CD282FD6B400F69AAD /* MainVC.swift in Sources */,

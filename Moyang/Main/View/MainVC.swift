@@ -45,8 +45,6 @@ class MainVC: UITabBarController, VCType {
             items[i].title = titles[i]
         }
         tabBar.backgroundColor = .sheep1
-        Log.w(tabBar.frame.width)
-        Log.w(tabBar.frame.origin)
     }
 
     // MARK: - Binding

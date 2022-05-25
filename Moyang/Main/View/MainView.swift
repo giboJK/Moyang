@@ -16,6 +16,7 @@ struct MainView: View {
             MainViewRepresentable()
                 .navigationBarHidden(true)
                 .accentColor(.ydGreen1)
+                .edgesIgnoringSafeArea([.top])
         }
         .preferredColorScheme(.light)
         .onReceive(vm.$logoutResult, perform: { result in

@@ -5,19 +5,28 @@
 //  Created by kibo on 2022/02/05.
 //
 
-import SwiftUI
-import Combine
+import RxSwift
+import RxCocoa
 
-class CommunityMainVM: ObservableObject {
-    private var disposables = Set<AnyCancellable>()
-    
-    @Published var communityCardListVM = CommunityCardListVM()
-    
+class CommunityMainVM: VMType {
+    var disposeBag: DisposeBag = DisposeBag()
+
     init() {
     }
-    
-    deinit {
-        Log.i(self)
-        disposables.removeAll()
+
+    deinit { Log.i(self) }
+}
+
+extension CommunityMainVM {
+    struct Input {
+
+    }
+
+    struct Output {
+
+    }
+
+    func transform(input: Input) -> Output {
+        return Output()
     }
 }

@@ -8,14 +8,11 @@
 import SwiftUI
 
 struct CommunityMainView: View {
-    @StateObject var vm = CommunityMainVM()
-    
     var body: some View {
         return ZStack {
             Color.sheep1.ignoresSafeArea()
             VStack(spacing: 0) {
-                SermonCardView()
-                CommunityCardList(vm: vm.communityCardListVM)
+                CommunityCardList(vm: CommunityCardListVM())
                     .padding(.top, 28)
             }
         }

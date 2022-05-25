@@ -8,15 +8,17 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Then
 import SwiftUI
 import SnapKit
 
 class CommunityMainVC: UIViewController, VCType {
-    typealias VM = DummyVM
-    // MARK: - Properties
+    typealias VM = CommunityMainVM
     var disposeBag: DisposeBag = DisposeBag()
+    var vm: CommunityMainVM?
     
     // MARK: - UI
+    let sermonCardView = SermonCardView()
     let contentView = UIHostingController(rootView: CommunityMainView())
 
     override func viewDidLoad() {
@@ -40,15 +42,26 @@ class CommunityMainVC: UIViewController, VCType {
     
     func setupUI() {
         title = "공동체"
+        setupSermonCardView()
         addChild(contentView)
         view.addSubview(contentView.view)
         setupConstraints()
     }
     
+    private func setupSermonCardView() {
+        view.addSubview(sermonCardView)
+        sermonCardView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(240)
+        }
+    }
+    
     fileprivate func setupConstraints() {
         contentView.view.translatesAutoresizingMaskIntoConstraints = false
         contentView.view.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(sermonCardView.snp.bottom).offset(20)
+            $0.left.right.left.equalToSuperview()
         }
     }
     
