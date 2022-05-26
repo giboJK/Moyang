@@ -8,5 +8,6 @@
 import Foundation
 
 protocol CommunityMainRepo {
+    func fetchGroupInfo(community: String, groupID: String, completion: ((Result<GroupInfo, Error>) -> Void)?)
     func fetchGroupList()
 }

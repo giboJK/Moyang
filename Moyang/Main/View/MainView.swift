@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Swinject
 
 struct MainView: View {
     @Environment(\.dismiss) private var dismiss
@@ -29,7 +30,7 @@ struct MainView: View {
                     Log.e("🔴🔴🔴 Logout Error")
                 }
             default:
-                Log.e("🔴🔴🔴 Logout Error")
+                break
             }
         })
         .navigationViewStyle(.columns)
@@ -43,13 +44,25 @@ struct MainView_Previews: PreviewProvider {
 }
 
 struct MainViewRepresentable: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> MainVC {
-        let vc = MainVC()
-        return vc
+    func makeUIViewController(context: Context) -> UIViewController {
+        let mainAssembly = MainAssembly()
+        let communityMainAssembly = CommunityMainAssembly()
+        let assembler = Assembler([mainAssembly, communityMainAssembly])
+        let navController = UINavigationController()
+        mainAssembly.nav = navController
+        communityMainAssembly.nav = navController
+
+        if let vc = assembler.resolver.resolve(MainVC.self) {
+            navController.pushViewController(vc, animated: true)
+            return navController
+        } else {
+            Log.e("vc init failed")
+        }
+        return MainVC()
     }
     
-    func updateUIViewController(_ uiViewController: MainVC, context: Context) {
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
     }
     
-    typealias UIViewControllerType = MainVC
+    typealias UIViewControllerType = UIViewController
 }

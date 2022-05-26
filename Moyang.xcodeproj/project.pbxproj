@@ -117,6 +117,10 @@
 		24A757B727B1445B00D94002 /* GroupQuestionListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A757B627B1445B00D94002 /* GroupQuestionListVM.swift */; };
 		24A757B927B149C500D94002 /* GroupQuestionListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A757B827B149C500D94002 /* GroupQuestionListVMMock.swift */; };
 		24A9B87E279D9C35003468DB /* PastorComunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A9B87D279D9C35003468DB /* PastorComunityView.swift */; };
+		24AACA78283FB42A00308AC3 /* CommunityMainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */; };
+		24AACA7A283FC22A00308AC3 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA79283FC22A00308AC3 /* MainAssembly.swift */; };
+		24AACA7C283FC3DD00308AC3 /* CommunityMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7B283FC3DD00308AC3 /* CommunityMainCoordinator.swift */; };
+		24AACA7E283FC40A00308AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7D283FC40A00308AC3 /* Coordinator.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
 		24B47FF7276A1BD3003130E6 /* FSServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B47FF6276A1BD3003130E6 /* FSServiceImpl.swift */; };
 		24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B652AC279584AD007CC58C /* MeetingInfo.swift */; };
@@ -318,6 +322,10 @@
 		24A757B627B1445B00D94002 /* GroupQuestionListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQuestionListVM.swift; sourceTree = "<group>"; };
 		24A757B827B149C500D94002 /* GroupQuestionListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQuestionListVMMock.swift; sourceTree = "<group>"; };
 		24A9B87D279D9C35003468DB /* PastorComunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorComunityView.swift; sourceTree = "<group>"; };
+		24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainAssembly.swift; sourceTree = "<group>"; };
+		24AACA79283FC22A00308AC3 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
+		24AACA7B283FC3DD00308AC3 /* CommunityMainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainCoordinator.swift; sourceTree = "<group>"; };
+		24AACA7D283FC40A00308AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		24B47FF6276A1BD3003130E6 /* FSServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSServiceImpl.swift; sourceTree = "<group>"; };
 		24B492D027989DAB005CAA5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -688,6 +696,7 @@
 		246BD7A327240A96005C4E0B /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */,
 				089E8A1927AF52A600640A39 /* Domain */,
 				246BD7A427240A96005C4E0B /* Presenter */,
 				246BD7A627240A96005C4E0B /* View */,
@@ -717,6 +726,7 @@
 				08A02A5827AE13C90043EEF0 /* CommunityGroupCardView.swift */,
 				08A02A5A27AE13D40043EEF0 /* CommunityPrayCardView.swift */,
 				2426743627FC766F00056235 /* CommunityList.swift */,
+				24AACA7B283FC3DD00308AC3 /* CommunityMainCoordinator.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -827,6 +837,7 @@
 			children = (
 				24B8BCEB2764C7DD005B0A9F /* Presenter */,
 				246BD7AA27240AB2005C4E0B /* View */,
+				24AACA79283FC22A00308AC3 /* MainAssembly.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1063,6 +1074,7 @@
 				24C877CE282FD76100F69AAD /* VCType.swift */,
 				24C877D0282FD77500F69AAD /* VMType.swift */,
 				24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */,
+				24AACA7D283FC40A00308AC3 /* Coordinator.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1420,6 +1432,7 @@
 				246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */,
 				08FE02E728104716007EE5BE /* GroupPrayView.swift in Sources */,
 				24B8BCED2764C7FF005B0A9F /* CommunityListService.swift in Sources */,
+				24AACA7C283FC3DD00308AC3 /* CommunityMainCoordinator.swift in Sources */,
 				24E779CE2787308D00C732D6 /* Member.swift in Sources */,
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
 				08A02A5D27AE17370043EEF0 /* CommunityGroupCardVM.swift in Sources */,
@@ -1438,6 +1451,7 @@
 				08D8875E27D317DA00E32959 /* TopTabBar.swift in Sources */,
 				24E0AB2E283E744200F52505 /* CommunityController.swift in Sources */,
 				082371B527BA7C2B0050420E /* TermsView.swift in Sources */,
+				24AACA7E283FC40A00308AC3 /* Coordinator.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
 				24E0AB25283E508B00F52505 /* CommunityMainScrollView.swift in Sources */,
 				08EBCFBE27FDD1E800BDCB14 /* SignUpView.swift in Sources */,
@@ -1461,6 +1475,7 @@
 				2434ED4927B2998D0091289B /* NewGroupQuestionView.swift in Sources */,
 				246BD7BF27240AD4005C4E0B /* PrayListView.swift in Sources */,
 				0894AC6827B6B09F0011F167 /* ProfileSetView.swift in Sources */,
+				24AACA78283FB42A00308AC3 /* CommunityMainAssembly.swift in Sources */,
 				2496FE8227B527B600E9DCEE /* SermonRepo.swift in Sources */,
 				08FE02E328101519007EE5BE /* SortedPrayEditRow.swift in Sources */,
 				08D7DAB927CE1D56004CDC9E /* TestView.swift in Sources */,
@@ -1473,6 +1488,7 @@
 				08842D1A2814C91D0031419A /* NewMyPrayVM.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
 				24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */,
+				24AACA7A283FC22A00308AC3 /* MainAssembly.swift in Sources */,
 				24B9B70527BFF012007A12C6 /* GroupManageListVMMock.swift in Sources */,
 				24BB327C27656735002131BF /* CommunityCardListVM.swift in Sources */,
 				24A757B927B149C500D94002 /* GroupQuestionListVMMock.swift in Sources */,

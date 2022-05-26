@@ -18,14 +18,11 @@ class MainVC: UITabBarController, VCType {
     var vm: VM?
 
     // MARK: - UI
-    let communityMainVC = CommunityMainVC()
-    let profileVC = ProfileVC()
+    var communityMainVC: CommunityMainVC?
+    var profileVC = ProfileVC()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupUI()
-        bind()
     }
 
     deinit { Log.i(self) }
@@ -33,9 +30,17 @@ class MainVC: UITabBarController, VCType {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        setupUI()
+        bind()
     }
 
     func setupUI() {
+        guard let communityMainVC = communityMainVC else {
+            Log.e("")
+            return
+        }
+
         self.setViewControllers([communityMainVC, profileVC], animated: false)
         guard let items = tabBar.items else { return }
         let images = [Asset.Images.Tabbar.cross.image, UIImage(systemName: "person.crop.circle.fill")] as [UIImage?]

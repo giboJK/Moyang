@@ -12,6 +12,9 @@ import Then
 import SnapKit
 
 class CommunityGroupPrayCard: UIView {
+    typealias VM = CommunityMainVM
+    var disposeBag: DisposeBag = DisposeBag()
+    var vm: CommunityMainVM!
     
     // MARK: - UI
     let titleLabel = UILabel()
@@ -42,5 +45,8 @@ class CommunityGroupPrayCard: UIView {
         layer.cornerRadius = 12
         layer.masksToBounds = true
         dropShadow()
+    }
+    
+    func bind() {
     }
 }
