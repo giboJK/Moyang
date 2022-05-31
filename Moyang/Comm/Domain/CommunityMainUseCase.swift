@@ -13,6 +13,7 @@ class CommunityMainUseCase {
     let repo: CommunityMainRepo
     
     let groupInfo = BehaviorRelay<GroupInfo?>(value: nil)
+    let cardMemberPrayList = BehaviorRelay<[(pray: GroupIndividualPray, member: Member)]>(value: [])
     
     // MARK: - Lifecycle
     init(repo: CommunityMainRepo) {
@@ -32,6 +33,22 @@ class CommunityMainUseCase {
             switch result {
             case .success(let groupInfo):
                 self.groupInfo.accept(groupInfo)
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
+    }
+    
+    func fetchMemberIndividualPray(member: Member, groupID: String, limit: Int = 1) {
+        repo.fetchMemberIndividualPray(member: member, groupID: groupID, limit: limit) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let groupIndividualPrayList):
+                if let obj = groupIndividualPrayList.first {
+                    var current = self.cardMemberPrayList.value
+                    current.append((obj, member))
+                    self.cardMemberPrayList.accept(current)
+                }
             case .failure(let error):
                 Log.e(error)
             }

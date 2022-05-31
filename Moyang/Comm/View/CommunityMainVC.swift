@@ -28,7 +28,7 @@ class CommunityMainVC: UIViewController, VCType {
     }
     let groupNameLabel = UILabel().then {
         $0.textColor = .nightSky1
-        $0.font = .systemFont(ofSize: 16, weight: .bold)
+        $0.font = .systemFont(ofSize: 17, weight: .bold)
     }
     let moreGroupButton = UIButton().then {
         $0.setTitle("그룹 보기", for: .normal)
@@ -87,17 +87,17 @@ class CommunityMainVC: UIViewController, VCType {
         setupCommunityGroupPrayCard()
     }
     private func setupGroupNameLabel() {
-        view.addSubview(groupNameLabel)
+        scrollView.container.addSubview(groupNameLabel)
         groupNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12)
+            $0.top.equalToSuperview().inset(16)
             $0.left.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(160)
         }
     }
     private func setupMoreGroupButton() {
-        view.addSubview(moreGroupButton)
+        scrollView.container.addSubview(moreGroupButton)
         moreGroupButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12)
+            $0.top.bottom.equalTo(groupNameLabel)
             $0.right.equalToSuperview().inset(20)
         }
     }
@@ -110,6 +110,8 @@ class CommunityMainVC: UIViewController, VCType {
             $0.height.equalTo(300)
             $0.bottom.equalToSuperview()
         }
+        communityGroupPrayCard.vm = self.vm
+        communityGroupPrayCard.bind()
     }
     
     fileprivate func setupConstraints() {

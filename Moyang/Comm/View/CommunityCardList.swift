@@ -23,9 +23,6 @@ struct CommunityCardList: View {
                     CommunityGroupCardView(vm: vm.communityGroupCardVM)
                         .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
-                NavigationLink(destination: NavigationLazyView(PrayView())) {
-                    CommunityPrayCardView(vm: vm.communityPrayCardVM)
-                }
             }
             .padding(.top, 20)
         }.onLoad {

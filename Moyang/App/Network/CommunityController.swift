@@ -19,38 +19,33 @@ class CommunityController {
     init(firestoreService: FirestoreService) {
         self.firestoreService = firestoreService
     }
+    let fsShared = FSServiceImplShared()
 }
 
 extension CommunityController: CommunityMainRepo {
-    func fetchGroupInfo(community: String, groupID: String, completion: ((Result<GroupInfo, Error>) -> Void)?) {
+    func fetchGroupInfo(community: String, groupID: String, completion: ((Result<GroupInfo, MoyangError>) -> Void)?) {
         let ref = firestoreService.store
             .collection("COMMUNITY")
             .document(community)
             .collection("2022")
             .document(groupID)
-        ref.addSnapshotListener { documentSnapshot, error in
-            if let error = error {
-                completion?(.failure(MoyangError.other(error)))
-            }
-            
-            let decoder = JSONDecoder()
-            if documentSnapshot?.data()?.isEmpty ?? true {
-                completion?(.failure(MoyangError.emptyData))
-            }
-            if let dict = documentSnapshot?.data(),
-               let data = try? JSONSerialization.data(withJSONObject: dict, options: []) {
-                do {
-                    let object = try decoder.decode(GroupInfo.self, from: data)
-                    completion?(.success(object))
-                } catch let error {
-                    Log.e(error)
-                }
-            }
-        }
+        fsShared.addListener(ref: ref, type: GroupInfo.self, completion: completion)
     }
     
     func fetchGroupList() {
         
     }
     
+    func fetchMemberIndividualPray(member: Member, groupID: String, limit: Int, completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?) {
+        let query = firestoreService.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(member.auth!)
+            .document(member.email)
+            .collection("PRAY")
+            .whereField("group_id", in: [groupID])
+            .order(by: "date", descending: true)
+            .limit(to: limit)
+        fsShared.fetchDocumentsWithQuery(query: query, type: GroupIndividualPray.self, completion: completion)
+    }
 }
