@@ -80,7 +80,6 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         setupMyLatestDateLabel()
         setupGroupPrayTitleLabel()
         setupPrayCollectionView()
-        
     }
     
     private func setupTitleLabel() {

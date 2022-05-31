@@ -110,6 +110,7 @@ class CommunityMainVC: UIViewController, VCType {
         }
         communityGroupPrayCard.vm = self.vm
         communityGroupPrayCard.bind()
+        communityGroupPrayCard.dropShadow()
     }
     
     fileprivate func setupConstraints() {
