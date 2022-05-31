@@ -105,10 +105,8 @@ class CommunityMainVC: UIViewController, VCType {
     private func setupCommunityGroupPrayCard() {
         scrollView.container.addSubview(communityGroupPrayCard)
         communityGroupPrayCard.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(44)
-            $0.left.right.equalToSuperview()
-            $0.height.equalTo(300)
-            $0.bottom.equalToSuperview()
+            $0.top.equalToSuperview().inset(52)
+            $0.left.right.equalToSuperview().inset(16)
         }
         communityGroupPrayCard.vm = self.vm
         communityGroupPrayCard.bind()

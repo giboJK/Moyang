@@ -13,7 +13,7 @@ class CommunityMainVM: VMType {
     let useCase: CommunityMainUseCase
     
     let groupName = BehaviorRelay<String>(value: "")
-    let myPray = BehaviorRelay<String>(value: "")
+    let myPray = BehaviorRelay<GroupIndividualPrayItem?>(value: nil)
     let cardPrayItemList = BehaviorRelay<[GroupIndividualPrayItem]>(value: [])
     
     private var groupInfo: GroupInfo?
@@ -34,18 +34,34 @@ class CommunityMainVM: VMType {
             }).disposed(by: disposeBag)
         
         useCase.cardMemberPrayList
+            .debounce(.milliseconds(500), scheduler: MainScheduler.asyncInstance)
             .map { list in
+                guard let myInfo = UserData.shared.myInfo else { return [] }
                 var itemList = [GroupIndividualPrayItem]()
-                list.forEach { item in
+                list.filter({ $0.member.id != myInfo.id }).forEach { item in
                     itemList.append(GroupIndividualPrayItem(name: item.member.name,
                                                             pray: item.pray.pray,
                                                             date: item.pray.date,
                                                             prayID: item.pray.id))
                 }
-                Log.w(itemList)
                 return itemList
             }
             .bind(to: cardPrayItemList)
+            .disposed(by: disposeBag)
+        
+        useCase.cardMemberPrayList
+            .debounce(.milliseconds(500), scheduler: MainScheduler.asyncInstance)
+            .map { list -> GroupIndividualPrayItem? in
+                guard let myInfo = UserData.shared.myInfo else { return nil }
+                if let myPray = list.first(where: { $0.member.id == myInfo.id }) {
+                    return GroupIndividualPrayItem(name: myPray.member.name,
+                                                   pray: myPray.pray.pray,
+                                                   date: myPray.pray.date,
+                                                   prayID: myPray.pray.id)
+                } else {
+                    return nil
+                }
+            }.bind(to: myPray)
             .disposed(by: disposeBag)
     }
     
@@ -54,7 +70,6 @@ class CommunityMainVM: VMType {
     }
     
     private func setGroupInfoData(data: GroupInfo) {
-        Log.w(data)
         groupInfo = data
         groupName.accept(data.groupName)
         getMemberPray(memberList: data.memberList)
@@ -75,11 +90,13 @@ extension CommunityMainVM {
     
     struct Output {
         let groupName: Driver<String>
+        let myPray: Driver<GroupIndividualPrayItem?>
         let cardPrayItemList: Driver<[GroupIndividualPrayItem]>
     }
     
     func transform(input: Input) -> Output {
         return Output(groupName: groupName.asDriver(),
+                      myPray: myPray.asDriver(),
                       cardPrayItemList: cardPrayItemList.asDriver())
     }
     
