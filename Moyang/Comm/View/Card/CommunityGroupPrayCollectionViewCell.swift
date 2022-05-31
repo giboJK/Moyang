@@ -10,15 +10,17 @@ import UIKit
 class CommunityGroupPrayCollectionViewCell: UICollectionViewCell {
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .semibold)
+        $0.tintColor = .nightSky1
     }
     let prayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.tintColor = .nightSky1
         $0.numberOfLines = 0
     }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        backgroundColor = .yellow
+        backgroundColor = .sheep2
         contentView.layer.cornerRadius = 8
         contentView.layer.masksToBounds = true
         setupNameLabel()

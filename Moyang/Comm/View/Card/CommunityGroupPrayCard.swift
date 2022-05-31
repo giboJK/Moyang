@@ -51,11 +51,10 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     let prayCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 20
+        layout.minimumLineSpacing = 12
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(CommunityGroupPrayCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        cv.backgroundColor = .purple
         return cv
     }()
     
@@ -140,6 +139,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         prayCollectionView.snp.makeConstraints {
             $0.top.equalTo(groupPrayTitleLabel.snp.bottom).offset(4)
             $0.left.equalToSuperview().inset(8)
+            $0.right.equalToSuperview()
             $0.bottom.equalToSuperview().inset(8)
             $0.height.equalTo(84)
         }
@@ -168,6 +168,6 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 148, height: 84)
+        return CGSize(width: 152, height: 84)
     }
 }
