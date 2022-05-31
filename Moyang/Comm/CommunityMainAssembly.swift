@@ -20,7 +20,7 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
         container.register(CommunityMainVC.self) { r in
             let vc = CommunityMainVC()
             
-            vc.vm = CommunityMainVM(useCase: CommunityMainUseCase(repo: r ~> (CommunityMainRepo.self)))
+            vc.vm = r ~> (CommunityMainVM.self)
             
             return vc
         }
@@ -30,7 +30,7 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
         }
         
         container.register(CommunityMainUseCase.self) { r in
-            CommunityMainUseCase(repo: r ~> (CommunityController.self))
+            CommunityMainUseCase(repo: r ~> (CommunityMainRepo.self))
         }
         
 //        container.register(CommunityMainRepo.self) { r in
@@ -53,6 +53,20 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             guard let nav = self.nav else { return CommunityMainCoordinator() }
             let coordinator = CommunityMainCoordinator(nav: nav, assembler: Assembler([self]))
             return coordinator
+        }
+        
+        assembleGroupPray(container: container)
+    }
+    
+    private func assembleGroupPray(container: Container) {
+        container.register(GroupPrayVC.self) { r in
+            let vc = GroupPrayVC()
+            vc.vm = r ~> (GroupPrayVM.self)
+            return vc
+        }
+        
+        container.register(GroupPrayVM.self) { _ in
+            GroupPrayVM()
         }
     }
 }

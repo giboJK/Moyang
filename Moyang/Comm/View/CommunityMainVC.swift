@@ -11,6 +11,7 @@ import RxSwift
 import Then
 import SwiftUI
 import SnapKit
+import RxGesture
 
 class CommunityMainVC: UIViewController, VCType {
     typealias VM = CommunityMainVM
@@ -122,6 +123,18 @@ class CommunityMainVC: UIViewController, VCType {
     }
     
     func bind() {
+        bindViews()
+        bindVM()
+    }
+    
+    func bindViews() {
+        communityGroupPrayCard.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapGroupPrayCard()
+            }).disposed(by: disposeBag)
+    }
+    
+    func bindVM() {
         guard let vm = vm else { Log.e(""); return }
         let output = vm.transform(input: CommunityMainVM.Input())
         
@@ -132,4 +145,5 @@ class CommunityMainVC: UIViewController, VCType {
 }
 
 protocol CommunityMainVCDelegate: AnyObject {
+    func didTapGroupPrayCard()
 }
