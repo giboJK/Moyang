@@ -97,7 +97,7 @@ class GroupEditPrayVM: ObservableObject {
             let newItem = GroupIndividualPray(id: item.id,
                                               groupID: item.groupId,
                                               date: item.date,
-                                              pray: editingPray)
+                                              pray: editingPray, tags: [])
             groupRepo.updateIndividualPray(newItem, myInfo: UserData.shared.myInfo!)
                 .sink { completion in
                     Log.d(completion)

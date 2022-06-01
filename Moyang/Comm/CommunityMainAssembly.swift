@@ -59,14 +59,10 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
     }
     
     private func assembleGroupPray(container: Container) {
-        container.register(GroupPrayVC.self) { r in
+        container.register(GroupPrayVC.self) { (_, groupPrayVM: GroupPrayVM) in
             let vc = GroupPrayVC()
-            vc.vm = r ~> (GroupPrayVM.self)
+            vc.vm = groupPrayVM
             return vc
-        }
-        
-        container.register(GroupPrayVM.self) { _ in
-            GroupPrayVM()
         }
     }
 }

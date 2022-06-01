@@ -11,11 +11,13 @@ struct GroupIndividualPray: Codable {
     let groupID: String
     let date: String
     let pray: String
+    let tags: [String]
 
     enum CodingKeys: String, CodingKey {
         case id
         case groupID = "group_id"
         case date
         case pray
+        case tags
     }
 }

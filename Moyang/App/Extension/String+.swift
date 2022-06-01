@@ -5,7 +5,7 @@
 //  Created by 정김기보 on 2022/01/21.
 //
 
-import Foundation
+import UIKit
 
 extension String {
     static func randomString(length: Int) -> String {
@@ -37,5 +37,25 @@ extension String {
 
         return date
 
+    }
+    
+    /**
+     * 지정한 폰트로 글을 적었을때 높이
+     */
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin,
+                                            attributes: [NSAttributedString.Key.font: font], context: nil)
+        return ceil(boundingBox.height)
+    }
+    
+    /**
+     * 지정한 폰트로 글을 적었을때 너비
+     */
+    func width(withConstraintedHeight height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin,
+                                            attributes: [NSAttributedString.Key.font: font], context: nil)
+        return ceil(boundingBox.width)
     }
 }

@@ -15,6 +15,7 @@ class CommunityMainVM: VMType {
     let groupName = BehaviorRelay<String>(value: "")
     let myPray = BehaviorRelay<GroupIndividualPrayItem?>(value: nil)
     let cardPrayItemList = BehaviorRelay<[GroupIndividualPrayItem]>(value: [])
+    let groupPrayVM = BehaviorRelay<GroupPrayVM?>(value: nil)
     
     private var groupInfo: GroupInfo?
     
@@ -42,7 +43,8 @@ class CommunityMainVM: VMType {
                     itemList.append(GroupIndividualPrayItem(name: item.member.name,
                                                             pray: item.pray.pray,
                                                             date: item.pray.date,
-                                                            prayID: item.pray.id))
+                                                            prayID: item.pray.id,
+                                                            tags: item.pray.tags))
                 }
                 return itemList
             }
@@ -57,7 +59,8 @@ class CommunityMainVM: VMType {
                     return GroupIndividualPrayItem(name: myPray.member.name,
                                                    pray: myPray.pray.pray,
                                                    date: myPray.pray.date,
-                                                   prayID: myPray.pray.id)
+                                                   prayID: myPray.pray.id,
+                                                   tags: myPray.pray.tags)
                 } else {
                     return nil
                 }
@@ -85,19 +88,27 @@ class CommunityMainVM: VMType {
 
 extension CommunityMainVM {
     struct Input {
-        
+        var didTapPrayCard: Driver<Void> = .empty()
     }
     
     struct Output {
         let groupName: Driver<String>
         let myPray: Driver<GroupIndividualPrayItem?>
         let cardPrayItemList: Driver<[GroupIndividualPrayItem]>
+        let groupPrayVM: Driver<GroupPrayVM?>
     }
     
     func transform(input: Input) -> Output {
+        input.didTapPrayCard
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.groupPrayVM.accept(GroupPrayVM(useCase: self.useCase))
+            }).disposed(by: disposeBag)
+        
         return Output(groupName: groupName.asDriver(),
                       myPray: myPray.asDriver(),
-                      cardPrayItemList: cardPrayItemList.asDriver())
+                      cardPrayItemList: cardPrayItemList.asDriver(),
+                      groupPrayVM: groupPrayVM.asDriver())
     }
     
     struct GroupIndividualPrayItem {
@@ -105,15 +116,18 @@ extension CommunityMainVM {
         let pray: String
         let date: String
         let prayID: String
+        let tags: [String]
         
         init(name: String,
              pray: String,
              date: String,
-             prayID: String) {
+             prayID: String,
+             tags: [String]) {
             self.name = name
             self.pray = pray
             self.date = date
             self.prayID = prayID
+            self.tags = tags
         }
     }
 }

@@ -20,7 +20,7 @@ class CommunityGroupPrayCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        backgroundColor = .sheep2
+        contentView.backgroundColor = .sheep2
         contentView.layer.cornerRadius = 8
         contentView.layer.masksToBounds = true
         setupNameLabel()

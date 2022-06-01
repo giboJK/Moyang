@@ -48,7 +48,7 @@ class NewMyPrayVM: ObservableObject {
         let item = GroupIndividualPray(id: UUID().uuidString,
                                        groupID: groupInfo.id,
                                        date: date.toString("yyyy-MM-dd hh:mm:ss"),
-                                       pray: pray)
+                                       pray: pray, tags: [])
         
         repo.add(item, myInfo: myInfo)
             .sink(receiveCompletion: { completion in

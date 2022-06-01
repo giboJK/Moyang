@@ -32,7 +32,7 @@ class CommunityMainVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 17, weight: .bold)
     }
     let moreGroupButton = UIButton().then {
-        $0.setTitle("그룹 보기", for: .normal)
+        $0.setTitle("그룹", for: .normal)
         $0.setTitleColor(.nightSky3, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
@@ -48,6 +48,10 @@ class CommunityMainVC: UIViewController, VCType {
 
     deinit { Log.i(self) }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -128,22 +132,27 @@ class CommunityMainVC: UIViewController, VCType {
     }
     
     func bindViews() {
-        communityGroupPrayCard.rx.tapGesture().when(.ended)
-            .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.didTapGroupPrayCard()
-            }).disposed(by: disposeBag)
     }
     
     func bindVM() {
         guard let vm = vm else { Log.e(""); return }
-        let output = vm.transform(input: CommunityMainVM.Input())
+        let didTapPrayCard = communityGroupPrayCard.rx.tapGesture().when(.ended)
+            .map { _ in () }.asDriver(onErrorJustReturn: ())
+        let input = CommunityMainVM.Input(didTapPrayCard: didTapPrayCard)
+        let output = vm.transform(input: input)
         
         output.groupName
             .drive(groupNameLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        output.groupPrayVM
+            .drive(onNext: { [weak self] groupPrayVM in
+                guard let groupPrayVM = groupPrayVM else { return }
+                self?.coordinator?.didTapGroupPrayCard(groupPrayVM: groupPrayVM)
+            }).disposed(by: disposeBag)
     }
 }
 
 protocol CommunityMainVCDelegate: AnyObject {
-    func didTapGroupPrayCard()
+    func didTapGroupPrayCard(groupPrayVM: GroupPrayVM)
 }
