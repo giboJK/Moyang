@@ -24,7 +24,7 @@ class MoyangNavBar: UIView {
         $0.setImage(UIImage(systemName: "xmark")?.withTintColor(.sheep1), for: .normal)
     }
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 16, weight: .heavy)
+        $0.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.textColor = .sheep1
         $0.textAlignment = .center
     }

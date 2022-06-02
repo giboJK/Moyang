@@ -22,8 +22,14 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        container.register(GroupPrayDetailVC.self) { (_, vm: GroupPrayDetailVM) in
-            let vc = GroupPrayDetailVC()
+        container.register(NewPrayVC.self) { (_, groupPrayVM: GroupPrayVM) in
+            let vc = NewPrayVC()
+            vc.vm = groupPrayVM
+            return vc
+        }
+        
+        container.register(GroupPrayListVC.self) { (_, vm: GroupPrayListVM) in
+            let vc = GroupPrayListVC()
             vc.vm = vm
             return vc
         }

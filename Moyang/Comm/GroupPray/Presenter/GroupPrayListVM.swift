@@ -1,5 +1,5 @@
 //
-//  GroupPrayDetailVM.swift
+//  GroupPrayListVM.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/02.
@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-class GroupPrayDetailVM: VMType {
+class GroupPrayListVM: VMType {
     typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
@@ -31,7 +31,7 @@ class GroupPrayDetailVM: VMType {
     }
 }
 
-extension GroupPrayDetailVM {
+extension GroupPrayListVM {
     struct Input {
 
     }

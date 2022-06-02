@@ -1,5 +1,5 @@
 //
-//  GroupPrayDetailVC.swift
+//  GroupPrayListVC.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/02.
@@ -11,8 +11,8 @@ import RxSwift
 import SnapKit
 import Then
 
-class GroupPrayDetailVC: UIViewController, VCType {
-    typealias VM = GroupPrayDetailVM
+class GroupPrayListVC: UIViewController, VCType {
+    typealias VM = GroupPrayListVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupPrayDetailVCDelegate?

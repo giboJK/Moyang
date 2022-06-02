@@ -37,7 +37,6 @@ class CommunityMainVC: UIViewController, VCType {
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
     let communityGroupPrayCard = CommunityGroupPrayCard()
-    let contentView = UIHostingController(rootView: CommunityMainView())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,9 +66,6 @@ class CommunityMainVC: UIViewController, VCType {
         view.backgroundColor = .nightSky3
         setupSermonCard()
         setupScrollView()
-//        addChild(contentView)
-//        view.addSubview(contentView.view)
-//        setupConstraints()
     }
     
     private func setupSermonCard() {
@@ -116,14 +112,6 @@ class CommunityMainVC: UIViewController, VCType {
         communityGroupPrayCard.vm = self.vm
         communityGroupPrayCard.bind()
         communityGroupPrayCard.dropShadow()
-    }
-    
-    fileprivate func setupConstraints() {
-        contentView.view.translatesAutoresizingMaskIntoConstraints = false
-        contentView.view.snp.makeConstraints {
-            $0.top.equalTo(sermonCard.snp.bottom).offset(20)
-            $0.left.right.left.equalToSuperview()
-        }
     }
     
     func bind() {

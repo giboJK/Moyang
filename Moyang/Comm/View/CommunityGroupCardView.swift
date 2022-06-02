@@ -53,15 +53,6 @@ struct CommunityGroupCardView: View {
                     .alwaysPopover(isPresented: $isShowingPopover) {
                         GroupCardPopover()
                     }
-                    Spacer()
-                    Button(action: {}) {
-                        NavigationLink(destination: NavigationLazyView(CommunityList())) {
-                            Text("모두 보기")
-                                .foregroundColor(.sheep4)
-                                .font(.system(size: 15, weight: .regular, design: .default))
-                                .padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 4))
-                        }
-                    }
                 }
                 .padding(.bottom, 8)
                 

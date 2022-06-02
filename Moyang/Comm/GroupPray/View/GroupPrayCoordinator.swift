@@ -34,8 +34,17 @@ extension GroupPrayCoordinator: GroupPrayVCDelegate {
     func didTapInfoButton() {
         
     }
-    func didTapPray(vm: GroupPrayDetailVM) {
-        if let vc = assembler.resolver.resolve(GroupPrayDetailVC.self, argument: vm) {
+    
+    func didTapNewPrayButton(vm: GroupPrayVM?) {
+        guard let vm = vm else { return }
+
+        if let vc = assembler.resolver.resolve(NewPrayVC.self, argument: vm) {
+            nav.present(vc, animated: true)
+        }
+    }
+    
+    func didTapPray(vm: GroupPrayListVM) {
+        if let vc = assembler.resolver.resolve(GroupPrayListVC.self, argument: vm) {
             nav.pushViewController(vc, animated: true)
             vc.coordinator = self
         }

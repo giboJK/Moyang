@@ -38,11 +38,14 @@ class GroupPrayVC: UIViewController, VCType {
         $0.isScrollEnabled = true
     }
     let addPrayButton = UIButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
+        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
+        $0.setTitle("새 기도 ", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
         $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
         $0.tintColor = .sheep1
         $0.backgroundColor = .nightSky1
         $0.layer.cornerRadius = 12
+        $0.semanticContentAttribute = .forceRightToLeft
     }
     
     override func viewDidLoad() {
@@ -84,7 +87,6 @@ class GroupPrayVC: UIViewController, VCType {
             $0.width.equalTo(32)
         }
     }
-    
     private func setupPrayTableView() {
         view.addSubview(prayTableView)
         prayTableView.snp.makeConstraints {
@@ -93,16 +95,16 @@ class GroupPrayVC: UIViewController, VCType {
             $0.left.right.equalToSuperview().inset(8)
         }
     }
-    
     private func setupAddPrayButton() {
         view.addSubview(addPrayButton)
         addPrayButton.snp.makeConstraints {
             $0.height.equalTo(48)
-            $0.width.equalTo(84)
+            $0.width.equalTo(96)
             $0.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
         }
     }
+    
     
     // MARK: - Binding
     func bind() {
@@ -118,7 +120,8 @@ class GroupPrayVC: UIViewController, VCType {
         
         addPrayButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.didTapInfoButton()
+                guard let self = self else { return }
+                self.coordinator?.didTapNewPrayButton(vm: self.vm)
             }).disposed(by: disposeBag)
     }
 
@@ -151,5 +154,6 @@ class GroupPrayVC: UIViewController, VCType {
 
 protocol GroupPrayVCDelegate: AnyObject {
     func didTapInfoButton()
-    func didTapPray(vm: GroupPrayDetailVM)
+    func didTapNewPrayButton(vm: GroupPrayVM?)
+    func didTapPray(vm: GroupPrayListVM)
 }
