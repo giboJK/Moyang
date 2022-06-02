@@ -14,12 +14,13 @@ class GroupPrayVM: VMType {
     let useCase: CommunityMainUseCase
     
     let cardPrayItemList = BehaviorRelay<[PrayItem]>(value: [])
+    let detailVM = BehaviorRelay<GroupPrayDetailVM?>(value: nil)
     
     init(useCase: CommunityMainUseCase) {
         self.useCase = useCase
         bind()
     }
-
+    
     deinit { Log.i(self) }
     
     private func bind() {
@@ -27,7 +28,8 @@ class GroupPrayVM: VMType {
             .map { list in
                 var itemList = [PrayItem]()
                 list.forEach { item in
-                    itemList.append(PrayItem(name: item.member.name,
+                    itemList.append(PrayItem(memberID: item.member.id,
+                                             name: item.member.name,
                                              pray: item.pray.pray,
                                              date: item.pray.date,
                                              prayID: item.pray.id,
@@ -42,14 +44,24 @@ class GroupPrayVM: VMType {
 
 extension GroupPrayVM {
     struct Input {
-        let selectMember: Driver<IndexPath>
+        var selectMember: Driver<IndexPath> = .empty()
     }
-
+    
     struct Output {
         let cardPrayItemList: Driver<[PrayItem]>
+        let detailVM: Driver<GroupPrayDetailVM?>
     }
-
+    
     func transform(input: Input) -> Output {
-        return Output(cardPrayItemList: cardPrayItemList.asDriver())
+        input.selectMember
+            .drive(onNext: { [weak self] indexPath in
+                guard let self = self else { return }
+                let detailVM = GroupPrayDetailVM(prayItem: self.cardPrayItemList.value[indexPath.row],
+                                                 useCase: self.useCase)
+                self.detailVM.accept(detailVM)
+            }).disposed(by: disposeBag)
+        
+        return Output(cardPrayItemList: cardPrayItemList.asDriver(),
+                      detailVM: detailVM.asDriver())
     }
 }

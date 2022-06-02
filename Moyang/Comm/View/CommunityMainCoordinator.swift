@@ -37,15 +37,13 @@ class CommunityMainCoordinator: Coordinator {
 
 extension CommunityMainCoordinator: CommunityMainVCDelegate {
     func didTapGroupPrayCard(groupPrayVM: GroupPrayVM) {
+        guard let groupPrayCoordinator = assembler.resolver.resolve(GroupPrayCoordinator.self) else {
+            Log.e("Coordinator init failed")
+            return
+        }
         if let vc = assembler.resolver.resolve(GroupPrayVC.self, argument: groupPrayVM) {
             nav.pushViewController(vc, animated: true)
-            vc.coordinator = self
+            vc.coordinator = groupPrayCoordinator
         }
-    }
-}
-
-extension CommunityMainCoordinator: GroupPrayVCDelegate {
-    func didTapInfoButton() {
-        
     }
 }

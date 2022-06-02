@@ -48,7 +48,7 @@ class GroupPrayTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .clear
+        backgroundView.backgroundColor = .sheep1
         selectedBackgroundView = backgroundView
         
         setupUI()

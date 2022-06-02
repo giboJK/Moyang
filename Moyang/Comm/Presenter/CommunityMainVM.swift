@@ -35,12 +35,13 @@ class CommunityMainVM: VMType {
             }).disposed(by: disposeBag)
         
         useCase.cardMemberPrayList
-            .debounce(.milliseconds(500), scheduler: MainScheduler.asyncInstance)
+            .debounce(.milliseconds(300), scheduler: MainScheduler.asyncInstance)
             .map { list in
                 guard let myInfo = UserData.shared.myInfo else { return [] }
                 var itemList = [GroupIndividualPrayItem]()
                 list.filter({ $0.member.id != myInfo.id }).forEach { item in
-                    itemList.append(GroupIndividualPrayItem(name: item.member.name,
+                    itemList.append(GroupIndividualPrayItem(memberID: item.member.id,
+                                                            name: item.member.name,
                                                             pray: item.pray.pray,
                                                             date: item.pray.date,
                                                             prayID: item.pray.id,
@@ -52,11 +53,12 @@ class CommunityMainVM: VMType {
             .disposed(by: disposeBag)
         
         useCase.cardMemberPrayList
-            .debounce(.milliseconds(500), scheduler: MainScheduler.asyncInstance)
+            .debounce(.milliseconds(300), scheduler: MainScheduler.asyncInstance)
             .map { list -> GroupIndividualPrayItem? in
                 guard let myInfo = UserData.shared.myInfo else { return nil }
                 if let myPray = list.first(where: { $0.member.id == myInfo.id }) {
-                    return GroupIndividualPrayItem(name: myPray.member.name,
+                    return GroupIndividualPrayItem(memberID: myPray.member.id,
+                                                   name: myPray.member.name,
                                                    pray: myPray.pray.pray,
                                                    date: myPray.pray.date,
                                                    prayID: myPray.pray.id,
@@ -112,17 +114,20 @@ extension CommunityMainVM {
     }
     
     struct GroupIndividualPrayItem {
+        let memberID: String
         let name: String
         let pray: String
         let date: String
         let prayID: String
         let tags: [String]
         
-        init(name: String,
+        init(memberID: String,
+             name: String,
              pray: String,
              date: String,
              prayID: String,
              tags: [String]) {
+            self.memberID = memberID
             self.name = name
             self.pray = pray
             self.date = date

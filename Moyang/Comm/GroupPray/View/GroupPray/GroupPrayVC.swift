@@ -13,7 +13,6 @@ import Then
 
 class GroupPrayVC: UIViewController, VCType {
     typealias VM = GroupPrayVM
-    // MARK: - Properties
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupPrayVCDelegate?
@@ -22,7 +21,6 @@ class GroupPrayVC: UIViewController, VCType {
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
         $0.title = "기도 제목"
-        $0.backgroundColor = .clear
     }
     let infoButton = UIButton().then {
         $0.setTitle("정보", for: .normal)
@@ -32,7 +30,7 @@ class GroupPrayVC: UIViewController, VCType {
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(GroupPrayTableViewCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .clear
+        $0.backgroundColor = .sheep1
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 220
         $0.showsVerticalScrollIndicator = false
@@ -61,6 +59,7 @@ class GroupPrayVC: UIViewController, VCType {
     }
     
     func setupUI() {
+        view.backgroundColor = .sheep1
         setupNavBar()
         setupInfoButton()
         setupPrayTableView()
@@ -141,9 +140,16 @@ class GroupPrayVC: UIViewController, VCType {
                     }
                     cell.noTagLabel.isHidden = !item.tags.isEmpty
                 }.disposed(by: disposeBag)
+        
+        output.detailVM
+            .drive(onNext: { [weak self] detailVM in
+                guard let detailVM = detailVM else { return }
+                self?.coordinator?.didTapPray(vm: detailVM)
+            }).disposed(by: disposeBag)
     }
 }
 
 protocol GroupPrayVCDelegate: AnyObject {
     func didTapInfoButton()
+    func didTapPray(vm: GroupPrayDetailVM)
 }

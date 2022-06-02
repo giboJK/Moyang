@@ -29,7 +29,6 @@ protocol VCType {
 //
 //class VC: UIViewController, VCType {
 //    typealias VM = DummyVM
-//    // MARK: - Properties
 //    var disposeBag: DisposeBag = DisposeBag()
 //    var vm: VM?
 //    var coordinator: VCDelegate?

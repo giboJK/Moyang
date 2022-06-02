@@ -5,7 +5,6 @@
 //  Created by 정김기보 on 2022/05/26.
 //
 
-
 import Swinject
 import SwinjectAutoregistration
 import Foundation
@@ -49,20 +48,17 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             FSServiceImpl()
         }
         
-        container.register(CommunityMainCoordinator.self) { _ in
-            guard let nav = self.nav else { return CommunityMainCoordinator() }
-            let coordinator = CommunityMainCoordinator(nav: nav, assembler: Assembler([self]))
-            return coordinator
+        container.register(GroupPrayAssembly.self) { _ in
+            let assembly = GroupPrayAssembly()
+            assembly.nav = self.nav
+            return assembly
         }
         
-        assembleGroupPray(container: container)
-    }
-    
-    private func assembleGroupPray(container: Container) {
-        container.register(GroupPrayVC.self) { (_, groupPrayVM: GroupPrayVM) in
-            let vc = GroupPrayVC()
-            vc.vm = groupPrayVM
-            return vc
+        container.register(CommunityMainCoordinator.self) { r in
+            guard let nav = self.nav else { return CommunityMainCoordinator() }
+            let coordinator = CommunityMainCoordinator(nav: nav, assembler: Assembler([self,
+                                                                                       r ~> (GroupPrayAssembly.self)]))
+            return coordinator
         }
     }
 }
