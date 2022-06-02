@@ -17,6 +17,8 @@ class GroupPrayVM: VMType {
     let detailVM = BehaviorRelay<GroupPrayListVM?>(value: nil)
     
     let newPray = BehaviorRelay<String?>(value: nil)
+    let newTag = BehaviorRelay<String?>(value: nil)
+    let tagList = BehaviorRelay<[String]>(value: [])
     
     init(useCase: CommunityMainUseCase) {
         self.useCase = useCase
@@ -47,13 +49,18 @@ class GroupPrayVM: VMType {
 extension GroupPrayVM {
     struct Input {
         var selectMember: Driver<IndexPath> = .empty()
+        var setPray: Driver<String?> = .empty()
         var saveNewPray: Driver<Void> = .empty()
+        var setTag: Driver<String?> = .empty()
+        var addTag: Driver<Void> = .empty()
+        var removeTag: Driver<IndexPath> = .empty()
     }
     
     struct Output {
         let cardPrayItemList: Driver<[PrayItem]>
         let detailVM: Driver<GroupPrayListVM?>
         let newPray: Driver<String?>
+        let tagList: Driver<[String]>
     }
     
     func transform(input: Input) -> Output {
@@ -65,8 +72,27 @@ extension GroupPrayVM {
                 self.detailVM.accept(detailVM)
             }).disposed(by: disposeBag)
         
+        input.setPray
+            .drive(newPray)
+            .disposed(by: disposeBag)
+        
+        input.setTag
+            .drive(newTag)
+            .disposed(by: disposeBag)
+        
+        input.addTag
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                var currnetTags = self.tagList.value
+                if let tag = self.newTag.value {
+                    currnetTags.append(tag)
+                    self.tagList.accept(currnetTags)
+                }
+            }).disposed(by: disposeBag)
+        
         return Output(cardPrayItemList: cardPrayItemList.asDriver(),
                       detailVM: detailVM.asDriver(),
-                      newPray: newPray.asDriver())
+                      newPray: newPray.asDriver(),
+                      tagList: tagList.asDriver())
     }
 }

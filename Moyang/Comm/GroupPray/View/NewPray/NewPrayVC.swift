@@ -11,11 +11,12 @@ import RxSwift
 import SnapKit
 import Then
 
-class NewPrayVC: UIViewController, VCType {
+class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     typealias VM = GroupPrayVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
-
+    private var tagList = [String]()
+    
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
@@ -51,6 +52,7 @@ class NewPrayVC: UIViewController, VCType {
         $0.attributedPlaceholder = NSAttributedString(string: "#태그 추가",
                                                       attributes: [.foregroundColor: UIColor.nightSky3])
         $0.textColor = .nightSky1
+        $0.returnKeyType = .done
     }
     let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
         let layout = LeftAlignedCollectionViewFlowLayout()
@@ -61,16 +63,16 @@ class NewPrayVC: UIViewController, VCType {
         $0.backgroundColor = .clear
         $0.register(PrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         bind()
     }
-
+    
     deinit { Log.i(self) }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
@@ -115,7 +117,20 @@ class NewPrayVC: UIViewController, VCType {
             $0.left.right.equalToSuperview().inset(16)
             $0.height.equalTo(320)
         }
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
+            $0.sizeToFit()
+            $0.clipsToBounds = true
+            $0.barTintColor = .sheep3
+        }
+        let doneButton = UIBarButtonItem(title: "완료",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(didTapDoneButton))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([space, doneButton], animated: false)
+        newPrayTextField.inputAccessoryView = toolBar
     }
+    
     private func setupTagInfoLabel() {
         view.addSubview(tagInfoLabel)
         tagInfoLabel.snp.makeConstraints {
@@ -130,6 +145,20 @@ class NewPrayVC: UIViewController, VCType {
             $0.left.right.equalToSuperview().inset(16)
             $0.height.equalTo(36)
         }
+        tagTextField.delegate = self
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
+            $0.sizeToFit()
+            $0.clipsToBounds = true
+            $0.barTintColor = .sheep3
+        }
+        let cancelButton = UIBarButtonItem(title: "취소",
+                                           style: .plain,
+                                         target: self,
+                                         action: #selector(didTapCancelButton))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([cancelButton, space], animated: false)
+        tagTextField.inputAccessoryView = toolBar
+        
     }
     private func setupTagCollectionView() {
         view.addSubview(tagCollectionView)
@@ -138,8 +167,22 @@ class NewPrayVC: UIViewController, VCType {
             $0.left.right.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview()
         }
+        tagCollectionView.dataSource = self
+        tagCollectionView.delegate = self
     }
-
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        tagTextField.resignFirstResponder()
+        return true
+    }
+    @objc func didTapDoneButton() {
+        view.endEditing(true)
+    }
+    @objc func didTapCancelButton() {
+        tagTextField.text?.removeAll()
+        view.endEditing(true)
+    }
+    
     // MARK: - Binding
     func bind() {
         bindViews()
@@ -152,7 +195,7 @@ class NewPrayVC: UIViewController, VCType {
                 self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
     }
-
+    
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(saveNewPray: saveButton.rx.tap.asDriver())
@@ -163,5 +206,39 @@ class NewPrayVC: UIViewController, VCType {
             .map { !$0 }
             .drive(saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
+        
+        output.tagList
+            .map { $0.count < 5 }
+            .drive(tagTextField.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.tagList
+            .drive(onNext: { [weak self] list in
+                self?.tagList = list
+                self?.tagCollectionView.reloadData()
+            }).disposed(by: disposeBag)
+    }
+}
+
+extension NewPrayVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let buttonWidth = tagList[indexPath.row].width(withConstraintedHeight: 16,
+                                                       font: .systemFont(ofSize: 14, weight: .regular))
+        return CGSize(width: 20 + buttonWidth, height: 32)
+    }
+}
+
+extension NewPrayVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tagList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PrayTagCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.tagLabel.text = tagList[indexPath.row]
+        
+        return cell
     }
 }
