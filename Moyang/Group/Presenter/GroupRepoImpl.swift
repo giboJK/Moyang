@@ -160,7 +160,7 @@ class GroupRepoImpl: GroupRepo {
         let query = service.store
             .collection("USER")
             .document("AUTH")
-            .collection(member.auth!)
+            .collection(member.auth)
             .document(member.email)
             .collection("PRAY")
             .whereField("group_id", in: [groupID])

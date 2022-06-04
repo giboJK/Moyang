@@ -13,7 +13,7 @@ struct Member: Codable, Identifiable {
     let name: String
     let email: String
     let profileURL: String
-    let auth: String?
+    let auth: String
     
     enum CodingKeys: String, CodingKey {
         case id

@@ -16,6 +16,7 @@ class CommunityMainVM: VMType {
     let myPray = BehaviorRelay<GroupIndividualPrayItem?>(value: nil)
     let cardPrayItemList = BehaviorRelay<[GroupIndividualPrayItem]>(value: [])
     let groupPrayVM = BehaviorRelay<GroupPrayVM?>(value: nil)
+    let isNetworking = BehaviorRelay<Bool>(value: false)
     
     private var groupInfo: GroupInfo?
     
@@ -28,6 +29,10 @@ class CommunityMainVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
+        useCase.isNetworking
+            .bind(to: isNetworking)
+            .disposed(by: disposeBag)
+        
         useCase.groupInfo
             .subscribe(onNext: { [weak self] groupInfo in
                 guard let groupInfo = groupInfo else { return }
@@ -35,12 +40,14 @@ class CommunityMainVM: VMType {
             }).disposed(by: disposeBag)
         
         useCase.cardMemberPrayList
-            .debounce(.milliseconds(300), scheduler: MainScheduler.asyncInstance)
+            .debounce(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
             .map { list in
                 guard let myInfo = UserData.shared.myInfo else { return [] }
                 var itemList = [GroupIndividualPrayItem]()
                 list.filter({ $0.member.id != myInfo.id }).forEach { item in
                     itemList.append(GroupIndividualPrayItem(memberID: item.member.id,
+                                                            memberAuth: item.member.auth,
+                                                            memberEmail: item.member.email,
                                                             name: item.member.name,
                                                             pray: item.pray.pray,
                                                             date: item.pray.date,
@@ -58,6 +65,8 @@ class CommunityMainVM: VMType {
                 guard let myInfo = UserData.shared.myInfo else { return nil }
                 if let myPray = list.first(where: { $0.member.id == myInfo.id }) {
                     return GroupIndividualPrayItem(memberID: myPray.member.id,
+                                                   memberAuth: myPray.member.auth,
+                                                   memberEmail: myPray.member.email,
                                                    name: myPray.member.name,
                                                    pray: myPray.pray.pray,
                                                    date: myPray.pray.date,
@@ -83,7 +92,7 @@ class CommunityMainVM: VMType {
     private func getMemberPray(memberList: [Member]) {
         guard let groupInfo = groupInfo else { Log.e("No GroupInfo"); return }
         memberList.forEach { member in
-            useCase.fetchMemberIndividualPray(member: member, groupID: groupInfo.id, limit: 1)
+            useCase.fetchMemberIndividualPray(member: member, groupID: groupInfo.id, limit: 1, start: Date().toString("yyyy-MM-dd hh:mm:ss a"))
         }
     }
 }
@@ -94,6 +103,7 @@ extension CommunityMainVM {
     }
     
     struct Output {
+        let isNetworking: Driver<Bool>
         let groupName: Driver<String>
         let myPray: Driver<GroupIndividualPrayItem?>
         let cardPrayItemList: Driver<[GroupIndividualPrayItem]>
@@ -108,7 +118,8 @@ extension CommunityMainVM {
                 self.groupPrayVM.accept(GroupPrayVM(useCase: self.useCase, groupID: groupID))
             }).disposed(by: disposeBag)
         
-        return Output(groupName: groupName.asDriver(),
+        return Output(isNetworking: isNetworking.asDriver(),
+                      groupName: groupName.asDriver(),
                       myPray: myPray.asDriver(),
                       cardPrayItemList: cardPrayItemList.asDriver(),
                       groupPrayVM: groupPrayVM.asDriver())
@@ -116,6 +127,8 @@ extension CommunityMainVM {
     
     struct GroupIndividualPrayItem {
         let memberID: String
+        let memberAuth: String
+        let memberEmail: String
         let name: String
         let pray: String
         let date: String
@@ -123,12 +136,16 @@ extension CommunityMainVM {
         let tags: [String]
         
         init(memberID: String,
+             memberAuth: String,
+             memberEmail: String,
              name: String,
              pray: String,
              date: String,
              prayID: String,
              tags: [String]) {
             self.memberID = memberID
+            self.memberAuth = memberAuth
+            self.memberEmail = memberEmail
             self.name = name
             self.pray = pray
             self.date = date

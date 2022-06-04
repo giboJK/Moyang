@@ -24,6 +24,7 @@ class GroupPrayVM: VMType {
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     
     let groupID: String
+    
     init(useCase: CommunityMainUseCase, groupID: String) {
         self.useCase = useCase
         self.groupID = groupID
@@ -38,6 +39,8 @@ class GroupPrayVM: VMType {
                 var itemList = [PrayItem]()
                 list.forEach { item in
                     itemList.append(PrayItem(memberID: item.member.id,
+                                             memberAuth: item.member.auth,
+                                             memberEmail: item.member.email,
                                              name: item.member.name,
                                              pray: item.pray.pray,
                                              date: item.pray.date,
@@ -96,7 +99,8 @@ extension GroupPrayVM {
         input.selectMember
             .drive(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
-                let detailVM = GroupPrayListVM(prayItem: self.cardPrayItemList.value[indexPath.row],
+                let detailVM = GroupPrayListVM(groupID: self.groupID,
+                                               prayItem: self.cardPrayItemList.value[indexPath.row],
                                                useCase: self.useCase)
                 self.detailVM.accept(detailVM)
             }).disposed(by: disposeBag)

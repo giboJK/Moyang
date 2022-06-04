@@ -36,16 +36,18 @@ extension CommunityController: CommunityMainRepo {
         
     }
     
-    func fetchMemberIndividualPray(member: Member, groupID: String, limit: Int, completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?) {
+    func fetchMemberIndividualPray(memberAuth: String, email: String, groupID: String, limit: Int, start: String,
+                                   completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?) {
         let query = firestoreService.store
             .collection("USER")
             .document("AUTH")
-            .collection(member.auth!)
-            .document(member.email)
+            .collection(memberAuth)
+            .document(email)
             .collection("PRAY")
             .whereField("group_id", in: [groupID])
             .order(by: "date", descending: true)
             .limit(to: limit)
+            .start(at: [start])
         fsShared.fetchDocumentsWithQuery(query: query, type: GroupIndividualPray.self, completion: completion)
     }
     
