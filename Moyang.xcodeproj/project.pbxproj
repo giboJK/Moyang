@@ -39,7 +39,6 @@
 		08D2D8552787B074006897A4 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8542787B074006897A4 /* LogInView.swift */; };
 		08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8572787B12F006897A4 /* LoginVM.swift */; };
 		08D449F227B94020004B0D8A /* ProfileSetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D449F127B94020004B0D8A /* ProfileSetVM.swift */; };
-		08D7DAB927CE1D56004CDC9E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D7DAB827CE1D56004CDC9E /* TestView.swift */; };
 		08D7DABC27CE244E004CDC9E /* LoginVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D7DABB27CE244E004CDC9E /* LoginVMMock.swift */; };
 		08D82953278D192C001E6B61 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82952278D192C001E6B61 /* LoginService.swift */; };
 		08D82955278D196F001E6B61 /* FSLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82954278D196F001E6B61 /* FSLoginService.swift */; };
@@ -47,7 +46,6 @@
 		08D82959278D25F0001E6B61 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82958278D25F0001E6B61 /* Font+.swift */; };
 		08D8295B278D3327001E6B61 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295A278D3327001E6B61 /* Color+.swift */; };
 		08D8295F278D8116001E6B61 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295E278D8116001E6B61 /* IntroView.swift */; };
-		08D8875E27D317DA00E32959 /* TopTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8875D27D317DA00E32959 /* TopTabBar.swift */; };
 		08D8876427D32A5900E32959 /* GroupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8876327D32A5900E32959 /* GroupVM.swift */; };
 		08D897AE2778604D0065E103 /* PrayAddVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D897AD2778604D0065E103 /* PrayAddVM.swift */; };
 		08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */; };
@@ -188,6 +186,9 @@
 		24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB33283E74B900F52505 /* NetworkImpl.swift */; };
 		24E0AB36283E751800F52505 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB35283E751800F52505 /* Reachability.swift */; };
 		24E0AB38283E75AF00F52505 /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB37283E75AF00F52505 /* CommonUtils.swift */; };
+		24E36115284B157A00C7EE26 /* NewPrayTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E36114284B157A00C7EE26 /* NewPrayTagCollectionViewCell.swift */; };
+		24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E36116284B806C00C7EE26 /* UIViewController+.swift */; };
+		24E36119284B812D00C7EE26 /* MoyangPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E36118284B812D00C7EE26 /* MoyangPopupView.swift */; };
 		24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E60723278EF19E00D5A7F2 /* IndicatorView.swift */; };
 		24E779CE2787308D00C732D6 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E779CD2787308D00C732D6 /* Member.swift */; };
 		24E8F07C27DDD6860036C0F0 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E8F07B27DDD6860036C0F0 /* PrivacyPolicyView.swift */; };
@@ -237,7 +238,6 @@
 		08D2D8542787B074006897A4 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		08D2D8572787B12F006897A4 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		08D449F127B94020004B0D8A /* ProfileSetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetVM.swift; sourceTree = "<group>"; };
-		08D7DAB827CE1D56004CDC9E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		08D7DABB27CE244E004CDC9E /* LoginVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVMMock.swift; sourceTree = "<group>"; };
 		08D82952278D192C001E6B61 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		08D82954278D196F001E6B61 /* FSLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSLoginService.swift; sourceTree = "<group>"; };
@@ -245,7 +245,6 @@
 		08D82958278D25F0001E6B61 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		08D8295A278D3327001E6B61 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		08D8295E278D8116001E6B61 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
-		08D8875D27D317DA00E32959 /* TopTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabBar.swift; sourceTree = "<group>"; };
 		08D8876327D32A5900E32959 /* GroupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVM.swift; sourceTree = "<group>"; };
 		08D897AD2778604D0065E103 /* PrayAddVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayAddVM.swift; sourceTree = "<group>"; };
 		08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
@@ -389,6 +388,9 @@
 		24E0AB33283E74B900F52505 /* NetworkImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImpl.swift; sourceTree = "<group>"; };
 		24E0AB35283E751800F52505 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		24E0AB37283E75AF00F52505 /* CommonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
+		24E36114284B157A00C7EE26 /* NewPrayTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayTagCollectionViewCell.swift; sourceTree = "<group>"; };
+		24E36116284B806C00C7EE26 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		24E36118284B812D00C7EE26 /* MoyangPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangPopupView.swift; sourceTree = "<group>"; };
 		24E60723278EF19E00D5A7F2 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		24E779CD2787308D00C732D6 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		24E8F07B27DDD6860036C0F0 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 			isa = PBXGroup;
 			children = (
 				242D745B274267C80053EF2A /* MainCard.swift */,
+				24E36118284B812D00C7EE26 /* MoyangPopupView.swift */,
 				08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */,
 				24E60723278EF19E00D5A7F2 /* IndicatorView.swift */,
 				24BB42612847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift */,
@@ -660,8 +663,6 @@
 				24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */,
 				24B9AEDB27C1C6DD005391DA /* SearchBar.swift */,
 				08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */,
-				08D7DAB827CE1D56004CDC9E /* TestView.swift */,
-				08D8875D27D317DA00E32959 /* TopTabBar.swift */,
 				24E8F07D27DDD7280036C0F0 /* WebView.swift */,
 				08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */,
 				24E0AB1E283D1FF900F52505 /* MoyangNavBar.swift */,
@@ -684,6 +685,7 @@
 			isa = PBXGroup;
 			children = (
 				242F92A02848FD140023324D /* NewPrayVC.swift */,
+				24E36114284B157A00C7EE26 /* NewPrayTagCollectionViewCell.swift */,
 			);
 			path = NewPray;
 			sourceTree = "<group>";
@@ -1095,6 +1097,7 @@
 			isa = PBXGroup;
 			children = (
 				24D0D3282723145F006FF67B /* Date+.swift */,
+				24E36116284B806C00C7EE26 /* UIViewController+.swift */,
 				24D0D32E27231511006FF67B /* Publishers+.swift */,
 				24E0AB20283D228A00F52505 /* UIView+.swift */,
 				24D0D33027231520006FF67B /* View+.swift */,
@@ -1397,6 +1400,7 @@
 				08B142DC27AFB624000952FF /* NewSermonView.swift in Sources */,
 				08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */,
 				24E0AB30283E746700F52505 /* Network.swift in Sources */,
+				24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */,
 				24BF681927C3C537000E1E91 /* MemberSearchRow.swift in Sources */,
 				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
 				24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */,
@@ -1437,6 +1441,7 @@
 				08FEC8F827C48D8F00C57110 /* MemberRepoImpl.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				24E0AB21283D228A00F52505 /* UIView+.swift in Sources */,
+				24E36115284B157A00C7EE26 /* NewPrayTagCollectionViewCell.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				246BD7C827240AD4005C4E0B /* PrayRepoImpl.swift in Sources */,
 				24B8BCED2764C7FF005B0A9F /* CommunityListService.swift in Sources */,
@@ -1455,7 +1460,6 @@
 				08FE02EE28105358007EE5BE /* GroupPrayNoteSmallCard.swift in Sources */,
 				24DB58DE2845CA8E001E12B0 /* CommunityGroupPrayCollectionViewCell.swift in Sources */,
 				248AF71D27C06BF4004AA283 /* SermonPreviewCard.swift in Sources */,
-				08D8875E27D317DA00E32959 /* TopTabBar.swift in Sources */,
 				24E0AB2E283E744200F52505 /* CommunityController.swift in Sources */,
 				082371B527BA7C2B0050420E /* TermsView.swift in Sources */,
 				24BB426028471F6700E86CCD /* PrayTagCollectionViewCell.swift in Sources */,
@@ -1483,7 +1487,6 @@
 				0894AC6827B6B09F0011F167 /* ProfileSetView.swift in Sources */,
 				24AACA78283FB42A00308AC3 /* CommunityMainAssembly.swift in Sources */,
 				2496FE8227B527B600E9DCEE /* SermonRepo.swift in Sources */,
-				08D7DAB927CE1D56004CDC9E /* TestView.swift in Sources */,
 				242F92A12848FD140023324D /* NewPrayVC.swift in Sources */,
 				248AF71F27C09B2E004AA283 /* GroupManageCardRow.swift in Sources */,
 				246BD7F827240AE4005C4E0B /* GroupPreview.swift in Sources */,
@@ -1537,6 +1540,7 @@
 				08BE775C2796D010008DC7B0 /* PastorLogInView.swift in Sources */,
 				08D82953278D192C001E6B61 /* LoginService.swift in Sources */,
 				0819D91D27AD1E52009F97BF /* SermonCard.swift in Sources */,
+				24E36119284B812D00C7EE26 /* MoyangPopupView.swift in Sources */,
 				08A02A5927AE13C90043EEF0 /* CommunityGroupCardView.swift in Sources */,
 				24B9B70227BFE93A007A12C6 /* GroupManageListVM.swift in Sources */,
 				24755367277CA9AB001908A6 /* UserData.swift in Sources */,

@@ -105,7 +105,6 @@ class GroupPrayVC: UIViewController, VCType {
         }
     }
     
-    
     // MARK: - Binding
     func bind() {
         bindViews()
@@ -148,6 +147,20 @@ class GroupPrayVC: UIViewController, VCType {
             .drive(onNext: { [weak self] detailVM in
                 guard let detailVM = detailVM else { return }
                 self?.coordinator?.didTapPray(vm: detailVM)
+            }).disposed(by: disposeBag)
+        
+        output.addingNewPraySuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.showToast(type: .success, message: "기도 추가 완료", disposeBag: self.disposeBag)
+            }).disposed(by: disposeBag)
+        
+        output.addingNewPrayFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.showToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
             }).disposed(by: disposeBag)
     }
 }

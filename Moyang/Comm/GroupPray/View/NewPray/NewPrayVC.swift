@@ -35,7 +35,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.setTitleColor(.sheep4, for: .disabled)
     }
     let newPrayTextField = UITextView().then {
-        $0.backgroundColor = .sheep3
+        $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
@@ -50,7 +50,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.backgroundColor = .sheep3
         $0.layer.cornerRadius = 8
         $0.attributedPlaceholder = NSAttributedString(string: "#태그 추가",
-                                                      attributes: [.foregroundColor: UIColor.nightSky3])
+                                                      attributes: [.foregroundColor: UIColor.sheep4])
         $0.textColor = .nightSky1
         $0.returnKeyType = .done
     }
@@ -61,7 +61,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.collectionViewLayout = layout
         $0.isScrollEnabled = true
         $0.backgroundColor = .clear
-        $0.register(PrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        $0.register(NewPrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
     override func viewDidLoad() {
@@ -71,7 +71,10 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         bind()
     }
     
-    deinit { Log.i(self) }
+    deinit {
+        Log.i(self)
+        vm?.clearNewTag()
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
@@ -115,7 +118,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         newPrayTextField.snp.makeConstraints {
             $0.top.equalTo(navBar.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(320)
+            $0.height.equalTo(280)
         }
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
             $0.sizeToFit()
@@ -194,11 +197,21 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .subscribe(onNext: { [weak self] _ in
                 self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
+        
+        tagTextField.rx.controlEvent(.editingDidEnd)
+            .delay(.milliseconds(50), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.tagTextField.text?.removeAll()
+            }).disposed(by: disposeBag)
     }
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(saveNewPray: saveButton.rx.tap.asDriver())
+        let input = VM.Input(setPray: newPrayTextField.rx.text.asDriver(),
+                             saveNewPray: saveButton.rx.tap.asDriver(),
+                             setTag: tagTextField.rx.text.asDriver(),
+                             addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver())
+        
         let output = vm.transform(input: input)
         
         output.newPray
@@ -207,15 +220,37 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
+        output.newTag
+            .drive(tagTextField.rx.text)
+            .disposed(by: disposeBag)
+        
         output.tagList
             .map { $0.count < 5 }
             .drive(tagTextField.rx.isEnabled)
             .disposed(by: disposeBag)
         
         output.tagList
+            .map { $0.count >= 5 }
+            .drive(onNext: { [weak self] isFullTag in
+                self?.tagTextField.backgroundColor = isFullTag ? .sheep3 : .sheep1
+            }).disposed(by: disposeBag)
+        
+        output.tagList
             .drive(onNext: { [weak self] list in
                 self?.tagList = list
                 self?.tagCollectionView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        output.addingNewPraySuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        output.addingNewPrayFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
     }
 }
@@ -224,7 +259,7 @@ extension NewPrayVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let buttonWidth = tagList[indexPath.row].width(withConstraintedHeight: 16,
                                                        font: .systemFont(ofSize: 14, weight: .regular))
-        return CGSize(width: 20 + buttonWidth, height: 32)
+        return CGSize(width: 20 + 24 + buttonWidth, height: 32)
     }
 }
 
@@ -234,10 +269,13 @@ extension NewPrayVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PrayTagCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? NewPrayTagCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.tagLabel.text = tagList[indexPath.row]
+        cell.vm = vm
+        cell.indexPath = indexPath
+        cell.bind()
         
         return cell
     }

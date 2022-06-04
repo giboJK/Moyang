@@ -48,4 +48,16 @@ extension CommunityController: CommunityMainRepo {
             .limit(to: limit)
         fsShared.fetchDocumentsWithQuery(query: query, type: GroupIndividualPray.self, completion: completion)
     }
+    
+    func addIndividualPray(data: GroupIndividualPray, myInfo: MemberDetail, completion: ((Result<Bool, MoyangError>) -> Void)?) {
+        let ref = firestoreService.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(myInfo.authType)
+            .document(myInfo.email)
+            .collection("PRAY")
+            .document(data.id)
+        
+        fsShared.addDocument(data, ref: ref, completion: completion)
+    }
 }

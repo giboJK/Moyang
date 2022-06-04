@@ -104,7 +104,8 @@ extension CommunityMainVM {
         input.didTapPrayCard
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.groupPrayVM.accept(GroupPrayVM(useCase: self.useCase))
+                guard let groupID = self.groupInfo?.id else { Log.e(""); return }
+                self.groupPrayVM.accept(GroupPrayVM(useCase: self.useCase, groupID: groupID))
             }).disposed(by: disposeBag)
         
         return Output(groupName: groupName.asDriver(),

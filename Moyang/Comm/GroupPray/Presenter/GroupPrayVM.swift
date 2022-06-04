@@ -20,8 +20,13 @@ class GroupPrayVM: VMType {
     let newTag = BehaviorRelay<String?>(value: nil)
     let tagList = BehaviorRelay<[String]>(value: [])
     
-    init(useCase: CommunityMainUseCase) {
+    let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
+    let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
+    
+    let groupID: String
+    init(useCase: CommunityMainUseCase, groupID: String) {
         self.useCase = useCase
+        self.groupID = groupID
         bind()
     }
     
@@ -43,6 +48,26 @@ class GroupPrayVM: VMType {
             }
             .bind(to: cardPrayItemList)
             .disposed(by: disposeBag)
+        
+        useCase.addingNewPraySuccess
+            .bind(to: addingNewPraySuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.addingNewPrayFailure
+            .bind(to: addingNewPrayFailure)
+            .disposed(by: disposeBag)
+    }
+    
+    func clearNewTag() {
+        tagList.accept([])
+    }
+    
+    private func addNewPray() {
+        useCase.addIndividualPray(id: UUID().uuidString,
+                                  groupID: groupID,
+                                  date: Date().toString("yyyy-MM-dd hh:mm:ss a"),
+                                  pray: newPray.value!,
+                                  tags: tagList.value)
     }
 }
 
@@ -51,16 +76,20 @@ extension GroupPrayVM {
         var selectMember: Driver<IndexPath> = .empty()
         var setPray: Driver<String?> = .empty()
         var saveNewPray: Driver<Void> = .empty()
+        var newTag: Driver<String?> = .empty()
         var setTag: Driver<String?> = .empty()
         var addTag: Driver<Void> = .empty()
-        var removeTag: Driver<IndexPath> = .empty()
+        var deleteTag: Driver<IndexPath?> = .empty()
     }
     
     struct Output {
         let cardPrayItemList: Driver<[PrayItem]>
         let detailVM: Driver<GroupPrayListVM?>
         let newPray: Driver<String?>
+        let newTag: Driver<String?>
         let tagList: Driver<[String]>
+        let addingNewPraySuccess: Driver<Void>
+        let addingNewPrayFailure: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -68,7 +97,7 @@ extension GroupPrayVM {
             .drive(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
                 let detailVM = GroupPrayListVM(prayItem: self.cardPrayItemList.value[indexPath.row],
-                                                 useCase: self.useCase)
+                                               useCase: self.useCase)
                 self.detailVM.accept(detailVM)
             }).disposed(by: disposeBag)
         
@@ -76,23 +105,47 @@ extension GroupPrayVM {
             .drive(newPray)
             .disposed(by: disposeBag)
         
+        input.saveNewPray
+            .drive(onNext: { [weak self] _ in
+                self?.addNewPray()
+            }).disposed(by: disposeBag)
+        
         input.setTag
-            .drive(newTag)
-            .disposed(by: disposeBag)
+            .drive(onNext: { [weak self] tag in
+                guard let tag = tag else { return }
+                self?.newTag.accept(String(tag.prefix(20)))
+            }).disposed(by: disposeBag)
         
         input.addTag
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 var currnetTags = self.tagList.value
-                if let tag = self.newTag.value {
+                if let tag = self.newTag.value,
+                   !tag.isEmpty, !tag.trimmingCharacters(in: .whitespaces).isEmpty {
                     currnetTags.append(tag)
                     self.tagList.accept(currnetTags)
                 }
             }).disposed(by: disposeBag)
         
+        input.deleteTag
+            .drive(onNext: { [weak self] indexPath in
+                guard let self = self else { Log.e(""); return }
+                guard let indexPath = indexPath else { Log.e(""); return }
+                var currnetTags = self.tagList.value
+                if currnetTags.count > indexPath.row {
+                    currnetTags.remove(at: indexPath.row)
+                    self.tagList.accept(currnetTags)
+                }
+            }).disposed(by: disposeBag)
+        
+        
         return Output(cardPrayItemList: cardPrayItemList.asDriver(),
                       detailVM: detailVM.asDriver(),
                       newPray: newPray.asDriver(),
-                      tagList: tagList.asDriver())
+                      newTag: newTag.asDriver(),
+                      tagList: tagList.asDriver(),
+                      addingNewPraySuccess: addingNewPraySuccess.asDriver(),
+                      addingNewPrayFailure: addingNewPrayFailure.asDriver()
+        )
     }
 }
