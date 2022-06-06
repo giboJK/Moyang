@@ -11,11 +11,14 @@ import RxCocoa
 class GroupPrayingVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
-    let groupInfo: GroupInfo
+    let groupID: String
+    var members: [Member] = []
+    
+    let memberList = BehaviorRelay<[String]>(value: [])
 
-    init(useCase: CommunityMainUseCase, groupInfo: GroupInfo) {
+    init(useCase: CommunityMainUseCase, groupID: String) {
         self.useCase = useCase
-        self.groupInfo = groupInfo
+        self.groupID = groupID
         bind()
         fetchPray()
     }
@@ -23,7 +26,11 @@ class GroupPrayingVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-        
+        useCase.memberList
+            .subscribe(onNext: { [weak self] list in
+                self?.members = list
+                self?.memberList.accept(list.map { $0.name }.sorted(by: <))
+            }).disposed(by: disposeBag)
     }
     
     private func fetchPray() {

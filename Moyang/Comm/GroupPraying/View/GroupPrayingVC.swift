@@ -27,6 +27,16 @@ class GroupPrayingVC: UIViewController, VCType {
     let titleLabel = UILabel()
     let prevButton = UIButton()
     let nextButton = UIButton()
+    let prayTableView = UITableView().then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.register(GroupPrayingTableViewCell.self, forCellReuseIdentifier: "cell")
+        $0.backgroundColor = .sheep1
+        $0.separatorStyle = .none
+        $0.estimatedRowHeight = 220
+        $0.showsVerticalScrollIndicator = false
+        $0.bounces = true
+        $0.isScrollEnabled = true
+    }
     
 
     override func viewDidLoad() {

@@ -87,18 +87,20 @@ extension GroupPrayListVM {
     struct Output {
         let name: Driver<String>
         let prayList: Driver<[PrayItem]>
+        let groupPrayingVM: Driver<GroupPrayingVM?>
     }
 
     func transform(input: Input) -> Output {
         input.letsPraying
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
                 let vm = GroupPrayingVM(useCase: self.useCase,
-                                        groupInfo: groupInfo)
+                                        groupID: self.groupID)
                 self.groupPrayingVM.accept(vm)
             }).disposed(by: disposeBag)
+        
         return Output(name: name.asDriver(),
-                      prayList: prayList.asDriver())
+                      prayList: prayList.asDriver(),
+                      groupPrayingVM: groupPrayingVM.asDriver())
     }
 }

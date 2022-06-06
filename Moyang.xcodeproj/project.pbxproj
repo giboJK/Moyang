@@ -164,6 +164,7 @@
 		24D0D33327231537006FF67B /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D33227231537006FF67B /* UIScreen+.swift */; };
 		24D1F53227BD3B110026D65D /* CommunityPrayCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1F53127BD3B110026D65D /* CommunityPrayCardVM.swift */; };
 		24D1F53627BD45FD0026D65D /* SermonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1F53527BD45FD0026D65D /* SermonListView.swift */; };
+		24D6E60E284D889E00DE3493 /* GroupPrayingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D6E60D284D889E00DE3493 /* GroupPrayingTableViewCell.swift */; };
 		24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */; };
 		24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */; };
 		24DABE7227E8610C0008D132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24DABE7127E8610C0008D132 /* GoogleService-Info.plist */; };
@@ -365,6 +366,7 @@
 		24D0D33227231537006FF67B /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		24D1F53127BD3B110026D65D /* CommunityPrayCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPrayCardVM.swift; sourceTree = "<group>"; };
 		24D1F53527BD45FD0026D65D /* SermonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonListView.swift; sourceTree = "<group>"; };
+		24D6E60D284D889E00DE3493 /* GroupPrayingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayingTableViewCell.swift; sourceTree = "<group>"; };
 		24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberPray.swift; sourceTree = "<group>"; };
 		24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCenter.swift; sourceTree = "<group>"; };
 		24DABE7127E8610C0008D132 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1125,6 +1127,7 @@
 			isa = PBXGroup;
 			children = (
 				24E0AB1C283D1ECF00F52505 /* GroupPrayingVC.swift */,
+				24D6E60D284D889E00DE3493 /* GroupPrayingTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1466,6 +1469,7 @@
 				249B903027259C6400B53682 /* DummyData.swift in Sources */,
 				24E8F07E27DDD7280036C0F0 /* WebView.swift in Sources */,
 				08B142DE27AFB810000952FF /* NewSermonVM.swift in Sources */,
+				24D6E60E284D889E00DE3493 /* GroupPrayingTableViewCell.swift in Sources */,
 				08BE77612796DAB8008DC7B0 /* PastorList.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
 				246BD7C627240AD4005C4E0B /* PrayListVM.swift in Sources */,

@@ -134,6 +134,12 @@ class GroupPrayListVC: UIViewController, VCType {
                     }
                     cell.noTagLabel.isHidden = !item.tags.isEmpty
                 }.disposed(by: disposeBag)
+        
+        output.groupPrayingVM
+            .drive(onNext: { [weak self] groupPrayingVM in
+              guard let groupPrayingVM = groupPrayingVM else { return }
+                self?.coordinator?.didTapPraybutton(vm: groupPrayingVM)
+            }).disposed(by: disposeBag)
     }
 }
 
