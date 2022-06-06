@@ -10,13 +10,15 @@ import RxSwift
 import RxCocoa
 
 class CommunityMainUseCase {
+    typealias PrayList = [GroupIndividualPray]
     let repo: CommunityMainRepo
     
     let groupInfo = BehaviorRelay<GroupInfo?>(value: nil)
     let cardMemberPrayList = BehaviorRelay<[(pray: GroupIndividualPray, member: Member)]>(value: [])
-    let memberPrayList = BehaviorRelay<[GroupIndividualPray]>(value: [])
+    let memberPrayList = BehaviorRelay<[(member: Member, list: PrayList)]>(value: [])
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
+    let memberList = BehaviorRelay<[Member]>(value: [])
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -45,6 +47,11 @@ class CommunityMainUseCase {
     }
     
     func fetchMemberIndividualPray(member: Member, groupID: String, limit: Int = 1, start: String) {
+        if !memberList.value.contains(where: { $0.id == member.id }) {
+            var list = memberList.value
+            list.append(member)
+            memberList.accept(list)
+        }
         repo.fetchMemberIndividualPray(memberAuth: member.auth, email: member.email,
                                        groupID: groupID, limit: limit, start: start) { [weak self] result in
             guard let self = self else { return }
@@ -63,18 +70,32 @@ class CommunityMainUseCase {
     
     func fetchMemberIndividualPray(memberAuth: String, email: String, groupID: String, limit: Int = 1, start: String) {
         if checkAndSetIsNetworking() { return }
+        var selectedList: (member: Member, list: CommunityMainUseCase.PrayList)?
+        var selectedIndex: Array<(member: Member, list: CommunityMainUseCase.PrayList)>.Index!
+        if let index = memberPrayList.value.firstIndex(where: { ($0.member.email == email) && ($0.member.auth == memberAuth) }) {
+            selectedList = memberPrayList.value[index]
+            selectedIndex = index
+        }
+
         repo.fetchMemberIndividualPray(memberAuth: memberAuth, email: email,
                                        groupID: groupID, limit: limit, start: start) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(var groupIndividualPrayList):
-                var current = self.memberPrayList.value
-                if current.isEmpty {
-                    self.memberPrayList.accept(groupIndividualPrayList)
+            case .success(var data):
+                var cur = self.memberPrayList.value
+                if var selectedList = selectedList {
+                    if selectedList.list.isEmpty {
+                        selectedList.list = data
+                    } else {
+                        _ = data.removeFirst()
+                        selectedList.list.append(contentsOf: data)
+                    }
+                    cur[selectedIndex] = selectedList
+                    self.memberPrayList.accept(cur)
                 } else {
-                    _ = groupIndividualPrayList.removeFirst()
-                    current.append(contentsOf: groupIndividualPrayList)
-                    self.memberPrayList.accept(current)
+                    let member = self.memberList.value.first(where: { ($0.email == email) && ($0.auth == memberAuth) })!
+                    cur.append((member: member, list: data))
+                    self.memberPrayList.accept(cur)
                 }
             case .failure(let error):
                 Log.e(error)
@@ -96,7 +117,13 @@ class CommunityMainUseCase {
             addingNewPrayFailure.accept(())
             return
         }
-        let data = GroupIndividualPray(id: id, groupID: groupID, date: date, pray: pray, tags: tags)
+        let data = GroupIndividualPray(id: id,
+                                       groupID: groupID,
+                                       date: date,
+                                       pray: pray,
+                                       tags: tags,
+                                       reactions: [],
+                                       replys: [])
         repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
             switch result {
             case .success:

@@ -31,6 +31,14 @@ class GroupPrayListVC: UIViewController, VCType {
         $0.bounces = true
         $0.isScrollEnabled = true
     }
+    let prayButton = UIButton().then {
+        $0.setTitle("기도하기 ", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.tintColor = .sheep1
+        $0.backgroundColor = .nightSky1
+        $0.layer.cornerRadius = 12
+        $0.semanticContentAttribute = .forceRightToLeft
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +59,7 @@ class GroupPrayListVC: UIViewController, VCType {
     func setupUI() {
         setupNavBar()
         setupPrayTableView()
+        setupPrayButton()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -66,6 +75,15 @@ class GroupPrayListVC: UIViewController, VCType {
             $0.top.equalTo(navBar.snp.bottom).offset(12)
             $0.bottom.equalToSuperview()
             $0.left.right.equalToSuperview().inset(8)
+        }
+    }
+    private func setupPrayButton() {
+        view.addSubview(prayButton)
+        prayButton.snp.makeConstraints {
+            $0.height.equalTo(48)
+            $0.width.equalTo(96)
+            $0.bottom.equalToSuperview()
+            $0.centerX.equalToSuperview()
         }
     }
 
@@ -96,7 +114,7 @@ class GroupPrayListVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(letsPraying: prayButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
         output.name
@@ -120,5 +138,5 @@ class GroupPrayListVC: UIViewController, VCType {
 }
 
 protocol GroupPrayDetailVCDelegate: AnyObject {
-
+    func didTapPraybutton(vm: GroupPrayingVM)
 }

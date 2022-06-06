@@ -40,6 +40,8 @@ extension GroupPrayCoordinator: GroupPrayVCDelegate {
 
         if let vc = assembler.resolver.resolve(NewPrayVC.self, argument: vm) {
             nav.present(vc, animated: true)
+        } else {
+            Log.e("")
         }
     }
     
@@ -47,10 +49,23 @@ extension GroupPrayCoordinator: GroupPrayVCDelegate {
         if let vc = assembler.resolver.resolve(GroupPrayListVC.self, argument: vm) {
             nav.pushViewController(vc, animated: true)
             vc.coordinator = self
+        } else {
+            Log.e("")
         }
     }
 }
 
 extension GroupPrayCoordinator: GroupPrayDetailVCDelegate {
+    func didTapPraybutton(vm: GroupPrayingVM) {
+        if let vc = assembler.resolver.resolve(GroupPrayingVC.self, argument: vm) {
+            nav.pushViewController(vc, animated: true)
+            vc.coordinator = self
+        } else {
+            Log.e("")
+        }
+    }
+}
+
+extension GroupPrayCoordinator: GroupPrayingVCDelegate {
     
 }

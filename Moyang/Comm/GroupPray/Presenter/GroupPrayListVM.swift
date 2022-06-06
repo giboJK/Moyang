@@ -19,6 +19,7 @@ class GroupPrayListVM: VMType {
     let name = BehaviorRelay<String>(value: "")
     let prayList = BehaviorRelay<[PrayItem]>(value: [])
     let isNetworking = BehaviorRelay<Bool>(value: false)
+    let groupPrayingVM = BehaviorRelay<GroupPrayingVM?>(value: nil)
 
     init(groupID: String, prayItem: PrayItem, useCase: CommunityMainUseCase) {
         self.groupID = groupID
@@ -41,15 +42,17 @@ class GroupPrayListVM: VMType {
             .map { [weak self] list in
                 guard let self = self else { return [] }
                 var itemList = [PrayItem]()
-                list.forEach { item in
-                    itemList.append(PrayItem(memberID: "",
-                                             memberAuth: self.auth,
-                                             memberEmail: self.email,
-                                             name: self.name.value,
-                                             pray: item.pray,
-                                             date: item.date,
-                                             prayID: item.id,
-                                             tags: item.tags))
+                list.filter { $0.member.auth == self.auth && $0.member.email == self.email}.forEach { item in
+                    item.list.forEach { pray in
+                        itemList.append(PrayItem(memberID: item.member.id,
+                                                 memberAuth: self.auth,
+                                                 memberEmail: self.email,
+                                                 name: item.member.name,
+                                                 pray: pray.pray,
+                                                 date: pray.date,
+                                                 prayID: pray.id,
+                                                 tags: pray.tags))
+                    }
                 }
                 return itemList
             }
@@ -78,7 +81,7 @@ class GroupPrayListVM: VMType {
 
 extension GroupPrayListVM {
     struct Input {
-
+        let letsPraying: Driver<Void>
     }
 
     struct Output {
@@ -87,6 +90,14 @@ extension GroupPrayListVM {
     }
 
     func transform(input: Input) -> Output {
+        input.letsPraying
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
+                let vm = GroupPrayingVM(useCase: self.useCase,
+                                        groupInfo: groupInfo)
+                self.groupPrayingVM.accept(vm)
+            }).disposed(by: disposeBag)
         return Output(name: name.asDriver(),
                       prayList: prayList.asDriver())
     }
