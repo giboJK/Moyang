@@ -19,8 +19,9 @@ class GroupPrayingVC: UIViewController, VCType {
     var coordinator: GroupPrayingVCDelegate?
 
     // MARK: - UI
-    let navBar = MoyangNavBar(.dark).then {
+    let navBar = MoyangNavBar(.light).then {
         $0.backButton.isHidden = true
+        $0.closeButton.tintColor = .sheep2
         $0.titleLabel.isHidden = true
         $0.backgroundColor = .clear
     }
@@ -30,7 +31,7 @@ class GroupPrayingVC: UIViewController, VCType {
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(GroupPrayingTableViewCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .sheep1
+        $0.backgroundColor = .clear
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 220
         $0.showsVerticalScrollIndicator = false
@@ -55,7 +56,6 @@ class GroupPrayingVC: UIViewController, VCType {
         view.setGradient(color1: .nightSky3, color2: .nightSky2)
         setupNavBar()
     }
-    
     private func setupNavBar() {
         view.addSubview(navBar)
         navBar.snp.makeConstraints {

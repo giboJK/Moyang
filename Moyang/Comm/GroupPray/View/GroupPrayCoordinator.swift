@@ -58,7 +58,8 @@ extension GroupPrayCoordinator: GroupPrayVCDelegate {
 extension GroupPrayCoordinator: GroupPrayDetailVCDelegate {
     func didTapPraybutton(vm: GroupPrayingVM) {
         if let vc = assembler.resolver.resolve(GroupPrayingVC.self, argument: vm) {
-            nav.pushViewController(vc, animated: true)
+            vc.modalPresentationStyle = .fullScreen
+            nav.present(vc, animated: true)
             vc.coordinator = self
         } else {
             Log.e("")
