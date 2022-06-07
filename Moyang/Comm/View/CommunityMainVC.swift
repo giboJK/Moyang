@@ -37,6 +37,10 @@ class CommunityMainVC: UIViewController, VCType {
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
     let communityGroupPrayCard = CommunityGroupPrayCard()
+    let confirmPopupView = MoyangPopupView(style: .oneButton).then {
+        $0.title = "나는 거룩한 하나님의 자녀입니다."
+        $0.firstButton.setTitle("네!", for: .normal)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +70,7 @@ class CommunityMainVC: UIViewController, VCType {
         view.backgroundColor = .nightSky3
         setupSermonCard()
         setupScrollView()
+        displayPopup(popup: confirmPopupView)
     }
     
     private func setupSermonCard() {
@@ -120,6 +125,10 @@ class CommunityMainVC: UIViewController, VCType {
     }
     
     func bindViews() {
+        confirmPopupView.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
     }
     
     func bindVM() {

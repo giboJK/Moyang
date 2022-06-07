@@ -20,6 +20,8 @@ class CommunityMainUseCase {
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     let memberList = BehaviorRelay<[Member]>(value: [])
     
+    let songName = BehaviorRelay<String?>(value: nil)
+    
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
     // MARK: - Lifecycle
@@ -141,6 +143,24 @@ class CommunityMainUseCase {
         if let firstIndex = current.firstIndex(where: { $0.member.id == myInfo.id }) {
             current[firstIndex].pray = pray
             cardMemberPrayList.accept(current)
+        }
+    }
+    
+    func loadSong() {
+        downloadSong()
+    }
+    
+    private func downloadSong(fileName: String = "RoadToGod", fileExt: String = ".mp3") {
+        repo.downloadSong(fileName: "RoadToGod", path: "music/", fileExt: ".mp3") { [weak self] result in
+            switch result {
+            case .success(let donwloadSuccess):
+                Log.d(donwloadSuccess)
+                if donwloadSuccess {
+                    self?.songName.accept(fileName + fileExt)
+                }
+            case .failure(let error):
+                Log.e(MoyangError.other(error))
+            }
         }
     }
     

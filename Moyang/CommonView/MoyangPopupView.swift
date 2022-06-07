@@ -30,7 +30,12 @@ class MoyangPopupView: UIView {
         $0.textColor = .nightSky1
         $0.numberOfLines = 0
     }
-    let firstButton = UIButton()
+    let firstButton = UIButton().then {
+        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        $0.tintColor = .sheep1
+        $0.backgroundColor = .nightSky1
+        $0.layer.cornerRadius = 12
+    }
     let secondButton = UIButton()
     var popupWidth: CGFloat = UIScreen.main.bounds.width - 48
     
