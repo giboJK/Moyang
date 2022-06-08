@@ -21,6 +21,7 @@ class CommunityMainUseCase {
     let memberList = BehaviorRelay<[Member]>(value: [])
     
     let songName = BehaviorRelay<String?>(value: nil)
+    let songURL = BehaviorRelay<URL?>(value: nil)
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -153,11 +154,10 @@ class CommunityMainUseCase {
     private func downloadSong(fileName: String = "RoadToGod", fileExt: String = ".mp3") {
         repo.downloadSong(fileName: "RoadToGod", path: "music/", fileExt: ".mp3") { [weak self] result in
             switch result {
-            case .success(let donwloadSuccess):
-                Log.d(donwloadSuccess)
-                if donwloadSuccess {
-                    self?.songName.accept(fileName + fileExt)
-                }
+            case .success(let url):
+                Log.d(url)
+                self?.songName.accept(fileName)
+                self?.songURL.accept(url)
             case .failure(let error):
                 Log.e(MoyangError.other(error))
             }

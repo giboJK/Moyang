@@ -11,6 +11,7 @@ extension UIColor {
     @nonobjc class var nightSky1: UIColor { Asset.Colors.Primary.nightSky1.color }
     @nonobjc class var nightSky2: UIColor { Asset.Colors.Secondary.nightSky2.color }
     @nonobjc class var nightSky3: UIColor { Asset.Colors.Secondary.nightSky3.color }
+    @nonobjc class var nightSky4: UIColor { Asset.Colors.Secondary.nightSky4.color }
     
     @nonobjc class var sheep1: UIColor { Asset.Colors.Primary.sheep1.color }
     @nonobjc class var sheep2: UIColor { Asset.Colors.Secondary.sheep2.color }

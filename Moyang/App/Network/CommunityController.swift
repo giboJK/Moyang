@@ -64,7 +64,7 @@ extension CommunityController: CommunityMainRepo {
     }
     
     func downloadSong(fileName: String, path: String, fileExt: String,
-                      completion: ((Result<Bool, MoyangError>) -> Void)?) {
+                      completion: ((Result<URL, MoyangError>) -> Void)?) {
         fsShared.downloadFile(fileName: fileName, path: path, fileExt: fileExt, completion: completion)
     }
 }

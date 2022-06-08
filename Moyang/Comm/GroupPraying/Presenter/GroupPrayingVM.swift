@@ -16,6 +16,7 @@ class GroupPrayingVM: VMType {
     
     let memberList = BehaviorRelay<[String]>(value: [])
     let songName = BehaviorRelay<String?>(value: nil)
+    let songURL = BehaviorRelay<URL?>(value: nil)
     let isPlaying = BehaviorRelay<Bool>(value: false)
 
     init(useCase: CommunityMainUseCase, groupID: String) {
@@ -36,14 +37,18 @@ class GroupPrayingVM: VMType {
             }).disposed(by: disposeBag)
         
         useCase.songName
+            .map { ($0 ?? "") + "                      " }
             .bind(to: songName)
             .disposed(by: disposeBag)
         
-        useCase.songName
-            .subscribe(onNext: { [weak self] songName in
-                self?.isPlaying.accept(songName != nil)
-            }).disposed(by: disposeBag)
+        useCase.songURL
+            .bind(to: songURL)
+            .disposed(by: disposeBag)
         
+        useCase.songURL
+            .map { $0 != nil }
+            .bind(to: isPlaying)
+            .disposed(by: disposeBag)
     }
     
     private func fetchPray() {
@@ -70,6 +75,7 @@ extension GroupPrayingVM {
     struct Output {
         let memberList: Driver<[String]>
         let songName: Driver<String?>
+        let songURL: Driver<URL?>
         let isPlaying: Driver<Bool>
     }
 
@@ -81,6 +87,7 @@ extension GroupPrayingVM {
         
         return Output(memberList: memberList.asDriver(),
                       songName: songName.asDriver(),
+                      songURL: songURL.asDriver(),
                       isPlaying: isPlaying.asDriver())
     }
     

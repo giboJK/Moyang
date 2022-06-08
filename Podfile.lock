@@ -354,6 +354,7 @@ PODS:
   - GTMSessionFetcher/Core (1.7.0)
   - leveldb-library (1.22.1)
   - lottie-ios (3.2.3)
+  - MarqueeLabel (4.3.0)
   - nanopb (1.30906.0):
     - nanopb/decode (= 1.30906.0)
     - nanopb/encode (= 1.30906.0)
@@ -394,6 +395,7 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift
   - GoogleSignIn
   - lottie-ios
+  - MarqueeLabel
   - RealmSwift
   - RxCocoa
   - RxGesture
@@ -433,6 +435,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - lottie-ios
+    - MarqueeLabel
     - nanopb
     - PromisesObjC
     - Realm
@@ -475,6 +478,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
+  MarqueeLabel: 02f5ac8fd6877c94564556cb93fa86c70c08baeb
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Realm: ae32bdc1da7d19c7617e0400201a77acd4a211b9
@@ -491,6 +495,6 @@ SPEC CHECKSUMS:
   SwinjectAutoregistration: e83e362da3ca9c64a68290e89efbc40e378dff12
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: 4e5659eea05130afb858a41333bb716e9da03b6b
+PODFILE CHECKSUM: a6e7df4fa1d646334cf1a20a4fc2a429a8e1d479
 
 COCOAPODS: 1.11.3

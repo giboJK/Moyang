@@ -16,5 +16,5 @@ protocol CommunityMainRepo {
     func addIndividualPray(data: GroupIndividualPray, myInfo: MemberDetail, completion: ((Result<Bool, MoyangError>) -> Void)?)
     
     func downloadSong(fileName: String, path: String, fileExt: String,
-                      completion: ((Result<Bool, MoyangError>) -> Void)?)
+                      completion: ((Result<URL, MoyangError>) -> Void)?)
 }

@@ -32,7 +32,7 @@ class GroupPrayListVC: UIViewController, VCType {
         $0.isScrollEnabled = true
     }
     let prayButton = UIButton().then {
-        $0.setTitle("기도하기 ", for: .normal)
+        $0.setTitle("기도하기", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
         $0.tintColor = .sheep1
         $0.backgroundColor = .nightSky1

@@ -73,7 +73,7 @@ protocol FSService {
                                              type: T.Type, completion: ((Result<[T], MoyangError>) -> Void)?)
     
     func downloadFile(fileName: String, path: String, fileExt: String,
-                      completion: ((Result<Bool, MoyangError>) -> Void)?)
+                      completion: ((Result<URL, MoyangError>) -> Void)?)
 }
 
 class FSServiceImplShared: FSService {
@@ -240,7 +240,7 @@ class FSServiceImplShared: FSService {
         }
     }
     
-    func downloadFile(fileName: String, path: String, fileExt: String, completion: ((Result<Bool, MoyangError>) -> Void)?) {
+    func downloadFile(fileName: String, path: String, fileExt: String, completion: ((Result<URL, MoyangError>) -> Void)?) {
         // Get a reference to the storage service using the default Firebase App
         let storage = Storage.storage()
         // Create a storage reference from our storage service
@@ -259,9 +259,8 @@ class FSServiceImplShared: FSService {
                 completion?(.failure(.other(error)))
             } else {
                 Log.i("Success")
-                completion?(.success(true))
+                completion?(.success(localURL))
             }
         }
-        
     }
 }
