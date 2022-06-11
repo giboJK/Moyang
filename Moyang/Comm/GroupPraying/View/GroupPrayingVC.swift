@@ -10,7 +10,6 @@ import RxCocoa
 import RxSwift
 import SnapKit
 import Then
-import AVFoundation
 import MarqueeLabel
 
 class GroupPrayingVC: UIViewController, VCType {
@@ -19,8 +18,6 @@ class GroupPrayingVC: UIViewController, VCType {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupPrayingVCDelegate?
-    
-    var player: AVAudioPlayer?
     
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
@@ -65,8 +62,6 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.setTitle("예수님의 이름으로 기도드립니다.", for: .normal)
     }
     
-    var songURL: URL?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -80,7 +75,7 @@ class GroupPrayingVC: UIViewController, VCType {
     
     deinit {
         Log.i(self)
-        stopSong()
+        vm?.stopSong()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -147,30 +142,6 @@ class GroupPrayingVC: UIViewController, VCType {
         }
     }
     
-    // music
-    func playSong() {
-        guard let songURL = songURL else {
-            Log.e("songURL nil")
-            return
-        }
-        
-        do {
-            player = try AVAudioPlayer(contentsOf: songURL)
-            guard let player = player else { return }
-            
-            player.prepareToPlay()
-            player.play()
-            player.numberOfLoops = -1
-            try AVAudioSession.sharedInstance().setCategory(.playback)
-        } catch let error as NSError {
-            Log.e(error.description)
-        }
-    }
-    
-    func stopSong() {
-        player?.stop()
-        player = nil
-    }
     
     // MARK: - Binding
     func bind() {
@@ -204,21 +175,6 @@ class GroupPrayingVC: UIViewController, VCType {
             }
             .drive(togglePlayingButton.rx.image(for: .normal))
             .disposed(by: disposeBag)
-        
-        output.isPlaying
-            .drive(onNext: { [weak self] isPlaying in
-                if isPlaying {
-                    self?.playSong()
-                } else {
-                    self?.stopSong()
-                }
-            }).disposed(by: disposeBag)
-        
-        output.songURL
-            .drive(onNext: { [weak self] url in
-                self?.songURL = url
-            }).disposed(by: disposeBag)
-        
     }
 }
 

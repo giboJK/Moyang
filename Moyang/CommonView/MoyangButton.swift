@@ -155,4 +155,3 @@ extension Reactive where Base: MoyangButton {
         )
     }
 }
-

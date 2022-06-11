@@ -153,8 +153,8 @@ class CommunityMainUseCase {
         downloadSong()
     }
     
-    private func downloadSong(fileName: String = "RoadToGod", fileExt: String = ".mp3") {
-        repo.downloadSong(fileName: "RoadToGod", path: "music/", fileExt: ".mp3") { [weak self] result in
+    private func downloadSong(fileName: String = "RoadToGod", fileExt: String = "mp3") {
+        repo.downloadSong(fileName: "RoadToGod", path: "music/", fileExt: "mp3") { [weak self] result in
             switch result {
             case .success(let url):
                 Log.d(url)
