@@ -95,6 +95,8 @@ extension GroupPrayListVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 let vm = GroupPrayingVM(useCase: self.useCase,
+                                        auth: self.auth,
+                                        email: self.email,
                                         groupID: self.groupID)
                 self.groupPrayingVM.accept(vm)
             }).disposed(by: disposeBag)

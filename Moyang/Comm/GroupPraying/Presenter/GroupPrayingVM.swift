@@ -10,23 +10,34 @@ import RxCocoa
 import AVFoundation
 
 class GroupPrayingVM: VMType {
+    typealias PrayList = [GroupIndividualPray]
+    typealias PrayItem = GroupPrayListVM.PrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
     let groupID: String
+    let auth: String // 처음 진입 시 선택된 유저
+    let email: String // 처음 진입 시 선택된 유저
     var members: [Member] = []
     
     let memberList = BehaviorRelay<[String]>(value: [])
     let songName = BehaviorRelay<String?>(value: nil)
     let isPlaying = BehaviorRelay<Bool>(value: false)
+    let memberPrayList = BehaviorRelay<[(member: Member, list: PrayList)]>(value: [])
+    let prayList = BehaviorRelay<[PrayItem]>(value: [])
     
     private var player: AVAudioPlayer?
     private var url: URL?
     
-    init(useCase: CommunityMainUseCase, groupID: String) {
+    init(useCase: CommunityMainUseCase,
+         auth: String,
+         email: String,
+         groupID: String) {
         self.useCase = useCase
         self.groupID = groupID
+        self.auth = auth
+        self.email = email
         bind()
-        fetchPray()
+        setFirstPrayList()
         loadSong()
     }
 
@@ -38,6 +49,10 @@ class GroupPrayingVM: VMType {
                 self?.members = list
                 self?.memberList.accept(list.map { $0.name }.sorted(by: <))
             }).disposed(by: disposeBag)
+        
+        useCase.memberPrayList
+            .bind(to: memberPrayList)
+            .disposed(by: disposeBag)
         
         useCase.songName
             .map { ($0 ?? "") + "                      " }
@@ -52,8 +67,31 @@ class GroupPrayingVM: VMType {
             }).disposed(by: disposeBag)
     }
     
-    private func fetchPray() {
-        
+    private func setFirstPrayList(date: String = Date().toString("yyyy-MM-dd hh:mm:ss a")) {
+        let list = memberPrayList.value
+        var itemList = [PrayItem]()
+        list.filter { $0.member.auth == self.auth && $0.member.email == self.email}.forEach { item in
+            item.list.forEach { pray in
+                itemList.append(PrayItem(memberID: item.member.id,
+                                         memberAuth: self.auth,
+                                         memberEmail: self.email,
+                                         name: item.member.name,
+                                         pray: pray.pray,
+                                         date: pray.date,
+                                         prayID: pray.id,
+                                         tags: pray.tags))
+            }
+        }
+        prayList.accept(itemList)
+    }
+    
+    private func fetchPrayList(date: String = Date().toString("yyyy-MM-dd hh:mm:ss a")) {
+        useCase.fetchMemberIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 10, start: date)
+    }
+    func fetchMorePrayList() {
+        if let date = prayList.value.last?.date {
+            fetchPrayList(date: date)
+        }
     }
     
     private func loadSong() {
@@ -105,6 +143,7 @@ extension GroupPrayingVM {
         let memberList: Driver<[String]>
         let songName: Driver<String?>
         let isPlaying: Driver<Bool>
+        let prayList: Driver<[PrayItem]>
     }
 
     func transform(input: Input) -> Output {
@@ -115,7 +154,8 @@ extension GroupPrayingVM {
         
         return Output(memberList: memberList.asDriver(),
                       songName: songName.asDriver(),
-                      isPlaying: isPlaying.asDriver())
+                      isPlaying: isPlaying.asDriver(),
+                      prayList: prayList.asDriver())
     }
     
     struct PrayingItem {
