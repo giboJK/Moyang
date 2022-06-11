@@ -126,7 +126,9 @@ class CommunityMainUseCase {
                                        pray: pray,
                                        tags: tags,
                                        reactions: [],
-                                       replys: [])
+                                       replys: [],
+        parentPrayID: nil,
+        order: nil)
         repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
             switch result {
             case .success:

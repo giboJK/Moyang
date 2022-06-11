@@ -51,6 +51,11 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 17, weight: .semibold)
         $0.textColor = .nightSky1
     }
+    lazy var musicNoteImageView = UIImageView().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .semibold, scale: .large)
+        $0.image = UIImage(systemName: "music.note", withConfiguration: config)
+        $0.tintColor = .nightSky1
+    }
     let togglePlayingButton = UIButton().then {
         let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
         $0.setImage(UIImage(systemName: "play.fill", withConfiguration: config), for: .normal)
@@ -108,13 +113,21 @@ class GroupPrayingVC: UIViewController, VCType {
     private func setupSongNameLabel() {
         view.addSubview(songNameLabelBgView)
         songNameLabelBgView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(108)
+            $0.left.right.equalToSuperview().inset(96)
             $0.bottom.equalToSuperview().inset(140)
         }
 
         songNameLabelBgView.addSubview(songNameLabel)
         songNameLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(8)
+            $0.right.top.bottom.equalToSuperview().inset(8)
+            $0.left.equalToSuperview().inset(36)
+        }
+        
+        songNameLabelBgView.addSubview(musicNoteImageView)
+        musicNoteImageView.snp.makeConstraints {
+            $0.size.equalTo(20)
+            $0.centerY.equalTo(songNameLabel)
+            $0.left.equalToSuperview().inset(8)
         }
     }
     private func setupTogglePlayingButton() {

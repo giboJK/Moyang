@@ -14,6 +14,8 @@ struct GroupIndividualPray: Codable {
     let tags: [String]
     let reactions: [PrayReaction]
     let replys: [PrayReply]
+    let parentPrayID: String?
+    let order: Int?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -23,6 +25,8 @@ struct GroupIndividualPray: Codable {
         case tags
         case reactions
         case replys
+        case parentPrayID = "parent_pray_id"
+        case order = "order"
     }
 }
 
