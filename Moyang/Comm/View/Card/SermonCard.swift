@@ -28,33 +28,27 @@ class SermonCard: UIView {
         $0.tintColor = .sheep1
     }
     let subTitleLabel = UILabel().then {
-        $0.text = "Testttt"
+        $0.text = "Post Easter, Post Corona (7)"
         $0.font = .systemFont(ofSize: 20, weight: .bold)
         $0.textColor = .sheep1
     }
     let titleLabel = UILabel().then {
-        $0.text = "Testttt"
-        $0.font = .systemFont(ofSize: 36, weight: .bold)
+        $0.text = "내게 능력을 주시는 하나님"
+        $0.font = .systemFont(ofSize: 32, weight: .bold)
         $0.textColor = .sheep1
     }
     let bibleLabel = UILabel().then {
-        $0.text = "Testttt"
+        $0.text = "출애굽기 15:1-2 • 빌립보서 4:11-12"
         $0.font = .systemFont(ofSize: 18, weight: .semibold)
         $0.textColor = .sheep1
     }
     let pastorLabel = UILabel().then {
-        $0.text = "Testttt"
+        $0.text = "김주용 위임목사"
         $0.font = .systemFont(ofSize: 18, weight: .bold)
         $0.textColor = .sheep1
     }
     let dateLabel = UILabel().then {
-        $0.text = "Testttt"
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .sheep2
-        $0.textAlignment = .right
-    }
-    let worshipLabel = UILabel().then {
-        $0.text = "Testttt"
+        $0.text = "2022.06.12"
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep2
         $0.textAlignment = .right
@@ -78,7 +72,6 @@ class SermonCard: UIView {
         setupBibleLabel()
         setupPastorLabel()
         setupDateLabel()
-        setupWorshipLabel()
         
     }
     private func setupNewsButton() {
@@ -102,7 +95,6 @@ class SermonCard: UIView {
         subTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 40)
             $0.left.right.equalToSuperview().inset(24)
-            $0.right.equalToSuperview().inset(160)
         }
     }
     private func setupTitleLabel() {
@@ -110,7 +102,7 @@ class SermonCard: UIView {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 72)
             $0.left.right.equalToSuperview().inset(24)
-            $0.right.equalToSuperview().inset(160)
+            $0.right.equalToSuperview().inset(40)
         }
     }
     private func setupBibleLabel() {
@@ -118,7 +110,7 @@ class SermonCard: UIView {
         bibleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 128)
             $0.left.right.equalToSuperview().inset(24)
-            $0.right.equalToSuperview().inset(160)
+            $0.right.equalToSuperview().inset(40)
         }
     }
     private func setupPastorLabel() {
@@ -132,14 +124,6 @@ class SermonCard: UIView {
     private func setupDateLabel() {
         addSubview(dateLabel)
         dateLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 132)
-            $0.left.equalToSuperview().inset(260)
-            $0.right.equalToSuperview().inset(24)
-        }
-    }
-    private func setupWorshipLabel() {
-        addSubview(worshipLabel)
-        worshipLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(UIApplication.statusBarHeight + 156)
             $0.left.equalToSuperview().inset(260)
             $0.right.equalToSuperview().inset(24)
