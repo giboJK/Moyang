@@ -20,6 +20,7 @@ class GroupPrayingVM: VMType {
     var members: [Member] = []
     
     let memberList = BehaviorRelay<[String]>(value: [])
+    let selectedMemberName = BehaviorRelay<String>(value: "")
     let songName = BehaviorRelay<String?>(value: nil)
     let isPlaying = BehaviorRelay<Bool>(value: false)
     let memberPrayList = BehaviorRelay<[(member: Member, list: PrayList)]>(value: [])
@@ -83,6 +84,12 @@ class GroupPrayingVM: VMType {
             }
         }
         prayList.accept(itemList)
+        
+        if let item = memberPrayList.value.first(where: { $0.member.auth == self.auth &&
+            $0.member.email == self.email
+        }) {
+            selectedMemberName.accept(item.member.name)
+        }
     }
     
     private func fetchPrayList(date: String = Date().toString("yyyy-MM-dd hh:mm:ss a")) {
@@ -141,6 +148,7 @@ extension GroupPrayingVM {
 
     struct Output {
         let memberList: Driver<[String]>
+        let selectedMemberName: Driver<String>
         let songName: Driver<String?>
         let isPlaying: Driver<Bool>
         let prayList: Driver<[PrayItem]>
@@ -153,6 +161,7 @@ extension GroupPrayingVM {
             }).disposed(by: disposeBag)
         
         return Output(memberList: memberList.asDriver(),
+                      selectedMemberName: selectedMemberName.asDriver(),
                       songName: songName.asDriver(),
                       isPlaying: isPlaying.asDriver(),
                       prayList: prayList.asDriver())

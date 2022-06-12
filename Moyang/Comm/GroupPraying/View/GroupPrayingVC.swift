@@ -26,9 +26,20 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.titleLabel.isHidden = true
         $0.backgroundColor = .clear
     }
-    let titleLabel = UILabel()
-    let prevButton = UIButton()
-    let nextButton = UIButton()
+    let titleLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15, weight: .semibold)
+        $0.textColor = .sheep1
+    }
+    let prevButton = UIButton().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
+        $0.setImage(UIImage(systemName: "chevron.left", withConfiguration: config), for: .normal)
+        $0.tintColor = .sheep2
+    }
+    let nextButton = UIButton().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
+        $0.setImage(UIImage(systemName: "chevron.right", withConfiguration: config), for: .normal)
+        $0.tintColor = .sheep2
+    }
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(GroupPrayingTableViewCell.self, forCellReuseIdentifier: "cell")
@@ -87,6 +98,10 @@ class GroupPrayingVC: UIViewController, VCType {
         setupNavBar()
         setupSongNameLabel()
         setupTogglePlayingButton()
+        setupTitleLabel()
+        setupPrevButton()
+        setupNextButton()
+        setupPrayTableView()
         setupAmenButton()
     }
     private func setupNavBar() {
@@ -97,12 +112,35 @@ class GroupPrayingVC: UIViewController, VCType {
             $0.height.equalTo(UIApplication.statusBarHeight + 44)
         }
     }
+    private func setupTitleLabel() {
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(navBar.snp.bottom).offset(20)
+        }
+    }
+    private func setupPrevButton() {
+        view.addSubview(prevButton)
+        prevButton.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel)
+            $0.size.equalTo(24)
+            $0.left.equalToSuperview().inset(24)
+        }
+    }
+    private func setupNextButton() {
+        view.addSubview(nextButton)
+        nextButton.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel)
+            $0.size.equalTo(24)
+            $0.right.equalToSuperview().inset(24)
+        }
+    }
     private func setupPrayTableView() {
         view.addSubview(prayTableView)
         prayTableView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(24)
-            $0.left.right.equalToSuperview().inset(32)
-            $0.bottom.equalToSuperview().inset(200)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(28)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(180)
         }
     }
     private func setupSongNameLabel() {
@@ -161,6 +199,10 @@ class GroupPrayingVC: UIViewController, VCType {
         let input = VM.Input(togglePlaySong: togglePlayingButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
+        output.selectedMemberName
+            .drive(titleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
         output.songName
             .drive(songNameLabel.rx.text)
             .disposed(by: disposeBag)
@@ -175,6 +217,20 @@ class GroupPrayingVC: UIViewController, VCType {
             }
             .drive(togglePlayingButton.rx.image(for: .normal))
             .disposed(by: disposeBag)
+        
+        output.prayList
+            .drive(prayTableView.rx
+                .items(cellIdentifier: "cell", cellType: GroupPrayingTableViewCell.self)) { (_, item, cell) in
+                    cell.prayLabel.text = item.pray
+                    cell.prayLabel.lineBreakMode = .byTruncatingTail
+                    cell.tags = item.tags
+                    cell.tagCollectionView.reloadData()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                        cell.updateTagCollectionViewHeight()
+                    }
+                    cell.noTagLabel.isHidden = !item.tags.isEmpty
+                    cell.layer.backgroundColor = UIColor.clear.cgColor
+                }.disposed(by: disposeBag)
     }
 }
 

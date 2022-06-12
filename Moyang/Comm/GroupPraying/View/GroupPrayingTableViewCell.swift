@@ -14,15 +14,11 @@ class GroupPrayingTableViewCell: UITableViewCell {
     let bgView = UIView().then {
         $0.layer.cornerRadius = 12
         $0.layer.masksToBounds = true
-        $0.backgroundColor = .sheep2
-    }
-    let nameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .semibold)
-        $0.textColor = .nightSky1
+        $0.backgroundColor = .clear
     }
     let prayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
         $0.numberOfLines = 11
     }
     let divider = UIView().then {
@@ -35,11 +31,11 @@ class GroupPrayingTableViewCell: UITableViewCell {
         $0.collectionViewLayout = layout
         $0.isScrollEnabled = true
         $0.backgroundColor = .clear
-        $0.register(PrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        $0.register(PrayingTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     let noTagLabel = UILabel().then {
         $0.text = "#태그"
-        $0.textColor = .nightSky3
+        $0.textColor = .sheep3
         $0.font = .systemFont(ofSize: 15, weight: .regular)
     }
     
@@ -48,8 +44,9 @@ class GroupPrayingTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .sheep1
+        backgroundView.backgroundColor = .clear
         selectedBackgroundView = backgroundView
+        contentView.backgroundColor = .clear
         
         setupUI()
     }
@@ -65,7 +62,6 @@ class GroupPrayingTableViewCell: UITableViewCell {
     // MARK: - UI
     private func setupUI() {
         setupBgView()
-        setupNameLabel()
         setupPrayLabel()
         setupDivider()
         setupTagCollectionView()
@@ -79,19 +75,10 @@ class GroupPrayingTableViewCell: UITableViewCell {
             $0.bottom.equalToSuperview().inset(12)
         }
     }
-    private func setupNameLabel() {
-        bgView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
-            $0.left.right.equalToSuperview().inset(12)
-            $0.height.equalTo(20)
-        }
-    }
-    
     private func setupPrayLabel() {
         bgView.addSubview(prayLabel)
         prayLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
+            $0.top.equalToSuperview()
             $0.left.right.equalToSuperview().inset(12)
         }
     }
@@ -100,7 +87,7 @@ class GroupPrayingTableViewCell: UITableViewCell {
         bgView.addSubview(divider)
         divider.snp.makeConstraints {
             $0.top.equalTo(prayLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(12)
             $0.height.equalTo(1)
         }
     }
@@ -110,7 +97,7 @@ class GroupPrayingTableViewCell: UITableViewCell {
         tagCollectionView.snp.makeConstraints {
             $0.top.equalTo(divider.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(8)
-            $0.bottom.equalToSuperview().inset(8)
+            $0.bottom.equalToSuperview().inset(16)
             $0.height.equalTo(28)
         }
         tagCollectionView.delegate = self
@@ -153,7 +140,7 @@ extension GroupPrayingTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PrayTagCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PrayingTagCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.tagLabel.text = tags[indexPath.row]
