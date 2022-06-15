@@ -15,16 +15,18 @@ class GroupPrayingVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
     let groupID: String
-    let auth: String // 처음 진입 시 선택된 유저
-    let email: String // 처음 진입 시 선택된 유저
+    var auth: String // 처음 진입 시 선택된 유저
+    var email: String // 처음 진입 시 선택된 유저
     var members: [Member] = []
     
-    let memberList = BehaviorRelay<[String]>(value: [])
+    let memberNameList = BehaviorRelay<[String]>(value: [])
     let selectedMemberName = BehaviorRelay<String>(value: "")
     let songName = BehaviorRelay<String?>(value: nil)
     let isPlaying = BehaviorRelay<Bool>(value: false)
     let memberPrayList = BehaviorRelay<[(member: Member, list: PrayList)]>(value: [])
     let prayList = BehaviorRelay<[PrayItem]>(value: [])
+    let isPrevEnabled = BehaviorRelay<Bool>(value: false)
+    let isNextEnabled = BehaviorRelay<Bool>(value: false)
     
     private var player: AVAudioPlayer?
     private var url: URL?
@@ -38,7 +40,7 @@ class GroupPrayingVM: VMType {
         self.auth = auth
         self.email = email
         bind()
-        setFirstPrayList()
+        setButtonEnabled()
         loadSong()
     }
 
@@ -48,11 +50,14 @@ class GroupPrayingVM: VMType {
         useCase.memberList
             .subscribe(onNext: { [weak self] list in
                 self?.members = list
-                self?.memberList.accept(list.map { $0.name }.sorted(by: <))
+                self?.memberNameList.accept(list.map { $0.name }.sorted(by: <))
             }).disposed(by: disposeBag)
         
         useCase.memberPrayList
-            .bind(to: memberPrayList)
+            .subscribe(onNext: { [weak self] list in
+                self?.memberPrayList.accept(list)
+                self?.setPrayList()
+            })
             .disposed(by: disposeBag)
         
         useCase.songName
@@ -68,7 +73,7 @@ class GroupPrayingVM: VMType {
             }).disposed(by: disposeBag)
     }
     
-    private func setFirstPrayList(date: String = Date().toString("yyyy-MM-dd hh:mm:ss a")) {
+    private func setPrayList() {
         let list = memberPrayList.value
         var itemList = [PrayItem]()
         list.filter { $0.member.auth == self.auth && $0.member.email == self.email}.forEach { item in
@@ -84,6 +89,9 @@ class GroupPrayingVM: VMType {
             }
         }
         prayList.accept(itemList)
+        if itemList.isEmpty {
+            fetchPrayList()
+        }
         
         if let item = memberPrayList.value.first(where: { $0.member.auth == self.auth &&
             $0.member.email == self.email
@@ -92,12 +100,49 @@ class GroupPrayingVM: VMType {
         }
     }
     
+    private func setButtonEnabled() {
+        if let index = members.firstIndex(where: { $0.auth == auth && $0.email == email }) {
+            isNextEnabled.accept(members.count - 1 > index)
+            isPrevEnabled.accept(0 < index)
+        }
+    }
+    
     private func fetchPrayList(date: String = Date().toString("yyyy-MM-dd hh:mm:ss a")) {
         useCase.fetchMemberIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 10, start: date)
     }
+    
+    
     func fetchMorePrayList() {
         if let date = prayList.value.last?.date {
             fetchPrayList(date: date)
+        }
+    }
+    
+    private func fetchNextMember() {
+        if let index = members.firstIndex(where: { $0.auth == auth && $0.email == email }) {
+            let cur = index + 1
+            auth = members[min(members.count - 1, cur)].auth
+            email = members[min(members.count - 1, cur)].email
+            selectedMemberName.accept(members[min(members.count - 1, cur)].name)
+            isNextEnabled.accept(members.count - 1 > cur)
+            isPrevEnabled.accept(true)
+            setPrayList()
+        } else {
+            Log.e("Failed to fetch data")
+        }
+    }
+    
+    private func fetchPrevMember() {
+        if let index = members.firstIndex(where: { $0.auth == auth && $0.email == email }) {
+            let cur = index - 1
+            auth = members[max(0, cur)].auth
+            email = members[max(0, cur)].email
+            selectedMemberName.accept(members[max(0, cur)].name)
+            isNextEnabled.accept(true)
+            isPrevEnabled.accept(0 < cur)
+            setPrayList()
+        } else {
+            Log.e("Failed to fetch data")
         }
     }
     
@@ -152,19 +197,34 @@ extension GroupPrayingVM {
         let songName: Driver<String?>
         let isPlaying: Driver<Bool>
         let prayList: Driver<[PrayItem]>
+        let isPrevEnabled: Driver<Bool>
+        let isNextEnabled: Driver<Bool>
     }
 
     func transform(input: Input) -> Output {
+        input.prevMemberPray
+            .drive(onNext: { [weak self] in
+                self?.fetchPrevMember()
+            }).disposed(by: disposeBag)
+        
+        input.nextMemberPray
+            .drive(onNext: { [weak self] in
+                self?.fetchNextMember()
+            }).disposed(by: disposeBag)
+        
         input.togglePlaySong
             .drive(onNext: { [weak self] _ in
                 self?.toggleIsPlaying()
             }).disposed(by: disposeBag)
         
-        return Output(memberList: memberList.asDriver(),
+        return Output(memberList: memberNameList.asDriver(),
                       selectedMemberName: selectedMemberName.asDriver(),
                       songName: songName.asDriver(),
                       isPlaying: isPlaying.asDriver(),
-                      prayList: prayList.asDriver())
+                      prayList: prayList.asDriver(),
+                      isPrevEnabled: isPrevEnabled.asDriver(),
+                      isNextEnabled: isNextEnabled.asDriver()
+        )
     }
     
     struct PrayingItem {

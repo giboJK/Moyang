@@ -70,7 +70,6 @@ class CommunityMainVC: UIViewController, VCType {
         view.backgroundColor = .nightSky3
         setupSermonCard()
         setupScrollView()
-        displayPopup(popup: confirmPopupView)
     }
     
     private func setupSermonCard() {

@@ -101,7 +101,7 @@ class CommunityMainUseCase {
                     self.memberPrayList.accept(cur)
                 }
             case .failure(let error):
-                Log.e(error)
+                Log.e("\(memberAuth) - \(email) : \(error)")
             }
             self.resetIsNetworking()
         }
@@ -128,7 +128,7 @@ class CommunityMainUseCase {
                                        reactions: [],
                                        replys: [],
         parentPrayID: nil,
-        order: nil)
+        order: 0)
         repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
             switch result {
             case .success:
