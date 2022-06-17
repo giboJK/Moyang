@@ -92,7 +92,10 @@ class CommunityMainVM: VMType {
     private func getMemberPray(memberList: [Member]) {
         guard let groupInfo = groupInfo else { Log.e("No GroupInfo"); return }
         memberList.forEach { member in
-            useCase.fetchMemberIndividualPray(member: member, groupID: groupInfo.id, limit: 1, start: Date().toString("yyyy-MM-dd hh:mm:ss a"))
+            useCase.fetchMemberIndividualPray(member: member,
+                                              groupID: groupInfo.id,
+                                              limit: 1,
+                                              start: Date().addingTimeInterval(3600 * 24).toString("yyyy-MM-dd hh:mm:ss a"))
         }
     }
 }

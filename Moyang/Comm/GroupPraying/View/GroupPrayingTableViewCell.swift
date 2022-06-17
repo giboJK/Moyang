@@ -16,10 +16,14 @@ class GroupPrayingTableViewCell: UITableViewCell {
         $0.layer.masksToBounds = true
         $0.backgroundColor = .clear
     }
+    let dateLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .sheep2
+    }
     let prayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .sheep2
-        $0.numberOfLines = 11
+        $0.numberOfLines = 0
     }
     let divider = UIView().then {
         $0.backgroundColor = .sheep3

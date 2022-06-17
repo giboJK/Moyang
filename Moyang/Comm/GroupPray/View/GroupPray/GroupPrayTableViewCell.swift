@@ -23,7 +23,7 @@ class GroupPrayTableViewCell: UITableViewCell {
     let prayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
-        $0.numberOfLines = 11
+        $0.numberOfLines = 0
     }
     let divider = UIView().then {
         $0.backgroundColor = .sheep3
