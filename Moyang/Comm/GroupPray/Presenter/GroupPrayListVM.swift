@@ -64,7 +64,7 @@ class GroupPrayListVM: VMType {
         name.accept(data.name)
     }
     
-    private func fetchPrayList(date: String = Date().toString("yyyy-MM-dd hh:mm:ss a")) {
+    private func fetchPrayList(date: String = Date().addingTimeInterval(3600 * 24).toString("yyyy-MM-dd hh:mm:ss a")) {
         useCase.fetchMemberIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 10, start: date)
     }
     
