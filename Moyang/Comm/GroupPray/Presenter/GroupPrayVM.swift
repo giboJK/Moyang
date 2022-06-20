@@ -56,6 +56,12 @@ class GroupPrayVM: VMType {
             .bind(to: addingNewPraySuccess)
             .disposed(by: disposeBag)
         
+        useCase.addingNewPraySuccess
+            .skip(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.clearAutoSave()
+            }).disposed(by: disposeBag)
+        
         useCase.addingNewPrayFailure
             .bind(to: addingNewPrayFailure)
             .disposed(by: disposeBag)
@@ -72,17 +78,37 @@ class GroupPrayVM: VMType {
                                   pray: newPray.value!,
                                   tags: tagList.value)
     }
+    
+    private func autoSave() {
+        UserData.shared.autoSavedPray = newPray.value
+        UserData.shared.autoSavedTags = tagList.value
+    }
+    
+    private func loadAutoSave() {
+        if let autoSavedPray = UserData.shared.autoSavedPray {
+            newPray.accept(autoSavedPray)
+        }
+        if let autoSavedTags = UserData.shared.autoSavedTags {
+            tagList.accept(autoSavedTags)
+        }
+    }
+    
+    private func clearAutoSave() {
+        UserData.shared.clearAutoSave()
+    }
 }
 
 extension GroupPrayVM {
     struct Input {
         var selectMember: Driver<IndexPath> = .empty()
         var setPray: Driver<String?> = .empty()
+        var autoSave: Driver<Void> = .empty()
         var saveNewPray: Driver<Void> = .empty()
         var newTag: Driver<String?> = .empty()
         var setTag: Driver<String?> = .empty()
         var addTag: Driver<Void> = .empty()
         var deleteTag: Driver<IndexPath?> = .empty()
+        var loadAutoPray: Driver<Bool> = .empty()
     }
     
     struct Output {
@@ -109,12 +135,19 @@ extension GroupPrayVM {
             .drive(newPray)
             .disposed(by: disposeBag)
         
+        input.setPray
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.autoSave()
+            }).disposed(by: disposeBag)
+        
         input.saveNewPray
             .drive(onNext: { [weak self] _ in
                 self?.addNewPray()
             }).disposed(by: disposeBag)
         
         input.setTag
+            .skip(1)
             .drive(onNext: { [weak self] tag in
                 guard let tag = tag else { return }
                 self?.newTag.accept(String(tag.prefix(20)))
@@ -128,6 +161,8 @@ extension GroupPrayVM {
                    !tag.isEmpty, !tag.trimmingCharacters(in: .whitespaces).isEmpty {
                     currnetTags.append(tag)
                     self.tagList.accept(currnetTags)
+                    self.newTag.accept(nil)
+                    self.autoSave()
                 }
             }).disposed(by: disposeBag)
         
@@ -139,6 +174,14 @@ extension GroupPrayVM {
                 if currnetTags.count > indexPath.row {
                     currnetTags.remove(at: indexPath.row)
                     self.tagList.accept(currnetTags)
+                    self.autoSave()
+                }
+            }).disposed(by: disposeBag)
+        
+        input.loadAutoPray
+            .drive(onNext: { [weak self] willBeAppeared in
+                if willBeAppeared {
+                    self?.loadAutoSave()
                 }
             }).disposed(by: disposeBag)
         

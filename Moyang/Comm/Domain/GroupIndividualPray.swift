@@ -42,11 +42,24 @@ struct PrayReaction: Codable {
     }
 }
 
-enum PrayReactionCase: Int, CaseIterable {
-    case good = 0
+enum PrayReactionType: Int, CaseIterable {
+    case love = 0
     case sad = 1
     case joyful = 2
     case prayWithYou = 3
+    
+    var desc: String {
+        switch self {
+        case .love:
+            return "😍"
+        case .sad:
+            return "😭"
+        case .joyful:
+            return "😊"
+        case .prayWithYou:
+            return "🙏"
+        }
+    }
 }
 
 struct PrayReply: Codable {

@@ -153,3 +153,20 @@ extension UIViewController {
         case failure
     }
 }
+
+extension RxSwift.Reactive where Base: UIViewController {
+    var viewDidAppear: Observable<Bool> {
+    return methodInvoked(#selector(UIViewController.viewDidAppear))
+       .map { $0.first as? Bool ?? false }
+    }
+    
+    var viewWillAppear: Observable<Bool> {
+    return methodInvoked(#selector(UIViewController.viewWillAppear))
+       .map { $0.first as? Bool ?? false }
+    }
+    
+    var viewDidDisappear: Observable<Bool> {
+    return methodInvoked(#selector(UIViewController.viewDidDisappear))
+       .map { $0.first as? Bool ?? false }
+    }
+}

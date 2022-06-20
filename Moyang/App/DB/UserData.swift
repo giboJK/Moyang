@@ -95,4 +95,32 @@ class UserData {
             UserDefaults.standard.set(v, forKey: "ALARM_TIME")
         }
     }
+    
+    var autoSavedPray: String? {
+        get {
+            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedPray)
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedPray)
+        }
+    }
+    
+    var autoSavedTags: [String]? {
+        get {
+            return UserDefaults.standard.object(forKey: UserDefaultKey.autoSavedTags) as? [String]
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedTags)
+        }
+    }
+    
+    func clearAutoSave() {
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedPray)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedTags)
+    }
+}
+
+class UserDefaultKey {
+    static let autoSavedPray = "AUTO_SAVED_PRAY"
+    static let autoSavedTags = "AUTO_SAVED_TAGS"
 }

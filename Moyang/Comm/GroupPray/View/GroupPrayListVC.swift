@@ -123,8 +123,9 @@ class GroupPrayListVC: UIViewController, VCType {
         
         output.prayList
             .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { (_, item, cell) in
+                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { (index, item, cell) in
                     cell.nameLabel.text = item.name
+                    cell.dateLabel.text = item.date
                     cell.prayLabel.text = item.pray
                     cell.prayLabel.lineBreakMode = .byTruncatingTail
                     cell.tags = item.tags
@@ -133,6 +134,7 @@ class GroupPrayListVC: UIViewController, VCType {
                         cell.updateTagCollectionViewHeight()
                     }
                     cell.noTagLabel.isHidden = !item.tags.isEmpty
+                    cell.index = index
                 }.disposed(by: disposeBag)
         
         output.groupPrayingVM

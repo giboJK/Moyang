@@ -72,6 +72,7 @@ class GroupPrayingVC: UIViewController, VCType {
     let amenButton = MoyangButton(.primary).then {
         $0.setTitle("예수님의 이름으로 기도드립니다.", for: .normal)
     }
+    let reactionPopupView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -176,7 +177,7 @@ class GroupPrayingVC: UIViewController, VCType {
         amenButton.snp.makeConstraints {
             $0.height.equalTo(48)
             $0.left.right.equalToSuperview().inset(28)
-            $0.bottom.equalToSuperview().inset(UIApplication.bottomInset + 8)
+            $0.bottom.equalTo(view.safeAreaInsets).inset(28)
         }
     }
     
@@ -234,7 +235,7 @@ class GroupPrayingVC: UIViewController, VCType {
         
         output.prayList
             .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupPrayingTableViewCell.self)) { (_, item, cell) in
+                .items(cellIdentifier: "cell", cellType: GroupPrayingTableViewCell.self)) { (index, item, cell) in
                     cell.prayLabel.text = item.pray
                     cell.prayLabel.lineBreakMode = .byTruncatingTail
                     cell.tags = item.tags
@@ -244,6 +245,10 @@ class GroupPrayingVC: UIViewController, VCType {
                     }
                     cell.noTagLabel.isHidden = !item.tags.isEmpty
                     cell.layer.backgroundColor = UIColor.clear.cgColor
+                    
+                    cell.vm = vm
+                    cell.index = index
+                    cell.bind()
                 }.disposed(by: disposeBag)
         
         output.isNextEnabled

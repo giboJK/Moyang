@@ -210,7 +210,8 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         let input = VM.Input(setPray: newPrayTextField.rx.text.asDriver(),
                              saveNewPray: saveButton.rx.tap.asDriver(),
                              setTag: tagTextField.rx.text.asDriver(),
-                             addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver())
+                             addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
+                             loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false))
         
         let output = vm.transform(input: input)
         
@@ -218,6 +219,11 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .map { $0?.isEmpty ?? true }
             .map { !$0 }
             .drive(saveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.newPray
+            .distinctUntilChanged()
+            .drive(newPrayTextField.rx.text)
             .disposed(by: disposeBag)
         
         output.newTag

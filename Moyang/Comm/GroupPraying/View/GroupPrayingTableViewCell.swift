@@ -8,25 +8,32 @@
 import UIKit
 import SnapKit
 import Then
+import RxCocoa
+import RxSwift
+import RxGesture
 
 class GroupPrayingTableViewCell: UITableViewCell {
+    typealias VM = GroupPrayingVM
+    var disposeBag: DisposeBag = DisposeBag()
+    var vm: VM?
+    
     // MARK: - UI
     let bgView = UIView().then {
         $0.layer.cornerRadius = 12
         $0.layer.masksToBounds = true
-        $0.backgroundColor = .clear
+        $0.backgroundColor = .sheep3.withAlphaComponent(0.9)
     }
     let dateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .sheep2
+        $0.textColor = .nightSky3
     }
     let prayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .sheep2
+        $0.textColor = .nightSky3
         $0.numberOfLines = 0
     }
     let divider = UIView().then {
-        $0.backgroundColor = .sheep3
+        $0.backgroundColor = .sheep5
     }
     let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
         let layout = LeftAlignedCollectionViewFlowLayout()
@@ -39,11 +46,13 @@ class GroupPrayingTableViewCell: UITableViewCell {
     }
     let noTagLabel = UILabel().then {
         $0.text = "#태그"
-        $0.textColor = .sheep3
+        $0.textColor = .sheep4
         $0.font = .systemFont(ofSize: 15, weight: .regular)
     }
     
+    private var isBinded = false
     var tags = [String]()
+    var index: Int?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -53,6 +62,8 @@ class GroupPrayingTableViewCell: UITableViewCell {
         contentView.backgroundColor = .clear
         
         setupUI()
+        
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -82,7 +93,7 @@ class GroupPrayingTableViewCell: UITableViewCell {
     private func setupPrayLabel() {
         bgView.addSubview(prayLabel)
         prayLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().inset(8)
             $0.left.right.equalToSuperview().inset(12)
         }
     }
@@ -127,6 +138,23 @@ class GroupPrayingTableViewCell: UITableViewCell {
                 $0.height.equalTo(28)
             }
         }
+    }
+    
+    func bind() {
+        guard let vm = vm else {
+            return
+        }
+        if isBinded { return }
+        isBinded = true
+        
+        let longPress = self.rx.longPressGesture().when(.began)
+            .map { [weak self] _ -> Int? in
+                return self?.index
+            }.asDriver(onErrorJustReturn: nil)
+        
+        let input = VM.Input(didLongPressPray: longPress)
+        
+        _ = vm.transform(input: input)
     }
 }
 

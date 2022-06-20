@@ -61,6 +61,7 @@ class ProfileVM: ObservableObject {
     }
     
     func logout() {
+        UserData.shared.clearAutoSave()
         loginService.logout { [weak self] result in
             switch result {
             case .success(let isSuccess):

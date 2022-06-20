@@ -8,8 +8,12 @@
 import UIKit
 import SnapKit
 import Then
+import RxCocoa
+import RxSwift
+import RxGesture
 
 class GroupPrayTableViewCell: UITableViewCell {
+    var disposeBag: DisposeBag = DisposeBag()
     // MARK: - UI
     let bgView = UIView().then {
         $0.layer.cornerRadius = 12
@@ -19,6 +23,10 @@ class GroupPrayTableViewCell: UITableViewCell {
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .semibold)
         $0.textColor = .nightSky1
+    }
+    let dateLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 13, weight: .regular)
+        $0.textColor = .sheep5
     }
     let prayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
@@ -42,8 +50,13 @@ class GroupPrayTableViewCell: UITableViewCell {
         $0.textColor = .nightSky3
         $0.font = .systemFont(ofSize: 15, weight: .regular)
     }
+    let reactionView = UIView().then {
+        $0.backgroundColor = .sheep2
+        $0.layer.cornerRadius = 14
+    }
     
     var tags = [String]()
+    var index: Int?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -52,6 +65,12 @@ class GroupPrayTableViewCell: UITableViewCell {
         selectedBackgroundView = backgroundView
         
         setupUI()
+        
+        self.rx.longPressGesture().when(.began)
+            .subscribe(onNext: { [weak self] _ in
+                guard let index = self?.index else { return }
+                Log.w(index)
+            }).disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
@@ -66,6 +85,7 @@ class GroupPrayTableViewCell: UITableViewCell {
     private func setupUI() {
         setupBgView()
         setupNameLabel()
+        setupDateLabel()
         setupPrayLabel()
         setupDivider()
         setupTagCollectionView()
@@ -87,11 +107,19 @@ class GroupPrayTableViewCell: UITableViewCell {
             $0.height.equalTo(20)
         }
     }
+    private func setupDateLabel() {
+        bgView.addSubview(dateLabel)
+        dateLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
+            $0.left.right.equalToSuperview().inset(12)
+            $0.height.equalTo(20)
+        }
+    }
     
     private func setupPrayLabel() {
         bgView.addSubview(prayLabel)
         prayLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
+            $0.top.equalTo(dateLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(12)
         }
     }

@@ -189,6 +189,7 @@ extension GroupPrayingVM {
         var prevMemberPray: Driver<Void> = .empty()
         var nextMemberPray: Driver<Void> = .empty()
         var togglePlaySong: Driver<Void> = .empty()
+        var didLongPressPray: Driver<Int?> = .empty()
     }
 
     struct Output {
@@ -215,6 +216,12 @@ extension GroupPrayingVM {
         input.togglePlaySong
             .drive(onNext: { [weak self] _ in
                 self?.toggleIsPlaying()
+            }).disposed(by: disposeBag)
+        
+        input.didLongPressPray
+            .drive(onNext: { [weak self] index in
+                guard let index = index else { return }
+                Log.w(index)
             }).disposed(by: disposeBag)
         
         return Output(memberList: memberNameList.asDriver(),

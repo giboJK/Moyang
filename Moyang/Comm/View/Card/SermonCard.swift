@@ -34,7 +34,7 @@ class SermonCard: UIView {
     }
     let titleLabel = UILabel().then {
         $0.text = "내게 능력을 주시는 하나님"
-        $0.font = .systemFont(ofSize: 32, weight: .bold)
+        $0.font = .systemFont(ofSize: 28, weight: .bold)
         $0.textColor = .sheep1
     }
     let bibleLabel = UILabel().then {
