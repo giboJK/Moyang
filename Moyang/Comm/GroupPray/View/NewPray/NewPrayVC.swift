@@ -64,7 +64,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.register(NewPrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     let isSecretLabel = UILabel().then {
-        $0.text = "비밀로 하기"
+        $0.text = "비공개 기도"
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
     }

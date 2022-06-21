@@ -48,7 +48,10 @@ class GroupPrayVM: VMType {
                                              pray: item.pray.pray,
                                              date: item.pray.date,
                                              prayID: item.pray.id,
-                                             tags: item.pray.tags))
+                                             tags: item.pray.tags,
+                                             isSecret: item.pray.isSecret,
+                                             isRequestPray: item.pray.isRequestPray
+                                            ))
                 }
                 return itemList
             }

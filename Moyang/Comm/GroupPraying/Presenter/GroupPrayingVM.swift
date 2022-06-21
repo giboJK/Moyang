@@ -85,7 +85,10 @@ class GroupPrayingVM: VMType {
                                          pray: pray.pray,
                                          date: pray.date,
                                          prayID: pray.id,
-                                         tags: pray.tags))
+                                         tags: pray.tags,
+                                         isSecret: pray.isSecret,
+                                         isRequestPray: pray.isRequestPray
+                                        ))
             }
         }
         prayList.accept(itemList)

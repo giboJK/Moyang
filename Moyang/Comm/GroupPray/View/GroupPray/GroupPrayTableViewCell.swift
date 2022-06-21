@@ -28,6 +28,12 @@ class GroupPrayTableViewCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 13, weight: .regular)
         $0.textColor = .sheep5
     }
+    let isSecretLabel = UILabel().then {
+        $0.text = "비공개 기도입니다"
+        $0.font = .systemFont(ofSize: 13, weight: .regular)
+        $0.textColor = .sheep5
+        $0.isHidden = true
+    }
     let prayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
@@ -86,6 +92,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         setupBgView()
         setupNameLabel()
         setupDateLabel()
+        setupIsSecretLabel()
         setupPrayLabel()
         setupDivider()
         setupTagCollectionView()
@@ -111,7 +118,15 @@ class GroupPrayTableViewCell: UITableViewCell {
         bgView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(2)
-            $0.left.right.equalToSuperview().inset(12)
+            $0.left.equalToSuperview().inset(12)
+            $0.height.equalTo(20)
+        }
+    }
+    private func setupIsSecretLabel() {
+        bgView.addSubview(isSecretLabel)
+        isSecretLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
+            $0.right.equalToSuperview().inset(12)
             $0.height.equalTo(20)
         }
     }

@@ -51,7 +51,10 @@ class GroupPrayListVM: VMType {
                                                  pray: pray.pray,
                                                  date: pray.date,
                                                  prayID: pray.id,
-                                                 tags: pray.tags))
+                                                 tags: pray.tags,
+                                                 isSecret: pray.isSecret,
+                                                 isRequestPray: pray.isRequestPray
+                                                ))
                     }
                 }
                 return itemList
@@ -65,7 +68,11 @@ class GroupPrayListVM: VMType {
     }
     
     private func fetchPrayList(date: String = Date().addingTimeInterval(3600 * 24).toString("yyyy-MM-dd hh:mm:ss a")) {
-        useCase.fetchMemberIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 10, start: date)
+        if UserData.shared.myInfo?.authType == auth && UserData.shared.myInfo?.email == email {
+            useCase.fetchMemberIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 5, start: date)
+        } else {
+            useCase.fetchMemberNonSecretIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 5, start: date)
+        }
     }
     
     func fetchMorePrayList() {

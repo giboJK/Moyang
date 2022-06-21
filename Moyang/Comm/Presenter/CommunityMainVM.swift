@@ -52,7 +52,10 @@ class CommunityMainVM: VMType {
                                                             pray: item.pray.pray,
                                                             date: item.pray.date,
                                                             prayID: item.pray.id,
-                                                            tags: item.pray.tags))
+                                                            tags: item.pray.tags,
+                                                            isSecret: item.pray.isSecret,
+                                                            isRequestPray: item.pray.isRequestPray
+                                                           ))
                 }
                 return itemList
             }
@@ -71,7 +74,10 @@ class CommunityMainVM: VMType {
                                                    pray: myPray.pray.pray,
                                                    date: myPray.pray.date,
                                                    prayID: myPray.pray.id,
-                                                   tags: myPray.pray.tags)
+                                                   tags: myPray.pray.tags,
+                                                   isSecret: myPray.pray.isSecret,
+                                                   isRequestPray: myPray.pray.isRequestPray
+                    )
                 } else {
                     return nil
                 }
@@ -92,10 +98,10 @@ class CommunityMainVM: VMType {
     private func getMemberPray(memberList: [Member]) {
         guard let groupInfo = groupInfo else { Log.e("No GroupInfo"); return }
         memberList.forEach { member in
-            useCase.fetchMemberIndividualPray(member: member,
-                                              groupID: groupInfo.id,
-                                              limit: 1,
-                                              start: Date().addingTimeInterval(3600 * 24).toString("yyyy-MM-dd hh:mm:ss a"))
+            useCase.fetchMemberNonSecretIndividualPray(member: member,
+                                                       groupID: groupInfo.id,
+                                                       limit: 1,
+                                                       start: Date().addingTimeInterval(3600 * 24).toString("yyyy-MM-dd hh:mm:ss a"))
         }
     }
 }
@@ -137,6 +143,8 @@ extension CommunityMainVM {
         let date: String
         let prayID: String
         let tags: [String]
+        let isSecret: Bool
+        let isRequestPray: Bool
         
         init(memberID: String,
              memberAuth: String,
@@ -145,7 +153,10 @@ extension CommunityMainVM {
              pray: String,
              date: String,
              prayID: String,
-             tags: [String]) {
+             tags: [String],
+             isSecret: Bool,
+             isRequestPray: Bool
+        ) {
             self.memberID = memberID
             self.memberAuth = memberAuth
             self.memberEmail = memberEmail
@@ -154,6 +165,8 @@ extension CommunityMainVM {
             self.date = date
             self.prayID = prayID
             self.tags = tags
+            self.isSecret = isSecret
+            self.isRequestPray = isRequestPray
         }
     }
 }

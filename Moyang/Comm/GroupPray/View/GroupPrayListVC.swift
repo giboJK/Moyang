@@ -135,6 +135,8 @@ class GroupPrayListVC: UIViewController, VCType {
                     }
                     cell.noTagLabel.isHidden = !item.tags.isEmpty
                     cell.index = index
+                    cell.isSecretLabel.isHidden = !item.isSecret
+                    
                 }.disposed(by: disposeBag)
         
         output.groupPrayingVM
