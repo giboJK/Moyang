@@ -100,8 +100,8 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         setupTagCollectionView()
         setupIsSecretLabel()
         setupIsSecretCheckBox()
-        setupIsRequestPrayLabel()
-        setupIsRequestPrayCheckBox()
+//        setupIsRequestPrayLabel()
+//        setupIsRequestPrayCheckBox()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
