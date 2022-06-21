@@ -115,7 +115,9 @@ class CommunityMainUseCase {
                            groupID: String,
                            date: String,
                            pray: String,
-                           tags: [String]) {
+                           tags: [String],
+                           isSecret: Bool,
+                           isRequestPray: Bool) {
         guard let myInfo = UserData.shared.myInfo else {
             addingNewPrayFailure.accept(())
             return
@@ -127,8 +129,10 @@ class CommunityMainUseCase {
                                        tags: tags,
                                        reactions: [],
                                        replys: [],
-        parentPrayID: nil,
-        order: 0)
+                                       parentPrayID: nil,
+                                       order: 0,
+                                       isSecret: isSecret,
+                                       isRequestPray: isRequestPray)
         repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
             switch result {
             case .success:

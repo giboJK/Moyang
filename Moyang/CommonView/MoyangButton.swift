@@ -48,12 +48,9 @@ class MoyangButton: UIButton {
     }
     let innerCircleView = UIView()
     
-    var shouldFixHeight: Bool = false
-    
     required init(style: MoyangButtonStyle) {
         super.init(frame: .zero)
         self.style = style
-        shouldFixHeight = UIScreen.main.bounds.width > 375.0
         setupUI()
     }
     

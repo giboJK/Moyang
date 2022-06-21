@@ -23,6 +23,9 @@ class GroupPrayVM: VMType {
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     
+    let isSecret = BehaviorRelay<Bool>(value: false)
+    let isRequestPray = BehaviorRelay<Bool>(value: false)
+    
     let groupID: String
     
     init(useCase: CommunityMainUseCase, groupID: String) {
@@ -76,7 +79,10 @@ class GroupPrayVM: VMType {
                                   groupID: groupID,
                                   date: Date().toString("yyyy-MM-dd hh:mm:ss a"),
                                   pray: newPray.value!,
-                                  tags: tagList.value)
+                                  tags: tagList.value,
+                                  isSecret: isSecret.value,
+                                  isRequestPray: isRequestPray.value
+        )
     }
     
     private func autoSave() {
@@ -109,6 +115,8 @@ extension GroupPrayVM {
         var addTag: Driver<Void> = .empty()
         var deleteTag: Driver<IndexPath?> = .empty()
         var loadAutoPray: Driver<Bool> = .empty()
+        var toggleIsSecret: Driver<Void> = .empty()
+        var toggleIsRequestPray: Driver<Void> = .empty()
     }
     
     struct Output {
@@ -119,6 +127,8 @@ extension GroupPrayVM {
         let tagList: Driver<[String]>
         let addingNewPraySuccess: Driver<Void>
         let addingNewPrayFailure: Driver<Void>
+        let isSecret: Driver<Bool>
+        let isRequestPray: Driver<Bool>
     }
     
     func transform(input: Input) -> Output {
@@ -185,6 +195,17 @@ extension GroupPrayVM {
                 }
             }).disposed(by: disposeBag)
         
+        input.toggleIsSecret
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.isSecret.accept(!self.isSecret.value)
+            }).disposed(by: disposeBag)
+        
+        input.toggleIsRequestPray
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.isRequestPray.accept(!self.isRequestPray.value)
+            }).disposed(by: disposeBag)
         
         return Output(cardPrayItemList: cardPrayItemList.asDriver(),
                       detailVM: detailVM.asDriver(),
@@ -192,7 +213,9 @@ extension GroupPrayVM {
                       newTag: newTag.asDriver(),
                       tagList: tagList.asDriver(),
                       addingNewPraySuccess: addingNewPraySuccess.asDriver(),
-                      addingNewPrayFailure: addingNewPrayFailure.asDriver()
+                      addingNewPrayFailure: addingNewPrayFailure.asDriver(),
+                      isSecret: isSecret.asDriver(),
+                      isRequestPray: isRequestPray.asDriver()
         )
     }
 }

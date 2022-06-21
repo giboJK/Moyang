@@ -52,6 +52,8 @@ public enum Asset {
     public enum Tabbar {
       public static let cross = ImageAsset(name: "cross")
     }
+    public static let checkEmpty = ImageAsset(name: "checkEmpty")
+    public static let checkFill = ImageAsset(name: "checkFill")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

@@ -63,6 +63,18 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.backgroundColor = .clear
         $0.register(NewPrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
+    let isSecretLabel = UILabel().then {
+        $0.text = "비밀로 하기"
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .nightSky1
+    }
+    let isSecretCheckBox = CheckBox()
+    let isRequestPrayLabel = UILabel().then {
+        $0.text = "기도 부탁하기"
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .sheep4
+    }
+    let isRequestPrayCheckBox = CheckBox()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +98,10 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         setupTagInfoLabel()
         setupTagTextField()
         setupTagCollectionView()
+        setupIsSecretLabel()
+        setupIsSecretCheckBox()
+        setupIsRequestPrayLabel()
+        setupIsRequestPrayCheckBox()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -168,10 +184,52 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         tagCollectionView.snp.makeConstraints {
             $0.top.equalTo(tagTextField.snp.bottom).offset(12)
             $0.left.right.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview()
+            $0.height.equalTo(32)
         }
         tagCollectionView.dataSource = self
         tagCollectionView.delegate = self
+    }
+    
+    private func setupIsSecretLabel() {
+        view.addSubview(isSecretLabel)
+        isSecretLabel.snp.makeConstraints {
+            $0.top.equalTo(tagCollectionView.snp.bottom).offset(12)
+            $0.left.equalToSuperview().inset(16)
+        }
+    }
+    private func setupIsSecretCheckBox() {
+        view.addSubview(isSecretCheckBox)
+        isSecretCheckBox.snp.makeConstraints {
+            $0.centerY.equalTo(isSecretLabel)
+            $0.left.equalTo(isSecretLabel.snp.right).offset(4)
+            $0.size.equalTo(18)
+        }
+    }
+    private func setupIsRequestPrayLabel() {
+        view.addSubview(isRequestPrayLabel)
+        isRequestPrayLabel.snp.makeConstraints {
+            $0.top.equalTo(tagCollectionView.snp.bottom).offset(12)
+            $0.left.equalTo(isSecretCheckBox.snp.right).offset(12)
+        }
+    }
+    private func setupIsRequestPrayCheckBox() {
+        view.addSubview(isRequestPrayCheckBox)
+        isRequestPrayCheckBox.snp.makeConstraints {
+            $0.centerY.equalTo(isRequestPrayLabel)
+            $0.left.equalTo(isRequestPrayLabel.snp.right).offset(4)
+            $0.size.equalTo(18)
+        }
+    }
+    private func increaseTagCollectionViewHeight(count: Int) {
+        let currentHeight = tagCollectionView.bounds.height
+        tagCollectionView.snp.updateConstraints {
+            $0.height.equalTo(currentHeight + 8 + 32)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+            if self.tagCollectionView.visibleCells.count < count {
+                self.increaseTagCollectionViewHeight(count: count)
+            }
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -211,7 +269,9 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
                              saveNewPray: saveButton.rx.tap.asDriver(),
                              setTag: tagTextField.rx.text.asDriver(),
                              addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
-                             loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false))
+                             loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false),
+                             toggleIsSecret: isSecretCheckBox.rx.tap.asDriver(),
+                             toggleIsRequestPray: isRequestPrayCheckBox.rx.tap.asDriver())
         
         let output = vm.transform(input: input)
         
@@ -247,6 +307,32 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
                 self?.tagCollectionView.reloadData()
             }).disposed(by: disposeBag)
         
+        output.tagList
+            .delay(.milliseconds(50))
+            .drive(onNext: { [weak self] list in
+                guard let self = self else { return }
+                if self.tagCollectionView.visibleCells.count < list.count {
+                    self.increaseTagCollectionViewHeight(count: list.count)
+                } else {
+                    if !self.tagCollectionView.visibleCells.isEmpty {
+                        var maxY: CGFloat = 0
+                        self.tagCollectionView.visibleCells.forEach { cell in
+                            maxY = max(cell.frame.maxY, maxY)
+                        }
+                        let currentHeight = self.tagCollectionView.bounds.height
+                        if currentHeight - maxY > 8 {
+                            self.tagCollectionView.snp.updateConstraints {
+                                $0.height.equalTo(currentHeight - 8 - 32)
+                            }
+                        }
+                    } else {
+                        self.tagCollectionView.snp.updateConstraints {
+                            $0.height.equalTo(0)
+                        }
+                    }
+                }
+            }).disposed(by: disposeBag)
+        
         output.addingNewPraySuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
@@ -258,6 +344,24 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(onNext: { [weak self] _ in
                 self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
+        
+        output.isSecret
+            .drive(isSecretCheckBox.rx.isChecked)
+            .disposed(by: disposeBag)
+        
+        output.isSecret
+            .drive(onNext: { [weak self] isSecret in
+                guard let self = self else { return }
+                self.isRequestPrayLabel.textColor = isSecret ? .nightSky1 : .sheep4
+            }).disposed(by: disposeBag)
+        
+        output.isSecret
+            .drive(isRequestPrayCheckBox.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.isRequestPray
+            .drive(isRequestPrayCheckBox.rx.isChecked)
+            .disposed(by: disposeBag)
     }
 }
 
