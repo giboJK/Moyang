@@ -38,16 +38,6 @@
                ReferencedContainer = "container:Moyang.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "24D0D30D27230CA6006FF67B"
-               BuildableName = "MoyangUITests.xctest"
-               BlueprintName = "MoyangUITests"
-               ReferencedContainer = "container:Moyang.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
