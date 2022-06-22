@@ -27,6 +27,7 @@ class GroupPrayingVM: VMType {
     let prayList = BehaviorRelay<[PrayItem]>(value: [])
     let isPrevEnabled = BehaviorRelay<Bool>(value: false)
     let isNextEnabled = BehaviorRelay<Bool>(value: false)
+    let prayingTime = BehaviorRelay<String>(value: "00:00")
     
     private var player: AVAudioPlayer?
     private var url: URL?
@@ -203,6 +204,7 @@ extension GroupPrayingVM {
         let prayList: Driver<[PrayItem]>
         let isPrevEnabled: Driver<Bool>
         let isNextEnabled: Driver<Bool>
+        let prayingTime: Driver<String>
     }
 
     func transform(input: Input) -> Output {
@@ -233,7 +235,8 @@ extension GroupPrayingVM {
                       isPlaying: isPlaying.asDriver(),
                       prayList: prayList.asDriver(),
                       isPrevEnabled: isPrevEnabled.asDriver(),
-                      isNextEnabled: isNextEnabled.asDriver()
+                      isNextEnabled: isNextEnabled.asDriver(),
+                      prayingTime: prayingTime.asDriver()
         )
     }
     

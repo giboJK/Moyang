@@ -69,6 +69,11 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.setImage(UIImage(systemName: "play.fill", withConfiguration: config), for: .normal)
         $0.tintColor = .sheep1
     }
+    let prayingTimeLabel = UILabel().then {
+        $0.textColor = .sheep1
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textAlignment = .center
+    }
     let amenButton = MoyangButton(.primary).then {
         $0.setTitle("예수님의 이름으로 기도드립니다.", for: .normal)
     }
@@ -97,13 +102,16 @@ class GroupPrayingVC: UIViewController, VCType {
     func setupUI() {
         view.setGradient(color1: .nightSky3, color2: .nightSky2)
         setupNavBar()
-        setupSongNameLabel()
-        setupTogglePlayingButton()
         setupTitleLabel()
         setupPrevButton()
         setupNextButton()
-        setupPrayTableView()
+        
         setupAmenButton()
+        setupPrayingTimeLabel()
+        setupTogglePlayingButton()
+        setupSongNameLabel()
+        
+        setupPrayTableView()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -117,7 +125,7 @@ class GroupPrayingVC: UIViewController, VCType {
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(navBar.snp.bottom).offset(20)
+            $0.top.equalTo(navBar.snp.bottom)
         }
     }
     private func setupPrevButton() {
@@ -136,19 +144,34 @@ class GroupPrayingVC: UIViewController, VCType {
             $0.right.equalToSuperview().inset(24)
         }
     }
-    private func setupPrayTableView() {
-        view.addSubview(prayTableView)
-        prayTableView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(28)
-            $0.left.right.equalToSuperview().inset(24)
-            $0.bottom.equalToSuperview().inset(180)
+    private func setupAmenButton() {
+        view.addSubview(amenButton)
+        amenButton.snp.makeConstraints {
+            $0.height.equalTo(48)
+            $0.left.right.equalToSuperview().inset(28)
+            $0.bottom.equalTo(view.safeAreaInsets).inset(28)
+        }
+    }
+    private func setupPrayingTimeLabel() {
+        view.addSubview(prayingTimeLabel)
+        prayingTimeLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(amenButton.snp.top).offset(-12)
+        }
+    }
+    private func setupTogglePlayingButton() {
+        view.addSubview(togglePlayingButton)
+        togglePlayingButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(prayingTimeLabel.snp.top).offset(-8)
+            $0.size.equalTo(24)
         }
     }
     private func setupSongNameLabel() {
         view.addSubview(songNameLabelBgView)
         songNameLabelBgView.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(96)
-            $0.bottom.equalToSuperview().inset(140)
+            $0.bottom.equalTo(togglePlayingButton.snp.top).offset(-4)
         }
 
         songNameLabelBgView.addSubview(songNameLabel)
@@ -164,23 +187,14 @@ class GroupPrayingVC: UIViewController, VCType {
             $0.left.equalToSuperview().inset(8)
         }
     }
-    private func setupTogglePlayingButton() {
-        view.addSubview(togglePlayingButton)
-        togglePlayingButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(songNameLabel.snp.bottom).offset(16)
-            $0.size.equalTo(24)
+    private func setupPrayTableView() {
+        view.addSubview(prayTableView)
+        prayTableView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.bottom.equalTo(songNameLabelBgView.snp.top).offset(-12)
         }
     }
-    private func setupAmenButton() {
-        view.addSubview(amenButton)
-        amenButton.snp.makeConstraints {
-            $0.height.equalTo(48)
-            $0.left.right.equalToSuperview().inset(28)
-            $0.bottom.equalTo(view.safeAreaInsets).inset(28)
-        }
-    }
-    
     
     // MARK: - Binding
     func bind() {
@@ -257,6 +271,10 @@ class GroupPrayingVC: UIViewController, VCType {
         
         output.isPrevEnabled
             .drive(prevButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.prayingTime
+            .drive(prayingTimeLabel.rx.text)
             .disposed(by: disposeBag)
     }
 }
