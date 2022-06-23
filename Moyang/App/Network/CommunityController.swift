@@ -104,7 +104,9 @@ extension CommunityController: CommunityMainRepo {
             .document("AUTH")
             .collection(myInfo.authType)
             .document(myInfo.email)
-        let key = "pray_info.pray_list.\(groupID).amen_record"
+            .collection("PRAYRECORD")
+            .document(groupID)
+        let key = "amen_record"
         ref.updateData([
             key: FieldValue.arrayUnion([PrayTimeRecord(date: Date().toString("yyyy-MM-dd hh:mm"),
                                                        time: time).dict as Any])
