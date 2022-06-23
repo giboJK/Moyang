@@ -44,44 +44,23 @@ extension UIViewController {
             popupArray.append(popup)
             if popupArray.count == 1 {
                 self.present(PopupVC.shared, animated: false, completion: nil)
-            }
+            self.present(PopupVC.shared, animated: false, completion: nil)
             
             popup.backgroundColor = UIColor.black.withAlphaComponent(backAlpha)
             popup.isHidden = false
         }
     }
     
-    func setPopupBackgroundTapHandler(handler: (() -> Void)?) {
-        PopupVC.shared.backgroundTapHandler = handler
-    }
-    
     func closePopup(completion: (() -> Void)? = nil ) {
         DispatchQueue.main.async {
-            guard let popup = popupArray.last else {
-                return
-            }
+            popupArray.removeAll()
             
-            popupArray.removeLast()
-            
-            if popupArray.count == 0 {
-                for v in PopupVC.shared.view.subviews {
-                    v.removeFromSuperview()
-                }
-                PopupVC.shared.dismiss(animated: false)
-            } else {
-                popup.removeFromSuperview()
-            }
-            completion?()
-        }
-    }
-    
-    func clearAllPopup() {
-        DispatchQueue.main.async {
             for v in PopupVC.shared.view.subviews {
                 v.removeFromSuperview()
             }
-            popupArray.removeAll()
             PopupVC.shared.dismiss(animated: false)
+            
+            completion?()
         }
     }
 }
