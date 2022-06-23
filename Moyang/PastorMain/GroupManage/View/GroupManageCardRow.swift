@@ -50,32 +50,3 @@ struct GroupManageCardRow: View {
         }
     }
 }
-
-struct GroupManageCardRow_Previews: PreviewProvider {
-    static var previews: some View {
-        GroupManageCardRow(item: GroupManageListVM.GroupItem(groupInfo: GroupInfo(id: UUID().uuidString,
-                                                                                  createdDate: Date().toString("yyyy.MM.dd"),
-                                                                                  groupName: "깐부셀",
-                                                                                  parentGroup: UUID().uuidString,
-                                                                                  leaderList: [Member(id: UUID().uuidString,
-                                                                                                      name: "조경환",
-                                                                                                      email: "test@test.com",
-                                                                                                      profileURL: "",
-                                                                                                      auth: "EMAIL")],
-                                                                                  memberList: [Member(id: UUID().uuidString,
-                                                                                                      name: "길지윤",
-                                                                                                      email: "test@test.com",
-                                                                                                      profileURL: "",
-                                                                                                      auth: "EMAIL"),
-                                                                                               Member(id: UUID().uuidString,
-                                                                                                      name: "정김기",
-                                                                                                      email: "test@test.com",
-                                                                                                      profileURL: "",
-                                                                                                      auth: "EMAIL"),
-                                                                                               Member(id: UUID().uuidString,
-                                                                                                      name: "김기보",
-                                                                                                      email: "test@test.com",
-                                                                                                      profileURL: "",
-                                                                                                      auth: "EMAIL")])))
-    }
-}

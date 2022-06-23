@@ -122,7 +122,8 @@ class AddNewGroupVM: ObservableObject {
                                   groupName: name,
                                   parentGroup: parentGroup,
                                   leaderList: leaderList,
-                                  memberList: memberList)
+                                  memberList: memberList,
+                                  pastorInCharge: UserData.shared.myInfo!.email)
         
         groupRepo.addNewGroup(groupInfo: groupInfo)
             .sink { completion in
