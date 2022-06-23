@@ -15,6 +15,7 @@ struct GroupInfo: Codable, Identifiable {
     let parentGroup: String
     let leaderList: [Member]
     let memberList: [Member]
+    let pastorInCharge: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -23,5 +24,6 @@ struct GroupInfo: Codable, Identifiable {
         case parentGroup = "parent_group"
         case leaderList = "leader_list"
         case memberList = "member_list"
+        case pastorInCharge = "pastor_in_charge"
     }
 }
