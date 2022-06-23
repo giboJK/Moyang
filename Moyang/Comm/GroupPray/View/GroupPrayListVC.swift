@@ -123,7 +123,7 @@ class GroupPrayListVC: UIViewController, VCType {
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.contentOffset = max(self.scrollView.scrollView.contentOffset.y, 0)
+                self.contentOffset = max(self.prayTableView.contentOffset.y, 0)
             }).disposed(by: disposeBag)
         
         prayTableView.rx.didScroll
@@ -131,9 +131,9 @@ class GroupPrayListVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 if self.isAnimating { return }
-                if self.contentOffset - self.scrollView.scrollView.contentOffset.y > 30 {
+                if self.contentOffset - self.prayTableView.contentOffset.y > 30 {
                     self.moveUpButton()
-                } else if self.scrollView.scrollView.contentOffset.y - self.contentOffset > 30 {
+                } else if self.prayTableView.contentOffset.y - self.contentOffset > 30 {
                     self.moveDownButton()
                 }
             }).disposed(by: disposeBag)

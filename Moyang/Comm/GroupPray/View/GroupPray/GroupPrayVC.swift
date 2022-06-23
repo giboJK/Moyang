@@ -110,6 +110,55 @@ class GroupPrayVC: UIViewController, VCType {
         bindViews()
         bindVM()
     }
+    var contentOffset: CGFloat = 0
+    var isAnimating = false
+    let animationTime = 0.3
+    
+    private func bindPrayTableView() {
+        prayTableView.rx.willBeginDragging
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.contentOffset = max(self.prayTableView.contentOffset.y, 0)
+            }).disposed(by: disposeBag)
+        
+        prayTableView.rx.didScroll
+            .debounce(.milliseconds(10), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                if self.isAnimating { return }
+                if self.contentOffset - self.prayTableView.contentOffset.y > 30 {
+                    self.moveUpButton()
+                } else if self.prayTableView.contentOffset.y - self.contentOffset > 30 {
+                    self.moveDownButton()
+                }
+            }).disposed(by: disposeBag)
+    }
+    private func moveDownButton() {
+        if isAnimating { return }
+        isAnimating = true
+        addPrayButton.snp.updateConstraints {
+            $0.bottom.equalToSuperview().offset(56)
+        }
+        UIView.animate(withDuration: animationTime) {
+            self.view.updateConstraints()
+            self.view.layoutIfNeeded()
+            self.isAnimating = false
+        }
+    }
+    
+    private func moveUpButton() {
+        if isAnimating { return }
+        isAnimating = true
+        addPrayButton.snp.updateConstraints {
+            $0.bottom.equalToSuperview()
+        }
+        UIView.animate(withDuration: animationTime) {
+            self.view.updateConstraints()
+            self.view.layoutIfNeeded()
+            self.isAnimating = false
+        }
+    }
     
     private func bindViews() {
         navBar.backButton.rx.tap
@@ -122,6 +171,8 @@ class GroupPrayVC: UIViewController, VCType {
                 guard let self = self else { return }
                 self.coordinator?.didTapNewPrayButton(vm: self.vm)
             }).disposed(by: disposeBag)
+        
+        bindPrayTableView()
     }
 
     private func bindVM() {
