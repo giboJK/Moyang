@@ -31,6 +31,7 @@ class GroupPrayVM: VMType {
     init(useCase: CommunityMainUseCase, groupID: String) {
         self.useCase = useCase
         self.groupID = groupID
+        Log.w(UserData.shared.myInfo)
         bind()
     }
     

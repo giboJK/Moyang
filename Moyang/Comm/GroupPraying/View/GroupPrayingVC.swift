@@ -11,6 +11,7 @@ import RxSwift
 import SnapKit
 import Then
 import MarqueeLabel
+import Toast_Swift
 
 class GroupPrayingVC: UIViewController, VCType {
     typealias VM = GroupPrayingVM
@@ -225,7 +226,8 @@ class GroupPrayingVC: UIViewController, VCType {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(prevMemberPray: prevButton.rx.tap.asDriver(),
                              nextMemberPray: nextButton.rx.tap.asDriver(),
-                             togglePlaySong: togglePlayingButton.rx.tap.asDriver())
+                             togglePlaySong: togglePlayingButton.rx.tap.asDriver(),
+                             amen: amenButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
         output.selectedMemberName
@@ -273,8 +275,22 @@ class GroupPrayingVC: UIViewController, VCType {
             .drive(prevButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        output.prayingTime
+        output.prayingTimeStr
             .drive(prayingTimeLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.isAmenEnable
+            .drive(amenButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.amenSuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.view.makeToast("예수님의 이름으로 기도드립니다. 아멘.", duration: 3.0, position: .center)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+                    self?.dismiss(animated: true)
+                }
+            })
             .disposed(by: disposeBag)
     }
 }

@@ -10,12 +10,12 @@ import FirebaseFirestoreSwift
 import Foundation
 
 class CommunityController {
-//    let networkService: NetworkServiceProtocol?
+    //    let networkService: NetworkServiceProtocol?
     let firestoreService: FirestoreService
     
-//    init(networkService: NetworkServiceProtocol) {
-//        self.networkService = networkService
-//    }
+    //    init(networkService: NetworkServiceProtocol) {
+    //        self.networkService = networkService
+    //    }
     init(firestoreService: FirestoreService) {
         self.firestoreService = firestoreService
     }
@@ -96,5 +96,20 @@ extension CommunityController: CommunityMainRepo {
         let localURL = documentsUrl.appendingPathComponent(path + "/" + fileName + "." + fileExt)
         
         return FileManager.default.fileExists(atPath: localURL.path)
+    }
+    
+    func amen(time: Int, groupID: String, myInfo: MemberDetail, completion: ((Result<Bool, MoyangError>) -> Void)?) {
+        let ref = firestoreService.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(myInfo.authType)
+            .document(myInfo.email)
+        let key = "pray_info.pray_list.\(groupID).amen_record"
+        ref.updateData([
+            key: FieldValue.arrayUnion([PrayTimeRecord(date: Date().toString("yyyy-MM-dd hh:mm"),
+                                                       time: time).dict as Any])
+        ])
+        // 일단 무조건 true...어쩔 수 없다..
+        completion?(.success(true))
     }
 }

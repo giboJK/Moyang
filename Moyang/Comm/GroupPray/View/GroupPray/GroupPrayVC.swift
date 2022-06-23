@@ -206,14 +206,14 @@ class GroupPrayVC: UIViewController, VCType {
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.showToast(type: .success, message: "기도 추가 완료", disposeBag: self.disposeBag)
+                self.showTopToast(type: .success, message: "기도 추가 완료", disposeBag: self.disposeBag)
             }).disposed(by: disposeBag)
         
         output.addingNewPrayFailure
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.showToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
+                self.showTopToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
             }).disposed(by: disposeBag)
     }
 }

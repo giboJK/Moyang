@@ -64,10 +64,10 @@ extension UIViewController {
 }
 
 extension UIViewController {
-    func showToast(type: ToastType,
-                   message: String,
-                   font: UIFont = .systemFont(ofSize: 15, weight: .regular),
-                   textColor: UIColor = .sheep1, disposeBag: DisposeBag) {
+    func showTopToast(type: ToastType,
+                      message: String,
+                      font: UIFont = .systemFont(ofSize: 15, weight: .regular),
+                      textColor: UIColor = .sheep1, disposeBag: DisposeBag) {
         let toastView = UIView(frame: CGRect(x: 0,
                                              y: -(UIApplication.statusBarHeight + 44),
                                              width: UIScreen.main.bounds.width,

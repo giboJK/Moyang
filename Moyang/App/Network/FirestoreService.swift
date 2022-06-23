@@ -74,9 +74,11 @@ protocol FSService {
     
     func downloadFile(fileName: String, path: String, fileExt: String,
                       completion: ((Result<URL, MoyangError>) -> Void)?)
+    
 }
 
 class FSServiceImplShared: FSService {
+    
     deinit { Log.i(self) }
     
     var store = Firestore.firestore()

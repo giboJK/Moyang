@@ -42,6 +42,7 @@ def ui
   pod 'AlertToast'
   pod 'lottie-ios'
   pod 'MarqueeLabel'
+  pod 'Toast-Swift', '~> 5.0.1'
   
   pod 'SnapKit', :inhibit_warnings => true
   pod 'Then'

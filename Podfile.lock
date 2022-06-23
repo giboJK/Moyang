@@ -383,6 +383,7 @@ PODS:
   - SwinjectAutoregistration (2.8.1):
     - Swinject (= 2.7.1)
   - Then (3.0.0)
+  - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -407,6 +408,7 @@ DEPENDENCIES:
   - Swinject
   - SwinjectAutoregistration
   - Then
+  - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
@@ -451,6 +453,7 @@ SPEC REPOS:
     - Swinject
     - SwinjectAutoregistration
     - Then
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -494,7 +497,8 @@ SPEC CHECKSUMS:
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   SwinjectAutoregistration: e83e362da3ca9c64a68290e89efbc40e378dff12
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: a6e7df4fa1d646334cf1a20a4fc2a429a8e1d479
+PODFILE CHECKSUM: 37e454cecbd700aad022b1fa3aff3f984f3fafe3
 
 COCOAPODS: 1.11.3

@@ -19,6 +19,7 @@ class CommunityMainUseCase {
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     let memberList = BehaviorRelay<[Member]>(value: [])
+    let amenSuccess = BehaviorRelay<Void>(value: ())
     
     let songName = BehaviorRelay<String?>(value: nil)
     let songURL = BehaviorRelay<URL?>(value: nil)
@@ -236,6 +237,25 @@ class CommunityMainUseCase {
     private func resetIsNetworking() {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
             self.isNetworking.accept(false)
+        }
+    }
+    
+    func amen(time: Int, groupID: String) {
+        guard let myInfo = UserData.shared.myInfo else {
+            Log.e("")
+            return
+        }
+        repo.amen(time: time, groupID: groupID, myInfo: myInfo) { [weak self] result in
+            switch result {
+            case .success(let isSuccess):
+                if isSuccess {
+                    self?.amenSuccess.accept(())
+                } else {
+                    Log.e("")
+                }
+            case .failure(let error):
+                Log.e(MoyangError.other(error))
+            }
         }
     }
 }

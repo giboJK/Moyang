@@ -19,15 +19,20 @@ class GroupPrayingVM: VMType {
     var email: String // 처음 진입 시 선택된 유저
     var members: [Member] = []
     
-    let memberNameList = BehaviorRelay<[String]>(value: [])
-    let selectedMemberName = BehaviorRelay<String>(value: "")
-    let songName = BehaviorRelay<String?>(value: nil)
-    let isPlaying = BehaviorRelay<Bool>(value: false)
-    let memberPrayList = BehaviorRelay<[(member: Member, list: PrayList)]>(value: [])
-    let prayList = BehaviorRelay<[PrayItem]>(value: [])
-    let isPrevEnabled = BehaviorRelay<Bool>(value: false)
-    let isNextEnabled = BehaviorRelay<Bool>(value: false)
-    let prayingTime = BehaviorRelay<String>(value: "00:00")
+    private let memberNameList = BehaviorRelay<[String]>(value: [])
+    private let selectedMemberName = BehaviorRelay<String>(value: "")
+    private let songName = BehaviorRelay<String?>(value: nil)
+    private let isPlaying = BehaviorRelay<Bool>(value: false)
+    private let memberPrayList = BehaviorRelay<[(member: Member, list: PrayList)]>(value: [])
+    private let prayList = BehaviorRelay<[PrayItem]>(value: [])
+    private let isPrevEnabled = BehaviorRelay<Bool>(value: false)
+    private let isNextEnabled = BehaviorRelay<Bool>(value: false)
+
+    private var timer: Timer?
+    private var prayingTime: Int = 0
+    private let prayingTimeStr = BehaviorRelay<String>(value: "00:00")
+    private let amenSuccess = BehaviorRelay<Void>(value: ())
+    private let isAmenEnable = BehaviorRelay<Bool>(value: false)
     
     private var player: AVAudioPlayer?
     private var url: URL?
@@ -43,9 +48,14 @@ class GroupPrayingVM: VMType {
         bind()
         setButtonEnabled()
         loadSong()
+        createTimer()
     }
-
-    deinit { Log.i(self) }
+    
+    deinit {
+        Log.i(self)
+        timer?.invalidate()
+        timer = nil
+    }
     
     private func bind() {
         useCase.memberList
@@ -72,6 +82,10 @@ class GroupPrayingVM: VMType {
                 self?.playSong(songURL: url)
                 self?.isPlaying.accept(true)
             }).disposed(by: disposeBag)
+        
+        useCase.amenSuccess
+            .bind(to: amenSuccess)
+            .disposed(by: disposeBag)
     }
     
     private func setPrayList() {
@@ -186,6 +200,36 @@ class GroupPrayingVM: VMType {
         player?.stop()
         player = nil
     }
+    
+    private func amen() {
+        useCase.amen(time: prayingTime, groupID: groupID)
+    }
+    
+    private func createTimer() {
+        if timer == nil {
+            timer = Timer.scheduledTimer(timeInterval: 1.0,
+                                         target: self,
+                                         selector: #selector(updateTimer),
+                                         userInfo: nil,
+                                         repeats: true)
+            timer?.tolerance = 0.1
+        }
+    }
+    
+    @objc func updateTimer() {
+        prayingTime += 1
+        let hour: Int = prayingTime / 3600
+        let min: Int = (prayingTime - hour * 3600) / 60
+        let sec: Int = prayingTime % 60
+        if hour > 0 {
+            prayingTimeStr.accept("\(String(format: "%02d", hour)):\(String(format: "%02d", min)):\(String(format: "%02d", sec))")
+        } else {
+            prayingTimeStr.accept("\(String(format: "%02d", min)):\(String(format: "%02d", sec))")
+        }
+        if !isAmenEnable.value {
+            isAmenEnable.accept(prayingTime >= 30)
+        }
+    }
 }
 
 extension GroupPrayingVM {
@@ -194,8 +238,9 @@ extension GroupPrayingVM {
         var nextMemberPray: Driver<Void> = .empty()
         var togglePlaySong: Driver<Void> = .empty()
         var didLongPressPray: Driver<Int?> = .empty()
+        var amen: Driver<Void> = .empty()
     }
-
+    
     struct Output {
         let memberList: Driver<[String]>
         let selectedMemberName: Driver<String>
@@ -204,9 +249,11 @@ extension GroupPrayingVM {
         let prayList: Driver<[PrayItem]>
         let isPrevEnabled: Driver<Bool>
         let isNextEnabled: Driver<Bool>
-        let prayingTime: Driver<String>
+        let prayingTimeStr: Driver<String>
+        let amenSuccess: Driver<Void>
+        let isAmenEnable: Driver<Bool>
     }
-
+    
     func transform(input: Input) -> Output {
         input.prevMemberPray
             .drive(onNext: { [weak self] in
@@ -229,6 +276,11 @@ extension GroupPrayingVM {
                 Log.w(index)
             }).disposed(by: disposeBag)
         
+        input.amen
+            .drive(onNext: { [weak self] _ in
+                self?.amen()
+            }).disposed(by: disposeBag)
+        
         return Output(memberList: memberNameList.asDriver(),
                       selectedMemberName: selectedMemberName.asDriver(),
                       songName: songName.asDriver(),
@@ -236,7 +288,9 @@ extension GroupPrayingVM {
                       prayList: prayList.asDriver(),
                       isPrevEnabled: isPrevEnabled.asDriver(),
                       isNextEnabled: isNextEnabled.asDriver(),
-                      prayingTime: prayingTime.asDriver()
+                      prayingTimeStr: prayingTimeStr.asDriver(),
+                      amenSuccess: amenSuccess.asDriver(),
+                      isAmenEnable: isAmenEnable.asDriver()
         )
     }
     
