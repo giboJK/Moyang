@@ -42,8 +42,6 @@ extension UIViewController {
             }
             
             popupArray.append(popup)
-            if popupArray.count == 1 {
-                self.present(PopupVC.shared, animated: false, completion: nil)
             self.present(PopupVC.shared, animated: false, completion: nil)
             
             popup.backgroundColor = UIColor.black.withAlphaComponent(backAlpha)
