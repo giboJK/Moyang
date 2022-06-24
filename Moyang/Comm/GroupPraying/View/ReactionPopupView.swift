@@ -9,7 +9,6 @@ import UIKit
 
 class ReactionPopupView: UIView {
     
-    
     required init() {
         super.init(frame: .zero)
         setupUI()
@@ -22,6 +21,7 @@ class ReactionPopupView: UIView {
     }
     
     private func setupUI() {
-        
+        layer.cornerRadius = 12
+        backgroundColor = .nightSky3
     }
 }

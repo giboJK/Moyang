@@ -63,6 +63,8 @@ class GroupPrayTableViewCell: UITableViewCell {
     
     var tags = [String]()
     var index: Int?
+    var moveViewHandler: ((Int) -> Void)?
+    var longTapHandler: ((Int) -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -75,7 +77,14 @@ class GroupPrayTableViewCell: UITableViewCell {
         self.rx.longPressGesture().when(.began)
             .subscribe(onNext: { [weak self] _ in
                 guard let index = self?.index else { return }
-                Log.w(index)
+                self?.moveViewHandler?(index)
+            }).disposed(by: disposeBag)
+        
+        self.rx.longPressGesture().when(.began)
+            .delay(.milliseconds(150), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let index = self?.index else { return }
+                self?.longTapHandler?(index)
             }).disposed(by: disposeBag)
     }
     

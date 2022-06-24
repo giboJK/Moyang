@@ -55,7 +55,7 @@ extension GroupPrayCoordinator: GroupPrayVCDelegate {
     }
 }
 
-extension GroupPrayCoordinator: GroupPrayDetailVCDelegate {
+extension GroupPrayCoordinator: GroupPrayListVCDelegate {
     func didTapPraybutton(vm: GroupPrayingVM) {
         if let vc = assembler.resolver.resolve(GroupPrayingVC.self, argument: vm) {
             vc.modalPresentationStyle = .fullScreen

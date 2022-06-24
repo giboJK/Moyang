@@ -34,6 +34,8 @@ class GroupPrayingVM: VMType {
     private let amenSuccess = BehaviorRelay<Void>(value: ())
     private let isAmenEnable = BehaviorRelay<Bool>(value: false)
     
+    private let longPressIndex = BehaviorRelay<Int?>(value: nil)
+    
     private var player: AVAudioPlayer?
     private var url: URL?
     
@@ -252,6 +254,7 @@ extension GroupPrayingVM {
         let prayingTimeStr: Driver<String>
         let amenSuccess: Driver<Void>
         let isAmenEnable: Driver<Bool>
+        let longPressIndex: Driver<Int?>
     }
     
     func transform(input: Input) -> Output {
@@ -273,7 +276,7 @@ extension GroupPrayingVM {
         input.didLongPressPray
             .drive(onNext: { [weak self] index in
                 guard let index = index else { return }
-                Log.w(index)
+                self?.longPressIndex.accept(index)
             }).disposed(by: disposeBag)
         
         input.amen
@@ -290,7 +293,9 @@ extension GroupPrayingVM {
                       isNextEnabled: isNextEnabled.asDriver(),
                       prayingTimeStr: prayingTimeStr.asDriver(),
                       amenSuccess: amenSuccess.asDriver(),
-                      isAmenEnable: isAmenEnable.asDriver()
+                      isAmenEnable: isAmenEnable.asDriver(),
+                      
+                      longPressIndex: longPressIndex.asDriver()
         )
     }
     

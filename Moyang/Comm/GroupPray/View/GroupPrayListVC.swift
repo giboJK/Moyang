@@ -10,12 +10,13 @@ import RxCocoa
 import RxSwift
 import SnapKit
 import Then
+import RxGesture
 
 class GroupPrayListVC: UIViewController, VCType {
     typealias VM = GroupPrayListVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
-    var coordinator: GroupPrayDetailVCDelegate?
+    var coordinator: GroupPrayListVCDelegate?
 
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
@@ -39,6 +40,7 @@ class GroupPrayListVC: UIViewController, VCType {
         $0.layer.cornerRadius = 12
         $0.semanticContentAttribute = .forceRightToLeft
     }
+    let prayReactionView = ReactionPopupView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +62,7 @@ class GroupPrayListVC: UIViewController, VCType {
         setupNavBar()
         setupPrayTableView()
         setupPrayButton()
+        setupPrayReactionView()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -84,6 +87,15 @@ class GroupPrayListVC: UIViewController, VCType {
             $0.width.equalTo(96)
             $0.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
+        }
+    }
+    private func setupPrayReactionView() {
+        view.addSubview(prayReactionView)
+        prayReactionView.snp.makeConstraints {
+            $0.width.equalTo(200)
+            $0.height.equalTo(80)
+            $0.right.equalToSuperview().inset(12)
+            $0.top.equalToSuperview()
         }
     }
 
@@ -124,6 +136,7 @@ class GroupPrayListVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.contentOffset = max(self.prayTableView.contentOffset.y, 0)
+                self.prayReactionView.isHidden = true
             }).disposed(by: disposeBag)
         
         prayTableView.rx.didScroll
@@ -137,7 +150,13 @@ class GroupPrayListVC: UIViewController, VCType {
                     self.moveDownButton()
                 }
             }).disposed(by: disposeBag)
+        
+        prayTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] _ in
+                self?.prayReactionView.isHidden = true
+            }).disposed(by: disposeBag)
     }
+    
     private func moveDownButton() {
         if isAnimating { return }
         isAnimating = true
@@ -163,6 +182,30 @@ class GroupPrayListVC: UIViewController, VCType {
             self.isAnimating = false
         }
     }
+    private func moevPrayReactionView(_ index: Int) {
+        guard let cell = prayTableView.cellForRow(at: IndexPath(row: index, section: 0)) else { Log.e(""); return }
+        let contentOffset = prayTableView.contentOffset
+        prayReactionView.isHidden = true
+        let topInset = min(cell.frame.maxY - contentOffset.y + 12 + navBar.frame.height - 8,
+                           prayTableView.frame.height - 84 + 12 + navBar.frame.height)
+        prayReactionView.snp.updateConstraints {
+            $0.top.equalToSuperview().inset(topInset)
+            $0.width.equalTo(0)
+            $0.height.equalTo(0)
+        }
+    }
+    private func showPrayReactionView(_ index: Int) {
+        prayReactionView.isHidden = false
+        prayReactionView.snp.updateConstraints {
+            $0.width.equalTo(200)
+            $0.height.equalTo(80)
+        }
+        UIView.animate(withDuration: 0.15) {
+            self.view.updateConstraints()
+            self.view.layoutIfNeeded()
+            self.isAnimating = false
+        }
+    }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
@@ -175,7 +218,7 @@ class GroupPrayListVC: UIViewController, VCType {
         
         output.prayList
             .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { (index, item, cell) in
+                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { [weak self] (index, item, cell) in
                     cell.nameLabel.text = item.name
                     cell.dateLabel.text = item.date
                     cell.prayLabel.text = item.pray
@@ -188,7 +231,8 @@ class GroupPrayListVC: UIViewController, VCType {
                     cell.noTagLabel.isHidden = !item.tags.isEmpty
                     cell.index = index
                     cell.isSecretLabel.isHidden = !item.isSecret
-                    
+                    cell.moveViewHandler = self?.moevPrayReactionView(_:)
+                    cell.longTapHandler = self?.showPrayReactionView(_:)
                 }.disposed(by: disposeBag)
         
         output.groupPrayingVM
@@ -199,6 +243,6 @@ class GroupPrayListVC: UIViewController, VCType {
     }
 }
 
-protocol GroupPrayDetailVCDelegate: AnyObject {
+protocol GroupPrayListVCDelegate: AnyObject {
     func didTapPraybutton(vm: GroupPrayingVM)
 }
