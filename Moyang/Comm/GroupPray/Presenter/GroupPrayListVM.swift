@@ -84,12 +84,29 @@ class GroupPrayListVM: VMType {
     func clearPrayList() {
         useCase.clearPrayList()
     }
+    
+    private func addReaction(index: Int, reaction: PrayReactionType) {
+        guard let myInfo = UserData.shared.myInfo else {
+            Log.e("")
+            return
+        }
+        let prayID = prayList.value[index].prayID
+        useCase.addReaction(memberAuth: auth,
+                            email: email,
+                            prayID: prayID,
+                            myInfo: myInfo,
+                            reaction: reaction.rawValue)
+    }
 }
 
 extension GroupPrayListVM {
     struct Input {
         let letsPraying: Driver<Void>
-        
+        let addLove: Driver<Int?>
+        let addJoyful: Driver<Int?>
+        let addSad: Driver<Int?>
+        let addPray: Driver<Int?>
+        let addComment: Driver<Int?>
     }
 
     struct Output {
@@ -107,6 +124,51 @@ extension GroupPrayListVM {
                                         email: self.email,
                                         groupID: self.groupID)
                 self.groupPrayingVM.accept(vm)
+            }).disposed(by: disposeBag)
+        
+        input.addLove
+            .drive(onNext: { [weak self] index in
+                guard let self = self, let index = index else {
+                    Log.e("")
+                    return
+                }
+                self.addReaction(index: index, reaction: .love)
+            }).disposed(by: disposeBag)
+        
+        input.addJoyful
+            .drive(onNext: { [weak self] index in
+                guard let self = self, let index = index else {
+                    Log.e("")
+                    return
+                }
+                self.addReaction(index: index, reaction: .joyful)
+            }).disposed(by: disposeBag)
+        
+        input.addSad
+            .drive(onNext: { [weak self] index in
+                guard let self = self, let index = index else {
+                    Log.e("")
+                    return
+                }
+                self.addReaction(index: index, reaction: .sad)
+            }).disposed(by: disposeBag)
+        
+        input.addPray
+            .drive(onNext: { [weak self] index in
+                guard let self = self, let index = index else {
+                    Log.e("")
+                    return
+                }
+                self.addReaction(index: index, reaction: .prayWithYou)
+            }).disposed(by: disposeBag)
+        
+        input.addComment
+            .drive(onNext: { [weak self] index in
+                guard let self = self, let index = index else {
+                    Log.e("")
+                    return
+                }
+                self.addReaction(index: index, reaction: .love)
             }).disposed(by: disposeBag)
         
         return Output(name: name.asDriver(),

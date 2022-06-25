@@ -112,6 +112,13 @@ struct PrayTimeRecord: Codable {
     }
 }
 
+struct PrayTimeRecordList: Codable {
+    let list: [PrayTimeRecord]
+    
+    enum CodingKeys: String, CodingKey {
+        case list = "amen_record"
+    }
+}
 
 enum UserLevel: Int {
     case seed = 1

@@ -258,4 +258,23 @@ class CommunityMainUseCase {
             }
         }
     }
+    
+    func addReaction(memberAuth: String, email: String, prayID: String, myInfo: MemberDetail, reaction: String) {
+        repo.addReaction(memberAuth: memberAuth,
+                         email: email,
+                         prayID: prayID,
+                         myInfo: myInfo,
+                         reaction: reaction) { [weak self] result in
+            switch result {
+            case .success(let isSuccess):
+                if isSuccess {
+                    Log.d(isSuccess)
+                } else {
+                    Log.e("")
+                }
+            case .failure(let error):
+                Log.e(MoyangError.other(error))
+            }
+        }
+    }
 }

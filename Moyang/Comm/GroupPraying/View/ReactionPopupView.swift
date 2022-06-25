@@ -44,7 +44,7 @@ class ReactionPopupView: UIView {
     let copyImageView = UIImageView(image: Asset.Images.Pray.copy.image.withTintColor(.sheep1))
     let replyView = UIView()
     let replyLabel = UILabel().then {
-        $0.text = "기도적기"
+        $0.text = "같이 기도하기"
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep1
     }

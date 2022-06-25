@@ -36,21 +36,19 @@ struct GroupIndividualPray: Codable {
 
 struct PrayReaction: Codable {
     let memberID: String
-    let reaction: Int
-    let date: String
+    let reaction: String
     
     enum CodingKeys: String, CodingKey {
         case memberID = "member_id"
         case reaction
-        case date
     }
 }
 
-enum PrayReactionType: Int, CaseIterable {
-    case love = 0
-    case sad = 1
-    case joyful = 2
-    case prayWithYou = 3
+enum PrayReactionType: String, CaseIterable {
+    case love
+    case sad
+    case joyful
+    case prayWithYou
     
     var desc: String {
         switch self {

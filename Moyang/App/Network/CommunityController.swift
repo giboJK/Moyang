@@ -107,9 +107,51 @@ extension CommunityController: CommunityMainRepo {
             .collection("PRAYRECORD")
             .document(groupID)
         let key = "amen_record"
+        
         ref.updateData([
             key: FieldValue.arrayUnion([PrayTimeRecord(date: Date().toString("yyyy-MM-dd hh:mm"),
                                                        time: time).dict as Any])
+        ]) { [weak self] error in
+            if let error = error {
+                Log.w(error)
+                if error.localizedDescription.contains("No document") {
+                    self?.addAmenRecord(time: time, groupID: groupID, myInfo: myInfo, completion: completion)
+                } else {
+                    completion?(.success(false))
+                }
+            } else {
+                completion?(.success(true))
+            }
+        }
+    }
+    
+    private func addAmenRecord(time: Int, groupID: String, myInfo: MemberDetail, completion: ((Result<Bool, MoyangError>) -> Void)?) {
+        let ref = firestoreService.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(myInfo.authType)
+            .document(myInfo.email)
+            .collection("PRAYRECORD")
+            .document(groupID)
+        
+        let data = PrayTimeRecordList(list: [PrayTimeRecord(date: Date().toString("yyyy-MM-dd hh:mm"),
+                                                            time: time)])
+        fsShared.addDocument(data, ref: ref, completion: completion)
+    }
+    
+    func addReaction(memberAuth: String, email: String, prayID: String, myInfo: MemberDetail, reaction: String,
+                     completion: ((Result<Bool, MoyangError>) -> Void)?) {
+        let ref = firestoreService.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(memberAuth)
+            .document(email)
+            .collection("PRAY")
+            .document(prayID)
+        let key = "reactions"
+        ref.updateData([
+            key: FieldValue.arrayUnion([PrayReaction(memberID: myInfo.id,
+                                                     reaction: reaction)])
         ])
         // 일단 무조건 true...어쩔 수 없다..
         completion?(.success(true))
