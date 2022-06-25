@@ -46,14 +46,20 @@ public enum Asset {
     public enum Cell {
       public static let sortDown = ImageAsset(name: "sortDown")
     }
+    public enum Common {
+      public static let checkEmpty = ImageAsset(name: "checkEmpty")
+      public static let checkFill = ImageAsset(name: "checkFill")
+    }
+    public enum Pray {
+      public static let comment = ImageAsset(name: "comment")
+      public static let copy = ImageAsset(name: "copy")
+    }
     public enum Profile {
       public static let logout = ImageAsset(name: "logout")
     }
     public enum Tabbar {
       public static let cross = ImageAsset(name: "cross")
     }
-    public static let checkEmpty = ImageAsset(name: "checkEmpty")
-    public static let checkFill = ImageAsset(name: "checkFill")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

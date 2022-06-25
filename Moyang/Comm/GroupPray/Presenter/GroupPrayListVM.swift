@@ -89,6 +89,7 @@ class GroupPrayListVM: VMType {
 extension GroupPrayListVM {
     struct Input {
         let letsPraying: Driver<Void>
+        
     }
 
     struct Output {

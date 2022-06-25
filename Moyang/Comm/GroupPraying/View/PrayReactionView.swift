@@ -11,9 +11,9 @@ class PrayReactionView: UIView {
     
     var type: PrayReactionType = .love
     
-    let descLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .nightSky3
+    let reactionButton = UIButton().then {
+        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.tintColor = .nightSky3
     }
     let countLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .regular)
@@ -34,13 +34,13 @@ class PrayReactionView: UIView {
     
     private func setupUI() {
         
-        setupDescLabel()
+        setupReactionButton()
         setupCountLabel()
     }
     
-    private func setupDescLabel() {
-        addSubview(descLabel)
-        descLabel.snp.makeConstraints {
+    private func setupReactionButton() {
+        addSubview(reactionButton)
+        reactionButton.snp.makeConstraints {
             $0.left.equalToSuperview().inset(4)
             $0.centerY.equalToSuperview()
             $0.bottom.top.equalToSuperview().inset(4)
@@ -49,7 +49,7 @@ class PrayReactionView: UIView {
     private func setupCountLabel() {
         addSubview(countLabel)
         countLabel.snp.makeConstraints {
-            $0.left.equalTo(descLabel.snp.right).offset(8)
+            $0.left.equalTo(reactionButton.snp.right).offset(8)
             $0.right.equalToSuperview().inset(4)
             $0.centerY.equalToSuperview()
         }

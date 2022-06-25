@@ -11,8 +11,8 @@ import RxSwift
 
 class CheckBox: UIButton {
     // Images
-    let checkedImage = Asset.Images.checkFill.image
-    let uncheckedImage = Asset.Images.checkEmpty.image
+    let checkedImage = Asset.Images.Common.checkFill.image
+    let uncheckedImage = Asset.Images.Common.checkEmpty.image
     
     // Bool property
     var isChecked: Bool = false {
@@ -31,7 +31,7 @@ class CheckBox: UIButton {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-//        fatalError("init(coder:) has not been implemented")
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

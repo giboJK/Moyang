@@ -40,7 +40,10 @@ class GroupPrayListVC: UIViewController, VCType {
         $0.layer.cornerRadius = 12
         $0.semanticContentAttribute = .forceRightToLeft
     }
-    let prayReactionView = ReactionPopupView()
+    let prayReactionView = ReactionPopupView().then {
+        $0.isHidden = true
+    }
+    let prayReactionViewHeight: CGFloat = 36 + 8 + 72
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,8 +95,8 @@ class GroupPrayListVC: UIViewController, VCType {
     private func setupPrayReactionView() {
         view.addSubview(prayReactionView)
         prayReactionView.snp.makeConstraints {
-            $0.width.equalTo(200)
-            $0.height.equalTo(80)
+            $0.width.equalTo(136)
+            $0.height.equalTo(prayReactionViewHeight)
             $0.right.equalToSuperview().inset(12)
             $0.top.equalToSuperview()
         }
@@ -186,8 +189,9 @@ class GroupPrayListVC: UIViewController, VCType {
         guard let cell = prayTableView.cellForRow(at: IndexPath(row: index, section: 0)) else { Log.e(""); return }
         let contentOffset = prayTableView.contentOffset
         prayReactionView.isHidden = true
-        let topInset = min(cell.frame.maxY - contentOffset.y + 12 + navBar.frame.height - 8,
-                           prayTableView.frame.height - 84 + 12 + navBar.frame.height)
+        let navHeight = navBar.frame.height
+        let topInset = min(cell.frame.maxY - contentOffset.y + 4 + navHeight,
+                           prayTableView.frame.height - prayReactionViewHeight + 12 + navHeight)
         prayReactionView.snp.updateConstraints {
             $0.top.equalToSuperview().inset(topInset)
             $0.width.equalTo(0)
@@ -197,8 +201,8 @@ class GroupPrayListVC: UIViewController, VCType {
     private func showPrayReactionView(_ index: Int) {
         prayReactionView.isHidden = false
         prayReactionView.snp.updateConstraints {
-            $0.width.equalTo(200)
-            $0.height.equalTo(80)
+            $0.width.equalTo(136)
+            $0.height.equalTo(prayReactionViewHeight)
         }
         UIView.animate(withDuration: 0.15) {
             self.view.updateConstraints()

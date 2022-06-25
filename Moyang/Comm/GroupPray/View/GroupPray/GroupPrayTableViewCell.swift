@@ -81,10 +81,11 @@ class GroupPrayTableViewCell: UITableViewCell {
             }).disposed(by: disposeBag)
         
         self.rx.longPressGesture().when(.began)
-            .delay(.milliseconds(150), scheduler: MainScheduler.asyncInstance)
+            .delay(.milliseconds(100), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
                 guard let index = self?.index else { return }
                 self?.longTapHandler?(index)
+                self?.bgView.backgroundColor = .sheep3
             }).disposed(by: disposeBag)
     }
     
