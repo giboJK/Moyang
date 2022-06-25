@@ -40,9 +40,14 @@ class GroupPrayListVC: UIViewController, VCType {
         $0.layer.cornerRadius = 12
         $0.semanticContentAttribute = .forceRightToLeft
     }
+    let cellCoverView = UIView().then {
+        $0.backgroundColor = .sheep4.withAlphaComponent(0.7)
+        $0.isHidden = true
+    }
     let prayReactionView = ReactionPopupView().then {
         $0.isHidden = true
     }
+    
     let prayReactionViewHeight: CGFloat = 36 + 8 + 72
 
     override func viewDidLoad() {
@@ -140,6 +145,8 @@ class GroupPrayListVC: UIViewController, VCType {
                 guard let self = self else { return }
                 self.contentOffset = max(self.prayTableView.contentOffset.y, 0)
                 self.prayReactionView.isHidden = true
+                self.cellCoverView.removeFromSuperview()
+                self.cellCoverView.isHidden = true
             }).disposed(by: disposeBag)
         
         prayTableView.rx.didScroll
@@ -157,6 +164,8 @@ class GroupPrayListVC: UIViewController, VCType {
         prayTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] _ in
                 self?.prayReactionView.isHidden = true
+                self?.cellCoverView.isHidden = true
+                self?.cellCoverView.removeFromSuperview()
             }).disposed(by: disposeBag)
     }
     
@@ -186,9 +195,11 @@ class GroupPrayListVC: UIViewController, VCType {
         }
     }
     private func moevPrayReactionView(_ index: Int) {
-        guard let cell = prayTableView.cellForRow(at: IndexPath(row: index, section: 0)) else { Log.e(""); return }
+        guard let cell = prayTableView.cellForRow(at: IndexPath(row: index, section: 0))
+        as? GroupPrayTableViewCell else { Log.e(""); return }
         let contentOffset = prayTableView.contentOffset
         prayReactionView.isHidden = true
+        cellCoverView.isHidden = true
         let navHeight = navBar.frame.height
         let topInset = min(cell.frame.maxY - contentOffset.y + 4 + navHeight,
                            prayTableView.frame.height - prayReactionViewHeight + 12 + navHeight)
@@ -197,9 +208,15 @@ class GroupPrayListVC: UIViewController, VCType {
             $0.width.equalTo(0)
             $0.height.equalTo(0)
         }
+        cellCoverView.removeFromSuperview()
+        cell.bgView.addSubview(cellCoverView)
+        cellCoverView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     private func showPrayReactionView(_ index: Int) {
         prayReactionView.isHidden = false
+        cellCoverView.isHidden = false
         prayReactionView.snp.updateConstraints {
             $0.width.equalTo(136)
             $0.height.equalTo(prayReactionViewHeight)
