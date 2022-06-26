@@ -10,10 +10,10 @@ struct GroupIndividualPray: Codable {
     let id: String
     let groupID: String
     let date: String
-    let pray: String
-    let tags: [String]
-    let reactions: [PrayReaction]
-    let replys: [PrayReply]
+    var pray: String
+    var tags: [String]
+    var reactions: [PrayReaction]
+    var replys: [PrayReply]
     let parentPrayID: String?
     let order: Int
     let isSecret: Bool
@@ -36,7 +36,7 @@ struct GroupIndividualPray: Codable {
 
 struct PrayReaction: Codable {
     let memberID: String
-    let reaction: String
+    var reaction: String
     
     enum CodingKeys: String, CodingKey {
         case memberID = "member_id"

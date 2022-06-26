@@ -104,7 +104,8 @@ class GroupPrayingVM: VMType {
                                          prayID: pray.id,
                                          tags: pray.tags,
                                          isSecret: pray.isSecret,
-                                         isRequestPray: pray.isRequestPray
+                                         isRequestPray: pray.isRequestPray,
+                                         reactions: pray.reactions
                                         ))
             }
         }

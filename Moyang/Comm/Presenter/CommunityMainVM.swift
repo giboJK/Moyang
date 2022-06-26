@@ -54,7 +54,8 @@ class CommunityMainVM: VMType {
                                                             prayID: item.pray.id,
                                                             tags: item.pray.tags,
                                                             isSecret: item.pray.isSecret,
-                                                            isRequestPray: item.pray.isRequestPray
+                                                            isRequestPray: item.pray.isRequestPray,
+                                                            reactions: item.pray.reactions
                                                            ))
                 }
                 return itemList
@@ -76,7 +77,8 @@ class CommunityMainVM: VMType {
                                                    prayID: myPray.pray.id,
                                                    tags: myPray.pray.tags,
                                                    isSecret: myPray.pray.isSecret,
-                                                   isRequestPray: myPray.pray.isRequestPray
+                                                   isRequestPray: myPray.pray.isRequestPray,
+                                                   reactions: myPray.pray.reactions
                     )
                 } else {
                     return nil
@@ -145,6 +147,7 @@ extension CommunityMainVM {
         let tags: [String]
         let isSecret: Bool
         let isRequestPray: Bool
+        let reactions: [PrayReaction]
         
         init(memberID: String,
              memberAuth: String,
@@ -155,7 +158,8 @@ extension CommunityMainVM {
              prayID: String,
              tags: [String],
              isSecret: Bool,
-             isRequestPray: Bool
+             isRequestPray: Bool,
+             reactions: [PrayReaction]
         ) {
             self.memberID = memberID
             self.memberAuth = memberAuth
@@ -167,6 +171,7 @@ extension CommunityMainVM {
             self.tags = tags
             self.isSecret = isSecret
             self.isRequestPray = isRequestPray
+            self.reactions = reactions
         }
     }
 }

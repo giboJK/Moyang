@@ -139,8 +139,8 @@ extension CommunityController: CommunityMainRepo {
         fsShared.addDocument(data, ref: ref, completion: completion)
     }
     
-    func addReaction(memberAuth: String, email: String, prayID: String, myInfo: MemberDetail, reaction: String,
-                     completion: ((Result<Bool, MoyangError>) -> Void)?) {
+    func addReaction(memberAuth: String, email: String, prayID: String, myInfo: MemberDetail, reaction: String, reactions: [PrayReaction],
+                     completion: ((Result<[PrayReaction], MoyangError>) -> Void)?) {
         let ref = firestoreService.store
             .collection("USER")
             .document("AUTH")
@@ -149,14 +149,42 @@ extension CommunityController: CommunityMainRepo {
             .collection("PRAY")
             .document(prayID)
         let key = "reactions"
-        ref.updateData([
-            key: FieldValue.arrayUnion([PrayReaction(memberID: myInfo.id,
-                                                     reaction: reaction).dict as Any])
-        ]) { [weak self] error in
-            if let error = error {
-                Log.w(error)
-            } else {
-                completion?(.success(true))
+        if let item = reactions.first(where: { $0.memberID == myInfo.id }) {
+            ref.updateData([
+                key: FieldValue.arrayRemove([item.dict as Any])
+            ]) { error in
+                if let error = error {
+                    Log.w(error)
+                } else {
+                    ref.updateData([
+                        key: FieldValue.arrayUnion([PrayReaction(memberID: myInfo.id,
+                                                                 reaction: reaction).dict as Any])
+                    ]) { error in
+                        if let error = error {
+                            Log.w(error)
+                        } else {
+                            var changed = reactions
+                            if let index = reactions.firstIndex(where: { $0.memberID == myInfo.id }) {
+                                changed[index].reaction = reaction
+                            }
+                            completion?(.success(changed))
+                        }
+                    }
+                }
+            }
+        } else {
+            ref.updateData([
+                key: FieldValue.arrayUnion([PrayReaction(memberID: myInfo.id,
+                                                         reaction: reaction).dict as Any])
+            ]) { error in
+                if let error = error {
+                    Log.w(error)
+                } else {
+                    var changed = reactions
+                    changed.append(PrayReaction(memberID: myInfo.id,
+                                                reaction: reaction))
+                    completion?(.success(changed))
+                }
             }
         }
     }

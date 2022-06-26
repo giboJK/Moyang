@@ -20,6 +20,7 @@ class GroupPrayListVM: VMType {
     let prayList = BehaviorRelay<[PrayItem]>(value: [])
     let isNetworking = BehaviorRelay<Bool>(value: false)
     let groupPrayingVM = BehaviorRelay<GroupPrayingVM?>(value: nil)
+    let reactionSuccess = BehaviorRelay<Void>(value: ())
 
     init(groupID: String, prayItem: PrayItem, useCase: CommunityMainUseCase) {
         self.groupID = groupID
@@ -53,13 +54,19 @@ class GroupPrayListVM: VMType {
                                                  prayID: pray.id,
                                                  tags: pray.tags,
                                                  isSecret: pray.isSecret,
-                                                 isRequestPray: pray.isRequestPray
+                                                 isRequestPray: pray.isRequestPray,
+                                                 reactions: pray.reactions
                                                 ))
                     }
                 }
                 return itemList
             }
             .bind(to: prayList)
+            .disposed(by: disposeBag)
+        
+        useCase.reactionSuccess
+            .skip(1)
+            .bind(to: reactionSuccess)
             .disposed(by: disposeBag)
     }
     
@@ -91,11 +98,14 @@ class GroupPrayListVM: VMType {
             return
         }
         let prayID = prayList.value[index].prayID
+        
         useCase.addReaction(memberAuth: auth,
                             email: email,
                             prayID: prayID,
                             myInfo: myInfo,
-                            reaction: reaction.rawValue)
+                            reaction: reaction.rawValue,
+                            reactions: prayList.value[index].reactions
+        )
     }
 }
 

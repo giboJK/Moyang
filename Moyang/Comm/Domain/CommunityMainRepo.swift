@@ -22,6 +22,6 @@ protocol CommunityMainRepo {
     
     func amen(time: Int, groupID: String, myInfo: MemberDetail, completion: ((Result<Bool, MoyangError>) -> Void)?)
     
-    func addReaction(memberAuth: String, email: String, prayID: String, myInfo: MemberDetail, reaction: String,
-                     completion: ((Result<Bool, MoyangError>) -> Void)?)
+    func addReaction(memberAuth: String, email: String, prayID: String, myInfo: MemberDetail, reaction: String, reactions: [PrayReaction],
+                     completion: ((Result<[PrayReaction], MoyangError>) -> Void)?)
 }
