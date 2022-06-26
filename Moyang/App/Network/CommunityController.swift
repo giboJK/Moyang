@@ -151,9 +151,13 @@ extension CommunityController: CommunityMainRepo {
         let key = "reactions"
         ref.updateData([
             key: FieldValue.arrayUnion([PrayReaction(memberID: myInfo.id,
-                                                     reaction: reaction)])
-        ])
-        // 일단 무조건 true...어쩔 수 없다..
-        completion?(.success(true))
+                                                     reaction: reaction).dict as Any])
+        ]) { [weak self] error in
+            if let error = error {
+                Log.w(error)
+            } else {
+                completion?(.success(true))
+            }
+        }
     }
 }
