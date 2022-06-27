@@ -16,18 +16,22 @@ class ReactionPopupView: UIView {
     let loveButton = UIButton().then {
         $0.setTitle("❤️", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.layer.cornerRadius = 4
     }
     let joyfulButton = UIButton().then {
         $0.setTitle("😄", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.layer.cornerRadius = 4
     }
     let sadButton = UIButton().then {
         $0.setTitle("😭", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.layer.cornerRadius = 4
     }
     let prayButton = UIButton().then {
         $0.setTitle("🙏", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.layer.cornerRadius = 4
     }
     
     let actionContainer = UIView().then {
@@ -83,7 +87,7 @@ class ReactionPopupView: UIView {
         loveButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
             $0.size.equalTo(20)
-            $0.left.equalToSuperview().inset(12)
+            $0.left.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(8)
         }
     }
@@ -92,7 +96,7 @@ class ReactionPopupView: UIView {
         joyfulButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
             $0.size.equalTo(20)
-            $0.left.equalTo(loveButton.snp.right).offset(12)
+            $0.left.equalTo(loveButton.snp.right).offset(16)
         }
     }
     private func setupSadButton() {
@@ -100,7 +104,7 @@ class ReactionPopupView: UIView {
         sadButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
             $0.size.equalTo(20)
-            $0.left.equalTo(joyfulButton.snp.right).offset(12)
+            $0.left.equalTo(joyfulButton.snp.right).offset(16)
         }
     }
     private func setupPrayButton() {
@@ -108,7 +112,7 @@ class ReactionPopupView: UIView {
         prayButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
             $0.size.equalTo(20)
-            $0.right.equalToSuperview().inset(12)
+            $0.right.equalToSuperview().inset(16)
         }
     }
     private func setupActionContainer() {
@@ -165,6 +169,23 @@ class ReactionPopupView: UIView {
             $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().inset(8)
             $0.size.equalTo(20)
+        }
+    }
+
+    func setMyReaction(reaction: String) {
+        if let reactionType = PrayReactionType(rawValue: reaction) {
+            let buttons = [loveButton, joyfulButton, sadButton, prayButton]
+            buttons.forEach { $0.backgroundColor = .clear}
+            switch reactionType {
+            case .love:
+                loveButton.backgroundColor = .sheep2
+            case .sad:
+                sadButton.backgroundColor = .sheep2
+            case .joyful:
+                joyfulButton.backgroundColor = .sheep2
+            case .prayWithYou:
+                prayButton.backgroundColor = .sheep2
+            }
         }
     }
 }

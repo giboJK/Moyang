@@ -79,6 +79,11 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.setTitle("예수님의 이름으로 기도드립니다.", for: .normal)
     }
     let reactionPopupView = UIView()
+    let closeConfirmPopup = MoyangPopupView(style: .twoButton).then {
+        $0.desc = "기도를 마치시겠어요? 하단의 버튼을 통해 예수님의 이름으로 아멘해보세요."
+        $0.firstButton.setTitle("나가기", for: .normal)
+        $0.secondButton.setTitle("취소", for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +99,7 @@ class GroupPrayingVC: UIViewController, VCType {
     deinit {
         Log.i(self)
         vm?.stopSong()
+        NotificationCenter.default.post(name: NSNotification.Name("PRAYING_STOP"), object: nil, userInfo: nil)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -206,7 +212,22 @@ class GroupPrayingVC: UIViewController, VCType {
     private func bindViews() {
         navBar.closeButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
+                guard let self = self else { return }
+                self.displayPopup(popup: self.closeConfirmPopup)
+                Log.w(self)
+            }).disposed(by: disposeBag)
+        
+        closeConfirmPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.closePopup {
+                    self.dismiss(animated: true)
+                }
+            }).disposed(by: disposeBag)
+        
+        closeConfirmPopup.secondButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
             }).disposed(by: disposeBag)
         
         prayTableView.rx.contentOffset.asDriver()

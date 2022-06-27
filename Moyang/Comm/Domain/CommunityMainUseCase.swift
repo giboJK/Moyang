@@ -271,9 +271,9 @@ class CommunityMainUseCase {
             switch result {
             case .success(let prayReactions):
                 var cur = self.memberPrayList.value
-                if var index = self.memberPrayList.value.firstIndex { (member: Member, list: PrayList) in
+                if let index = self.memberPrayList.value.firstIndex(where: { (member: Member, _) in
                     member.email == email && member.auth == memberAuth
-                } {
+                }) {
                     if let prayIndex = cur[index].list.firstIndex(where: { $0.id == prayID }) {
                         cur[index].list[prayIndex].reactions = prayReactions
                         self.memberPrayList.accept(cur)

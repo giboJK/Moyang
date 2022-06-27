@@ -202,6 +202,8 @@ class GroupPrayingVM: VMType {
     func stopSong() {
         player?.stop()
         player = nil
+        timer?.invalidate()
+        timer = nil
     }
     
     private func amen() {
@@ -230,7 +232,7 @@ class GroupPrayingVM: VMType {
             prayingTimeStr.accept("\(String(format: "%02d", min)):\(String(format: "%02d", sec))")
         }
         if !isAmenEnable.value {
-            isAmenEnable.accept(prayingTime >= 30)
+            isAmenEnable.accept(prayingTime >= 10)
         }
     }
 }

@@ -30,6 +30,11 @@ class GroupPrayListVM: VMType {
         setInitialData(data: prayItem)
         bind()
         fetchPrayList()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.releasePrayingVM),
+                                               name: NSNotification.Name(rawValue: "PRAYING_STOP"),
+                                               object: nil)
     }
 
     deinit { Log.i(self) }
@@ -107,6 +112,10 @@ class GroupPrayListVM: VMType {
                             reactions: prayList.value[index].reactions
         )
     }
+    
+    @objc func releasePrayingVM() {
+        groupPrayingVM.accept(nil)
+    }
 }
 
 extension GroupPrayListVM {
@@ -123,6 +132,7 @@ extension GroupPrayListVM {
         let name: Driver<String>
         let prayList: Driver<[PrayItem]>
         let groupPrayingVM: Driver<GroupPrayingVM?>
+        let reactionSuccess: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
@@ -183,6 +193,8 @@ extension GroupPrayListVM {
         
         return Output(name: name.asDriver(),
                       prayList: prayList.asDriver(),
-                      groupPrayingVM: groupPrayingVM.asDriver())
+                      groupPrayingVM: groupPrayingVM.asDriver(),
+                      reactionSuccess: reactionSuccess.asDriver()
+        )
     }
 }

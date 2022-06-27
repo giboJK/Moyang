@@ -85,7 +85,6 @@ class GroupPrayTableViewCell: UITableViewCell {
             .subscribe(onNext: { [weak self] _ in
                 guard let index = self?.index else { return }
                 self?.longTapHandler?(index)
-                self?.bgView.backgroundColor = .sheep3
             }).disposed(by: disposeBag)
     }
     
@@ -188,6 +187,27 @@ class GroupPrayTableViewCell: UITableViewCell {
             tagCollectionView.snp.updateConstraints {
                 $0.height.equalTo(28)
             }
+        }
+    }
+    
+    func setupReactionView(reactions: [PrayReaction]) {
+        if reactions.isEmpty {
+            reactionView.removeFromSuperview()
+            bgView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(12)
+            }
+            return
+        }
+        bgView.snp.updateConstraints {
+            $0.bottom.equalToSuperview().inset(40)
+        }
+        
+        contentView.addSubview(reactionView)
+        reactionView.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(12)
+            $0.right.equalToSuperview()
+            $0.width.equalTo(40)
+            $0.height.equalTo(24)
         }
     }
 }
