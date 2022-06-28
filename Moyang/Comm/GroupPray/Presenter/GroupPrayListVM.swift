@@ -21,6 +21,7 @@ class GroupPrayListVM: VMType {
     let isNetworking = BehaviorRelay<Bool>(value: false)
     let groupPrayingVM = BehaviorRelay<GroupPrayingVM?>(value: nil)
     let reactionSuccess = BehaviorRelay<Void>(value: ())
+    let editVM = BehaviorRelay<GroupPrayEditVM?>(value: nil)
 
     init(groupID: String, prayItem: PrayItem, useCase: CommunityMainUseCase) {
         self.groupID = groupID
@@ -121,6 +122,7 @@ class GroupPrayListVM: VMType {
 extension GroupPrayListVM {
     struct Input {
         let letsPraying: Driver<Void>
+        let selectPray: Driver<IndexPath>
         let addLove: Driver<Int?>
         let addJoyful: Driver<Int?>
         let addSad: Driver<Int?>
@@ -144,6 +146,11 @@ extension GroupPrayListVM {
                                         email: self.email,
                                         groupID: self.groupID)
                 self.groupPrayingVM.accept(vm)
+            }).disposed(by: disposeBag)
+        
+        input.selectPray
+            .drive(onNext: { _ in
+                Log.w("")
             }).disposed(by: disposeBag)
         
         input.addLove

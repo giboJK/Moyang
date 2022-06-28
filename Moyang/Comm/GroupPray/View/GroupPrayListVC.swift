@@ -236,6 +236,7 @@ class GroupPrayListVC: UIViewController, VCType {
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(letsPraying: prayButton.rx.tap.asDriver(),
+                             selectPray: prayTableView.rx.itemSelected.asDriver(),
                              addLove: reactionView.loveButton.rx.tap.map { self.selected }.asDriver(onErrorJustReturn: nil),
                              addJoyful: reactionView.joyfulButton.rx.tap.map { self.selected }.asDriver(onErrorJustReturn: nil),
                              addSad: reactionView.sadButton.rx.tap.map { self.selected }.asDriver(onErrorJustReturn: nil),
