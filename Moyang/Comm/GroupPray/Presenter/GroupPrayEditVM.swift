@@ -12,7 +12,7 @@ class GroupPrayEditVM: VMType {
     typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     
-    var useCase: GroupPrayUseCase
+    var useCase: CommunityMainUseCase
     
     let newPray = BehaviorRelay<String?>(value: nil)
     let newTag = BehaviorRelay<String?>(value: nil)
@@ -25,7 +25,7 @@ class GroupPrayEditVM: VMType {
     let isRequestPray = BehaviorRelay<Bool>(value: false)
     let prayID: String
     
-    init(prayItem: PrayItem, useCase: GroupPrayUseCase) {
+    init(prayItem: PrayItem, useCase: CommunityMainUseCase) {
         self.prayID = prayItem.prayID
         self.useCase = useCase
         setInitialData(item: prayItem)

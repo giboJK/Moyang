@@ -16,8 +16,8 @@ struct GroupIndividualPray: Codable {
     var replys: [PrayReply]
     let parentPrayID: String?
     let order: Int
-    let isSecret: Bool
-    let isRequestPray: Bool
+    var isSecret: Bool
+    var isRequestPray: Bool
     
     enum CodingKeys: String, CodingKey {
         case id

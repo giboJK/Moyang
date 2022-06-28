@@ -122,7 +122,6 @@ class GroupPrayListVM: VMType {
         guard let myInfo = UserData.shared.myInfo else { return }
         if myInfo.email == email && myInfo.authType == auth {
             let prayIrem = prayList.value[index]
-            let useCase = GroupPrayUseCase(repo: CommunityController(firestoreService: FSServiceImpl()))
             editVM.accept(GroupPrayEditVM(prayItem: prayIrem,
                                           useCase: useCase))
         }

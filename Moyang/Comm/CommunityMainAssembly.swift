@@ -29,7 +29,7 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
         }
         
         container.register(CommunityMainUseCase.self) { r in
-            CommunityMainUseCase(repo: r ~> (CommunityMainRepo.self))
+            CommunityMainUseCase(repo: r ~> (CommunityMainRepo.self), groupPrayRepo: r ~> (GroupPrayRepo.self))
         }
         
 //        container.register(CommunityMainRepo.self) { r in
@@ -37,6 +37,10 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
 //        }
         
         container.register(CommunityMainRepo.self) { r in
+            CommunityController(firestoreService: r ~> (FirestoreService.self))
+        }
+        
+        container.register(GroupPrayRepo.self) { r in
             CommunityController(firestoreService: r ~> (FirestoreService.self))
         }
         

@@ -27,11 +27,20 @@ class CommunityMainUseCase {
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
+    
+    let groupPrayRepo: GroupPrayRepo
+    
+    let editingPraySuccess = BehaviorRelay<Void>(value: ())
+    let editingPrayFailure = BehaviorRelay<Void>(value: ())
+    
+    
     // MARK: - Lifecycle
-    init(repo: CommunityMainRepo) {
+    init(repo: CommunityMainRepo, groupPrayRepo: GroupPrayRepo) {
         self.repo = repo
+        self.groupPrayRepo = groupPrayRepo
     }
     
+    // MARK: - Function
     func fetchGroupInfo() {
         guard let myInfo = UserData.shared.myInfo else {
             return
@@ -282,6 +291,37 @@ class CommunityMainUseCase {
                 self.reactionSuccess.accept(())
             case .failure(let error):
                 Log.e(MoyangError.other(error))
+            }
+        }
+    }
+    
+    // MARK: - GroupPrayRepo
+    func editPray(prayID: String, pray: String, tags: [String], isSecret: Bool, isRequestPray: Bool) {
+        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
+        groupPrayRepo.editPray(myInfo: myInfo, prayID: prayID, pray: pray, tags: tags, isSecret: isSecret, isRequestPray: isRequestPray) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let isSuccess):
+                if isSuccess {
+                    var cur = self.memberPrayList.value
+                    if let index = self.memberPrayList.value.firstIndex(where: { (member: Member, _) in
+                        member.email == myInfo.email && member.auth == myInfo.authType
+                    }) {
+                        if let prayIndex = cur[index].list.firstIndex(where: { $0.id == prayID }) {
+                            cur[index].list[prayIndex].pray = pray
+                            cur[index].list[prayIndex].tags = tags
+                            cur[index].list[prayIndex].isSecret = isSecret
+                            cur[index].list[prayIndex].isRequestPray = isRequestPray
+                            self.memberPrayList.accept(cur)
+                        }
+                    }
+                    self.editingPraySuccess.accept(())
+                } else {
+                    self.editingPrayFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.editingPrayFailure.accept(())
             }
         }
     }
