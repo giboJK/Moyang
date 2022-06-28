@@ -52,11 +52,3 @@ struct PrayCardView: View {
         .eraseToAnyView()
     }
 }
-
-struct PrayCardView_Previews: PreviewProvider {
-    static let pray = DummyData().pray
-    static var previews: some View {
-        PrayCardView(vm: PrayCardVM(pray: pray))
-            .previewLayout(.fixed(width: 414, height: 250))
-    }
-}

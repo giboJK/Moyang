@@ -57,9 +57,3 @@ struct PrayListView: View {
         vm.fetchPrayList()
     }
 }
-
-struct PrayListView_Previews: PreviewProvider {
-    static var previews: some View {
-        PrayListView(vm: PrayListVM(prayRepo: PrayRepoMock()))
-    }
-}
