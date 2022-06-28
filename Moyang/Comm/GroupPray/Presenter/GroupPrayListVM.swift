@@ -117,6 +117,16 @@ class GroupPrayListVM: VMType {
     @objc func releasePrayingVM() {
         groupPrayingVM.accept(nil)
     }
+    
+    private func setGroupPrayEditVM(index: Int) {
+        guard let myInfo = UserData.shared.myInfo else { return }
+        if myInfo.email == email && myInfo.authType == auth {
+            let prayIrem = prayList.value[index]
+            let useCase = GroupPrayUseCase(repo: CommunityController(firestoreService: FSServiceImpl()))
+            editVM.accept(GroupPrayEditVM(prayItem: prayIrem,
+                                          useCase: useCase))
+        }
+    }
 }
 
 extension GroupPrayListVM {
@@ -135,6 +145,7 @@ extension GroupPrayListVM {
         let prayList: Driver<[PrayItem]>
         let groupPrayingVM: Driver<GroupPrayingVM?>
         let reactionSuccess: Driver<Void>
+        let editVM: Driver<GroupPrayEditVM?>
     }
 
     func transform(input: Input) -> Output {
@@ -149,8 +160,8 @@ extension GroupPrayListVM {
             }).disposed(by: disposeBag)
         
         input.selectPray
-            .drive(onNext: { _ in
-                Log.w("")
+            .drive(onNext: { [weak self] index in
+                self?.setGroupPrayEditVM(index: index.row)
             }).disposed(by: disposeBag)
         
         input.addLove
@@ -201,7 +212,8 @@ extension GroupPrayListVM {
         return Output(name: name.asDriver(),
                       prayList: prayList.asDriver(),
                       groupPrayingVM: groupPrayingVM.asDriver(),
-                      reactionSuccess: reactionSuccess.asDriver()
+                      reactionSuccess: reactionSuccess.asDriver(),
+                      editVM: editVM.asDriver()
         )
     }
 }

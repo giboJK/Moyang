@@ -283,6 +283,18 @@ class GroupPrayListVC: UIViewController, VCType {
                 self.cellCoverView.removeFromSuperview()
                 self.cellCoverView.isHidden = true
             }).disposed(by: disposeBag)
+        
+        output.editVM
+            .drive(onNext: { [weak self] editVM in
+                guard let editVM = editVM else { return }
+                self?.showPrayEditVC(editVM: editVM)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func showPrayEditVC(editVM: GroupPrayEditVM) {
+        let vc = GroupPrayEditVC()
+        vc.vm = editVM
+        self.present(vc, animated: true)
     }
 }
 

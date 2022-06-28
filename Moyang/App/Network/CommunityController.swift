@@ -189,3 +189,28 @@ extension CommunityController: CommunityMainRepo {
         }
     }
 }
+
+extension CommunityController: GroupPrayRepo {
+    func editPray(myInfo: MemberDetail, prayID: String, pray: String, tags: [String], isSecret: Bool, isRequestPray: Bool,
+                  completion: ((Result<Bool, MoyangError>) -> Void)?) {
+        let ref = firestoreService.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(myInfo.authType)
+            .document(myInfo.email)
+            .collection("PRAY")
+            .document(prayID)
+        
+        ref.updateData(["pray": pray,
+                        "tags": tags,
+                        "is_secret": isSecret,
+                        "is_request_pray": isRequestPray]) { error in
+            if let error = error {
+                Log.e(error)
+                completion?(.success(false))
+            } else {
+                completion?(.success(true))
+            }
+        }
+    }
+}
