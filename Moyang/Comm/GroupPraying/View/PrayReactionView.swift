@@ -12,16 +12,15 @@ class PrayReactionView: UIView {
     var type: PrayReactionType = .love
     
     let reactionButton = UIButton().then {
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.setTitleColor(.nightSky3, for: .normal)
         $0.tintColor = .nightSky3
     }
-    let countLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .nightSky3
-    }
     
-    required init(type: PrayReactionType) {
+    required init(type: PrayReactionType, count: Int) {
         self.type = type
+        reactionButton.setTitle("\(type.desc) \(count)", for: .normal)
+        
         super.init(frame: .zero)
         setupUI()
     }
@@ -33,25 +32,13 @@ class PrayReactionView: UIView {
     }
     
     private func setupUI() {
-        
         setupReactionButton()
-        setupCountLabel()
     }
     
     private func setupReactionButton() {
         addSubview(reactionButton)
         reactionButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(4)
-            $0.centerY.equalToSuperview()
-            $0.bottom.top.equalToSuperview().inset(4)
-        }
-    }
-    private func setupCountLabel() {
-        addSubview(countLabel)
-        countLabel.snp.makeConstraints {
-            $0.left.equalTo(reactionButton.snp.right).offset(8)
-            $0.right.equalToSuperview().inset(4)
-            $0.centerY.equalToSuperview()
+            $0.center.equalToSuperview()
         }
     }
 }

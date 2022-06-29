@@ -53,7 +53,7 @@ enum PrayReactionType: String, CaseIterable {
     var desc: String {
         switch self {
         case .love:
-            return "😍"
+            return "❤️"
         case .sad:
             return "😭"
         case .joyful:

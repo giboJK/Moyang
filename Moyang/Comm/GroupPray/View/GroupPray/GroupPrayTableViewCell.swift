@@ -56,9 +56,11 @@ class GroupPrayTableViewCell: UITableViewCell {
         $0.textColor = .nightSky3
         $0.font = .systemFont(ofSize: 15, weight: .regular)
     }
-    let reactionView = UIView().then {
+    let reactionView = UIStackView().then {
         $0.backgroundColor = .sheep2
         $0.layer.cornerRadius = 14
+        $0.axis = .horizontal
+        $0.distribution = .fillEqually
     }
     
     var tags = [String]()
@@ -191,6 +193,9 @@ class GroupPrayTableViewCell: UITableViewCell {
     }
     
     func setupReactionView(reactions: [PrayReaction]) {
+        for view in reactionView.subviews {
+            view.removeFromSuperview()
+        }
         if reactions.isEmpty {
             reactionView.removeFromSuperview()
             bgView.snp.updateConstraints {
@@ -202,12 +207,50 @@ class GroupPrayTableViewCell: UITableViewCell {
             $0.bottom.equalToSuperview().inset(40)
         }
         
-        contentView.addSubview(reactionView)
-        reactionView.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(12)
+        var love = 0
+        var joy = 0
+        var sad = 0
+        var pray = 0
+        reactions.forEach { reaction in
+            if let type = PrayReactionType(rawValue: reaction.reaction) {
+                switch type {
+                case .love:
+                    love += 1
+                case .joyful:
+                    joy += 1
+                case .sad:
+                    sad += 1
+                case .prayWithYou:
+                    pray += 1
+                }
+            }
+        }
+        
+        if love > 0 {
+            let view = PrayReactionView(type: .love, count: love)
+            reactionView.addArrangedSubview(view)
+        }
+        
+        if joy > 0 {
+            let view = PrayReactionView(type: .joyful, count: joy)
+            reactionView.addArrangedSubview(view)
+        }
+        if sad > 0 {
+            let view = PrayReactionView(type: .sad, count: sad)
+            reactionView.addArrangedSubview(view)
+        }
+        if pray > 0 {
+            let view = PrayReactionView(type: .prayWithYou, count: pray)
+            reactionView.addArrangedSubview(view)
+        }
+        if reactionView.superview == nil {
+            contentView.addSubview(reactionView)
+        }
+        reactionView.snp.remakeConstraints {
+            $0.bottom.equalToSuperview().inset(8)
             $0.right.equalToSuperview()
-            $0.width.equalTo(40)
-            $0.height.equalTo(24)
+            $0.width.equalTo(reactionView.subviews.count * 48)
+            $0.height.equalTo(28)
         }
     }
 }
