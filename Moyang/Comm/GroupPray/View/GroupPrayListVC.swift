@@ -17,7 +17,7 @@ class GroupPrayListVC: UIViewController, VCType {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupPrayListVCDelegate?
-
+    
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
@@ -50,19 +50,23 @@ class GroupPrayListVC: UIViewController, VCType {
     
     let prayReactionViewHeight: CGFloat = 36 + 8 + 72
     var selected: Int?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         bind()
+        NotificationCenter.default.addObserver(self, selector: #selector(moevPrayReactionView),
+                                               name: NSNotification.Name("GROUP_PRAY_REACTIONVIEW_MOVE"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showPrayReactionView),
+                                               name: NSNotification.Name("GROUP_PRAY_REACTIONVIEW_SHOW"), object: nil)
     }
-
+    
     deinit {
         Log.i(self)
         vm?.clearPrayList()
     }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
@@ -107,6 +111,48 @@ class GroupPrayListVC: UIViewController, VCType {
             $0.top.equalToSuperview()
         }
     }
+    
+    @objc func moevPrayReactionView(notification: NSNotification) {
+        guard let index = notification.userInfo?["index"] as? Int else {
+            Log.e(""); return
+        }
+        guard let cell = prayTableView.cellForRow(at: IndexPath(row: index, section: 0)) as?
+                GroupPrayTableViewCell else { Log.e(""); return }
+
+        selected = index
+
+        let contentOffset = prayTableView.contentOffset
+        reactionView.isHidden = true
+        cellCoverView.isHidden = true
+        let navHeight = navBar.frame.height
+        let topInset = min(cell.frame.maxY - contentOffset.y + 4 + navHeight,
+                           prayTableView.frame.height - prayReactionViewHeight + 12 + navHeight)
+        reactionView.snp.updateConstraints {
+            $0.top.equalToSuperview().inset(topInset)
+            $0.width.equalTo(0)
+            $0.height.equalTo(0)
+        }
+
+        cellCoverView.removeFromSuperview()
+        cell.bgView.addSubview(cellCoverView)
+        cellCoverView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+    
+    @objc func showPrayReactionView(notification: NSNotification) {
+        reactionView.isHidden = false
+        cellCoverView.isHidden = false
+        reactionView.snp.updateConstraints {
+            $0.width.equalTo(156)
+            $0.height.equalTo(prayReactionViewHeight)
+        }
+        UIView.animate(withDuration: 0.15) {
+            self.view.updateConstraints()
+            self.view.layoutIfNeeded()
+            self.isAnimating = false
+        }
+    }
 
     // MARK: - Binding
     func bind() {
@@ -128,7 +174,9 @@ class GroupPrayListVC: UIViewController, VCType {
     let animationTime = 0.3
     
     private func bindPrayTableView() {
-        prayTableView.rx.contentOffset.asDriver()
+        prayTableView.rx.contentOffset
+            .skip(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .asDriver(onErrorJustReturn: CGPoint(x: 0, y: 0))
             .throttle(.milliseconds(300))
             .drive(onNext: { [weak self] offset in
                 guard let self = self else { return }
@@ -195,53 +243,21 @@ class GroupPrayListVC: UIViewController, VCType {
             self.isAnimating = false
         }
     }
-    private func moevPrayReactionView(_ index: Int) {
-        guard let cell = prayTableView.cellForRow(at: IndexPath(row: index, section: 0)) as?
-                GroupPrayTableViewCell else { Log.e(""); return }
-        
-        selected = index
-        
-        let contentOffset = prayTableView.contentOffset
-        reactionView.isHidden = true
-        cellCoverView.isHidden = true
-        let navHeight = navBar.frame.height
-        let topInset = min(cell.frame.maxY - contentOffset.y + 4 + navHeight,
-                           prayTableView.frame.height - prayReactionViewHeight + 12 + navHeight)
-        reactionView.snp.updateConstraints {
-            $0.top.equalToSuperview().inset(topInset)
-            $0.width.equalTo(0)
-            $0.height.equalTo(0)
-        }
-        
-        cellCoverView.removeFromSuperview()
-        cell.bgView.addSubview(cellCoverView)
-        cellCoverView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
-    private func showPrayReactionView(_ index: Int) {
-        reactionView.isHidden = false
-        cellCoverView.isHidden = false
-        reactionView.snp.updateConstraints {
-            $0.width.equalTo(156)
-            $0.height.equalTo(prayReactionViewHeight)
-        }
-        UIView.animate(withDuration: 0.15) {
-            self.view.updateConstraints()
-            self.view.layoutIfNeeded()
-            self.isAnimating = false
-        }
-    }
-
+    
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(letsPraying: prayButton.rx.tap.asDriver(),
                              selectPray: prayTableView.rx.itemSelected.asDriver(),
-                             addLove: reactionView.loveButton.rx.tap.map { self.selected }.asDriver(onErrorJustReturn: nil),
-                             addJoyful: reactionView.joyfulButton.rx.tap.map { self.selected }.asDriver(onErrorJustReturn: nil),
-                             addSad: reactionView.sadButton.rx.tap.map { self.selected }.asDriver(onErrorJustReturn: nil),
-                             addPray: reactionView.prayButton.rx.tap.map { self.selected }.asDriver(onErrorJustReturn: nil),
-                             addComment: reactionView.replyView.rx.tapGesture().when(.ended).map { _ in self.selected }.asDriver(onErrorJustReturn: nil)
+                             addLove: reactionView.loveButton.rx.tap
+            .map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
+                             addJoyful: reactionView.joyfulButton.rx.tap
+            .map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
+                             addSad: reactionView.sadButton.rx.tap
+            .map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
+                             addPray: reactionView.prayButton.rx.tap
+            .map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
+                             addComment: reactionView.replyView.rx.tapGesture().when(.ended)
+            .map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil)
         )
         let output = vm.transform(input: input)
         
@@ -251,11 +267,10 @@ class GroupPrayListVC: UIViewController, VCType {
         
         output.prayList
             .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { [weak self] (index, item, cell) in
+                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { (index, item, cell) in
                     cell.nameLabel.text = item.name
                     cell.dateLabel.text = item.date
                     cell.prayLabel.text = item.pray
-                    cell.prayLabel.lineBreakMode = .byTruncatingTail
                     cell.tags = item.tags
                     cell.tagCollectionView.reloadData()
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
@@ -264,18 +279,16 @@ class GroupPrayListVC: UIViewController, VCType {
                     cell.noTagLabel.isHidden = !item.tags.isEmpty
                     cell.index = index
                     cell.isSecretLabel.isHidden = !item.isSecret
-                    cell.moveViewHandler = self?.moevPrayReactionView(_:)
-                    cell.longTapHandler = self?.showPrayReactionView(_:)
-                    
+
                     cell.setupReactionView(reactions: item.reactions)
                 }.disposed(by: disposeBag)
-        
+
         output.groupPrayingVM
             .drive(onNext: { [weak self] groupPrayingVM in
               guard let groupPrayingVM = groupPrayingVM else { return }
                 self?.coordinator?.didTapPraybutton(vm: groupPrayingVM)
             }).disposed(by: disposeBag)
-        
+
         output.reactionSuccess
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -283,7 +296,7 @@ class GroupPrayListVC: UIViewController, VCType {
                 self.cellCoverView.removeFromSuperview()
                 self.cellCoverView.isHidden = true
             }).disposed(by: disposeBag)
-        
+
         output.editVM
             .drive(onNext: { [weak self] editVM in
                 guard let editVM = editVM else { return }

@@ -30,8 +30,12 @@ class GroupPrayListVM: VMType {
         self.email = prayItem.memberEmail
         setInitialData(data: prayItem)
         bind()
-        fetchPrayList()
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(100)) {
+            if self.prayList.value.isEmpty {
+                self.fetchPrayList()
+            }
+        }
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.releasePrayingVM),
                                                name: NSNotification.Name(rawValue: "PRAYING_STOP"),
@@ -48,24 +52,7 @@ class GroupPrayListVM: VMType {
         useCase.memberPrayList
             .map { [weak self] list in
                 guard let self = self else { return [] }
-                var itemList = [PrayItem]()
-                list.filter { $0.member.auth == self.auth && $0.member.email == self.email}.forEach { item in
-                    item.list.forEach { pray in
-                        itemList.append(PrayItem(memberID: item.member.id,
-                                                 memberAuth: self.auth,
-                                                 memberEmail: self.email,
-                                                 name: item.member.name,
-                                                 pray: pray.pray,
-                                                 date: pray.date,
-                                                 prayID: pray.id,
-                                                 tags: pray.tags,
-                                                 isSecret: pray.isSecret,
-                                                 isRequestPray: pray.isRequestPray,
-                                                 reactions: pray.reactions
-                                                ))
-                    }
-                }
-                return itemList
+                return self.convertToItemList(data: list)
             }
             .bind(to: prayList)
             .disposed(by: disposeBag)
@@ -74,6 +61,29 @@ class GroupPrayListVM: VMType {
             .skip(1)
             .bind(to: reactionSuccess)
             .disposed(by: disposeBag)
+    }
+    
+    private func convertToItemList(data: [(member: Member, list: [GroupIndividualPray])]) -> [GroupPrayListVM.PrayItem] {
+        var itemList = [PrayItem]()
+        let filtered = data.filter { $0.member.auth == auth && $0.member.email == email }
+        for item in filtered {
+            let mapped = item.list.map { pray in
+                PrayItem(memberID: item.member.id,
+                         memberAuth: auth,
+                         memberEmail: email,
+                         name: item.member.name,
+                         pray: pray.pray,
+                         date: pray.date,
+                         prayID: pray.id,
+                         tags: pray.tags,
+                         isSecret: pray.isSecret,
+                         isRequestPray: pray.isRequestPray,
+                         reactions: pray.reactions
+                )
+            }
+            itemList.append(contentsOf: mapped)
+        }
+        return itemList
     }
     
     private func setInitialData(data: PrayItem) {

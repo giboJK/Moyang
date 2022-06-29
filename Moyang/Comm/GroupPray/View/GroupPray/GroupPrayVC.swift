@@ -177,7 +177,8 @@ class GroupPrayVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(selectMember: prayTableView.rx.itemSelected.asDriver())
+        let input = VM.Input(selectMember: prayTableView.rx.itemSelected.asDriver(),
+                             releaseDetailVM: self.rx.viewWillAppear.map { _ in () }.asDriver(onErrorJustReturn: ()))
         let output = vm.transform(input: input)
         
         output.cardPrayItemList

@@ -121,6 +121,7 @@ extension GroupPrayVM {
         var loadAutoPray: Driver<Bool> = .empty()
         var toggleIsSecret: Driver<Void> = .empty()
         var toggleIsRequestPray: Driver<Void> = .empty()
+        var releaseDetailVM: Driver<Void> = .empty()
     }
     
     struct Output {
@@ -209,6 +210,11 @@ extension GroupPrayVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.isRequestPray.accept(!self.isRequestPray.value)
+            }).disposed(by: disposeBag)
+        
+        input.releaseDetailVM
+            .drive(onNext: { [weak self] _ in
+                self?.detailVM.accept(nil)
             }).disposed(by: disposeBag)
         
         return Output(cardPrayItemList: cardPrayItemList.asDriver(),

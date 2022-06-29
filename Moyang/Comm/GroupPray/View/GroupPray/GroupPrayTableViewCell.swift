@@ -65,8 +65,6 @@ class GroupPrayTableViewCell: UITableViewCell {
     
     var tags = [String]()
     var index: Int?
-    var moveViewHandler: ((Int) -> Void)?
-    var longTapHandler: ((Int) -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -79,14 +77,27 @@ class GroupPrayTableViewCell: UITableViewCell {
         self.rx.longPressGesture().when(.began)
             .subscribe(onNext: { [weak self] _ in
                 guard let index = self?.index else { return }
-                self?.moveViewHandler?(index)
+                let indexDict = ["index": index]
+                NotificationCenter.default.post(name: NSNotification.Name("GROUP_PRAY_REACTIONVIEW_MOVE"),
+                                                object: nil,
+                                                userInfo: indexDict)
             }).disposed(by: disposeBag)
         
         self.rx.longPressGesture().when(.began)
             .delay(.milliseconds(100), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { _ in
+                NotificationCenter.default.post(name: NSNotification.Name("GROUP_PRAY_REACTIONVIEW_SHOW"),
+                                                object: nil,
+                                                userInfo: nil)
+            }).disposed(by: disposeBag)
+        
+        reactionView.rx.tapGesture().when(.ended)
             .subscribe(onNext: { [weak self] _ in
-                guard let index = self?.index else { return }
-                self?.longTapHandler?(index)
+                guard let self = self, let index = self.index else { return }
+                let indexDict = ["index": index]
+                NotificationCenter.default.post(name: NSNotification.Name("GROUP_PRAY_REACTION_TAP"),
+                                                object: nil,
+                                                userInfo: indexDict)
             }).disposed(by: disposeBag)
     }
     
