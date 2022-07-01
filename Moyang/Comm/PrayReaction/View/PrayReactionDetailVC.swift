@@ -19,6 +19,7 @@ class PrayReactionDetailVC: UIViewController, VCType {
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.backButton.isHidden = true
+        $0.closeButton.tintColor = .nightSky1
     }
 
     override func viewDidLoad() {

@@ -15,6 +15,7 @@ class PrayReactionView: UIView {
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
         $0.setTitleColor(.nightSky3, for: .normal)
         $0.tintColor = .nightSky3
+        $0.isUserInteractionEnabled = false
     }
     
     required init(type: PrayReactionType, count: Int) {
