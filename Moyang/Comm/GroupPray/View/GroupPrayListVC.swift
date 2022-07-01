@@ -48,7 +48,7 @@ class GroupPrayListVC: UIViewController, VCType {
         $0.isHidden = true
     }
     
-    let prayReactionViewHeight: CGFloat = 36 + 8 + 72
+    let reactionPopupViewHeight: CGFloat = 36 + 8 + 72
     var selected: Int?
     
     override func viewDidLoad() {
@@ -56,7 +56,7 @@ class GroupPrayListVC: UIViewController, VCType {
         
         setupUI()
         bind()
-        NotificationCenter.default.addObserver(self, selector: #selector(moevPrayReactionView),
+        NotificationCenter.default.addObserver(self, selector: #selector(movePrayReactionView),
                                                name: NSNotification.Name("GROUP_PRAY_REACTIONVIEW_MOVE"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showPrayReactionView),
                                                name: NSNotification.Name("GROUP_PRAY_REACTIONVIEW_SHOW"), object: nil)
@@ -106,13 +106,13 @@ class GroupPrayListVC: UIViewController, VCType {
         view.addSubview(reactionView)
         reactionView.snp.makeConstraints {
             $0.width.equalTo(156)
-            $0.height.equalTo(prayReactionViewHeight)
+            $0.height.equalTo(reactionPopupViewHeight)
             $0.right.equalToSuperview().inset(12)
             $0.top.equalToSuperview()
         }
     }
     
-    @objc func moevPrayReactionView(notification: NSNotification) {
+    @objc func movePrayReactionView(notification: NSNotification) {
         guard let index = notification.userInfo?["index"] as? Int else {
             Log.e(""); return
         }
@@ -126,7 +126,7 @@ class GroupPrayListVC: UIViewController, VCType {
         cellCoverView.isHidden = true
         let navHeight = navBar.frame.height
         let topInset = min(cell.frame.maxY - contentOffset.y + 4 + navHeight,
-                           prayTableView.frame.height - prayReactionViewHeight + 12 + navHeight)
+                           prayTableView.frame.height - reactionPopupViewHeight + 12 + navHeight)
         reactionView.snp.updateConstraints {
             $0.top.equalToSuperview().inset(topInset)
             $0.width.equalTo(0)
@@ -145,13 +145,19 @@ class GroupPrayListVC: UIViewController, VCType {
         cellCoverView.isHidden = false
         reactionView.snp.updateConstraints {
             $0.width.equalTo(156)
-            $0.height.equalTo(prayReactionViewHeight)
+            $0.height.equalTo(reactionPopupViewHeight)
         }
         UIView.animate(withDuration: 0.15) {
             self.view.updateConstraints()
             self.view.layoutIfNeeded()
             self.isAnimating = false
         }
+    }
+    
+    func showPrayReactionDetailVC(vm: PrayReactionDetailVM) {
+        let vc = PrayReactionDetailVC()
+        vc.vm = vm
+        present(vc, animated: true)
     }
 
     // MARK: - Binding
@@ -301,6 +307,12 @@ class GroupPrayListVC: UIViewController, VCType {
             .drive(onNext: { [weak self] editVM in
                 guard let editVM = editVM else { return }
                 self?.showPrayEditVC(editVM: editVM)
+            }).disposed(by: disposeBag)
+        
+        output.prayReactionDetailVM
+            .drive(onNext: { [weak self] prayReactionDetailVM in
+                guard let prayReactionDetailVM = prayReactionDetailVM else { return }
+                self?.showPrayReactionDetailVC(vm: prayReactionDetailVM)
             }).disposed(by: disposeBag)
     }
     
