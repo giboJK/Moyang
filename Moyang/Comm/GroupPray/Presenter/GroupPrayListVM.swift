@@ -138,7 +138,8 @@ class GroupPrayListVM: VMType {
         guard let index = notification.userInfo?["index"] as? Int else {
             Log.e(""); return
         }
-        prayReactionDetailVM.accept(PrayReactionDetailVM())
+        let reactions = prayList.value[index].reactions
+        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
     }
     
     private func setGroupPrayEditVM(index: Int) {

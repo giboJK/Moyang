@@ -153,7 +153,6 @@ class GroupPrayListVC: UIViewController, VCType {
             self.isAnimating = false
         }
     }
-    
     func showPrayReactionDetailVC(vm: PrayReactionDetailVM) {
         let vc = PrayReactionDetailVC()
         vc.vm = vm

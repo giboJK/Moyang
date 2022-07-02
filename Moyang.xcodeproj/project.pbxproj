@@ -616,16 +616,6 @@
 			path = CommonView;
 			sourceTree = "<group>";
 		};
-		242F929A2848DF370023324D /* GroupPray */ = {
-			isa = PBXGroup;
-			children = (
-				2493DE6128467441001A9368 /* GroupPrayVC.swift */,
-				24C5273F284708570081AE25 /* GroupPrayTableViewCell.swift */,
-				24BB425F28471F6700E86CCD /* PrayTagCollectionViewCell.swift */,
-			);
-			path = GroupPray;
-			sourceTree = "<group>";
-		};
 		242F929F2848FD090023324D /* NewPray */ = {
 			isa = PBXGroup;
 			children = (
@@ -776,8 +766,8 @@
 		2493DE602846742B001A9368 /* GroupPray */ = {
 			isa = PBXGroup;
 			children = (
-				24C8E9B6286B1F1C00AEE46B /* Domain */,
 				242F929D2848E0FF0023324D /* GroupPrayAssembly.swift */,
+				24C8E9B6286B1F1C00AEE46B /* Domain */,
 				2493DE64284674D5001A9368 /* Presenter */,
 				2493DE632846746A001A9368 /* View */,
 			);
@@ -787,11 +777,13 @@
 		2493DE632846746A001A9368 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				24C8E9B1286B148200AEE46B /* Edit */,
 				242F929B2848E02F0023324D /* GroupPrayCoordinator.swift */,
+				24C8E9B1286B148200AEE46B /* Edit */,
 				242F929F2848FD090023324D /* NewPray */,
-				242F929A2848DF370023324D /* GroupPray */,
 				242F92962848DF050023324D /* GroupPrayListVC.swift */,
+				2493DE6128467441001A9368 /* GroupPrayVC.swift */,
+				24C5273F284708570081AE25 /* GroupPrayTableViewCell.swift */,
+				24BB425F28471F6700E86CCD /* PrayTagCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
