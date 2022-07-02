@@ -1,21 +1,24 @@
 //
-//  GroupPrayVM.swift
+//  PrayWithVM.swift
 //  Moyang
 //
-//  Created by 정김기보 on 2022/06/01.
+//  Created by 정김기보 on 2022/07/02.
 //
 
 import RxSwift
 import RxCocoa
 
-class GroupPrayVM: VMType {
+class PrayWithVM: VMType {
     typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
+    let prayItem: PrayItem
     let groupID: String
+    let parentID: String
+    let order: Int
     
-    let cardPrayItemList = BehaviorRelay<[PrayItem]>(value: [])
-    let detailVM = BehaviorRelay<GroupPrayListVM?>(value: nil)
+    let parentPray = BehaviorRelay<String>(value: "")
+    let parentTagList = BehaviorRelay<[String]>(value: [])
     
     let newPray = BehaviorRelay<String?>(value: nil)
     let newTag = BehaviorRelay<String?>(value: nil)
@@ -27,37 +30,18 @@ class GroupPrayVM: VMType {
     let isSecret = BehaviorRelay<Bool>(value: false)
     let isRequestPray = BehaviorRelay<Bool>(value: false)
     
-    init(useCase: CommunityMainUseCase, groupID: String) {
+    init(useCase: CommunityMainUseCase, prayItme: PrayItem, groupID: String, parentID: String, order: Int) {
         self.useCase = useCase
+        self.prayItem = prayItme
         self.groupID = groupID
+        self.parentID = parentID
+        self.order = order
         bind()
     }
-    
+
     deinit { Log.i(self) }
     
     private func bind() {
-        useCase.cardMemberPrayList
-            .map { list in
-                var itemList = [PrayItem]()
-                list.forEach { item in
-                    itemList.append(PrayItem(memberID: item.member.id,
-                                             memberAuth: item.member.auth,
-                                             memberEmail: item.member.email,
-                                             name: item.member.name,
-                                             pray: item.pray.pray,
-                                             date: item.pray.date,
-                                             prayID: item.pray.id,
-                                             tags: item.pray.tags,
-                                             isSecret: item.pray.isSecret,
-                                             isRequestPray: item.pray.isRequestPray,
-                                             reactions: item.pray.reactions
-                                            ))
-                }
-                return itemList
-            }
-            .bind(to: cardPrayItemList)
-            .disposed(by: disposeBag)
-        
         useCase.addingNewPraySuccess
             .bind(to: addingNewPraySuccess)
             .disposed(by: disposeBag)
@@ -73,13 +57,12 @@ class GroupPrayVM: VMType {
             .disposed(by: disposeBag)
     }
     
-    func clearNewTag() {
-        tagList.accept([])
-    }
-    
     private func addNewPray() {
+        let newOrder = order + 1
         useCase.addIndividualPray(id: UUID().uuidString,
                                   groupID: groupID,
+                                  parentID: parentID,
+                                  order: newOrder,
                                   date: Date().toString("yyyy-MM-dd hh:mm:ss a"),
                                   pray: newPray.value!,
                                   tags: tagList.value,
@@ -105,11 +88,15 @@ class GroupPrayVM: VMType {
     private func clearAutoSave() {
         UserData.shared.clearAutoSave()
     }
+    
+    func clearNewTag() {
+        tagList.accept([])
+    }
+    
 }
 
-extension GroupPrayVM {
+extension PrayWithVM {
     struct Input {
-        var selectMember: Driver<IndexPath> = .empty()
         var setPray: Driver<String?> = .empty()
         var autoSave: Driver<Void> = .empty()
         var saveNewPray: Driver<Void> = .empty()
@@ -120,12 +107,11 @@ extension GroupPrayVM {
         var loadAutoPray: Driver<Bool> = .empty()
         var toggleIsSecret: Driver<Void> = .empty()
         var toggleIsRequestPray: Driver<Void> = .empty()
-        var releaseDetailVM: Driver<Void> = .empty()
     }
-    
+
     struct Output {
-        let cardPrayItemList: Driver<[PrayItem]>
-        let detailVM: Driver<GroupPrayListVM?>
+        let parentPray: Driver<String>
+        let parentTagList: Driver<[String]>
         let newPray: Driver<String?>
         let newTag: Driver<String?>
         let tagList: Driver<[String]>
@@ -134,17 +120,8 @@ extension GroupPrayVM {
         let isSecret: Driver<Bool>
         let isRequestPray: Driver<Bool>
     }
-    
+
     func transform(input: Input) -> Output {
-        input.selectMember
-            .drive(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
-                let detailVM = GroupPrayListVM(groupID: self.groupID,
-                                               prayItem: self.cardPrayItemList.value[indexPath.row],
-                                               useCase: self.useCase)
-                self.detailVM.accept(detailVM)
-            }).disposed(by: disposeBag)
-        
         input.setPray
             .drive(newPray)
             .disposed(by: disposeBag)
@@ -211,13 +188,9 @@ extension GroupPrayVM {
                 self.isRequestPray.accept(!self.isRequestPray.value)
             }).disposed(by: disposeBag)
         
-        input.releaseDetailVM
-            .drive(onNext: { [weak self] _ in
-                self?.detailVM.accept(nil)
-            }).disposed(by: disposeBag)
         
-        return Output(cardPrayItemList: cardPrayItemList.asDriver(),
-                      detailVM: detailVM.asDriver(),
+        return Output(parentPray: parentPray.asDriver(),
+                      parentTagList: parentTagList.asDriver(),
                       newPray: newPray.asDriver(),
                       newTag: newTag.asDriver(),
                       tagList: tagList.asDriver(),

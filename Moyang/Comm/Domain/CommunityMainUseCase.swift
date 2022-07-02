@@ -198,7 +198,45 @@ class CommunityMainUseCase {
                                        reactions: [],
                                        replys: [],
                                        parentPrayID: nil,
+                                       prayWithMemberID: nil,
                                        order: 0,
+                                       isSecret: isSecret,
+                                       isRequestPray: isRequestPray)
+        repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
+            switch result {
+            case .success:
+                self?.addingNewPraySuccess.accept(())
+                self?.updateCardMemberPrayListWithNewPray(pray: data, myInfo: myInfo)
+            case .failure(let error):
+                Log.e(error)
+                self?.addingNewPrayFailure.accept(())
+            }
+        }
+    }
+    
+    func addIndividualPray(id: String,
+                           groupID: String,
+                           parentID: String,
+                           order: Int,
+                           date: String,
+                           pray: String,
+                           tags: [String],
+                           isSecret: Bool,
+                           isRequestPray: Bool) {
+        guard let myInfo = UserData.shared.myInfo else {
+            addingNewPrayFailure.accept(())
+            return
+        }
+        let data = GroupIndividualPray(id: id,
+                                       groupID: groupID,
+                                       date: date,
+                                       pray: pray,
+                                       tags: tags,
+                                       reactions: [],
+                                       replys: [],
+                                       parentPrayID: parentID,
+                                       prayWithMemberID: myInfo.id,
+                                       order: order,
                                        isSecret: isSecret,
                                        isRequestPray: isRequestPray)
         repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in

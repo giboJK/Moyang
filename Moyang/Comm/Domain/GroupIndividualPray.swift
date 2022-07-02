@@ -15,6 +15,7 @@ struct GroupIndividualPray: Codable {
     var reactions: [PrayReaction]
     var replys: [PrayReply]
     let parentPrayID: String?
+    let prayWithMemberID: String?
     let order: Int
     var isSecret: Bool
     var isRequestPray: Bool
@@ -28,6 +29,7 @@ struct GroupIndividualPray: Codable {
         case reactions
         case replys
         case parentPrayID = "parent_pray_id"
+        case prayWithMemberID = "pray_with_member_id"
         case order = "order"
         case isSecret = "is_secret"
         case isRequestPray = "is_request_pray"

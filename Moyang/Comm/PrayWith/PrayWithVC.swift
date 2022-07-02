@@ -1,8 +1,8 @@
 //
-//  NewPrayVC.swift
+//  PrayWithVC.swift
 //  Moyang
 //
-//  Created by 정김기보 on 2022/06/02.
+//  Created by 정김기보 on 2022/07/02.
 //
 
 import UIKit
@@ -11,17 +11,17 @@ import RxSwift
 import SnapKit
 import Then
 
-class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
-    typealias VM = GroupPrayVM
+class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
+    typealias VM = PrayWithVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     private var tagList = [String]()
-    
+
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
+        $0.title = "같이 기도하기"
         $0.closeButton.isHidden = true
         $0.backButton.isHidden = true
-        $0.title = "새 기도"
     }
     let cancelButton = UIButton().then {
         $0.setTitle("취소", for: .normal)
@@ -33,6 +33,9 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         $0.setTitleColor(.nightSky2, for: .normal)
         $0.setTitleColor(.sheep4, for: .disabled)
+    }
+    let parentPrayLabel = UILabel().then {
+        $0.numberOfLines = 0
     }
     let newPrayTextField = UITextView().then {
         $0.backgroundColor = .sheep1
@@ -78,7 +81,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupUI()
         bind()
     }
@@ -87,7 +90,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         Log.i(self)
         vm?.clearNewTag()
     }
-    
+
     func setupUI() {
         view.backgroundColor = .sheep2
         setupNavBar()
@@ -97,33 +100,14 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         setupTagCollectionView()
         setupIsSecretLabel()
         setupIsSecretCheckBox()
-//        setupIsRequestPrayLabel()
-//        setupIsRequestPrayCheckBox()
     }
+    
     private func setupNavBar() {
         view.addSubview(navBar)
         navBar.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalToSuperview()
             $0.height.equalTo(44)
-        }
-        setupCancelButton()
-        setupSaveButton()
-    }
-    private func setupCancelButton() {
-        navBar.addSubview(cancelButton)
-        cancelButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
-        }
-    }
-    private func setupSaveButton() {
-        navBar.addSubview(saveButton)
-        saveButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
         }
     }
     private func setupNewPrayTextField() {
@@ -202,21 +186,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             $0.size.equalTo(18)
         }
     }
-    private func setupIsRequestPrayLabel() {
-        view.addSubview(isRequestPrayLabel)
-        isRequestPrayLabel.snp.makeConstraints {
-            $0.top.equalTo(tagCollectionView.snp.bottom).offset(12)
-            $0.left.equalTo(isSecretCheckBox.snp.right).offset(12)
-        }
-    }
-    private func setupIsRequestPrayCheckBox() {
-        view.addSubview(isRequestPrayCheckBox)
-        isRequestPrayCheckBox.snp.makeConstraints {
-            $0.centerY.equalTo(isRequestPrayLabel)
-            $0.left.equalTo(isRequestPrayLabel.snp.right).offset(4)
-            $0.size.equalTo(18)
-        }
-    }
+    
     private func increaseTagCollectionViewHeight(count: Int) {
         let currentHeight = tagCollectionView.bounds.height
         tagCollectionView.snp.updateConstraints {
@@ -243,126 +213,16 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     
     // MARK: - Binding
     func bind() {
-        bindViews()
         bindVM()
     }
-    
-    private func bindViews() {
-        cancelButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
-            }).disposed(by: disposeBag)
-        
-        tagTextField.rx.controlEvent(.editingDidEnd)
-            .delay(.milliseconds(50), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.tagTextField.text?.removeAll()
-            }).disposed(by: disposeBag)
-    }
-    
+
     private func bindVM() {
-        guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setPray: newPrayTextField.rx.text.asDriver(),
-                             saveNewPray: saveButton.rx.tap.asDriver(),
-                             setTag: tagTextField.rx.text.asDriver(),
-                             addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
-                             loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false),
-                             toggleIsSecret: isSecretCheckBox.rx.tap.asDriver(),
-                             toggleIsRequestPray: isRequestPrayCheckBox.rx.tap.asDriver())
-        
-        let output = vm.transform(input: input)
-        
-        output.newPray
-            .map { $0?.isEmpty ?? true }
-            .map { !$0 }
-            .drive(saveButton.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
-        output.newPray
-            .distinctUntilChanged()
-            .drive(newPrayTextField.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.newTag
-            .drive(tagTextField.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.tagList
-            .map { $0.count < 5 }
-            .drive(tagTextField.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
-        output.tagList
-            .map { $0.count >= 5 }
-            .drive(onNext: { [weak self] isFullTag in
-                self?.tagTextField.backgroundColor = isFullTag ? .sheep3 : .sheep1
-            }).disposed(by: disposeBag)
-        
-        output.tagList
-            .drive(onNext: { [weak self] list in
-                self?.tagList = list
-                self?.tagCollectionView.reloadData()
-            }).disposed(by: disposeBag)
-        
-        output.tagList
-            .delay(.milliseconds(50))
-            .drive(onNext: { [weak self] list in
-                guard let self = self else { return }
-                if self.tagCollectionView.visibleCells.count < list.count {
-                    self.increaseTagCollectionViewHeight(count: list.count)
-                } else {
-                    if !self.tagCollectionView.visibleCells.isEmpty {
-                        var maxY: CGFloat = 0
-                        self.tagCollectionView.visibleCells.forEach { cell in
-                            maxY = max(cell.frame.maxY, maxY)
-                        }
-                        let currentHeight = self.tagCollectionView.bounds.height
-                        if currentHeight - maxY > 8 {
-                            self.tagCollectionView.snp.updateConstraints {
-                                $0.height.equalTo(currentHeight - 8 - 32)
-                            }
-                        }
-                    } else {
-                        self.tagCollectionView.snp.updateConstraints {
-                            $0.height.equalTo(0)
-                        }
-                    }
-                }
-            }).disposed(by: disposeBag)
-        
-        output.addingNewPraySuccess
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
-            }).disposed(by: disposeBag)
-        
-        output.addingNewPrayFailure
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
-            }).disposed(by: disposeBag)
-        
-        output.isSecret
-            .drive(isSecretCheckBox.rx.isChecked)
-            .disposed(by: disposeBag)
-        
-        output.isSecret
-            .drive(onNext: { [weak self] isSecret in
-                guard let self = self else { return }
-                self.isRequestPrayLabel.textColor = isSecret ? .nightSky1 : .sheep4
-            }).disposed(by: disposeBag)
-        
-        output.isSecret
-            .drive(isRequestPrayCheckBox.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
-        output.isRequestPray
-            .drive(isRequestPrayCheckBox.rx.isChecked)
-            .disposed(by: disposeBag)
+//        guard let vm = vm else { Log.e("vm is nil"); return }
+//        let input = VM.Input()
     }
 }
 
-extension NewPrayVC: UICollectionViewDelegateFlowLayout {
+extension PrayWithVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let buttonWidth = tagList[indexPath.row].width(withConstraintedHeight: 16,
                                                        font: .systemFont(ofSize: 14, weight: .regular))
@@ -370,7 +230,7 @@ extension NewPrayVC: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension NewPrayVC: UICollectionViewDataSource {
+extension PrayWithVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tagList.count
     }
@@ -380,9 +240,9 @@ extension NewPrayVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.tagLabel.text = tagList[indexPath.row]
-        cell.vm = vm
-        cell.indexPath = indexPath
-        cell.bind()
+//        cell.vm = vm
+//        cell.indexPath = indexPath
+//        cell.bind()
         
         return cell
     }
