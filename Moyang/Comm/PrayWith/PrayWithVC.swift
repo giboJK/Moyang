@@ -34,28 +34,20 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         $0.setTitleColor(.nightSky2, for: .normal)
         $0.setTitleColor(.sheep4, for: .disabled)
     }
-    let parentPrayLabel = UILabel().then {
-        $0.numberOfLines = 0
+    let nameLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15, weight: .semibold)
+        $0.textColor = .nightSky1
     }
-    let newPrayTextField = UITextView().then {
+    let dateLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 13, weight: .regular)
+        $0.textColor = .sheep5
+    }
+    let parentPrayTextField = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
-    }
-    let tagInfoLabel = UILabel().then {
-        $0.text = "태그는 5개까지 추가되며 하나당 최대 20자입니다."
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .sheep4
-        $0.numberOfLines = 0
-    }
-    let tagTextField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
-        $0.backgroundColor = .sheep3
-        $0.layer.cornerRadius = 8
-        $0.attributedPlaceholder = NSAttributedString(string: "#태그 추가",
-                                                      attributes: [.foregroundColor: UIColor.sheep4])
-        $0.textColor = .nightSky1
-        $0.returnKeyType = .done
+        $0.isEditable = false
     }
     let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
         let layout = LeftAlignedCollectionViewFlowLayout()
@@ -64,7 +56,18 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         $0.collectionViewLayout = layout
         $0.isScrollEnabled = true
         $0.backgroundColor = .clear
-        $0.register(NewPrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        $0.register(PrayingTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    }
+    let replyTextField = UITextView().then {
+        $0.backgroundColor = .sheep1
+        $0.layer.cornerRadius = 8
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .nightSky1
+    }
+    let replyHintLabel = UILabel().then {
+        $0.text = "기도문을 적어보세요."
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .sheep4
     }
     
     override func viewDidLoad() {
@@ -76,16 +79,17 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     
     deinit {
         Log.i(self)
-        vm?.clearNewTag()
     }
 
     func setupUI() {
         view.backgroundColor = .sheep2
         setupNavBar()
-        setupNewPrayTextField()
-        setupTagInfoLabel()
-        setupTagTextField()
+        setupNameLabel()
+        setupDateLabel()
+        setupParentPrayTextField()
         setupTagCollectionView()
+        setupReplyTextField()
+        setupReplyHintLabel()
     }
     
     private func setupNavBar() {
@@ -96,12 +100,44 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
             $0.height.equalTo(44)
         }
     }
-    private func setupNewPrayTextField() {
-        view.addSubview(newPrayTextField)
-        newPrayTextField.snp.makeConstraints {
+    private func setupNameLabel() {
+        view.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints {
             $0.top.equalTo(navBar.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(280)
+        }
+    }
+    private func setupDateLabel() {
+        view.addSubview(dateLabel)
+        dateLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
+            $0.left.right.equalToSuperview().inset(16)
+        }
+    }
+    private func setupParentPrayTextField() {
+        view.addSubview(parentPrayTextField)
+        parentPrayTextField.snp.makeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(240)
+        }
+    }
+    private func setupTagCollectionView() {
+        view.addSubview(tagCollectionView)
+        tagCollectionView.snp.makeConstraints {
+            $0.top.equalTo(parentPrayTextField.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(32)
+        }
+        tagCollectionView.dataSource = self
+        tagCollectionView.delegate = self
+    }
+    private func setupReplyTextField() {
+        view.addSubview(replyTextField)
+        replyTextField.snp.makeConstraints {
+            $0.top.equalTo(tagCollectionView.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(240)
         }
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
             $0.sizeToFit()
@@ -114,58 +150,17 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
                                          action: #selector(didTapDoneButton))
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([space, doneButton], animated: false)
-        newPrayTextField.inputAccessoryView = toolBar
+        replyTextField.inputAccessoryView = toolBar
+    }
+    private func setupReplyHintLabel() {
+        view.addSubview(replyHintLabel)
+        replyHintLabel.snp.makeConstraints {
+            $0.left.equalTo(replyTextField).inset(4)
+            $0.top.equalTo(replyTextField).inset(8)
+        }
     }
     
-    private func setupTagInfoLabel() {
-        view.addSubview(tagInfoLabel)
-        tagInfoLabel.snp.makeConstraints {
-            $0.top.equalTo(newPrayTextField.snp.bottom).offset(12)
-            $0.left.right.equalToSuperview().inset(20)
-        }
-    }
-    private func setupTagTextField() {
-        view.addSubview(tagTextField)
-        tagTextField.snp.makeConstraints {
-            $0.top.equalTo(tagInfoLabel.snp.bottom).offset(8)
-            $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(36)
-        }
-        tagTextField.delegate = self
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
-            $0.sizeToFit()
-            $0.clipsToBounds = true
-            $0.barTintColor = .sheep3
-        }
-        let cancelButton = UIBarButtonItem(title: "취소",
-                                           style: .plain,
-                                         target: self,
-                                         action: #selector(didTapCancelButton))
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([cancelButton, space], animated: false)
-        tagTextField.inputAccessoryView = toolBar
-        
-    }
-    private func setupTagCollectionView() {
-        view.addSubview(tagCollectionView)
-        tagCollectionView.snp.makeConstraints {
-            $0.top.equalTo(tagTextField.snp.bottom).offset(12)
-            $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(32)
-        }
-        tagCollectionView.dataSource = self
-        tagCollectionView.delegate = self
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        tagTextField.resignFirstResponder()
-        return true
-    }
     @objc func didTapDoneButton() {
-        view.endEditing(true)
-    }
-    @objc func didTapCancelButton() {
-        tagTextField.text?.removeAll()
         view.endEditing(true)
     }
     
@@ -175,8 +170,34 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input(setReply: replyTextField.rx.text.asDriver(),
+                             saveReply: saveButton.rx.tap.asDriver())
+        let output = vm.transform(input: input)
+        
+        output.memberName
+            .drive(nameLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.date
+            .drive(dateLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.parentPray
+            .drive(parentPrayTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.parentTagList
+            .drive(onNext: { [weak self] list in
+                self?.tagList = list
+                self?.tagCollectionView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        output.reply
+            .map { $0?.isEmpty ?? true }
+            .map { !$0 }
+            .drive(replyHintLabel.rx.isHidden)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -194,7 +215,7 @@ extension PrayWithVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? NewPrayTagCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PrayingTagCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.tagLabel.text = tagList[indexPath.row]

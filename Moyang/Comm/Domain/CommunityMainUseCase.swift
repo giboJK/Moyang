@@ -248,6 +248,14 @@ class CommunityMainUseCase {
         }
     }
     
+    func addReply(memberID: String,
+                  reply: String,
+                  date: String,
+                  reactions: [PrayReaction] = [],
+                  order: Int) {
+        
+    }
+    
     private func updateCardMemberPrayListWithNewPray(pray: GroupIndividualPray, myInfo: MemberDetail) {
         var current = cardMemberPrayList.value
         if let firstIndex = current.firstIndex(where: { $0.member.id == myInfo.id }) {
