@@ -23,11 +23,6 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         $0.closeButton.isHidden = true
         $0.backButton.isHidden = true
     }
-    let cancelButton = UIButton().then {
-        $0.setTitle("취소", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.appleRed1, for: .normal)
-    }
     let saveButton = UIButton().then {
         $0.setTitle("저장", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
@@ -75,12 +70,30 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
 
         setupUI()
         bind()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     deinit {
         Log.i(self)
     }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
 
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
     func setupUI() {
         view.backgroundColor = .sheep2
         setupNavBar()
@@ -98,6 +111,15 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
             $0.left.right.equalToSuperview()
             $0.top.equalToSuperview()
             $0.height.equalTo(44)
+        }
+        setupSaveButton()
+    }
+    private func setupSaveButton() {
+        navBar.addSubview(saveButton)
+        saveButton.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(12)
+            $0.bottom.equalToSuperview().inset(10)
+            $0.height.equalTo(20)
         }
     }
     private func setupNameLabel() {
@@ -119,7 +141,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         parentPrayTextField.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(240)
+            $0.height.equalTo(180)
         }
     }
     private func setupTagCollectionView() {
@@ -137,7 +159,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         replyTextField.snp.makeConstraints {
             $0.top.equalTo(tagCollectionView.snp.bottom).offset(12)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(240)
+            $0.height.equalTo(220)
         }
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
             $0.sizeToFit()
@@ -219,9 +241,7 @@ extension PrayWithVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.tagLabel.text = tagList[indexPath.row]
-//        cell.vm = vm
-//        cell.indexPath = indexPath
-//        cell.bind()
+        cell.contentView.backgroundColor = .wilderness1
         
         return cell
     }
