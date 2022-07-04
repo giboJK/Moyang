@@ -23,6 +23,8 @@ class GroupPrayListVM: VMType {
     let reactionSuccess = BehaviorRelay<Void>(value: ())
     let editVM = BehaviorRelay<GroupPrayEditVM?>(value: nil)
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
+    let prayWithVM = BehaviorRelay<PrayWithVM?>(value: nil)
+    let isMyPrayList = BehaviorRelay<Bool>(value: false)
 
     init(groupID: String, prayItem: PrayItem, useCase: CommunityMainUseCase) {
         self.groupID = groupID
@@ -94,6 +96,12 @@ class GroupPrayListVM: VMType {
     
     private func setInitialData(data: PrayItem) {
         name.accept(data.name)
+        guard let myInfo = UserData.shared.myInfo else { return }
+        if myInfo.id == data.memberID {
+            isMyPrayList.accept(true)
+        } else {
+            isMyPrayList.accept(false)
+        }
     }
     
     private func fetchPrayList(date: String = Date().addingTimeInterval(3600 * 24).toString("yyyy-MM-dd hh:mm:ss a")) {
@@ -150,6 +158,11 @@ class GroupPrayListVM: VMType {
                                           useCase: useCase))
         }
     }
+    
+    private func setPrayWithVM(index: Int) {
+        let prayIrem = prayList.value[index]
+        prayWithVM.accept(PrayWithVM(useCase: useCase, prayItme: prayIrem))
+    }
 }
 
 extension GroupPrayListVM {
@@ -161,6 +174,7 @@ extension GroupPrayListVM {
         let addSad: Driver<Int?>
         let addPray: Driver<Int?>
         let addComment: Driver<Int?>
+        let addChange: Driver<Int?>
     }
 
     struct Output {
@@ -170,6 +184,8 @@ extension GroupPrayListVM {
         let reactionSuccess: Driver<Void>
         let editVM: Driver<GroupPrayEditVM?>
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
+        let prayWithVM: Driver<PrayWithVM?>
+        let isMyPrayList: Driver<Bool>
     }
 
     func transform(input: Input) -> Output {
@@ -230,7 +246,16 @@ extension GroupPrayListVM {
                     Log.e("")
                     return
                 }
-                self.addReaction(index: index, reaction: .love)
+                self.setPrayWithVM(index: index)
+            }).disposed(by: disposeBag)
+        
+        input.addChange
+            .drive(onNext: { [weak self] index in
+                guard let self = self, let index = index else {
+                    Log.e("")
+                    return
+                }
+                self.setPrayWithVM(index: index)
             }).disposed(by: disposeBag)
         
         return Output(name: name.asDriver(),
@@ -238,7 +263,9 @@ extension GroupPrayListVM {
                       groupPrayingVM: groupPrayingVM.asDriver(),
                       reactionSuccess: reactionSuccess.asDriver(),
                       editVM: editVM.asDriver(),
-                      prayReactionDetailVM: prayReactionDetailVM.asDriver()
+                      prayReactionDetailVM: prayReactionDetailVM.asDriver(),
+                      prayWithVM: prayWithVM.asDriver(),
+                      isMyPrayList: isMyPrayList.asDriver()
         )
     }
 }

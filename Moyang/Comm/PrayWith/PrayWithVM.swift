@@ -13,9 +13,6 @@ class PrayWithVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
     let prayItem: PrayItem
-    let groupID: String
-    let parentID: String
-    let order: Int
     
     let parentPray = BehaviorRelay<String>(value: "")
     let parentTagList = BehaviorRelay<[String]>(value: [])
@@ -30,12 +27,9 @@ class PrayWithVM: VMType {
     let isSecret = BehaviorRelay<Bool>(value: false)
     let isRequestPray = BehaviorRelay<Bool>(value: false)
     
-    init(useCase: CommunityMainUseCase, prayItme: PrayItem, groupID: String, parentID: String, order: Int) {
+    init(useCase: CommunityMainUseCase, prayItme: PrayItem) {
         self.useCase = useCase
         self.prayItem = prayItme
-        self.groupID = groupID
-        self.parentID = parentID
-        self.order = order
         bind()
     }
 
@@ -57,18 +51,7 @@ class PrayWithVM: VMType {
             .disposed(by: disposeBag)
     }
     
-    private func addNewPray() {
-        let newOrder = order + 1
-        useCase.addIndividualPray(id: UUID().uuidString,
-                                  groupID: groupID,
-                                  parentID: parentID,
-                                  order: newOrder,
-                                  date: Date().toString("yyyy-MM-dd hh:mm:ss a"),
-                                  pray: newPray.value!,
-                                  tags: tagList.value,
-                                  isSecret: isSecret.value,
-                                  isRequestPray: isRequestPray.value
-        )
+    private func addReply() {
     }
     
     private func autoSave() {
@@ -134,7 +117,7 @@ extension PrayWithVM {
         
         input.saveNewPray
             .drive(onNext: { [weak self] _ in
-                self?.addNewPray()
+                self?.addReply()
             }).disposed(by: disposeBag)
         
         input.setTag

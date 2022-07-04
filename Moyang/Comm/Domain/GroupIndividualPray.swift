@@ -13,10 +13,10 @@ struct GroupIndividualPray: Codable {
     var pray: String
     var tags: [String]
     var reactions: [PrayReaction]
-    var replys: [PrayReply]
+    var replys: [PrayReply]?
+    var changes: [PrayReply]?
     let parentPrayID: String?
     let prayWithMemberID: String?
-    let order: Int
     var isSecret: Bool
     var isRequestPray: Bool
     
@@ -28,9 +28,9 @@ struct GroupIndividualPray: Codable {
         case tags
         case reactions
         case replys
+        case changes
         case parentPrayID = "parent_pray_id"
         case prayWithMemberID = "pray_with_member_id"
-        case order = "order"
         case isSecret = "is_secret"
         case isRequestPray = "is_request_pray"
     }
@@ -70,10 +70,14 @@ struct PrayReply: Codable {
     let memberID: String
     let reply: String
     let date: String
+    var reactions: [PrayReaction]
+    let order: Int
     
     enum CodingKeys: String, CodingKey {
         case memberID = "member_id"
         case reply
         case date
+        case reactions
+        case order
     }
 }

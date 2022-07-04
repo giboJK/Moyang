@@ -48,7 +48,7 @@ class GroupPrayListVC: UIViewController, VCType {
         $0.isHidden = true
     }
     
-    let reactionPopupViewHeight: CGFloat = 36 + 8 + 72
+    let reactionPopupViewHeight: CGFloat = 36 + 8 + 80
     var selected: Int?
     
     override func viewDidLoad() {
@@ -251,18 +251,16 @@ class GroupPrayListVC: UIViewController, VCType {
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
+        let addComment = reactionView.replyView.rx.tapGesture().when(.ended).map { [weak self] _ in self?.selected }
+        let addChange = reactionView.changeView.rx.tapGesture().when(.ended).map { [weak self] _ in self?.selected }
         let input = VM.Input(letsPraying: prayButton.rx.tap.asDriver(),
                              selectPray: prayTableView.rx.itemSelected.asDriver(),
-                             addLove: reactionView.loveButton.rx.tap
-            .map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
-                             addJoyful: reactionView.joyfulButton.rx.tap
-            .map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
-                             addSad: reactionView.sadButton.rx.tap
-            .map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
-                             addPray: reactionView.prayButton.rx.tap
-            .map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
-                             addComment: reactionView.replyView.rx.tapGesture().when(.ended)
-            .map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil)
+                             addLove: reactionView.loveButton.rx.tap.map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
+                             addJoyful: reactionView.joyfulButton.rx.tap.map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
+                             addSad: reactionView.sadButton.rx.tap.map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
+                             addPray: reactionView.prayButton.rx.tap.map { [weak self] _ in self?.selected }.asDriver(onErrorJustReturn: nil),
+                             addComment: addComment.asDriver(onErrorJustReturn: nil),
+                             addChange: addChange.asDriver(onErrorJustReturn: nil)
         )
         let output = vm.transform(input: input)
         
@@ -313,11 +311,28 @@ class GroupPrayListVC: UIViewController, VCType {
                 guard let prayReactionDetailVM = prayReactionDetailVM else { return }
                 self?.showPrayReactionDetailVC(vm: prayReactionDetailVM)
             }).disposed(by: disposeBag)
+        
+        output.prayWithVM
+            .drive(onNext: { [weak self] prayWithVM in
+                guard let prayWithVM = prayWithVM else { return }
+                self?.showPrayWithVC(prayWithVM: prayWithVM)
+            }).disposed(by: disposeBag)
+        
+        output.isMyPrayList
+            .drive(onNext: { [weak self] isMyPrayList in
+                self?.reactionView.updateActionContainer(isMyPrayList: isMyPrayList)
+            }).disposed(by: disposeBag)
     }
     
     private func showPrayEditVC(editVM: GroupPrayEditVM) {
         let vc = GroupPrayEditVC()
         vc.vm = editVM
+        self.present(vc, animated: true)
+    }
+    
+    private func showPrayWithVC(prayWithVM: PrayWithVM) {
+        let vc = PrayWithVC()
+        vc.vm = prayWithVM
         self.present(vc, animated: true)
     }
 }

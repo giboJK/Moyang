@@ -51,6 +51,7 @@ public enum Asset {
       public static let checkFill = ImageAsset(name: "checkFill")
     }
     public enum Pray {
+      public static let changeRecord = ImageAsset(name: "change_record")
       public static let comment = ImageAsset(name: "comment")
       public static let copy = ImageAsset(name: "copy")
     }

@@ -53,7 +53,13 @@ class ReactionPopupView: UIView {
         $0.textColor = .sheep1
     }
     let replyImageView = UIImageView(image: Asset.Images.Pray.comment.image.withTintColor(.sheep1))
-    
+    let changeView = UIView()
+    let changeLabel = UILabel().then {
+        $0.text = "변화 기록하기"
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.textColor = .sheep1
+    }
+    let changeImageView = UIImageView(image: Asset.Images.Pray.changeRecord.image.withTintColor(.sheep1))
     
     required init() {
         super.init(frame: .zero)
@@ -122,21 +128,27 @@ class ReactionPopupView: UIView {
             $0.top.equalTo(buttonContainer.snp.bottom).offset(8)
         }
         setupCopyView()
-        setupReplyView()
+    }
+    func updateActionContainer(isMyPrayList: Bool) {
+        if isMyPrayList {
+            setupChangeView()
+        } else {
+            setupReplyView()
+        }
     }
     private func setupCopyView() {
         actionContainer.addSubview(copyView)
         copyView.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(36)
+            $0.height.equalTo(40)
         }
         let bottomBorder = UIView().then {
-            $0.backgroundColor = .sheep3
+            $0.backgroundColor = .sheep2
         }
         copyView.addSubview(bottomBorder)
         bottomBorder.snp.makeConstraints {
             $0.left.right.bottom.equalToSuperview()
-            $0.height.equalTo(1)
+            $0.height.equalTo(0.5)
         }
         
         copyView.addSubview(copyLabel)
@@ -156,7 +168,7 @@ class ReactionPopupView: UIView {
         replyView.snp.makeConstraints {
             $0.top.equalTo(copyView.snp.bottom)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(36)
+            $0.height.equalTo(40)
             $0.bottom.equalToSuperview()
         }
         replyView.addSubview(replyLabel)
@@ -166,6 +178,26 @@ class ReactionPopupView: UIView {
         }
         replyView.addSubview(replyImageView)
         replyImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview().inset(8)
+            $0.size.equalTo(20)
+        }
+    }
+    private func setupChangeView() {
+        actionContainer.addSubview(changeView)
+        changeView.snp.makeConstraints {
+            $0.top.equalTo(copyView.snp.bottom)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(40)
+            $0.bottom.equalToSuperview()
+        }
+        changeView.addSubview(changeLabel)
+        changeLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().inset(8)
+        }
+        changeView.addSubview(changeImageView)
+        changeImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().inset(8)
             $0.size.equalTo(20)

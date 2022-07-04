@@ -66,18 +66,6 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         $0.backgroundColor = .clear
         $0.register(NewPrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
-    let isSecretLabel = UILabel().then {
-        $0.text = "비공개 기도"
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
-    }
-    let isSecretCheckBox = CheckBox()
-    let isRequestPrayLabel = UILabel().then {
-        $0.text = "기도 부탁하기"
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .sheep4
-    }
-    let isRequestPrayCheckBox = CheckBox()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,8 +86,6 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         setupTagInfoLabel()
         setupTagTextField()
         setupTagCollectionView()
-        setupIsSecretLabel()
-        setupIsSecretCheckBox()
     }
     
     private func setupNavBar() {
@@ -169,34 +155,6 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         }
         tagCollectionView.dataSource = self
         tagCollectionView.delegate = self
-    }
-    
-    private func setupIsSecretLabel() {
-        view.addSubview(isSecretLabel)
-        isSecretLabel.snp.makeConstraints {
-            $0.top.equalTo(tagCollectionView.snp.bottom).offset(12)
-            $0.left.equalToSuperview().inset(16)
-        }
-    }
-    private func setupIsSecretCheckBox() {
-        view.addSubview(isSecretCheckBox)
-        isSecretCheckBox.snp.makeConstraints {
-            $0.centerY.equalTo(isSecretLabel)
-            $0.left.equalTo(isSecretLabel.snp.right).offset(4)
-            $0.size.equalTo(18)
-        }
-    }
-    
-    private func increaseTagCollectionViewHeight(count: Int) {
-        let currentHeight = tagCollectionView.bounds.height
-        tagCollectionView.snp.updateConstraints {
-            $0.height.equalTo(currentHeight + 8 + 32)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
-            if self.tagCollectionView.visibleCells.count < count {
-                self.increaseTagCollectionViewHeight(count: count)
-            }
-        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

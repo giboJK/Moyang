@@ -199,7 +199,6 @@ class CommunityMainUseCase {
                                        replys: [],
                                        parentPrayID: nil,
                                        prayWithMemberID: nil,
-                                       order: 0,
                                        isSecret: isSecret,
                                        isRequestPray: isRequestPray)
         repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
@@ -217,7 +216,6 @@ class CommunityMainUseCase {
     func addIndividualPray(id: String,
                            groupID: String,
                            parentID: String,
-                           order: Int,
                            date: String,
                            pray: String,
                            tags: [String],
@@ -236,7 +234,6 @@ class CommunityMainUseCase {
                                        replys: [],
                                        parentPrayID: parentID,
                                        prayWithMemberID: myInfo.id,
-                                       order: order,
                                        isSecret: isSecret,
                                        isRequestPray: isRequestPray)
         repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
