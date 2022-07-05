@@ -246,6 +246,18 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
             .map { !$0 }
             .drive(replyHintLabel.rx.isHidden)
             .disposed(by: disposeBag)
+        
+        output.addingReplySuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
+        
+        output.addingReplyFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
     }
 }
 

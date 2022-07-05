@@ -55,7 +55,8 @@ class CommunityMainVM: VMType {
                                                             tags: item.pray.tags,
                                                             isSecret: item.pray.isSecret,
                                                             isRequestPray: item.pray.isRequestPray,
-                                                            reactions: item.pray.reactions
+                                                            reactions: item.pray.reactions,
+                                                            replys: item.pray.replys
                                                            ))
                 }
                 return itemList
@@ -78,7 +79,8 @@ class CommunityMainVM: VMType {
                                                    tags: myPray.pray.tags,
                                                    isSecret: myPray.pray.isSecret,
                                                    isRequestPray: myPray.pray.isRequestPray,
-                                                   reactions: myPray.pray.reactions
+                                                   reactions: myPray.pray.reactions,
+                                                   replys: myPray.pray.replys
                     )
                 } else {
                     return nil
@@ -148,6 +150,7 @@ extension CommunityMainVM {
         let isSecret: Bool
         let isRequestPray: Bool
         let reactions: [PrayReaction]
+        let replys: [PrayReply]
         
         init(memberID: String,
              memberAuth: String,
@@ -159,7 +162,8 @@ extension CommunityMainVM {
              tags: [String],
              isSecret: Bool,
              isRequestPray: Bool,
-             reactions: [PrayReaction]
+             reactions: [PrayReaction],
+             replys: [PrayReply]
         ) {
             self.memberID = memberID
             self.memberAuth = memberAuth
@@ -172,6 +176,7 @@ extension CommunityMainVM {
             self.isSecret = isSecret
             self.isRequestPray = isRequestPray
             self.reactions = reactions
+            self.replys = replys
         }
     }
 }

@@ -24,4 +24,13 @@ protocol CommunityMainRepo {
     
     func addReaction(memberAuth: String, email: String, prayID: String, myInfo: MemberDetail, reaction: String, reactions: [PrayReaction],
                      completion: ((Result<[PrayReaction], MoyangError>) -> Void)?)
+    
+    func addReply(memberAuth: String,
+                  email: String,
+                  prayID: String,
+                  reply: String,
+                  date: String,
+                  reactions: [PrayReaction],
+                  order: Int,
+                  completion: ((Result<PrayReply, MoyangError>) -> Void)?)
 }

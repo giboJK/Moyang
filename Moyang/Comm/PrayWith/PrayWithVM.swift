@@ -21,8 +21,8 @@ class PrayWithVM: VMType {
     
     let reply = BehaviorRelay<String?>(value: nil)
     
-    let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
-    let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
+    let addingReplySuccess = BehaviorRelay<Void>(value: ())
+    let addingReplyFailure = BehaviorRelay<Void>(value: ())
     
     init(useCase: CommunityMainUseCase, prayItme: PrayItem) {
         self.useCase = useCase
@@ -35,12 +35,12 @@ class PrayWithVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-        useCase.addingNewPraySuccess
-            .bind(to: addingNewPraySuccess)
+        useCase.addingReplySuccess
+            .bind(to: addingReplySuccess)
             .disposed(by: disposeBag)
         
-        useCase.addingNewPrayFailure
-            .bind(to: addingNewPrayFailure)
+        useCase.addingReplyFailure
+            .bind(to: addingReplyFailure)
             .disposed(by: disposeBag)
     }
     
@@ -52,6 +52,18 @@ class PrayWithVM: VMType {
     }
     
     private func addReply() {
+        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
+        guard let reply = reply.value else { Log.e(""); return }
+        
+        let order = prayItem.replys.filter { reply in
+            reply.memberID == myInfo.id
+        }.count
+        useCase.addReply(memberAuth: prayItem.memberAuth,
+                         email: prayItem.memberEmail,
+                         prayID: prayItem.prayID,
+                         reply: reply,
+                         date: Date().toString(format: "yyyy-MM-dd hh:mm:ss"),
+                         order: order + 1)
     }
 }
 
@@ -67,8 +79,8 @@ extension PrayWithVM {
         let parentPray: Driver<String>
         let parentTagList: Driver<[String]>
         let reply: Driver<String?>
-        let addingNewPraySuccess: Driver<Void>
-        let addingNewPrayFailure: Driver<Void>
+        let addingReplySuccess: Driver<Void>
+        let addingReplyFailure: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
@@ -87,8 +99,8 @@ extension PrayWithVM {
                       parentPray: parentPray.asDriver(),
                       parentTagList: parentTagList.asDriver(),
                       reply: reply.asDriver(),
-                      addingNewPraySuccess: addingNewPraySuccess.asDriver(),
-                      addingNewPrayFailure: addingNewPrayFailure.asDriver()
+                      addingReplySuccess: addingReplySuccess.asDriver(),
+                      addingReplyFailure: addingReplyFailure.asDriver()
         )
     }
 }

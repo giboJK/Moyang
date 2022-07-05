@@ -23,6 +23,7 @@ class CommunityController {
 }
 
 extension CommunityController: CommunityMainRepo {
+    
     func fetchGroupInfo(community: String, groupID: String, completion: ((Result<GroupInfo, MoyangError>) -> Void)?) {
         let ref = firestoreService.store
             .collection("COMMUNITY")
@@ -185,6 +186,33 @@ extension CommunityController: CommunityMainRepo {
                                                 reaction: reaction))
                     completion?(.success(changed))
                 }
+            }
+        }
+    }
+    func addReply(memberAuth: String, email: String, prayID: String, reply: String, date: String, reactions: [PrayReaction], order: Int,
+                  completion: ((Result<PrayReply, MoyangError>) -> Void)?) {
+        let ref = firestoreService.store
+            .collection("USER")
+            .document("AUTH")
+            .collection(memberAuth)
+            .document(email)
+            .collection("PRAY")
+            .document(prayID)
+        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
+        let key = "replys"
+        let item = PrayReply(memberID: myInfo.id,
+                             reply: reply,
+                             date: date,
+                             reactions: [],
+                             order: order)
+        ref.updateData([
+            key: FieldValue.arrayUnion([item.dict as Any])
+        ]) { error in
+            if let error = error {
+                Log.w(error)
+                completion?(.failure(.writingFailed))
+            } else {
+                completion?(.success(item))
             }
         }
     }

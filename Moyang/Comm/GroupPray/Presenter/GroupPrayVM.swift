@@ -50,7 +50,8 @@ class GroupPrayVM: VMType {
                                              tags: item.pray.tags,
                                              isSecret: item.pray.isSecret,
                                              isRequestPray: item.pray.isRequestPray,
-                                             reactions: item.pray.reactions
+                                             reactions: item.pray.reactions,
+                                             replys: item.pray.replys
                                             ))
                 }
                 return itemList

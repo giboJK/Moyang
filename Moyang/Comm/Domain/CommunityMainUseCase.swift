@@ -33,6 +33,9 @@ class CommunityMainUseCase {
     let editingPraySuccess = BehaviorRelay<Void>(value: ())
     let editingPrayFailure = BehaviorRelay<Void>(value: ())
     
+    let addingReplySuccess = BehaviorRelay<Void>(value: ())
+    let addingReplyFailure = BehaviorRelay<Void>(value: ())
+    
     
     // MARK: - Lifecycle
     init(repo: CommunityMainRepo, groupPrayRepo: GroupPrayRepo) {
@@ -248,12 +251,42 @@ class CommunityMainUseCase {
         }
     }
     
-    func addReply(memberID: String,
+    func addReply(memberAuth: String,
+                  email: String,
+                  prayID: String,
                   reply: String,
                   date: String,
                   reactions: [PrayReaction] = [],
                   order: Int) {
-        
+        if checkAndSetIsNetworking() { return }
+        var selectedList: (member: Member, list: CommunityMainUseCase.PrayList)?
+        var selectedIndex: Array<(member: Member, list: CommunityMainUseCase.PrayList)>.Index!
+        if let index = memberPrayList.value.firstIndex(where: { ($0.member.email == email) && ($0.member.auth == memberAuth) }) {
+            selectedList = memberPrayList.value[index]
+            selectedIndex = index
+        }
+        repo.addReply(memberAuth: memberAuth, email: email, prayID: prayID, reply: reply, date: date,
+                      reactions: reactions, order: order) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let replys):
+                Log.w(replys)
+                if var selectedList = selectedList {
+                    if let index = selectedList.list.firstIndex(where: { $0.id == prayID}) {
+                        selectedList.list[index].replys.append(replys)
+                    }
+                    var cur = self.memberPrayList.value
+                    cur[selectedIndex] = selectedList
+                    self.memberPrayList.accept(cur)
+                }
+                self.addingReplySuccess.accept(())
+            case .failure(let error):
+                Log.e(error)
+                self.addingReplyFailure.accept(())
+            }
+            
+            self.resetIsNetworking()
+        }
     }
     
     private func updateCardMemberPrayListWithNewPray(pray: GroupIndividualPray, myInfo: MemberDetail) {
