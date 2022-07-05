@@ -21,7 +21,6 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     let navBar = MoyangNavBar(.light).then {
         $0.title = "같이 기도하기"
         $0.closeButton.isHidden = true
-        $0.backButton.isHidden = true
     }
     let saveButton = UIButton().then {
         $0.setTitle("저장", for: .normal)
@@ -82,15 +81,21 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
+            if (UIScreen.main.bounds.height - keyboardSize.height) < replyTextField.frame.maxY {
+                let diff = replyTextField.frame.maxY - UIScreen.main.bounds.height + keyboardSize.height
+                let height = replyTextField.frame.height - diff
+                
+                replyTextField.snp.updateConstraints {
+                    $0.height.equalTo(height - 8)
+                }
+                
             }
         }
     }
-
+    
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
+        replyTextField.snp.updateConstraints {
+            $0.height.equalTo(300)
         }
     }
     
@@ -110,7 +115,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         navBar.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalToSuperview()
-            $0.height.equalTo(44)
+            $0.height.equalTo(UIApplication.statusBarHeight + 44)
         }
         setupSaveButton()
     }
@@ -147,9 +152,9 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     private func setupTagCollectionView() {
         view.addSubview(tagCollectionView)
         tagCollectionView.snp.makeConstraints {
-            $0.top.equalTo(parentPrayTextField.snp.bottom).offset(12)
+            $0.top.equalTo(parentPrayTextField.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(32)
+            $0.height.equalTo(0)
         }
         tagCollectionView.dataSource = self
         tagCollectionView.delegate = self
@@ -157,9 +162,9 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     private func setupReplyTextField() {
         view.addSubview(replyTextField)
         replyTextField.snp.makeConstraints {
-            $0.top.equalTo(tagCollectionView.snp.bottom).offset(12)
+            $0.top.equalTo(tagCollectionView.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(220)
+            $0.height.equalTo(300)
         }
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
             $0.sizeToFit()
@@ -186,8 +191,24 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         view.endEditing(true)
     }
     
+    private func increaseTagCollectionViewHeight(count: Int) {
+        let currentHeight = tagCollectionView.bounds.height
+        tagCollectionView.snp.updateConstraints {
+            $0.height.equalTo(currentHeight + 8 + 32)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+            if self.tagCollectionView.visibleCells.count < count {
+                self.increaseTagCollectionViewHeight(count: count)
+            }
+        }
+    }
+    
     // MARK: - Binding
     func bind() {
+        navBar.backButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
         bindVM()
     }
 
@@ -210,9 +231,14 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
             .disposed(by: disposeBag)
         
         output.parentTagList
+            .delay(.milliseconds(50))
             .drive(onNext: { [weak self] list in
-                self?.tagList = list
-                self?.tagCollectionView.reloadData()
+                guard let self = self else { return }
+                self.tagList = list
+                self.tagCollectionView.reloadData()
+                if self.tagCollectionView.visibleCells.count < list.count {
+                    self.increaseTagCollectionViewHeight(count: list.count)
+                }
             }).disposed(by: disposeBag)
         
         output.reply

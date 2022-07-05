@@ -333,7 +333,7 @@ class GroupPrayListVC: UIViewController, VCType {
     private func showPrayWithVC(prayWithVM: PrayWithVM) {
         let vc = PrayWithVC()
         vc.vm = prayWithVM
-        self.present(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
