@@ -21,7 +21,45 @@ class PrayReactionDetailVM: VMType {
     deinit { Log.i(self) }
     
     private func setData() {
-        
+        var itemList = [ReactionItem]()
+        let sorted = reactions.sorted { a, b in
+            let typeA = PrayReactionType(rawValue: a.reaction)!
+            let typeB = PrayReactionType(rawValue: b.reaction)!
+            return typeA.order < typeB.order
+        }
+        var loveItem = ReactionItem(memberName: [], reaction: PrayReactionType.love.rawValue)
+        var joyfulItem = ReactionItem(memberName: [], reaction: PrayReactionType.joyful.rawValue)
+        var sadItem = ReactionItem(memberName: [], reaction: PrayReactionType.sad.rawValue)
+        var prayItem = ReactionItem(memberName: [], reaction: PrayReactionType.prayWithYou.rawValue)
+        let groupInfo = UserData.shared.groupInfo!
+        sorted.forEach { item in
+            if let type = PrayReactionType(rawValue: item.reaction) {
+                guard let member = groupInfo.memberList.first(where: { $0.id == item.memberID }) else { Log.e("No member"); return }
+                switch type {
+                case .love:
+                    loveItem.memberName.append(member.name)
+                case .joyful:
+                    joyfulItem.memberName.append(member.name)
+                case .sad:
+                    sadItem.memberName.append(member.name)
+                case .prayWithYou:
+                    prayItem.memberName.append(member.name)
+                }
+            }
+        }
+        if !loveItem.memberName.isEmpty {
+            itemList.append(loveItem)
+        }
+        if !joyfulItem.memberName.isEmpty {
+            itemList.append(joyfulItem)
+        }
+        if !sadItem.memberName.isEmpty {
+            itemList.append(sadItem)
+        }
+        if !prayItem.memberName.isEmpty {
+            itemList.append(prayItem)
+        }
+        reactionItemList.accept(itemList)
     }
 }
 
@@ -40,17 +78,14 @@ extension PrayReactionDetailVM {
 
 extension PrayReactionDetailVM {
     struct ReactionItem {
-        let memberName: [String]
+        var memberName: [String]
         let reaction: String
-        let count: Int
         
         init(memberName: [String],
-             reaction: String,
-             count: Int
+             reaction: String
         ) {
             self.memberName = memberName
             self.reaction = reaction
-            self.count = count
         }
     }
 }

@@ -97,6 +97,7 @@ class CommunityMainVM: VMType {
         groupInfo = data
         groupName.accept(data.groupName)
         getMemberPray(memberList: data.memberList)
+        UserData.shared.groupInfo = data
     }
     
     private func getMemberPray(memberList: [Member]) {

@@ -186,6 +186,7 @@ class GroupPrayVC: UIViewController, VCType {
                 .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { (index, item, cell) in
                     cell.nameLabel.text = item.name
                     cell.dateLabel.text = item.date
+                    cell.updatePrayLabelHeight()
                     cell.prayLabel.text = item.pray
                     cell.prayLabel.lineBreakMode = .byTruncatingTail
                     cell.tags = item.tags

@@ -191,6 +191,15 @@ class GroupPrayTableViewCell: UITableViewCell {
         }
     }
     
+    func updatePrayLabelHeight() {
+        prayLabel.snp.remakeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).offset(8)
+            $0.left.right.equalToSuperview().inset(12)
+            $0.height.equalTo(140)
+        }
+        prayLabel.lineBreakMode = .byTruncatingTail
+    }
+    
     func updateTagCollectionViewHeight() {
         if tagCollectionView.visibleCells.count < tags.count {
             tagCollectionView.snp.updateConstraints {

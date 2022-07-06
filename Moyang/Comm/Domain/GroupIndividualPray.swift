@@ -46,20 +46,32 @@ struct PrayReaction: Codable {
 
 enum PrayReactionType: String, CaseIterable {
     case love
-    case sad
     case joyful
+    case sad
     case prayWithYou
     
     var desc: String {
         switch self {
         case .love:
             return "❤️"
-        case .sad:
-            return "😭"
         case .joyful:
             return "😊"
+        case .sad:
+            return "😭"
         case .prayWithYou:
             return "🙏"
+        }
+    }
+    var order: Int {
+        switch self {
+        case .love:
+            return 0
+        case .joyful:
+            return 1
+        case .sad:
+            return 2
+        case .prayWithYou:
+            return 3
         }
     }
 }
