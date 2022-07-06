@@ -62,6 +62,24 @@ class GroupPrayTableViewCell: UITableViewCell {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
     }
+    let replyView = UIView().then {
+        $0.backgroundColor = .sheep2
+        $0.layer.cornerRadius = 14
+    }
+    let replyImageView = UIImageView(image: Asset.Images.Pray.comment.image.withTintColor(.nightSky1))
+    let replyCountLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.textColor = .nightSky3
+    }
+    let changeView = UIView().then {
+        $0.backgroundColor = .sheep2
+        $0.layer.cornerRadius = 14
+    }
+    let changeImageView = UIImageView(image: Asset.Images.Pray.changeRecord.image.withTintColor(.nightSky1))
+    let changeCountLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.textColor = .nightSky3
+    }
     
     var tags = [String]()
     var index: Int?
@@ -119,6 +137,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         setupDivider()
         setupTagCollectionView()
         setupNoTagLabel()
+        setupReplyView()
     }
     
     private func setupBgView() {
@@ -190,6 +209,19 @@ class GroupPrayTableViewCell: UITableViewCell {
             $0.left.right.equalToSuperview().inset(12)
         }
     }
+    private func setupReplyView() {
+        replyView.addSubview(replyImageView)
+        replyView.addSubview(replyCountLabel)
+        replyImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().inset(8)
+            $0.size.equalTo(20)
+        }
+        replyCountLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalTo(replyImageView.snp.right).offset(4)
+        }
+    }
     
     func updatePrayLabelHeight() {
         prayLabel.snp.remakeConstraints {
@@ -211,22 +243,8 @@ class GroupPrayTableViewCell: UITableViewCell {
             }
         }
     }
-    
-    func setupReactionView(reactions: [PrayReaction]) {
-        for view in reactionView.subviews {
-            view.removeFromSuperview()
-        }
-        if reactions.isEmpty {
-            reactionView.removeFromSuperview()
-            bgView.snp.updateConstraints {
-                $0.bottom.equalToSuperview().inset(12)
-            }
-            return
-        }
-        bgView.snp.updateConstraints {
-            $0.bottom.equalToSuperview().inset(40)
-        }
-        
+    private func setupReactionView(reactions: [PrayReaction]) {
+        if reactions.isEmpty { return }
         var love = 0
         var joy = 0
         var sad = 0
@@ -268,10 +286,49 @@ class GroupPrayTableViewCell: UITableViewCell {
         }
         reactionView.snp.remakeConstraints {
             $0.bottom.equalToSuperview().inset(8)
-            $0.right.equalToSuperview()
+            if replyView.superview == nil {
+                $0.right.equalToSuperview()
+            } else {
+                $0.right.equalTo(replyView.snp.left).offset(-8)
+            }
             $0.width.equalTo(reactionView.subviews.count * 48)
             $0.height.equalTo(28)
         }
+    }
+    private func setupReplyView(replys: [PrayReply]) {
+        if replys.isEmpty { return }
+        if replyView.superview == nil {
+            contentView.addSubview(replyView)
+        }
+        replyCountLabel.text = "\(replys.count)"
+        replyView.snp.remakeConstraints {
+            $0.bottom.equalToSuperview().inset(8)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(28)
+            $0.width.equalTo(48)
+        }
+    }
+    func setupReactionAndReplyView(reactions: [PrayReaction], replys: [PrayReply]) {
+        for view in reactionView.subviews {
+            view.removeFromSuperview()
+        }
+        if reactions.isEmpty {
+            reactionView.removeFromSuperview()
+        }
+        if replys.isEmpty {
+            replyView.removeFromSuperview()
+        }
+        if replys.isEmpty && reactions.isEmpty {
+            bgView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(12)
+            }
+            return
+        }
+        bgView.snp.updateConstraints {
+            $0.bottom.equalToSuperview().inset(40)
+        }
+        self.setupReplyView(replys: replys)
+        self.setupReactionView(reactions: reactions)
     }
 }
 

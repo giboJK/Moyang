@@ -14,6 +14,7 @@ class PrayWithVM: VMType {
     let useCase: CommunityMainUseCase
     let prayItem: PrayItem
     
+    let title = BehaviorRelay<String>(value: "")
     let memberName = BehaviorRelay<String>(value: "")
     let date = BehaviorRelay<String>(value: "")
     let parentPray = BehaviorRelay<String>(value: "")
@@ -49,6 +50,14 @@ class PrayWithVM: VMType {
         date.accept(data.date)
         parentPray.accept(data.pray)
         parentTagList.accept(data.tags)
+        
+        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
+        if data.memberID == myInfo.id {
+            title.accept("변화 기록하기")
+        } else {
+            title.accept("같이 기도하기")
+        }
+        
     }
     
     private func addReply() {
@@ -74,6 +83,7 @@ extension PrayWithVM {
     }
 
     struct Output {
+        let title: Driver<String>
         let memberName: Driver<String>
         let date: Driver<String>
         let parentPray: Driver<String>
@@ -94,7 +104,8 @@ extension PrayWithVM {
             }).disposed(by: disposeBag)
         
         
-        return Output(memberName: memberName.asDriver(),
+        return Output(title: title.asDriver(),
+                      memberName: memberName.asDriver(),
                       date: date.asDriver(),
                       parentPray: parentPray.asDriver(),
                       parentTagList: parentTagList.asDriver(),

@@ -21,6 +21,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     let navBar = MoyangNavBar(.light).then {
         $0.title = "같이 기도하기"
         $0.closeButton.isHidden = true
+        $0.backButton.tintColor = .nightSky1
     }
     let saveButton = UIButton().then {
         $0.setTitle("저장", for: .normal)
@@ -217,6 +218,10 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         let input = VM.Input(setReply: replyTextField.rx.text.asDriver(),
                              saveReply: saveButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
+        
+        output.title
+            .drive(navBar.titleLabel.rx.text)
+            .disposed(by: disposeBag)
         
         output.memberName
             .drive(nameLabel.rx.text)

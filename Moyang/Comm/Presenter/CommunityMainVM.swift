@@ -152,6 +152,7 @@ extension CommunityMainVM {
         let isRequestPray: Bool
         let reactions: [PrayReaction]
         let replys: [PrayReply]
+        let changes: [PrayReply]
         
         init(memberID: String,
              memberAuth: String,
@@ -177,7 +178,8 @@ extension CommunityMainVM {
             self.isSecret = isSecret
             self.isRequestPray = isRequestPray
             self.reactions = reactions
-            self.replys = replys
+            self.replys = replys.filter { $0.memberID != memberID }
+            self.changes = replys.filter { $0.memberID == memberID }
         }
     }
 }

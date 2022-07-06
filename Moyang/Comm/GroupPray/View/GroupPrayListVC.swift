@@ -282,8 +282,7 @@ class GroupPrayListVC: UIViewController, VCType {
                     cell.noTagLabel.isHidden = !item.tags.isEmpty
                     cell.index = index
                     cell.isSecretLabel.isHidden = !item.isSecret
-
-                    cell.setupReactionView(reactions: item.reactions)
+                    cell.setupReactionAndReplyView(reactions: item.reactions, replys: item.replys)
                 }.disposed(by: disposeBag)
 
         output.groupPrayingVM
