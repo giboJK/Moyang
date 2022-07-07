@@ -23,6 +23,7 @@ class GroupPrayListVM: VMType {
     let reactionSuccess = BehaviorRelay<Void>(value: ())
     let editVM = BehaviorRelay<GroupPrayEditVM?>(value: nil)
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
+    let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
     let prayWithVM = BehaviorRelay<PrayWithVM?>(value: nil)
     let isMyPrayList = BehaviorRelay<Bool>(value: false)
 
@@ -47,6 +48,11 @@ class GroupPrayListVM: VMType {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.setReactionVM),
                                                name: NSNotification.Name(rawValue: "GROUP_PRAY_REACTION_TAP"),
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.setReplyVM),
+                                               name: NSNotification.Name(rawValue: "GROUP_PRAY_REPLY_TAP"),
                                                object: nil)
     }
 
@@ -151,6 +157,14 @@ class GroupPrayListVM: VMType {
         prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
     }
     
+    @objc func setReplyVM(notification: NSNotification) {
+        guard let index = notification.userInfo?["index"] as? Int else {
+            Log.e(""); return
+        }
+        let replys = prayList.value[index].replys
+        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
+    }
+    
     private func setGroupPrayEditVM(index: Int) {
         guard let myInfo = UserData.shared.myInfo else { return }
         if myInfo.email == email && myInfo.authType == auth {
@@ -185,6 +199,7 @@ extension GroupPrayListVM {
         let reactionSuccess: Driver<Void>
         let editVM: Driver<GroupPrayEditVM?>
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
+        let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
         let prayWithVM: Driver<PrayWithVM?>
         let isMyPrayList: Driver<Bool>
     }
@@ -265,6 +280,7 @@ extension GroupPrayListVM {
                       reactionSuccess: reactionSuccess.asDriver(),
                       editVM: editVM.asDriver(),
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
+                      prayReplyDetailVM: prayReplyDetailVM.asDriver(),
                       prayWithVM: prayWithVM.asDriver(),
                       isMyPrayList: isMyPrayList.asDriver()
         )

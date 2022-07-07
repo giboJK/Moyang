@@ -17,15 +17,17 @@ class PrayReactionDetailVC: UIViewController, VCType {
     var vm: VM?
     
     // MARK: - UI
+    let cornerRadiusView = UIView().then {
+        $0.backgroundColor = .sheep2
+        $0.layer.cornerRadius = 17
+        $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        $0.layer.masksToBounds = true
+    }
     let titleLabel = UILabel().then {
         $0.text = "함께하는 성도들"
         $0.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.textColor = .nightSky1
         $0.textAlignment = .center
-        $0.backgroundColor = .sheep2
-        $0.layer.cornerRadius = 17
-        $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        $0.layer.masksToBounds = true
     }
     let scrollView = UIScrollView()
     let container = UIView()
@@ -45,19 +47,25 @@ class PrayReactionDetailVC: UIViewController, VCType {
     
     deinit { Log.i(self) }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
-    }
     func setupUI() {
         view.backgroundColor = .clear
+        setupCornerRadiusView()
         setupTitleLabel()
         setupScrollView()
+    }
+    private func setupCornerRadiusView() {
+        view.addSubview(cornerRadiusView)
+        cornerRadiusView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.top.equalToSuperview().inset(360)
+            $0.height.equalTo(32)
+        }
     }
     private func setupTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview().inset(360)
+            $0.top.equalToSuperview().inset(368)
             $0.height.equalTo(24)
         }
     }
@@ -122,6 +130,10 @@ class PrayReactionDetailVC: UIViewController, VCType {
     }
     
     private func bindViews() {
+        view.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
     }
     
     private func bindVM() {
@@ -153,11 +165,10 @@ class PrayReactionDetailVC: UIViewController, VCType {
                             }
                         }
                         for j in 0 ..< list[i].memberName.count {
-                            Log.e("")
                             let memberView = UIView()
                             let memberName = UILabel().then {
                                 $0.textColor = .nightSky1
-                                $0.font = .systemFont(ofSize: 14, weight: .regular)
+                                $0.font = .systemFont(ofSize: 15, weight: .regular)
                             }
                             let imoticonLabel = UILabel()
                             memberView.addSubview(memberName)

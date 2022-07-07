@@ -131,6 +131,15 @@ class GroupPrayTableViewCell: UITableViewCell {
                                                 object: nil,
                                                 userInfo: indexDict)
             }).disposed(by: disposeBag)
+        
+        replyView.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self, let index = self.index else { return }
+                let indexDict = ["index": index]
+                NotificationCenter.default.post(name: NSNotification.Name("GROUP_PRAY_REPLY_TAP"),
+                                                object: nil,
+                                                userInfo: indexDict)
+            }).disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {

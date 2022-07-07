@@ -16,7 +16,7 @@ class GroupPrayVC: UIViewController, VCType {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupPrayVCDelegate?
-
+    
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
@@ -50,13 +50,13 @@ class GroupPrayVC: UIViewController, VCType {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         bind()
     }
-
+    
     deinit { Log.i(self) }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
@@ -160,6 +160,22 @@ class GroupPrayVC: UIViewController, VCType {
         }
     }
     
+    func showPrayReactionDetailVC(vm: PrayReactionDetailVM) {
+        if navigationController?.topViewController is GroupPrayVC {
+            let vc = PrayReactionDetailVC()
+            vc.vm = vm
+            present(vc, animated: true)
+        }
+    }
+    
+    func showPrayReplyDetailVC(vm: PrayReplyDetailVM) {
+        if navigationController?.topViewController is GroupPrayVC {
+            let vc = PrayReplyDetailVC()
+            vc.vm = vm
+            present(vc, animated: true)
+        }
+    }
+    
     private func bindViews() {
         navBar.backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -174,7 +190,7 @@ class GroupPrayVC: UIViewController, VCType {
         
         bindPrayTableView()
     }
-
+    
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(selectMember: prayTableView.rx.itemSelected.asDriver(),
@@ -206,6 +222,18 @@ class GroupPrayVC: UIViewController, VCType {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.showTopToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
+            }).disposed(by: disposeBag)
+        
+        output.prayReactionDetailVM
+            .drive(onNext: { [weak self] prayReactionDetailVM in
+                guard let prayReactionDetailVM = prayReactionDetailVM else { return }
+                self?.showPrayReactionDetailVC(vm: prayReactionDetailVM)
+            }).disposed(by: disposeBag)
+        
+        output.prayReplyDetailVM
+            .drive(onNext: { [weak self] prayReplyDetailVM in
+                guard let prayReplyDetailVM = prayReplyDetailVM else { return }
+                self?.showPrayReplyDetailVC(vm: prayReplyDetailVM)
             }).disposed(by: disposeBag)
     }
 }

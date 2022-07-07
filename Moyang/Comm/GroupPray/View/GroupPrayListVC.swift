@@ -158,6 +158,11 @@ class GroupPrayListVC: UIViewController, VCType {
         vc.vm = vm
         present(vc, animated: true)
     }
+    func showPrayReplyDetailVC(vm: PrayReplyDetailVM) {
+        let vc = PrayReplyDetailVC()
+        vc.vm = vm
+        present(vc, animated: true)
+    }
 
     // MARK: - Binding
     func bind() {
@@ -299,6 +304,12 @@ class GroupPrayListVC: UIViewController, VCType {
             .drive(onNext: { [weak self] prayReactionDetailVM in
                 guard let prayReactionDetailVM = prayReactionDetailVM else { return }
                 self?.showPrayReactionDetailVC(vm: prayReactionDetailVM)
+            }).disposed(by: disposeBag)
+        
+        output.prayReplyDetailVM
+            .drive(onNext: { [weak self] prayReplyDetailVM in
+                guard let prayReplyDetailVM = prayReplyDetailVM else { return }
+                self?.showPrayReplyDetailVC(vm: prayReplyDetailVM)
             }).disposed(by: disposeBag)
         
         output.prayWithVM

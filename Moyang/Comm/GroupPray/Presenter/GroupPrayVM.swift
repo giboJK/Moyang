@@ -27,10 +27,23 @@ class GroupPrayVM: VMType {
     let isSecret = BehaviorRelay<Bool>(value: false)
     let isRequestPray = BehaviorRelay<Bool>(value: false)
     
+    let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
+    let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
+    
     init(useCase: CommunityMainUseCase, groupID: String) {
         self.useCase = useCase
         self.groupID = groupID
         bind()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.setReactionVM),
+                                               name: NSNotification.Name(rawValue: "GROUP_PRAY_REACTION_TAP"),
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.setReplyVM),
+                                               name: NSNotification.Name(rawValue: "GROUP_PRAY_REPLY_TAP"),
+                                               object: nil)
     }
     
     deinit { Log.i(self) }
@@ -106,6 +119,22 @@ class GroupPrayVM: VMType {
     private func clearAutoSave() {
         UserData.shared.clearAutoSave()
     }
+    
+    @objc func setReactionVM(notification: NSNotification) {
+        guard let index = notification.userInfo?["index"] as? Int else {
+            Log.e(""); return
+        }
+        let reactions = cardPrayItemList.value[index].reactions
+        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
+    }
+    
+    @objc func setReplyVM(notification: NSNotification) {
+        guard let index = notification.userInfo?["index"] as? Int else {
+            Log.e(""); return
+        }
+        let replys = cardPrayItemList.value[index].replys
+        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
+    }
 }
 
 extension GroupPrayVM {
@@ -134,6 +163,8 @@ extension GroupPrayVM {
         let addingNewPrayFailure: Driver<Void>
         let isSecret: Driver<Bool>
         let isRequestPray: Driver<Bool>
+        let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
+        let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
     }
     
     func transform(input: Input) -> Output {
@@ -225,7 +256,9 @@ extension GroupPrayVM {
                       addingNewPraySuccess: addingNewPraySuccess.asDriver(),
                       addingNewPrayFailure: addingNewPrayFailure.asDriver(),
                       isSecret: isSecret.asDriver(),
-                      isRequestPray: isRequestPray.asDriver()
+                      isRequestPray: isRequestPray.asDriver(),
+                      prayReactionDetailVM: prayReactionDetailVM.asDriver(),
+                      prayReplyDetailVM: prayReplyDetailVM.asDriver()
         )
     }
 }
