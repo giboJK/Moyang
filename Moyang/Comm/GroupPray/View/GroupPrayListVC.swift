@@ -316,7 +316,7 @@ class GroupPrayListVC: UIViewController, VCType {
     private func showPrayEditVC(editVM: GroupPrayEditVM) {
         let vc = GroupPrayEditVC()
         vc.vm = editVM
-        self.present(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func showPrayWithVC(prayWithVM: PrayWithVM) {

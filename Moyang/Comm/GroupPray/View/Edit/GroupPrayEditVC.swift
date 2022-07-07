@@ -20,13 +20,7 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
-        $0.backButton.isHidden = true
         $0.title = "기도 수정"
-    }
-    let cancelButton = UIButton().then {
-        $0.setTitle("취소", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.appleRed1, for: .normal)
     }
     let editButton = UIButton().then {
         $0.setTitle("수정", for: .normal)
@@ -103,18 +97,9 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         navBar.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalToSuperview()
-            $0.height.equalTo(44)
+            $0.height.equalTo(44 + UIApplication.statusBarHeight)
         }
-        setupCancelButton()
         setupEditButton()
-    }
-    private func setupCancelButton() {
-        navBar.addSubview(cancelButton)
-        cancelButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
-        }
     }
     private func setupEditButton() {
         navBar.addSubview(editButton)
@@ -129,7 +114,7 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         newPrayTextField.snp.makeConstraints {
             $0.top.equalTo(navBar.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(280)
+            $0.height.equalTo(240)
         }
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
             $0.sizeToFit()
@@ -245,9 +230,9 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         bindVM()
     }
     private func bindViews() {
-        cancelButton.rx.tap
+        navBar.backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
+                self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
         tagTextField.rx.controlEvent(.editingDidEnd)
@@ -329,13 +314,13 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         output.editingPraySuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
+                self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
         output.editingPrayFailure
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
+                self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
         output.isSecret
