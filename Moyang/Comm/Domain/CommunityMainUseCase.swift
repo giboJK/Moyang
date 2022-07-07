@@ -271,11 +271,12 @@ class CommunityMainUseCase {
                       reactions: reactions, order: order) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let replys):
-                Log.w(replys)
+            case .success(let reply):
+                Log.w(reply)
                 if var selectedList = selectedList {
                     if let index = selectedList.list.firstIndex(where: { $0.id == prayID}) {
-                        selectedList.list[index].replys.append(replys)
+                        selectedList.list[index].replys.append(reply)
+                        selectedList.list[index].date = reply.date
                     }
                     var cur = self.memberPrayList.value
                     cur[selectedIndex] = selectedList
