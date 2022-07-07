@@ -34,12 +34,26 @@ class GroupPrayTableViewCell: UITableViewCell {
         $0.textColor = .sheep5
         $0.isHidden = true
     }
-    let prayLabel = UILabel().then {
+    let latestPrayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
         $0.numberOfLines = 0
     }
-    let divider = UIView().then {
+    let prayCountLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .nightSky1
+        $0.isHidden = true
+    }
+    let firstPrayLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 13, weight: .regular)
+        $0.textColor = .nightSky4
+        $0.isHidden = true
+    }
+    let firstPrayDivider = UIView().then {
+        $0.backgroundColor = .sheep3
+        $0.isHidden = true
+    }
+    let tagDivider = UIView().then {
         $0.backgroundColor = .sheep3
     }
     let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
@@ -133,8 +147,11 @@ class GroupPrayTableViewCell: UITableViewCell {
         setupNameLabel()
         setupDateLabel()
         setupIsSecretLabel()
-        setupPrayLabel()
-        setupDivider()
+        setupPrayCountLabel()
+        setupFirstPrayLabel()
+        setupFirstPrayDivider()
+        setupLatestPrayLabel()
+        setupTagDivider()
         setupTagCollectionView()
         setupNoTagLabel()
         setupReplyView()
@@ -172,27 +189,48 @@ class GroupPrayTableViewCell: UITableViewCell {
         }
     }
     
-    private func setupPrayLabel() {
-        bgView.addSubview(prayLabel)
-        prayLabel.snp.makeConstraints {
-            $0.top.equalTo(dateLabel.snp.bottom).offset(8)
+    private func setupLatestPrayLabel() {
+        bgView.addSubview(latestPrayLabel)
+        latestPrayLabel.snp.makeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(12)
         }
     }
-    
-    private func setupDivider() {
-        bgView.addSubview(divider)
-        divider.snp.makeConstraints {
-            $0.top.equalTo(prayLabel.snp.bottom).offset(4)
+    private func setupPrayCountLabel() {
+        bgView.addSubview(prayCountLabel)
+        prayCountLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
+            $0.left.right.equalToSuperview().inset(12)
+        }
+    }
+    private func setupFirstPrayLabel() {
+        bgView.addSubview(firstPrayLabel)
+        firstPrayLabel.snp.makeConstraints {
+            $0.top.equalTo(prayCountLabel.snp.bottom).offset(4)
+            $0.left.right.equalToSuperview().inset(12)
+        }
+    }
+    private func setupFirstPrayDivider() {
+        bgView.addSubview(firstPrayDivider)
+        firstPrayDivider.snp.makeConstraints {
+            $0.top.equalTo(firstPrayLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(1)
+            $0.height.equalTo(0.5)
+        }
+    }
+    private func setupTagDivider() {
+        bgView.addSubview(tagDivider)
+        tagDivider.snp.makeConstraints {
+            $0.top.equalTo(latestPrayLabel.snp.bottom).offset(4)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(0.5)
         }
     }
     
     private func setupTagCollectionView() {
         bgView.addSubview(tagCollectionView)
         tagCollectionView.snp.makeConstraints {
-            $0.top.equalTo(divider.snp.bottom).offset(4)
+            $0.top.equalTo(tagDivider.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview().inset(8)
             $0.height.equalTo(28)
@@ -204,7 +242,7 @@ class GroupPrayTableViewCell: UITableViewCell {
     private func setupNoTagLabel() {
         bgView.addSubview(noTagLabel)
         noTagLabel.snp.makeConstraints {
-            $0.top.equalTo(divider.snp.bottom).offset(4)
+            $0.top.equalTo(tagDivider.snp.bottom).offset(4)
             $0.height.equalTo(28)
             $0.left.right.equalToSuperview().inset(12)
         }
@@ -223,13 +261,13 @@ class GroupPrayTableViewCell: UITableViewCell {
         }
     }
     
-    func updatePrayLabelHeight() {
-        prayLabel.snp.remakeConstraints {
-            $0.top.equalTo(dateLabel.snp.bottom).offset(8)
+    func updateLatestPrayLabelHeight() {
+        latestPrayLabel.snp.remakeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(12)
-            $0.height.equalTo(140)
+            $0.height.lessThanOrEqualTo(124)
         }
-        prayLabel.lineBreakMode = .byTruncatingTail
+        latestPrayLabel.lineBreakMode = .byTruncatingTail
     }
     
     func updateTagCollectionViewHeight() {
@@ -329,6 +367,45 @@ class GroupPrayTableViewCell: UITableViewCell {
         }
         self.setupReplyView(replys: replys)
         self.setupReactionView(reactions: reactions)
+    }
+    func setupData(item: GroupPrayListVM.PrayItem, isPreview: Bool = false) {
+        if isPreview {
+            updateLatestPrayLabelHeight()
+        }
+        nameLabel.text = item.name
+        dateLabel.text = item.date
+        latestPrayLabel.text = item.pray
+        tags = item.tags
+        tagCollectionView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.updateTagCollectionViewHeight()
+        }
+        noTagLabel.isHidden = !item.tags.isEmpty
+        isSecretLabel.isHidden = !item.isSecret
+        setupReactionAndReplyView(reactions: item.reactions, replys: item.replys)
+        
+        prayCountLabel.isHidden = item.changes.isEmpty
+        firstPrayLabel.isHidden = item.changes.isEmpty
+        firstPrayDivider.isHidden = item.changes.isEmpty
+        if !item.changes.isEmpty {
+            prayCountLabel.text = "총 \(item.changes.count + 1)개의 기도가 있습니다."
+            firstPrayLabel.text = item.pray
+            firstPrayLabel.lineBreakMode = .byTruncatingTail
+            latestPrayLabel.text = item.changes.last!.reply
+            dateLabel.text = item.changes.last!.date
+            
+            dateLabel.snp.remakeConstraints {
+                $0.top.equalTo(firstPrayDivider.snp.bottom).offset(8)
+                $0.left.equalToSuperview().inset(12)
+                $0.height.equalTo(20)
+            }
+        } else {
+            dateLabel.snp.remakeConstraints {
+                $0.top.equalTo(nameLabel.snp.bottom).offset(2)
+                $0.left.equalToSuperview().inset(12)
+                $0.height.equalTo(20)
+            }
+        }
     }
 }
 

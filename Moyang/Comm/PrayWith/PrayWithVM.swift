@@ -71,7 +71,7 @@ class PrayWithVM: VMType {
                          email: prayItem.memberEmail,
                          prayID: prayItem.prayID,
                          reply: reply,
-                         date: Date().toString(format: "yyyy-MM-dd hh:mm:ss"),
+                         date: Date().toString(format: "yyyy-MM-dd hh:mm:ss a"),
                          order: order + 1)
     }
 }

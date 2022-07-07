@@ -271,18 +271,8 @@ class GroupPrayListVC: UIViewController, VCType {
         output.prayList
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { (index, item, cell) in
-                    cell.nameLabel.text = item.name
-                    cell.dateLabel.text = item.date
-                    cell.prayLabel.text = item.pray
-                    cell.tags = item.tags
-                    cell.tagCollectionView.reloadData()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                        cell.updateTagCollectionViewHeight()
-                    }
-                    cell.noTagLabel.isHidden = !item.tags.isEmpty
                     cell.index = index
-                    cell.isSecretLabel.isHidden = !item.isSecret
-                    cell.setupReactionAndReplyView(reactions: item.reactions, replys: item.replys)
+                    cell.setupData(item: item)
                 }.disposed(by: disposeBag)
 
         output.groupPrayingVM

@@ -184,18 +184,8 @@ class GroupPrayVC: UIViewController, VCType {
         output.cardPrayItemList
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { (index, item, cell) in
-                    cell.nameLabel.text = item.name
-                    cell.dateLabel.text = item.date
-                    cell.updatePrayLabelHeight()
-                    cell.prayLabel.text = item.pray
-                    cell.prayLabel.lineBreakMode = .byTruncatingTail
-                    cell.tags = item.tags
-                    cell.tagCollectionView.reloadData()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                        cell.updateTagCollectionViewHeight()
-                    }
-                    cell.noTagLabel.isHidden = !item.tags.isEmpty
                     cell.index = index
+                    cell.setupData(item: item, isPreview: true)
                 }.disposed(by: disposeBag)
         
         output.detailVM
