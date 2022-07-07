@@ -203,7 +203,8 @@ class CommunityMainUseCase {
                                        parentPrayID: nil,
                                        prayWithMemberID: nil,
                                        isSecret: isSecret,
-                                       isRequestPray: isRequestPray)
+                                       isRequestPray: isRequestPray,
+                                       registeredDate: date)
         repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
             switch result {
             case .success:
@@ -238,7 +239,8 @@ class CommunityMainUseCase {
                                        parentPrayID: parentID,
                                        prayWithMemberID: myInfo.id,
                                        isSecret: isSecret,
-                                       isRequestPray: isRequestPray)
+                                       isRequestPray: isRequestPray,
+                                       registeredDate: date)
         repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
             switch result {
             case .success:

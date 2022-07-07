@@ -206,7 +206,8 @@ extension CommunityController: CommunityMainRepo {
                              reactions: [],
                              order: order)
         ref.updateData([
-            key: FieldValue.arrayUnion([item.dict as Any])
+            key: FieldValue.arrayUnion([item.dict as Any]),
+            "date": date
         ]) { error in
             if let error = error {
                 Log.w(error)
