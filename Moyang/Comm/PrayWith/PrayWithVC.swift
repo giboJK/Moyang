@@ -37,7 +37,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         $0.font = .systemFont(ofSize: 13, weight: .regular)
         $0.textColor = .sheep5
     }
-    let parentPrayTextField = UITextView().then {
+    let parentPrayTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
@@ -53,7 +53,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         $0.backgroundColor = .clear
         $0.register(PrayingTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
-    let replyTextField = UITextView().then {
+    let replyTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
@@ -82,11 +82,11 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if (UIScreen.main.bounds.height - keyboardSize.height) < replyTextField.frame.maxY {
-                let diff = replyTextField.frame.maxY - UIScreen.main.bounds.height + keyboardSize.height
-                let height = replyTextField.frame.height - diff
+            if (UIScreen.main.bounds.height - keyboardSize.height) < replyTextView.frame.maxY {
+                let diff = replyTextView.frame.maxY - UIScreen.main.bounds.height + keyboardSize.height
+                let height = replyTextView.frame.height - diff
                 
-                replyTextField.snp.updateConstraints {
+                replyTextView.snp.updateConstraints {
                     $0.height.equalTo(height - 8)
                 }
                 
@@ -95,7 +95,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        replyTextField.snp.updateConstraints {
+        replyTextView.snp.updateConstraints {
             $0.height.equalTo(300)
         }
     }
@@ -105,7 +105,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         setupNavBar()
         setupNameLabel()
         setupDateLabel()
-        setupParentPrayTextField()
+        setupParentPrayTextView()
         setupTagCollectionView()
         setupReplyTextField()
         setupReplyHintLabel()
@@ -142,9 +142,9 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
             $0.left.right.equalToSuperview().inset(16)
         }
     }
-    private func setupParentPrayTextField() {
-        view.addSubview(parentPrayTextField)
-        parentPrayTextField.snp.makeConstraints {
+    private func setupParentPrayTextView() {
+        view.addSubview(parentPrayTextView)
+        parentPrayTextView.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(16)
             $0.height.equalTo(180)
@@ -153,7 +153,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     private func setupTagCollectionView() {
         view.addSubview(tagCollectionView)
         tagCollectionView.snp.makeConstraints {
-            $0.top.equalTo(parentPrayTextField.snp.bottom).offset(8)
+            $0.top.equalTo(parentPrayTextView.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(16)
             $0.height.equalTo(0)
         }
@@ -161,8 +161,8 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
         tagCollectionView.delegate = self
     }
     private func setupReplyTextField() {
-        view.addSubview(replyTextField)
-        replyTextField.snp.makeConstraints {
+        view.addSubview(replyTextView)
+        replyTextView.snp.makeConstraints {
             $0.top.equalTo(tagCollectionView.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(16)
             $0.height.equalTo(300)
@@ -178,13 +178,13 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
                                          action: #selector(didTapDoneButton))
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([space, doneButton], animated: false)
-        replyTextField.inputAccessoryView = toolBar
+        replyTextView.inputAccessoryView = toolBar
     }
     private func setupReplyHintLabel() {
         view.addSubview(replyHintLabel)
         replyHintLabel.snp.makeConstraints {
-            $0.left.equalTo(replyTextField).inset(4)
-            $0.top.equalTo(replyTextField).inset(8)
+            $0.left.equalTo(replyTextView).inset(4)
+            $0.top.equalTo(replyTextView).inset(8)
         }
     }
     
@@ -215,7 +215,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setReply: replyTextField.rx.text.asDriver(),
+        let input = VM.Input(setReply: replyTextView.rx.text.asDriver(),
                              saveReply: saveButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
@@ -232,7 +232,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
             .disposed(by: disposeBag)
         
         output.parentPray
-            .drive(parentPrayTextField.rx.text)
+            .drive(parentPrayTextView.rx.text)
             .disposed(by: disposeBag)
         
         output.parentTagList

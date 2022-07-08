@@ -41,7 +41,7 @@ class PrayReplyDetailVC: UIViewController, VCType {
     let replyTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(ReplyTableViewCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .sheep1
+        $0.backgroundColor = .sheep2
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 200
         $0.showsVerticalScrollIndicator = false

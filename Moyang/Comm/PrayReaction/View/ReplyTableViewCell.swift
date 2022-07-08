@@ -23,7 +23,7 @@ class ReplyTableViewCell: UITableViewCell {
     let bgView = UIView().then {
         $0.layer.cornerRadius = 12
         $0.layer.masksToBounds = true
-        $0.backgroundColor = .sheep2
+        $0.backgroundColor = .sheep1
     }
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .semibold)
@@ -33,11 +33,12 @@ class ReplyTableViewCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 13, weight: .regular)
         $0.textColor = .sheep5
     }
-    let replyTextField = UITextField().then {
+    let replyTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
+        $0.isEditable = false
     }
     let editButton = UIButton().then {
         $0.setTitle("수정", for: .normal)
@@ -52,6 +53,9 @@ class ReplyTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .clear
+        selectedBackgroundView = backgroundView
         setupUI()
         bind()
     }
@@ -65,6 +69,7 @@ class ReplyTableViewCell: UITableViewCell {
     }
     
     private func setupUI() {
+        backgroundColor = .sheep2
         setupBgView()
         setupNameLabel()
         setupDateLabel()
@@ -75,7 +80,8 @@ class ReplyTableViewCell: UITableViewCell {
     private func setupBgView() {
         contentView.addSubview(bgView)
         bgView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(12)
             $0.bottom.equalToSuperview().inset(12)
         }
     }
@@ -84,7 +90,6 @@ class ReplyTableViewCell: UITableViewCell {
         nameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
             $0.left.right.equalToSuperview().inset(12)
-            $0.height.equalTo(20)
         }
     }
     private func setupDateLabel() {
@@ -92,15 +97,14 @@ class ReplyTableViewCell: UITableViewCell {
         dateLabel.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(2)
             $0.left.equalToSuperview().inset(12)
-            $0.height.equalTo(20)
         }
     }
     private func setupReplyTextField() {
-        bgView.addSubview(replyTextField)
-        replyTextField.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
-            $0.left.equalToSuperview().inset(12)
-            $0.height.equalTo(100)
+        bgView.addSubview(replyTextView)
+        replyTextView.snp.makeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
+            $0.left.right.equalToSuperview().inset(8)
+            $0.height.equalTo(120)
             $0.bottom.equalToSuperview().inset(12)
         }
     }
@@ -123,8 +127,9 @@ class ReplyTableViewCell: UITableViewCell {
         guard let myInfo = UserData.shared.myInfo else { return }
         editButton.isHidden = myInfo.id != item.memberID
         deleteButton.isHidden = myInfo.id != item.memberID
-        
-        
+        nameLabel.text = item.name
+        dateLabel.text = item.date
+        replyTextView.text = item.reply
     }
     
     func bind() {
