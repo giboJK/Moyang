@@ -44,6 +44,11 @@ class GroupPrayTableViewCell: UITableViewCell {
         $0.textColor = .nightSky1
         $0.isHidden = true
     }
+    let firstPrayDateLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 13, weight: .regular)
+        $0.textColor = .nightSky4
+        $0.isHidden = true
+    }
     let firstPrayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 13, weight: .regular)
         $0.textColor = .nightSky4
@@ -157,6 +162,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         setupDateLabel()
         setupIsSecretLabel()
         setupPrayCountLabel()
+        setupFirstPrayDateLabel()
         setupFirstPrayLabel()
         setupFirstPrayDivider()
         setupLatestPrayLabel()
@@ -212,10 +218,17 @@ class GroupPrayTableViewCell: UITableViewCell {
             $0.left.right.equalToSuperview().inset(12)
         }
     }
+    private func setupFirstPrayDateLabel() {
+        bgView.addSubview(firstPrayDateLabel)
+        firstPrayDateLabel.snp.makeConstraints {
+            $0.top.equalTo(prayCountLabel.snp.bottom).offset(4)
+            $0.left.right.equalToSuperview().inset(12)
+        }
+    }
     private func setupFirstPrayLabel() {
         bgView.addSubview(firstPrayLabel)
         firstPrayLabel.snp.makeConstraints {
-            $0.top.equalTo(prayCountLabel.snp.bottom).offset(4)
+            $0.top.equalTo(firstPrayDateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(12)
         }
     }
@@ -394,14 +407,16 @@ class GroupPrayTableViewCell: UITableViewCell {
         setupReactionAndReplyView(reactions: item.reactions, replys: item.replys)
         
         prayCountLabel.isHidden = item.changes.isEmpty
+        firstPrayDateLabel.isHidden = item.changes.isEmpty
         firstPrayLabel.isHidden = item.changes.isEmpty
         firstPrayDivider.isHidden = item.changes.isEmpty
         if !item.changes.isEmpty {
             prayCountLabel.text = "총 \(item.changes.count + 1)개의 기도가 있습니다."
+            firstPrayDateLabel.text = "처음 등록일: " + item.date
             firstPrayLabel.text = item.pray
             firstPrayLabel.lineBreakMode = .byTruncatingTail
             latestPrayLabel.text = item.changes.last!.reply
-            dateLabel.text = item.changes.last!.date
+            dateLabel.text = "최근 기록일: " + item.changes.last!.date
             
             dateLabel.snp.remakeConstraints {
                 $0.top.equalTo(firstPrayDivider.snp.bottom).offset(8)

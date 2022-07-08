@@ -38,6 +38,16 @@ class PrayReplyDetailVC: UIViewController, VCType {
         $0.layer.borderColor = .nightSky4
         $0.layer.borderWidth = 1.0
     }
+    let replyTableView = UITableView().then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.register(ReplyTableViewCell.self, forCellReuseIdentifier: "cell")
+        $0.backgroundColor = .sheep1
+        $0.separatorStyle = .none
+        $0.estimatedRowHeight = 200
+        $0.showsVerticalScrollIndicator = false
+        $0.bounces = true
+        $0.isScrollEnabled = true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +66,7 @@ class PrayReplyDetailVC: UIViewController, VCType {
         setupNavBar()
         setupDateSortButton()
         setupNameSortButton()
+        setupReplyTableView()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -83,7 +94,14 @@ class PrayReplyDetailVC: UIViewController, VCType {
             $0.width.equalTo(64)
         }
     }
-
+    private func setupReplyTableView() {
+        view.addSubview(replyTableView)
+        replyTableView.snp.makeConstraints {
+            $0.top.equalTo(dateSortButton.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+    }
     // MARK: - Binding
     func bind() {
         bindViews()
@@ -104,6 +122,14 @@ class PrayReplyDetailVC: UIViewController, VCType {
         )
         
         let output = vm.transform(input: input)
+        
+        output.itemList
+            .drive(replyTableView.rx
+                .items(cellIdentifier: "cell", cellType: ReplyTableViewCell.self)) { (index, item, cell) in
+                    cell.index = index
+                    cell.setupData(item: item)
+                }.disposed(by: disposeBag)
+
         
         output.isDateSorted
             .drive(onNext: { [weak self] isDateSorted in

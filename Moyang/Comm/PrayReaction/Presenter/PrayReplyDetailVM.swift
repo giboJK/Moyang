@@ -55,6 +55,7 @@ extension PrayReplyDetailVM {
 extension PrayReplyDetailVM {
     struct ReplyItem {
         let memberID: String
+        let name: String
         let reply: String
         let date: String
         var reactions: [PrayReaction]
@@ -62,6 +63,7 @@ extension PrayReplyDetailVM {
         let isHeader: Bool
         
         init(memberID: String,
+             name: String,
              reply: String,
              date: String,
              reactions: [PrayReaction],
@@ -69,6 +71,7 @@ extension PrayReplyDetailVM {
              isHeader: Bool = false
         ) {
             self.memberID = memberID
+            self.name = name
             self.reply = reply
             self.date = date
             self.reactions = reactions
