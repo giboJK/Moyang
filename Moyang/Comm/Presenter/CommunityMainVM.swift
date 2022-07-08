@@ -56,7 +56,8 @@ class CommunityMainVM: VMType {
                                                             isSecret: item.pray.isSecret,
                                                             isRequestPray: item.pray.isRequestPray,
                                                             reactions: item.pray.reactions,
-                                                            replys: item.pray.replys
+                                                            replys: item.pray.replys,
+                                                            registeredDate: item.pray.registeredDate
                                                            ))
                 }
                 return itemList
@@ -80,7 +81,8 @@ class CommunityMainVM: VMType {
                                                    isSecret: myPray.pray.isSecret,
                                                    isRequestPray: myPray.pray.isRequestPray,
                                                    reactions: myPray.pray.reactions,
-                                                   replys: myPray.pray.replys
+                                                   replys: myPray.pray.replys,
+                                                   registeredDate: myPray.pray.registeredDate
                     )
                 } else {
                     return nil
@@ -153,6 +155,7 @@ extension CommunityMainVM {
         let reactions: [PrayReaction]
         let replys: [PrayReply]
         let changes: [PrayReply]
+        let registeredDate: String
         
         init(memberID: String,
              memberAuth: String,
@@ -165,7 +168,8 @@ extension CommunityMainVM {
              isSecret: Bool,
              isRequestPray: Bool,
              reactions: [PrayReaction],
-             replys: [PrayReply]
+             replys: [PrayReply],
+             registeredDate: String
         ) {
             self.memberID = memberID
             self.memberAuth = memberAuth
@@ -180,6 +184,7 @@ extension CommunityMainVM {
             self.reactions = reactions
             self.replys = replys.filter { $0.memberID != memberID }
             self.changes = replys.filter { $0.memberID == memberID }
+            self.registeredDate = registeredDate
         }
     }
 }

@@ -412,7 +412,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         firstPrayDivider.isHidden = item.changes.isEmpty
         if !item.changes.isEmpty {
             prayCountLabel.text = "총 \(item.changes.count + 1)개의 기도가 있습니다."
-            firstPrayDateLabel.text = "처음 등록일: " + item.date
+            firstPrayDateLabel.text = "처음 등록일: " + item.registeredDate
             firstPrayLabel.text = item.pray
             firstPrayLabel.lineBreakMode = .byTruncatingTail
             latestPrayLabel.text = item.changes.last!.reply

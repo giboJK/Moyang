@@ -113,7 +113,8 @@ class GroupPrayingVM: VMType {
                                          isSecret: pray.isSecret,
                                          isRequestPray: pray.isRequestPray,
                                          reactions: pray.reactions,
-                                         replys: pray.replys
+                                         replys: pray.replys,
+                                         registeredDate: pray.registeredDate
                                         ))
             }
         }

@@ -93,7 +93,8 @@ class GroupPrayListVM: VMType {
                          isSecret: pray.isSecret,
                          isRequestPray: pray.isRequestPray,
                          reactions: pray.reactions,
-                         replys: pray.replys
+                         replys: pray.replys,
+                         registeredDate: pray.registeredDate
                 )
             }
             itemList.append(contentsOf: mapped)
