@@ -250,8 +250,8 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
     private func setupReplyTableView() {
         view.addSubview(changeTableView)
         changeTableView.snp.makeConstraints {
-            $0.top.equalTo(isSecretCheckBox.snp.bottom)
-            $0.left.right.equalToSuperview().inset(12)
+            $0.top.equalTo(isSecretCheckBox.snp.bottom).offset(8)
+            $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
     }
