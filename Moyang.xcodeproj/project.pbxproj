@@ -162,6 +162,7 @@
 		24DABE7327E89E680008D132 /* praysong.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 24FAEF0D27E2153800B2DA81 /* praysong.m4a */; };
 		24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB53BA27479DAA00F861EC /* UINavigationController+.swift */; };
 		24DB58DE2845CA8E001E12B0 /* CommunityGroupPrayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB58DD2845CA8E001E12B0 /* CommunityGroupPrayCollectionViewCell.swift */; };
+		24DDDEBE2879D49D00F7B82A /* GroupInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DDDEBD2879D49D00F7B82A /* GroupInfoTableViewCell.swift */; };
 		24E0AB1D283D1ECF00F52505 /* GroupPrayingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB1C283D1ECF00F52505 /* GroupPrayingVC.swift */; };
 		24E0AB1F283D1FF900F52505 /* MoyangNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB1E283D1FF900F52505 /* MoyangNavBar.swift */; };
 		24E0AB21283D228A00F52505 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB20283D228A00F52505 /* UIView+.swift */; };
@@ -354,6 +355,7 @@
 		24DABE7127E8610C0008D132 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24DB53BA27479DAA00F861EC /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		24DB58DD2845CA8E001E12B0 /* CommunityGroupPrayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityGroupPrayCollectionViewCell.swift; sourceTree = "<group>"; };
+		24DDDEBD2879D49D00F7B82A /* GroupInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoTableViewCell.swift; sourceTree = "<group>"; };
 		24E0AB1C283D1ECF00F52505 /* GroupPrayingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayingVC.swift; sourceTree = "<group>"; };
 		24E0AB1E283D1FF900F52505 /* MoyangNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangNavBar.swift; sourceTree = "<group>"; };
 		24E0AB20283D228A00F52505 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -961,6 +963,7 @@
 			isa = PBXGroup;
 			children = (
 				24CFA8BD28792D4800484C89 /* AllGroupVC.swift */,
+				24DDDEBD2879D49D00F7B82A /* GroupInfoTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1431,6 +1434,7 @@
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
 				24E0AB25283E508B00F52505 /* CommunityMainScrollView.swift in Sources */,
 				08EBCFBE27FDD1E800BDCB14 /* SignUpView.swift in Sources */,
+				24DDDEBE2879D49D00F7B82A /* GroupInfoTableViewCell.swift in Sources */,
 				24A757B527B1444D00D94002 /* GroupQuestionList.swift in Sources */,
 				242F929C2848E02F0023324D /* GroupPrayCoordinator.swift in Sources */,
 				24E8F07E27DDD7280036C0F0 /* WebView.swift in Sources */,
@@ -1681,7 +1685,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2427333XUL;
 				ENABLE_PREVIEWS = YES;
@@ -1715,7 +1719,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2427333XUL;
 				ENABLE_PREVIEWS = YES;

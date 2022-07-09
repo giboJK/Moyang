@@ -246,6 +246,36 @@ extension CommunityController: GroupPrayRepo {
 
 extension CommunityController: AllGroupRepo {
     func fetchGroupList(myInfo: MemberDetail, completion: ((Result<[GroupInfo], MoyangError>) -> Void)?) {
+        let query = firestoreService.store
+            .collection("COMMUNITY")
+            .document(myInfo.community.uppercased())
+            .collection("2022")
+            .whereField("id", in: myInfo.groupList)
         
+            query.getDocuments { querySnapshot, error in
+                if let error = error {
+                    completion?(.failure(.other(error)))
+                }
+                if let querySnapshot = querySnapshot {
+                    if querySnapshot.documents.isEmpty {
+                        completion?(.failure(.emptyData))
+                    } else {
+                        
+                        let decoder = JSONDecoder()
+                        var objectList = [GroupInfo]()
+                        querySnapshot.documents.forEach { queryDocumentSnapshot in
+                            if let data = try? JSONSerialization.data(withJSONObject: queryDocumentSnapshot.data(), options: []) {
+                                do {
+                                    let object = try decoder.decode(GroupInfo.self, from: data)
+                                    objectList.append(object)
+                                } catch let error {
+                                    completion?(.failure(.other(error)))
+                                }
+                            }
+                        }
+                        completion?(.success(objectList))
+                    }
+                }
+            }
     }
 }

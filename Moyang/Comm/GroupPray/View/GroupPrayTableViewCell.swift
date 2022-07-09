@@ -287,7 +287,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         latestPrayLabel.snp.remakeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(12)
-            $0.height.lessThanOrEqualTo(124)
+            $0.height.lessThanOrEqualTo(116)
         }
         latestPrayLabel.lineBreakMode = .byTruncatingTail
     }
@@ -415,8 +415,8 @@ class GroupPrayTableViewCell: UITableViewCell {
             firstPrayDateLabel.text = "처음 등록일: " + item.registeredDate
             firstPrayLabel.text = item.pray
             firstPrayLabel.lineBreakMode = .byTruncatingTail
-            latestPrayLabel.text = item.changes.last!.reply
-            dateLabel.text = "최근 기록일: " + item.changes.last!.date
+            latestPrayLabel.text = item.changes.first!.reply
+            dateLabel.text = "최근 기록일: " + item.changes.first!.date
             
             dateLabel.snp.remakeConstraints {
                 $0.top.equalTo(firstPrayDivider.snp.bottom).offset(8)
