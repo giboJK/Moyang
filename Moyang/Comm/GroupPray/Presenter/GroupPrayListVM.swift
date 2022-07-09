@@ -168,11 +168,11 @@ class GroupPrayListVM: VMType {
     
     private func setGroupPrayEditVM(index: Int) {
         guard let myInfo = UserData.shared.myInfo else { return }
-        if myInfo.email == email && myInfo.authType == auth {
-            let prayIrem = prayList.value[index]
-            editVM.accept(GroupPrayEditVM(prayItem: prayIrem,
-                                          useCase: useCase))
-        }
+        
+        let prayIrem = prayList.value[index]
+        editVM.accept(GroupPrayEditVM(prayItem: prayIrem,
+                                      isMyPray: (myInfo.email == email && myInfo.authType == auth),
+                                      useCase: useCase))
     }
     
     private func setPrayWithVM(index: Int) {

@@ -14,6 +14,7 @@ class GroupPrayEditVM: VMType {
     
     var useCase: CommunityMainUseCase
     
+    let isMyPray = BehaviorRelay<Bool>(value: false)
     let newPray = BehaviorRelay<String?>(value: nil)
     let newTag = BehaviorRelay<String?>(value: nil)
     let tagList = BehaviorRelay<[String]>(value: [])
@@ -27,10 +28,11 @@ class GroupPrayEditVM: VMType {
     
     let changeItemList = BehaviorRelay<[PrayChangeItem]>(value: [])
     
-    init(prayItem: PrayItem, useCase: CommunityMainUseCase) {
+    init(prayItem: PrayItem, isMyPray: Bool, useCase: CommunityMainUseCase) {
         self.prayID = prayItem.prayID
         self.useCase = useCase
         setInitialData(item: prayItem)
+        self.isMyPray.accept(isMyPray)
         bind()
     }
     
@@ -83,6 +85,7 @@ extension GroupPrayEditVM {
     }
 
     struct Output {
+        let isMyPray: Driver<Bool>
         let newPray: Driver<String?>
         let newTag: Driver<String?>
         let tagList: Driver<[String]>
@@ -146,7 +149,8 @@ extension GroupPrayEditVM {
                 self.isRequestPray.accept(!self.isRequestPray.value)
             }).disposed(by: disposeBag)
         
-        return Output(newPray: newPray.asDriver(),
+        return Output(isMyPray: isMyPray.asDriver(),
+                      newPray: newPray.asDriver(),
                       newTag: newTag.asDriver(),
                       tagList: tagList.asDriver(),
                       editingPraySuccess: editingPraySuccess.asDriver(),
@@ -160,11 +164,13 @@ extension GroupPrayEditVM {
 
 extension GroupPrayEditVM {
     struct PrayChangeItem {
+        let memberID: String
         let reply: String
         let date: String
         let order: Int
         
         init(reply: PrayReply) {
+            self.memberID = reply.memberID
             self.reply = reply.reply
             self.date = reply.date
             self.order = reply.order

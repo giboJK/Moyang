@@ -111,6 +111,9 @@ class ChangeTableViewCell: UITableViewCell {
     }
     
     func setupData(item: VM.PrayChangeItem) {
+        guard let myInfo = UserData.shared.myInfo else { return }
+        editButton.isHidden = myInfo.id != item.memberID
+        deleteButton.isHidden = myInfo.id != item.memberID
         dateLabel.text = item.date
         changeTextView.text = item.reply
     }

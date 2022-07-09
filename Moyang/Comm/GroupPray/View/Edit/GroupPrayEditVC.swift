@@ -354,6 +354,13 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         
         let output = vm.transform(input: input)
         
+        output.isMyPray
+            .drive(onNext: { [weak self] isMyPray in
+                self?.editButton.isHidden = !isMyPray
+                self?.deleteButton.isHidden = !isMyPray
+                self?.recordChangeButton.isHidden = !isMyPray
+            }).disposed(by: disposeBag)
+        
         output.newPray
             .map { !($0?.isEmpty ?? true) }
             .drive(editButton.rx.isEnabled)
