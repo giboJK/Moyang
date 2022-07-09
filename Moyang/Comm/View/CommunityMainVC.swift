@@ -32,7 +32,7 @@ class CommunityMainVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 17, weight: .bold)
     }
     let moreGroupButton = UIButton().then {
-        $0.setTitle("그룹", for: .normal)
+        $0.setTitle("모든 그룹", for: .normal)
         $0.setTitleColor(.nightSky3, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }

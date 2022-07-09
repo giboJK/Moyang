@@ -1,10 +1,9 @@
 //
-//  ReplyTableViewCell.swift
+//  ChangeTableViewCell.swift
 //  Moyang
 //
-//  Created by 정김기보 on 2022/07/08.
+//  Created by 정김기보 on 2022/07/09.
 //
-
 import UIKit
 import SnapKit
 import Then
@@ -12,8 +11,8 @@ import RxCocoa
 import RxSwift
 import RxGesture
 
-class ReplyTableViewCell: UITableViewCell {
-    typealias VM = PrayReplyDetailVM
+class ChangeTableViewCell: UITableViewCell {
+    typealias VM = GroupPrayEditVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var index: Int?
@@ -25,15 +24,11 @@ class ReplyTableViewCell: UITableViewCell {
         $0.layer.masksToBounds = true
         $0.backgroundColor = .sheep1
     }
-    let nameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .semibold)
-        $0.textColor = .nightSky1
-    }
     let dateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 13, weight: .regular)
         $0.textColor = .sheep5
     }
-    let replyTextView = UITextView().then {
+    let changeTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
@@ -69,11 +64,10 @@ class ReplyTableViewCell: UITableViewCell {
     }
     
     private func setupUI() {
-        backgroundColor = .sheep2
+        contentView.backgroundColor = .sheep2
         setupBgView()
-        setupNameLabel()
         setupDateLabel()
-        setupReplyTextField()
+        setupChangeTextField()
         setupDeleteButton()
         setupEditButton()
     }
@@ -85,23 +79,16 @@ class ReplyTableViewCell: UITableViewCell {
             $0.bottom.equalToSuperview().inset(12)
         }
     }
-    private func setupNameLabel() {
-        bgView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
-            $0.left.right.equalToSuperview().inset(12)
-        }
-    }
     private func setupDateLabel() {
         bgView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
+            $0.top.equalToSuperview().inset(12)
             $0.left.equalToSuperview().inset(12)
         }
     }
-    private func setupReplyTextField() {
-        bgView.addSubview(replyTextView)
-        replyTextView.snp.makeConstraints {
+    private func setupChangeTextField() {
+        bgView.addSubview(changeTextView)
+        changeTextView.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(8)
             $0.height.equalTo(120)
@@ -111,25 +98,21 @@ class ReplyTableViewCell: UITableViewCell {
     private func setupDeleteButton() {
         bgView.addSubview(deleteButton)
         deleteButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
+            $0.top.equalToSuperview().inset(4)
             $0.right.equalToSuperview().inset(12)
         }
     }
-    
     private func setupEditButton() {
         bgView.addSubview(editButton)
         editButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
+            $0.top.equalToSuperview().inset(4)
             $0.right.equalTo(deleteButton.snp.left).offset(-12)
         }
     }
-    func setupData(item: VM.ReplyItem) {
-        guard let myInfo = UserData.shared.myInfo else { return }
-        editButton.isHidden = myInfo.id != item.memberID
-        deleteButton.isHidden = myInfo.id != item.memberID
-        nameLabel.text = item.name
+    
+    func setupData(item: VM.PrayChangeItem) {
         dateLabel.text = item.date
-        replyTextView.text = item.reply
+        changeTextView.text = item.reply
     }
     
     func bind() {

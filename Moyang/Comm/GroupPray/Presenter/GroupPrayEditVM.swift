@@ -25,6 +25,8 @@ class GroupPrayEditVM: VMType {
     let isRequestPray = BehaviorRelay<Bool>(value: false)
     let prayID: String
     
+    let changeItemList = BehaviorRelay<[PrayChangeItem]>(value: [])
+    
     init(prayItem: PrayItem, useCase: CommunityMainUseCase) {
         self.prayID = prayItem.prayID
         self.useCase = useCase
@@ -49,6 +51,12 @@ class GroupPrayEditVM: VMType {
         tagList.accept(item.tags)
         isSecret.accept(item.isSecret)
         isRequestPray.accept(item.isRequestPray)
+        setChangeItemList(item: item)
+    }
+    
+    private func setChangeItemList(item: PrayItem) {
+        let changes = item.changes.map { PrayChangeItem(reply: $0) }
+        changeItemList.accept(changes)
     }
     
     private func editPray() {
@@ -81,6 +89,7 @@ extension GroupPrayEditVM {
         let editingPrayFailure: Driver<Void>
         let isSecret: Driver<Bool>
         let isRequestPray: Driver<Bool>
+        let changeItemList: Driver<[PrayChangeItem]>
     }
 
     func transform(input: Input) -> Output {
@@ -98,7 +107,7 @@ extension GroupPrayEditVM {
             .skip(1)
             .drive(onNext: { [weak self] tag in
                 guard let tag = tag else { return }
-                self?.newTag.accept(String(tag.prefix(20)))
+                self?.newTag.accept(String(tag.prefix(10)))
             }).disposed(by: disposeBag)
         
         input.addTag
@@ -142,7 +151,22 @@ extension GroupPrayEditVM {
                       editingPraySuccess: editingPraySuccess.asDriver(),
                       editingPrayFailure: editingPrayFailure.asDriver(),
                       isSecret: isSecret.asDriver(),
-                      isRequestPray: isRequestPray.asDriver()
+                      isRequestPray: isRequestPray.asDriver(),
+                      changeItemList: changeItemList.asDriver()
         )
+    }
+}
+
+extension GroupPrayEditVM {
+    struct PrayChangeItem {
+        let reply: String
+        let date: String
+        let order: Int
+        
+        init(reply: PrayReply) {
+            self.reply = reply.reply
+            self.date = reply.date
+            self.order = reply.order
+        }
     }
 }

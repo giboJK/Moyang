@@ -20,7 +20,7 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
-        $0.title = "기도 수정"
+        $0.title = "기도 상세"
     }
     let editButton = UIButton().then {
         $0.setTitle("수정", for: .normal)
@@ -28,14 +28,14 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         $0.setTitleColor(.nightSky2, for: .normal)
         $0.setTitleColor(.sheep4, for: .disabled)
     }
-    let newPrayTextField = UITextView().then {
+    let firstPrayTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
     }
     let tagInfoLabel = UILabel().then {
-        $0.text = "태그는 5개까지 추가되며 하나당 최대 20자입니다."
+        $0.text = "태그는 5개까지 추가되며 하나당 최대 10자입니다."
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .sheep4
         $0.numberOfLines = 0
@@ -69,6 +69,29 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         $0.textColor = .sheep4
     }
     let isRequestPrayCheckBox = CheckBox()
+    let changeTableView = UITableView().then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.register(ChangeTableViewCell.self, forCellReuseIdentifier: "cell")
+        $0.backgroundColor = .clear
+        $0.separatorStyle = .none
+        $0.estimatedRowHeight = 100
+        $0.showsVerticalScrollIndicator = false
+        $0.bounces = true
+        $0.isScrollEnabled = true
+    }
+    let recordChangeButton = MoyangButton(.none).then {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 15, weight: .bold),
+            .foregroundColor: UIColor.wilderness1,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        
+        let attributeString = NSMutableAttributedString(
+            string: "변화를 기록해보세요 😄",
+            attributes: attributes
+        )
+        $0.setAttributedTitle(attributeString, for: .normal)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,12 +108,14 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
     func setupUI() {
         view.backgroundColor = .sheep2
         setupNavBar()
-        setupNewPrayTextField()
+        setupfirstPrayTextView()
         setupTagInfoLabel()
         setupTagTextField()
         setupTagCollectionView()
         setupIsSecretLabel()
         setupIsSecretCheckBox()
+        setupReplyTableView()
+        setupRecordChangeButton()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -109,12 +134,12 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
             $0.height.equalTo(20)
         }
     }
-    private func setupNewPrayTextField() {
-        view.addSubview(newPrayTextField)
-        newPrayTextField.snp.makeConstraints {
+    private func setupfirstPrayTextView() {
+        view.addSubview(firstPrayTextView)
+        firstPrayTextView.snp.makeConstraints {
             $0.top.equalTo(navBar.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(240)
+            $0.height.equalTo(180)
         }
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
             $0.sizeToFit()
@@ -127,13 +152,13 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
                                          action: #selector(didTapDoneButton))
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([space, doneButton], animated: false)
-        newPrayTextField.inputAccessoryView = toolBar
+        firstPrayTextView.inputAccessoryView = toolBar
     }
     
     private func setupTagInfoLabel() {
         view.addSubview(tagInfoLabel)
         tagInfoLabel.snp.makeConstraints {
-            $0.top.equalTo(newPrayTextField.snp.bottom).offset(12)
+            $0.top.equalTo(firstPrayTextView.snp.bottom).offset(12)
             $0.left.right.equalToSuperview().inset(20)
         }
     }
@@ -200,6 +225,44 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
             $0.size.equalTo(18)
         }
     }
+    private func setupReplyTableView() {
+        view.addSubview(changeTableView)
+        changeTableView.snp.makeConstraints {
+            $0.top.equalTo(isSecretCheckBox.snp.bottom)
+            $0.left.right.equalToSuperview().inset(12)
+            $0.bottom.equalToSuperview()
+        }
+    }
+    private func setupRecordChangeButton() {
+        view.addSubview(recordChangeButton)
+        recordChangeButton.snp.makeConstraints {
+            $0.top.equalTo(isSecretCheckBox.snp.bottom).offset(100)
+            $0.centerX.equalToSuperview()
+        }
+    }
+    private func updateTagCollectionViewHeight(list: [String]) {
+        if tagCollectionView.visibleCells.count < list.count {
+            increaseTagCollectionViewHeight(count: list.count)
+        } else {
+            if !self.tagCollectionView.visibleCells.isEmpty {
+                var maxY: CGFloat = 0
+                self.tagCollectionView.visibleCells.forEach { cell in
+                    maxY = max(cell.frame.maxY, maxY)
+                }
+                let currentHeight = self.tagCollectionView.bounds.height
+                if currentHeight - maxY > 8 {
+                    self.tagCollectionView.snp.updateConstraints {
+                        $0.height.equalTo(currentHeight - 8 - 32)
+                    }
+                }
+            } else {
+                self.tagCollectionView.snp.updateConstraints {
+                    $0.height.equalTo(0)
+                }
+            }
+        }
+    }
+    
     private func increaseTagCollectionViewHeight(count: Int) {
         let currentHeight = tagCollectionView.bounds.height
         tagCollectionView.snp.updateConstraints {
@@ -244,7 +307,7 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setPray: newPrayTextField.rx.text.asDriver(),
+        let input = VM.Input(setPray: firstPrayTextView.rx.text.asDriver(),
                              editPray: editButton.rx.tap.asDriver(),
                              setTag: tagTextField.rx.text.asDriver(),
                              addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
@@ -254,14 +317,13 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         let output = vm.transform(input: input)
         
         output.newPray
-            .map { $0?.isEmpty ?? true }
-            .map { !$0 }
+            .map { !($0?.isEmpty ?? true) }
             .drive(editButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
         output.newPray
             .distinctUntilChanged()
-            .drive(newPrayTextField.rx.text)
+            .drive(firstPrayTextView.rx.text)
             .disposed(by: disposeBag)
         
         output.newTag
@@ -269,13 +331,9 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
             .disposed(by: disposeBag)
         
         output.tagList
-            .map { $0.count < 5 }
-            .drive(tagTextField.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
-        output.tagList
             .map { $0.count >= 5 }
             .drive(onNext: { [weak self] isFullTag in
+                self?.tagTextField.isEnabled = !isFullTag
                 self?.tagTextField.backgroundColor = isFullTag ? .sheep3 : .sheep1
             }).disposed(by: disposeBag)
         
@@ -288,27 +346,7 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         output.tagList
             .delay(.milliseconds(50))
             .drive(onNext: { [weak self] list in
-                guard let self = self else { return }
-                if self.tagCollectionView.visibleCells.count < list.count {
-                    self.increaseTagCollectionViewHeight(count: list.count)
-                } else {
-                    if !self.tagCollectionView.visibleCells.isEmpty {
-                        var maxY: CGFloat = 0
-                        self.tagCollectionView.visibleCells.forEach { cell in
-                            maxY = max(cell.frame.maxY, maxY)
-                        }
-                        let currentHeight = self.tagCollectionView.bounds.height
-                        if currentHeight - maxY > 8 {
-                            self.tagCollectionView.snp.updateConstraints {
-                                $0.height.equalTo(currentHeight - 8 - 32)
-                            }
-                        }
-                    } else {
-                        self.tagCollectionView.snp.updateConstraints {
-                            $0.height.equalTo(0)
-                        }
-                    }
-                }
+                self?.updateTagCollectionViewHeight(list: list)
             }).disposed(by: disposeBag)
         
         output.editingPraySuccess
@@ -340,6 +378,18 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         output.isRequestPray
             .drive(isRequestPrayCheckBox.rx.isChecked)
             .disposed(by: disposeBag)
+        
+        output.changeItemList
+            .map { !$0.isEmpty }
+            .drive(recordChangeButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        output.changeItemList
+            .drive(changeTableView.rx
+                .items(cellIdentifier: "cell", cellType: ChangeTableViewCell.self)) { (index, item, cell) in
+                    cell.index = index
+                    cell.setupData(item: item)
+                }.disposed(by: disposeBag)
     }
 }
 

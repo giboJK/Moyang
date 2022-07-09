@@ -13,6 +13,7 @@ disabled_rules:
 - comment_spacing
 - orphaned_doc_comment
 - empty_enum_arguments
+- block_based_kvo
 
 force_cast: warning
 

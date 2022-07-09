@@ -183,7 +183,7 @@ extension CommunityMainVM {
             self.isRequestPray = isRequestPray
             self.reactions = reactions
             self.replys = replys.filter { $0.memberID != memberID }
-            self.changes = replys.filter { $0.memberID == memberID }
+            self.changes = replys.filter { $0.memberID == memberID }.sorted(by: { $0.date > $1.date })
             self.registeredDate = registeredDate
         }
     }
