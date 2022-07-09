@@ -21,7 +21,7 @@ class PrayReplyDetailVC: UIViewController, VCType {
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
         $0.backButton.isHidden = true
-        $0.title = "함께하는 성도들"
+        $0.title = "같이 기도하기"
         $0.backButton.tintColor = .nightSky1
     }
     let dateSortButton = UIButton().then {

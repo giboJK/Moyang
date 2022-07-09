@@ -58,6 +58,25 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             return assembly
         }
         
+        // MARK: - AllGroup
+        container.register(AllGroupRepo.self) { r in
+            CommunityController(firestoreService: r ~> (FirestoreService.self))
+        }
+        
+        container.register(AllGroupUseCase.self) { r in
+            AllGroupUseCase(repo: r ~> (AllGroupRepo.self))
+        }
+        
+        container.register(AllGroupVM.self) { r in
+            AllGroupVM(useCase: r ~> (AllGroupUseCase.self))
+        }
+        
+        container.register(AllGroupVC.self) { r in
+            let vc = AllGroupVC()
+            vc.vm = r ~> (AllGroupVM.self)
+            return vc
+        }
+        
         container.register(CommunityMainCoordinator.self) { r in
             guard let nav = self.nav else { return CommunityMainCoordinator() }
             let coordinator = CommunityMainCoordinator(nav: nav, assembler: Assembler([self,

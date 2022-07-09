@@ -243,3 +243,9 @@ extension CommunityController: GroupPrayRepo {
         }
     }
 }
+
+extension CommunityController: AllGroupRepo {
+    func fetchGroupList(myInfo: MemberDetail, completion: ((Result<[GroupInfo], MoyangError>) -> Void)?) {
+        
+    }
+}

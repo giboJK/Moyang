@@ -46,4 +46,15 @@ extension CommunityMainCoordinator: CommunityMainVCDelegate {
             vc.coordinator = groupPrayCoordinator
         }
     }
+    
+    func showAllGroup() {
+        if let vc = assembler.resolver.resolve(AllGroupVC.self) {
+            vc.coordinator = self
+            nav.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+extension CommunityMainCoordinator: AllGroupVCDelegate {
+    
 }

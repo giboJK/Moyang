@@ -19,7 +19,7 @@ class PrayReactionDetailVC: UIViewController, VCType {
     // MARK: - UI
     let cornerRadiusView = UIView().then {
         $0.backgroundColor = .sheep2
-        $0.layer.cornerRadius = 17
+        $0.layer.cornerRadius = 14
         $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         $0.layer.masksToBounds = true
     }

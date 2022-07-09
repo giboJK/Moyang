@@ -31,7 +31,7 @@ class CommunityMainVC: UIViewController, VCType {
         $0.textColor = .nightSky1
         $0.font = .systemFont(ofSize: 17, weight: .bold)
     }
-    let moreGroupButton = UIButton().then {
+    let allGroupButton = UIButton().then {
         $0.setTitle("모든 그룹", for: .normal)
         $0.setTitleColor(.nightSky3, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
@@ -88,7 +88,7 @@ class CommunityMainVC: UIViewController, VCType {
             $0.bottom.equalToSuperview()
         }
         setupGroupNameLabel()
-        setupMoreGroupButton()
+        setupAllGroupButton()
         setupCommunityGroupPrayCard()
     }
     private func setupGroupNameLabel() {
@@ -99,9 +99,9 @@ class CommunityMainVC: UIViewController, VCType {
             $0.right.equalToSuperview().inset(160)
         }
     }
-    private func setupMoreGroupButton() {
-        scrollView.container.addSubview(moreGroupButton)
-        moreGroupButton.snp.makeConstraints {
+    private func setupAllGroupButton() {
+        scrollView.container.addSubview(allGroupButton)
+        allGroupButton.snp.makeConstraints {
             $0.top.bottom.equalTo(groupNameLabel)
             $0.right.equalToSuperview().inset(20)
         }
@@ -128,6 +128,11 @@ class CommunityMainVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
+        
+        allGroupButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.showAllGroup()
+            }).disposed(by: disposeBag)
     }
     
     func bindVM() {
@@ -151,4 +156,5 @@ class CommunityMainVC: UIViewController, VCType {
 
 protocol CommunityMainVCDelegate: AnyObject {
     func didTapGroupPrayCard(groupPrayVM: GroupPrayVM)
+    func showAllGroup()
 }
