@@ -110,7 +110,7 @@ class MoyangButton: UIButton {
         setTitleColor(.sheep1, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
         setTitleColor(.sheep3, for: .highlighted)
-        backgroundColor = (isEnabled && !isHighlighted) ? .appleRed1 : .sheep5
+        backgroundColor = (isEnabled && !isHighlighted) ? .appleRed2 : .appleRed1
     }
     
     private func setupCancelButton() {

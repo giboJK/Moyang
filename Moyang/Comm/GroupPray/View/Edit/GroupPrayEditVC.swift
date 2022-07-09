@@ -28,6 +28,12 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         $0.setTitleColor(.nightSky2, for: .normal)
         $0.setTitleColor(.sheep4, for: .disabled)
     }
+    let deleteButton = UIButton().then {
+        $0.setTitle("삭제", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.setTitleColor(.appleRed1, for: .normal)
+        $0.setTitleColor(.sheep4, for: .disabled)
+    }
     let firstPrayTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
@@ -92,6 +98,13 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         )
         $0.setAttributedTitle(attributeString, for: .normal)
     }
+    let deleteConfirmPopup = MoyangPopupView(style: .twoButton,
+                                             firstButtonStyle: .warning,
+                                             secondButtonStyle: .cancel).then {
+        $0.desc = "정말로 삭제하시겠어요? 해당 기도와 관련된 모든 데이터가 지워집니다."
+        $0.firstButton.setTitle("삭제", for: .normal)
+        $0.secondButton.setTitle("취소", for: .normal)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,11 +137,20 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
             $0.top.equalToSuperview()
             $0.height.equalTo(44 + UIApplication.statusBarHeight)
         }
+        setupDeleteButton()
         setupEditButton()
     }
     private func setupEditButton() {
         navBar.addSubview(editButton)
         editButton.snp.makeConstraints {
+            $0.right.equalTo(deleteButton.snp.left).offset(-12)
+            $0.bottom.equalToSuperview().inset(10)
+            $0.height.equalTo(20)
+        }
+    }
+    private func setupDeleteButton() {
+        navBar.addSubview(deleteButton)
+        deleteButton.snp.makeConstraints {
             $0.right.equalToSuperview().inset(12)
             $0.bottom.equalToSuperview().inset(10)
             $0.height.equalTo(20)
@@ -296,6 +318,22 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         navBar.backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
+        
+        deleteButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.deleteConfirmPopup)
+            }).disposed(by: disposeBag)
+        
+        deleteConfirmPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        deleteConfirmPopup.secondButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
             }).disposed(by: disposeBag)
         
         tagTextField.rx.controlEvent(.editingDidEnd)

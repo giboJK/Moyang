@@ -79,6 +79,7 @@ extension GroupPrayEditVM {
         var deleteTag: Driver<IndexPath?> = .empty()
         var toggleIsSecret: Driver<Void> = .empty()
         var toggleIsRequestPray: Driver<Void> = .empty()
+        var deletePray: Driver<Void> = .empty()
     }
 
     struct Output {

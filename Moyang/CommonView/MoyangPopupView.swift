@@ -30,18 +30,8 @@ class MoyangPopupView: UIView {
         $0.textColor = .nightSky1
         $0.numberOfLines = 0
     }
-    let firstButton = UIButton().then {
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.tintColor = .sheep1
-        $0.backgroundColor = .nightSky1
-        $0.layer.cornerRadius = 12
-    }
-    let secondButton = UIButton().then {
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.tintColor = .sheep1
-        $0.backgroundColor = .sheep4
-        $0.layer.cornerRadius = 12
-    }
+    let firstButton: MoyangButton!
+    let secondButton: MoyangButton!
     var popupWidth: CGFloat = UIScreen.main.bounds.width - 48
     
     var title: String? {
@@ -67,8 +57,12 @@ class MoyangPopupView: UIView {
     var bottomMargin: CGFloat = 20
     var rightMargin: CGFloat = 20
     
-    required init(style: PopupStyle) {
+    required init(style: PopupStyle,
+                  firstButtonStyle: MoyangButton.MoyangButtonStyle = .primary,
+                  secondButtonStyle: MoyangButton.MoyangButtonStyle = .secondary) {
         self.style = style
+        self.firstButton = MoyangButton(style: firstButtonStyle)
+        self.secondButton = MoyangButton(style: secondButtonStyle)
         super.init(frame: .zero)
         setupUI()
     }
@@ -76,6 +70,8 @@ class MoyangPopupView: UIView {
     deinit { Log.i(self) }
     
     required init?(coder: NSCoder) {
+        firstButton = MoyangButton(style: .none)
+        secondButton = MoyangButton(style: .none)
         super.init(coder: coder)
     }
     

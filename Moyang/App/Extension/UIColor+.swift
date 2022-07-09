@@ -26,4 +26,5 @@ extension UIColor {
     @nonobjc class var ydGreen2: UIColor { Asset.Colors.Secondary.ydGreen2.color }
     
     @nonobjc class var appleRed1: UIColor { Asset.Colors.Primary.appleRed1.color }
+    @nonobjc class var appleRed2: UIColor { Asset.Colors.Secondary.appleRed2.color }
 }
