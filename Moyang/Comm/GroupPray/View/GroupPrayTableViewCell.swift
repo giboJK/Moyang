@@ -237,7 +237,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         firstPrayDivider.snp.makeConstraints {
             $0.top.equalTo(firstPrayLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(0.5)
+            $0.height.equalTo(1)
         }
     }
     private func setupTagDivider() {
@@ -245,7 +245,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         tagDivider.snp.makeConstraints {
             $0.top.equalTo(latestPrayLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(0.5)
+            $0.height.equalTo(1)
         }
     }
     

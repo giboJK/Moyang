@@ -297,6 +297,12 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
         }
     }
     
+    private func showPrayWithAndChangeVC(prayWithAndChange: PrayWithAndChangeVM) {
+        let vc = PrayWithAndChangeVC()
+        vc.vm = prayWithAndChange
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         tagTextField.resignFirstResponder()
         return true
@@ -350,7 +356,8 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
                              setTag: tagTextField.rx.text.asDriver(),
                              addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
                              toggleIsSecret: isSecretCheckBox.rx.tap.asDriver(),
-                             toggleIsRequestPray: isRequestPrayCheckBox.rx.tap.asDriver())
+                             toggleIsRequestPray: isRequestPrayCheckBox.rx.tap.asDriver(),
+                             recordChange: recordChangeButton.rx.tap.asDriver())
         
         let output = vm.transform(input: input)
         
@@ -358,8 +365,12 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(onNext: { [weak self] isMyPray in
                 self?.editButton.isHidden = !isMyPray
                 self?.deleteButton.isHidden = !isMyPray
-                self?.recordChangeButton.isHidden = !isMyPray
             }).disposed(by: disposeBag)
+        
+        Driver.combineLatest(output.isMyPray, output.changeItemList.map { $0.isEmpty })
+            .map { !($0 && $1) }
+            .drive(recordChangeButton.rx.isHidden)
+            .disposed(by: disposeBag)
         
         output.newPray
             .map { !($0?.isEmpty ?? true) }
@@ -425,16 +436,17 @@ class GroupPrayEditVC: UIViewController, VCType, UITextFieldDelegate {
             .disposed(by: disposeBag)
         
         output.changeItemList
-            .map { !$0.isEmpty }
-            .drive(recordChangeButton.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        output.changeItemList
             .drive(changeTableView.rx
                 .items(cellIdentifier: "cell", cellType: ChangeTableViewCell.self)) { (index, item, cell) in
                     cell.index = index
                     cell.setupData(item: item)
                 }.disposed(by: disposeBag)
+        
+        output.prayWithAndChangeVM
+            .drive(onNext: { [weak self] prayWithAndChangeVM in
+                guard let prayWithAndChangeVM = prayWithAndChangeVM else { return }
+                self?.showPrayWithAndChangeVC(prayWithAndChange: prayWithAndChangeVM)
+            }).disposed(by: disposeBag)
     }
 }
 

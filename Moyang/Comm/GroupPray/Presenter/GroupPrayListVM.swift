@@ -24,7 +24,7 @@ class GroupPrayListVM: VMType {
     let editVM = BehaviorRelay<GroupPrayEditVM?>(value: nil)
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
-    let prayWithVM = BehaviorRelay<PrayWithVM?>(value: nil)
+    let prayWithAndChangeVM = BehaviorRelay<PrayWithAndChangeVM?>(value: nil)
     let isMyPrayList = BehaviorRelay<Bool>(value: false)
 
     init(groupID: String, prayItem: PrayItem, useCase: CommunityMainUseCase) {
@@ -175,9 +175,9 @@ class GroupPrayListVM: VMType {
                                       useCase: useCase))
     }
     
-    private func setPrayWithVM(index: Int) {
+    private func setPrayWithAndChangeVM(index: Int) {
         let prayIrem = prayList.value[index]
-        prayWithVM.accept(PrayWithVM(useCase: useCase, prayItme: prayIrem))
+        prayWithAndChangeVM.accept(PrayWithAndChangeVM(useCase: useCase, prayItme: prayIrem))
     }
 }
 
@@ -201,7 +201,7 @@ extension GroupPrayListVM {
         let editVM: Driver<GroupPrayEditVM?>
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
-        let prayWithVM: Driver<PrayWithVM?>
+        let prayWithAndChangeVM: Driver<PrayWithAndChangeVM?>
         let isMyPrayList: Driver<Bool>
     }
 
@@ -263,7 +263,7 @@ extension GroupPrayListVM {
                     Log.e("")
                     return
                 }
-                self.setPrayWithVM(index: index)
+                self.setPrayWithAndChangeVM(index: index)
             }).disposed(by: disposeBag)
         
         input.addChange
@@ -272,7 +272,7 @@ extension GroupPrayListVM {
                     Log.e("")
                     return
                 }
-                self.setPrayWithVM(index: index)
+                self.setPrayWithAndChangeVM(index: index)
             }).disposed(by: disposeBag)
         
         return Output(name: name.asDriver(),
@@ -282,7 +282,7 @@ extension GroupPrayListVM {
                       editVM: editVM.asDriver(),
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver(),
-                      prayWithVM: prayWithVM.asDriver(),
+                      prayWithAndChangeVM: prayWithAndChangeVM.asDriver(),
                       isMyPrayList: isMyPrayList.asDriver()
         )
     }

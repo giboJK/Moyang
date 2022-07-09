@@ -312,10 +312,10 @@ class GroupPrayListVC: UIViewController, VCType {
                 self?.showPrayReplyDetailVC(vm: prayReplyDetailVM)
             }).disposed(by: disposeBag)
         
-        output.prayWithVM
-            .drive(onNext: { [weak self] prayWithVM in
-                guard let prayWithVM = prayWithVM else { return }
-                self?.showPrayWithVC(prayWithVM: prayWithVM)
+        output.prayWithAndChangeVM
+            .drive(onNext: { [weak self] prayWithAndChangeVM in
+                guard let prayWithAndChangeVM = prayWithAndChangeVM else { return }
+                self?.showPrayWithAndChangeVC(prayWithAndChangeVM: prayWithAndChangeVM)
             }).disposed(by: disposeBag)
         
         output.isMyPrayList
@@ -330,9 +330,9 @@ class GroupPrayListVC: UIViewController, VCType {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func showPrayWithVC(prayWithVM: PrayWithVM) {
-        let vc = PrayWithVC()
-        vc.vm = prayWithVM
+    private func showPrayWithAndChangeVC(prayWithAndChangeVM: PrayWithAndChangeVM) {
+        let vc = PrayWithAndChangeVC()
+        vc.vm = prayWithAndChangeVM
         navigationController?.pushViewController(vc, animated: true)
     }
 }

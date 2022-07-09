@@ -12,7 +12,8 @@ class GroupPrayEditVM: VMType {
     typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     
-    var useCase: CommunityMainUseCase
+    let useCase: CommunityMainUseCase
+    let prayItem: PrayItem
     
     let isMyPray = BehaviorRelay<Bool>(value: false)
     let newPray = BehaviorRelay<String?>(value: nil)
@@ -27,10 +28,12 @@ class GroupPrayEditVM: VMType {
     let prayID: String
     
     let changeItemList = BehaviorRelay<[PrayChangeItem]>(value: [])
+    let prayWithAndChangeVM = BehaviorRelay<PrayWithAndChangeVM?>(value: nil)
     
     init(prayItem: PrayItem, isMyPray: Bool, useCase: CommunityMainUseCase) {
         self.prayID = prayItem.prayID
         self.useCase = useCase
+        self.prayItem = prayItem
         setInitialData(item: prayItem)
         self.isMyPray.accept(isMyPray)
         bind()
@@ -69,6 +72,10 @@ class GroupPrayEditVM: VMType {
                          isRequestPray: isRequestPray.value
         )
     }
+    
+    private func setPrayWithAndChangeVM() {
+        prayWithAndChangeVM.accept(PrayWithAndChangeVM(useCase: useCase, prayItme: prayItem))
+    }
 }
 
 extension GroupPrayEditVM {
@@ -82,6 +89,7 @@ extension GroupPrayEditVM {
         var toggleIsSecret: Driver<Void> = .empty()
         var toggleIsRequestPray: Driver<Void> = .empty()
         var deletePray: Driver<Void> = .empty()
+        var recordChange: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -94,6 +102,7 @@ extension GroupPrayEditVM {
         let isSecret: Driver<Bool>
         let isRequestPray: Driver<Bool>
         let changeItemList: Driver<[PrayChangeItem]>
+        let prayWithAndChangeVM: Driver<PrayWithAndChangeVM?>
     }
 
     func transform(input: Input) -> Output {
@@ -149,6 +158,12 @@ extension GroupPrayEditVM {
                 self.isRequestPray.accept(!self.isRequestPray.value)
             }).disposed(by: disposeBag)
         
+        input.recordChange
+            .drive(onNext: { [weak self] _ in
+                self?.setPrayWithAndChangeVM()
+            }).disposed(by: disposeBag)
+        
+        
         return Output(isMyPray: isMyPray.asDriver(),
                       newPray: newPray.asDriver(),
                       newTag: newTag.asDriver(),
@@ -157,7 +172,8 @@ extension GroupPrayEditVM {
                       editingPrayFailure: editingPrayFailure.asDriver(),
                       isSecret: isSecret.asDriver(),
                       isRequestPray: isRequestPray.asDriver(),
-                      changeItemList: changeItemList.asDriver()
+                      changeItemList: changeItemList.asDriver(),
+                      prayWithAndChangeVM: prayWithAndChangeVM.asDriver()
         )
     }
 }

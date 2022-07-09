@@ -1,5 +1,5 @@
 //
-//  PrayWithVM.swift
+//  PrayWithAndChangeVM.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/07/02.
@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-class PrayWithVM: VMType {
+class PrayWithAndChangeVM: VMType {
     typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
@@ -57,7 +57,6 @@ class PrayWithVM: VMType {
         } else {
             title.accept("같이 기도하기")
         }
-        
     }
     
     private func addReply() {
@@ -76,7 +75,7 @@ class PrayWithVM: VMType {
     }
 }
 
-extension PrayWithVM {
+extension PrayWithAndChangeVM {
     struct Input {
         var setReply: Driver<String?> = .empty()
         var saveReply: Driver<Void> = .empty()

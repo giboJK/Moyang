@@ -1,5 +1,5 @@
 //
-//  PrayWithVC.swift
+//  PrayWithAndChangeVC.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/07/02.
@@ -11,8 +11,8 @@ import RxSwift
 import SnapKit
 import Then
 
-class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
-    typealias VM = PrayWithVM
+class PrayWithAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
+    typealias VM = PrayWithAndChangeVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     private var tagList = [String]()
@@ -266,7 +266,7 @@ class PrayWithVC: UIViewController, VCType, UITextFieldDelegate {
     }
 }
 
-extension PrayWithVC: UICollectionViewDelegateFlowLayout {
+extension PrayWithAndChangeVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let buttonWidth = tagList[indexPath.row].width(withConstraintedHeight: 16,
                                                        font: .systemFont(ofSize: 14, weight: .regular))
@@ -274,7 +274,7 @@ extension PrayWithVC: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PrayWithVC: UICollectionViewDataSource {
+extension PrayWithAndChangeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tagList.count
     }

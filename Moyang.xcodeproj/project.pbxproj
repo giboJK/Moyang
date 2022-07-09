@@ -52,8 +52,8 @@
 		08FEC8F627C48D4700C57110 /* MemberRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEC8F527C48D4700C57110 /* MemberRepo.swift */; };
 		08FEC8F827C48D8F00C57110 /* MemberRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
-		240946D028707379003AEDAD /* PrayWithVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240946CF28707379003AEDAD /* PrayWithVC.swift */; };
-		240946D3287073FE003AEDAD /* PrayWithVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240946D2287073FE003AEDAD /* PrayWithVM.swift */; };
+		240946D028707379003AEDAD /* PrayWithAndChangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240946CF28707379003AEDAD /* PrayWithAndChangeVC.swift */; };
+		240946D3287073FE003AEDAD /* PrayWithAndChangeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240946D2287073FE003AEDAD /* PrayWithAndChangeVM.swift */; };
 		24126C8A285D68EC00E8282B /* PrayReactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24126C89285D68EC00E8282B /* PrayReactionView.swift */; };
 		24126C8C285D7B5A00E8282B /* ReactionPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24126C8B285D7B5A00E8282B /* ReactionPopupView.swift */; };
 		2426743927FC833900056235 /* CommunityListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2426743827FC833900056235 /* CommunityListVM.swift */; };
@@ -241,8 +241,8 @@
 		08FEC8F527C48D4700C57110 /* MemberRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepo.swift; sourceTree = "<group>"; };
 		08FEC8F727C48D8F00C57110 /* MemberRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepoImpl.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		240946CF28707379003AEDAD /* PrayWithVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayWithVC.swift; sourceTree = "<group>"; };
-		240946D2287073FE003AEDAD /* PrayWithVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayWithVM.swift; sourceTree = "<group>"; };
+		240946CF28707379003AEDAD /* PrayWithAndChangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayWithAndChangeVC.swift; sourceTree = "<group>"; };
+		240946D2287073FE003AEDAD /* PrayWithAndChangeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayWithAndChangeVM.swift; sourceTree = "<group>"; };
 		24126C89285D68EC00E8282B /* PrayReactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReactionView.swift; sourceTree = "<group>"; };
 		24126C8B285D7B5A00E8282B /* ReactionPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPopupView.swift; sourceTree = "<group>"; };
 		2426743827FC833900056235 /* CommunityListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityListVM.swift; sourceTree = "<group>"; };
@@ -590,13 +590,13 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		240946CD28707361003AEDAD /* PrayWith */ = {
+		240946CD28707361003AEDAD /* PrayWithAndChange */ = {
 			isa = PBXGroup;
 			children = (
-				240946CF28707379003AEDAD /* PrayWithVC.swift */,
-				240946D2287073FE003AEDAD /* PrayWithVM.swift */,
+				240946CF28707379003AEDAD /* PrayWithAndChangeVC.swift */,
+				240946D2287073FE003AEDAD /* PrayWithAndChangeVM.swift */,
 			);
-			path = PrayWith;
+			path = PrayWithAndChange;
 			sourceTree = "<group>";
 		};
 		242D745A274267AA0053EF2A /* CommonView */ = {
@@ -637,7 +637,7 @@
 			children = (
 				24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */,
 				24CFA8BB28792D3A00484C89 /* AllGroup */,
-				240946CD28707361003AEDAD /* PrayWith */,
+				240946CD28707361003AEDAD /* PrayWithAndChange */,
 				08D2FD98286EE29C00ED8ECB /* PrayReaction */,
 				2493DE602846742B001A9368 /* GroupPray */,
 				24E4DC35284C2CFF002ECD83 /* GroupPraying */,
@@ -1382,7 +1382,7 @@
 				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
 				24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */,
 				24E0AB2C283E73F800F52505 /* CommunityMainRepo.swift in Sources */,
-				240946D3287073FE003AEDAD /* PrayWithVM.swift in Sources */,
+				240946D3287073FE003AEDAD /* PrayWithAndChangeVM.swift in Sources */,
 				24CFA8BE28792D4800484C89 /* AllGroupVC.swift in Sources */,
 				24CD549F28771AF50081375B /* PrayReplyDetailVM.swift in Sources */,
 				24B812F627984EA300BD1B3E /* PastorMainVM.swift in Sources */,
@@ -1402,7 +1402,7 @@
 				08D2D8532787B05F006897A4 /* SignUpEmailView.swift in Sources */,
 				08FEC8F827C48D8F00C57110 /* MemberRepoImpl.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
-				240946D028707379003AEDAD /* PrayWithVC.swift in Sources */,
+				240946D028707379003AEDAD /* PrayWithAndChangeVC.swift in Sources */,
 				08D2FD97286EE27300ED8ECB /* PrayReactionDetailVM.swift in Sources */,
 				24E0AB21283D228A00F52505 /* UIView+.swift in Sources */,
 				24E36115284B157A00C7EE26 /* NewPrayTagCollectionViewCell.swift in Sources */,
