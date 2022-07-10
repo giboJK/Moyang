@@ -83,18 +83,24 @@ class AllGroupVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(clearList: self.rx.viewWillAppear.map { _ in () }.asDriver(onErrorJustReturn: ()),
+                             selectGroup: groupTableView.rx.itemSelected.asDriver())
         let output = vm.transform(input: input)
         
         output.itemList
             .drive(groupTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupInfoTableViewCell.self)) { (index, item, cell) in
+                .items(cellIdentifier: "cell", cellType: GroupInfoTableViewCell.self)) { (_, item, cell) in
                     cell.nameLabel.text = item.groupName
                 }.disposed(by: disposeBag)
-
+        
+        output.groupPrayVM
+            .drive(onNext: { [weak self] groupPrayVM in
+                guard let groupPrayVM = groupPrayVM else { return }
+                self?.coordinator?.didTapGroup(groupPrayVM: groupPrayVM)
+            }).disposed(by: disposeBag)
     }
 }
 
 protocol AllGroupVCDelegate: AnyObject {
-
+    func didTapGroup(groupPrayVM: GroupPrayVM)
 }

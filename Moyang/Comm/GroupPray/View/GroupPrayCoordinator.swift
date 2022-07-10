@@ -32,7 +32,11 @@ class GroupPrayCoordinator: Coordinator {
 
 extension GroupPrayCoordinator: GroupPrayVCDelegate {
     func didTapInfoButton() {
-        
+        if let vc = assembler.resolver.resolve(GroupInfoVC.self) {
+            nav.pushViewController(vc, animated: true)
+        } else {
+            Log.e("")
+        }
     }
     
     func didTapNewPrayButton(vm: GroupPrayVM?) {

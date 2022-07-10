@@ -16,10 +16,13 @@ class GroupInfoTableViewCell: UITableViewCell {
     var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: -
-    let nameLabel = UILabel()
+    let nameLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.textColor = .nightSky1
+    }
     let nextImageView = UIImageView().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
-        $0.image = UIImage(systemName: "next", withConfiguration: config)
+        let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .regular, scale: .medium)
+        $0.image = UIImage(systemName: "chevron.right", withConfiguration: config)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -55,7 +58,7 @@ class GroupInfoTableViewCell: UITableViewCell {
         nextImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().inset(12)
-            $0.size.equalTo(24)
+            $0.size.equalTo(16)
         }
     }
 }

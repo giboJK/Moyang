@@ -131,6 +131,8 @@ extension CommunityMainVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 guard let groupID = self.groupInfo?.id else { Log.e(""); return }
+                // TODO Fix
+                UserData.shared.groupInfo = self.groupInfo
                 self.groupPrayVM.accept(GroupPrayVM(useCase: self.useCase, groupID: groupID))
             }).disposed(by: disposeBag)
         

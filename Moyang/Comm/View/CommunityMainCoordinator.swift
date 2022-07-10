@@ -56,5 +56,14 @@ extension CommunityMainCoordinator: CommunityMainVCDelegate {
 }
 
 extension CommunityMainCoordinator: AllGroupVCDelegate {
-    
+    func didTapGroup(groupPrayVM: GroupPrayVM) {
+        guard let groupPrayCoordinator = assembler.resolver.resolve(GroupPrayCoordinator.self) else {
+            Log.e("Coordinator init failed")
+            return
+        }
+        if let vc = assembler.resolver.resolve(GroupPrayVC.self, argument: groupPrayVM) {
+            nav.pushViewController(vc, animated: true)
+            vc.coordinator = groupPrayCoordinator
+        }
+    }
 }

@@ -182,6 +182,11 @@ class GroupPrayVC: UIViewController, VCType {
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
+        infoButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapInfoButton()
+            }).disposed(by: disposeBag)
+        
         addPrayButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }

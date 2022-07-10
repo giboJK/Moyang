@@ -185,6 +185,8 @@
 		24E779CE2787308D00C732D6 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E779CD2787308D00C732D6 /* Member.swift */; };
 		24E8F07C27DDD6860036C0F0 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E8F07B27DDD6860036C0F0 /* PrivacyPolicyView.swift */; };
 		24E8F07E27DDD7280036C0F0 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E8F07D27DDD7280036C0F0 /* WebView.swift */; };
+		24F4D386287B1DB500B1AC06 /* GroupInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4D385287B1DB500B1AC06 /* GroupInfoVC.swift */; };
+		24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -378,6 +380,8 @@
 		24E779CD2787308D00C732D6 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		24E8F07B27DDD6860036C0F0 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		24E8F07D27DDD7280036C0F0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		24F4D385287B1DB500B1AC06 /* GroupInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoVC.swift; sourceTree = "<group>"; };
+		24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoVM.swift; sourceTree = "<group>"; };
 		24FAEF0D27E2153800B2DA81 /* praysong.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = praysong.m4a; sourceTree = "<group>"; };
 		2928AF0E9E86176E64F5A826 /* Pods-MoyangTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoyangTests.release.xcconfig"; path = "Target Support Files/Pods-MoyangTests/Pods-MoyangTests.release.xcconfig"; sourceTree = "<group>"; };
 		38544549B563C36B981B4536 /* Pods-Moyang-MoyangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moyang-MoyangUITests.release.xcconfig"; path = "Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -639,6 +643,7 @@
 			children = (
 				24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */,
 				24CFA8BB28792D3A00484C89 /* AllGroup */,
+				24F4D383287B1DA300B1AC06 /* GroupInfo */,
 				240946CD28707361003AEDAD /* PrayWithAndChange */,
 				08D2FD98286EE29C00ED8ECB /* PrayReaction */,
 				2493DE602846742B001A9368 /* GroupPray */,
@@ -1116,6 +1121,31 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		24F4D383287B1DA300B1AC06 /* GroupInfo */ = {
+			isa = PBXGroup;
+			children = (
+				24F4D387287B1E5400B1AC06 /* Presenter */,
+				24F4D384287B1DAB00B1AC06 /* View */,
+			);
+			path = GroupInfo;
+			sourceTree = "<group>";
+		};
+		24F4D384287B1DAB00B1AC06 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				24F4D385287B1DB500B1AC06 /* GroupInfoVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		24F4D387287B1E5400B1AC06 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		24FAEF0C27E2152F00B2DA81 /* Music */ = {
 			isa = PBXGroup;
 			children = (
@@ -1402,6 +1432,7 @@
 				0843DD3A279DFBAB00CF2395 /* ProfileVM.swift in Sources */,
 				24E8F07C27DDD6860036C0F0 /* PrivacyPolicyView.swift in Sources */,
 				08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */,
+				24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */,
 				08D2D8532787B05F006897A4 /* SignUpEmailView.swift in Sources */,
 				08FEC8F827C48D8F00C57110 /* MemberRepoImpl.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
@@ -1469,6 +1500,7 @@
 				24C52740284708570081AE25 /* GroupPrayTableViewCell.swift in Sources */,
 				248AF72127C0AA71004AA283 /* AddNewGroupView.swift in Sources */,
 				2499CBFF2806E9DD004C0984 /* ChurchInfo.swift in Sources */,
+				24F4D386287B1DB500B1AC06 /* GroupInfoVC.swift in Sources */,
 				24CFA8BA28788F8F00484C89 /* ChangeTableViewCell.swift in Sources */,
 				089E8A1B27AF52C700640A39 /* CommunityCardData.swift in Sources */,
 				24E0AB38283E75AF00F52505 /* CommonUtils.swift in Sources */,

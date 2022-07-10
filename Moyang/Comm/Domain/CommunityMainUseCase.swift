@@ -181,6 +181,10 @@ class CommunityMainUseCase {
     func clearPrayList() {
         memberPrayList.accept([])
     }
+    func clearCardMemberPrayList() {
+        cardMemberPrayList.accept([])
+        memberPrayList.accept([])
+    }
     
     func addIndividualPray(id: String,
                            groupID: String,

@@ -68,7 +68,7 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
         }
         
         container.register(AllGroupVM.self) { r in
-            AllGroupVM(useCase: r ~> (AllGroupUseCase.self))
+            AllGroupVM(useCase: r ~> (AllGroupUseCase.self), communityUseCase: r ~> (CommunityMainUseCase.self))
         }
         
         container.register(AllGroupVC.self) { r in
@@ -77,6 +77,7 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             return vc
         }
         
+        // MARK: - Coordinator
         container.register(CommunityMainCoordinator.self) { r in
             guard let nav = self.nav else { return CommunityMainCoordinator() }
             let coordinator = CommunityMainCoordinator(nav: nav, assembler: Assembler([self,

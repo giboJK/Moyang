@@ -40,6 +40,18 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         
+        // MARK: - GroupInfo
+        container.register(GroupInfoVM.self) { _ in
+            GroupInfoVM()
+        }
+        
+        container.register(GroupInfoVC.self) { r in
+            let vc = GroupInfoVC()
+            vc.vm = r ~> (GroupInfoVM.self)
+            return vc
+        }
+        
+        // MARK: - Coordinator
         container.register(GroupPrayCoordinator.self) { _ in
             guard let nav = self.nav else { return GroupPrayCoordinator() }
             let coordinator = GroupPrayCoordinator(nav: nav, assembler: Assembler([self]))
