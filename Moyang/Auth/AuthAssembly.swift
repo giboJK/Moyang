@@ -16,23 +16,36 @@ class AuthAssembly: Assembly, BaseAssembly {
     deinit { Log.i(self) }
     
     func assemble(container: Container) {
-        container.register(SignUpVC.self) { r in
-            let vc = SignUpVC()
-
-            vc.vm = r ~> (APISignUpVM.self)
-            
-            return vc
-        }
-        
         container.register(NetworkServiceProtocol.self) { _ in
             AFNetworkService(sessionConfiguration: .default)
         }
         
-        container.register(APISignUpVM.self) { _  in
-            return APISignUpVM()
+        // MARK: - TermsVC
+        container.register(TermsVC.self) { _ in
+            let vc = TermsVC()
+            return vc
         }
         
-        container.register(AuthCoordinator.self) { r in
+        // MARK: - SignUpVC
+        container.register(SignUpVC.self) { r in
+            let vc = SignUpVC()
+            vc.vm = r ~> (APISignUpVM.self)
+            return vc
+        }
+        
+        container.register(APISignUpVM.self) { r  in
+            return APISignUpVM(useCase: r ~> (SignUpUseCase.self))
+        }
+        
+        container.register(SignUpUseCase.self) { r in
+            return SignUpUseCase(repo: r ~> (AuthController.self))
+        }
+        
+        container.register(AuthController.self) { r in
+            return AuthController(networkService: r ~> (NetworkServiceProtocol.self))
+        }
+        
+        container.register(AuthCoordinator.self) { _ in
             guard let nav = self.nav else { return AuthCoordinator() }
             return AuthCoordinator(nav: nav, assembler: Assembler([self]))
         }

@@ -17,7 +17,7 @@ struct MainView: View {
             MainViewRepresentable()
                 .navigationBarHidden(true)
                 .accentColor(.ydGreen1)
-                .edgesIgnoringSafeArea([.top])
+                .edgesIgnoringSafeArea([.top, .bottom])
         }
         .preferredColorScheme(.light)
         .onReceive(vm.$logoutResult, perform: { result in
@@ -34,12 +34,6 @@ struct MainView: View {
             }
         })
         .navigationViewStyle(.columns)
-    }
-}
-
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
     }
 }
 
