@@ -28,7 +28,7 @@ class AuthCoordinator: Coordinator {
     deinit { Log.i(self) }
     
     func start(_ animated: Bool, completion: (() -> Void)?) {
-        if let vc = assembler.resolver.resolve(SignUpVC.self) {
+        if let vc = assembler.resolver.resolve(TermsVC.self) {
             nav.pushViewController(vc, animated: animated)
             nav.isNavigationBarHidden = true
             vc.coordinator = self
@@ -37,6 +37,21 @@ class AuthCoordinator: Coordinator {
         }
     }
     
+}
+
+extension AuthCoordinator: TermsVCDelegate {
+    func didTapAgreeButton() {
+        if let vc = assembler.resolver.resolve(SignUpVC.self) {
+            nav.pushViewController(vc, animated: true)
+            vc.coordinator = self
+        } else {
+            Log.e("VC init failed")
+        }
+    }
+    
+    func didTapDisAgreeButton() {
+        nav.popViewController(animated: true)
+    }
 }
 
 extension AuthCoordinator: SignUpVCDelegate {
