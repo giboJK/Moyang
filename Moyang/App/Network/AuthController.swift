@@ -31,7 +31,7 @@ extension AuthController: SignUpRepo {
             case .success(let response):
                 completion?(.success(response))
             case .failure(let error):
-                Log.e("")
+                Log.e(error)
             }
         }
     }

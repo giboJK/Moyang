@@ -21,6 +21,9 @@ class SignUpVC: UIViewController, VCType {
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
     }
+    let checkButton = MoyangButton(.primary).then {
+        $0.setTitle("오오오오", for: .normal)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +39,7 @@ class SignUpVC: UIViewController, VCType {
     }
     func setupUI() {
         setupNavBar()
+        setupCheckButton()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -45,15 +49,38 @@ class SignUpVC: UIViewController, VCType {
             $0.height.equalTo(UIApplication.statusBarHeight + 44)
         }
     }
+    private func setupCheckButton() {
+        view.addSubview(checkButton)
+        checkButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(32)
+            $0.height.equalTo(48)
+            $0.centerY.equalToSuperview()
+        }
+    }
 
     // MARK: - Binding
     func bind() {
+        bindViews()
         bindVM()
+    }
+    
+    private func bindViews() {
+        navBar.backButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input(checkExist: checkButton.rx.tap.asDriver())
+        let output = vm.transform(input: input)
+        
+        output.isAlreadyExist
+            .skip(1)
+            .drive(onNext: { _ in
+                Log.w("dasdsadalsmdlsakmdlakdm")
+            }).disposed(by: disposeBag)
     }
 }
 

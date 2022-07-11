@@ -12,7 +12,7 @@ import SnapKit
 import Then
 
 class IntroVC: UIViewController, VCType {
-    typealias VM = DummyVM
+    typealias VM = IntroVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: IntroVCDelegate?
@@ -25,10 +25,10 @@ class IntroVC: UIViewController, VCType {
     let signUpButton = MoyangButton(.primary).then {
         $0.setTitle("회원가입", for: .normal)
     }
-    let loginButton = MoyangButton(.primary).then {
+    let loginButton = MoyangButton(.ghost).then {
         $0.setTitle("로그인", for: .normal)
     }
-    let pastorLoginButton = MoyangButton(.primary).then {
+    let pastorLoginButton = MoyangButton(.ghost).then {
         $0.setTitle("목회자 로그인", for: .normal)
     }
 
@@ -44,6 +44,7 @@ class IntroVC: UIViewController, VCType {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
+    
     func setupUI() {
         setupTitleLabel()
         setupPastorLoginButton()
@@ -84,9 +85,17 @@ class IntroVC: UIViewController, VCType {
 
     // MARK: - Binding
     func bind() {
+        bindViews()
         bindVM()
     }
 
+    private func bindViews() {
+        signUpButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapSignUpButton()
+            }).disposed(by: disposeBag)
+    }
+    
     private func bindVM() {
 //        guard let vm = vm else { Log.e("vm is nil"); return }
 //        let input = VM.Input()
@@ -94,5 +103,7 @@ class IntroVC: UIViewController, VCType {
 }
 
 protocol IntroVCDelegate: AnyObject {
-
+    func didTapSignUpButton()
+    func didTapLogInButton()
+    func didTapPastorLogInButton()
 }

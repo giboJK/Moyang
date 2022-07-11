@@ -11,6 +11,8 @@ import RxCocoa
 class APISignUpVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: SignUpUseCase
+    
+    let isAlreadyExist = BehaviorRelay<Void>(value: ())
 
     init(useCase: SignUpUseCase) {
         self.useCase = useCase
@@ -21,14 +23,19 @@ class APISignUpVM: VMType {
 
 extension APISignUpVM {
     struct Input {
-
+        let checkExist: Driver<Void>
     }
 
     struct Output {
-
+        let isAlreadyExist: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
-        return Output()
+        input.checkExist
+            .drive(onNext: { [weak self] _ in
+                self?.useCase.registUser(id: "uuukkisd", pw: "asdasd", name: "lasmlsd")
+            }).disposed(by: disposeBag)
+        
+        return Output(isAlreadyExist: isAlreadyExist.asDriver())
     }
 }
