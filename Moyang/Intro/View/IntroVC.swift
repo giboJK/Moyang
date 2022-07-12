@@ -46,6 +46,7 @@ class IntroVC: UIViewController, VCType {
     }
     
     func setupUI() {
+        view.backgroundColor = .sheep2
         setupTitleLabel()
         setupPastorLoginButton()
         setupLoginButton()

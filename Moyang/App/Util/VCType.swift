@@ -66,6 +66,9 @@ protocol VCType {
 //    func bind() {
 //        bindVM()
 //    }
+//    private func bineViews() {
+//
+//    }
 //
 //    private func bindVM() {
 ////        guard let vm = vm else { Log.e("vm is nil"); return }

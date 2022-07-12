@@ -8,5 +8,7 @@
 import Foundation
 
 protocol SignUpRepo {
-    func registUser(id: String, pw: String, name: String, completion: ((Result<BaseResponse, Error>) -> Void)?)
+    func checkEmailExist(email: String, completion: ((Result<BaseResponse, Error>) -> Void)?)
+    func registUser(email: String, pw: String, name: String, birth: String,
+                    completion: ((Result<UserInfo, Error>) -> Void)?)
 }

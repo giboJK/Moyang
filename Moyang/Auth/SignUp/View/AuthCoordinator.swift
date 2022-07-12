@@ -55,5 +55,21 @@ extension AuthCoordinator: TermsVCDelegate {
 }
 
 extension AuthCoordinator: SignUpVCDelegate {
+    func noUserExist(vm: SignUpVM) {
+        if let vc = assembler.resolver.resolve(SetUserInfoVC.self) {
+            nav.pushViewController(vc, animated: true)
+            vc.vm = vm
+            vc.coordinator = self
+        } else {
+            Log.e("VC init failed")
+        }
+    }
+    
+    func moveToLogin() {
+        
+    }
+}
+
+extension AuthCoordinator: SetUserInfoVCDelegate {
     
 }

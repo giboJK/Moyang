@@ -29,12 +29,12 @@ class AuthAssembly: Assembly, BaseAssembly {
         // MARK: - SignUpVC
         container.register(SignUpVC.self) { r in
             let vc = SignUpVC()
-            vc.vm = r ~> (APISignUpVM.self)
+            vc.vm = r ~> (SignUpVM.self)
             return vc
         }
         
-        container.register(APISignUpVM.self) { r  in
-            return APISignUpVM(useCase: r ~> (SignUpUseCase.self))
+        container.register(SignUpVM.self) { r  in
+            return SignUpVM(useCase: r ~> (SignUpUseCase.self))
         }
         
         container.register(SignUpUseCase.self) { r in
@@ -43,6 +43,12 @@ class AuthAssembly: Assembly, BaseAssembly {
         
         container.register(AuthController.self) { r in
             return AuthController(networkService: r ~> (NetworkServiceProtocol.self))
+        }
+        
+        // MARK: - SetUserInfoVC
+        container.register(SetUserInfoVC.self) { _ in
+            let vc = SetUserInfoVC()
+            return vc
         }
         
         container.register(AuthCoordinator.self) { _ in

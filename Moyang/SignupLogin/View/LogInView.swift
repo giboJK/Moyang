@@ -79,12 +79,6 @@ struct LogInView: View {
                 .hidden(vm.isLoadingUserDataFinished)
                 .frame(width: 40, height: 40, alignment: .center)
             
-            NavigationLink(
-                destination: ProfileSetView(email: vm.id),
-                isActive: $vm.moveToProfileSetView
-            ) {
-                EmptyView()
-            }
         }
         .fullScreenCover(isPresented: $vm.isLoginSuccess, onDismiss: self.didDismiss, content: {
             MainView()

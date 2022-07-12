@@ -86,7 +86,7 @@ class AFNetworkService: NetworkServiceProtocol {
                 case .success(let value):
                     completion(.success(value))
                 case .failure(let error):
-                    Log.e(error)
+                    completion(.failure(error))
                 }
             }
     }

@@ -15,9 +15,11 @@ class NetConst {
     static let host = "27.96.135.152"
     /// /moyang/api/
     static let authTokenKey = "X-Moyang-Auth-Token"
-    enum APIPath {
-        /// post - login/registuser
+    
+    enum LoginAPI {
+        /// post
         static let registUser = "/login/regist_user"
-        
+        /// post 
+        static let checkExist = "/login/check_exist"
     }
 }
