@@ -7,113 +7,123 @@
 
 import RxSwift
 import RxCocoa
+import AuthenticationServices
+import GoogleSignIn
+import Security
 
-class SignUpVM: VMType {
+class SignUpVM: NSObject, VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: SignUpUseCase
-    
-    let email = BehaviorRelay<String?>(value: nil)
-    let password = BehaviorRelay<String?>(value: nil)
     
     let name = BehaviorRelay<String?>(value: nil)
     let birth = BehaviorRelay<String?>(value: nil)
     
-    let isValidEmail = BehaviorRelay<Bool>(value: true)
-    let isValidPassword = BehaviorRelay<Bool>(value: true)
-    
     let isAlreadyExist = BehaviorRelay<Void>(value: ())
-    let noUserExist = BehaviorRelay<Void>(value: ())
-
+    let googleEmailNotExist = BehaviorRelay<Void>(value: ())
+    let appleEmailNotExist = BehaviorRelay<Void>(value: ())
+    
     init(useCase: SignUpUseCase) {
         self.useCase = useCase
     }
-
+    
     deinit { Log.i(self) }
     
-    private func checkValidEmail(email: String) {
-        isValidEmail.accept(email.isValidEmail)
-        if email.isValidEmail {
-            self.email.accept(email)
-        }
-    }
-    
-    private func checkValidPassword(password: String) {
-        isValidPassword.accept(password.count >= 6)
-        if password.count >= 6 {
-            self.password.accept(password)
-        }
-    }
-    
-    private func checkEmailExist() {
-        guard let email = self.email.value,
-              let password = self.password.value else {
-            Log.e("Input error")
-            return
-        }
-        if password.count < 6 { return }
-        useCase.checkEmailExist(email: email)
-    }
-    
     private func registerUser() {
-        guard let email = email.value, let password = password.value,
-              let name = name.value, let birth = birth.value else {
-            Log.e("Error")
+        //        useCase.registUser(email: email, pw: password, name: name, birth: birth)
+    }
+    
+    func googleSignUp(user: GIDGoogleUser) {
+        guard let credential = user.userID,
+              let email = user.profile?.email else {
             return
         }
-        useCase.registUser(email: email, pw: password, name: name, birth: birth)
+        useCase.checkEmailExist(email: email,
+                                credential: credential, auth: AuthType.google.rawValue)
+    }
+    private func appleSignIn(_ userIdentifier: String, _ name: PersonNameComponents?, _ email: String?) {
+        useCase.checkEmailExist(email: email ?? "",
+                                credential: userIdentifier, auth: AuthType.apple.rawValue)
     }
 }
 
 extension SignUpVM {
     struct Input {
-        var setEmail: Driver<String?> = .empty()
-        var setPassword: Driver<String?> = .empty()
+        var google: Driver<Void> = .empty()
+        var apple: Driver<Void> = .empty()
         var setName: Driver<String?> = .empty()
         var setBirth: Driver<String?> = .empty()
-        var checkExist: Driver<Void> = .empty()
         var registUser: Driver<Void> = .empty()
     }
-
+    
     struct Output {
-        let email: Driver<String?>
-        let password: Driver<String?>
         let name: Driver<String?>
         let birth: Driver<String?>
         
-        let isValidEmail: Driver<Bool>
-        let isValidPassword: Driver<Bool>
-        
         let isAlreadyExist: Driver<Void>
-        let noUserExist: Driver<Void>
+        let googleEmailNotExist: Driver<Void>
+        let appleEmailNotExist: Driver<Void>
     }
-
+    
     func transform(input: Input) -> Output {
-        input.setEmail
-            .drive(onNext: { [weak self] email in
-                guard let self = self, let email = email else { return }
-                self.checkValidEmail(email: email)
-            }).disposed(by: disposeBag)
-        input.setPassword
-            .drive(onNext: { [weak self] password in
-                guard let self = self, let password = password else { return }
-                self.checkValidPassword(password: password)
-            }).disposed(by: disposeBag)
         
-        input.checkExist
+        input.google
             .drive(onNext: { [weak self] _ in
-                self?.checkEmailExist()
+            }).disposed(by: disposeBag)
+        input.apple
+            .drive(onNext: { [weak self] _ in
             }).disposed(by: disposeBag)
         
-        return Output(email: email.asDriver(),
-                      password: password.asDriver(),
-                      name: name.asDriver(),
+        return Output(name: name.asDriver(),
                       birth: birth.asDriver(),
-                      
-                      isValidEmail: isValidEmail.asDriver(),
-                      isValidPassword: isValidPassword.asDriver(),
-                      
                       isAlreadyExist: isAlreadyExist.asDriver(),
-                      noUserExist: noUserExist.asDriver()
+                      googleEmailNotExist: googleEmailNotExist.asDriver(),
+                      appleEmailNotExist: appleEmailNotExist.asDriver()
         )
+    }
+}
+
+extension SignUpVM: ASAuthorizationControllerDelegate {
+    /// - Tag: did_complete_authorization
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            
+            // Create an account in your system.
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            var email = appleIDCredential.email
+            
+            let keychain = KeychainSwift()
+            if let email = email {
+                keychain.set(email, forKey: "appleEmailKey")
+            } else {
+                email = keychain.get("appleEmailKey")
+            }
+            // Register user in fitto server system.
+            self.appleSignIn(userIdentifier, fullName, email)
+            
+        case let passwordCredential as ASPasswordCredential:
+            
+            // Sign in using an existing iCloud Keychain credential.
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+            
+            // For the purpose of this demo app, show the password credential as an alert.
+            DispatchQueue.main.async {
+                self.showPasswordCredentialAlert(username: username, password: password)
+            }
+            
+        default:
+            break
+        }
+    }
+    
+    private func showPasswordCredentialAlert(username: String, password: String) {
+    }
+    
+    /// - Tag: did_complete_error
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // Handle error.
+        Log.e("login error")
     }
 }

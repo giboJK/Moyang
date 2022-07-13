@@ -26,13 +26,12 @@ class ProfileSetVM: ObservableObject {
     
     func setUserProfile(email: String) {
         guard let birth = birth,
-              let auth = UserData.shared.authType,
               let email = UserData.shared.userID?.lowercased() else {
             Log.e("Data empty")
             return
         }
         let memberDetail = MemberDetail(id: UUID().uuidString,
-                                        authType: auth,
+                                        authType: "",
                                         memberName: name,
                                         birth: birth.toString("yyyy.MM.dd"),
                                         email: email,

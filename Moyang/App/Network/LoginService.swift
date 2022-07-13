@@ -19,7 +19,6 @@ protocol LoginService {
 }
 
 enum AuthType: String {
-    case none = "NONE"
-    case email = "EMAIL"
     case google = "GOOGLE"
+    case apple = "APPLE"
 }

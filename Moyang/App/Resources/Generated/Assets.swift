@@ -59,6 +59,10 @@ public enum Asset {
     public enum Profile {
       public static let logout = ImageAsset(name: "logout")
     }
+    public enum Signup {
+      public static let apple = ImageAsset(name: "apple")
+      public static let google = ImageAsset(name: "google")
+    }
     public enum Tabbar {
       public static let cross = ImageAsset(name: "cross")
     }

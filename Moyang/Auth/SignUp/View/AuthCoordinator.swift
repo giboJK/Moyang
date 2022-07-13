@@ -55,7 +55,7 @@ extension AuthCoordinator: TermsVCDelegate {
 }
 
 extension AuthCoordinator: SignUpVCDelegate {
-    func noUserExist(vm: SignUpVM) {
+    func startProfileProcess(vm: SignUpVM) {
         if let vc = assembler.resolver.resolve(SetUserInfoVC.self) {
             nav.pushViewController(vc, animated: true)
             vc.vm = vm

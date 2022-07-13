@@ -14,7 +14,6 @@ class UserData {
     var sermon: Sermon?
     
     func resetUserData() {
-        authType = AuthType.none.rawValue
         myInfo = nil
         groupInfo = nil
         userName = nil
@@ -38,15 +37,6 @@ class UserData {
         }
         set(v) {
             UserDefaults.standard.set(v, forKey: "USER_NAME")
-        }
-    }
-    
-    var authType: String? {
-        get {
-            return UserDefaults.standard.string(forKey: "AUTH_TYPE")
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: "AUTH_TYPE")
         }
     }
     

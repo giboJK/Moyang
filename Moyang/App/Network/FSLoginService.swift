@@ -162,11 +162,6 @@ class FSLoginService: LoginService {
     }
     
     func logout(completion: @escaping (Result<Bool, Error>) -> Void) {
-        if UserData.shared.authType == AuthType.google.rawValue {
-            googleSignOut(completion: completion)
-        } else {
-            emailSignOut(completion: completion)
-        }
     }
     
     private func emailSignOut(completion: @escaping (Result<Bool, Error>) -> Void) {

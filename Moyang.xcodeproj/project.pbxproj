@@ -195,6 +195,7 @@
 		24E6455D2850E08A00CF10AD /* MoyangButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E6455C2850E08A00CF10AD /* MoyangButton.swift */; };
 		24E779CE2787308D00C732D6 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E779CD2787308D00C732D6 /* Member.swift */; };
 		24E8F07E27DDD7280036C0F0 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E8F07D27DDD7280036C0F0 /* WebView.swift */; };
+		24EFE40F287F10CD00549E07 /* KeychainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EFE40E287F10CD00549E07 /* KeychainSwift.swift */; };
 		24F4D386287B1DB500B1AC06 /* GroupInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4D385287B1DB500B1AC06 /* GroupInfoVC.swift */; };
 		24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */; };
 /* End PBXBuildFile section */
@@ -400,6 +401,7 @@
 		24E6455C2850E08A00CF10AD /* MoyangButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButton.swift; sourceTree = "<group>"; };
 		24E779CD2787308D00C732D6 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		24E8F07D27DDD7280036C0F0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		24EFE40E287F10CD00549E07 /* KeychainSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwift.swift; sourceTree = "<group>"; };
 		24F4D385287B1DB500B1AC06 /* GroupInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoVC.swift; sourceTree = "<group>"; };
 		24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoVM.swift; sourceTree = "<group>"; };
 		24FAEF0D27E2153800B2DA81 /* praysong.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = praysong.m4a; sourceTree = "<group>"; };
@@ -1137,6 +1139,7 @@
 				24C877D0282FD77500F69AAD /* VMType.swift */,
 				24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */,
 				24AACA7D283FC40A00308AC3 /* Coordinator.swift */,
+				24EFE40E287F10CD00549E07 /* KeychainSwift.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1494,6 +1497,7 @@
 				08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */,
 				24E0AB30283E746700F52505 /* Network.swift in Sources */,
 				24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */,
+				24EFE40F287F10CD00549E07 /* KeychainSwift.swift in Sources */,
 				24BF681927C3C537000E1E91 /* MemberSearchRow.swift in Sources */,
 				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
 				24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */,

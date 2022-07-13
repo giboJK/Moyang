@@ -37,12 +37,6 @@ class LoginVM: ObservableObject {
     }
     
     func signup() {
-        loginService.signup(id: id, pw: password, type: .email)
-            .sink { completion in
-                Log.i(completion)
-            } receiveValue: { isSuccess in
-                self.isSignupSuccess = isSuccess
-            }.store(in: &cancellables)
     }
     
     func emailLogin() {
@@ -69,8 +63,6 @@ class LoginVM: ObservableObject {
                     break
                 }
             } receiveValue: { _ in
-                self.setUserAuthAndEmail(type: .email, email: self.id.lowercased())
-                self.fetchUserData(id: self.id.lowercased())
             }.store(in: &cancellables)
     }
     
@@ -88,15 +80,11 @@ class LoginVM: ObservableObject {
     
     private func setUserAuthAndEmail(type: AuthType, email: String) {
         isLoadingUserDataFinished = true
-        UserData.shared.authType = type.rawValue
         UserData.shared.userID = email
     }
     
     private func fetchUserData(id: String) {
-        guard let authTypeStr = UserData.shared.authType,
-              let authType = AuthType(rawValue: authTypeStr) else { Log.e("Auth type error") ;return }
-        
-        loginService.fetchUserData(id: id, type: authType)
+        loginService.fetchUserData(id: id, type: .apple)
             .catch { error -> AnyPublisher<MemberDetail, MoyangError> in
                 self.isLoadingUserDataFinished = true
                 switch error {

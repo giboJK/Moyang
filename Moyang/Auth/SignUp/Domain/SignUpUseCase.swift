@@ -22,7 +22,7 @@ class SignUpUseCase {
         self.repo = repo
     }
 
-    func checkEmailExist(email: String) {
+    func checkEmailExist(email: String, credential: String, auth: String) {
         repo.checkEmailExist(email: email.lowercased()) { [weak self] result in
             switch result {
             case .success(let responce):
@@ -47,4 +47,9 @@ class SignUpUseCase {
             }
         }
     }
+}
+
+enum UserAuthType: String {
+    case google = "GOOGLE"
+    case apple = "APPLE"
 }

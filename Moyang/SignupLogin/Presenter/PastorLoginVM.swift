@@ -28,27 +28,9 @@ class PastorLoginVM: ObservableObject {
     }
     
     func login() {
-        self.isLoadingUserData = true
-        loginService.pastorLogin(id: id, pw: password, type: .email)
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-            } receiveValue: { _ in
-                if self.pastorList.contains(self.id.lowercased()) {
-                    self.fetchUserData(id: self.id.lowercased())
-                } else {
-                    self.isLoadingUserData = false
-                    Log.e("No user")
-                }
-            }.store(in: &cancellables)
     }
     
     func fetchPastorList() {
-        loginService.fetchPastorList(type: .email)
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-            } receiveValue: { obj in
-                self.pastorList = obj.pastors
-            }.store(in: &cancellables)
     }
     
     func findPassword() {
@@ -56,17 +38,6 @@ class PastorLoginVM: ObservableObject {
     }
     
     private func fetchUserData(id: String) {
-        loginService.fetchUserData(id: id, type: .email)
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-                self.isLoadingUserData = false
-            } receiveValue: { memberDetail in
-                UserData.shared.userID = self.id
-                UserData.shared.password = self.password
-                UserData.shared.isPastor = true
-                UserData.shared.myInfo = memberDetail
-                self.isLoginSuccess = true
-            }.store(in: &cancellables)
     }
 
     deinit {

@@ -10,77 +10,63 @@ import RxCocoa
 import RxSwift
 import SnapKit
 import Then
+import AuthenticationServices
+import GoogleSignIn
 
 class SignUpVC: UIViewController, VCType {
     typealias VM = SignUpVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: SignUpVCDelegate?
-
+    
+//    let signInConfig = GIDConfiguration.init(clientID: NetConst.googleClientID)
+    
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
     }
-    let emailLabel = UILabel().then {
-        $0.text = "이메일"
-        $0.font = .systemFont(ofSize: 22, weight: .bold)
+    let titleLabel = UILabel().then {
+        $0.text = "회원가입"
+        $0.font = .systemFont(ofSize: 32, weight: .bold)
         $0.textColor = .nightSky3
     }
-    let emailTextField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
+    let appleSigninButton = ASAuthorizationAppleIDButton(type: .signUp, style: .black) .then {
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 14
+    }
+    let googleSignupButton = MoyangButton(style: .none).then {
+        $0.setTitle("Google로 가입", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+        $0.setTitleColor(.nightSky1, for: .normal)
         $0.backgroundColor = .sheep1
-        $0.layer.borderColor = .nightSky3
-        $0.layer.borderWidth = 1.0
-        $0.layer.cornerRadius = 12
-        $0.attributedPlaceholder = NSAttributedString(string: "이메일", attributes: [.foregroundColor: UIColor.nightSky3])
-        $0.keyboardType = .emailAddress
-        $0.returnKeyType = .done
+        $0.setImage(Asset.Images.Signup.google.image, for: .normal)
+        $0.layer.borderColor = .nightSky1
+        $0.layer.borderWidth = 0.5
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 14
+        $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
+        $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -4)
     }
-    let invalidEmailFormatLabel = UILabel().then {
-        $0.text = "올바른 이메일 형식이 아닙니다"
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .appleRed1
-        $0.isHidden = true
-    }
-    let passwordLabel = UILabel().then {
-        $0.text = "비밀번호"
-        $0.font = .systemFont(ofSize: 22, weight: .bold)
-        $0.textColor = .nightSky3
-    }
-    let passwordTextField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
-        $0.backgroundColor = .sheep1
-        $0.layer.borderColor = .nightSky3
-        $0.layer.borderWidth = 1.0
-        $0.layer.cornerRadius = 12
-        $0.isSecureTextEntry = true
-        $0.attributedPlaceholder = NSAttributedString(string: "비밀번호", attributes: [.foregroundColor: UIColor.nightSky3])
-        $0.returnKeyType = .done
-    }
-    let passwordMinCountLabel = UILabel().then {
-        $0.text = "비밀번호는 최소 6자 이상입니다"
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky2
-    }
-    let confirmButton = MoyangButton(style: .primary).then {
-        $0.setTitle("확인", for: .normal)
-        $0.isEnabled = false
+    let logInButton = MoyangButton(style: .none).then {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 14, weight: .regular),
+            .foregroundColor: UIColor.nightSky4,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        
+        let attributeString = NSMutableAttributedString(
+            string: "로그인하기",
+            attributes: attributes
+        )
+        $0.setAttributedTitle(attributeString, for: .normal)
     }
     let emailExistPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .primary, secondButtonStyle: .ghost).then {
         $0.title = "이미 가입된 이메일"
-        $0.desc = "같은 계정으로 가입된 메일이 있습니다. 로그인해주세요"
+        $0.desc = "다른 계정을 사용하거나 다른 로그인 방식으로 로그인해주세요"
         $0.firstButton.setTitle("로그인하기", for: .normal)
         $0.secondButton.setTitle("확인", for: .normal)
     }
-    let confirmPopup = MoyangPopupView(style: .oneButton).then {
-        $0.title = "이메일 전송 성공"
-        $0.desc = "이메일을 확인해주세요."
-        $0.firstButton.setTitle("확인", for: .normal)
-    }
-    let confirmFailedPopup = MoyangPopupView(style: .oneButton).then {
-        $0.title = "이메일 전송 실패"
-        $0.desc = "이메일 전송에 실패하였습니다. 다시 시도해주세요."
-        $0.firstButton.setTitle("확인", for: .normal)
-    }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -96,13 +82,10 @@ class SignUpVC: UIViewController, VCType {
     func setupUI() {
         view.backgroundColor = .sheep2
         setupNavBar()
-        setupConfirmButton()
-        setupEmailLabel()
-        setupEmailTextField()
-        setupInvalidEmailFormatLabel()
-        setupPasswordLabel()
-        setupPasswordTextField()
-        setupPasswordMinCountLabel()
+        setupTitleLabel()
+        setupAppleLoginButton()
+        setupGoogleLoginButton()
+        setupLogInButton()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -112,58 +95,67 @@ class SignUpVC: UIViewController, VCType {
             $0.height.equalTo(UIApplication.statusBarHeight + 44)
         }
     }
-    private func setupConfirmButton() {
-        view.addSubview(confirmButton)
-        confirmButton.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(32)
-            $0.height.equalTo(48)
-            $0.bottom.equalToSuperview().inset(32)
-        }
-    }
-    private func setupEmailLabel() {
-        view.addSubview(emailLabel)
-        emailLabel.snp.makeConstraints {
+    private func setupTitleLabel() {
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(32)
             $0.top.equalTo(navBar.snp.bottom).offset(32)
         }
     }
-    private func setupEmailTextField() {
-        view.addSubview(emailTextField)
-        emailTextField.snp.makeConstraints {
-            $0.top.equalTo(emailLabel.snp.bottom).offset(12)
-            $0.left.right.equalToSuperview().inset(32)
-            $0.height.equalTo(48)
+    private func setupAppleLoginButton() {
+        view.addSubview(appleSigninButton)
+        appleSigninButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchDown)
+        appleSigninButton.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(24)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(50 * UIScreen.main.bounds.width / 375)
         }
     }
-    private func setupInvalidEmailFormatLabel() {
-        view.addSubview(invalidEmailFormatLabel)
-        invalidEmailFormatLabel.snp.makeConstraints {
-            $0.top.equalTo(emailTextField.snp.bottom).offset(12)
-            $0.left.equalTo(emailTextField)
-            $0.height.equalTo(0)
+    private func setupGoogleLoginButton() {
+        view.addSubview(googleSignupButton)
+        googleSignupButton.addTarget(self, action: #selector(handleGoogleSigninButtonPress), for: .touchDown)
+        googleSignupButton.snp.makeConstraints {
+            $0.top.equalTo(appleSigninButton.snp.bottom).offset(24)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(50 * UIScreen.main.bounds.width / 375)
         }
     }
-    private func setupPasswordLabel() {
-        view.addSubview(passwordLabel)
-        passwordLabel.snp.makeConstraints {
-            $0.top.equalTo(invalidEmailFormatLabel.snp.bottom).offset(16)
-            $0.left.equalToSuperview().inset(32)
+    private func setupLogInButton() {
+        view.addSubview(logInButton)
+        let topOffset: CGFloat = UIScreen.main.bounds.height - (344 * UIScreen.main.bounds.width / 375 + 232 + UIApplication.statusBarHeight)
+        logInButton.snp.makeConstraints {
+            $0.top.equalTo(googleSignupButton.snp.bottom).offset(topOffset / 2)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(24)
         }
     }
-    private func setupPasswordTextField() {
-        view.addSubview(passwordTextField)
-        passwordTextField.snp.makeConstraints {
-            $0.top.equalTo(passwordLabel.snp.bottom).offset(12)
-            $0.left.right.equalToSuperview().inset(32)
-            $0.height.equalTo(48)
-        }
+    
+    /// - Tag: perform_appleid_request
+    @objc
+    func handleAuthorizationAppleIDButtonPress() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = vm
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
     }
-    private func setupPasswordMinCountLabel() {
-        view.addSubview(passwordMinCountLabel)
-        passwordMinCountLabel.snp.makeConstraints {
-            $0.top.equalTo(passwordTextField.snp.bottom).offset(12)
-            $0.left.equalTo(passwordTextField)
-        }
+    
+    @objc
+    func handleGoogleSigninButtonPress() {
+//        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
+//            guard error  == nil else { return }
+//            guard let user = user else { return }
+//            
+//            user.authentication.do { [weak self] authentication, error in
+//                guard error == nil else { Log.e(error as Any); return }
+//                guard authentication != nil else { return }
+//                
+//                self?.vm?.googleSignUp(user: user)
+//            }
+//        }
     }
     
     // MARK: - Binding
@@ -193,33 +185,21 @@ class SignUpVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setEmail: emailTextField.rx.text.asDriver(),
-                             setPassword: passwordTextField.rx.text.asDriver(),
-                             checkExist: confirmButton.rx.tap.asDriver())
+        let input = VM.Input()
         let output = vm.transform(input: input)
         
-        output.email
-            .drive(emailTextField.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.password
-            .drive(passwordTextField.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.isValidEmail
+        output.googleEmailNotExist
             .skip(1)
-            .drive(onNext: { [weak self] isValidEmail in
-                guard let self = self else { return }
-                self.invalidEmailFormatLabel.isHidden = isValidEmail
-                self.invalidEmailFormatLabel.snp.remakeConstraints {
-                    $0.top.equalTo(self.emailTextField.snp.bottom).offset(12)
-                    $0.left.equalTo(self.passwordTextField)
-                    if isValidEmail {
-                        $0.height.equalTo(0)
-                    } else {
-                        $0.height.equalTo(20)
-                    }
-                }
+            .drive(onNext: { [weak self] _ in
+                guard let signupVM = self?.vm else { return }
+                self?.coordinator?.startProfileProcess(vm: signupVM)
+            }).disposed(by: disposeBag)
+        
+        output.appleEmailNotExist
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let signupVM = self?.vm else { return }
+                self?.coordinator?.startProfileProcess(vm: signupVM)
             }).disposed(by: disposeBag)
         
         output.isAlreadyExist
@@ -228,23 +208,16 @@ class SignUpVC: UIViewController, VCType {
                 guard let self = self else { return }
                 self.displayPopup(popup: self.emailExistPopup)
             }).disposed(by: disposeBag)
-        
-        Driver.combineLatest(output.isValidEmail,
-                             output.isValidPassword)
-        .map { $0 && $1 }
-        .drive(confirmButton.rx.isEnabled)
-        .disposed(by: disposeBag)
+    }
+}
 
-        output.noUserExist
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                guard let signUpVM = self?.vm else { return }
-                self?.coordinator?.noUserExist(vm: signUpVM)
-            }).disposed(by: disposeBag)
+extension SignUpVC: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
 }
 
 protocol SignUpVCDelegate: AnyObject {
-    func noUserExist(vm: SignUpVM)
+    func startProfileProcess(vm: SignUpVM)
     func moveToLogin()
 }
