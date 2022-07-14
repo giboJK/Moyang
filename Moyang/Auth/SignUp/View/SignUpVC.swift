@@ -49,7 +49,7 @@ class SignUpVC: UIViewController, VCType {
     }
     let logInButton = MoyangButton(style: .none).then {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 14, weight: .regular),
+            .font: UIFont.systemFont(ofSize: 15, weight: .regular),
             .foregroundColor: UIColor.nightSky4,
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
