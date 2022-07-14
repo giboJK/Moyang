@@ -16,6 +16,8 @@ class NetConst {
     /// /moyang/api/
     static let authTokenKey = "X-Moyang-Auth-Token"
     
+    static let googleClientID = "470101284781-kmsbpbbss1bf8ejjofbl1s30pg993kbb.apps.googleusercontent.com"
+    
     enum LoginAPI {
         /// post
         static let registUser = "/login/regist_user"

@@ -19,7 +19,7 @@ class SignUpVC: UIViewController, VCType {
     var vm: VM?
     var coordinator: SignUpVCDelegate?
     
-//    let signInConfig = GIDConfiguration.init(clientID: NetConst.googleClientID)
+    let signInConfig = GIDConfiguration.init(clientID: NetConst.googleClientID)
     
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
@@ -145,17 +145,17 @@ class SignUpVC: UIViewController, VCType {
     
     @objc
     func handleGoogleSigninButtonPress() {
-//        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
-//            guard error  == nil else { return }
-//            guard let user = user else { return }
-//            
-//            user.authentication.do { [weak self] authentication, error in
-//                guard error == nil else { Log.e(error as Any); return }
-//                guard authentication != nil else { return }
-//                
-//                self?.vm?.googleSignUp(user: user)
-//            }
-//        }
+        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
+            guard error  == nil else { Log.e(error as Any); return }
+            guard let user = user else { return }
+            
+            user.authentication.do { [weak self] authentication, error in
+                guard error == nil else { Log.e(error as Any); return }
+                guard authentication != nil else { return }
+                
+                self?.vm?.googleSignUp(user: user)
+            }
+        }
     }
     
     // MARK: - Binding
