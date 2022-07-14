@@ -21,6 +21,7 @@ class IntroVC: UIViewController, VCType {
     let titleLabel = UILabel().then {
         $0.text = "Moyang"
         $0.font = .systemFont(ofSize: 36, weight: .heavy)
+        $0.textColor = .nightSky1
     }
     let signUpButton = MoyangButton(.primary).then {
         $0.setTitle("회원가입", for: .normal)

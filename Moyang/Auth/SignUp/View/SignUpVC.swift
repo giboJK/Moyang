@@ -28,7 +28,7 @@ class SignUpVC: UIViewController, VCType {
     let titleLabel = UILabel().then {
         $0.text = "회원가입"
         $0.font = .systemFont(ofSize: 32, weight: .bold)
-        $0.textColor = .nightSky3
+        $0.textColor = .nightSky1
     }
     let appleSigninButton = ASAuthorizationAppleIDButton(type: .signUp, style: .black) .then {
         $0.layer.masksToBounds = true
@@ -106,9 +106,9 @@ class SignUpVC: UIViewController, VCType {
         view.addSubview(appleSigninButton)
         appleSigninButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchDown)
         appleSigninButton.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(24)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(32)
             $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(50 * UIScreen.main.bounds.width / 375)
+            $0.height.equalTo(50)
         }
     }
     private func setupGoogleLoginButton() {
@@ -117,16 +117,14 @@ class SignUpVC: UIViewController, VCType {
         googleSignupButton.snp.makeConstraints {
             $0.top.equalTo(appleSigninButton.snp.bottom).offset(24)
             $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(50 * UIScreen.main.bounds.width / 375)
+            $0.height.equalTo(50)
         }
     }
     private func setupLogInButton() {
         view.addSubview(logInButton)
-        let topOffset: CGFloat = UIScreen.main.bounds.height - (344 * UIScreen.main.bounds.width / 375 + 232 + UIApplication.statusBarHeight)
         logInButton.snp.makeConstraints {
-            $0.top.equalTo(googleSignupButton.snp.bottom).offset(topOffset / 2)
+            $0.top.equalTo(googleSignupButton.snp.bottom).offset(20)
             $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(24)
         }
     }
     
