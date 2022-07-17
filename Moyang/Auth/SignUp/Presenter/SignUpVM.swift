@@ -19,17 +19,56 @@ class SignUpVM: NSObject, VMType {
     let birth = BehaviorRelay<String?>(value: nil)
     
     let isAlreadyExist = BehaviorRelay<Void>(value: ())
-    let googleEmailNotExist = BehaviorRelay<Void>(value: ())
-    let appleEmailNotExist = BehaviorRelay<Void>(value: ())
+    let isEmailNotExist = BehaviorRelay<Void>(value: ())
+    let credential = BehaviorRelay<String?>(value: nil)
+    
+    let isRegisterSuccess = BehaviorRelay<Void>(value: ())
+    let isRegisterFailure = BehaviorRelay<Void>(value: ())
     
     init(useCase: SignUpUseCase) {
         self.useCase = useCase
+        super.init()
+        bind()
     }
     
     deinit { Log.i(self) }
     
+    private func bind() {
+        useCase.credential
+            .bind(to: credential)
+            .disposed(by: disposeBag)
+        
+        useCase.isAlreadyExist
+            .bind(to: isAlreadyExist)
+            .disposed(by: disposeBag)
+        
+        useCase.isEmailNotExist
+            .bind(to: isEmailNotExist)
+            .disposed(by: disposeBag)
+        
+        useCase.isError
+            .subscribe(onNext: { error in
+                guard let error = error else { return }
+                Log.e(error as Any)
+            }).disposed(by: disposeBag)
+        
+        useCase.isRegisterSuccess
+            .skip(1)
+            .bind(to: isRegisterSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.isRegisterFailure
+            .skip(1)
+            .bind(to: isRegisterSuccess)
+            .disposed(by: disposeBag)
+    }
+    
     private func registerUser() {
-        //        useCase.registUser(email: email, pw: password, name: name, birth: birth)
+        guard let name = name.value, let birth = birth.value else {
+            Log.e("No data")
+            return
+        }
+        useCase.registUser(name: name, birth: birth)
     }
     
     func googleSignUp(user: GIDGoogleUser) {
@@ -48,7 +87,6 @@ class SignUpVM: NSObject, VMType {
 
 extension SignUpVM {
     struct Input {
-        var google: Driver<Void> = .empty()
         var apple: Driver<Void> = .empty()
         var setName: Driver<String?> = .empty()
         var setBirth: Driver<String?> = .empty()
@@ -60,24 +98,40 @@ extension SignUpVM {
         let birth: Driver<String?>
         
         let isAlreadyExist: Driver<Void>
-        let googleEmailNotExist: Driver<Void>
-        let appleEmailNotExist: Driver<Void>
+        let isEmailNotExist: Driver<Void>
+        
+        let isRegisterSuccess: Driver<Void>
+        let isRegisterFailure: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
-        
-        input.google
-            .drive(onNext: { [weak self] _ in
-            }).disposed(by: disposeBag)
         input.apple
             .drive(onNext: { [weak self] _ in
+            }).disposed(by: disposeBag)
+        
+        input.setName
+            .drive(onNext: { [weak self] name in
+                if let name = name, !(name.first?.isWhitespace ?? false) {
+                    self?.name.accept(String(name.prefix(30)))
+                }
+            }).disposed(by: disposeBag)
+        
+        input.setBirth
+            .drive(birth)
+            .disposed(by: disposeBag)
+        
+        input.registUser
+            .drive(onNext: { [weak self] _ in
+                self?.registerUser()
             }).disposed(by: disposeBag)
         
         return Output(name: name.asDriver(),
                       birth: birth.asDriver(),
                       isAlreadyExist: isAlreadyExist.asDriver(),
-                      googleEmailNotExist: googleEmailNotExist.asDriver(),
-                      appleEmailNotExist: appleEmailNotExist.asDriver()
+                      isEmailNotExist: isEmailNotExist.asDriver(),
+                      
+                      isRegisterSuccess: isRegisterSuccess.asDriver(),
+                      isRegisterFailure: isRegisterFailure.asDriver()
         )
     }
 }

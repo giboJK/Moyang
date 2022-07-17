@@ -58,6 +58,10 @@ extension AuthCoordinator: SignUpVCDelegate {
     func startProfileProcess(vm: SignUpVM) {
         if let vc = assembler.resolver.resolve(SetUserInfoVC.self) {
             nav.pushViewController(vc, animated: true)
+            var vcList = nav.viewControllers
+            vcList.removeAll { $0 is SignUpVC }
+            vcList.removeAll { $0 is TermsVC }
+            nav.viewControllers = vcList
             vc.vm = vm
             vc.coordinator = self
         } else {

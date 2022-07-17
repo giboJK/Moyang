@@ -35,10 +35,10 @@ extension AuthController: SignUpRepo {
         }
     }
     
-    func registUser(email: String, pw: String, name: String, birth: String,
+    func registUser(email: String, pw: String, name: String, birth: String, authType: String,
                     completion: ((Result<UserInfo, Error>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.LoginAPI.registUser)
-        let userInfo = UserInfoRequest(email: email, passwd: pw, name: name, birth: birth)
+        let userInfo = UserInfoRequest(email: email, passwd: pw, name: name, birth: birth, authType: authType)
         guard let dict = userInfo.dict else { Log.e("Generating json error"); return }
         let request = networkService.makeRequest(url: url,
                                                  method: .post,

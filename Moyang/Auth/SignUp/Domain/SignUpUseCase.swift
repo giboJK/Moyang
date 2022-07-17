@@ -14,8 +14,18 @@ class SignUpUseCase {
     let repo: SignUpRepo
     
     // MARK: - Rx
+    let isNetworking = BehaviorRelay<Bool>(value: false)
+    
+    let isAlreadyExist = BehaviorRelay<Void>(value: ())
     let isEmailNotExist = BehaviorRelay<Void>(value: ())
     let isError = BehaviorRelay<Error?>(value: nil)
+    
+    let email = BehaviorRelay<String?>(value: nil)
+    let credential = BehaviorRelay<String?>(value: nil)
+    let authType = BehaviorRelay<String?>(value: nil)
+    
+    let isRegisterSuccess = BehaviorRelay<Void>(value: ())
+    let isRegisterFailure = BehaviorRelay<Void>(value: ())
     
     // MARK: - Lifecycle
     init(repo: SignUpRepo) {
@@ -23,29 +33,56 @@ class SignUpUseCase {
     }
 
     func checkEmailExist(email: String, credential: String, auth: String) {
+        if checkAndSetIsNetworking() {
+            return
+        }
+        
         repo.checkEmailExist(email: email.lowercased()) { [weak self] result in
             switch result {
             case .success(let responce):
                 if responce.code == 0 {
+                    self?.email.accept(email)
+                    self?.authType.accept(auth)
+                    self?.credential.accept(credential)
                     self?.isEmailNotExist.accept(())
                 } else {
                     Log.e(responce.code)
+                    self?.isAlreadyExist.accept(())
                 }
             case .failure(let error):
                 Log.e(error)
             }
+            self?.isNetworking.accept(false)
         }
     }
     
-    func registUser(email: String, pw: String, name: String, birth: String) {
-        repo.registUser(email: email.lowercased(), pw: pw, name: name, birth: birth) { result in
+    func registUser(name: String, birth: String) {
+        guard let email = email.value, let credential = credential.value, let autyType = authType.value else {
+            Log.e("No data")
+            isError.accept(MoyangError.unknown)
+            return
+        }
+        repo.registUser(email: email.lowercased(), pw: credential, name: name, birth: birth, authType: autyType) { [weak self] result in
             switch result {
             case .success(let response):
                 Log.w(response)
+                self?.isRegisterSuccess.accept(())
+                UserData.shared.email = email
+                UserData.shared.password = credential
+                UserData.shared.userInfo = response
             case .failure(let error):
-                Log.e(error)
+                self?.isRegisterFailure.accept(())
             }
         }
+    }
+    
+    private func checkAndSetIsNetworking() -> Bool {
+        if isNetworking.value {
+            Log.d("isNetworking...")
+            return true
+        }
+        isNetworking.accept(true)
+        return false
     }
 }
 

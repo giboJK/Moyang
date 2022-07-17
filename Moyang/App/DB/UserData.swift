@@ -9,6 +9,7 @@ import Foundation
 
 class UserData {
     static let shared = UserData()
+    var userInfo: UserInfo?
     var myInfo: MemberDetail?
     var groupInfo: GroupInfo?
     var sermon: Sermon?
@@ -47,6 +48,15 @@ class UserData {
         }
         set(v) {
             UserDefaults.standard.set(v, forKey: "USER_ID")
+        }
+    }
+    
+    var email: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "EMAIL")
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: "EMAIL")
         }
     }
     
