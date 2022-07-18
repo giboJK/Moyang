@@ -403,6 +403,7 @@
 		24E4DC38284C2D1C002ECD83 /* GroupPrayingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayingVM.swift; sourceTree = "<group>"; };
 		24E60723278EF19E00D5A7F2 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		24E6455C2850E08A00CF10AD /* MoyangButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButton.swift; sourceTree = "<group>"; };
+		24E7399C2885646900F5864F /* Moyang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Moyang.entitlements; sourceTree = "<group>"; };
 		24E779CD2787308D00C732D6 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		24E8F07D27DDD7280036C0F0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		24EFE40E287F10CD00549E07 /* KeychainSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwift.swift; sourceTree = "<group>"; };
@@ -1114,6 +1115,7 @@
 		24D0D2F627230CA3006FF67B /* Moyang */ = {
 			isa = PBXGroup;
 			children = (
+				24E7399C2885646900F5864F /* Moyang.entitlements */,
 				24B492D027989DAB005CAA5A /* Info.plist */,
 				24A6A4A9275A2BCB00D7DB25 /* App */,
 				242D745A274267AA0053EF2A /* CommonView */,
@@ -1832,6 +1834,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Moyang/Moyang.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -1865,6 +1868,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Moyang/Moyang.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
