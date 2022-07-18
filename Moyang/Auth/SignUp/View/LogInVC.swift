@@ -47,6 +47,12 @@ class LogInVC: UIViewController, VCType {
 //        $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
 //        $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -4)
     }
+    let loginFailurePopup = MoyangPopupView(style: .oneButton).then {
+        $0.title = "로그인 실패"
+        $0.desc = "개발자에게 문의하세요"
+        $0.firstButton.setTitle("확인", for: .normal)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -139,12 +145,30 @@ class LogInVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
+        
+        loginFailurePopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input()
         let output = vm.transform(input: input)
+        
+        output.isLoginSuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.coordinator?.loginSuccess()
+            }).disposed(by: disposeBag)
+        
+        output.isLoginFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.loginFailurePopup)
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -156,4 +180,5 @@ extension LogInVC: ASAuthorizationControllerPresentationContextProviding {
 
 protocol LogInVCDelegate: AnyObject {
     func moveToSignUp()
+    func loginSuccess()
 }

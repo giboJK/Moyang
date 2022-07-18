@@ -26,7 +26,7 @@
 		08AD958F287BE2D6002D4F94 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD958E287BE2D6002D4F94 /* AuthAssembly.swift */; };
 		08AD9591287BE371002D4F94 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD9590287BE371002D4F94 /* AuthCoordinator.swift */; };
 		08AD9594287BE433002D4F94 /* UserInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD9593287BE433002D4F94 /* UserInfoRequest.swift */; };
-		08AD9596287BEB08002D4F94 /* SignUpRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD9595287BEB08002D4F94 /* SignUpRepo.swift */; };
+		08AD9596287BEB08002D4F94 /* AuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD9595287BEB08002D4F94 /* AuthRepo.swift */; };
 		08AD9598287BEB52002D4F94 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD9597287BEB52002D4F94 /* BaseResponse.swift */; };
 		08AD959A287BEE00002D4F94 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD9599287BEE00002D4F94 /* AuthUseCase.swift */; };
 		08B142D727AFAFCC000952FF /* Sermon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B142D627AFAFCC000952FF /* Sermon.swift */; };
@@ -231,7 +231,7 @@
 		08AD958E287BE2D6002D4F94 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		08AD9590287BE371002D4F94 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		08AD9593287BE433002D4F94 /* UserInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRequest.swift; sourceTree = "<group>"; };
-		08AD9595287BEB08002D4F94 /* SignUpRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepo.swift; sourceTree = "<group>"; };
+		08AD9595287BEB08002D4F94 /* AuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepo.swift; sourceTree = "<group>"; };
 		08AD9597287BEB52002D4F94 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		08AD9599287BEE00002D4F94 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		08B142D627AFAFCC000952FF /* Sermon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sermon.swift; sourceTree = "<group>"; };
@@ -536,7 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				08AD9593287BE433002D4F94 /* UserInfoRequest.swift */,
-				08AD9595287BEB08002D4F94 /* SignUpRepo.swift */,
+				08AD9595287BEB08002D4F94 /* AuthRepo.swift */,
 				08AD9599287BEE00002D4F94 /* AuthUseCase.swift */,
 			);
 			path = Domain;
@@ -1669,7 +1669,7 @@
 				08D8295F278D8116001E6B61 /* IntroView.swift in Sources */,
 				24B47FF7276A1BD3003130E6 /* FSServiceImpl.swift in Sources */,
 				24CFA8C62879300800484C89 /* AllGroupUseCase.swift in Sources */,
-				08AD9596287BEB08002D4F94 /* SignUpRepo.swift in Sources */,
+				08AD9596287BEB08002D4F94 /* AuthRepo.swift in Sources */,
 				2493DE6228467441001A9368 /* GroupPrayVC.swift in Sources */,
 				24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */,
 				242F92A3284904AF0023324D /* MoyangTextField.swift in Sources */,

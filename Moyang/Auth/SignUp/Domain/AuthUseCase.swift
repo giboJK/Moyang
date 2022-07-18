@@ -11,7 +11,7 @@ import RxCocoa
 
 class AuthUseCase {
     // MARK: - Properties
-    let repo: SignUpRepo
+    let repo: AuthRepo
     
     // MARK: - Rx
     let isNetworking = BehaviorRelay<Bool>(value: false)
@@ -27,8 +27,11 @@ class AuthUseCase {
     let isRegisterSuccess = BehaviorRelay<Void>(value: ())
     let isRegisterFailure = BehaviorRelay<Void>(value: ())
     
+    let isLoginSuccess = BehaviorRelay<Void>(value: ())
+    let isLoginFailure = BehaviorRelay<Void>(value: ())
+    
     // MARK: - Lifecycle
-    init(repo: SignUpRepo) {
+    init(repo: AuthRepo) {
         self.repo = repo
     }
 
@@ -62,17 +65,42 @@ class AuthUseCase {
             isError.accept(MoyangError.unknown)
             return
         }
+        if checkAndSetIsNetworking() {
+            return
+        }
         repo.registUser(email: email.lowercased(), pw: credential, name: name, birth: birth, authType: autyType) { [weak self] result in
             switch result {
             case .success(let response):
-                Log.w(response)
+                Log.d(response)
                 self?.isRegisterSuccess.accept(())
                 UserData.shared.email = email
                 UserData.shared.password = credential
                 UserData.shared.userInfo = response
             case .failure(let error):
+                Log.e(error)
                 self?.isRegisterFailure.accept(())
             }
+            self?.isNetworking.accept(false)
+        }
+    }
+    
+    func appLogin(email: String, credential: String) {
+        if checkAndSetIsNetworking() {
+            return
+        }
+        repo.appLogin(email: email.lowercased(), credential: credential) { [weak self] result in
+            switch result {
+            case .success(let response):
+                Log.d(response)
+                UserData.shared.email = email
+                UserData.shared.password = credential
+                UserData.shared.userInfo = response
+                self?.isLoginSuccess.accept(())
+            case .failure(let error):
+                Log.e(error)
+                self?.isLoginFailure.accept(())
+            }
+            self?.isNetworking.accept(false)
         }
     }
     

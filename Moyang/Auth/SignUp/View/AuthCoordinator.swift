@@ -87,6 +87,8 @@ extension AuthCoordinator: SetUserInfoVCDelegate {
     func moveToMainVC() {
         if let coordinator = assembler.resolver.resolve(CommunityMainCoordinator.self) {
             coordinator.start(true, completion: nil)
+        } else {
+            Log.e("init failed")
         }
     }
 }
@@ -94,5 +96,13 @@ extension AuthCoordinator: SetUserInfoVCDelegate {
 extension AuthCoordinator: LogInVCDelegate {
     func moveToSignUp() {
         
+    }
+    
+    func loginSuccess() {
+        if let coordinator = assembler.resolver.resolve(CommunityMainCoordinator.self) {
+            coordinator.start(true, completion: nil)
+        } else {
+            Log.e("init failed")
+        }
     }
 }

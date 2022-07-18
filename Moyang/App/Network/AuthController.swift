@@ -15,7 +15,7 @@ class AuthController {
     }
 }
 
-extension AuthController: SignUpRepo {
+extension AuthController: AuthRepo {
     func checkEmailExist(email: String, completion: ((Result<BaseResponse, Error>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.LoginAPI.checkExist)
         let dict = ["email": email]
@@ -43,6 +43,25 @@ extension AuthController: SignUpRepo {
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
                                                  parameters: dict)
+        
+        networkService.requestAPI(request: request,
+                                  type: UserInfo.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
+    
+    func appLogin(email: String, credential: String, completion: ((Result<UserInfo, Error>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.LoginAPI.appLogin)
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: ["email": email,
+                                                              "user_pw": credential])
         
         networkService.requestAPI(request: request,
                                   type: UserInfo.self,

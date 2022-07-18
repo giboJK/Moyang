@@ -21,7 +21,9 @@ class NetConst {
     enum LoginAPI {
         /// post
         static let registUser = "/login/regist_user"
-        /// post 
+        /// post
         static let checkExist = "/login/check_exist"
+        /// post
+        static let appLogin = "/login/app_login"
     }
 }

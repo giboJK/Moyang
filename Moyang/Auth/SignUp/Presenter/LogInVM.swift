@@ -22,8 +22,8 @@ class LogInVM: NSObject, VMType {
     let isEmailNotExist = BehaviorRelay<Void>(value: ())
     let credential = BehaviorRelay<String?>(value: nil)
     
-    let isRegisterSuccess = BehaviorRelay<Void>(value: ())
-    let isRegisterFailure = BehaviorRelay<Void>(value: ())
+    let isLoginSuccess = BehaviorRelay<Void>(value: ())
+    let isLoginFailure = BehaviorRelay<Void>(value: ())
     
     init(useCase: AuthUseCase) {
         self.useCase = useCase
@@ -52,14 +52,14 @@ class LogInVM: NSObject, VMType {
                 Log.e(error as Any)
             }).disposed(by: disposeBag)
         
-        useCase.isRegisterSuccess
+        useCase.isLoginSuccess
             .skip(1)
-            .bind(to: isRegisterSuccess)
+            .bind(to: isLoginSuccess)
             .disposed(by: disposeBag)
         
-        useCase.isRegisterFailure
+        useCase.isLoginFailure
             .skip(1)
-            .bind(to: isRegisterSuccess)
+            .bind(to: isLoginFailure)
             .disposed(by: disposeBag)
     }
     
@@ -76,8 +76,8 @@ class LogInVM: NSObject, VMType {
               let email = user.profile?.email else {
             return
         }
-        useCase.checkEmailExist(email: email,
-                                credential: credential, auth: AuthType.google.rawValue)
+        useCase.appLogin(email: email,
+                         credential: credential)
     }
     private func appleSignIn(_ userIdentifier: String, _ name: PersonNameComponents?, _ email: String?) {
         useCase.checkEmailExist(email: email ?? "",
@@ -88,20 +88,13 @@ class LogInVM: NSObject, VMType {
 extension LogInVM {
     struct Input {
         var apple: Driver<Void> = .empty()
-        var setName: Driver<String?> = .empty()
-        var setBirth: Driver<String?> = .empty()
-        var registUser: Driver<Void> = .empty()
     }
     
     struct Output {
-        let name: Driver<String?>
-        let birth: Driver<String?>
-        
-        let isAlreadyExist: Driver<Void>
         let isEmailNotExist: Driver<Void>
         
-        let isRegisterSuccess: Driver<Void>
-        let isRegisterFailure: Driver<Void>
+        let isLoginSuccess: Driver<Void>
+        let isLoginFailure: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -109,29 +102,11 @@ extension LogInVM {
             .drive(onNext: { [weak self] _ in
             }).disposed(by: disposeBag)
         
-        input.setName
-            .drive(onNext: { [weak self] name in
-                if let name = name, !(name.first?.isWhitespace ?? false) {
-                    self?.name.accept(String(name.prefix(30)))
-                }
-            }).disposed(by: disposeBag)
         
-        input.setBirth
-            .drive(birth)
-            .disposed(by: disposeBag)
-        
-        input.registUser
-            .drive(onNext: { [weak self] _ in
-                self?.registerUser()
-            }).disposed(by: disposeBag)
-        
-        return Output(name: name.asDriver(),
-                      birth: birth.asDriver(),
-                      isAlreadyExist: isAlreadyExist.asDriver(),
-                      isEmailNotExist: isEmailNotExist.asDriver(),
+        return Output(isEmailNotExist: isEmailNotExist.asDriver(),
                       
-                      isRegisterSuccess: isRegisterSuccess.asDriver(),
-                      isRegisterFailure: isRegisterFailure.asDriver()
+                      isLoginSuccess: isLoginSuccess.asDriver(),
+                      isLoginFailure: isLoginFailure.asDriver()
         )
     }
 }
