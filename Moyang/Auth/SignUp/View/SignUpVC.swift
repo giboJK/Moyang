@@ -35,7 +35,7 @@ class SignUpVC: UIViewController, VCType {
         $0.layer.cornerRadius = 14
     }
     let googleSignupButton = MoyangButton(style: .none).then {
-        $0.setTitle("Google 가입", for: .normal)
+        $0.setTitle(" Google 가입", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         $0.setTitleColor(.nightSky1, for: .normal)
         $0.backgroundColor = .sheep1
@@ -44,8 +44,6 @@ class SignUpVC: UIViewController, VCType {
         $0.layer.borderWidth = 0.5
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 14
-//        $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
-//        $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -4)
     }
     let logInButton = MoyangButton(style: .none).then {
         let attributes: [NSAttributedString.Key: Any] = [

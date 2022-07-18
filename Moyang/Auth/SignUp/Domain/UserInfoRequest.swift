@@ -24,19 +24,19 @@ struct UserInfoRequest: Codable {
 }
 
 struct UserInfo: Codable {
+    let id: String
     let email: String
-    let passwd: String
     let name: String
     let birth: String
     let isPastor: Bool
-    let authType: String
+    let createDate: String
     
     enum CodingKeys: String, CodingKey {
+        case id = "id"
         case email = "email"
-        case passwd = "user_pw"
         case name = "name"
         case birth = "birth"
         case isPastor = "is_pastor"
-        case authType = "auth_type"
+        case createDate = "create_date"
     }
 }

@@ -63,16 +63,15 @@ class AuthAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - Assembly & Coordinator
-        
-        container.register(MainAssembly.self) { _ in
-            let assembly = MainAssembly()
+        container.register(CommunityMainAssembly.self) { _ in
+            let assembly = CommunityMainAssembly()
             assembly.nav = self.nav
             return assembly
         }
         
         container.register(AuthCoordinator.self) { r in
             guard let nav = self.nav else { return AuthCoordinator() }
-            let main = r ~> (MainAssembly.self)
+            let main = r ~> (CommunityMainAssembly.self)
             return AuthCoordinator(nav: nav, assembler: Assembler([self,
                                                                    main]))
         }
