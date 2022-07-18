@@ -1,8 +1,8 @@
 //
-//  SignUpVM.swift
+//  LogInVM.swift
 //  Moyang
 //
-//  Created by kibo on 2022/07/11.
+//  Created by kibo on 2022/07/18.
 //
 
 import RxSwift
@@ -11,7 +11,7 @@ import AuthenticationServices
 import GoogleSignIn
 import Security
 
-class SignUpVM: NSObject, VMType {
+class LogInVM: NSObject, VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: AuthUseCase
     
@@ -85,7 +85,7 @@ class SignUpVM: NSObject, VMType {
     }
 }
 
-extension SignUpVM {
+extension LogInVM {
     struct Input {
         var apple: Driver<Void> = .empty()
         var setName: Driver<String?> = .empty()
@@ -136,7 +136,7 @@ extension SignUpVM {
     }
 }
 
-extension SignUpVM: ASAuthorizationControllerDelegate {
+extension LogInVM: ASAuthorizationControllerDelegate {
     /// - Tag: did_complete_authorization
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {

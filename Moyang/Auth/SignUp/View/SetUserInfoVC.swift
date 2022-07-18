@@ -61,6 +61,15 @@ class SetUserInfoVC: UIViewController, VCType {
     let confirmButton = MoyangButton(.primary).then {
         $0.setTitle("확인", for: .normal)
     }
+    let closeConfirmPopup = MoyangPopupView(style: .twoButton).then {
+        $0.desc = "회원 정보를 입력하지 않으시면 회원가입이 완료되지 않습니다. 그래도 나가시겠어요?"
+        $0.firstButton.setTitle("나가기", for: .normal)
+        $0.secondButton.setTitle("취소", for: .normal)
+    }
+    let failurePopup = MoyangPopupView(style: .oneButton).then {
+        $0.desc = "회원 가입에 실패하였습니다"
+        $0.firstButton.setTitle("확인", for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,11 +146,6 @@ class SetUserInfoVC: UIViewController, VCType {
             $0.bottom.equalToSuperview().inset(34)
         }
     }
-    let closeConfirmPopup = MoyangPopupView(style: .twoButton).then {
-        $0.desc = "회원 정보를 입력하지 않으시면 회원가입이 완료되지 않습니다. 그래도 나가시겠어요?"
-        $0.firstButton.setTitle("나가기", for: .normal)
-        $0.secondButton.setTitle("취소", for: .normal)
-    }
     
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
@@ -175,6 +179,11 @@ class SetUserInfoVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
+        
+        failurePopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
     }
     
     private func bindVM() {
@@ -188,17 +197,18 @@ class SetUserInfoVC: UIViewController, VCType {
         output.isRegisterSuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                Log.w("")
+                self?.coordinator?.moveToMainVC()
             }).disposed(by: disposeBag)
         
         output.isRegisterFailure
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                Log.w("")
+                guard let self = self else { return }
+                self.displayPopup(popup: self.failurePopup)
             }).disposed(by: disposeBag)
     }
 }
 
 protocol SetUserInfoVCDelegate: AnyObject {
-    
+    func moveToMainVC()
 }

@@ -34,11 +34,11 @@ class AuthAssembly: Assembly, BaseAssembly {
         }
         
         container.register(SignUpVM.self) { r  in
-            return SignUpVM(useCase: r ~> (SignUpUseCase.self))
+            return SignUpVM(useCase: r ~> (AuthUseCase.self))
         }
         
-        container.register(SignUpUseCase.self) { r in
-            return SignUpUseCase(repo: r ~> (AuthController.self))
+        container.register(AuthUseCase.self) { r in
+            return AuthUseCase(repo: r ~> (AuthController.self))
         }
         
         container.register(AuthController.self) { r in
@@ -51,9 +51,30 @@ class AuthAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        container.register(AuthCoordinator.self) { _ in
+        // MARK: - LogInVC
+        container.register(LogInVC.self) { r in
+            let vc = LogInVC()
+            vc.vm = r ~> (LogInVM.self)
+            return vc
+        }
+        
+        container.register(LogInVM.self) { r  in
+            return LogInVM(useCase: r ~> (AuthUseCase.self))
+        }
+        
+        // MARK: - Assembly & Coordinator
+        
+        container.register(MainAssembly.self) { _ in
+            let assembly = MainAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
+        
+        container.register(AuthCoordinator.self) { r in
             guard let nav = self.nav else { return AuthCoordinator() }
-            return AuthCoordinator(nav: nav, assembler: Assembler([self]))
+            let main = r ~> (MainAssembly.self)
+            return AuthCoordinator(nav: nav, assembler: Assembler([self,
+                                                                   main]))
         }
     }
 }

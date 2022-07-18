@@ -96,6 +96,11 @@ class IntroVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.coordinator?.didTapSignUpButton()
             }).disposed(by: disposeBag)
+        
+        loginButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapLogInButton()
+            }).disposed(by: disposeBag)
     }
     
     private func bindVM() {

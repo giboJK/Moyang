@@ -37,6 +37,15 @@ class AuthCoordinator: Coordinator {
         }
     }
     
+    func startLogin(_ animated: Bool, completion: (() -> Void)?) {
+        if let vc = assembler.resolver.resolve(LogInVC.self) {
+            nav.pushViewController(vc, animated: animated)
+            nav.isNavigationBarHidden = true
+            vc.coordinator = self
+        } else {
+            Log.e("VC init failed")
+        }
+    }
 }
 
 extension AuthCoordinator: TermsVCDelegate {
@@ -75,5 +84,15 @@ extension AuthCoordinator: SignUpVCDelegate {
 }
 
 extension AuthCoordinator: SetUserInfoVCDelegate {
-    
+    func moveToMainVC() {
+        if let coordinator = assembler.resolver.resolve(CommunityMainCoordinator.self) {
+            coordinator.start(true, completion: nil)
+        }
+    }
+}
+
+extension AuthCoordinator: LogInVCDelegate {
+    func moveToSignUp() {
+        
+    }
 }

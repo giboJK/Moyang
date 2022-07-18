@@ -1,5 +1,5 @@
 //
-//  SignUpUseCase.swift
+//  AuthUseCase.swift
 //  Moyang
 //
 //  Created by kibo on 2022/07/11.
@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class SignUpUseCase {
+class AuthUseCase {
     // MARK: - Properties
     let repo: SignUpRepo
     
