@@ -26,7 +26,7 @@ class ProfileSetVM: ObservableObject {
     
     func setUserProfile(email: String) {
         guard let birth = birth,
-              let email = UserData.shared.userID?.lowercased() else {
+              let email = UserData.shared.email?.lowercased() else {
             Log.e("Data empty")
             return
         }

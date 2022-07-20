@@ -26,21 +26,37 @@ class IntroAssembly: Assembly, BaseAssembly {
             vc.vm = r ~> (IntroVM.self)
             return vc
         }
-        container.register(IntroVM.self) { _ in
-            IntroVM()
+        container.register(IntroVM.self) { r in
+            IntroVM(useCase: r ~> (AuthUseCase.self))
         }
         
-        // MARK: - Coordinator
+        container.register(AuthUseCase.self) { r in
+            return AuthUseCase(repo: r ~> (AuthController.self))
+        }
+        container.register(AuthController.self) { r in
+            return AuthController(networkService: r ~> (NetworkServiceProtocol.self))
+        }
+        
+        // MARK: - Assembly & Coordinator
+        container.register(CommunityMainAssembly.self) { _ in
+            let assembly = CommunityMainAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
+        
         container.register(AuthAssembly.self) { _ in
-            AuthAssembly()
+            let assembly = AuthAssembly()
+            assembly.nav = self.nav
+            return assembly
         }
         
         container.register(IntroCoordinator.self) { r in
             guard let nav = self.nav else { return IntroCoordinator() }
             let authAssembly = r ~> (AuthAssembly.self)
-            authAssembly.nav = nav
+            let main = r ~> (CommunityMainAssembly.self)
             return IntroCoordinator(nav: nav, assembler: Assembler([self,
-                                                                    authAssembly]))
+                                                                    authAssembly,
+                                                                    main]))
         }
     }
 }

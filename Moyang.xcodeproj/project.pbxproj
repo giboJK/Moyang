@@ -41,8 +41,6 @@
 		08BE77612796DAB8008DC7B0 /* PastorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BE77602796DAB8008DC7B0 /* PastorList.swift */; };
 		08CE42012780059A003352E0 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE42002780059A003352E0 /* FirestoreService.swift */; };
 		08D21A422884C93E002823E6 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D21A412884C93E002823E6 /* LogInVC.swift */; };
-		08D2D8552787B074006897A4 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8542787B074006897A4 /* LogInView.swift */; };
-		08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2D8572787B12F006897A4 /* LoginVM.swift */; };
 		08D2FD95286EE24800ED8ECB /* PrayReactionDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2FD94286EE24800ED8ECB /* PrayReactionDetailVC.swift */; };
 		08D2FD97286EE27300ED8ECB /* PrayReactionDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2FD96286EE27300ED8ECB /* PrayReactionDetailVM.swift */; };
 		08D449F227B94020004B0D8A /* ProfileSetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D449F127B94020004B0D8A /* ProfileSetVM.swift */; };
@@ -246,8 +244,6 @@
 		08BE77602796DAB8008DC7B0 /* PastorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorList.swift; sourceTree = "<group>"; };
 		08CE42002780059A003352E0 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		08D21A412884C93E002823E6 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
-		08D2D8542787B074006897A4 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
-		08D2D8572787B12F006897A4 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		08D2FD94286EE24800ED8ECB /* PrayReactionDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReactionDetailVC.swift; sourceTree = "<group>"; };
 		08D2FD96286EE27300ED8ECB /* PrayReactionDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReactionDetailVM.swift; sourceTree = "<group>"; };
 		08D449F127B94020004B0D8A /* ProfileSetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetVM.swift; sourceTree = "<group>"; };
@@ -584,7 +580,6 @@
 		08D2D8512787B04C006897A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				08D2D8542787B074006897A4 /* LogInView.swift */,
 				08BE775B2796D010008DC7B0 /* PastorLogInView.swift */,
 				082371B427BA7C2B0050420E /* TermsView.swift */,
 			);
@@ -595,7 +590,6 @@
 			isa = PBXGroup;
 			children = (
 				08D7DABA27CE243B004CDC9E /* Mock */,
-				08D2D8572787B12F006897A4 /* LoginVM.swift */,
 				08BE775D2796D21F008DC7B0 /* PastorLoginVM.swift */,
 				08D449F127B94020004B0D8A /* ProfileSetVM.swift */,
 			);
@@ -1517,7 +1511,6 @@
 				24C8E9B9286B1F4500AEE46B /* GroupPrayRepo.swift in Sources */,
 				24C8E9B3286B148F00AEE46B /* GroupPrayEditVC.swift in Sources */,
 				2496FE8427B5413F00E9DCEE /* SermonRepoImpl.swift in Sources */,
-				08D2D8582787B12F006897A4 /* LoginVM.swift in Sources */,
 				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
 				24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */,
 				24E0AB2C283E73F800F52505 /* CommunityMainRepo.swift in Sources */,
@@ -1536,7 +1529,6 @@
 				24D0D32D272314F7006FF67B /* Log.swift in Sources */,
 				24A9B87E279D9C35003468DB /* PastorComunityView.swift in Sources */,
 				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
-				08D2D8552787B074006897A4 /* LogInView.swift in Sources */,
 				0843DD3A279DFBAB00CF2395 /* ProfileVM.swift in Sources */,
 				08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */,
 				24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */,

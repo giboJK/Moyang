@@ -18,9 +18,7 @@ class UserData {
         myInfo = nil
         groupInfo = nil
         userName = nil
-        userID = nil
         password = nil
-        isPastor = nil
     }
     
     var isNotFirstLaunch: Bool {
@@ -42,15 +40,6 @@ class UserData {
     }
     
     /// Email address
-    var userID: String? {
-        get {
-            return UserDefaults.standard.string(forKey: "USER_ID")
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: "USER_ID")
-        }
-    }
-    
     var email: String? {
         get {
             return UserDefaults.standard.string(forKey: "EMAIL")
@@ -66,15 +55,6 @@ class UserData {
         }
         set(v) {
             UserDefaults.standard.set(v, forKey: "USER_PW")
-        }
-    }
-    
-    var isPastor: Bool? {
-        get {
-            return UserDefaults.standard.bool(forKey: "IS_PASTOR")
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: "IS_PASTOR")
         }
     }
     

@@ -58,4 +58,12 @@ extension IntroCoordinator: IntroVCDelegate {
     func didTapPastorLogInButton() {
         
     }
+    
+    func autoLogin() {
+        if let coordinator = assembler.resolver.resolve(CommunityMainCoordinator.self) {
+            coordinator.start(true, completion: nil)
+        } else {
+            Log.e("init failed")
+        }
+    }
 }

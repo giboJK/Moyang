@@ -86,9 +86,7 @@ class LogInVM: NSObject, VMType {
 }
 
 extension LogInVM {
-    struct Input {
-        var apple: Driver<Void> = .empty()
-    }
+    struct Input {}
     
     struct Output {
         let isEmailNotExist: Driver<Void>
@@ -98,10 +96,6 @@ extension LogInVM {
     }
     
     func transform(input: Input) -> Output {
-        input.apple
-            .drive(onNext: { [weak self] _ in
-            }).disposed(by: disposeBag)
-        
         
         return Output(isEmailNotExist: isEmailNotExist.asDriver(),
                       
