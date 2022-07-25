@@ -41,6 +41,14 @@ class CommunityMainVC: UIViewController, VCType {
         $0.title = "나는 거룩한 하나님의 자녀입니다."
         $0.firstButton.setTitle("네!", for: .normal)
     }
+    let prayButton = UIButton().then {
+        $0.setTitle("기도하기", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.tintColor = .sheep1
+        $0.backgroundColor = .nightSky1
+        $0.layer.cornerRadius = 12
+        $0.semanticContentAttribute = .forceRightToLeft
+    }
     let emptyGroupView = EmptyGroupView()
     let networkIndicator = UIActivityIndicatorView(style: .large).then {
         $0.hidesWhenStopped = true
@@ -76,6 +84,7 @@ class CommunityMainVC: UIViewController, VCType {
         setupScrollView()
         setupEmptyGroupView()
         setupNetworkIndicator()
+        setupPrayButton()
     }
     
     private func setupSermonCard() {
@@ -132,6 +141,15 @@ class CommunityMainVC: UIViewController, VCType {
             $0.bottom.equalToSuperview()
         }
     }
+    private func setupPrayButton() {
+        view.addSubview(prayButton)
+        prayButton.snp.makeConstraints {
+            $0.height.equalTo(48)
+            $0.width.equalTo(96)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.centerX.equalToSuperview()
+        }
+    }
     private func setupNetworkIndicator() {
         view.addSubview(networkIndicator)
         networkIndicator.center = view.center
@@ -151,6 +169,11 @@ class CommunityMainVC: UIViewController, VCType {
         allGroupButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.coordinator?.showAllGroup()
+            }).disposed(by: disposeBag)
+        
+        prayButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.letsPray()
             }).disposed(by: disposeBag)
     }
     
@@ -196,4 +219,5 @@ class CommunityMainVC: UIViewController, VCType {
 protocol CommunityMainVCDelegate: AnyObject {
     func didTapGroupPrayCard(groupPrayVM: GroupPrayVM)
     func showAllGroup()
+    func letsPray()
 }

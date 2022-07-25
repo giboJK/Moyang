@@ -56,6 +56,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(CommunityGroupPrayCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         cv.backgroundColor = .clear
+        cv.isPagingEnabled = true
         return cv
     }()
     
@@ -63,6 +64,8 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     init() {
         super.init(frame: .zero)
         setupUI()
+        setupTimer()
+        bindViews()
     }
     
     required init?(coder: NSCoder) {
@@ -146,6 +149,25 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         prayCollectionView.delegate = self
     }
     
+    var carouselTimer: Timer?
+    private func setupTimer() {
+        carouselTimer?.invalidate()
+        carouselTimer = nil
+        carouselTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
+            if let index = self?.prayCollectionView.indexPathsForVisibleItems.first {
+                if (index.row + 2) >= self?.prayCollectionView.numberOfItems(inSection: 0) ?? 0 {
+                    self?.prayCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
+                                                          at: .top,
+                                                          animated: true)
+                } else {
+                    self?.prayCollectionView.scrollToItem(at: IndexPath(row: index.row + 1, section: 0),
+                                                          at: .top,
+                                                          animated: true)
+                }
+            }
+        }
+    }
+    
     func bind() {
         guard let vm = vm else { Log.e(""); return }
         let output = vm.transform(input: CommunityMainVM.Input())
@@ -175,7 +197,22 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
             }).disposed(by: disposeBag)
     }
     
+    func bindViews() {
+        prayCollectionView.rx.didScroll.debounce(.milliseconds(20), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.prayCollectionView.isUserInteractionEnabled = true
+                self?.setupTimer()
+            }).disposed(by: disposeBag)
+        
+        prayCollectionView.rx.didEndDisplayingCell
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.prayCollectionView.isUserInteractionEnabled = false
+            }).disposed(by: disposeBag)
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 192, height: 160)
+        return CGSize(width: 220, height: 160)
     }
 }

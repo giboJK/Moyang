@@ -53,6 +53,10 @@ extension CommunityMainCoordinator: CommunityMainVCDelegate {
             nav.pushViewController(vc, animated: true)
         }
     }
+    
+    func letsPray() {
+        
+    }
 }
 
 extension CommunityMainCoordinator: AllGroupVCDelegate {
