@@ -47,9 +47,9 @@ class PrayWithAndChangeVM: VMType {
     
     private func setData(data: PrayItem) {
         memberName.accept(data.name)
-        date.accept(data.date)
-        parentPray.accept(data.pray)
-        parentTagList.accept(data.tags)
+//        date.accept(data.date)
+//        parentPray.accept(data.pray)
+//        parentTagList.accept(data.tags)
         
         guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
         if data.memberID == myInfo.id {
@@ -60,18 +60,18 @@ class PrayWithAndChangeVM: VMType {
     }
     
     private func addReply() {
-        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
-        guard let reply = reply.value else { Log.e(""); return }
-        
-        let order = prayItem.replys.filter { reply in
-            reply.memberID == myInfo.id
-        }.count
-        useCase.addReply(memberAuth: prayItem.memberAuth,
-                         email: prayItem.memberEmail,
-                         prayID: prayItem.prayID,
-                         reply: reply,
-                         date: Date().toString(format: "yyyy-MM-dd hh:mm:ss a"),
-                         order: order + 1)
+//        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
+//        guard let reply = reply.value else { Log.e(""); return }
+//
+//        let order = prayItem.replys.filter { reply in
+//            reply.memberID == myInfo.id
+//        }.count
+//        useCase.addReply(memberAuth: prayItem.memberAuth,
+//                         email: prayItem.memberEmail,
+//                         prayID: prayItem.prayID,
+//                         reply: reply,
+//                         date: Date().toString(format: "yyyy-MM-dd hh:mm:ss a"),
+//                         order: order + 1)
     }
 }
 

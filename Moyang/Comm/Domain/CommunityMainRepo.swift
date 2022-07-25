@@ -8,6 +8,8 @@
 import Foundation
 
 protocol CommunityMainRepo {
+    func fetchGroupSummary(myInfo: UserInfo, completion: ((Result<GroupSummary, MoyangError>) -> Void)?) 
+    
     func fetchGroupInfo(community: String, groupID: String, completion: ((Result<GroupInfo, MoyangError>) -> Void)?)
     func fetchGroupList()
     func fetchMemberIndividualPray(memberAuth: String, email: String, groupID: String, limit: Int, start: String,

@@ -55,6 +55,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(CommunityGroupPrayCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        cv.backgroundColor = .clear
         return cv
     }()
     
@@ -140,7 +141,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
             $0.left.equalToSuperview().inset(8)
             $0.right.equalToSuperview()
             $0.bottom.equalToSuperview().inset(8)
-            $0.height.equalTo(84)
+            $0.height.equalTo(160)
         }
         prayCollectionView.delegate = self
     }
@@ -154,7 +155,15 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
                 .items(cellIdentifier: "cell",
                        cellType: CommunityGroupPrayCollectionViewCell.self)) { (_, item, cell) in
                 cell.nameLabel.text = item.name
-                cell.prayLabel.text = item.pray
+                if let pray = item.pray {
+                    if !(item.isSecret ?? false) {
+                        cell.prayLabel.text = pray
+                    } else {
+                        cell.prayLabel.text = "기도제목이 없습니다"
+                    }
+                } else {
+                    cell.prayLabel.text = "기도제목이 없습니다"
+                }
             }.disposed(by: disposeBag)
         
         output.myPray
@@ -162,11 +171,11 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
                 guard let myPray = myPray else { return }
                 self?.myPrayLabel.text = myPray.pray
                 self?.myPrayLabel.lineBreakMode = .byTruncatingTail
-                self?.myLatestDateLabel.text = myPray.date
+                self?.myLatestDateLabel.text = myPray.createDate
             }).disposed(by: disposeBag)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 152, height: 84)
+        return CGSize(width: 192, height: 160)
     }
 }

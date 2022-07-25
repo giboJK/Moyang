@@ -18,11 +18,13 @@ class CommunityMainVM: VMType {
     let groupPrayVM = BehaviorRelay<GroupPrayVM?>(value: nil)
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
+    let isEmptyGroup = BehaviorRelay<Bool>(value: true)
+    
     private var groupInfo: GroupInfo?
     
     init(useCase: CommunityMainUseCase) {
         self.useCase = useCase
-        fetchGroupInfo()
+        fetchGroupSummary()
         bind()
     }
     
@@ -39,60 +41,28 @@ class CommunityMainVM: VMType {
                 self?.setGroupInfoData(data: groupInfo)
             }).disposed(by: disposeBag)
         
-        useCase.cardMemberPrayList
-            .debounce(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
-            .map { list in
-                guard let myInfo = UserData.shared.myInfo else { return [] }
-                var itemList = [GroupIndividualPrayItem]()
-                list.filter({ $0.member.id != myInfo.id }).forEach { item in
-                    itemList.append(GroupIndividualPrayItem(memberID: item.member.id,
-                                                            memberAuth: item.member.auth,
-                                                            memberEmail: item.member.email,
-                                                            name: item.member.name,
-                                                            pray: item.pray.pray,
-                                                            date: item.pray.date,
-                                                            prayID: item.pray.id,
-                                                            tags: item.pray.tags,
-                                                            isSecret: item.pray.isSecret,
-                                                            isRequestPray: item.pray.isRequestPray,
-                                                            reactions: item.pray.reactions,
-                                                            replys: item.pray.replys,
-                                                            registeredDate: item.pray.registeredDate
-                                                           ))
+        useCase.groupSummary
+            .subscribe(onNext: { [weak self] data in
+                guard let data = data else { return }
+                guard let self = self else { return }
+                Log.d(data)
+                self.isEmptyGroup.accept(false)
+                var cardList = [GroupIndividualPrayItem]()
+                data.prays.forEach { item in
+                    cardList.append(GroupIndividualPrayItem(memberID: item.userID,
+                                                            name: item.userName,
+                                                            prayID: item.prayID,
+                                                            pray: item.content,
+                                                            latestDate: item.latestDate,
+                                                            isSecret: item.isSecret,
+                                                            createDate: item.createDate))
                 }
-                return itemList
-            }
-            .bind(to: cardPrayItemList)
-            .disposed(by: disposeBag)
-        
-        useCase.cardMemberPrayList
-            .debounce(.milliseconds(300), scheduler: MainScheduler.asyncInstance)
-            .map { list -> GroupIndividualPrayItem? in
-                guard let myInfo = UserData.shared.myInfo else { return nil }
-                if let myPray = list.first(where: { $0.member.id == myInfo.id }) {
-                    return GroupIndividualPrayItem(memberID: myPray.member.id,
-                                                   memberAuth: myPray.member.auth,
-                                                   memberEmail: myPray.member.email,
-                                                   name: myPray.member.name,
-                                                   pray: myPray.pray.pray,
-                                                   date: myPray.pray.date,
-                                                   prayID: myPray.pray.id,
-                                                   tags: myPray.pray.tags,
-                                                   isSecret: myPray.pray.isSecret,
-                                                   isRequestPray: myPray.pray.isRequestPray,
-                                                   reactions: myPray.pray.reactions,
-                                                   replys: myPray.pray.replys,
-                                                   registeredDate: myPray.pray.registeredDate
-                    )
-                } else {
-                    return nil
-                }
-            }.bind(to: myPray)
-            .disposed(by: disposeBag)
+                self.cardPrayItemList.accept(cardList)
+            }).disposed(by: disposeBag)
     }
     
-    private func fetchGroupInfo() {
-        useCase.fetchGroupInfo()
+    private func fetchGroupSummary() {
+        useCase.fetchGroupSummary()
     }
     
     private func setGroupInfoData(data: GroupInfo) {
@@ -124,6 +94,7 @@ extension CommunityMainVM {
         let myPray: Driver<GroupIndividualPrayItem?>
         let cardPrayItemList: Driver<[GroupIndividualPrayItem]>
         let groupPrayVM: Driver<GroupPrayVM?>
+        let isEmptyGroup: Driver<Bool>
     }
     
     func transform(input: Input) -> Output {
@@ -140,53 +111,34 @@ extension CommunityMainVM {
                       groupName: groupName.asDriver(),
                       myPray: myPray.asDriver(),
                       cardPrayItemList: cardPrayItemList.asDriver(),
-                      groupPrayVM: groupPrayVM.asDriver())
+                      groupPrayVM: groupPrayVM.asDriver(),
+                      isEmptyGroup: isEmptyGroup.asDriver())
     }
     
     struct GroupIndividualPrayItem {
         let memberID: String
-        let memberAuth: String
-        let memberEmail: String
         let name: String
-        let pray: String
-        let date: String
-        let prayID: String
-        let tags: [String]
-        let isSecret: Bool
-        let isRequestPray: Bool
-        let reactions: [PrayReaction]
-        let replys: [PrayReply]
-        let changes: [PrayReply]
-        let registeredDate: String
+        let pray: String?
+        let latestDate: String?
+        let prayID: String?
+        let isSecret: Bool?
+        let createDate: String?
         
         init(memberID: String,
-             memberAuth: String,
-             memberEmail: String,
              name: String,
-             pray: String,
-             date: String,
-             prayID: String,
-             tags: [String],
-             isSecret: Bool,
-             isRequestPray: Bool,
-             reactions: [PrayReaction],
-             replys: [PrayReply],
-             registeredDate: String
+             prayID: String?,
+             pray: String?,
+             latestDate: String?,
+             isSecret: Bool?,
+             createDate: String?
         ) {
             self.memberID = memberID
-            self.memberAuth = memberAuth
-            self.memberEmail = memberEmail
             self.name = name
-            self.pray = pray
-            self.date = date
             self.prayID = prayID
-            self.tags = tags
+            self.pray = pray
+            self.latestDate = latestDate
             self.isSecret = isSecret
-            self.isRequestPray = isRequestPray
-            self.reactions = reactions
-            self.replys = replys.filter { $0.memberID != memberID }
-            self.changes = replys.filter { $0.memberID == memberID }.sorted(by: { $0.date > $1.date })
-            self.registeredDate = registeredDate
+            self.createDate = createDate
         }
     }
 }

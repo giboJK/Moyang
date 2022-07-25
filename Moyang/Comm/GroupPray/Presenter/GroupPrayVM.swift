@@ -49,29 +49,23 @@ class GroupPrayVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-        useCase.cardMemberPrayList
-            .map { list in
-                var itemList = [PrayItem]()
-                list.forEach { item in
-                    itemList.append(PrayItem(memberID: item.member.id,
-                                             memberAuth: item.member.auth,
-                                             memberEmail: item.member.email,
-                                             name: item.member.name,
-                                             pray: item.pray.pray,
-                                             date: item.pray.date,
-                                             prayID: item.pray.id,
-                                             tags: item.pray.tags,
-                                             isSecret: item.pray.isSecret,
-                                             isRequestPray: item.pray.isRequestPray,
-                                             reactions: item.pray.reactions,
-                                             replys: item.pray.replys,
-                                             registeredDate: item.pray.registeredDate
-                                            ))
-                }
-                return itemList
-            }
-            .bind(to: cardPrayItemList)
-            .disposed(by: disposeBag)
+//        useCase.cardMemberPrayList
+//            .map { list in
+//                var itemList = [PrayItem]()
+//                list.forEach { item in
+//                    itemList.append(PrayItem(memberID: item.member.id,
+//                                             name: item.member.name,
+//                                             pray: item.pray.pray,
+//                                             date: item.pray.date,
+//                                             prayID: item.pray.id,
+//                                             isSecret: item.pray.isSecret,
+//                                             registeredDate: item.pray.registeredDate
+//                                            ))
+//                }
+//                return itemList
+//            }
+//            .bind(to: cardPrayItemList)
+//            .disposed(by: disposeBag)
         
         useCase.addingNewPraySuccess
             .bind(to: addingNewPraySuccess)
@@ -125,16 +119,16 @@ class GroupPrayVM: VMType {
         guard let index = notification.userInfo?["index"] as? Int else {
             Log.e(""); return
         }
-        let reactions = cardPrayItemList.value[index].reactions
-        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
+//        let reactions = cardPrayItemList.value[index].reactions
+//        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
     }
     
     @objc func setReplyVM(notification: NSNotification) {
         guard let index = notification.userInfo?["index"] as? Int else {
             Log.e(""); return
         }
-        let replys = cardPrayItemList.value[index].replys
-        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
+//        let replys = cardPrayItemList.value[index].replys
+//        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
     }
 }
 

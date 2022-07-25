@@ -10,11 +10,11 @@ import UIKit
 class CommunityGroupPrayCollectionViewCell: UICollectionViewCell {
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .semibold)
-        $0.tintColor = .nightSky1
+        $0.textColor = .nightSky1
     }
     let prayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.tintColor = .nightSky1
+        $0.textColor = .nightSky1
         $0.numberOfLines = 0
     }
     
@@ -36,6 +36,7 @@ class CommunityGroupPrayCollectionViewCell: UICollectionViewCell {
         nameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
             $0.left.right.equalToSuperview().inset(8)
+            $0.height.equalTo(16)
         }
     }
     private func setupPrayLabel() {

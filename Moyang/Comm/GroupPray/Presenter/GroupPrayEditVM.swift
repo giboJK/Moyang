@@ -31,7 +31,7 @@ class GroupPrayEditVM: VMType {
     let prayWithAndChangeVM = BehaviorRelay<PrayWithAndChangeVM?>(value: nil)
     
     init(prayItem: PrayItem, isMyPray: Bool, useCase: CommunityMainUseCase) {
-        self.prayID = prayItem.prayID
+        self.prayID = prayItem.prayID!
         self.useCase = useCase
         self.prayItem = prayItem
         setInitialData(item: prayItem)
@@ -53,15 +53,15 @@ class GroupPrayEditVM: VMType {
     
     private func setInitialData(item: PrayItem) {
         newPray.accept(item.pray)
-        tagList.accept(item.tags)
-        isSecret.accept(item.isSecret)
-        isRequestPray.accept(item.isRequestPray)
+//        tagList.accept(item.tags)
+//        isSecret.accept(item.isSecret)
+//        isRequestPray.accept(item.isRequestPray)
         setChangeItemList(item: item)
     }
     
     private func setChangeItemList(item: PrayItem) {
-        let changes = item.changes.map { PrayChangeItem(reply: $0) }
-        changeItemList.accept(changes)
+//        let changes = item.changes.map { PrayChangeItem(reply: $0) }
+//        changeItemList.accept(changes)
     }
     
     private func editPray() {

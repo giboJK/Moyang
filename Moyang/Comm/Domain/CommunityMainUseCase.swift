@@ -36,6 +36,8 @@ class CommunityMainUseCase {
     let addingReplySuccess = BehaviorRelay<Void>(value: ())
     let addingReplyFailure = BehaviorRelay<Void>(value: ())
     
+    let groupSummary = BehaviorRelay<GroupSummary?>(value: nil)
+    let error = BehaviorRelay<MoyangError?>(value: nil)
     
     // MARK: - Lifecycle
     init(repo: CommunityMainRepo, groupPrayRepo: GroupPrayRepo) {
@@ -44,23 +46,28 @@ class CommunityMainUseCase {
     }
     
     // MARK: - Function
-    func fetchGroupInfo() {
-        guard let myInfo = UserData.shared.myInfo else {
-            return
-        }
-        guard let groupID = myInfo.groupList.first else {
+    func fetchGroupSummary() {
+        guard let myInfo = UserData.shared.userInfo else {
+            Log.e("No user")
             return
         }
         
-        repo.fetchGroupInfo(community: myInfo.community.uppercased(), groupID: groupID) { [weak self] result in
+        repo.fetchGroupSummary(myInfo: myInfo) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let groupInfo):
-                self.groupInfo.accept(groupInfo)
+            case .success(let data):
+                self.groupSummary.accept(data)
             case .failure(let error):
                 Log.e(error)
+                self.error.accept(.other(error))
             }
         }
+    }
+    func fetchGroupInfo() {
+//        guard let myInfo = UserData.shared.userInfo else {
+//            Log.e("No user")
+//            return
+//        }
     }
     
     func fetchMemberIndividualPray(member: Member, groupID: String, limit: Int = 1, start: String) {

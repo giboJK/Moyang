@@ -32,16 +32,16 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             CommunityMainUseCase(repo: r ~> (CommunityMainRepo.self), groupPrayRepo: r ~> (GroupPrayRepo.self))
         }
         
-//        container.register(CommunityMainRepo.self) { r in
-//            CommunityController(networkService: r ~> (NetworkServiceProtocol.self))
-//        }
+        container.register(NetworkServiceProtocol.self) { _ in
+            AFNetworkService(sessionConfiguration: .default)
+        }
         
         container.register(CommunityMainRepo.self) { r in
-            CommunityController(firestoreService: r ~> (FirestoreService.self))
+            CommunityController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         
         container.register(GroupPrayRepo.self) { r in
-            CommunityController(firestoreService: r ~> (FirestoreService.self))
+            CommunityController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         
         container.register(NetworkServiceProtocol.self) { _ in
@@ -60,7 +60,7 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
         
         // MARK: - AllGroup
         container.register(AllGroupRepo.self) { r in
-            CommunityController(firestoreService: r ~> (FirestoreService.self))
+            CommunityController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         
         container.register(AllGroupUseCase.self) { r in

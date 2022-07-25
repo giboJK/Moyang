@@ -13,8 +13,6 @@ class GroupPrayListVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
     let groupID: String
-    let auth: String
-    let email: String
     
     let name = BehaviorRelay<String>(value: "")
     let prayList = BehaviorRelay<[PrayItem]>(value: [])
@@ -30,8 +28,6 @@ class GroupPrayListVM: VMType {
     init(groupID: String, prayItem: PrayItem, useCase: CommunityMainUseCase) {
         self.groupID = groupID
         self.useCase = useCase
-        self.auth = prayItem.memberAuth
-        self.email = prayItem.memberEmail
         setInitialData(data: prayItem)
         bind()
         DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(100)) {
@@ -78,28 +74,7 @@ class GroupPrayListVM: VMType {
     }
     
     private func convertToItemList(data: [(member: Member, list: [GroupIndividualPray])]) -> [GroupPrayListVM.PrayItem] {
-        var itemList = [PrayItem]()
-        let filtered = data.filter { $0.member.auth == auth && $0.member.email == email }
-        for item in filtered {
-            let mapped = item.list.map { pray in
-                PrayItem(memberID: item.member.id,
-                         memberAuth: auth,
-                         memberEmail: email,
-                         name: item.member.name,
-                         pray: pray.pray,
-                         date: pray.date,
-                         prayID: pray.id,
-                         tags: pray.tags,
-                         isSecret: pray.isSecret,
-                         isRequestPray: pray.isRequestPray,
-                         reactions: pray.reactions,
-                         replys: pray.replys,
-                         registeredDate: pray.registeredDate
-                )
-            }
-            itemList.append(contentsOf: mapped)
-        }
-        return itemList
+        return []
     }
     
     private func setInitialData(data: PrayItem) {
@@ -113,17 +88,17 @@ class GroupPrayListVM: VMType {
     }
     
     private func fetchPrayList(date: String = Date().addingTimeInterval(3600 * 24).toString("yyyy-MM-dd hh:mm:ss a")) {
-        if UserData.shared.myInfo?.authType == auth && UserData.shared.myInfo?.email == email {
-            useCase.fetchMemberIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 5, start: date)
-        } else {
-            useCase.fetchMemberNonSecretIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 5, start: date)
-        }
+//        if UserData.shared.myInfo?.authType == auth && UserData.shared.myInfo?.email == email {
+//            useCase.fetchMemberIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 5, start: date)
+//        } else {
+//            useCase.fetchMemberNonSecretIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 5, start: date)
+//        }
     }
     
     func fetchMorePrayList() {
-        if let date = prayList.value.last?.date {
-            fetchPrayList(date: date)
-        }
+//        if let date = prayList.value.last?.date {
+//            fetchPrayList(date: date)
+//        }
     }
     
     func clearPrayList() {
@@ -137,13 +112,6 @@ class GroupPrayListVM: VMType {
         }
         let prayID = prayList.value[index].prayID
         
-        useCase.addReaction(memberAuth: auth,
-                            email: email,
-                            prayID: prayID,
-                            myInfo: myInfo,
-                            reaction: reaction.rawValue,
-                            reactions: prayList.value[index].reactions
-        )
     }
     
     @objc func releasePrayingVM() {
@@ -154,25 +122,25 @@ class GroupPrayListVM: VMType {
         guard let index = notification.userInfo?["index"] as? Int else {
             Log.e(""); return
         }
-        let reactions = prayList.value[index].reactions
-        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
+//        let reactions = prayList.value[index].reactions
+//        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
     }
     
     @objc func setReplyVM(notification: NSNotification) {
         guard let index = notification.userInfo?["index"] as? Int else {
             Log.e(""); return
         }
-        let replys = prayList.value[index].replys
-        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
+//        let replys = prayList.value[index].replys
+//        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
     }
     
     private func setGroupPrayEditVM(index: Int) {
         guard let myInfo = UserData.shared.myInfo else { return }
         
-        let prayIrem = prayList.value[index]
-        editVM.accept(GroupPrayEditVM(prayItem: prayIrem,
-                                      isMyPray: (myInfo.email == email && myInfo.authType == auth),
-                                      useCase: useCase))
+//        let prayIrem = prayList.value[index]
+//        editVM.accept(GroupPrayEditVM(prayItem: prayIrem,
+//                                      isMyPray: (myInfo.email == email && myInfo.authType == auth),
+//                                      useCase: useCase))
     }
     
     private func setPrayWithAndChangeVM(index: Int) {
@@ -210,8 +178,6 @@ extension GroupPrayListVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 let vm = GroupPrayingVM(useCase: self.useCase,
-                                        auth: self.auth,
-                                        email: self.email,
                                         groupID: self.groupID)
                 self.groupPrayingVM.accept(vm)
             }).disposed(by: disposeBag)

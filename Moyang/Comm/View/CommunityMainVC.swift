@@ -41,6 +41,10 @@ class CommunityMainVC: UIViewController, VCType {
         $0.title = "나는 거룩한 하나님의 자녀입니다."
         $0.firstButton.setTitle("네!", for: .normal)
     }
+    let emptyGroupView = EmptyGroupView()
+    let networkIndicator = UIActivityIndicatorView(style: .large).then {
+        $0.hidesWhenStopped = true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +74,8 @@ class CommunityMainVC: UIViewController, VCType {
         view.backgroundColor = .nightSky3
         setupSermonCard()
         setupScrollView()
+        setupEmptyGroupView()
+        setupNetworkIndicator()
     }
     
     private func setupSermonCard() {
@@ -118,6 +124,19 @@ class CommunityMainVC: UIViewController, VCType {
         communityGroupPrayCard.dropShadow()
     }
     
+    private func setupEmptyGroupView() {
+        view.addSubview(emptyGroupView)
+        emptyGroupView.snp.makeConstraints {
+            $0.top.equalTo(sermonCard.snp.bottom)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+    }
+    private func setupNetworkIndicator() {
+        view.addSubview(networkIndicator)
+        networkIndicator.center = view.center
+    }
+    
     func bind() {
         bindViews()
         bindVM()
@@ -150,6 +169,26 @@ class CommunityMainVC: UIViewController, VCType {
             .drive(onNext: { [weak self] groupPrayVM in
                 guard let groupPrayVM = groupPrayVM else { return }
                 self?.coordinator?.didTapGroupPrayCard(groupPrayVM: groupPrayVM)
+            }).disposed(by: disposeBag)
+        
+        output.isEmptyGroup
+            .map { $0 }
+            .drive(scrollView.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        output.isEmptyGroup
+            .map { !$0 }
+            .drive(emptyGroupView.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        output.isNetworking
+            .drive(onNext: { [weak self] isNetworking in
+                guard let self = self else { return }
+                if isNetworking {
+                    self.networkIndicator.startAnimating()
+                } else {
+                    self.networkIndicator.stopAnimating()
+                }
             }).disposed(by: disposeBag)
     }
 }
