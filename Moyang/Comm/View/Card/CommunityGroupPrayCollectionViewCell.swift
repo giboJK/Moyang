@@ -23,7 +23,7 @@ class CommunityGroupPrayCollectionViewCell: UICollectionViewCell {
     }
     let newView = UIView().then {
         $0.backgroundColor = .appleRed1
-        $0.layer.cornerRadius = 2
+        $0.layer.cornerRadius = 3
     }
     
     override init(frame: CGRect) {
@@ -45,7 +45,7 @@ class CommunityGroupPrayCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
-            $0.left.right.equalToSuperview().inset(12)
+            $0.left.equalToSuperview().inset(12)
             $0.height.equalTo(16)
         }
     }
@@ -53,24 +53,24 @@ class CommunityGroupPrayCollectionViewCell: UICollectionViewCell {
     private func setupDateLabel() {
         contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(12)
         }
     }
     private func setupPrayLabel() {
         contentView.addSubview(prayLabel)
         prayLabel.snp.makeConstraints {
-            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
+            $0.top.equalTo(dateLabel.snp.bottom).offset(6)
             $0.left.right.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(4)
+            $0.bottom.equalToSuperview().inset(8)
         }
     }
     private func setupNewView() {
         contentView.addSubview(newView)
         newView.snp.makeConstraints {
-            $0.size.equalTo(4)
-            $0.top.equalTo(nameLabel).offset(2)
-            $0.right.equalTo(nameLabel.snp.left).offset(-2)
+            $0.size.equalTo(6)
+            $0.top.equalTo(nameLabel)
+            $0.left.equalTo(nameLabel.snp.right).offset(3)
         }
     }
 }

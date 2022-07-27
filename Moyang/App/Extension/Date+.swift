@@ -109,13 +109,27 @@ extension Date {
 }
 
 extension Date {
-    var firstDayOfWeek: Date {
-        var beginningOfWeek = Date()
-        var interval = TimeInterval()
-        
-        _ = Calendar.current.dateInterval(of: .weekOfYear, start: &beginningOfWeek, interval: &interval, for: self)
-        return beginningOfWeek
+    var startOfWeek: Date? {
+        let gregorian = Calendar(identifier: .gregorian)
+        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
+        return gregorian.date(byAdding: .day, value: 0, to: sunday)
     }
+    
+    var endOfWeek: Date? {
+        let gregorian = Calendar(identifier: .gregorian)
+        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
+        return gregorian.date(byAdding: .day, value: 6, to: sunday)
+    }
+    
+    var startOfMonth: Date? {
+        return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self)))
+    }
+    
+    var endOfMonth: Date? {
+        guard let startOfMonth = self.startOfMonth else { return nil }
+        return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)
+    }
+ 
     
     func addWeeks(_ numWeeks: Int) -> Date {
         var components = DateComponents()

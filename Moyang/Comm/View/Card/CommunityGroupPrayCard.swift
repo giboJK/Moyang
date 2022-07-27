@@ -31,22 +31,31 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         $0.backgroundColor = .sheep3
     }
     let thisWeekLabel = UILabel().then {
-        $0.text = "이번주"
+        let date = Date()
+        if let start = date.startOfWeek, let end = date.endOfWeek {
+            $0.text = "\(start.toString("MM월 dd일")) - \(end.toString("MM월 dd일"))"
+        } else {
+            $0.text = "이번주"
+        }
         $0.font = .systemFont(ofSize: 15, weight: .semibold)
-        $0.tintColor = .nightSky1
+        $0.textColor = .nightSky1
     }
-    let myPrayLabel = UILabel().then {
+    let prayGoalLabel = UILabel().then {
+        $0.text = "1,000 분"
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
+        $0.textColor = .nightSky1
+    }
+    let praySlider = UISlider().then {
+        $0.backgroundColor = .clear
+        $0.tintColor = .ydGreen1
+        $0.setThumbImage(UIImage(), for: .normal)
+        $0.setValue(0.0, animated: true)
+        $0.layer.cornerRadius = 8
+        $0.setMaximumTrackImage(Asset.Images.Pray.sliderEmpty.image, for: .normal)
+        $0.setMinimumTrackImage(Asset.Images.Pray.sliderFill.image, for: .normal)
+    }
+    let myLatestPrayDateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.tintColor = .nightSky1
-        $0.numberOfLines = 2
-    }
-    let myLatestDateLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-    }
-    let groupPrayTitleLabel = UILabel().then {
-        $0.text = "멤버 기도"
-        $0.font = .systemFont(ofSize: 15, weight: .semibold)
-        $0.tintColor = .nightSky1
     }
     let prayCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -73,31 +82,31 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     }
     
     private func setupUI() {
-        layer.cornerRadius = 12
+        layer.cornerRadius = 6
         layer.masksToBounds = true
         backgroundColor = .sheep1
         setupTitleLabel()
         setupNextButton()
         setupDivider()
-        setupMyPrayTitleLabel()
-        setupMyPrayLabel()
+        setupThisWeekLabel()
+        setupPrayGoalLabel()
+        setupPraySlider()
         setupMyLatestDateLabel()
-        setupGroupPrayTitleLabel()
         setupPrayCollectionView()
     }
     
     private func setupTitleLabel() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12)
-            $0.left.equalToSuperview().inset(8)
+            $0.top.equalToSuperview().inset(16)
+            $0.left.equalToSuperview().inset(12)
         }
     }
     private func setupNextButton() {
         addSubview(nextButton)
         nextButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12)
-            $0.right.equalToSuperview().inset(8)
+            $0.top.equalToSuperview().inset(16)
+            $0.right.equalToSuperview().inset(12)
             $0.size.equalTo(16)
         }
     }
@@ -109,38 +118,39 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
             $0.height.equalTo(1)
         }
     }
-    private func setupMyPrayTitleLabel() {
+    private func setupThisWeekLabel() {
         addSubview(thisWeekLabel)
         thisWeekLabel.snp.makeConstraints {
-            $0.top.equalTo(divider.snp.bottom).offset(8)
-            $0.left.equalToSuperview().inset(8)
+            $0.top.equalTo(divider.snp.bottom).offset(12)
+            $0.left.equalToSuperview().inset(12)
         }
     }
-    private func setupMyPrayLabel() {
-        addSubview(myPrayLabel)
-        myPrayLabel.snp.makeConstraints {
-            $0.top.equalTo(thisWeekLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview().inset(8)
+    private func setupPrayGoalLabel() {
+        addSubview(prayGoalLabel)
+        prayGoalLabel.snp.makeConstraints {
+            $0.top.equalTo(thisWeekLabel.snp.bottom).offset(12)
+            $0.right.equalToSuperview().inset(20)
+        }
+    }
+    private func setupPraySlider() {
+        addSubview(praySlider)
+        praySlider.snp.makeConstraints {
+            $0.top.equalTo(prayGoalLabel.snp.bottom).offset(16)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(16)
         }
     }
     private func setupMyLatestDateLabel() {
-        addSubview(myLatestDateLabel)
-        myLatestDateLabel.snp.makeConstraints {
-            $0.top.equalTo(divider.snp.bottom).offset(4)
+        addSubview(myLatestPrayDateLabel)
+        myLatestPrayDateLabel.snp.makeConstraints {
+            $0.top.equalTo(praySlider.snp.bottom).offset(12)
             $0.right.equalToSuperview().inset(8)
-        }
-    }
-    private func setupGroupPrayTitleLabel() {
-        addSubview(groupPrayTitleLabel)
-        groupPrayTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(myPrayLabel.snp.bottom).offset(12)
-            $0.left.equalToSuperview().inset(8)
         }
     }
     private func setupPrayCollectionView() {
         addSubview(prayCollectionView)
         prayCollectionView.snp.makeConstraints {
-            $0.top.equalTo(groupPrayTitleLabel.snp.bottom).offset(4)
+            $0.top.equalTo(myLatestPrayDateLabel.snp.bottom).offset(16)
             $0.left.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview().inset(8)
             $0.height.equalTo(160)
@@ -185,8 +195,8 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
                             formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
                             formatter.timeZone = TimeZone.current
                             if let date = formatter.date(from: timeString) {
-                                Log.w(date.toString("yyyy년 MM월 dd일 hh:mmZ"))
                                 cell.dateLabel.text = date.toString("yyyy년 MM월 dd일 hh:mm a")
+                                cell.newView.isHidden = !Calendar.current.isDateInThisWeek(date)
                             }
                         }
                     } else {
@@ -200,14 +210,6 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         output.cardPrayItemList.map { $0.count }
             .drive(onNext: { [weak self] count in
                 self?.cardCount = count
-            }).disposed(by: disposeBag)
-        
-        output.myPray
-            .drive(onNext: { [weak self] myPray in
-                guard let myPray = myPray else { return }
-                self?.myPrayLabel.text = myPray.pray
-                self?.myPrayLabel.lineBreakMode = .byTruncatingTail
-                self?.myLatestDateLabel.text = myPray.createDate
             }).disposed(by: disposeBag)
     }
     

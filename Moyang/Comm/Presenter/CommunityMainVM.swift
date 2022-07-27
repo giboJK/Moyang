@@ -13,8 +13,9 @@ class CommunityMainVM: VMType {
     let useCase: CommunityMainUseCase
     
     let groupName = BehaviorRelay<String>(value: "")
-    let myPray = BehaviorRelay<GroupIndividualPrayItem?>(value: nil)
     let cardPrayItemList = BehaviorRelay<[GroupIndividualPrayItem]>(value: [])
+    let latestPrayDate = BehaviorRelay<String>(value: "")
+    
     let groupPrayVM = BehaviorRelay<GroupPrayVM?>(value: nil)
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -85,8 +86,8 @@ extension CommunityMainVM {
     struct Output {
         let isNetworking: Driver<Bool>
         let groupName: Driver<String>
-        let myPray: Driver<GroupIndividualPrayItem?>
         let cardPrayItemList: Driver<[GroupIndividualPrayItem]>
+        let latestPrayDate: Driver<String>
         let groupPrayVM: Driver<GroupPrayVM?>
         let isEmptyGroup: Driver<Bool>
     }
@@ -103,8 +104,8 @@ extension CommunityMainVM {
         
         return Output(isNetworking: isNetworking.asDriver(),
                       groupName: groupName.asDriver(),
-                      myPray: myPray.asDriver(),
                       cardPrayItemList: cardPrayItemList.asDriver(),
+                      latestPrayDate: latestPrayDate.asDriver(),
                       groupPrayVM: groupPrayVM.asDriver(),
                       isEmptyGroup: isEmptyGroup.asDriver())
     }
