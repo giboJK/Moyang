@@ -35,42 +35,36 @@ class CommunityMainVM: VMType {
             .bind(to: isNetworking)
             .disposed(by: disposeBag)
         
-        useCase.groupInfo
-            .subscribe(onNext: { [weak self] groupInfo in
-                guard let groupInfo = groupInfo else { return }
-                self?.setGroupInfoData(data: groupInfo)
-            }).disposed(by: disposeBag)
-        
         useCase.groupSummary
             .subscribe(onNext: { [weak self] data in
                 guard let data = data else { return }
                 guard let self = self else { return }
                 Log.d(data)
                 self.isEmptyGroup.accept(false)
-                var cardList = [GroupIndividualPrayItem]()
-                data.prays.forEach { item in
-                    cardList.append(GroupIndividualPrayItem(memberID: item.userID,
-                                                            name: item.userName,
-                                                            prayID: item.prayID,
-                                                            pray: item.content,
-                                                            latestDate: item.latestDate,
-                                                            isSecret: item.isSecret,
-                                                            createDate: item.createDate))
-                }
-                self.cardPrayItemList.accept(cardList)
+                self.groupName.accept(data.groupName)
+                self.setPrayData(data: data.prays)
             }).disposed(by: disposeBag)
     }
     
     private func fetchGroupSummary() {
         useCase.fetchGroupSummary()
     }
-    
-    private func setGroupInfoData(data: GroupInfo) {
-        groupInfo = data
-        groupName.accept(data.groupName)
-        getMemberPray(memberList: data.memberList)
-        UserData.shared.groupInfo = data
+    private func setAmenData(data: [GroupSummaryAmen]) {
     }
+    private func setPrayData(data: [GroupSummaryPray]) {
+        var cardList = [GroupIndividualPrayItem]()
+        data.forEach { item in
+            cardList.append(GroupIndividualPrayItem(memberID: item.userID,
+                                                    name: item.userName,
+                                                    prayID: item.prayID,
+                                                    pray: item.content,
+                                                    latestDate: item.latestDate,
+                                                    isSecret: item.isSecret,
+                                                    createDate: item.createDate))
+        }
+        cardPrayItemList.accept(cardList)
+    }
+    
     
     private func getMemberPray(memberList: [Member]) {
         guard let groupInfo = groupInfo else { Log.e("No GroupInfo"); return }

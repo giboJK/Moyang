@@ -18,7 +18,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     
     // MARK: - UI
     let titleLabel = UILabel().then {
-        $0.text = "기도제목"
+        $0.text = "기도"
         $0.textColor = .nightSky1
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
     }
@@ -30,8 +30,8 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     let divider = UIView().then {
         $0.backgroundColor = .sheep3
     }
-    let myPrayTitleLabel = UILabel().then {
-        $0.text = "내 기도"
+    let thisWeekLabel = UILabel().then {
+        $0.text = "이번주"
         $0.font = .systemFont(ofSize: 15, weight: .semibold)
         $0.tintColor = .nightSky1
     }
@@ -51,7 +51,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     let prayCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 12
+        layout.minimumLineSpacing = 4
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(CommunityGroupPrayCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -110,8 +110,8 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         }
     }
     private func setupMyPrayTitleLabel() {
-        addSubview(myPrayTitleLabel)
-        myPrayTitleLabel.snp.makeConstraints {
+        addSubview(thisWeekLabel)
+        thisWeekLabel.snp.makeConstraints {
             $0.top.equalTo(divider.snp.bottom).offset(8)
             $0.left.equalToSuperview().inset(8)
         }
@@ -119,7 +119,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     private func setupMyPrayLabel() {
         addSubview(myPrayLabel)
         myPrayLabel.snp.makeConstraints {
-            $0.top.equalTo(myPrayTitleLabel.snp.bottom).offset(4)
+            $0.top.equalTo(thisWeekLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(8)
         }
     }
@@ -141,8 +141,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         addSubview(prayCollectionView)
         prayCollectionView.snp.makeConstraints {
             $0.top.equalTo(groupPrayTitleLabel.snp.bottom).offset(4)
-            $0.left.equalToSuperview().inset(8)
-            $0.right.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview().inset(8)
             $0.height.equalTo(160)
         }
@@ -150,21 +149,20 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     }
     
     var carouselTimer: Timer?
+    var current = 0
+    var cardCount = 0
     private func setupTimer() {
         carouselTimer?.invalidate()
         carouselTimer = nil
         carouselTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
-            if let index = self?.prayCollectionView.indexPathsForVisibleItems.first {
-                if (index.row + 2) >= self?.prayCollectionView.numberOfItems(inSection: 0) ?? 0 {
-                    self?.prayCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
-                                                          at: .top,
-                                                          animated: true)
-                } else {
-                    self?.prayCollectionView.scrollToItem(at: IndexPath(row: index.row + 1, section: 0),
-                                                          at: .top,
-                                                          animated: true)
-                }
+            guard let self = self else { return }
+            if self.cardCount == 0 { return }
+            self.current = min(self.current + 1, self.cardCount)
+            if self.cardCount == self.current {
+                self.current = 0
             }
+            self.prayCollectionView.scrollToItem(at: IndexPath(row: self.current, section: 0),
+                                                 at: .top, animated: true)
         }
     }
     
@@ -187,6 +185,11 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
                     cell.prayLabel.text = "기도제목이 없습니다"
                 }
             }.disposed(by: disposeBag)
+        
+        output.cardPrayItemList.map { $0.count }
+            .drive(onNext: { [weak self] count in
+                self?.cardCount = count
+            }).disposed(by: disposeBag)
         
         output.myPray
             .drive(onNext: { [weak self] myPray in
@@ -213,6 +216,6 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 220, height: 160)
+        return CGSize(width: UIScreen.main.bounds.width - 16 - 36, height: 160)
     }
 }
