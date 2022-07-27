@@ -170,6 +170,7 @@
 		24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */; };
 		24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */; };
 		24DABDA72890FE6E00DEB6CC /* Calendar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DABDA62890FE6E00DEB6CC /* Calendar+.swift */; };
+		24DABDA9289180D200DEB6CC /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DABDA8289180D200DEB6CC /* Int+.swift */; };
 		24DABE7227E8610C0008D132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24DABE7127E8610C0008D132 /* GoogleService-Info.plist */; };
 		24DABE7327E89E680008D132 /* praysong.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 24FAEF0D27E2153800B2DA81 /* praysong.m4a */; };
 		24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB53BA27479DAA00F861EC /* UINavigationController+.swift */; };
@@ -379,6 +380,7 @@
 		24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberPray.swift; sourceTree = "<group>"; };
 		24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCenter.swift; sourceTree = "<group>"; };
 		24DABDA62890FE6E00DEB6CC /* Calendar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+.swift"; sourceTree = "<group>"; };
+		24DABDA8289180D200DEB6CC /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		24DABE7127E8610C0008D132 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24DB53BA27479DAA00F861EC /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		24DB58DD2845CA8E001E12B0 /* CommunityGroupPrayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityGroupPrayCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1171,6 +1173,7 @@
 				24B9B86827A03B5F009FADC8 /* Encodable+.swift */,
 				08BBB8BA27F9257E0005663C /* PopOver+.swift */,
 				24DABDA62890FE6E00DEB6CC /* Calendar+.swift */,
+				24DABDA8289180D200DEB6CC /* Int+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1590,6 +1593,7 @@
 				24AACA78283FB42A00308AC3 /* CommunityMainAssembly.swift in Sources */,
 				2496FE8227B527B600E9DCEE /* SermonRepo.swift in Sources */,
 				242F92A12848FD140023324D /* NewPrayVC.swift in Sources */,
+				24DABDA9289180D200DEB6CC /* Int+.swift in Sources */,
 				248AF71F27C09B2E004AA283 /* GroupManageCardRow.swift in Sources */,
 				08A02A5727AE0B460043EEF0 /* MemberDetail.swift in Sources */,
 				24B9AEDC27C1C6DD005391DA /* SearchBar.swift in Sources */,

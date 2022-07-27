@@ -56,6 +56,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     }
     let myLatestPrayDateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .nightSky2
     }
     let prayCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -128,15 +129,15 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     private func setupPrayGoalLabel() {
         addSubview(prayGoalLabel)
         prayGoalLabel.snp.makeConstraints {
-            $0.top.equalTo(thisWeekLabel.snp.bottom).offset(12)
+            $0.top.equalTo(thisWeekLabel.snp.bottom).offset(8)
             $0.right.equalToSuperview().inset(20)
         }
     }
     private func setupPraySlider() {
         addSubview(praySlider)
         praySlider.snp.makeConstraints {
-            $0.top.equalTo(prayGoalLabel.snp.bottom).offset(16)
-            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(prayGoalLabel.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview().inset(16)
             $0.height.equalTo(16)
         }
     }
@@ -144,7 +145,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         addSubview(myLatestPrayDateLabel)
         myLatestPrayDateLabel.snp.makeConstraints {
             $0.top.equalTo(praySlider.snp.bottom).offset(12)
-            $0.right.equalToSuperview().inset(8)
+            $0.right.equalToSuperview().inset(12)
         }
     }
     private func setupPrayCollectionView() {
@@ -211,6 +212,20 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
             .drive(onNext: { [weak self] count in
                 self?.cardCount = count
             }).disposed(by: disposeBag)
+        
+        output.latestPrayDate
+            .map { "내 최근 기도일: " + $0 }
+            .drive(myLatestPrayDateLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        Driver.combineLatest(output.prayGoalValue,
+                             output.prayProgressValue)
+        .drive(onNext: { [weak self] (goal, progress) in
+            guard let self = self else { return }
+            let sliderValue = min(Float(Double(progress) / Double(goal)), 1.0)
+            self.praySlider.setValue(sliderValue, animated: true)
+            self.prayGoalLabel.text = progress.withCommas() + "분 / " + goal.withCommas() + "분"
+        }).disposed(by: disposeBag)
     }
     
     func bindViews() {
@@ -228,7 +243,8 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width - 16 - 36, height: 160)
     }
 }
