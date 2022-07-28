@@ -14,8 +14,6 @@ protocol CommunityMainRepo {
     func fetchGroupList()
     func fetchMemberIndividualPray(memberAuth: String, email: String, groupID: String, limit: Int, start: String,
                                    completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
-    func fetchMemberNonSecretIndividualPray(memberAuth: String, email: String, groupID: String, limit: Int, start: String,
-                                            completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
     
     func addIndividualPray(data: GroupIndividualPray, myInfo: MemberDetail, completion: ((Result<Bool, MoyangError>) -> Void)?)
     

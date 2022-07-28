@@ -46,6 +46,7 @@ def ui
   
   pod 'SnapKit', :inhibit_warnings => true
   pod 'Then'
+  pod 'FSCalendar'
 end
 
 target 'Moyang' do

@@ -41,17 +41,7 @@ class AllGroupVM: VMType {
         useCase.fetchGroupList()
     }
     private func selectGroup(indexPath: IndexPath) {
-        if groupInfoList.count < indexPath.row {
-            return
-        }
-        let memberList = groupInfoList[indexPath.row].memberList
-        memberList.forEach { member in
-            communityUseCase.fetchMemberNonSecretIndividualPray(member: member,
-                                                       groupID: groupInfoList[indexPath.row].id,
-                                                       limit: 1,
-                                                       start: Date().addingTimeInterval(3600 * 24).toString("yyyy-MM-dd hh:mm:ss a"))
-        }
-        groupPrayVM.accept(GroupPrayVM(useCase: communityUseCase, groupID: groupInfoList[indexPath.row].id))
+        groupPrayVM.accept(GroupPrayVM(useCase: communityUseCase))
     }
     
     private func clearPrayList() {

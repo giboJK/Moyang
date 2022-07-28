@@ -12,7 +12,6 @@ class GroupPrayListVM: VMType {
     typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
-    let groupID: String
     
     let name = BehaviorRelay<String>(value: "")
     let prayList = BehaviorRelay<[PrayItem]>(value: [])
@@ -25,8 +24,7 @@ class GroupPrayListVM: VMType {
     let prayWithAndChangeVM = BehaviorRelay<PrayWithAndChangeVM?>(value: nil)
     let isMyPrayList = BehaviorRelay<Bool>(value: false)
 
-    init(groupID: String, prayItem: PrayItem, useCase: CommunityMainUseCase) {
-        self.groupID = groupID
+    init(prayItem: PrayItem, useCase: CommunityMainUseCase) {
         self.useCase = useCase
         setInitialData(data: prayItem)
         bind()
@@ -81,11 +79,6 @@ class GroupPrayListVM: VMType {
     }
     
     private func fetchPrayList(date: String = Date().addingTimeInterval(3600 * 24).toString("yyyy-MM-dd hh:mm:ss a")) {
-//        if UserData.shared.myInfo?.authType == auth && UserData.shared.myInfo?.email == email {
-//            useCase.fetchMemberIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 5, start: date)
-//        } else {
-//            useCase.fetchMemberNonSecretIndividualPray(memberAuth: auth, email: email, groupID: groupID, limit: 5, start: date)
-//        }
     }
     
     func fetchMorePrayList() {
@@ -162,8 +155,7 @@ extension GroupPrayListVM {
         input.letsPraying
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                let vm = GroupPrayingVM(useCase: self.useCase,
-                                        groupID: self.groupID)
+                let vm = GroupPrayingVM(useCase: self.useCase)
                 self.groupPrayingVM.accept(vm)
             }).disposed(by: disposeBag)
         

@@ -64,10 +64,6 @@ class CommunityMainUseCase {
         }
     }
     func fetchGroupInfo() {
-//        guard let myInfo = UserData.shared.userInfo else {
-//            Log.e("No user")
-//            return
-//        }
     }
     
     func fetchMemberIndividualPray(member: Member, groupID: String, limit: Int = 1, start: String) {
@@ -89,63 +85,6 @@ class CommunityMainUseCase {
             case .failure(let error):
                 Log.e(error)
             }
-        }
-    }
-    
-    func fetchMemberNonSecretIndividualPray(member: Member, groupID: String, limit: Int = 1, start: String) {
-        if !memberList.value.contains(where: { $0.id == member.id }) {
-            var list = memberList.value
-            list.append(member)
-            memberList.accept(list)
-        }
-        repo.fetchMemberNonSecretIndividualPray(memberAuth: member.auth, email: member.email,
-                                                groupID: groupID, limit: limit, start: start) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let groupIndividualPrayList):
-                if let obj = groupIndividualPrayList.first {
-                    var current = self.cardMemberPrayList.value
-                    current.append((obj, member))
-                    self.cardMemberPrayList.accept(current)
-                }
-            case .failure(let error):
-                Log.e(error)
-            }
-        }
-    }
-    func fetchMemberNonSecretIndividualPray(memberAuth: String, email: String, groupID: String, limit: Int, start: String) {
-        if checkAndSetIsNetworking() { return }
-        var selectedList: (member: Member, list: CommunityMainUseCase.PrayList)?
-        var selectedIndex: Array<(member: Member, list: CommunityMainUseCase.PrayList)>.Index!
-        if let index = memberPrayList.value.firstIndex(where: { ($0.member.email == email) && ($0.member.auth == memberAuth) }) {
-            selectedList = memberPrayList.value[index]
-            selectedIndex = index
-        }
-
-        repo.fetchMemberNonSecretIndividualPray(memberAuth: memberAuth, email: email,
-                                                groupID: groupID, limit: limit, start: start) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(var data):
-                var cur = self.memberPrayList.value
-                if var selectedList = selectedList {
-                    if selectedList.list.isEmpty {
-                        selectedList.list = data
-                    } else {
-                        _ = data.removeFirst()
-                        selectedList.list.append(contentsOf: data)
-                    }
-                    cur[selectedIndex] = selectedList
-                    self.memberPrayList.accept(cur)
-                } else {
-                    let member = self.memberList.value.first(where: { ($0.email == email) && ($0.auth == memberAuth) })!
-                    cur.append((member: member, list: data))
-                    self.memberPrayList.accept(cur)
-                }
-            case .failure(let error):
-                Log.e("\(memberAuth) - \(email) : \(error)")
-            }
-            self.resetIsNetworking()
         }
     }
     
@@ -193,10 +132,7 @@ class CommunityMainUseCase {
         memberPrayList.accept([])
     }
     
-    func addIndividualPray(id: String,
-                           groupID: String,
-                           date: String,
-                           pray: String,
+    func addIndividualPray(pray: String,
                            tags: [String],
                            isSecret: Bool,
                            isRequestPray: Bool) {

@@ -14,7 +14,6 @@ class GroupPrayingVM: VMType {
     typealias PrayItem = GroupPrayListVM.PrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
-    let groupID: String
     var members: [Member] = []
     
     private let memberNameList = BehaviorRelay<[String]>(value: [])
@@ -37,10 +36,8 @@ class GroupPrayingVM: VMType {
     private var player: AVAudioPlayer?
     private var url: URL?
     
-    init(useCase: CommunityMainUseCase,
-         groupID: String) {
+    init(useCase: CommunityMainUseCase) {
         self.useCase = useCase
-        self.groupID = groupID
         bind()
         setButtonEnabled()
         loadSong()
@@ -121,7 +118,6 @@ class GroupPrayingVM: VMType {
     }
     
     private func fetchPrayList(date: String = Date().toString("yyyy-MM-dd hh:mm:ss a")) {
-        useCase.fetchMemberIndividualPray(memberAuth: "", email: "", groupID: groupID, limit: 10, start: date)
     }
     
     
@@ -177,7 +173,6 @@ class GroupPrayingVM: VMType {
     }
     
     private func amen() {
-        useCase.amen(time: prayingTime, groupID: groupID)
     }
     
     private func createTimer() {

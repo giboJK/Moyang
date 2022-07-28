@@ -12,7 +12,6 @@ class GroupPrayVM: VMType {
     typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
-    let groupID: String
     
     let cardPrayItemList = BehaviorRelay<[PrayItem]>(value: [])
     let detailVM = BehaviorRelay<GroupPrayListVM?>(value: nil)
@@ -30,9 +29,8 @@ class GroupPrayVM: VMType {
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
     
-    init(useCase: CommunityMainUseCase, groupID: String) {
+    init(useCase: CommunityMainUseCase) {
         self.useCase = useCase
-        self.groupID = groupID
         bind()
         
         NotificationCenter.default.addObserver(self,
@@ -87,10 +85,7 @@ class GroupPrayVM: VMType {
     }
     
     private func addNewPray() {
-        useCase.addIndividualPray(id: UUID().uuidString,
-                                  groupID: groupID,
-                                  date: Date().toString("yyyy-MM-dd hh:mm:ss a"),
-                                  pray: newPray.value!,
+        useCase.addIndividualPray(pray: newPray.value!,
                                   tags: tagList.value,
                                   isSecret: isSecret.value,
                                   isRequestPray: isRequestPray.value
@@ -166,8 +161,7 @@ extension GroupPrayVM {
         input.selectMember
             .drive(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
-                let detailVM = GroupPrayListVM(groupID: self.groupID,
-                                               prayItem: self.cardPrayItemList.value[indexPath.row],
+                let detailVM = GroupPrayListVM(prayItem: self.cardPrayItemList.value[indexPath.row],
                                                useCase: self.useCase)
                 self.detailVM.accept(detailVM)
             }).disposed(by: disposeBag)
