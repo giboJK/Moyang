@@ -10,13 +10,10 @@ import Foundation
 class UserData {
     static let shared = UserData()
     var userInfo: UserInfo?
-    var myInfo: MemberDetail?
-    var groupInfo: GroupInfo?
+    var groupID: String?
     var sermon: Sermon?
     
     func resetUserData() {
-        myInfo = nil
-        groupInfo = nil
         userName = nil
         password = nil
     }

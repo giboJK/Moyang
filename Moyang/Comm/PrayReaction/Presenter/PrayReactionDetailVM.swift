@@ -31,22 +31,21 @@ class PrayReactionDetailVM: VMType {
         var joyfulItem = ReactionItem(memberName: [], reaction: PrayReactionType.joyful.rawValue)
         var sadItem = ReactionItem(memberName: [], reaction: PrayReactionType.sad.rawValue)
         var prayItem = ReactionItem(memberName: [], reaction: PrayReactionType.prayWithYou.rawValue)
-        let groupInfo = UserData.shared.groupInfo!
-        sorted.forEach { item in
-            if let type = PrayReactionType(rawValue: item.reaction) {
-                guard let member = groupInfo.memberList.first(where: { $0.id == item.memberID }) else { Log.e("No member"); return }
-                switch type {
-                case .love:
-                    loveItem.memberName.append(member.name)
-                case .joyful:
-                    joyfulItem.memberName.append(member.name)
-                case .sad:
-                    sadItem.memberName.append(member.name)
-                case .prayWithYou:
-                    prayItem.memberName.append(member.name)
-                }
-            }
-        }
+//        sorted.forEach { item in
+//            if let type = PrayReactionType(rawValue: item.reaction) {
+//                guard let member = groupInfo.memberList.first(where: { $0.id == item.memberID }) else { Log.e("No member"); return }
+//                switch type {
+//                case .love:
+//                    loveItem.memberName.append(member.name)
+//                case .joyful:
+//                    joyfulItem.memberName.append(member.name)
+//                case .sad:
+//                    sadItem.memberName.append(member.name)
+//                case .prayWithYou:
+//                    prayItem.memberName.append(member.name)
+//                }
+//            }
+//        }
         if !loveItem.memberName.isEmpty {
             itemList.append(loveItem)
         }

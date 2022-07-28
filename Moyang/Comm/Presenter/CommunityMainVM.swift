@@ -44,6 +44,7 @@ class CommunityMainVM: VMType {
                 guard let data = data else { return }
                 guard let self = self else { return }
                 Log.d(data)
+                UserData.shared.groupID = data.groupID
                 self.isEmptyGroup.accept(false)
                 self.groupName.accept(data.groupName)
                 self.setPrayData(data: data.prays)
@@ -118,11 +119,6 @@ extension CommunityMainVM {
     func transform(input: Input) -> Output {
         input.didTapPrayCard
             .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                guard let groupID = self.groupInfo?.id else { Log.e(""); return }
-                // TODO Fix
-                UserData.shared.groupInfo = self.groupInfo
-                self.groupPrayVM.accept(GroupPrayVM(useCase: self.useCase, groupID: groupID))
             }).disposed(by: disposeBag)
         
         return Output(isNetworking: isNetworking.asDriver(),

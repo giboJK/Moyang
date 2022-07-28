@@ -85,9 +85,6 @@ class GroupPrayingVM: VMType {
     }
     
     private func setPrayList() {
-        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
-        let list = memberPrayList.value
-        var itemList = [PrayItem]()
 //        list.filter { $0.member.auth == self.auth && $0.member.email == self.email }
 //            .forEach { item in
 //            item.list.forEach { pray in

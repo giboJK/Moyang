@@ -10,7 +10,6 @@ import Combine
 
 class CommunityListVM: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
-    private let groupRepo = GroupRepoImpl(service: FSServiceImpl())
     
     @Published var church: String = ""
     @Published var itemList: [GroupInfo] = []
@@ -25,16 +24,14 @@ class CommunityListVM: ObservableObject {
     }
     
     private func fetchCommunityList() {
-        guard let groupList = UserData.shared.myInfo?.groupList,
-              let churchInfo = UserData.shared.myInfo?.church else { return }
-        church = churchInfo.name
-        
-        groupRepo.fetchGroupInfoList(groupList: groupList)
-            .sink { completion in
-                Log.d(completion)
-            } receiveValue: { [weak self] list in
-                Log.d(list)
-                self?.itemList = list
-            }.store(in: &cancellables)
+//        church = churchInfo.name
+//        
+//        groupRepo.fetchGroupInfoList(groupList: groupList)
+//            .sink { completion in
+//                Log.d(completion)
+//            } receiveValue: { [weak self] list in
+//                Log.d(list)
+//                self?.itemList = list
+//            }.store(in: &cancellables)
     }
 }

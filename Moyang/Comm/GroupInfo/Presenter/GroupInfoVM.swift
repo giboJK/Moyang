@@ -16,12 +16,6 @@ class GroupInfoVM: VMType {
     let memberList = BehaviorRelay<[String]>(value: [])
 
     init() {
-        guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
-        if let pastor = groupInfo.pastorInCharge {
-            pastorInCharge.accept(pastor.name)
-        }
-        groupStartDate.accept(groupInfo.createdDate)
-        memberList.accept(groupInfo.memberList.map({ $0.name }))
     }
 
     deinit { Log.i(self) }

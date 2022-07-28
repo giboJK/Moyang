@@ -44,7 +44,6 @@ class AllGroupVM: VMType {
         if groupInfoList.count < indexPath.row {
             return
         }
-        UserData.shared.groupInfo = groupInfoList[indexPath.row]
         let memberList = groupInfoList[indexPath.row].memberList
         memberList.forEach { member in
             communityUseCase.fetchMemberNonSecretIndividualPray(member: member,

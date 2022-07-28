@@ -11,8 +11,6 @@ import Combine
 class AddNewGroupVM: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     private let repo = MemberRepoImpl(service: FSServiceImpl())
-    private let groupRepo = GroupRepoImpl(service: FSServiceImpl())
-    
     
     @Published var division = ""
     @Published var name = ""
@@ -125,13 +123,6 @@ class AddNewGroupVM: ObservableObject {
                                   memberList: memberList,
                                   pastorInCharge: nil)
         
-        groupRepo.addNewGroup(groupInfo: groupInfo)
-            .sink { completion in
-                Log.d(completion)
-            } receiveValue: { _ in
-                self.shouldDismissView = true
-            }.store(in: &cancellables)
-
     }
 }
 

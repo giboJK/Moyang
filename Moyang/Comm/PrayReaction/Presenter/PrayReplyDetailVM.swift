@@ -22,19 +22,19 @@ class PrayReplyDetailVM: VMType {
     deinit { Log.i(self) }
     
     private func setData() {
-        guard let groupInfo = UserData.shared.groupInfo else { return }
-        var itemList = [ReplyItem]()
-        replys.forEach { reply in
-            if let member = groupInfo.memberList.first(where: { $0.id == reply.memberID }) {
-                itemList.append(ReplyItem(memberID: reply.memberID,
-                                          name: member.name,
-                                          reply: reply.reply,
-                                          date: reply.date,
-                                          reactions: reply.reactions,
-                                          order: reply.order))
-            }
-        }
-        self.itemList.accept(itemList)
+//        guard let groupInfo = UserData.shared.groupInfo else { return }
+//        var itemList = [ReplyItem]()
+//        replys.forEach { reply in
+//            if let member = groupInfo.memberList.first(where: { $0.id == reply.memberID }) {
+//                itemList.append(ReplyItem(memberID: reply.memberID,
+//                                          name: member.name,
+//                                          reply: reply.reply,
+//                                          date: reply.date,
+//                                          reactions: reply.reactions,
+//                                          order: reply.order))
+//            }
+//        }
+//        self.itemList.accept(itemList)
     }
     
     private func sortByLatest() {

@@ -78,13 +78,6 @@ class GroupPrayListVM: VMType {
     }
     
     private func setInitialData(data: PrayItem) {
-        name.accept(data.name)
-        guard let myInfo = UserData.shared.myInfo else { return }
-        if myInfo.id == data.memberID {
-            isMyPrayList.accept(true)
-        } else {
-            isMyPrayList.accept(false)
-        }
     }
     
     private func fetchPrayList(date: String = Date().addingTimeInterval(3600 * 24).toString("yyyy-MM-dd hh:mm:ss a")) {
@@ -106,12 +99,6 @@ class GroupPrayListVM: VMType {
     }
     
     private func addReaction(index: Int, reaction: PrayReactionType) {
-        guard let myInfo = UserData.shared.myInfo else {
-            Log.e("")
-            return
-        }
-        let prayID = prayList.value[index].prayID
-        
     }
     
     @objc func releasePrayingVM() {
@@ -135,8 +122,6 @@ class GroupPrayListVM: VMType {
     }
     
     private func setGroupPrayEditVM(index: Int) {
-        guard let myInfo = UserData.shared.myInfo else { return }
-        
 //        let prayIrem = prayList.value[index]
 //        editVM.accept(GroupPrayEditVM(prayItem: prayIrem,
 //                                      isMyPray: (myInfo.email == email && myInfo.authType == auth),

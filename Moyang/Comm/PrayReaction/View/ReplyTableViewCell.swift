@@ -124,12 +124,12 @@ class ReplyTableViewCell: UITableViewCell {
         }
     }
     func setupData(item: VM.ReplyItem) {
-        guard let myInfo = UserData.shared.myInfo else { return }
-        editButton.isHidden = myInfo.id != item.memberID
-        deleteButton.isHidden = myInfo.id != item.memberID
-        nameLabel.text = item.name
-        dateLabel.text = item.date
-        replyTextView.text = item.reply
+//        guard let myInfo = UserData.shared.myInfo else { return }
+//        editButton.isHidden = myInfo.id != item.memberID
+//        deleteButton.isHidden = myInfo.id != item.memberID
+//        nameLabel.text = item.name
+//        dateLabel.text = item.date
+//        replyTextView.text = item.reply
     }
     
     func bind() {

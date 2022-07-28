@@ -28,20 +28,6 @@ class ProfileVM: ObservableObject {
     }
     
     func loadUserData() {
-        if let myInfo = UserData.shared.myInfo {
-            infoItem = UserItem(userInfo: myInfo)
-            
-            if let userLevel = UserLevel(rawValue: myInfo.grade) {
-                self.levelDesc = userLevel.levelDesc
-            }
-        }
-        
-        self.isAlarmOn = UserData.shared.isAlarmOn
-        
-        
-        if let alarmTime = UserData.shared.alarmTiem?.toDate() {
-            self.alarmDate = alarmTime
-        }
     }
     
     func toggleAlarmOn() {

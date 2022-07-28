@@ -200,68 +200,6 @@ class CommunityMainUseCase {
                            tags: [String],
                            isSecret: Bool,
                            isRequestPray: Bool) {
-        guard let myInfo = UserData.shared.myInfo else {
-            addingNewPrayFailure.accept(())
-            return
-        }
-        let data = GroupIndividualPray(id: id,
-                                       groupID: groupID,
-                                       date: date,
-                                       pray: pray,
-                                       tags: tags,
-                                       reactions: [],
-                                       replys: [],
-                                       parentPrayID: nil,
-                                       prayWithMemberID: nil,
-                                       isSecret: isSecret,
-                                       isRequestPray: isRequestPray,
-                                       registeredDate: date)
-        repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
-            switch result {
-            case .success:
-                self?.addingNewPraySuccess.accept(())
-                self?.updateCardMemberPrayListWithNewPray(pray: data, myInfo: myInfo)
-            case .failure(let error):
-                Log.e(error)
-                self?.addingNewPrayFailure.accept(())
-            }
-        }
-    }
-    
-    func addIndividualPray(id: String,
-                           groupID: String,
-                           parentID: String,
-                           date: String,
-                           pray: String,
-                           tags: [String],
-                           isSecret: Bool,
-                           isRequestPray: Bool) {
-        guard let myInfo = UserData.shared.myInfo else {
-            addingNewPrayFailure.accept(())
-            return
-        }
-        let data = GroupIndividualPray(id: id,
-                                       groupID: groupID,
-                                       date: date,
-                                       pray: pray,
-                                       tags: tags,
-                                       reactions: [],
-                                       replys: [],
-                                       parentPrayID: parentID,
-                                       prayWithMemberID: myInfo.id,
-                                       isSecret: isSecret,
-                                       isRequestPray: isRequestPray,
-                                       registeredDate: date)
-        repo.addIndividualPray(data: data, myInfo: myInfo) { [weak self] result in
-            switch result {
-            case .success:
-                self?.addingNewPraySuccess.accept(())
-                self?.updateCardMemberPrayListWithNewPray(pray: data, myInfo: myInfo)
-            case .failure(let error):
-                Log.e(error)
-                self?.addingNewPrayFailure.accept(())
-            }
-        }
     }
     
     func addReply(memberAuth: String,
@@ -341,22 +279,6 @@ class CommunityMainUseCase {
     }
     
     func amen(time: Int, groupID: String) {
-        guard let myInfo = UserData.shared.myInfo else {
-            Log.e("")
-            return
-        }
-        repo.amen(time: time, groupID: groupID, myInfo: myInfo) { [weak self] result in
-            switch result {
-            case .success(let isSuccess):
-                if isSuccess {
-                    self?.amenSuccess.accept(())
-                } else {
-                    Log.e("")
-                }
-            case .failure(let error):
-                Log.e(MoyangError.other(error))
-            }
-        }
     }
     
     func addReaction(memberAuth: String, email: String, prayID: String, myInfo: MemberDetail, reaction: String, reactions: [PrayReaction]) {
@@ -387,32 +309,5 @@ class CommunityMainUseCase {
     
     // MARK: - GroupPrayRepo
     func editPray(prayID: String, pray: String, tags: [String], isSecret: Bool, isRequestPray: Bool) {
-        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
-        groupPrayRepo.editPray(myInfo: myInfo, prayID: prayID, pray: pray, tags: tags, isSecret: isSecret, isRequestPray: isRequestPray) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let isSuccess):
-                if isSuccess {
-                    var cur = self.memberPrayList.value
-                    if let index = self.memberPrayList.value.firstIndex(where: { (member: Member, _) in
-                        member.email == myInfo.email && member.auth == myInfo.authType
-                    }) {
-                        if let prayIndex = cur[index].list.firstIndex(where: { $0.id == prayID }) {
-                            cur[index].list[prayIndex].pray = pray
-                            cur[index].list[prayIndex].tags = tags
-                            cur[index].list[prayIndex].isSecret = isSecret
-                            cur[index].list[prayIndex].isRequestPray = isRequestPray
-                            self.memberPrayList.accept(cur)
-                        }
-                    }
-                    self.editingPraySuccess.accept(())
-                } else {
-                    self.editingPrayFailure.accept(())
-                }
-            case .failure(let error):
-                Log.e(error)
-                self.editingPrayFailure.accept(())
-            }
-        }
     }
 }

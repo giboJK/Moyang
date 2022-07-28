@@ -51,12 +51,12 @@ class PrayWithAndChangeVM: VMType {
 //        parentPray.accept(data.pray)
 //        parentTagList.accept(data.tags)
         
-        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
-        if data.memberID == myInfo.id {
-            title.accept("변화 기록하기")
-        } else {
-            title.accept("같이 기도하기")
-        }
+//        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
+//        if data.memberID == myInfo.id {
+//            title.accept("변화 기록하기")
+//        } else {
+//            title.accept("같이 기도하기")
+//        }
     }
     
     private func addReply() {

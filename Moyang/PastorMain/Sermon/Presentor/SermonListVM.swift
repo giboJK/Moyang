@@ -10,7 +10,6 @@ import Combine
 
 class SermonListVM: ObservableObject {
     var cancellables = Set<AnyCancellable>()
-    private let repo = SermonRepoImpl(service: FSServiceImpl())
     
     @Published var itemList = [SermonItem]()
     
@@ -24,17 +23,6 @@ class SermonListVM: ObservableObject {
     }
     
     func fetchSermonItem() {
-        repo.fetchSermonList()
-            .sink(receiveCompletion: { completion in
-                Log.i(completion)
-            }, receiveValue: { list in
-                var sermonList = [SermonItem]()
-                list.forEach { sermon in
-                    sermonList.append(SermonItem(sermon: sermon))
-                }
-                self.itemList = sermonList
-            })
-            .store(in: &cancellables)
     }
 }
 
