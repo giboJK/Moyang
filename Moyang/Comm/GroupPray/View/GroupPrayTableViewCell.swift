@@ -157,6 +157,7 @@ class GroupPrayTableViewCell: UITableViewCell {
     
     // MARK: - UI
     private func setupUI() {
+        contentView.backgroundColor = .sheep1
         setupBgView()
         setupNameLabel()
         setupDateLabel()
@@ -391,12 +392,12 @@ class GroupPrayTableViewCell: UITableViewCell {
         self.setupReactionView(reactions: reactions)
     }
     func setupData(item: GroupPrayListVM.PrayItem, isPreview: Bool = false) {
-//        if isPreview {
-//            updateLatestPrayLabelHeight()
-//        }
-//        nameLabel.text = item.name
-//        dateLabel.text = item.date
-//        latestPrayLabel.text = item.pray
+        if isPreview {
+            updateLatestPrayLabelHeight()
+        }
+        nameLabel.text = item.name
+        dateLabel.text = item.latestDate
+        latestPrayLabel.text = item.pray
 //        tags = item.tags
 //        tagCollectionView.reloadData()
 //        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {

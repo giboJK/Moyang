@@ -14,7 +14,7 @@ import SnapKit
 class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     typealias VM = CommunityMainVM
     var disposeBag: DisposeBag = DisposeBag()
-    var vm: CommunityMainVM?
+    var vm: VM?
     
     // MARK: - UI
     let titleLabel = UILabel().then {

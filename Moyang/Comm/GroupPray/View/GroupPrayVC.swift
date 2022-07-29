@@ -20,13 +20,13 @@ class GroupPrayVC: UIViewController, VCType {
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
-        $0.title = "기도 제목"
     }
     let infoButton = UIButton().then {
         $0.setTitle("정보", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
         $0.setTitleColor(.nightSky1, for: .normal)
     }
+    let groupPrayCalendar = GroupPrayCalendar()
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(GroupPrayTableViewCell.self, forCellReuseIdentifier: "cell")
@@ -90,17 +90,20 @@ class GroupPrayVC: UIViewController, VCType {
     private func setupPrayTableView() {
         view.addSubview(prayTableView)
         prayTableView.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom).offset(12)
+            $0.top.equalTo(navBar.snp.bottom)
             $0.bottom.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(8)
+            $0.left.right.equalToSuperview()
         }
+        prayTableView.stickyHeader.view = groupPrayCalendar
+        prayTableView.stickyHeader.height = 232 + 60
+        prayTableView.stickyHeader.minimumHeight = 60
     }
     private func setupAddPrayButton() {
         view.addSubview(addPrayButton)
         addPrayButton.snp.makeConstraints {
             $0.height.equalTo(48)
             $0.width.equalTo(96)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.centerX.equalToSuperview()
         }
     }
@@ -137,8 +140,11 @@ class GroupPrayVC: UIViewController, VCType {
     private func moveDownButton() {
         if isAnimating { return }
         isAnimating = true
-        addPrayButton.snp.updateConstraints {
+        addPrayButton.snp.remakeConstraints {
+            $0.height.equalTo(48)
+            $0.width.equalTo(96)
             $0.bottom.equalToSuperview().offset(56)
+            $0.centerX.equalToSuperview()
         }
         UIView.animate(withDuration: animationTime) {
             self.view.updateConstraints()
@@ -150,8 +156,11 @@ class GroupPrayVC: UIViewController, VCType {
     private func moveUpButton() {
         if isAnimating { return }
         isAnimating = true
-        addPrayButton.snp.updateConstraints {
-            $0.bottom.equalToSuperview()
+        addPrayButton.snp.remakeConstraints {
+            $0.height.equalTo(48)
+            $0.width.equalTo(96)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.centerX.equalToSuperview()
         }
         UIView.animate(withDuration: animationTime) {
             self.view.updateConstraints()
@@ -201,6 +210,10 @@ class GroupPrayVC: UIViewController, VCType {
         let input = VM.Input(selectMember: prayTableView.rx.itemSelected.asDriver(),
                              releaseDetailVM: self.rx.viewWillAppear.map { _ in () }.asDriver(onErrorJustReturn: ()))
         let output = vm.transform(input: input)
+        
+        output.groupName
+            .drive(navBar.titleLabel.rx.text)
+            .disposed(by: disposeBag)
         
         output.cardPrayItemList
             .drive(prayTableView.rx

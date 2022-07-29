@@ -16,7 +16,7 @@ import RxGesture
 class CommunityMainVC: UIViewController, VCType {
     typealias VM = CommunityMainVM
     var disposeBag: DisposeBag = DisposeBag()
-    var vm: CommunityMainVM?
+    var vm: VM?
     var coordinator: CommunityMainVCDelegate?
     
     // MARK: - UI

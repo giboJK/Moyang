@@ -85,6 +85,11 @@ class CommunityMainVM: VMType {
         }
         cardPrayItemList.accept(cardList)
     }
+    
+    private func generateGroupPrayVM() {
+        let vm = GroupPrayVM(useCase: useCase)
+        groupPrayVM.accept(vm)
+    }
 }
 
 extension CommunityMainVM {
@@ -108,6 +113,7 @@ extension CommunityMainVM {
     func transform(input: Input) -> Output {
         input.didTapPrayCard
             .drive(onNext: { [weak self] _ in
+                self?.generateGroupPrayVM()
             }).disposed(by: disposeBag)
         
         return Output(isNetworking: isNetworking.asDriver(),

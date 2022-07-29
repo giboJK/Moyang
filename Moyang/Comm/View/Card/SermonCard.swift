@@ -14,7 +14,7 @@ import SnapKit
 class SermonCard: UIView {
     typealias VM = CommunityMainVM
     var disposeBag: DisposeBag = DisposeBag()
-    var vm: CommunityMainVM?
+    var vm: VM?
     
     // MARK: - UI
     let largeConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)

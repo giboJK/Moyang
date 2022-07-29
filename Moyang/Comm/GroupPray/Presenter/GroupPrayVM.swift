@@ -13,7 +13,11 @@ class GroupPrayVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
     
+    let isNetworking = BehaviorRelay<Bool>(value: false)
+    
+    let groupName = BehaviorRelay<String>(value: "")
     let cardPrayItemList = BehaviorRelay<[PrayItem]>(value: [])
+    let amenItemList = BehaviorRelay<[AmenItem]>(value: [])
     let detailVM = BehaviorRelay<GroupPrayListVM?>(value: nil)
     
     let newPray = BehaviorRelay<String?>(value: nil)
@@ -47,23 +51,18 @@ class GroupPrayVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-//        useCase.cardMemberPrayList
-//            .map { list in
-//                var itemList = [PrayItem]()
-//                list.forEach { item in
-//                    itemList.append(PrayItem(memberID: item.member.id,
-//                                             name: item.member.name,
-//                                             pray: item.pray.pray,
-//                                             date: item.pray.date,
-//                                             prayID: item.pray.id,
-//                                             isSecret: item.pray.isSecret,
-//                                             registeredDate: item.pray.registeredDate
-//                                            ))
-//                }
-//                return itemList
-//            }
-//            .bind(to: cardPrayItemList)
-//            .disposed(by: disposeBag)
+        useCase.isNetworking
+            .bind(to: isNetworking)
+            .disposed(by: disposeBag)
+        
+        useCase.groupSummary
+            .subscribe(onNext: { [weak self] data in
+                guard let data = data else { return }
+                guard let self = self else { return }
+                self.groupName.accept(data.groupName)
+                self.setPrayData(data: data.prays)
+                self.setAmenData(data: data.amens)
+            }).disposed(by: disposeBag)
         
         useCase.addingNewPraySuccess
             .bind(to: addingNewPraySuccess)
@@ -80,6 +79,21 @@ class GroupPrayVM: VMType {
             .disposed(by: disposeBag)
     }
     
+    private func setPrayData(data: [GroupSummaryPray]) {
+        var cardList = [PrayItem]()
+        data.forEach { item in
+            cardList.append(PrayItem(memberID: item.userID,
+                                     name: item.userName,
+                                     prayID: item.prayID,
+                                     pray: item.content,
+                                     latestDate: item.latestDate?.isoToDateString(),
+                                     isSecret: item.isSecret,
+                                     createDate: item.createDate?.isoToDateString()))
+        }
+        cardPrayItemList.accept(cardList)
+    }
+    private func setAmenData(data: [GroupSummaryAmen]) {
+    }
     func clearNewTag() {
         tagList.accept([])
     }
@@ -144,7 +158,9 @@ extension GroupPrayVM {
     }
     
     struct Output {
+        let groupName: Driver<String>
         let cardPrayItemList: Driver<[PrayItem]>
+        let amenItemList: Driver<[AmenItem]>
         let detailVM: Driver<GroupPrayListVM?>
         let newPray: Driver<String?>
         let newTag: Driver<String?>
@@ -237,7 +253,9 @@ extension GroupPrayVM {
                 self?.detailVM.accept(nil)
             }).disposed(by: disposeBag)
         
-        return Output(cardPrayItemList: cardPrayItemList.asDriver(),
+        return Output(groupName: groupName.asDriver(),
+                      cardPrayItemList: cardPrayItemList.asDriver(),
+                      amenItemList: amenItemList.asDriver(),
                       detailVM: detailVM.asDriver(),
                       newPray: newPray.asDriver(),
                       newTag: newTag.asDriver(),
@@ -249,5 +267,21 @@ extension GroupPrayVM {
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver()
         )
+    }
+}
+
+extension GroupPrayVM {
+    struct AmenItem {
+        let date: String
+        let goalValue: Int
+        let value: Int
+        init(date: String,
+             goalValue: Int,
+             value: Int
+        ) {
+            self.date = date
+            self.goalValue = goalValue
+            self.value = value
+        }
     }
 }

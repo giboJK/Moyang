@@ -14,7 +14,7 @@ import SnapKit
 class EmptyGroupView: UIView {
     typealias VM = CommunityMainVM
     var disposeBag: DisposeBag = DisposeBag()
-    var vm: CommunityMainVM?
+    var vm: VM?
 
     // MARK: - UI
     let helpLabel = UILabel().then {

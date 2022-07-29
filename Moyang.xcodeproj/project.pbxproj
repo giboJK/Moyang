@@ -95,6 +95,7 @@
 		2498F907287C4F60007EF510 /* IntroAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498F906287C4F60007EF510 /* IntroAssembly.swift */; };
 		2498F909287C514D007EF510 /* IntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498F908287C514D007EF510 /* IntroCoordinator.swift */; };
 		2499CBFF2806E9DD004C0984 /* ChurchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499CBFE2806E9DD004C0984 /* ChurchInfo.swift */; };
+		249FD1E62893A73800BDF995 /* GroupPrayCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FD1E52893A73800BDF995 /* GroupPrayCalendar.swift */; };
 		24A55F64279AFE7D007DDE02 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A55F63279AFE7D007DDE02 /* String+.swift */; };
 		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
 		24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */; };
@@ -299,6 +300,7 @@
 		2498F906287C4F60007EF510 /* IntroAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAssembly.swift; sourceTree = "<group>"; };
 		2498F908287C514D007EF510 /* IntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinator.swift; sourceTree = "<group>"; };
 		2499CBFE2806E9DD004C0984 /* ChurchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChurchInfo.swift; sourceTree = "<group>"; };
+		249FD1E52893A73800BDF995 /* GroupPrayCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayCalendar.swift; sourceTree = "<group>"; };
 		24A55F63279AFE7D007DDE02 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
 		24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssembly.swift; sourceTree = "<group>"; };
@@ -706,15 +708,15 @@
 			isa = PBXGroup;
 			children = (
 				24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */,
+				089E8A1927AF52A600640A39 /* Domain */,
+				246BD7A427240A96005C4E0B /* Presenter */,
+				246BD7A627240A96005C4E0B /* View */,
 				24CFA8BB28792D3A00484C89 /* AllGroup */,
 				24F4D383287B1DA300B1AC06 /* GroupInfo */,
 				240946CD28707361003AEDAD /* PrayWithAndChange */,
 				08D2FD98286EE29C00ED8ECB /* PrayReaction */,
 				2493DE602846742B001A9368 /* GroupPray */,
 				24E4DC35284C2CFF002ECD83 /* GroupPraying */,
-				089E8A1927AF52A600640A39 /* Domain */,
-				246BD7A427240A96005C4E0B /* Presenter */,
-				246BD7A627240A96005C4E0B /* View */,
 			);
 			path = Comm;
 			sourceTree = "<group>";
@@ -807,6 +809,7 @@
 				242F929B2848E02F0023324D /* GroupPrayCoordinator.swift */,
 				24C8E9B1286B148200AEE46B /* Edit */,
 				242F929F2848FD090023324D /* NewPray */,
+				249FD1E52893A73800BDF995 /* GroupPrayCalendar.swift */,
 				242F92962848DF050023324D /* GroupPrayListVC.swift */,
 				2493DE6128467441001A9368 /* GroupPrayVC.swift */,
 				24C5273F284708570081AE25 /* GroupPrayTableViewCell.swift */,
@@ -1575,6 +1578,7 @@
 				242F92A12848FD140023324D /* NewPrayVC.swift in Sources */,
 				24DABDA9289180D200DEB6CC /* Int+.swift in Sources */,
 				248AF71F27C09B2E004AA283 /* GroupManageCardRow.swift in Sources */,
+				249FD1E62893A73800BDF995 /* GroupPrayCalendar.swift in Sources */,
 				08A02A5727AE0B460043EEF0 /* MemberDetail.swift in Sources */,
 				24B9AEDC27C1C6DD005391DA /* SearchBar.swift in Sources */,
 				08D7DABC27CE244E004CDC9E /* LoginVMMock.swift in Sources */,

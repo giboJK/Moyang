@@ -14,7 +14,7 @@ import SnapKit
 class CommunityMainScrollView: UIView {
     typealias VM = CommunityMainVM
     var disposeBag: DisposeBag = DisposeBag()
-    var vm: CommunityMainVM?
+    var vm: VM?
     
     let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
