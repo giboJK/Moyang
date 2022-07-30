@@ -26,7 +26,7 @@ class GroupPrayVC: UIViewController, VCType {
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
         $0.setTitleColor(.nightSky1, for: .normal)
     }
-    let groupPrayCalendar = GroupPrayCalendar()
+    lazy var groupPrayCalendar = GroupPrayCalendar(vm: self.vm)
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(GroupPrayTableViewCell.self, forCellReuseIdentifier: "cell")
@@ -95,7 +95,7 @@ class GroupPrayVC: UIViewController, VCType {
             $0.left.right.equalToSuperview()
         }
         prayTableView.stickyHeader.view = groupPrayCalendar
-        prayTableView.stickyHeader.height = 232 + 60
+        prayTableView.stickyHeader.height = 140 + 60
         prayTableView.stickyHeader.minimumHeight = 60
     }
     private func setupAddPrayButton() {
@@ -214,6 +214,16 @@ class GroupPrayVC: UIViewController, VCType {
         output.groupName
             .drive(navBar.titleLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        output.isWeek
+            .skip(1)
+            .drive(onNext: { [weak self] isWeek in
+                if isWeek {
+                    self?.prayTableView.stickyHeader.height = 140 + 60
+                } else {
+                    self?.prayTableView.stickyHeader.height = 232 + 60
+                }
+            }).disposed(by: disposeBag)
         
         output.cardPrayItemList
             .drive(prayTableView.rx

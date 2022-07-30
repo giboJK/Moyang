@@ -16,6 +16,9 @@ class GroupPrayVM: VMType {
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
     let groupName = BehaviorRelay<String>(value: "")
+    
+    let isWeek = BehaviorRelay<Bool>(value: true)
+    let myLatestPray = BehaviorRelay<PrayItem?>(value: nil)
     let cardPrayItemList = BehaviorRelay<[PrayItem]>(value: [])
     let amenItemList = BehaviorRelay<[AmenItem]>(value: [])
     let detailVM = BehaviorRelay<GroupPrayListVM?>(value: nil)
@@ -80,8 +83,12 @@ class GroupPrayVM: VMType {
     }
     
     private func setPrayData(data: [GroupSummaryPray]) {
+        guard let myInfo = UserData.shared.userInfo else {
+            Log.e("Error")
+            return
+        }
         var cardList = [PrayItem]()
-        data.forEach { item in
+        data.filter { $0.userID != myInfo.id }.forEach { item in
             cardList.append(PrayItem(memberID: item.userID,
                                      name: item.userName,
                                      prayID: item.prayID,
@@ -92,9 +99,24 @@ class GroupPrayVM: VMType {
                                      createDate: item.createDate?.isoToDateString()))
         }
         cardPrayItemList.accept(cardList)
+        
+        if let myData = data.first(where: { $0.userID == myInfo.id }) {
+            myLatestPray.accept(PrayItem(memberID: myData.userID,
+                                   name: myData.userName,
+                                   prayID: myData.content,
+                                   pray: myData.content,
+                                   tags: myData.tags,
+                                   latestDate: myData.latestDate,
+                                   isSecret: myData.isSecret,
+                                   createDate: myData.createDate))
+        } else {
+            Log.e("No pray")
+        }
     }
+    
     private func setAmenData(data: [GroupSummaryAmen]) {
     }
+    
     func clearNewTag() {
         tagList.accept([])
     }
@@ -144,6 +166,8 @@ class GroupPrayVM: VMType {
 
 extension GroupPrayVM {
     struct Input {
+        var toggleIsWeek: Driver<Void> = .empty()
+        
         var selectMember: Driver<IndexPath> = .empty()
         var setPray: Driver<String?> = .empty()
         var autoSave: Driver<Void> = .empty()
@@ -160,6 +184,8 @@ extension GroupPrayVM {
     
     struct Output {
         let groupName: Driver<String>
+        let isWeek: Driver<Bool>
+        let myLatestPray: Driver<PrayItem?>
         let cardPrayItemList: Driver<[PrayItem]>
         let amenItemList: Driver<[AmenItem]>
         let detailVM: Driver<GroupPrayListVM?>
@@ -175,6 +201,12 @@ extension GroupPrayVM {
     }
     
     func transform(input: Input) -> Output {
+        input.toggleIsWeek
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.isWeek.accept(!self.isWeek.value)
+            }).disposed(by: disposeBag)
+        
         input.selectMember
             .drive(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
@@ -255,6 +287,8 @@ extension GroupPrayVM {
             }).disposed(by: disposeBag)
         
         return Output(groupName: groupName.asDriver(),
+                      isWeek: isWeek.asDriver(),
+                      myLatestPray: myLatestPray.asDriver(),
                       cardPrayItemList: cardPrayItemList.asDriver(),
                       amenItemList: amenItemList.asDriver(),
                       detailVM: detailVM.asDriver(),
