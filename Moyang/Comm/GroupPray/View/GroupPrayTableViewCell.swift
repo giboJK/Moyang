@@ -398,15 +398,15 @@ class GroupPrayTableViewCell: UITableViewCell {
         nameLabel.text = item.name
         dateLabel.text = item.latestDate
         latestPrayLabel.text = item.pray
-//        tags = item.tags
-//        tagCollectionView.reloadData()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-//            self.updateTagCollectionViewHeight()
-//        }
-//        noTagLabel.isHidden = !item.tags.isEmpty
-//        isSecretLabel.isHidden = !item.isSecret
+        tags = item.tags
+        tagCollectionView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.updateTagCollectionViewHeight()
+        }
+        noTagLabel.isHidden = !item.tags.isEmpty
+        isSecretLabel.isHidden = !item.isSecret
 //        setupReactionAndReplyView(reactions: item.reactions, replys: item.replys)
-//        
+        
 //        prayCountLabel.isHidden = item.changes.isEmpty
 //        firstPrayDateLabel.isHidden = item.changes.isEmpty
 //        firstPrayLabel.isHidden = item.changes.isEmpty

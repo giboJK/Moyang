@@ -86,6 +86,7 @@ class GroupPrayVM: VMType {
                                      name: item.userName,
                                      prayID: item.prayID,
                                      pray: item.content,
+                                     tags: item.tags,
                                      latestDate: item.latestDate?.isoToDateString(),
                                      isSecret: item.isSecret,
                                      createDate: item.createDate?.isoToDateString()))

@@ -17,11 +17,21 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
-    var calendar = FSCalendar()
+    // 날짜 선택 가능 기간은 그룹의 시작날짜
+    let myPrayLabel = UILabel()
+    let myPrayContentLabel = UILabel()
+    let myPrayDateLabel = UILabel()
+    
+    let thisWeekMyPrayTimeLabel = UILabel()
+    let thisWeekMyPrayValueLabel = UILabel()
+    let todayPrayTimeLabel = UILabel()
+    let todayPrayValueLabel = UILabel()
+    let calendar = FSCalendar()
+    let filterView = UIView()
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .clear
+        backgroundColor = .sheep1
         setupUI()
     }
     
@@ -50,7 +60,7 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         calendar.appearance.headerTitleFont = .systemFont(ofSize: 16, weight: .regular)
         
         calendar.snp.makeConstraints {
-            $0.height.equalTo(100)
+            $0.height.equalTo(280)
             $0.left.right.equalToSuperview().inset(8)
             $0.top.equalToSuperview().inset(12)
         }

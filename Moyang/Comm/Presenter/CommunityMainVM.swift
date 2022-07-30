@@ -79,6 +79,7 @@ class CommunityMainVM: VMType {
                                                     name: item.userName,
                                                     prayID: item.prayID,
                                                     pray: item.content,
+                                                    tags: item.tags,
                                                     latestDate: item.latestDate,
                                                     isSecret: item.isSecret,
                                                     createDate: item.createDate))
@@ -132,23 +133,26 @@ extension CommunityMainVM {
         let memberID: String
         let name: String
         let pray: String?
+        let tags: [String]
         let latestDate: String?
         let prayID: String?
-        let isSecret: Bool?
+        let isSecret: Bool
         let createDate: String?
         
         init(memberID: String,
              name: String,
              prayID: String?,
              pray: String?,
+             tags: [String],
              latestDate: String?,
-             isSecret: Bool?,
+             isSecret: Bool,
              createDate: String?
         ) {
             self.memberID = memberID
             self.name = name
             self.prayID = prayID
             self.pray = pray
+            self.tags = tags
             self.latestDate = latestDate
             self.isSecret = isSecret
             self.createDate = createDate
