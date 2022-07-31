@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AllGroupRepo {
-    func fetchGroupList(myInfo: MemberDetail, completion: ((Result<[GroupInfo], MoyangError>) -> Void)?)
+    func fetchGroupList()
 }

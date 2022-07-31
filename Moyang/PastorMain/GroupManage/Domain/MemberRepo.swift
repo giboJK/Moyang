@@ -9,5 +9,4 @@ import Foundation
 import Combine
 
 protocol MemberRepo {
-    func fetchMemberList() -> PassthroughSubject<[MemberDetail], MoyangError>
 }

@@ -68,8 +68,8 @@ extension ProfileVM {
         
         init() { }
         
-        init(userInfo: MemberDetail) {
-            self.name = userInfo.memberName
+        init(userInfo: UserInfo) {
+            self.name = userInfo.name
             self.email = userInfo.email
         }
     }

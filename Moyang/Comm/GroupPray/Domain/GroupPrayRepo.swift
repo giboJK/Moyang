@@ -8,6 +8,5 @@
 import Foundation
 
 protocol GroupPrayRepo {
-    func editPray(myInfo: MemberDetail, prayID: String, pray: String, tags: [String], isSecret: Bool, isRequestPray: Bool,
-                  completion: ((Result<Bool, MoyangError>) -> Void)?)
+    func editPray()
 }

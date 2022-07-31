@@ -177,14 +177,6 @@ class CommunityMainUseCase {
         }
     }
     
-    private func updateCardMemberPrayListWithNewPray(pray: GroupIndividualPray, myInfo: MemberDetail) {
-        var current = cardMemberPrayList.value
-        if let firstIndex = current.firstIndex(where: { $0.member.id == myInfo.id }) {
-            current[firstIndex].pray = pray
-            cardMemberPrayList.accept(current)
-        }
-    }
-    
     func loadSong() {
         downloadSong()
     }
@@ -215,32 +207,6 @@ class CommunityMainUseCase {
     }
     
     func amen(time: Int, groupID: String) {
-    }
-    
-    func addReaction(memberAuth: String, email: String, prayID: String, myInfo: MemberDetail, reaction: String, reactions: [PrayReaction]) {
-        repo.addReaction(memberAuth: memberAuth,
-                         email: email,
-                         prayID: prayID,
-                         myInfo: myInfo,
-                         reaction: reaction,
-                         reactions: reactions) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let prayReactions):
-                var cur = self.memberPrayList.value
-                if let index = self.memberPrayList.value.firstIndex(where: { (member: Member, _) in
-                    member.email == email && member.auth == memberAuth
-                }) {
-                    if let prayIndex = cur[index].list.firstIndex(where: { $0.id == prayID }) {
-                        cur[index].list[prayIndex].reactions = prayReactions
-                        self.memberPrayList.accept(cur)
-                    }
-                }
-                self.reactionSuccess.accept(())
-            case .failure(let error):
-                Log.e(MoyangError.other(error))
-            }
-        }
     }
     
     // MARK: - GroupPrayRepo

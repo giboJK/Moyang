@@ -12,9 +12,6 @@ protocol LoginService {
     func emailLogin(id: String, pw: String) -> AnyPublisher<Bool, MoyangError>
     func googleLogin() -> AnyPublisher<String, MoyangError>
     func pastorLogin(id: String, pw: String, type: AuthType) -> AnyPublisher<Bool, MoyangError>
-    func fetchPastorList(type: AuthType) -> AnyPublisher<PastorList, MoyangError>
-    func fetchUserData(id: String, type: AuthType) -> AnyPublisher<MemberDetail, MoyangError>
-    func setUserData(memberDetail: MemberDetail) -> AnyPublisher<Bool, MoyangError>
     func logout(completion: @escaping (Result<Bool, Error>) -> Void)
 }
 

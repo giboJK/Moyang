@@ -131,36 +131,6 @@ class FSLoginService: LoginService {
         }.eraseToAnyPublisher()
     }
     
-    func fetchPastorList(type: AuthType) -> AnyPublisher<PastorList, MoyangError> {
-        let ref = service.store
-            .collection("PASTOR")
-            .document("YD")
-            .collection("AUTH")
-            .document(type.rawValue)
-        
-        return service.fetchObject(ref: ref, type: PastorList.self)
-    }
-    
-    func fetchUserData(id: String, type: AuthType) -> AnyPublisher<MemberDetail, MoyangError> {
-        let ref = service.store
-            .collection("USER")
-            .document("AUTH")
-            .collection(type.rawValue)
-            .document(id.lowercased())
-        
-        return service.fetchObject(ref: ref, type: MemberDetail.self)
-    }
-    
-    func setUserData(memberDetail: MemberDetail) -> AnyPublisher<Bool, MoyangError> {
-        let ref = service.store
-            .collection("USER")
-            .document("AUTH")
-            .collection(memberDetail.authType)
-            .document(memberDetail.email)
-        
-        return service.addDocument(memberDetail, ref: ref)
-    }
-    
     func logout(completion: @escaping (Result<Bool, Error>) -> Void) {
     }
     

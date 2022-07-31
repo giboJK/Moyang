@@ -46,36 +46,10 @@ extension CommunityController: CommunityMainRepo {
 //        fsShared.addListener(ref: ref, type: GroupInfo.self, completion: completion)
     }
     
-    func fetchGroupList() {
-        
-    }
-    
     func fetchMemberIndividualPray(memberAuth: String, email: String, groupID: String, limit: Int, start: String,
                                    completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?) {
-//        let query = firestoreService.store
-//            .collection("USER")
-//            .document("AUTH")
-//            .collection(memberAuth)
-//            .document(email)
-//            .collection("PRAY")
-//            .whereField("group_id", in: [groupID])
-//            .order(by: "date", descending: true)
-//            .limit(to: limit)
-//            .start(at: [start])
-//        fsShared.fetchDocumentsWithQuery(query: query, type: GroupIndividualPray.self, completion: completion)
     }
     
-    func addIndividualPray(data: GroupIndividualPray, myInfo: MemberDetail, completion: ((Result<Bool, MoyangError>) -> Void)?) {
-//        let ref = firestoreService.store
-//            .collection("USER")
-//            .document("AUTH")
-//            .collection(myInfo.authType)
-//            .document(myInfo.email)
-//            .collection("PRAY")
-//            .document(data.id)
-//
-//        fsShared.addDocument(data, ref: ref, completion: completion)
-    }
     
     func downloadSong(fileName: String, path: String, fileExt: String,
                       completion: ((Result<URL, MoyangError>) -> Void)?) {
@@ -95,96 +69,6 @@ extension CommunityController: CommunityMainRepo {
         return FileManager.default.fileExists(atPath: localURL.path)
     }
     
-    func amen(time: Int, groupID: String, myInfo: MemberDetail, completion: ((Result<Bool, MoyangError>) -> Void)?) {
-//        let ref = firestoreService.store
-//            .collection("USER")
-//            .document("AUTH")
-//            .collection(myInfo.authType)
-//            .document(myInfo.email)
-//            .collection("PRAYRECORD")
-//            .document(groupID)
-//        let key = "amen_record"
-//
-//        ref.updateData([
-//            key: FieldValue.arrayUnion([PrayTimeRecord(date: Date().toString("yyyy-MM-dd hh:mm"),
-//                                                       time: time).dict as Any])
-//        ]) { [weak self] error in
-//            if let error = error {
-//                Log.w(error)
-//                if error.localizedDescription.contains("No document") {
-//                    self?.addAmenRecord(time: time, groupID: groupID, myInfo: myInfo, completion: completion)
-//                } else {
-//                    completion?(.success(false))
-//                }
-//            } else {
-//                completion?(.success(true))
-//            }
-//        }
-    }
-    
-    private func addAmenRecord(time: Int, groupID: String, myInfo: MemberDetail, completion: ((Result<Bool, MoyangError>) -> Void)?) {
-//        let ref = firestoreService.store
-//            .collection("USER")
-//            .document("AUTH")
-//            .collection(myInfo.authType)
-//            .document(myInfo.email)
-//            .collection("PRAYRECORD")
-//            .document(groupID)
-//
-//        let data = PrayTimeRecordList(list: [PrayTimeRecord(date: Date().toString("yyyy-MM-dd hh:mm"),
-//                                                            time: time)])
-//        fsShared.addDocument(data, ref: ref, completion: completion)
-    }
-    
-    func addReaction(memberAuth: String, email: String, prayID: String, myInfo: MemberDetail, reaction: String, reactions: [PrayReaction],
-                     completion: ((Result<[PrayReaction], MoyangError>) -> Void)?) {
-//        let ref = firestoreService.store
-//            .collection("USER")
-//            .document("AUTH")
-//            .collection(memberAuth)
-//            .document(email)
-//            .collection("PRAY")
-//            .document(prayID)
-//        let key = "reactions"
-//        if let item = reactions.first(where: { $0.memberID == myInfo.id }) {
-//            ref.updateData([
-//                key: FieldValue.arrayRemove([item.dict as Any])
-//            ]) { error in
-//                if let error = error {
-//                    Log.w(error)
-//                } else {
-//                    ref.updateData([
-//                        key: FieldValue.arrayUnion([PrayReaction(memberID: myInfo.id,
-//                                                                 reaction: reaction).dict as Any])
-//                    ]) { error in
-//                        if let error = error {
-//                            Log.w(error)
-//                        } else {
-//                            var changed = reactions
-//                            if let index = reactions.firstIndex(where: { $0.memberID == myInfo.id }) {
-//                                changed[index].reaction = reaction
-//                            }
-//                            completion?(.success(changed))
-//                        }
-//                    }
-//                }
-//            }
-//        } else {
-//            ref.updateData([
-//                key: FieldValue.arrayUnion([PrayReaction(memberID: myInfo.id,
-//                                                         reaction: reaction).dict as Any])
-//            ]) { error in
-//                if let error = error {
-//                    Log.w(error)
-//                } else {
-//                    var changed = reactions
-//                    changed.append(PrayReaction(memberID: myInfo.id,
-//                                                reaction: reaction))
-//                    completion?(.success(changed))
-//                }
-//            }
-//        }
-    }
     func addReply(memberAuth: String, email: String, prayID: String, reply: String, date: String, reactions: [PrayReaction], order: Int,
                   completion: ((Result<PrayReply, MoyangError>) -> Void)?) {
 //        let ref = firestoreService.store
@@ -216,62 +100,12 @@ extension CommunityController: CommunityMainRepo {
 }
 
 extension CommunityController: GroupPrayRepo {
-    func editPray(myInfo: MemberDetail, prayID: String, pray: String, tags: [String], isSecret: Bool, isRequestPray: Bool,
-                  completion: ((Result<Bool, MoyangError>) -> Void)?) {
-//        let ref = firestoreService.store
-//            .collection("USER")
-//            .document("AUTH")
-//            .collection(myInfo.authType)
-//            .document(myInfo.email)
-//            .collection("PRAY")
-//            .document(prayID)
-//
-//        ref.updateData(["pray": pray,
-//                        "tags": tags,
-//                        "is_secret": isSecret,
-//                        "is_request_pray": isRequestPray]) { error in
-//            if let error = error {
-//                Log.e(error)
-//                completion?(.success(false))
-//            } else {
-//                completion?(.success(true))
-//            }
-//        }
+    func editPray() {
     }
 }
 
 extension CommunityController: AllGroupRepo {
-    func fetchGroupList(myInfo: MemberDetail, completion: ((Result<[GroupInfo], MoyangError>) -> Void)?) {
-//        let query = firestoreService.store
-//            .collection("COMMUNITY")
-//            .document(myInfo.community.uppercased())
-//            .collection("2022")
-//            .whereField("id", in: myInfo.groupList)
-//        
-//            query.getDocuments { querySnapshot, error in
-//                if let error = error {
-//                    completion?(.failure(.other(error)))
-//                }
-//                if let querySnapshot = querySnapshot {
-//                    if querySnapshot.documents.isEmpty {
-//                        completion?(.failure(.emptyData))
-//                    } else {
-//                        
-//                        let decoder = JSONDecoder()
-//                        var objectList = [GroupInfo]()
-//                        querySnapshot.documents.forEach { queryDocumentSnapshot in
-//                            if let data = try? JSONSerialization.data(withJSONObject: queryDocumentSnapshot.data(), options: []) {
-//                                do {
-//                                    let object = try decoder.decode(GroupInfo.self, from: data)
-//                                    objectList.append(object)
-//                                } catch let error {
-//                                    completion?(.failure(.other(error)))
-//                                }
-//                            }
-//                        }
-//                        completion?(.success(objectList))
-//                    }
-//                }
-//            }
+    func fetchGroupList() {
+        
     }
 }

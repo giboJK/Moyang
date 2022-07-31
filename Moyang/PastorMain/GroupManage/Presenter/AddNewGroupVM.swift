@@ -10,16 +10,11 @@ import Combine
 
 class AddNewGroupVM: ObservableObject {
     var cancellables = Set<AnyCancellable>()
-    private let repo = MemberRepoImpl(service: FSServiceImpl())
     
     @Published var division = ""
     @Published var name = ""
     @Published var leaderListName = ""
     @Published var memberListName = ""
-    @Published var memberItemList = [AddNewGroupVM.SearchMemberItem]()
-    @Published var leaderItemList = [AddNewGroupVM.SearchMemberItem]()
-    @Published var divisionList = ["청년부", "고등부"]
-    
     private let youthID = "DFEB77B8-2578-4909-ADBB-175890BDAA4F"
     private let highID = "DAB794ED-01E6-4B68-9ED8-29DA932E5A31"
     
@@ -48,101 +43,35 @@ class AddNewGroupVM: ObservableObject {
     }
     
     func fetchMemberList() {
-        repo.fetchMemberList()
-            .sink { completion in
-                Log.d(completion)
-            } receiveValue: { [weak self] list in
-                self?.memberDetailToSearchMemberItem(list: list)
-                
-            }.store(in: &cancellables)
     }
     
-    func memberDetailToSearchMemberItem(list: [MemberDetail]) {
-        var itemList = [AddNewGroupVM.SearchMemberItem]()
-        list.forEach {
-            itemList.append(SearchMemberItem(memberDetail: $0))
-        }
-        
-        self.memberItemList = itemList
-        self.leaderItemList = itemList
+    func memberDetailToSearchMemberItem() {
     }
     
-    func toggleLeaderSelection(item: SearchMemberItem) {
-        if let index = leaderItemList.firstIndex(where: { $0.id == item.id }) {
-            leaderItemList[index].isLeader = !leaderItemList[index].isLeader
-            leaderItemList[index].isMember = false
-        }
-        leaderCount = leaderItemList
-            .filter { $0.isLeader }.count
-        leaderListName = String(leaderItemList
-                                    .filter { $0.isLeader }
-                                    .map { $0.name }
-                                    .reduce("") { $0 + ", " + $1 }
-                                    .dropFirst(2))
-    }
-    
-    func toggleMemberSelection(item: SearchMemberItem) {
-        if let index = memberItemList.firstIndex(where: { $0.id == item.id }) {
-            memberItemList[index].isMember = !memberItemList[index].isMember
-            leaderItemList[index].isLeader = false
-        }
-        memberCount = memberItemList
-            .filter { $0.isMember }.count
-        memberListName = String(memberItemList
-                                    .filter { $0.isLeader }
-                                    .map { $0.name }
-                                    .reduce("") { $0 + ", " + $1 }
-                                    .dropFirst(2))
+    func toggleLeaderSelection() {
     }
     
     func addNewGroup() {
-        var leaderList = [Member]()
-        leaderItemList.filter { $0.isLeader == true }.forEach { item in
-            leaderList.append(Member(id: item.id,
-                                     name: item.name,
-                                     email: item.email,
-                                     profileURL: "",
-                                     auth: item.auth))
-        }
-        
-        var memberList = [Member]()
-        memberItemList.filter { $0.isMember == true }.forEach { item in
-            memberList.append(Member(id: item.id,
-                                     name: item.name,
-                                     email: item.email,
-                                     profileURL: "",
-                                     auth: item.auth))
-        }
-        
-        let parentGroup = selectedIndex! == 0 ? youthID : highID
-        let groupInfo = GroupInfo(id: UUID().uuidString,
-                                  createdDate: Date().toString("yyyy.MM.dd"),
-                                  groupName: name,
-                                  parentGroup: parentGroup,
-                                  leaderList: leaderList,
-                                  memberList: memberList,
-                                  pastorInCharge: nil)
-        
     }
 }
 
 extension AddNewGroupVM {
-    struct SearchMemberItem: Identifiable, Hashable {
-        let id: String
-        let name: String
-        let email: String
-        let birth: String
-        let auth: String
-        var isSelected: Bool = false
-        var isLeader: Bool = false
-        var isMember: Bool = false
-        
-        init(memberDetail: MemberDetail) {
-            id = memberDetail.id
-            name = memberDetail.memberName
-            email = memberDetail.email
-            birth = memberDetail.birth
-            auth = memberDetail.authType
-        }
-    }
+//    struct SearchMemberItem: Identifiable, Hashable {
+//        let id: String
+//        let name: String
+//        let email: String
+//        let birth: String
+//        let auth: String
+//        var isSelected: Bool = false
+//        var isLeader: Bool = false
+//        var isMember: Bool = false
+//
+//        init() {
+//            id = memberDetail.id
+//            name = memberDetail.memberName
+//            email = memberDetail.email
+//            birth = memberDetail.birth
+//            auth = memberDetail.authType
+//        }
+//    }
 }
