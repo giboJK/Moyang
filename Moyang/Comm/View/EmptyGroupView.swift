@@ -24,8 +24,11 @@ class EmptyGroupView: UIView {
         $0.numberOfLines = 0
         $0.textAlignment = .center
     }
-    let askingPastorButton = MoyangButton(.secondary).then {
-        $0.setTitle("공동체 요청하기", for: .normal)
+    let enteringGroupButton = MoyangButton(.secondary).then {
+        $0.setTitle("공동체 들어가기", for: .normal)
+    }
+    let creatingGroupButton = MoyangButton(.ghost).then {
+        $0.setTitle("공동체 생성하기", for: .normal)
     }
     
     init() {
@@ -43,7 +46,8 @@ class EmptyGroupView: UIView {
     
     private func setupUI() {
         setupHelpLabel()
-        setupAskingPastorButton()
+        setupEnteringGroupButton()
+        setupCreatingGroupButton()
     }
     
     private func setupHelpLabel() {
@@ -53,13 +57,20 @@ class EmptyGroupView: UIView {
             $0.left.right.equalToSuperview().inset(40)
         }
     }
-    private func setupAskingPastorButton() {
-        addSubview(askingPastorButton)
-        askingPastorButton.snp.makeConstraints {
+    private func setupEnteringGroupButton() {
+        addSubview(enteringGroupButton)
+        enteringGroupButton.snp.makeConstraints {
             $0.top.equalTo(helpLabel.snp.bottom).offset(16)
             $0.height.equalTo(36)
             $0.left.right.equalToSuperview().inset(48)
         }
     }
-    
+    private func setupCreatingGroupButton() {
+        addSubview(creatingGroupButton)
+        creatingGroupButton.snp.makeConstraints {
+            $0.top.equalTo(enteringGroupButton.snp.bottom).offset(16)
+            $0.height.equalTo(36)
+            $0.left.right.equalToSuperview().inset(48)
+        }
+    }
 }
