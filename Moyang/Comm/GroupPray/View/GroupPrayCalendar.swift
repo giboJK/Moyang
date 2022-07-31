@@ -100,7 +100,6 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        Log.w("dadsmsaklsmaldkm")
         calendar.snp.updateConstraints { (make) in
             make.height.equalTo(bounds.height)
         }

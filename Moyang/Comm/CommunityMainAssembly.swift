@@ -16,6 +16,16 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
     deinit { Log.i(self) }
     
     func assemble(container: Container) {
+        container.register(MainVC.self) { r in
+            let vc = MainVC()
+            
+            let communityMainVC = r ~> (CommunityMainVC.self)
+            communityMainVC.coordinator = r ~> (CommunityMainCoordinator.self)
+            vc.communityMainVC = communityMainVC
+            
+            return vc
+        }
+        
         container.register(CommunityMainVC.self) { r in
             let vc = CommunityMainVC()
             

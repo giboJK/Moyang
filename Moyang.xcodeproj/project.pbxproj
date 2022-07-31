@@ -83,7 +83,6 @@
 		248AF72127C0AA71004AA283 /* AddNewGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248AF72027C0AA71004AA283 /* AddNewGroupView.swift */; };
 		248AF72327C0ABCF004AA283 /* AddNewGroupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248AF72227C0ABCF004AA283 /* AddNewGroupVM.swift */; };
 		248AF72527C0AC52004AA283 /* AddNewGroupVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248AF72427C0AC52004AA283 /* AddNewGroupVMMock.swift */; };
-		248FEC102723A08D00321E5E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC0F2723A08D00321E5E /* MainView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
 		2493DE6228467441001A9368 /* GroupPrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493DE6128467441001A9368 /* GroupPrayVC.swift */; };
@@ -104,7 +103,6 @@
 		24A757B927B149C500D94002 /* GroupQuestionListVMMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A757B827B149C500D94002 /* GroupQuestionListVMMock.swift */; };
 		24A9B87E279D9C35003468DB /* PastorComunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A9B87D279D9C35003468DB /* PastorComunityView.swift */; };
 		24AACA78283FB42A00308AC3 /* CommunityMainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */; };
-		24AACA7A283FC22A00308AC3 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA79283FC22A00308AC3 /* MainAssembly.swift */; };
 		24AACA7C283FC3DD00308AC3 /* CommunityMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7B283FC3DD00308AC3 /* CommunityMainCoordinator.swift */; };
 		24AACA7E283FC40A00308AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7D283FC40A00308AC3 /* Coordinator.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
@@ -288,7 +286,6 @@
 		248AF72027C0AA71004AA283 /* AddNewGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewGroupView.swift; sourceTree = "<group>"; };
 		248AF72227C0ABCF004AA283 /* AddNewGroupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewGroupVM.swift; sourceTree = "<group>"; };
 		248AF72427C0AC52004AA283 /* AddNewGroupVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewGroupVMMock.swift; sourceTree = "<group>"; };
-		248FEC0F2723A08D00321E5E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		2493DE6128467441001A9368 /* GroupPrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayVC.swift; sourceTree = "<group>"; };
@@ -309,7 +306,6 @@
 		24A757B827B149C500D94002 /* GroupQuestionListVMMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQuestionListVMMock.swift; sourceTree = "<group>"; };
 		24A9B87D279D9C35003468DB /* PastorComunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastorComunityView.swift; sourceTree = "<group>"; };
 		24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainAssembly.swift; sourceTree = "<group>"; };
-		24AACA79283FC22A00308AC3 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
 		24AACA7B283FC3DD00308AC3 /* CommunityMainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainCoordinator.swift; sourceTree = "<group>"; };
 		24AACA7D283FC40A00308AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
@@ -744,7 +740,6 @@
 		246BD7AA27240AB2005C4E0B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				248FEC0F2723A08D00321E5E /* MainView.swift */,
 				24C877CC282FD6B400F69AAD /* MainVC.swift */,
 			);
 			path = View;
@@ -778,7 +773,6 @@
 				24BE30DC2862C38400413A3B /* Domain */,
 				24B8BCEB2764C7DD005B0A9F /* Presenter */,
 				246BD7AA27240AB2005C4E0B /* View */,
-				24AACA79283FC22A00308AC3 /* MainAssembly.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1505,7 +1499,6 @@
 				24C8E9B9286B1F4500AEE46B /* GroupPrayRepo.swift in Sources */,
 				24C8E9B3286B148F00AEE46B /* GroupPrayEditVC.swift in Sources */,
 				24DABDA72890FE6E00DEB6CC /* Calendar+.swift in Sources */,
-				248FEC102723A08D00321E5E /* MainView.swift in Sources */,
 				24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */,
 				24E0AB2C283E73F800F52505 /* CommunityMainRepo.swift in Sources */,
 				2498F907287C4F60007EF510 /* IntroAssembly.swift in Sources */,
@@ -1585,7 +1578,6 @@
 				24B9AEDA27C1C4D9005391DA /* NewMemberSearchView.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
 				24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */,
-				24AACA7A283FC22A00308AC3 /* MainAssembly.swift in Sources */,
 				24B9B70527BFF012007A12C6 /* GroupManageListVMMock.swift in Sources */,
 				2498F8FE287C316D007EF510 /* TermsVC.swift in Sources */,
 				24A757B927B149C500D94002 /* GroupQuestionListVMMock.swift in Sources */,

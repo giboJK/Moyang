@@ -37,7 +37,6 @@ class MainVC: UITabBarController, VCType {
 
     func setupUI() {
         guard let communityMainVC = communityMainVC else {
-            Log.e("")
             return
         }
 
