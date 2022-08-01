@@ -31,7 +31,7 @@ protocol NetworkServiceProtocol {
     func requestAPI<T: Codable>(request: RequestProtocol,
                                 type: T.Type,
                                 token: String?,
-                                encoding: URLEncoding,
+                                encoding: ParameterEncoding,
                                 completion: @escaping (Result<T, Error>) -> Void)
     
     func requestData(request: RequestProtocol,
