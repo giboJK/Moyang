@@ -34,6 +34,15 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.setTitleColor(.nightSky2, for: .normal)
         $0.setTitleColor(.sheep4, for: .disabled)
     }
+    let groupNameLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .nightSky1
+    }
+    let groupChangeButton = MoyangButton(.none).then {
+        $0.setTitle("그룹 변경", for: .normal)
+        $0.setTitleColor(.nightSky3, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+    }
     let newPrayTextField = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
@@ -91,6 +100,8 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     func setupUI() {
         view.backgroundColor = .sheep2
         setupNavBar()
+        setupGroupNameLabel()
+        setupGroupChangeButton()
         setupNewPrayTextField()
         setupTagInfoLabel()
         setupTagTextField()
@@ -126,10 +137,25 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             $0.height.equalTo(20)
         }
     }
+    private func setupGroupNameLabel() {
+        view.addSubview(groupNameLabel)
+        groupNameLabel.snp.makeConstraints {
+            $0.top.equalTo(navBar.snp.bottom).offset(4)
+            $0.left.equalToSuperview().inset(16)
+            $0.right.equalToSuperview().inset(80)
+        }
+    }
+    private func setupGroupChangeButton() {
+        view.addSubview(groupChangeButton)
+        groupChangeButton.snp.makeConstraints {
+            $0.top.bottom.equalTo(groupNameLabel)
+            $0.right.equalToSuperview().inset(16)
+        }
+    }
     private func setupNewPrayTextField() {
         view.addSubview(newPrayTextField)
         newPrayTextField.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom).offset(4)
+            $0.top.equalTo(groupNameLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(16)
             $0.height.equalTo(240)
         }
@@ -271,6 +297,10 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
                              toggleIsRequestPray: isRequestPrayCheckBox.rx.tap.asDriver())
         
         let output = vm.transform(input: input)
+        
+        output.groupName
+            .drive(groupNameLabel.rx.text)
+            .disposed(by: disposeBag)
         
         output.newPray
             .map { $0?.isEmpty ?? true }
