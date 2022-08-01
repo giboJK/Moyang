@@ -25,6 +25,7 @@ class NewPrayVM: VMType {
     init(useCase: PrayUseCase) {
         self.useCase = useCase
         bind()
+        setGroupName()
     }
 
     deinit { Log.i(self) }
@@ -47,6 +48,12 @@ class NewPrayVM: VMType {
         useCase.addingNewPrayFailure
             .bind(to: addingNewPrayFailure)
             .disposed(by: disposeBag)
+    }
+    
+    private func setGroupName() {
+        if let groupInfo = UserData.shared.groupInfo {
+            groupName.accept(groupInfo.groupName)
+        }
     }
     
     func clearNewTag() {
@@ -72,7 +79,8 @@ class NewPrayVM: VMType {
     }
     
     private func addNewPray() {
-        
+        guard let pray = newPray.value else { Log.e(""); return }
+        useCase.addPray(pray: pray, tags: tagList.value, isSecret: isSecret.value)
     }
 }
 

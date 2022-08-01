@@ -25,6 +25,28 @@ class PrayUseCase {
     }
     
     // MARK: - Function
-    func editPray(prayID: String, pray: String, tags: [String], isSecret: Bool, isRequestPray: Bool) {
+    func addPray(pray: String, tags: [String], isSecret: Bool) {
+        guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
+        guard let userID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        repo.addPray(userID: userID,
+                     groupID: groupID,
+                     content: pray,
+                     tags: tags,
+                     isSecret: isSecret) { [weak self] result in
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self?.addingNewPraySuccess.accept(())
+                } else {
+                    self?.addingNewPrayFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self?.addingNewPrayFailure.accept(())
+            }
+        }
+    }
+    
+    func editPray(prayID: String, pray: String, tags: [String], isSecret: Bool) {
     }
 }

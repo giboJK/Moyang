@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 
 class AFNetworkService: NetworkServiceProtocol {
+    
     var urlSession: URLSession
     private var session: Session
     private var fileManager: FileManager
@@ -57,6 +58,13 @@ class AFNetworkService: NetworkServiceProtocol {
                                 type: T.Type,
                                 token: String?,
                                 completion: @escaping (Result<T, Error>) -> Void) {
+        requestAPI(request: request, type: type, token: token, encoding: .default, completion: completion)
+    }
+    func requestAPI<T: Codable>(request: RequestProtocol,
+                                type: T.Type,
+                                token: String?,
+                                encoding: URLEncoding = .default,
+                                completion: @escaping (Result<T, Error>) -> Void) {
         if !Reachability.isConnectedToNetwork() {
             completion(.failure(MoyangError.reachability))
             Log.e("Network is unavailable.")
@@ -69,6 +77,7 @@ class AFNetworkService: NetworkServiceProtocol {
         AF.request(request.url!,
                    method: HTTPMethod(rawValue: request.method.rawValue),
                    parameters: request.parameters,
+                   encoding: encoding,
                    headers: headers)
 #if DEBUG
             .responseDecodable(of: T.self) { result in

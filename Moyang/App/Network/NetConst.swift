@@ -20,7 +20,7 @@ class NetConst {
     
     enum LoginAPI {
         /// post
-        static let registUser = "/login/regist_user"
+        static let registerUser = "/login/register_user"
         /// post
         static let checkExist = "/login/check_exist"
         /// post
@@ -29,8 +29,13 @@ class NetConst {
     
     enum GroupAPI {
         /// post
-        static let registGroup = "/group/regist_user"
+        static let registerGroup = "/group/register_user"
         /// post
         static let fetchGroupSummary = "/group/group_summary_fetch"
+    }
+    
+    enum PrayAPI {
+        /// post
+        static let addPray = "/pray/add_pray"
     }
 }

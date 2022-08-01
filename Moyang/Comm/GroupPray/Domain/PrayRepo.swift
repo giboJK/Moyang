@@ -8,6 +8,8 @@
 import Foundation
 
 protocol PrayRepo {
-    func addPray(content: String, tags: [String], isSecret: Bool, completion: ((Result<Int, MoyangError>) -> Void)?)
-    func editPray(content: String, tags: [String], isSecret: Bool, completion: ((Result<Int, MoyangError>) -> Void)?)
+    func addPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
+                 completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    func editPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
+                  completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
 }

@@ -28,6 +28,12 @@ protocol NetworkServiceProtocol {
                                 token: String?,
                                 completion: @escaping (Result<T, Error>) -> Void)
     
+    func requestAPI<T: Codable>(request: RequestProtocol,
+                                type: T.Type,
+                                token: String?,
+                                encoding: URLEncoding,
+                                completion: @escaping (Result<T, Error>) -> Void)
+    
     func requestData(request: RequestProtocol,
                      token: String?,
                      completion: @escaping (Result<Data, Error>) -> Void)

@@ -37,7 +37,7 @@ extension AuthController: AuthRepo {
     
     func registUser(email: String, pw: String, name: String, birth: String, authType: String,
                     completion: ((Result<UserInfo, Error>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.LoginAPI.registUser)
+        let url = networkService.makeUrl(path: NetConst.LoginAPI.registerUser)
         let userInfo = UserInfoRequest(email: email, passwd: pw, name: name, birth: birth, authType: authType)
         guard let dict = userInfo.dict else { Log.e("Generating json error"); return }
         let request = networkService.makeRequest(url: url,

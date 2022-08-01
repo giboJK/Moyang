@@ -365,7 +365,6 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
                 guard let self = self else { return }
                 self.showTopToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
             }).disposed(by: disposeBag)
-        
     }
 }
 
