@@ -183,8 +183,7 @@ class GroupPrayVC: UIViewController, VCType {
         
         addPrayButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.coordinator?.didTapNewPrayButton(vm: self.vm)
+                self?.coordinator?.didTapNewPrayButton()
             }).disposed(by: disposeBag)
         
         bindPrayTableView()
@@ -223,20 +222,6 @@ class GroupPrayVC: UIViewController, VCType {
                 self?.coordinator?.didTapPray(vm: detailVM)
             }).disposed(by: disposeBag)
         
-        output.addingNewPraySuccess
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.showTopToast(type: .success, message: "기도 추가 완료", disposeBag: self.disposeBag)
-            }).disposed(by: disposeBag)
-        
-        output.addingNewPrayFailure
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.showTopToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
-            }).disposed(by: disposeBag)
-        
         output.prayReactionDetailVM
             .drive(onNext: { [weak self] prayReactionDetailVM in
                 guard let prayReactionDetailVM = prayReactionDetailVM else { return }
@@ -253,6 +238,6 @@ class GroupPrayVC: UIViewController, VCType {
 
 protocol GroupPrayVCDelegate: AnyObject {
     func didTapInfoButton()
-    func didTapNewPrayButton(vm: GroupPrayVM?)
+    func didTapNewPrayButton()
     func didTapPray(vm: GroupPrayListVM)
 }

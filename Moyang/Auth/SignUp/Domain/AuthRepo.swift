@@ -15,4 +15,7 @@ protocol AuthRepo {
     func appLogin(email: String, credential: String, completion: ((Result<UserInfo, Error>) -> Void)?)
 }
 
-
+enum AuthType: String {
+    case google = "GOOGLE"
+    case apple = "APPLE"
+}

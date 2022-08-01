@@ -16,8 +16,6 @@ class CommunityMainUseCase {
     let groupInfo = BehaviorRelay<GroupInfo?>(value: nil)
     let cardMemberPrayList = BehaviorRelay<[(pray: GroupIndividualPray, member: Member)]>(value: [])
     let memberPrayList = BehaviorRelay<[(member: Member, list: PrayList)]>(value: [])
-    let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
-    let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     let memberList = BehaviorRelay<[Member]>(value: [])
     let amenSuccess = BehaviorRelay<Void>(value: ())
     let reactionSuccess = BehaviorRelay<Void>(value: ())
@@ -26,9 +24,6 @@ class CommunityMainUseCase {
     let songURL = BehaviorRelay<URL?>(value: nil)
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
-    
-    
-    let groupPrayRepo: GroupPrayRepo
     
     let editingPraySuccess = BehaviorRelay<Void>(value: ())
     let editingPrayFailure = BehaviorRelay<Void>(value: ())
@@ -40,9 +35,8 @@ class CommunityMainUseCase {
     let error = BehaviorRelay<MoyangError?>(value: nil)
     
     // MARK: - Lifecycle
-    init(repo: CommunityMainRepo, groupPrayRepo: GroupPrayRepo) {
+    init(repo: CommunityMainRepo) {
         self.repo = repo
-        self.groupPrayRepo = groupPrayRepo
     }
     
     // MARK: - Function
@@ -134,8 +128,20 @@ class CommunityMainUseCase {
     
     func addIndividualPray(pray: String,
                            tags: [String],
-                           isSecret: Bool,
-                           isRequestPray: Bool) {
+                           isSecret: Bool) {
+        repo.addPray(content: pray, tags: tags, isSecret: isSecret) { [weak self] result in
+            switch result {
+            case .success(let code):
+                if code == 0 {
+                    self?.editingPraySuccess.accept(())
+                } else {
+                    self?.editingPrayFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self?.editingPrayFailure.accept(())
+            }
+        }
     }
     
     func addReply(memberAuth: String,
@@ -207,9 +213,5 @@ class CommunityMainUseCase {
     }
     
     func amen(time: Int, groupID: String) {
-    }
-    
-    // MARK: - GroupPrayRepo
-    func editPray(prayID: String, pray: String, tags: [String], isSecret: Bool, isRequestPray: Bool) {
     }
 }

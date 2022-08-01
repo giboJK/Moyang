@@ -11,7 +11,6 @@ class UserData {
     static let shared = UserData()
     var userInfo: UserInfo?
     var groupID: String?
-    var sermon: Sermon?
     
     func resetUserData() {
         userName = nil

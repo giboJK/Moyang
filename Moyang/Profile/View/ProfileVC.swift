@@ -2,21 +2,25 @@
 //  ProfileVC.swift
 //  Moyang
 //
-//  Created by 정김기보 on 2022/05/14.
+//  Created by 정김기보 on 2022/08/01.
 //
 
 import UIKit
 import RxCocoa
 import RxSwift
-import SwiftUI
+import SnapKit
+import Then
 
 class ProfileVC: UIViewController, VCType {
     typealias VM = DummyVM
-    // MARK: - Properties
     var disposeBag: DisposeBag = DisposeBag()
+    var vm: VM?
+    var coordinator: ProfileVCDelegate?
 
     // MARK: - UI
-    let contentView = UIHostingController(rootView: ProfileView())
+    let navBar = MoyangNavBar(.light).then {
+        $0.closeButton.isHidden = true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,27 +31,35 @@ class ProfileVC: UIViewController, VCType {
 
     deinit { Log.i(self) }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
     }
-
-    
     func setupUI() {
-        title = "내 정보"
-        addChild(contentView)
-        view.addSubview(contentView.view)
-        setupConstraints()
+        setupNavBar()
     }
-    
-    fileprivate func setupConstraints() {
-        contentView.view.translatesAutoresizingMaskIntoConstraints = false
-        contentView.view.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+    private func setupNavBar() {
+        view.addSubview(navBar)
+        navBar.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.height.equalTo(UIApplication.statusBarHeight + 44)
         }
     }
-    
+
+    // MARK: - Binding
     func bind() {
-        // Do nothing
+        bindVM()
     }
+    private func bineViews() {
+
+    }
+
+    private func bindVM() {
+//        guard let vm = vm else { Log.e("vm is nil"); return }
+//        let input = VM.Input()
+    }
+}
+
+protocol ProfileVCDelegate: AnyObject {
+
 }

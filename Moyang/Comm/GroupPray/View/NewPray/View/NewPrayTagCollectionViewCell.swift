@@ -12,7 +12,7 @@ import SnapKit
 import Then
 
 class NewPrayTagCollectionViewCell: UICollectionViewCell {
-    typealias VM = GroupPrayVM
+    typealias VM = NewPrayVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var editVM: GroupPrayEditVM?

@@ -12,7 +12,7 @@ import SnapKit
 import Then
 
 class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
-    typealias VM = GroupPrayVM
+    typealias VM = NewPrayVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     private var tagList = [String]()
@@ -78,12 +78,6 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.textColor = .nightSky1
     }
     let isSecretCheckBox = CheckBox()
-    let isRequestPrayLabel = UILabel().then {
-        $0.text = "기도 부탁하기"
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .sheep4
-    }
-    let isRequestPrayCheckBox = CheckBox()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,8 +102,6 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         setupTagCollectionView()
         setupIsSecretLabel()
         setupIsSecretCheckBox()
-//        setupIsRequestPrayLabel()
-//        setupIsRequestPrayCheckBox()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -228,21 +220,6 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             $0.size.equalTo(18)
         }
     }
-    private func setupIsRequestPrayLabel() {
-        view.addSubview(isRequestPrayLabel)
-        isRequestPrayLabel.snp.makeConstraints {
-            $0.top.equalTo(tagCollectionView.snp.bottom).offset(12)
-            $0.left.equalTo(isSecretCheckBox.snp.right).offset(12)
-        }
-    }
-    private func setupIsRequestPrayCheckBox() {
-        view.addSubview(isRequestPrayCheckBox)
-        isRequestPrayCheckBox.snp.makeConstraints {
-            $0.centerY.equalTo(isRequestPrayLabel)
-            $0.left.equalTo(isRequestPrayLabel.snp.right).offset(4)
-            $0.size.equalTo(18)
-        }
-    }
     private func increaseTagCollectionViewHeight(count: Int) {
         let currentHeight = tagCollectionView.bounds.height
         tagCollectionView.snp.updateConstraints {
@@ -293,8 +270,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
                              setTag: tagTextField.rx.text.asDriver(),
                              addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
                              loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false),
-                             toggleIsSecret: isSecretCheckBox.rx.tap.asDriver(),
-                             toggleIsRequestPray: isRequestPrayCheckBox.rx.tap.asDriver())
+                             toggleIsSecret: isSecretCheckBox.rx.tap.asDriver())
         
         let output = vm.transform(input: input)
         
@@ -376,19 +352,20 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(isSecretCheckBox.rx.isChecked)
             .disposed(by: disposeBag)
         
-        output.isSecret
-            .drive(onNext: { [weak self] isSecret in
+        output.addingNewPraySuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.isRequestPrayLabel.textColor = isSecret ? .nightSky1 : .sheep4
+                self.showTopToast(type: .success, message: "기도 추가 완료", disposeBag: self.disposeBag)
             }).disposed(by: disposeBag)
         
-        output.isSecret
-            .drive(isRequestPrayCheckBox.rx.isEnabled)
-            .disposed(by: disposeBag)
+        output.addingNewPrayFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.showTopToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
+            }).disposed(by: disposeBag)
         
-        output.isRequestPray
-            .drive(isRequestPrayCheckBox.rx.isChecked)
-            .disposed(by: disposeBag)
     }
 }
 

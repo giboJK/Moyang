@@ -22,12 +22,6 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        container.register(NewPrayVC.self) { (_, groupPrayVM: GroupPrayVM) in
-            let vc = NewPrayVC()
-            vc.vm = groupPrayVM
-            return vc
-        }
-        
         container.register(GroupPrayListVC.self) { (_, vm: GroupPrayListVM) in
             let vc = GroupPrayListVC()
             vc.vm = vm
@@ -40,6 +34,10 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         
+        container.register(NetworkServiceProtocol.self) { _ in
+            AFNetworkService(sessionConfiguration: .default)
+        }
+        
         // MARK: - GroupInfo
         container.register(GroupInfoVM.self) { _ in
             GroupInfoVM()
@@ -49,6 +47,28 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
             let vc = GroupInfoVC()
             vc.vm = r ~> (GroupInfoVM.self)
             return vc
+        }
+        
+        // MARK: - NewPrayVC
+        container.register(NewPrayVC.self) { r in
+            let vc = NewPrayVC()
+            vc.vm = r ~> (NewPrayVM.self)
+            return vc
+        }
+        container.register(NewPrayVM.self) { r in
+            return NewPrayVM(useCase: (r ~> PrayUseCase.self))
+        }
+        
+        container.register(PrayUseCase.self) { r in
+            return PrayUseCase(repo: (r ~> PrayRepo.self))
+        }
+        
+        container.register(PrayRepo.self) { r in
+            PrayController(networkService: r ~> (NetworkServiceProtocol.self))
+        }
+        
+        container.register(PrayUseCase.self) { r in
+            PrayUseCase(repo: r ~> (PrayRepo.self))
         }
         
         // MARK: - Coordinator

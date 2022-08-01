@@ -26,4 +26,6 @@ protocol CommunityMainRepo {
                   reactions: [PrayReaction],
                   order: Int,
                   completion: ((Result<PrayReply, MoyangError>) -> Void)?)
+    
+    func addPray(content: String, tags: [String], isSecret: Bool,completion: ((Result<Int, MoyangError>) -> Void)?)
 }

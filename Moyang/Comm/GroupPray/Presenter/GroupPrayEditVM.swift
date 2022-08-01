@@ -65,12 +65,12 @@ class GroupPrayEditVM: VMType {
     }
     
     private func editPray() {
-        useCase.editPray(prayID: prayID,
-                         pray: newPray.value!,
-                         tags: tagList.value,
-                         isSecret: isSecret.value,
-                         isRequestPray: isRequestPray.value
-        )
+//        useCase.editPray(prayID: prayID,
+//                         pray: newPray.value!,
+//                         tags: tagList.value,
+//                         isSecret: isSecret.value,
+//                         isRequestPray: isRequestPray.value
+//        )
     }
     
     private func setPrayWithAndChangeVM() {
