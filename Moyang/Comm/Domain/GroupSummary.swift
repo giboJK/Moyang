@@ -8,15 +8,15 @@
 // MARK: - GroupSummary
 struct GroupSummary: Codable {
     let groupID: String
-    let groupName: String
     let amens: [GroupSummaryAmen]
     let prays: [GroupSummaryPray]
+    let groupInfo: GroupInfo
     
     enum CodingKeys: String, CodingKey {
         case groupID = "group_id"
-        case groupName = "group_name"
         case amens = "amens"
         case prays = "prays"
+        case groupInfo = "group_info"
     }
 }
 

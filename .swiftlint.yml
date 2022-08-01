@@ -34,8 +34,8 @@ type_name:
     max_length: 40
 
 function_body_length:
-    warning: 80
-    error: 100
+    warning: 100
+    error: 120
 
 nesting:
     type_level:

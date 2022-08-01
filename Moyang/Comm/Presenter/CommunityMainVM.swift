@@ -47,8 +47,9 @@ class CommunityMainVM: VMType {
                 guard let self = self else { return }
                 Log.d(data)
                 UserData.shared.groupID = data.groupID
+                UserData.shared.groupInfo = data.groupInfo
                 self.isEmptyGroup.accept(false)
-                self.groupName.accept(data.groupName)
+                self.groupName.accept(data.groupInfo.groupName)
                 self.setPrayData(data: data.prays)
                 self.setAmenData(data: data.amens)
             }).disposed(by: disposeBag)

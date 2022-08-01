@@ -10,20 +10,12 @@ import Foundation
 struct GroupInfo: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
-    let createdDate: String
+    let createDate: String
     let groupName: String
-    let parentGroup: String
-    let leaderList: [Member]
-    let memberList: [Member]
-    let pastorInCharge: Member?
     
     enum CodingKeys: String, CodingKey {
         case id
         case groupName = "group_name"
-        case createdDate = "created_date"
-        case parentGroup = "parent_group"
-        case leaderList = "leader_list"
-        case memberList = "member_list"
-        case pastorInCharge = "pastor_in_charge"
+        case createDate = "create_date"
     }
 }

@@ -52,7 +52,7 @@ class GroupPrayVM: VMType {
             .subscribe(onNext: { [weak self] data in
                 guard let data = data else { return }
                 guard let self = self else { return }
-                self.groupName.accept(data.groupName)
+                self.groupName.accept(data.groupInfo.groupName)
                 self.setPrayData(data: data.prays)
                 self.setAmenData(data: data.amens)
             }).disposed(by: disposeBag)

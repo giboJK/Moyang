@@ -80,19 +80,11 @@ extension AllGroupVM {
         let id: String
         let createdDate: String
         let groupName: String
-        let parentGroup: String
-        let leaderList: [Member]
-        let memberList: [Member]
-        let pastorInCharge: Member?
         
         init(groupInfo: GroupInfo) {
             self.id = groupInfo.id
-            self.createdDate = groupInfo.createdDate
+            self.createdDate = groupInfo.createDate
             self.groupName = groupInfo.groupName
-            self.parentGroup = groupInfo.parentGroup
-            self.leaderList = groupInfo.leaderList
-            self.memberList = groupInfo.memberList
-            self.pastorInCharge = groupInfo.pastorInCharge
         }
     }
 }
