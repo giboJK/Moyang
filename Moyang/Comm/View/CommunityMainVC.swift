@@ -47,6 +47,7 @@ class CommunityMainVC: UIViewController, VCType {
 
         setupUI()
         bind()
+        presentQuickPrayVC()
     }
 
     deinit { Log.i(self) }
@@ -133,6 +134,14 @@ class CommunityMainVC: UIViewController, VCType {
         networkIndicator.center = view.center
     }
     
+    private func presentQuickPrayVC() {
+        let vc = QuickPrayVC()
+        vc.vm = self.vm
+        vc.bind()
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true)
+    }
+    
     func bind() {
         bindViews()
         bindVM()
@@ -149,7 +158,7 @@ class CommunityMainVC: UIViewController, VCType {
         guard let vm = vm else { Log.e(""); return }
         let didTapPrayCard = communityGroupPrayCard.rx.tapGesture().when(.ended)
             .map { _ in () }.asDriver(onErrorJustReturn: ())
-        let input = CommunityMainVM.Input(didTapPrayCard: didTapPrayCard)
+        let input = VM.Input(didTapPrayCard: didTapPrayCard)
         let output = vm.transform(input: input)
         
         output.groupName

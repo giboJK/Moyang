@@ -80,9 +80,11 @@ class MoyangNavBar: UIView {
         if style == .light {
             backButton.setImage(UIImage(systemName: "chevron.backward")?.withTintColor(.nightSky1),
                                 for: .normal)
+            backButton.tintColor = .nightSky1
         } else {
             backButton.setImage(UIImage(systemName: "chevron.backward")?.withTintColor(.sheep1),
                                 for: .normal)
+            backButton.tintColor = .sheep1
         }
     }
     
@@ -96,9 +98,11 @@ class MoyangNavBar: UIView {
         if style == .light {
             closeButton.setImage(UIImage(systemName: "xmark")?.withTintColor(.nightSky1),
                                 for: .normal)
+            closeButton.tintColor = .nightSky1
         } else {
             closeButton.setImage(UIImage(systemName: "xmark")?.withTintColor(.sheep1),
                                 for: .normal)
+            closeButton.tintColor = .sheep1
         }
     }
     

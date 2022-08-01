@@ -24,6 +24,8 @@ class CommunityMainVM: VMType {
     
     let isEmptyGroup = BehaviorRelay<Bool>(value: true)
     
+    let myPrayItem = BehaviorRelay<GroupIndividualPrayItem?>(value: nil)
+    
     private var groupInfo: GroupInfo?
     
     init(useCase: CommunityMainUseCase) {
@@ -49,6 +51,17 @@ class CommunityMainVM: VMType {
                 self.groupName.accept(data.groupName)
                 self.setPrayData(data: data.prays)
                 self.setAmenData(data: data.amens)
+            }).disposed(by: disposeBag)
+        
+        useCase.groupSummary
+            .subscribe(onNext: { [weak self] data in
+                guard let data = data else { return }
+                guard let self = self else { return }
+                
+                if let myData = data.prays.filter({ $0.userID == UserData.shared.userInfo?.id }).first {
+                    self.setMyData(item: myData)
+                }
+                
             }).disposed(by: disposeBag)
     }
     
@@ -86,6 +99,16 @@ class CommunityMainVM: VMType {
         }
         cardPrayItemList.accept(cardList)
     }
+    private func setMyData(item: GroupSummaryPray) {
+        myPrayItem.accept(GroupIndividualPrayItem(memberID: item.userID,
+                                                  name: item.userName,
+                                                  prayID: item.prayID,
+                                                  pray: item.content,
+                                                  tags: item.tags,
+                                                  latestDate: item.latestDate,
+                                                  isSecret: item.isSecret,
+                                                  createDate: item.createDate))
+    }
     
     private func generateGroupPrayVM() {
         let vm = GroupPrayVM(useCase: useCase)
@@ -109,6 +132,8 @@ extension CommunityMainVM {
         
         let groupPrayVM: Driver<GroupPrayVM?>
         let isEmptyGroup: Driver<Bool>
+        
+        let myPrayItem: Driver<GroupIndividualPrayItem?>
     }
     
     func transform(input: Input) -> Output {
@@ -126,7 +151,9 @@ extension CommunityMainVM {
                       cardPrayItemList: cardPrayItemList.asDriver(),
                       
                       groupPrayVM: groupPrayVM.asDriver(),
-                      isEmptyGroup: isEmptyGroup.asDriver())
+                      isEmptyGroup: isEmptyGroup.asDriver(),
+                      myPrayItem: myPrayItem.asDriver()
+        )
     }
     
     struct GroupIndividualPrayItem {

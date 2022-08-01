@@ -137,6 +137,7 @@ class SetUserInfoVC: UIViewController, VCType {
         let toolBar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
         toolBar.setItems([space, doneButton], animated: true)
         birthTextField.inputAccessoryView = toolBar
+        birthTextField.inputView?.frame.size.height = 300
     }
     private func setupConfirmButton() {
         view.addSubview(confirmButton)
