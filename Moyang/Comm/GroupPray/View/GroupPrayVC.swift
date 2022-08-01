@@ -53,6 +53,7 @@ class GroupPrayVC: UIViewController, VCType {
         
         setupUI()
         bind()
+        self.hidesBottomBarWhenPushed = true
     }
     
     deinit { Log.i(self) }
