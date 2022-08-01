@@ -22,12 +22,22 @@ class QuickPrayVC: UIViewController, VCType {
         $0.backButton.isHidden = true
         $0.backgroundColor = .clear
     }
+    let myLatestPray = UILabel().then {
+        $0.text = "나의 최근 기도"
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
+        $0.textColor = .sheep1
+    }
+    let latestPrayDateLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .sheep1
+    }
     let latestPrayTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .nightSky1
         $0.isEditable = false
+        $0.textContainerInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
     }
     let prayButton = MoyangButton(.primary).then {
         $0.setTitle("기도하기", for: .normal)
@@ -62,12 +72,14 @@ class QuickPrayVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
-        view.backgroundColor = .black.withAlphaComponent(0.5)
+        view.backgroundColor = .black.withAlphaComponent(0.75)
         setupNavBar()
         setupLaterButton()
         setupNewPrayButton()
         setupChangeOrReceiveButton()
         setupPrayButton()
+        setupMyLatestPrayLabel()
+        setupLatestPrayDateLabel()
         setupLatestPrayTextView()
         setupNoPrayLabel()
     }
@@ -91,7 +103,7 @@ class QuickPrayVC: UIViewController, VCType {
         view.addSubview(newPrayButton)
         newPrayButton.snp.makeConstraints {
             $0.height.equalTo(40)
-            $0.left.right.equalToSuperview().inset(24)
+            $0.left.right.equalToSuperview().inset(32)
             $0.bottom.equalTo(laterButton.snp.top).offset(-16)
         }
     }
@@ -99,7 +111,7 @@ class QuickPrayVC: UIViewController, VCType {
         view.addSubview(changeOrReceiveButton)
         changeOrReceiveButton.snp.makeConstraints {
             $0.height.equalTo(40)
-            $0.left.right.equalToSuperview().inset(24)
+            $0.left.right.equalToSuperview().inset(32)
             $0.bottom.equalTo(newPrayButton.snp.top).offset(-16)
         }
     }
@@ -107,16 +119,30 @@ class QuickPrayVC: UIViewController, VCType {
         view.addSubview(prayButton)
         prayButton.snp.makeConstraints {
             $0.height.equalTo(40)
-            $0.left.right.equalToSuperview().inset(24)
+            $0.left.right.equalToSuperview().inset(32)
             $0.bottom.equalTo(changeOrReceiveButton.snp.top).offset(-16)
+        }
+    }
+    private func setupMyLatestPrayLabel() {
+        view.addSubview(myLatestPray)
+        myLatestPray.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(32)
+            $0.top.equalTo(navBar.snp.bottom).offset(12)
+        }
+    }
+    private func setupLatestPrayDateLabel() {
+        view.addSubview(latestPrayDateLabel)
+        latestPrayDateLabel.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(36)
+            $0.top.equalTo(myLatestPray.snp.bottom).offset(20)
         }
     }
     private func setupLatestPrayTextView() {
         view.addSubview(latestPrayTextView)
         latestPrayTextView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(24)
-            $0.top.equalTo(navBar.snp.bottom)
-            $0.bottom.equalTo(prayButton.snp.top).offset(-12)
+            $0.left.right.equalToSuperview().inset(32)
+            $0.top.equalTo(latestPrayDateLabel.snp.bottom).offset(8)
+            $0.bottom.equalTo(prayButton.snp.top).offset(-20)
         }
     }
     private func setupNoPrayLabel() {
@@ -154,12 +180,17 @@ class QuickPrayVC: UIViewController, VCType {
                 guard let self = self else { return }
                 if let item = item {
                     self.noPrayLabel.isHidden = true
+                    self.myLatestPray.isHidden = false
                     self.latestPrayTextView.isHidden = false
                     self.latestPrayTextView.text = item.pray
+                    self.latestPrayDateLabel.isHidden = false
+                    self.latestPrayDateLabel.text = item.latestDate?.isoToDateString()
                 } else {
                     self.changeOrReceiveButton.isEnabled = false
                     self.noPrayLabel.isHidden = false
+                    self.myLatestPray.isHidden = true
                     self.latestPrayTextView.isHidden = true
+                    self.latestPrayDateLabel.isHidden = true
                 }
             }).disposed(by: disposeBag)
     }

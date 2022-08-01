@@ -64,6 +64,15 @@ class UserData {
         }
     }
     
+    var todayPrayPopup: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "TODAY_PRAY_POPUP")
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: "TODAY_PRAY_POPUP")
+        }
+    }
+    
     var alarmTiem: String? {
         get {
             return UserDefaults.standard.string(forKey: "ALARM_TIME")
@@ -95,6 +104,7 @@ class UserData {
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedPray)
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedTags)
     }
+    
 }
 
 class UserDefaultKey {

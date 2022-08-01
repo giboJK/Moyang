@@ -135,6 +135,12 @@ class CommunityMainVC: UIViewController, VCType {
     }
     
     private func presentQuickPrayVC() {
+        if let isToday = UserData.shared.todayPrayPopup {
+            if Date().toString("yyyy-MM-dd") == isToday {
+                return
+            }
+        }
+        UserData.shared.todayPrayPopup = Date().toString("yyyy-MM-dd")
         let vc = QuickPrayVC()
         vc.vm = self.vm
         vc.bind()
