@@ -23,20 +23,24 @@ struct GroupSummary: Codable {
 struct GroupSummaryPray: Codable {
     let userID: String
     let userName: String
-    let prayID: String?
-    let content: String?
+    let prayID: String
+    let content: String
+    let answer: String?
     let tags: [String]
     let isSecret: Bool
-    let latestDate: String?
-    let createDate: String?
+    let isAnswered: Bool
+    let latestDate: String
+    let createDate: String
     
     enum CodingKeys: String, CodingKey {
         case userID = "user_id"
         case userName = "user_name"
         case prayID = "pray_id"
         case content = "content"
+        case answer = "answer"
         case tags = "tags"
         case isSecret = "is_secret"
+        case isAnswered = "is_answered"
         case latestDate = "latest_date"
         case createDate = "create_date"
     }

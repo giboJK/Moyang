@@ -94,9 +94,9 @@ class GroupPrayVM: VMType {
                                      prayID: item.prayID,
                                      pray: item.content,
                                      tags: item.tags,
-                                     latestDate: item.latestDate?.isoToDateString(),
+                                     latestDate: item.latestDate.isoToDateString(),
                                      isSecret: item.isSecret,
-                                     createDate: item.createDate?.isoToDateString()))
+                                     createDate: item.createDate.isoToDateString()))
         }
         cardPrayItemList.accept(cardList)
         
