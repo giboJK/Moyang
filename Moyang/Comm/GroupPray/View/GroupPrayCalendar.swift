@@ -37,26 +37,32 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
     let calendar = FSCalendar()
     
     let orderButton = MoyangButton(.none).then {
-        $0.backgroundColor = .nightSky4
         $0.layer.cornerRadius = 8
-        $0.setTitleColor(.sheep1, for: .normal)
-        $0.setTitle(" 최근순", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.semanticContentAttribute = .forceLeftToRight
         $0.tintColor = .sheep1
-        let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold, scale: .large)
-        $0.setImage(UIImage(systemName: "line.3.horizontal.decrease.circle", withConfiguration: config), for: .normal)
+        var container = AttributeContainer()
+        container.font = .systemFont(ofSize: 14, weight: .regular)
+        var configuration = UIButton.Configuration.filled()
+        configuration.buttonSize = .mini
+        configuration.attributedTitle = AttributedString("최근순", attributes: container)
+        configuration.image = UIImage(systemName: "line.3.horizontal.decrease.circle")
+        configuration.imagePadding = 4
+        configuration.baseBackgroundColor = .nightSky4
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+        $0.configuration = configuration
     }
     let memberButton = MoyangButton(.none).then {
-        $0.backgroundColor = .nightSky4
         $0.layer.cornerRadius = 8
-        $0.setTitleColor(.sheep1, for: .normal)
-        $0.setTitle(" 모두", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.semanticContentAttribute = .forceLeftToRight
         $0.tintColor = .sheep1
-        let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold, scale: .large)
-        $0.setImage(UIImage(systemName: "person.crop.circle.badge.checkmark", withConfiguration: config), for: .normal)
+        var container = AttributeContainer()
+        container.font = .systemFont(ofSize: 14, weight: .regular)
+        var configuration = UIButton.Configuration.filled()
+        configuration.buttonSize = .mini
+        configuration.attributedTitle = AttributedString("모두", attributes: container)
+        configuration.image = UIImage(systemName: "person.crop.circle.badge.checkmark")
+        configuration.imagePadding = 4
+        configuration.baseBackgroundColor = .nightSky4
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+        $0.configuration = configuration
     }
     
     init(vm: VM?, groupCreateDate: Date) {
@@ -127,7 +133,6 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
             $0.bottom.equalToSuperview().inset(8)
             $0.height.equalTo(28)
             $0.left.equalToSuperview().inset(16)
-            $0.width.equalTo(96)
         }
     }
     private func setupMemberButton() {
@@ -136,7 +141,6 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
             $0.bottom.equalToSuperview().inset(8)
             $0.height.equalTo(28)
             $0.left.equalTo(orderButton.snp.right).offset(12)
-            $0.width.equalTo(96)
         }
     }
     
@@ -178,9 +182,19 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
             .drive(onNext: { [weak self] isWeek in
                 self?.toggleIsWeek(isWeek: isWeek)
             }).disposed(by: disposeBag)
+        
+        
+        todayLabel.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self]_ in
+                self?.calendar.select(Date(), scrollToDate: true)
+            }).disposed(by: disposeBag)
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         vm?.selectDate(date: date)
+    }
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        vm?.selectDateRange(date: calendar.currentPage)
     }
 }

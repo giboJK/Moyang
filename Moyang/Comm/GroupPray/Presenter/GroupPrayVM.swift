@@ -23,7 +23,7 @@ class GroupPrayVM: VMType {
     let amenItemList = BehaviorRelay<[AmenItem]>(value: [])
     let detailVM = BehaviorRelay<GroupPrayListVM?>(value: nil)
     
-    let order = BehaviorRelay<GroupPrayOrder>(value: .latest)
+    let order = BehaviorRelay<String>(value: GroupPrayOrder.latest.rawValue)
     let selectedMember = BehaviorRelay<String>(value: "")
     let memberList = BehaviorRelay<[MemberItem]>(value: [])
     
@@ -108,11 +108,35 @@ class GroupPrayVM: VMType {
     }
     
     func changeOrder(_ value: GroupPrayOrder) {
-        self.order.accept(value)
+        order.accept(value.rawValue)
     }
     
     func selectDate(date: Date) {
-        Log.d(date)
+        order.accept(date.toString("M월 d일"))
+    }
+    
+    func selectDateRange(date: Date) {
+        if isWeek.value {
+            if let endDate = date.endOfWeek {
+                var value = ""
+                if Date() < endDate {
+                    value = date.toString("M월 d일") + "-" + Date().toString("M월 d일")
+                } else {
+                    value = date.toString("M월 d일") + "-" + endDate.toString("M월 d일")
+                }
+                order.accept(value)
+            }
+        } else {
+            if let endDate = date.endOfMonth {
+                var value = ""
+                if Date() < endDate {
+                    value = date.toString("M월 d일") + "-" + Date().toString("M월 d일")
+                } else {
+                    value = date.toString("M월 d일") + "-" + endDate.toString("M월 d일")
+                }
+                order.accept(value)
+            }
+        }
     }
 }
 
@@ -130,7 +154,7 @@ extension GroupPrayVM {
         let isWeek: Driver<Bool>
         let cardPrayItemList: Driver<[PrayItem]>
         let amenItemList: Driver<[AmenItem]>
-        let order: Driver<GroupPrayOrder>
+        let order: Driver<String>
         let selectedMember: Driver<String>
         let memberList: Driver<[MemberItem]>
         let detailVM: Driver<GroupPrayListVM?>

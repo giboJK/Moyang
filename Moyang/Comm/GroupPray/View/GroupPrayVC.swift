@@ -18,6 +18,9 @@ class GroupPrayVC: UIViewController, VCType {
     var coordinator: GroupPrayVCDelegate?
     var groupCreateDate: Date!
     
+    let headerMinHeight: CGFloat = 100 + 48
+    let headerMaxHeight: CGFloat = 248 + 48
+    
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
@@ -103,7 +106,7 @@ class GroupPrayVC: UIViewController, VCType {
             $0.left.right.equalToSuperview()
         }
         prayTableView.stickyHeader.view = groupPrayCalendar
-        prayTableView.stickyHeader.height = 100 + 48
+        prayTableView.stickyHeader.height = headerMinHeight
         prayTableView.stickyHeader.minimumHeight = 48
         let footer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 8)).then {
             $0.backgroundColor = .clear
@@ -244,11 +247,9 @@ class GroupPrayVC: UIViewController, VCType {
         output.isWeek
             .skip(1)
             .drive(onNext: { [weak self] isWeek in
-                if isWeek {
-                    self?.prayTableView.stickyHeader.height = 100 + 48
-                } else {
-                    self?.prayTableView.stickyHeader.height = 248 + 48
-                }
+                guard let self = self else { return }
+                let height = isWeek ? self.headerMinHeight : self.headerMaxHeight
+                self.prayTableView.stickyHeader.height = height
             }).disposed(by: disposeBag)
         
         output.cardPrayItemList
@@ -277,13 +278,12 @@ class GroupPrayVC: UIViewController, VCType {
             }).disposed(by: disposeBag)
         
         output.order
-            .map { " " + $0.rawValue }
             .drive(onNext: { [weak self] order in
                 self?.groupPrayCalendar.orderButton.setTitle(order, for: .normal)
             }).disposed(by: disposeBag)
         
         output.selectedMember
-            .map { $0.isEmpty ? " 모두" : " " + $0 }
+            .map { $0.isEmpty ? "모두" : $0 }
             .drive(onNext: { [weak self] name in
                 self?.groupPrayCalendar.memberButton.setTitle(name, for: .normal)
             }).disposed(by: disposeBag)
