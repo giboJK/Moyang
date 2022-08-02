@@ -16,6 +16,7 @@ class GroupPrayVC: UIViewController, VCType {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupPrayVCDelegate?
+    var groupCreateDate: Date!
     
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
@@ -26,7 +27,7 @@ class GroupPrayVC: UIViewController, VCType {
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
         $0.setTitleColor(.nightSky1, for: .normal)
     }
-    lazy var groupPrayCalendar = GroupPrayCalendar(vm: self.vm)
+    lazy var groupPrayCalendar = GroupPrayCalendar(vm: self.vm, groupCreateDate: self.groupCreateDate)
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(GroupPrayTableViewCell.self, forCellReuseIdentifier: "cell")
@@ -102,9 +103,9 @@ class GroupPrayVC: UIViewController, VCType {
             $0.left.right.equalToSuperview()
         }
         prayTableView.stickyHeader.view = groupPrayCalendar
-        prayTableView.stickyHeader.height = 140 + 60
-        prayTableView.stickyHeader.minimumHeight = 60
-        let footer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 12)).then {
+        prayTableView.stickyHeader.height = 100 + 48
+        prayTableView.stickyHeader.minimumHeight = 48
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 8)).then {
             $0.backgroundColor = .clear
         }
         prayTableView.tableFooterView = footer
@@ -187,6 +188,47 @@ class GroupPrayVC: UIViewController, VCType {
             }).disposed(by: disposeBag)
         
         bindPrayTableView()
+        
+        groupPrayCalendar.orderButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.showOrderOptionView()
+            }).disposed(by: disposeBag)
+        
+        groupPrayCalendar.memberButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.showMemberSelectView()
+            }).disposed(by: disposeBag)
+    }
+    private func showOrderOptionView() {
+        let actionSheet = UIAlertController(title: nil, message: "옵션을 선택하세요", preferredStyle: .actionSheet)
+        
+        let latestAction = UIAlertAction(title: "최근순", style: .default, handler: { [weak self] _ in
+            self?.vm?.changeOrder(.latest)
+        })
+        
+        let oldestAction = UIAlertAction(title: "오래된순", style: .default, handler: { [weak self] _ in
+            self?.vm?.changeOrder(.oldest)
+        })
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in }
+        
+        actionSheet.addAction(latestAction)
+        actionSheet.addAction(oldestAction)
+        actionSheet.addAction(cancelAction)
+        
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    private func showMemberSelectView() {
+        let vc = MemberSelectVC()
+        vc.vm = self.vm
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .pageSheet
+
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        present(nav, animated: true, completion: nil)
     }
     
     private func bindVM() {
@@ -203,9 +245,9 @@ class GroupPrayVC: UIViewController, VCType {
             .skip(1)
             .drive(onNext: { [weak self] isWeek in
                 if isWeek {
-                    self?.prayTableView.stickyHeader.height = 140 + 60
+                    self?.prayTableView.stickyHeader.height = 100 + 48
                 } else {
-                    self?.prayTableView.stickyHeader.height = 232 + 60
+                    self?.prayTableView.stickyHeader.height = 248 + 48
                 }
             }).disposed(by: disposeBag)
         
@@ -232,6 +274,18 @@ class GroupPrayVC: UIViewController, VCType {
             .drive(onNext: { [weak self] prayReplyDetailVM in
                 guard let prayReplyDetailVM = prayReplyDetailVM else { return }
                 self?.showPrayReplyDetailVC(vm: prayReplyDetailVM)
+            }).disposed(by: disposeBag)
+        
+        output.order
+            .map { " " + $0.rawValue }
+            .drive(onNext: { [weak self] order in
+                self?.groupPrayCalendar.orderButton.setTitle(order, for: .normal)
+            }).disposed(by: disposeBag)
+        
+        output.selectedMember
+            .map { $0.isEmpty ? " 모두" : " " + $0 }
+            .drive(onNext: { [weak self] name in
+                self?.groupPrayCalendar.memberButton.setTitle(name, for: .normal)
             }).disposed(by: disposeBag)
     }
 }

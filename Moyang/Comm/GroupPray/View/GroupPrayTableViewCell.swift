@@ -176,7 +176,8 @@ class GroupPrayTableViewCell: UITableViewCell {
     private func setupBgView() {
         contentView.addSubview(bgView)
         bgView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview().inset(12)
         }
     }

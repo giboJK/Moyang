@@ -38,6 +38,20 @@ extension String {
         }
         return nil
     }
+    
+    func isoToDate() -> Date? {
+        if let removeMilliSec = self.split(separator: ".").first {
+            let timeString = String(removeMilliSec)+"+00:00"
+            let formatter = DateFormatter()
+            formatter.locale = .current
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            formatter.timeZone = TimeZone.current
+            if let date = formatter.date(from: timeString) {
+                return date
+            }
+        }
+        return nil
+    }
 }
 
 extension String {

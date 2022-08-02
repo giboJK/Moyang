@@ -17,6 +17,8 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
+    var groupCreateDate: Date!
+    
     // 날짜 선택 가능 기간은 그룹의 시작날짜
     let todayLabel = UILabel().then {
         $0.text = Date().toString("yyyy년 M월 d일")
@@ -34,14 +36,32 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
     let todayPrayValueLabel = UILabel()
     let calendar = FSCalendar()
     
-    let myPrayLabel = UILabel()
-    let myPrayContentLabel = UILabel()
-    let myPrayDateLabel = UILabel()
+    let orderButton = MoyangButton(.none).then {
+        $0.backgroundColor = .nightSky4
+        $0.layer.cornerRadius = 8
+        $0.setTitleColor(.sheep1, for: .normal)
+        $0.setTitle(" 최근순", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.semanticContentAttribute = .forceLeftToRight
+        $0.tintColor = .sheep1
+        let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold, scale: .large)
+        $0.setImage(UIImage(systemName: "line.3.horizontal.decrease.circle", withConfiguration: config), for: .normal)
+    }
+    let memberButton = MoyangButton(.none).then {
+        $0.backgroundColor = .nightSky4
+        $0.layer.cornerRadius = 8
+        $0.setTitleColor(.sheep1, for: .normal)
+        $0.setTitle(" 모두", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.semanticContentAttribute = .forceLeftToRight
+        $0.tintColor = .sheep1
+        let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold, scale: .large)
+        $0.setImage(UIImage(systemName: "person.crop.circle.badge.checkmark", withConfiguration: config), for: .normal)
+    }
     
-    let filterView = UIView()
-    
-    init(vm: VM?) {
+    init(vm: VM?, groupCreateDate: Date) {
         self.vm = vm
+        self.groupCreateDate = groupCreateDate
         super.init(frame: .zero)
         backgroundColor = .sheep1
         setupUI()
@@ -56,6 +76,8 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         setupTodayLabel()
         setupShowMoreButton()
         setupCalendar()
+        setupOrderButton()
+        setupMemberButton()
     }
     private func setupTodayLabel() {
         addSubview(todayLabel)
@@ -93,10 +115,37 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         calendar.appearance.headerTitleFont = .systemFont(ofSize: 16, weight: .regular)
         
         calendar.snp.makeConstraints {
-            $0.height.equalTo(240)
+            $0.height.equalTo(220)
             $0.left.right.equalToSuperview().inset(8)
             $0.top.equalTo(todayLabel.snp.bottom).offset(12)
         }
+    }
+    
+    private func setupOrderButton() {
+        addSubview(orderButton)
+        orderButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(8)
+            $0.height.equalTo(28)
+            $0.left.equalToSuperview().inset(16)
+            $0.width.equalTo(96)
+        }
+    }
+    private func setupMemberButton() {
+        addSubview(memberButton)
+        memberButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(8)
+            $0.height.equalTo(28)
+            $0.left.equalTo(orderButton.snp.right).offset(12)
+            $0.width.equalTo(96)
+        }
+    }
+    
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        Date()
+    }
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        groupCreateDate
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -129,5 +178,9 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
             .drive(onNext: { [weak self] isWeek in
                 self?.toggleIsWeek(isWeek: isWeek)
             }).disposed(by: disposeBag)
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        vm?.selectDate(date: date)
     }
 }

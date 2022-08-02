@@ -44,6 +44,7 @@ extension CommunityMainCoordinator: CommunityMainVCDelegate {
         if let vc = assembler.resolver.resolve(GroupPrayVC.self, argument: groupPrayVM) {
             nav.pushViewController(vc, animated: true)
             vc.coordinator = groupPrayCoordinator
+            vc.groupCreateDate = groupPrayVM.groupCreateDate.value ?? Date()
         }
     }
     
@@ -68,6 +69,7 @@ extension CommunityMainCoordinator: AllGroupVCDelegate {
         if let vc = assembler.resolver.resolve(GroupPrayVC.self, argument: groupPrayVM) {
             nav.pushViewController(vc, animated: true)
             vc.coordinator = groupPrayCoordinator
+            vc.groupCreateDate = groupPrayVM.groupCreateDate.value ?? Date()
         }
     }
 }

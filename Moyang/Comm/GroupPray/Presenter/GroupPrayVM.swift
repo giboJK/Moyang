@@ -16,12 +16,16 @@ class GroupPrayVM: VMType {
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
     let groupName = BehaviorRelay<String>(value: "")
+    let groupCreateDate = BehaviorRelay<Date?>(value: nil)
     
     let isWeek = BehaviorRelay<Bool>(value: true)
-    let myLatestPray = BehaviorRelay<PrayItem?>(value: nil)
     let cardPrayItemList = BehaviorRelay<[PrayItem]>(value: [])
     let amenItemList = BehaviorRelay<[AmenItem]>(value: [])
     let detailVM = BehaviorRelay<GroupPrayListVM?>(value: nil)
+    
+    let order = BehaviorRelay<GroupPrayOrder>(value: .latest)
+    let selectedMember = BehaviorRelay<String>(value: "")
+    let memberList = BehaviorRelay<[MemberItem]>(value: [])
     
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
@@ -55,17 +59,14 @@ class GroupPrayVM: VMType {
                 self.groupName.accept(data.groupInfo.groupName)
                 self.setPrayData(data: data.prays)
                 self.setAmenData(data: data.amens)
+                self.setMemberList(data: data.prays)
+                self.groupCreateDate.accept(data.groupInfo.createDate.isoToDate())
             }).disposed(by: disposeBag)
-        
     }
     
     private func setPrayData(data: [GroupSummaryPray]) {
-        guard let myInfo = UserData.shared.userInfo else {
-            Log.e("Error")
-            return
-        }
         var cardList = [PrayItem]()
-        data.filter { $0.userID != myInfo.id }.forEach { item in
+        data.forEach { item in
             cardList.append(PrayItem(memberID: item.userID,
                                      name: item.userName,
                                      prayID: item.prayID,
@@ -76,42 +77,42 @@ class GroupPrayVM: VMType {
                                      createDate: item.createDate.isoToDateString()))
         }
         cardPrayItemList.accept(cardList)
-        
-        if let myData = data.first(where: { $0.userID == myInfo.id }) {
-            myLatestPray.accept(PrayItem(memberID: myData.userID,
-                                   name: myData.userName,
-                                   prayID: myData.content,
-                                   pray: myData.content,
-                                   tags: myData.tags,
-                                   latestDate: myData.latestDate,
-                                   isSecret: myData.isSecret,
-                                   createDate: myData.createDate))
-        } else {
-            Log.e("No pray")
-        }
     }
     
     private func setAmenData(data: [GroupSummaryAmen]) {
+    
     }
     
-    private func clearAutoSave() {
-        UserData.shared.clearAutoSave()
+    private func setMemberList(data: [GroupSummaryPray]) {
+        var list = data.map { MemberItem(id: $0.userID, name: $0.userName) }
+        var allItem = MemberItem(id: "", name: "모두")
+        allItem.isChecked = true
+        list.append(allItem)
+        memberList.accept(list)
     }
     
     @objc func setReactionVM(notification: NSNotification) {
-        guard let index = notification.userInfo?["index"] as? Int else {
-            Log.e(""); return
-        }
+//        guard let index = notification.userInfo?["index"] as? Int else {
+//            Log.e(""); return
+//        }
 //        let reactions = cardPrayItemList.value[index].reactions
 //        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
     }
     
     @objc func setReplyVM(notification: NSNotification) {
-        guard let index = notification.userInfo?["index"] as? Int else {
-            Log.e(""); return
-        }
+//        guard let index = notification.userInfo?["index"] as? Int else {
+//            Log.e(""); return
+//        }
 //        let replys = cardPrayItemList.value[index].replys
 //        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
+    }
+    
+    func changeOrder(_ value: GroupPrayOrder) {
+        self.order.accept(value)
+    }
+    
+    func selectDate(date: Date) {
+        Log.d(date)
     }
 }
 
@@ -125,10 +126,13 @@ extension GroupPrayVM {
     
     struct Output {
         let groupName: Driver<String>
+        let groupCreateDate: Driver<Date?>
         let isWeek: Driver<Bool>
-        let myLatestPray: Driver<PrayItem?>
         let cardPrayItemList: Driver<[PrayItem]>
         let amenItemList: Driver<[AmenItem]>
+        let order: Driver<GroupPrayOrder>
+        let selectedMember: Driver<String>
+        let memberList: Driver<[MemberItem]>
         let detailVM: Driver<GroupPrayListVM?>
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
@@ -144,9 +148,13 @@ extension GroupPrayVM {
         input.selectMember
             .drive(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
-                let detailVM = GroupPrayListVM(prayItem: self.cardPrayItemList.value[indexPath.row],
-                                               useCase: self.useCase)
-                self.detailVM.accept(detailVM)
+                self.selectedMember.accept(self.memberList.value[indexPath.row].name)
+                var curList = self.memberList.value
+                for i in 0 ..< curList.count {
+                    curList[i].isChecked = false
+                }
+                curList[indexPath.row].isChecked = true
+                self.memberList.accept(curList)
             }).disposed(by: disposeBag)
         
         input.releaseDetailVM
@@ -155,10 +163,13 @@ extension GroupPrayVM {
             }).disposed(by: disposeBag)
         
         return Output(groupName: groupName.asDriver(),
+                      groupCreateDate: groupCreateDate.asDriver(),
                       isWeek: isWeek.asDriver(),
-                      myLatestPray: myLatestPray.asDriver(),
                       cardPrayItemList: cardPrayItemList.asDriver(),
                       amenItemList: amenItemList.asDriver(),
+                      order: order.asDriver(),
+                      selectedMember: selectedMember.asDriver(),
+                      memberList: memberList.asDriver(),
                       detailVM: detailVM.asDriver(),
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver()
@@ -180,4 +191,24 @@ extension GroupPrayVM {
             self.value = value
         }
     }
+    
+    struct MemberItem {
+        let id: String
+        let name: String
+        var isChecked: Bool
+        
+        init(id: String,
+             name: String
+        ) {
+            self.id = id
+            self.name = name
+            isChecked = false
+        }
+    }
+}
+
+enum GroupPrayOrder: String {
+    case latest = "최근순"
+    case oldest = "오래된순"
+    case date = "날짜 선택"
 }
