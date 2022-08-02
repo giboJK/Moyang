@@ -8,34 +8,28 @@
 // MARK: - GroupIndividualPray
 struct GroupIndividualPray: Codable {
     let id: String
-    let groupID: String
-    var date: String
     var pray: String
     var tags: [String]
     var changes: [PrayChange]
     var reactions: [PrayReaction]
     var replys: [PrayReply]
-    let parentPrayID: String?
-    let prayWithMemberID: String?
     var isSecret: Bool
     var isAnswered: Bool
     var answer: String
+    var latestDate: String
     let createDate: String
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case groupID = "group_id"
-        case date
-        case pray
+        case id = "pray_id"
+        case pray = "content"
         case tags
         case changes
         case reactions
-        case replys
-        case parentPrayID = "parent_pray_id"
-        case prayWithMemberID = "pray_with_member_id"
+        case replys = "replys"
         case isSecret = "is_secret"
         case isAnswered = "is_answered"
-        case answer
+        case answer = "answer"
+        case latestDate = "latest_date"
         case createDate = "create_date"
     }
 }
@@ -54,21 +48,21 @@ struct PrayReaction: Codable {
     let memberID: String
     let name: String
     var type: Int
-    var reaction: String
+    let createDate: String
     
     enum CodingKeys: String, CodingKey {
-        case memberID = "member_id"
+        case memberID = "user_id"
         case name = "user_name"
         case type
-        case reaction
+        case createDate = "create_date"
     }
 }
 
-enum PrayReactionType: String, CaseIterable {
-    case love
-    case joyful
-    case sad
-    case prayWithYou
+enum PrayReactionType: Int, CaseIterable {
+    case love = 0
+    case joyful = 1
+    case sad = 2
+    case prayWithYou = 3
     
     var desc: String {
         switch self {
@@ -100,14 +94,12 @@ struct PrayReply: Codable {
     let memberID: String
     let name: String
     let reply: String
-    let date: String
-    var reactions: [PrayReaction]
+    let createDate: String
     
     enum CodingKeys: String, CodingKey {
-        case memberID = "member_id"
+        case memberID = "user_id"
         case name = "user_name"
         case reply
-        case date = "create_date"
-        case reactions
+        case createDate = "create_date"
     }
 }

@@ -187,7 +187,7 @@ extension GroupPrayEditVM {
         init(reply: PrayReply) {
             self.memberID = reply.memberID
             self.reply = reply.reply
-            self.date = reply.date
+            self.date = reply.createDate
         }
     }
 }

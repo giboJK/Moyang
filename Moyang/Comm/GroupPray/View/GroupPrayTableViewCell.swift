@@ -311,7 +311,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         var sad = 0
         var pray = 0
         reactions.forEach { reaction in
-            if let type = PrayReactionType(rawValue: reaction.reaction) {
+            if let type = PrayReactionType(rawValue: reaction.type) {
                 switch type {
                 case .love:
                     love += 1

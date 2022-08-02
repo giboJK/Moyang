@@ -38,7 +38,7 @@ class NetConst {
         /// post
         static let addPray = "/pray/add_pray"
         /// post
-        static let editPray = "/pray/edit_pray"
+        static let updatePray = "/pray/update_pray"
         /// post
         static let fetchPrayList = "/pray/fetch_pray_list"
     }
