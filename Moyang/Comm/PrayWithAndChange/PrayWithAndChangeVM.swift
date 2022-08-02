@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 class PrayWithAndChangeVM: VMType {
-    typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
+    typealias PrayItem = CommunityMainVM.GroupSummaryPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
     let prayItem: PrayItem

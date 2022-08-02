@@ -13,7 +13,7 @@ class CommunityMainVM: VMType {
     let useCase: CommunityMainUseCase
     
     let groupName = BehaviorRelay<String>(value: "")
-    let cardPrayItemList = BehaviorRelay<[GroupIndividualPrayItem]>(value: [])
+    let cardPrayItemList = BehaviorRelay<[GroupSummaryPrayItem]>(value: [])
     let latestPrayDate = BehaviorRelay<String>(value: "")
     
     let prayGoalValue = BehaviorRelay<Int>(value: 100)
@@ -24,7 +24,7 @@ class CommunityMainVM: VMType {
     
     let isEmptyGroup = BehaviorRelay<Bool>(value: true)
     
-    let myPrayItem = BehaviorRelay<GroupIndividualPrayItem?>(value: nil)
+    let myPrayItem = BehaviorRelay<GroupSummaryPrayItem?>(value: nil)
     
     private var groupInfo: GroupInfo?
     
@@ -53,17 +53,6 @@ class CommunityMainVM: VMType {
                 self.setPrayData(data: data.prays)
                 self.setAmenData(data: data.amens)
             }).disposed(by: disposeBag)
-        
-        useCase.groupSummary
-            .subscribe(onNext: { [weak self] data in
-                guard let data = data else { return }
-                guard let self = self else { return }
-                
-                if let myData = data.prays.filter({ $0.userID == UserData.shared.userInfo?.id }).first {
-                    self.setMyData(item: myData)
-                }
-                
-            }).disposed(by: disposeBag)
     }
     
     private func fetchGroupSummary() {
@@ -87,28 +76,33 @@ class CommunityMainVM: VMType {
         }
     }
     private func setPrayData(data: [GroupSummaryPray]) {
-        var cardList = [GroupIndividualPrayItem]()
+        var cardList = [GroupSummaryPrayItem]()
+        let formatter = DateFormatter()
+        formatter.locale = .current
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        formatter.timeZone = TimeZone.current
         data.forEach { item in
-            cardList.append(GroupIndividualPrayItem(memberID: item.userID,
-                                                    name: item.userName,
-                                                    prayID: item.prayID,
-                                                    pray: item.content,
-                                                    tags: item.tags,
-                                                    latestDate: item.latestDate,
-                                                    isSecret: item.isSecret,
-                                                    createDate: item.createDate))
+            var isThisWeek = false
+            if let removeMilliSec = item.latestDate.split(separator: ".").first {
+                let timeString = String(removeMilliSec)+"+00:00"
+                if let date = formatter.date(from: timeString) {
+                    isThisWeek = Calendar.current.isDateInThisWeek(date)
+                }
+            }
+            cardList.append(GroupSummaryPrayItem(memberID: item.userID,
+                                                 name: item.userName,
+                                                 prayID: item.prayID,
+                                                 pray: item.content,
+                                                 tags: item.tags,
+                                                 latestDate: item.latestDate.isoToDateString() ?? "",
+                                                 isSecret: item.isSecret,
+                                                 isAnswered: item.isAnswered,
+                                                 answer: item.answer,
+                                                 changes: item.changes,
+                                                 createDate: item.createDate.isoToDateString() ?? "",
+                                                 isThisWeek: isThisWeek))
         }
         cardPrayItemList.accept(cardList)
-    }
-    private func setMyData(item: GroupSummaryPray) {
-        myPrayItem.accept(GroupIndividualPrayItem(memberID: item.userID,
-                                                  name: item.userName,
-                                                  prayID: item.prayID,
-                                                  pray: item.content,
-                                                  tags: item.tags,
-                                                  latestDate: item.latestDate,
-                                                  isSecret: item.isSecret,
-                                                  createDate: item.createDate))
     }
     
     private func generateGroupPrayVM() {
@@ -129,12 +123,12 @@ extension CommunityMainVM {
         let prayGoalValue: Driver<Int>
         let prayProgressValue: Driver<Int>
         let latestPrayDate: Driver<String>
-        let cardPrayItemList: Driver<[GroupIndividualPrayItem]>
+        let cardPrayItemList: Driver<[GroupSummaryPrayItem]>
         
         let groupPrayVM: Driver<GroupPrayVM?>
         let isEmptyGroup: Driver<Bool>
         
-        let myPrayItem: Driver<GroupIndividualPrayItem?>
+        let myPrayItem: Driver<GroupSummaryPrayItem?>
     }
     
     func transform(input: Input) -> Output {
@@ -157,24 +151,32 @@ extension CommunityMainVM {
         )
     }
     
-    struct GroupIndividualPrayItem {
+    struct GroupSummaryPrayItem {
         let memberID: String
         let name: String
-        let pray: String?
+        let prayID: String
+        let pray: String
         let tags: [String]
-        let latestDate: String?
-        let prayID: String?
+        let latestDate: String
         let isSecret: Bool
-        let createDate: String?
+        let isAnswered: Bool
+        let answer: String
+        let changes: [PrayChange]
+        let createDate: String
+        let isThisWeek: Bool
         
         init(memberID: String,
              name: String,
-             prayID: String?,
-             pray: String?,
+             prayID: String,
+             pray: String,
              tags: [String],
-             latestDate: String?,
+             latestDate: String,
              isSecret: Bool,
-             createDate: String?
+             isAnswered: Bool,
+             answer: String,
+             changes: [PrayChange],
+             createDate: String,
+             isThisWeek: Bool
         ) {
             self.memberID = memberID
             self.name = name
@@ -183,7 +185,11 @@ extension CommunityMainVM {
             self.tags = tags
             self.latestDate = latestDate
             self.isSecret = isSecret
+            self.isAnswered = isAnswered
+            self.answer = answer
+            self.changes = changes
             self.createDate = createDate
+            self.isThisWeek = isThisWeek
         }
     }
 }

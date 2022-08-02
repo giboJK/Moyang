@@ -9,7 +9,6 @@ import RxSwift
 import RxCocoa
 
 class GroupPrayVM: VMType {
-    typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
     
@@ -19,7 +18,7 @@ class GroupPrayVM: VMType {
     let groupCreateDate = BehaviorRelay<Date?>(value: nil)
     
     let isWeek = BehaviorRelay<Bool>(value: true)
-    let cardPrayItemList = BehaviorRelay<[PrayItem]>(value: [])
+    let cardPrayItemList = BehaviorRelay<[GroupPrayItem]>(value: [])
     let amenItemList = BehaviorRelay<[AmenItem]>(value: [])
     let detailVM = BehaviorRelay<GroupPrayListVM?>(value: nil)
     
@@ -64,23 +63,30 @@ class GroupPrayVM: VMType {
             }).disposed(by: disposeBag)
     }
     
+    // TODO: - Summary 말고 기도
     private func setPrayData(data: [GroupSummaryPray]) {
-        var cardList = [PrayItem]()
+        var cardList = [GroupPrayItem]()
         data.forEach { item in
-            cardList.append(PrayItem(memberID: item.userID,
-                                     name: item.userName,
-                                     prayID: item.prayID,
-                                     pray: item.content,
-                                     tags: item.tags,
-                                     latestDate: item.latestDate.isoToDateString(),
-                                     isSecret: item.isSecret,
-                                     createDate: item.createDate.isoToDateString()))
+            cardList.append(GroupPrayItem(memberID: item.userID,
+                                          name: item.userName,
+                                          prayID: item.prayID,
+                                          pray: item.content,
+                                          tags: item.tags,
+                                          latestDate: item.latestDate.isoToDateString() ?? "",
+                                          isSecret: item.isSecret,
+                                          isAnswered: item.isAnswered,
+                                          answer: item.answer,
+                                          changes: item.changes,
+                                          replys: [],
+                                          reactions: [],
+                                          createDate: item.createDate.isoToDateString() ?? "")
+            )
         }
         cardPrayItemList.accept(cardList)
     }
     
     private func setAmenData(data: [GroupSummaryAmen]) {
-    
+        
     }
     
     private func setMemberList(data: [GroupSummaryPray]) {
@@ -92,19 +98,19 @@ class GroupPrayVM: VMType {
     }
     
     @objc func setReactionVM(notification: NSNotification) {
-//        guard let index = notification.userInfo?["index"] as? Int else {
-//            Log.e(""); return
-//        }
-//        let reactions = cardPrayItemList.value[index].reactions
-//        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
+        guard let index = notification.userInfo?["index"] as? Int else {
+            Log.e(""); return
+        }
+        let reactions = cardPrayItemList.value[index].reactions
+        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
     }
     
     @objc func setReplyVM(notification: NSNotification) {
-//        guard let index = notification.userInfo?["index"] as? Int else {
-//            Log.e(""); return
-//        }
-//        let replys = cardPrayItemList.value[index].replys
-//        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
+        guard let index = notification.userInfo?["index"] as? Int else {
+            Log.e(""); return
+        }
+        let replys = cardPrayItemList.value[index].replys
+        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
     }
     
     func changeOrder(_ value: GroupPrayOrder) {
@@ -152,7 +158,7 @@ extension GroupPrayVM {
         let groupName: Driver<String>
         let groupCreateDate: Driver<Date?>
         let isWeek: Driver<Bool>
-        let cardPrayItemList: Driver<[PrayItem]>
+        let cardPrayItemList: Driver<[GroupPrayItem]>
         let amenItemList: Driver<[AmenItem]>
         let order: Driver<String>
         let selectedMember: Driver<String>
@@ -227,6 +233,50 @@ extension GroupPrayVM {
             self.id = id
             self.name = name
             isChecked = false
+        }
+    }
+    struct GroupPrayItem {
+        let memberID: String
+        let name: String
+        let prayID: String?
+        let pray: String
+        let tags: [String]
+        let latestDate: String
+        let isSecret: Bool
+        let isAnswered: Bool
+        let answer: String
+        let changes: [PrayChange]
+        let replys: [PrayReply]
+        let reactions: [PrayReaction]
+        let createDate: String
+        
+        init(memberID: String,
+             name: String,
+             prayID: String?,
+             pray: String,
+             tags: [String],
+             latestDate: String,
+             isSecret: Bool,
+             isAnswered: Bool,
+             answer: String,
+             changes: [PrayChange],
+             replys: [PrayReply],
+             reactions: [PrayReaction],
+             createDate: String
+        ) {
+            self.memberID = memberID
+            self.name = name
+            self.prayID = prayID
+            self.pray = pray
+            self.tags = tags
+            self.latestDate = latestDate
+            self.isSecret = isSecret
+            self.isAnswered = isAnswered
+            self.answer = answer
+            self.changes = changes
+            self.replys = replys
+            self.reactions = reactions
+            self.createDate = createDate
         }
     }
 }

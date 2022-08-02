@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 class GroupPrayListVM: VMType {
-    typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
+    typealias PrayItem = GroupPrayVM.GroupPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
     
@@ -123,7 +123,7 @@ class GroupPrayListVM: VMType {
     
     private func setPrayWithAndChangeVM(index: Int) {
         let prayIrem = prayList.value[index]
-        prayWithAndChangeVM.accept(PrayWithAndChangeVM(useCase: useCase, prayItme: prayIrem))
+//        prayWithAndChangeVM.accept(PrayWithAndChangeVM(useCase: useCase, prayItme: prayIrem))
     }
 }
 

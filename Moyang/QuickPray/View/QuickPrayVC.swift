@@ -184,7 +184,7 @@ class QuickPrayVC: UIViewController, VCType {
                     self.latestPrayTextView.isHidden = false
                     self.latestPrayTextView.text = item.pray
                     self.latestPrayDateLabel.isHidden = false
-                    self.latestPrayDateLabel.text = item.latestDate?.isoToDateString()
+                    self.latestPrayDateLabel.text = item.latestDate.isoToDateString()
                 } else {
                     self.changeOrReceiveButton.isEnabled = false
                     self.noPrayLabel.isHidden = false

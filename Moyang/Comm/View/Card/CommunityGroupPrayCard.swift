@@ -154,7 +154,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
             $0.top.equalTo(myLatestPrayDateLabel.snp.bottom).offset(16)
             $0.left.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview().inset(8)
-            $0.height.equalTo(160)
+            $0.height.equalTo(120)
         }
         prayCollectionView.delegate = self
     }
@@ -186,20 +186,11 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
                 .items(cellIdentifier: "cell",
                        cellType: CommunityGroupPrayCollectionViewCell.self)) { (_, item, cell) in
                 cell.nameLabel.text = item.name
-                if let pray = item.pray {
-                    if !(item.isSecret ?? false) {
-                        cell.prayLabel.text = pray
-                        if let isoDate = item.createDate, let removeMilliSec = isoDate.split(separator: ".").first {
-                            let timeString = String(removeMilliSec)+"+00:00"
-                            let formatter = DateFormatter()
-                            formatter.locale = .current
-                            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                            formatter.timeZone = TimeZone.current
-                            if let date = formatter.date(from: timeString) {
-                                cell.dateLabel.text = date.toString("yyyy년 MM월 dd일 hh:mm a")
-                                cell.newView.isHidden = !Calendar.current.isDateInThisWeek(date)
-                            }
-                        }
+                if !item.pray.isEmpty {
+                    if !item.isSecret {
+                        cell.prayLabel.text = item.pray
+                        cell.dateLabel.text = item.latestDate
+                        cell.newView.isHidden = !item.isThisWeek
                     } else {
                         cell.prayLabel.text = "기도제목이 없습니다"
                     }
@@ -245,6 +236,6 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - 16 - 36, height: 160)
+        return CGSize(width: UIScreen.main.bounds.width - 16 - 36, height: 120)
     }
 }

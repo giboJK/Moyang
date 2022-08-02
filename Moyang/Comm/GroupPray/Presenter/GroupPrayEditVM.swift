@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 class GroupPrayEditVM: VMType {
-    typealias PrayItem = CommunityMainVM.GroupIndividualPrayItem
+    typealias PrayItem = CommunityMainVM.GroupSummaryPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     
     let useCase: CommunityMainUseCase
@@ -31,7 +31,7 @@ class GroupPrayEditVM: VMType {
     let prayWithAndChangeVM = BehaviorRelay<PrayWithAndChangeVM?>(value: nil)
     
     init(prayItem: PrayItem, isMyPray: Bool, useCase: CommunityMainUseCase) {
-        self.prayID = prayItem.prayID!
+        self.prayID = prayItem.prayID
         self.useCase = useCase
         self.prayItem = prayItem
         setInitialData(item: prayItem)
