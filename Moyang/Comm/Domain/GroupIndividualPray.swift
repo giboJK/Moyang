@@ -12,13 +12,15 @@ struct GroupIndividualPray: Codable {
     var date: String
     var pray: String
     var tags: [String]
+    var changes: [PrayChange]
     var reactions: [PrayReaction]
     var replys: [PrayReply]
     let parentPrayID: String?
     let prayWithMemberID: String?
     var isSecret: Bool
-    var isRequestPray: Bool
-    let registeredDate: String
+    var isAnswered: Bool
+    var answer: String
+    let createDate: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -26,22 +28,38 @@ struct GroupIndividualPray: Codable {
         case date
         case pray
         case tags
+        case changes
         case reactions
         case replys
         case parentPrayID = "parent_pray_id"
         case prayWithMemberID = "pray_with_member_id"
         case isSecret = "is_secret"
-        case isRequestPray = "is_request_pray"
-        case registeredDate = "registered_date"
+        case isAnswered = "is_answered"
+        case answer
+        case createDate = "create_date"
+    }
+}
+
+struct PrayChange: Codable {
+    let content: String
+    let date: String
+    
+    enum CodingKeys: String, CodingKey {
+        case content
+        case date = "create_date"
     }
 }
 
 struct PrayReaction: Codable {
     let memberID: String
+    let name: String
+    var type: Int
     var reaction: String
     
     enum CodingKeys: String, CodingKey {
         case memberID = "member_id"
+        case name = "user_name"
+        case type
         case reaction
     }
 }
@@ -80,16 +98,16 @@ enum PrayReactionType: String, CaseIterable {
 
 struct PrayReply: Codable {
     let memberID: String
+    let name: String
     let reply: String
     let date: String
     var reactions: [PrayReaction]
-    let order: Int
     
     enum CodingKeys: String, CodingKey {
         case memberID = "member_id"
+        case name = "user_name"
         case reply
-        case date
+        case date = "create_date"
         case reactions
-        case order
     }
 }

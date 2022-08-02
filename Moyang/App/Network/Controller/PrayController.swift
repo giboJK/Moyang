@@ -47,4 +47,9 @@ extension PrayController: PrayRepo {
                   completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
         
     }
+    
+    func fetchPrayList(groupID: String, userID: String, page: Int, row: Int,
+                       completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?) {
+        
+    }
 }

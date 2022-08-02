@@ -12,4 +12,7 @@ protocol PrayRepo {
                  completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     func editPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
                   completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    
+    func fetchPrayList(groupID: String, userID: String, page: Int, row: Int,
+                       completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
 }
