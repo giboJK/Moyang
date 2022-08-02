@@ -47,6 +47,19 @@ class PrayUseCase {
         }
     }
     
-    func editPray(prayID: String, pray: String, tags: [String], isSecret: Bool) {
+    func updatePray(prayID: String, pray: String, tags: [String], isSecret: Bool) {
+    }
+    
+    func fetchPrayList(page: Int, row: Int = 5) {
+        guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
+        guard let userID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        repo.fetchPrayList(groupID: groupID, userID: userID, page: page, row: row) { [weak self] result in
+            switch result {
+            case .success(let list):
+                Log.d(list)
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
     }
 }

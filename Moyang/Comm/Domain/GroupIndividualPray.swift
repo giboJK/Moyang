@@ -8,49 +8,61 @@
 // MARK: - GroupIndividualPray
 struct GroupIndividualPray: Codable {
     let id: String
-    let groupID: String
-    var date: String
     var pray: String
     var tags: [String]
+    var changes: [PrayChange]
     var reactions: [PrayReaction]
     var replys: [PrayReply]
-    let parentPrayID: String?
-    let prayWithMemberID: String?
     var isSecret: Bool
-    var isRequestPray: Bool
-    let registeredDate: String
+    var isAnswered: Bool
+    var answer: String
+    var latestDate: String
+    let createDate: String
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case groupID = "group_id"
-        case date
-        case pray
+        case id = "pray_id"
+        case pray = "content"
         case tags
+        case changes
         case reactions
-        case replys
-        case parentPrayID = "parent_pray_id"
-        case prayWithMemberID = "pray_with_member_id"
+        case replys = "replys"
         case isSecret = "is_secret"
-        case isRequestPray = "is_request_pray"
-        case registeredDate = "registered_date"
+        case isAnswered = "is_answered"
+        case answer = "answer"
+        case latestDate = "latest_date"
+        case createDate = "create_date"
+    }
+}
+
+struct PrayChange: Codable {
+    let content: String
+    let date: String
+    
+    enum CodingKeys: String, CodingKey {
+        case content
+        case date = "create_date"
     }
 }
 
 struct PrayReaction: Codable {
     let memberID: String
-    var reaction: String
+    let name: String
+    var type: Int
+    let createDate: String
     
     enum CodingKeys: String, CodingKey {
-        case memberID = "member_id"
-        case reaction
+        case memberID = "user_id"
+        case name = "user_name"
+        case type
+        case createDate = "create_date"
     }
 }
 
-enum PrayReactionType: String, CaseIterable {
-    case love
-    case joyful
-    case sad
-    case prayWithYou
+enum PrayReactionType: Int, CaseIterable {
+    case love = 0
+    case joyful = 1
+    case sad = 2
+    case prayWithYou = 3
     
     var desc: String {
         switch self {
@@ -80,16 +92,14 @@ enum PrayReactionType: String, CaseIterable {
 
 struct PrayReply: Codable {
     let memberID: String
+    let name: String
     let reply: String
-    let date: String
-    var reactions: [PrayReaction]
-    let order: Int
+    let createDate: String
     
     enum CodingKeys: String, CodingKey {
-        case memberID = "member_id"
+        case memberID = "user_id"
+        case name = "user_name"
         case reply
-        case date
-        case reactions
-        case order
+        case createDate = "create_date"
     }
 }

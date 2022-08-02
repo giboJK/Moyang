@@ -15,7 +15,7 @@ class PrayReplyDetailVM: VMType {
     let isDateSorted = BehaviorRelay<Bool>(value: true)
     
     init(replys: [PrayReply]) {
-        self.replys = replys.sorted(by: { $0.date > $1.date })
+        self.replys = replys.sorted(by: { $0.createDate > $1.createDate })
         setData()
     }
     

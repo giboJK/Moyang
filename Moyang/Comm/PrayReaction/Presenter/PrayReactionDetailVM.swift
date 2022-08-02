@@ -23,8 +23,8 @@ class PrayReactionDetailVM: VMType {
     private func setData() {
         var itemList = [ReactionItem]()
         let sorted = reactions.sorted { a, b in
-            let typeA = PrayReactionType(rawValue: a.reaction)!
-            let typeB = PrayReactionType(rawValue: b.reaction)!
+            let typeA = PrayReactionType(rawValue: a.type)!
+            let typeB = PrayReactionType(rawValue: b.type)!
             return typeA.order < typeB.order
         }
         var loveItem = ReactionItem(memberName: [], reaction: PrayReactionType.love.rawValue)
@@ -78,10 +78,10 @@ extension PrayReactionDetailVM {
 extension PrayReactionDetailVM {
     struct ReactionItem {
         var memberName: [String]
-        let reaction: String
+        let reaction: Int
         
         init(memberName: [String],
-             reaction: String
+             reaction: Int
         ) {
             self.memberName = memberName
             self.reaction = reaction

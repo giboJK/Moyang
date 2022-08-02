@@ -167,7 +167,7 @@ class CommunityMainUseCase {
                 if var selectedList = selectedList {
                     if let index = selectedList.list.firstIndex(where: { $0.id == prayID}) {
                         selectedList.list[index].replys.append(reply)
-                        selectedList.list[index].date = reply.date
+                        selectedList.list[index].latestDate = reply.createDate
                     }
                     var cur = self.memberPrayList.value
                     cur[selectedIndex] = selectedList

@@ -183,13 +183,11 @@ extension GroupPrayEditVM {
         let memberID: String
         let reply: String
         let date: String
-        let order: Int
         
         init(reply: PrayReply) {
             self.memberID = reply.memberID
             self.reply = reply.reply
-            self.date = reply.date
-            self.order = reply.order
+            self.date = reply.createDate
         }
     }
 }

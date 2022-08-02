@@ -204,7 +204,7 @@ class ReactionPopupView: UIView {
         }
     }
 
-    func setMyReaction(reaction: String) {
+    func setMyReaction(reaction: Int) {
         if let reactionType = PrayReactionType(rawValue: reaction) {
             let buttons = [loveButton, joyfulButton, sadButton, prayButton]
             buttons.forEach { $0.backgroundColor = .clear}

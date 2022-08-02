@@ -37,5 +37,9 @@ class NetConst {
     enum PrayAPI {
         /// post
         static let addPray = "/pray/add_pray"
+        /// post
+        static let updatePray = "/pray/update_pray"
+        /// post
+        static let fetchPrayList = "/pray/fetch_pray_list"
     }
 }

@@ -58,12 +58,12 @@ class AFNetworkService: NetworkServiceProtocol {
                                 type: T.Type,
                                 token: String?,
                                 completion: @escaping (Result<T, Error>) -> Void) {
-        requestAPI(request: request, type: type, token: token, encoding: .default, completion: completion)
+        requestAPI(request: request, type: type, token: token, encoding: JSONEncoding.default, completion: completion)
     }
     func requestAPI<T: Codable>(request: RequestProtocol,
                                 type: T.Type,
                                 token: String?,
-                                encoding: URLEncoding = .default,
+                                encoding: ParameterEncoding,
                                 completion: @escaping (Result<T, Error>) -> Void) {
         if !Reachability.isConnectedToNetwork() {
             completion(.failure(MoyangError.reachability))
