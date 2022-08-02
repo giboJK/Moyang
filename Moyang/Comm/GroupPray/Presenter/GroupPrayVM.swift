@@ -25,9 +25,12 @@ class GroupPrayVM: VMType {
     let order = BehaviorRelay<String>(value: GroupPrayOrder.latest.rawValue)
     let selectedMember = BehaviorRelay<String>(value: "")
     let memberList = BehaviorRelay<[MemberItem]>(value: [])
+    let displayDate = BehaviorRelay<String>(value: "")
     
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
+    
+    var curDisplayDate = Date().startOfWeek ?? Date()
     
     init(useCase: CommunityMainUseCase) {
         self.useCase = useCase
@@ -122,6 +125,7 @@ class GroupPrayVM: VMType {
     }
     
     func selectDateRange(date: Date) {
+        curDisplayDate = date
         if isWeek.value {
             if let endDate = date.endOfWeek {
                 var value = ""
@@ -130,7 +134,7 @@ class GroupPrayVM: VMType {
                 } else {
                     value = date.toString("M월 d일") + "-" + endDate.toString("M월 d일")
                 }
-                order.accept(value)
+                displayDate.accept(value)
             }
         } else {
             if let endDate = date.endOfMonth {
@@ -140,7 +144,7 @@ class GroupPrayVM: VMType {
                 } else {
                     value = date.toString("M월 d일") + "-" + endDate.toString("M월 d일")
                 }
-                order.accept(value)
+                displayDate.accept(value)
             }
         }
     }
@@ -163,6 +167,7 @@ extension GroupPrayVM {
         let order: Driver<String>
         let selectedMember: Driver<String>
         let memberList: Driver<[MemberItem]>
+        let displayDate: Driver<String>
         let detailVM: Driver<GroupPrayListVM?>
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
@@ -173,6 +178,7 @@ extension GroupPrayVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.isWeek.accept(!self.isWeek.value)
+                self.selectDateRange(date: self.curDisplayDate)
             }).disposed(by: disposeBag)
         
         input.selectMember
@@ -200,6 +206,7 @@ extension GroupPrayVM {
                       order: order.asDriver(),
                       selectedMember: selectedMember.asDriver(),
                       memberList: memberList.asDriver(),
+                      displayDate: displayDate.asDriver(),
                       detailVM: detailVM.asDriver(),
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver()
@@ -284,5 +291,6 @@ extension GroupPrayVM {
 enum GroupPrayOrder: String {
     case latest = "최근순"
     case oldest = "오래된순"
+    case isAnswerd = "응답받음"
     case date = "날짜 선택"
 }

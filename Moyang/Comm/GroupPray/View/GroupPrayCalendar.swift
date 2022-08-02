@@ -20,8 +20,7 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
     var groupCreateDate: Date!
     
     // 날짜 선택 가능 기간은 그룹의 시작날짜
-    let todayLabel = UILabel().then {
-        $0.text = Date().toString("yyyy년 M월 d일")
+    let dateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .nightSky1
     }
@@ -64,6 +63,11 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
         $0.configuration = configuration
     }
+    let moveToToday = MoyangButton(.none).then {
+        $0.setTitle("오늘로 이동", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.setTitleColor(.nightSky1, for: .normal)
+    }
     
     init(vm: VM?, groupCreateDate: Date) {
         self.vm = vm
@@ -84,10 +88,11 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         setupCalendar()
         setupOrderButton()
         setupMemberButton()
+        setupMoveToToday()
     }
     private func setupTodayLabel() {
-        addSubview(todayLabel)
-        todayLabel.snp.makeConstraints {
+        addSubview(dateLabel)
+        dateLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(24)
             $0.top.equalToSuperview().inset(12)
         }
@@ -96,7 +101,7 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         addSubview(displayUnitChangeButton)
         displayUnitChangeButton.snp.makeConstraints {
             $0.right.equalToSuperview().inset(24)
-            $0.centerY.equalTo(todayLabel)
+            $0.centerY.equalTo(dateLabel)
         }
     }
     
@@ -123,7 +128,7 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         calendar.snp.makeConstraints {
             $0.height.equalTo(220)
             $0.left.right.equalToSuperview().inset(8)
-            $0.top.equalTo(todayLabel.snp.bottom).offset(12)
+            $0.top.equalTo(dateLabel.snp.bottom).offset(12)
         }
     }
     
@@ -143,6 +148,13 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
             $0.left.equalTo(orderButton.snp.right).offset(12)
         }
     }
+    private func setupMoveToToday() {
+        addSubview(moveToToday)
+        moveToToday.snp.makeConstraints {
+            $0.centerY.equalTo(orderButton)
+            $0.right.equalToSuperview().inset(16)
+        }
+    }
     
     func maximumDate(for calendar: FSCalendar) -> Date {
         Date()
@@ -160,7 +172,7 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
     }
     
     private func toggleIsWeek(isWeek: Bool) {
-        let title = isWeek ? "월 별로 보기" : "주 별로 보기"
+        let title = isWeek ? "월 단위 변경" : "주 단위 변경"
         displayUnitChangeButton.setTitle(title, for: .normal)
         let scope = isWeek ? FSCalendarScope.week : FSCalendarScope.month
         calendar.setScope(scope, animated: true)
@@ -177,14 +189,20 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         let input = VM.Input(toggleIsWeek: displayUnitChangeButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
+        vm.selectDateRange(date: Date())
+        
         output.isWeek
             .skip(1)
             .drive(onNext: { [weak self] isWeek in
-                self?.toggleIsWeek(isWeek: isWeek)
+                guard let self = self else { return }
+                self.toggleIsWeek(isWeek: isWeek)
             }).disposed(by: disposeBag)
         
+        output.displayDate
+            .drive(dateLabel.rx.text)
+            .disposed(by: disposeBag)
         
-        todayLabel.rx.tapGesture().when(.ended)
+        moveToToday.rx.tap
             .subscribe(onNext: { [weak self]_ in
                 self?.calendar.select(Date(), scrollToDate: true)
             }).disposed(by: disposeBag)

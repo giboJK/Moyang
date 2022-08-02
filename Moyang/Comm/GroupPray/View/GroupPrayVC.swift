@@ -213,10 +213,15 @@ class GroupPrayVC: UIViewController, VCType {
             self?.vm?.changeOrder(.oldest)
         })
         
+        let answeredAction = UIAlertAction(title: "응답받은 기도", style: .default, handler: { [weak self] _ in
+            self?.vm?.changeOrder(.isAnswerd)
+        })
+        
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in }
         
         actionSheet.addAction(latestAction)
         actionSheet.addAction(oldestAction)
+        actionSheet.addAction(answeredAction)
         actionSheet.addAction(cancelAction)
         
         self.present(actionSheet, animated: true, completion: nil)
