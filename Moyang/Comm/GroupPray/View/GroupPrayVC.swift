@@ -257,11 +257,11 @@ class GroupPrayVC: UIViewController, VCType {
                 self.prayTableView.stickyHeader.height = height
             }).disposed(by: disposeBag)
         
-        output.cardPrayItemList
+        output.prayItemList
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { (index, item, cell) in
                     cell.index = index
-                    cell.setupData(item: item, isPreview: true)
+                    cell.setupData(item: item[index], isPreview: true)
                 }.disposed(by: disposeBag)
         
         output.prayReactionDetailVM

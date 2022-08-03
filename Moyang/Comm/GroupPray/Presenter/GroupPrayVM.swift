@@ -18,7 +18,7 @@ class GroupPrayVM: VMType {
     let groupCreateDate = BehaviorRelay<Date?>(value: nil)
     
     let isWeek = BehaviorRelay<Bool>(value: true)
-    let cardPrayItemList = BehaviorRelay<[GroupPrayItem]>(value: [])
+    let prayItemList = BehaviorRelay<[[GroupPrayItem]]>(value: [])
     let amenItemList = BehaviorRelay<[AmenItem]>(value: [])
     
     let order = BehaviorRelay<String>(value: GroupPrayOrder.latest.rawValue)
@@ -44,6 +44,7 @@ class GroupPrayVM: VMType {
                                                selector: #selector(self.setReplyVM),
                                                name: NSNotification.Name(rawValue: "GROUP_PRAY_REPLY_TAP"),
                                                object: nil)
+        fetchPrayAll()
     }
     
     deinit { Log.i(self) }
@@ -53,42 +54,50 @@ class GroupPrayVM: VMType {
             .bind(to: isNetworking)
             .disposed(by: disposeBag)
         
+        useCase.memberPrayList
+            .skip(1)
+            .subscribe(onNext: { [weak self] (dict: [String: [GroupIndividualPray]]) in
+                guard let self = self else { return }
+                if let groupInfo = UserData.shared.groupInfo {
+                    self.groupName.accept(groupInfo.groupName)
+                    self.setPrayData(data: dict)
+                } else { Log.e("") }
+                
+            }).disposed(by: disposeBag)
 //        useCase.groupSummary
 //            .subscribe(onNext: { [weak self] data in
-//                guard let data = data else { return }
-//                guard let self = self else { return }
-//                self.groupName.accept(data.groupInfo.groupName)
-//                self.setPrayData(data: data.prays)
 //                self.setAmenData(data: data.amens)
 //                self.setMemberList(data: data.prays)
 //                self.groupCreateDate.accept(data.groupInfo.createDate.isoToDate())
 //            }).disposed(by: disposeBag)
     }
     
-    // TODO: - Summary 말고 기도
-    private func setPrayData(data: [GroupSummaryPray]) {
-        var cardList = [GroupPrayItem]()
-        data.forEach { item in
-            cardList.append(GroupPrayItem(memberID: item.userID,
-                                          name: item.userName,
-                                          prayID: item.prayID,
-                                          pray: item.content,
-                                          tags: [],
-                                          latestDate: item.latestDate.isoToDateString() ?? "",
-                                          isSecret: item.isSecret,
-                                          isAnswered: item.isAnswered,
-                                          answer: item.answer,
-                                          changes: item.changes,
-                                          replys: [],
-                                          reactions: [],
-                                          createDate: item.createDate.isoToDateString() ?? "")
+    private func setPrayData(data: [String: [GroupIndividualPray]]) {
+        var cardList = [[GroupPrayItem]]()
+        data.forEach { (_: String, value: [GroupIndividualPray]) in
+            cardList.append(value.map({ item in
+                GroupPrayItem(memberID: item.userID,
+                              name: item.userName,
+                              prayID: item.prayID,
+                              pray: item.pray,
+                              tags: item.tags,
+                              latestDate: item.latestDate.isoToDateString() ?? "",
+                              isSecret: item.isSecret,
+                              isAnswered: item.isAnswered,
+                              answer: item.answer,
+                              changes: item.changes,
+                              replys: [],
+                              reactions: [],
+                              createDate: item.createDate.isoToDateString() ?? "")
+                
+            })
             )
         }
-        cardPrayItemList.accept(cardList)
+        prayItemList.accept(cardList)
     }
     
     private func fetchPrayAll() {
-        
+        useCase.fetchPrayAll(order: GroupPrayOrder.latest.rawValue)
     }
     
     private func setAmenData(data: [GroupSummaryAmen]) {
@@ -107,16 +116,16 @@ class GroupPrayVM: VMType {
         guard let index = notification.userInfo?["index"] as? Int else {
             Log.e(""); return
         }
-        let reactions = cardPrayItemList.value[index].reactions
-        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
+//        let reactions = prayItemList.value[index].reactions
+//        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
     }
     
     @objc func setReplyVM(notification: NSNotification) {
         guard let index = notification.userInfo?["index"] as? Int else {
             Log.e(""); return
         }
-        let replys = cardPrayItemList.value[index].replys
-        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
+//        let replys = prayItemList.value[index].replys
+//        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
     }
     
     func changeOrder(_ value: GroupPrayOrder) {
@@ -165,7 +174,7 @@ extension GroupPrayVM {
         let groupName: Driver<String>
         let groupCreateDate: Driver<Date?>
         let isWeek: Driver<Bool>
-        let cardPrayItemList: Driver<[GroupPrayItem]>
+        let prayItemList: Driver<[[GroupPrayItem]]>
         let amenItemList: Driver<[AmenItem]>
         let order: Driver<String>
         let selectedMember: Driver<String>
@@ -198,7 +207,7 @@ extension GroupPrayVM {
         return Output(groupName: groupName.asDriver(),
                       groupCreateDate: groupCreateDate.asDriver(),
                       isWeek: isWeek.asDriver(),
-                      cardPrayItemList: cardPrayItemList.asDriver(),
+                      prayItemList: prayItemList.asDriver(),
                       amenItemList: amenItemList.asDriver(),
                       order: order.asDriver(),
                       selectedMember: selectedMember.asDriver(),

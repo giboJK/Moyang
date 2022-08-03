@@ -12,6 +12,8 @@ import RxCocoa
 class PrayUseCase {
     let repo: PrayRepo
     
+    var memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
+    
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     let editingPraySuccess = BehaviorRelay<Void>(value: ())
@@ -19,15 +21,53 @@ class PrayUseCase {
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
+    var userIDNameDict = [String: String]()
+    
     // MARK: - Lifecycle
     init(repo: PrayRepo) {
         self.repo = repo
     }
     
     // MARK: - Function
+    // 아래 함수가 먼저 실행이 되어야 함
+    func fetchPrayAll(order: String, row: Int = 2) {
+        guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
+        guard let userID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() {
+            return
+        }
+        repo.fetchPrayAll(groupID: groupID, userID: userID, order: order, page: 0, row: row) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                // 만약에 기도를 하나도 등록하지 않은 유저가 있을 경우 생성되지 않음
+                response.forEach { item in
+                    self.userIDNameDict.updateValue(item.userName, forKey: item.userID)
+                }
+                var dict = [String: [GroupIndividualPray]]()
+                self.userIDNameDict.keys.forEach { key in
+                    dict.updateValue([], forKey: key)
+                }
+                
+                response.forEach { item in
+                    if var list = dict[item.userID] {
+                        list.append(item)
+                        dict.updateValue(list, forKey: item.userID)
+                    }
+                }
+                self.memberPrayList.accept(dict)
+            case .failure(let error):
+                Log.e(error)
+            }
+            self.isNetworking.accept(false)
+        }
+    }
     func addPray(pray: String, tags: [String], isSecret: Bool) {
         guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
         guard let userID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() {
+            return
+        }
         repo.addPray(userID: userID,
                      groupID: groupID,
                      content: pray,
@@ -44,22 +84,38 @@ class PrayUseCase {
                 Log.e(error)
                 self?.addingNewPrayFailure.accept(())
             }
+            self?.isNetworking.accept(false)
         }
     }
     
     func updatePray(prayID: String, pray: String, tags: [String], isSecret: Bool) {
     }
     
-    func fetchPrayList(page: Int, row: Int = 5) {
+    func fetchPrayList(userID: String, order: String, page: Int, row: Int = 3) {
         guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
-        guard let userID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        repo.fetchPrayList(groupID: groupID, userID: userID, page: page, row: row) { [weak self] result in
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() {
+            return
+        }
+        let isMe = userID == myID
+        repo.fetchPrayList(groupID: groupID, userID: userID, isMe: isMe, order: order, page: page, row: row) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let list):
                 Log.d(list)
             case .failure(let error):
                 Log.e(error)
             }
+            self.isNetworking.accept(false)
         }
+    }
+    
+    private func checkAndSetIsNetworking() -> Bool {
+        if isNetworking.value {
+            Log.d("isNetworking...")
+            return true
+        }
+        isNetworking.accept(true)
+        return false
     }
 }
