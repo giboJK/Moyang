@@ -25,7 +25,7 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         $0.textColor = .nightSky1
     }
     let displayUnitChangeButton = UIButton().then {
-        $0.setTitle("월 별로 보기", for: .normal)
+        $0.setTitle("월 단위 보기", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         $0.setTitleColor(.nightSky1, for: .normal)
     }
@@ -172,7 +172,7 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
     }
     
     private func toggleIsWeek(isWeek: Bool) {
-        let title = isWeek ? "월 단위 변경" : "주 단위 변경"
+        let title = isWeek ? "월 단위 보기" : "주 단위 보기"
         displayUnitChangeButton.setTitle(title, for: .normal)
         let scope = isWeek ? FSCalendarScope.week : FSCalendarScope.month
         calendar.setScope(scope, animated: true)

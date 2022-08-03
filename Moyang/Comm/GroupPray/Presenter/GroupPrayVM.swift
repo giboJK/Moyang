@@ -20,7 +20,6 @@ class GroupPrayVM: VMType {
     let isWeek = BehaviorRelay<Bool>(value: true)
     let cardPrayItemList = BehaviorRelay<[GroupPrayItem]>(value: [])
     let amenItemList = BehaviorRelay<[AmenItem]>(value: [])
-    let detailVM = BehaviorRelay<GroupPrayListVM?>(value: nil)
     
     let order = BehaviorRelay<String>(value: GroupPrayOrder.latest.rawValue)
     let selectedMember = BehaviorRelay<String>(value: "")
@@ -168,7 +167,6 @@ extension GroupPrayVM {
         let selectedMember: Driver<String>
         let memberList: Driver<[MemberItem]>
         let displayDate: Driver<String>
-        let detailVM: Driver<GroupPrayListVM?>
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
     }
@@ -193,11 +191,6 @@ extension GroupPrayVM {
                 self.memberList.accept(curList)
             }).disposed(by: disposeBag)
         
-        input.releaseDetailVM
-            .drive(onNext: { [weak self] _ in
-                self?.detailVM.accept(nil)
-            }).disposed(by: disposeBag)
-        
         return Output(groupName: groupName.asDriver(),
                       groupCreateDate: groupCreateDate.asDriver(),
                       isWeek: isWeek.asDriver(),
@@ -207,7 +200,6 @@ extension GroupPrayVM {
                       selectedMember: selectedMember.asDriver(),
                       memberList: memberList.asDriver(),
                       displayDate: displayDate.asDriver(),
-                      detailVM: detailVM.asDriver(),
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver()
         )

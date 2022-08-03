@@ -52,8 +52,6 @@
 		242D745F274282F00053EF2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 242D7461274282F00053EF2A /* Localizable.strings */; };
 		242D7464274283710053EF2A /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D7463274283710053EF2A /* Strings.swift */; };
 		242F92952848D8810023324D /* CGColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F92942848D8810023324D /* CGColor+.swift */; };
-		242F92972848DF050023324D /* GroupPrayListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F92962848DF050023324D /* GroupPrayListVC.swift */; };
-		242F92992848DF1E0023324D /* GroupPrayListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F92982848DF1E0023324D /* GroupPrayListVM.swift */; };
 		242F929C2848E02F0023324D /* GroupPrayCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F929B2848E02F0023324D /* GroupPrayCoordinator.swift */; };
 		242F929E2848E0FF0023324D /* GroupPrayAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F929D2848E0FF0023324D /* GroupPrayAssembly.swift */; };
 		242F92A12848FD140023324D /* NewPrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F92A02848FD140023324D /* NewPrayVC.swift */; };
@@ -223,8 +221,6 @@
 		242D7462274282F30053EF2A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		242D7463274283710053EF2A /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		242F92942848D8810023324D /* CGColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+.swift"; sourceTree = "<group>"; };
-		242F92962848DF050023324D /* GroupPrayListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayListVC.swift; sourceTree = "<group>"; };
-		242F92982848DF1E0023324D /* GroupPrayListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayListVM.swift; sourceTree = "<group>"; };
 		242F929B2848E02F0023324D /* GroupPrayCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayCoordinator.swift; sourceTree = "<group>"; };
 		242F929D2848E0FF0023324D /* GroupPrayAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayAssembly.swift; sourceTree = "<group>"; };
 		242F92A02848FD140023324D /* NewPrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayVC.swift; sourceTree = "<group>"; };
@@ -655,7 +651,6 @@
 				24C8E9B1286B148200AEE46B /* Edit */,
 				242F929F2848FD090023324D /* NewPray */,
 				249FD1E52893A73800BDF995 /* GroupPrayCalendar.swift */,
-				242F92962848DF050023324D /* GroupPrayListVC.swift */,
 				2493DE6128467441001A9368 /* GroupPrayVC.swift */,
 				24C5273F284708570081AE25 /* GroupPrayTableViewCell.swift */,
 				24F6B0C2289954740001B781 /* MemberItemTableViewCell.swift */,
@@ -669,7 +664,6 @@
 			isa = PBXGroup;
 			children = (
 				2493DE65284674DF001A9368 /* GroupPrayVM.swift */,
-				242F92982848DF1E0023324D /* GroupPrayListVM.swift */,
 				24C8E9B4286B14B700AEE46B /* GroupPrayEditVM.swift */,
 			);
 			path = Presenter;
@@ -1366,7 +1360,6 @@
 				24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */,
 				2498F8FE287C316D007EF510 /* TermsVC.swift in Sources */,
 				24C8E9BB286B1F5200AEE46B /* PrayUseCase.swift in Sources */,
-				242F92992848DF1E0023324D /* GroupPrayListVM.swift in Sources */,
 				24C52740284708570081AE25 /* GroupPrayTableViewCell.swift in Sources */,
 				08AD9585287BDFF1002D4F94 /* AuthController.swift in Sources */,
 				2499CBFF2806E9DD004C0984 /* ChurchInfo.swift in Sources */,
@@ -1376,7 +1369,6 @@
 				24E0AB38283E75AF00F52505 /* CommonUtils.swift in Sources */,
 				24EDC8BF288EAC5900431A02 /* GroupSummary.swift in Sources */,
 				24CD549D28771ABC0081375B /* PrayReplyDetailVC.swift in Sources */,
-				242F92972848DF050023324D /* GroupPrayListVC.swift in Sources */,
 				08D82959278D25F0001E6B61 /* Font+.swift in Sources */,
 				242F929E2848E0FF0023324D /* GroupPrayAssembly.swift in Sources */,
 				24F41C692897E9EA005B5E70 /* PrayController.swift in Sources */,

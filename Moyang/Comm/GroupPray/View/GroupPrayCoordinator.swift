@@ -47,25 +47,7 @@ extension GroupPrayCoordinator: GroupPrayVCDelegate {
         }
     }
     
-    func didTapPray(vm: GroupPrayListVM) {
-        if let vc = assembler.resolver.resolve(GroupPrayListVC.self, argument: vm) {
-            nav.pushViewController(vc, animated: true)
-            vc.coordinator = self
-        } else {
-            Log.e("")
-        }
-    }
-}
-
-extension GroupPrayCoordinator: GroupPrayListVCDelegate {
-    func didTapPraybutton(vm: GroupPrayingVM) {
-        if let vc = assembler.resolver.resolve(GroupPrayingVC.self, argument: vm) {
-            vc.modalPresentationStyle = .fullScreen
-            nav.present(vc, animated: true)
-            vc.coordinator = self
-        } else {
-            Log.e("")
-        }
+    func didTapPray() {
     }
 }
 

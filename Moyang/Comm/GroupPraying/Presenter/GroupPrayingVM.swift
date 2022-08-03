@@ -11,7 +11,7 @@ import AVFoundation
 
 class GroupPrayingVM: VMType {
     typealias PrayList = [GroupIndividualPray]
-    typealias PrayItem = GroupPrayListVM.PrayItem
+    typealias PrayItem = GroupPrayVM.GroupPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
     var members: [Member] = []

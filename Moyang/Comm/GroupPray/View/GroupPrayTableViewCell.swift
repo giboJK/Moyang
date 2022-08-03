@@ -392,7 +392,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         self.setupReplyView(replys: replys)
         self.setupReactionView(reactions: reactions)
     }
-    func setupData(item: GroupPrayListVM.PrayItem, isPreview: Bool = false) {
+    func setupData(item: GroupPrayVM.GroupPrayItem, isPreview: Bool = false) {
         if isPreview {
             updateLatestPrayLabelHeight()
         }
