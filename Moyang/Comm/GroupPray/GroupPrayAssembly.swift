@@ -16,9 +16,9 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
     deinit { Log.i(self) }
     
     func assemble(container: Container) {
-        container.register(GroupPrayVC.self) { (_, groupPrayVM: GroupPrayVM) in
+        container.register(GroupPrayVC.self) { r in
             let vc = GroupPrayVC()
-            vc.vm = groupPrayVM
+            vc.vm = (r ~> GroupPrayVM.self)
             return vc
         }
         
@@ -30,6 +30,11 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
         
         container.register(NetworkServiceProtocol.self) { _ in
             AFNetworkService(sessionConfiguration: .default)
+        }
+        
+        // MARK: - GroupPray
+        container.register(GroupPrayVM.self) { r in
+            GroupPrayVM(useCase: (r ~> PrayUseCase.self))
         }
         
         // MARK: - GroupInfo

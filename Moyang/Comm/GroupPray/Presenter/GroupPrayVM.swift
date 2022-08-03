@@ -10,7 +10,7 @@ import RxCocoa
 
 class GroupPrayVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: CommunityMainUseCase
+    let useCase: PrayUseCase
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -31,7 +31,7 @@ class GroupPrayVM: VMType {
     
     var curDisplayDate = Date().startOfWeek ?? Date()
     
-    init(useCase: CommunityMainUseCase) {
+    init(useCase: PrayUseCase) {
         self.useCase = useCase
         bind()
         
@@ -53,16 +53,16 @@ class GroupPrayVM: VMType {
             .bind(to: isNetworking)
             .disposed(by: disposeBag)
         
-        useCase.groupSummary
-            .subscribe(onNext: { [weak self] data in
-                guard let data = data else { return }
-                guard let self = self else { return }
-                self.groupName.accept(data.groupInfo.groupName)
-                self.setPrayData(data: data.prays)
-                self.setAmenData(data: data.amens)
-                self.setMemberList(data: data.prays)
-                self.groupCreateDate.accept(data.groupInfo.createDate.isoToDate())
-            }).disposed(by: disposeBag)
+//        useCase.groupSummary
+//            .subscribe(onNext: { [weak self] data in
+//                guard let data = data else { return }
+//                guard let self = self else { return }
+//                self.groupName.accept(data.groupInfo.groupName)
+//                self.setPrayData(data: data.prays)
+//                self.setAmenData(data: data.amens)
+//                self.setMemberList(data: data.prays)
+//                self.groupCreateDate.accept(data.groupInfo.createDate.isoToDate())
+//            }).disposed(by: disposeBag)
     }
     
     // TODO: - Summary 말고 기도
@@ -73,7 +73,7 @@ class GroupPrayVM: VMType {
                                           name: item.userName,
                                           prayID: item.prayID,
                                           pray: item.content,
-                                          tags: item.tags,
+                                          tags: [],
                                           latestDate: item.latestDate.isoToDateString() ?? "",
                                           isSecret: item.isSecret,
                                           isAnswered: item.isAnswered,
@@ -85,6 +85,10 @@ class GroupPrayVM: VMType {
             )
         }
         cardPrayItemList.accept(cardList)
+    }
+    
+    private func fetchPrayAll() {
+        
     }
     
     private func setAmenData(data: [GroupSummaryAmen]) {

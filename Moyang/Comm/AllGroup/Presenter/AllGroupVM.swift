@@ -37,11 +37,13 @@ class AllGroupVM: VMType {
                 self?.groupInfoList = list
             }).disposed(by: disposeBag)
     }
+    
     private func fetchGroupList() {
         useCase.fetchGroupList()
     }
+    
     private func selectGroup(indexPath: IndexPath) {
-        groupPrayVM.accept(GroupPrayVM(useCase: communityUseCase))
+//        groupPrayVM.accept(GroupPrayVM(useCase: communityUseCase))
     }
     
     private func clearPrayList() {

@@ -158,24 +158,23 @@ class CommunityMainVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.coordinator?.showAllGroup()
             }).disposed(by: disposeBag)
+        
+        communityGroupPrayCard.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapGroupPrayCard()
+            }).disposed(by: disposeBag)
     }
     
     func bindVM() {
         guard let vm = vm else { Log.e(""); return }
-        let didTapPrayCard = communityGroupPrayCard.rx.tapGesture().when(.ended)
-            .map { _ in () }.asDriver(onErrorJustReturn: ())
-        let input = VM.Input(didTapPrayCard: didTapPrayCard)
+//        let didTapPrayCard = communityGroupPrayCard.rx.tapGesture().when(.ended)
+//            .map { _ in () }.asDriver(onErrorJustReturn: ())
+        let input = VM.Input()
         let output = vm.transform(input: input)
         
         output.groupName
             .drive(groupNameLabel.rx.text)
             .disposed(by: disposeBag)
-        
-        output.groupPrayVM
-            .drive(onNext: { [weak self] groupPrayVM in
-                guard let groupPrayVM = groupPrayVM else { return }
-                self?.coordinator?.didTapGroupPrayCard(groupPrayVM: groupPrayVM)
-            }).disposed(by: disposeBag)
         
         output.isEmptyGroup
             .map { $0 }
@@ -200,7 +199,7 @@ class CommunityMainVC: UIViewController, VCType {
 }
 
 protocol CommunityMainVCDelegate: AnyObject {
-    func didTapGroupPrayCard(groupPrayVM: GroupPrayVM)
+    func didTapGroupPrayCard()
     func showAllGroup()
     func letsPray()
 }
