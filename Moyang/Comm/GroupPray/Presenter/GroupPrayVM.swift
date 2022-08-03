@@ -97,7 +97,7 @@ class GroupPrayVM: VMType {
     }
     
     private func fetchPrayAll() {
-        useCase.fetchPrayAll(order: GroupPrayOrder.latest.rawValue)
+        useCase.fetchPrayAll(order: GroupPrayOrder.latest.parameter)
     }
     
     private func setAmenData(data: [GroupSummaryAmen]) {
@@ -298,4 +298,17 @@ enum GroupPrayOrder: String {
     case oldest = "오래된순"
     case isAnswerd = "응답받음"
     case date = "날짜 선택"
+    
+    var parameter: String {
+        switch self {
+        case .latest:
+            return "latest"
+        case .oldest:
+            return "oldest"
+        case .isAnswerd:
+            return "answered"
+        case .date:
+            return ""
+        }
+    }
 }
