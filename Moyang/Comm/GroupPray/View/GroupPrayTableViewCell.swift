@@ -176,15 +176,15 @@ class GroupPrayTableViewCell: UITableViewCell {
     private func setupBgView() {
         contentView.addSubview(bgView)
         bgView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().inset(20)
             $0.left.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview().inset(12)
         }
     }
     private func setupNameLabel() {
-        bgView.addSubview(nameLabel)
+        contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
+            $0.top.equalToSuperview().inset(4)
             $0.left.right.equalToSuperview().inset(12)
             $0.height.equalTo(20)
         }

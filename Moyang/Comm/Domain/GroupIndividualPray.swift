@@ -7,7 +7,10 @@
 
 // MARK: - GroupIndividualPray
 struct GroupIndividualPray: Codable {
-    let id: String
+    let userID: String
+    let userName: String
+    let groupID: String
+    let prayID: String
     var pray: String
     var tags: [String]
     var changes: [PrayChange]
@@ -20,7 +23,10 @@ struct GroupIndividualPray: Codable {
     let createDate: String
     
     enum CodingKeys: String, CodingKey {
-        case id = "pray_id"
+        case userID = "user_id"
+        case userName = "user_name"
+        case groupID = "group_id"
+        case prayID = "pray_id"
         case pray = "content"
         case tags
         case changes

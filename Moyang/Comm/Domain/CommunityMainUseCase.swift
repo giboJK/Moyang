@@ -163,9 +163,8 @@ class CommunityMainUseCase {
             guard let self = self else { return }
             switch result {
             case .success(let reply):
-                Log.w(reply)
                 if var selectedList = selectedList {
-                    if let index = selectedList.list.firstIndex(where: { $0.id == prayID}) {
+                    if let index = selectedList.list.firstIndex(where: { $0.prayID == prayID}) {
                         selectedList.list[index].replys.append(reply)
                         selectedList.list[index].latestDate = reply.createDate
                     }
