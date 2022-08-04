@@ -121,8 +121,8 @@ class GroupPrayTableViewCell: UITableViewCell {
         if let vm = vm {
             if isBinded { return }
             isBinded = true
-            
-            let output = vm.transform(input: VM.Input())
+            let input = VM.Input(showPrayDetail: prayCollectionView.rx.itemSelected.map { (self.userID, $0) }.asDriver(onErrorJustReturn: nil))
+            let output = vm.transform(input: input)
             output.memberPrayList
                 .map { $0[self.userID] ?? [] }
                 .drive(prayCollectionView.rx

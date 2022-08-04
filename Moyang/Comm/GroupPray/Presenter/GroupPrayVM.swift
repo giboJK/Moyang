@@ -68,30 +68,6 @@ class GroupPrayVM: VMType {
             .disposed(by: disposeBag)
     }
     
-//    private func setPrayData(data: [String: [GroupIndividualPray]]) {
-//        var cardList = [[GroupPrayItem]]()
-//        data.forEach { (_: String, value: [GroupIndividualPray]) in
-//            cardList.append(value.map({ item in
-//                GroupPrayItem(memberID: item.userID,
-//                              name: item.userName,
-//                              prayID: item.prayID,
-//                              pray: item.pray,
-//                              tags: item.tags,
-//                              latestDate: item.latestDate.isoToDateString() ?? "",
-//                              isSecret: item.isSecret,
-//                              isAnswered: item.isAnswered,
-//                              answer: item.answer,
-//                              changes: item.changes,
-//                              replys: [],
-//                              reactions: [],
-//                              createDate: item.createDate.isoToDateString() ?? "")
-//
-//            })
-//            )
-//        }
-//        prayItemList.accept(cardList)
-//    }
-    
     private func fetchPrayAll() {
         useCase.fetchPrayAll(order: GroupPrayOrder.latest.parameter)
     }
@@ -164,6 +140,8 @@ extension GroupPrayVM {
         var toggleIsWeek: Driver<Void> = .empty()
         
         var selectMember: Driver<IndexPath> = .empty()
+        
+        var showPrayDetail: Driver<(String, IndexPath)?> = .empty()
     }
     
     struct Output {
@@ -201,6 +179,12 @@ extension GroupPrayVM {
                 }
                 curList[indexPath.row].isChecked = true
                 self.memberList.accept(curList)
+            }).disposed(by: disposeBag)
+        
+        input.showPrayDetail
+            .drive(onNext: { item in
+                guard let item = item else { return }
+                Log.d(item)
             }).disposed(by: disposeBag)
         
         return Output(groupName: groupName.asDriver(),
