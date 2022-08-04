@@ -16,15 +16,15 @@ class GroupPrayVM: VMType {
     
     let groupName = BehaviorRelay<String>(value: "")
     let groupCreateDate = BehaviorRelay<Date?>(value: nil)
-    
     let isWeek = BehaviorRelay<Bool>(value: true)
-    let prayItemList = BehaviorRelay<[[GroupPrayItem]]>(value: [])
     let amenItemList = BehaviorRelay<[AmenItem]>(value: [])
     
     let order = BehaviorRelay<String>(value: GroupPrayOrder.latest.rawValue)
     let selectedMember = BehaviorRelay<String>(value: "")
     let memberList = BehaviorRelay<[MemberItem]>(value: [])
     let displayDate = BehaviorRelay<String>(value: "")
+    
+    let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
     
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
@@ -62,31 +62,40 @@ class GroupPrayVM: VMType {
             .subscribe(onNext: { [weak self] dict in
                 self?.setMemberList(dict: dict)
             }).disposed(by: disposeBag)
+        
+        useCase.memberPrayList
+            .bind(to: memberPrayList)
+            .disposed(by: disposeBag)
+        
+        useCase.memberPrayList
+            .subscribe(onNext: { dict in
+                Log.w(dict.keys)
+            }).disposed(by: disposeBag)
     }
     
-    private func setPrayData(data: [String: [GroupIndividualPray]]) {
-        var cardList = [[GroupPrayItem]]()
-        data.forEach { (_: String, value: [GroupIndividualPray]) in
-            cardList.append(value.map({ item in
-                GroupPrayItem(memberID: item.userID,
-                              name: item.userName,
-                              prayID: item.prayID,
-                              pray: item.pray,
-                              tags: item.tags,
-                              latestDate: item.latestDate.isoToDateString() ?? "",
-                              isSecret: item.isSecret,
-                              isAnswered: item.isAnswered,
-                              answer: item.answer,
-                              changes: item.changes,
-                              replys: [],
-                              reactions: [],
-                              createDate: item.createDate.isoToDateString() ?? "")
-                
-            })
-            )
-        }
-        prayItemList.accept(cardList)
-    }
+//    private func setPrayData(data: [String: [GroupIndividualPray]]) {
+//        var cardList = [[GroupPrayItem]]()
+//        data.forEach { (_: String, value: [GroupIndividualPray]) in
+//            cardList.append(value.map({ item in
+//                GroupPrayItem(memberID: item.userID,
+//                              name: item.userName,
+//                              prayID: item.prayID,
+//                              pray: item.pray,
+//                              tags: item.tags,
+//                              latestDate: item.latestDate.isoToDateString() ?? "",
+//                              isSecret: item.isSecret,
+//                              isAnswered: item.isAnswered,
+//                              answer: item.answer,
+//                              changes: item.changes,
+//                              replys: [],
+//                              reactions: [],
+//                              createDate: item.createDate.isoToDateString() ?? "")
+//
+//            })
+//            )
+//        }
+//        prayItemList.accept(cardList)
+//    }
     
     private func fetchPrayAll() {
         useCase.fetchPrayAll(order: GroupPrayOrder.latest.parameter)
@@ -159,19 +168,21 @@ extension GroupPrayVM {
         var toggleIsWeek: Driver<Void> = .empty()
         
         var selectMember: Driver<IndexPath> = .empty()
-        var releaseDetailVM: Driver<Void> = .empty()
     }
     
     struct Output {
         let groupName: Driver<String>
         let groupCreateDate: Driver<Date?>
         let isWeek: Driver<Bool>
-        let prayItemList: Driver<[[GroupPrayItem]]>
         let amenItemList: Driver<[AmenItem]>
+        
         let order: Driver<String>
         let selectedMember: Driver<String>
         let memberList: Driver<[MemberItem]>
         let displayDate: Driver<String>
+        
+        let memberPrayList: Driver<[String: [GroupIndividualPray]]>
+        
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
     }
@@ -199,12 +210,15 @@ extension GroupPrayVM {
         return Output(groupName: groupName.asDriver(),
                       groupCreateDate: groupCreateDate.asDriver(),
                       isWeek: isWeek.asDriver(),
-                      prayItemList: prayItemList.asDriver(),
                       amenItemList: amenItemList.asDriver(),
+                      
                       order: order.asDriver(),
                       selectedMember: selectedMember.asDriver(),
                       memberList: memberList.asDriver(),
                       displayDate: displayDate.asDriver(),
+                      
+                      memberPrayList: memberPrayList.asDriver(),
+                      
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver()
         )
@@ -239,6 +253,7 @@ extension GroupPrayVM {
             isChecked = false
         }
     }
+    // TODO: 안 쓸 것 같음.. 지워야 하나..
     struct GroupPrayItem {
         let memberID: String
         let name: String

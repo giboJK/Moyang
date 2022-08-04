@@ -12,7 +12,7 @@ import RxCocoa
 class PrayUseCase {
     let repo: PrayRepo
     
-    var memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
+    let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
     
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())

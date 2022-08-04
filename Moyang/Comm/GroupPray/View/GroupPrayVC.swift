@@ -36,7 +36,7 @@ class GroupPrayVC: UIViewController, VCType {
         $0.register(GroupPrayTableViewCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .sheep1
         $0.separatorStyle = .none
-        $0.estimatedRowHeight = 220
+        $0.rowHeight = 200
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true
@@ -241,8 +241,7 @@ class GroupPrayVC: UIViewController, VCType {
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(selectMember: prayTableView.rx.itemSelected.asDriver(),
-                             releaseDetailVM: self.rx.viewWillAppear.map { _ in () }.asDriver(onErrorJustReturn: ()))
+        let input = VM.Input(selectMember: prayTableView.rx.itemSelected.asDriver())
         let output = vm.transform(input: input)
         
         output.groupName
@@ -262,9 +261,10 @@ class GroupPrayVC: UIViewController, VCType {
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { [weak self] (index, item, cell) in
                     cell.index = index
+                    cell.userID = item.id
                     cell.nameLabel.text = item.name
                     cell.vm = self?.vm
-//                    cell.setupData(item: item[index], isPreview: true)
+                    cell.bind()
                 }.disposed(by: disposeBag)
         
         output.prayReactionDetailVM
