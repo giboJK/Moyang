@@ -102,6 +102,7 @@ class GroupPrayVM: VMType {
     
     private func setMemberList(dict: [String: String]) {
         var list = dict.map { MemberItem(id: $0.key, name: $0.value) }
+        list = list.sorted(by: { $0.name < $1.name })
         var allItem = MemberItem(id: "", name: "모두")
         allItem.isChecked = true
         list.append(allItem)

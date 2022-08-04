@@ -25,7 +25,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         $0.backgroundColor = .sheep2
     }
     let nameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .semibold)
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .nightSky1
     }
     let prayCollectionView: UICollectionView = {
@@ -38,6 +38,21 @@ class GroupPrayTableViewCell: UITableViewCell {
         cv.backgroundColor = .clear
         return cv
     }()
+    let emptyPrayView = UIView().then {
+        $0.backgroundColor = .sheep1
+        $0.layer.cornerRadius = 12
+        $0.layer.masksToBounds = true
+        $0.isHidden = true
+    }
+    let emptyPrayLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .nightSky1
+        $0.text = "기도 제목이 없습니다."
+    }
+    let divider = UIView().then {
+        $0.backgroundColor = .sheep3
+    }
+    
     var userID: String = ""
     var index: Int?
     
@@ -63,6 +78,8 @@ class GroupPrayTableViewCell: UITableViewCell {
         contentView.backgroundColor = .sheep1
         setupNameLabel()
         setupPrayCollectionView()
+        setupEmptyPrayView()
+        setupDivider()
     }
     private func setupNameLabel() {
         contentView.addSubview(nameLabel)
@@ -81,6 +98,25 @@ class GroupPrayTableViewCell: UITableViewCell {
         prayCollectionView.delegate = self
     }
     
+    private func setupEmptyPrayView() {
+        setupEmptyPrayLabel()
+    }
+    private func setupEmptyPrayLabel() {
+        emptyPrayView.addSubview(emptyPrayLabel)
+        emptyPrayLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().inset(12)
+        }
+    }
+    private func setupDivider() {
+        contentView.addSubview(divider)
+        divider.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.left.equalToSuperview().inset(12)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(0.5)
+        }
+    }
     func bind() {
         if let vm = vm {
             if isBinded { return }
@@ -105,14 +141,25 @@ class GroupPrayTableViewCell: UITableViewCell {
                         self.prayCollectionView.snp.remakeConstraints {
                             $0.top.equalTo(self.nameLabel.snp.bottom)
                             $0.left.right.bottom.equalToSuperview()
-                            $0.height.equalTo(0)
+                            $0.height.equalTo(40)
                         }
+                        if self.emptyPrayView.superview == nil {
+                            self.contentView.addSubview(self.emptyPrayView)
+                            self.emptyPrayView.snp.remakeConstraints {
+                                $0.top.equalTo(self.nameLabel.snp.bottom)
+                                $0.left.right.bottom.equalToSuperview()
+                                $0.height.equalTo(40)
+                            }
+                        }
+                        self.emptyPrayView.isHidden = false
                     } else {
                         self.prayCollectionView.snp.remakeConstraints {
                             $0.top.equalTo(self.nameLabel.snp.bottom)
                             $0.left.right.bottom.equalToSuperview()
                             $0.height.equalTo(200)
                         }
+                        self.emptyPrayView.removeFromSuperview()
+                        self.emptyPrayView.isHidden = true
                     }
                 }).disposed(by: disposeBag)
         }

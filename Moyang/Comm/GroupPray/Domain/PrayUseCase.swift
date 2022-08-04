@@ -55,8 +55,10 @@ class PrayUseCase {
                 
                 response.forEach { item in
                     if var list = prayDict[item.userID] {
-                        list.append(item)
-                        prayDict.updateValue(list, forKey: item.userID)
+                        if !item.prayID.isEmpty {
+                            list.append(item)
+                            prayDict.updateValue(list, forKey: item.userID)
+                        }
                     }
                 }
                 self.memberPrayList.accept(prayDict)
