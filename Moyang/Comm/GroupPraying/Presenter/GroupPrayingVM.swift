@@ -14,13 +14,11 @@ class GroupPrayingVM: VMType {
     typealias PrayItem = GroupPrayVM.GroupPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
-    var members: [Member] = []
     
     private let memberNameList = BehaviorRelay<[String]>(value: [])
     private let selectedMemberName = BehaviorRelay<String>(value: "")
     private let songName = BehaviorRelay<String?>(value: nil)
     private let isPlaying = BehaviorRelay<Bool>(value: false)
-    private let memberPrayList = BehaviorRelay<[(member: Member, list: PrayList)]>(value: [])
     private let prayList = BehaviorRelay<[PrayItem]>(value: [])
     private let isPrevEnabled = BehaviorRelay<Bool>(value: false)
     private let isNextEnabled = BehaviorRelay<Bool>(value: false)
@@ -51,18 +49,18 @@ class GroupPrayingVM: VMType {
     }
     
     private func bind() {
-        useCase.memberList
-            .subscribe(onNext: { [weak self] list in
-                self?.members = list
-                self?.memberNameList.accept(list.map { $0.name }.sorted(by: <))
-            }).disposed(by: disposeBag)
-        
-        useCase.memberPrayList
-            .subscribe(onNext: { [weak self] list in
-                self?.memberPrayList.accept(list)
-                self?.setPrayList()
-            })
-            .disposed(by: disposeBag)
+//        useCase.memberList
+//            .subscribe(onNext: { [weak self] list in
+//                self?.members = list
+//                self?.memberNameList.accept(list.map { $0.name }.sorted(by: <))
+//            }).disposed(by: disposeBag)
+//
+//        useCase.memberPrayList
+//            .subscribe(onNext: { [weak self] list in
+//                self?.memberPrayList.accept(list)
+//                self?.setPrayList()
+//            })
+//            .disposed(by: disposeBag)
         
         useCase.songName
             .map { ($0 ?? "") + "                      " }

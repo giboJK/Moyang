@@ -17,7 +17,6 @@
 		0865D71328979890007E1D7E /* QuickPrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0865D71228979890007E1D7E /* QuickPrayVC.swift */; };
 		086CB32328130077003BF6F7 /* GroupIndividualPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086CB32228130077003BF6F7 /* GroupIndividualPray.swift */; };
 		0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880103827AEBB48002E49F0 /* CommunityMainVM.swift */; };
-		08A02A6427AE20550043EEF0 /* GroupQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A02A6327AE20550043EEF0 /* GroupQuestion.swift */; };
 		08AA085D288520E2008670E3 /* LogInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AA085C288520E2008670E3 /* LogInVM.swift */; };
 		08AD9585287BDFF1002D4F94 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD9584287BDFF1002D4F94 /* AuthController.swift */; };
 		08AD958A287BE063002D4F94 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD9589287BE063002D4F94 /* SignUpVC.swift */; };
@@ -60,7 +59,6 @@
 		242F92A12848FD140023324D /* NewPrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F92A02848FD140023324D /* NewPrayVC.swift */; };
 		242F92A3284904AF0023324D /* MoyangTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F92A2284904AF0023324D /* MoyangTextField.swift */; };
 		2455300428780B8E00E56889 /* ReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2455300328780B8E00E56889 /* ReplyTableViewCell.swift */; };
-		246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246BD7E627240AE4005C4E0B /* GroupRepo.swift */; };
 		24755367277CA9AB001908A6 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24755366277CA9AB001908A6 /* UserData.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
@@ -80,7 +78,6 @@
 		24AACA7C283FC3DD00308AC3 /* CommunityMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7B283FC3DD00308AC3 /* CommunityMainCoordinator.swift */; };
 		24AACA7E283FC40A00308AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7D283FC40A00308AC3 /* Coordinator.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
-		24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B652AC279584AD007CC58C /* MeetingInfo.swift */; };
 		24B6A2552726BEB00065112A /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* GroupInfo.swift */; };
 		24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6E31E275F81CE00AD2E53 /* MoyangError.swift */; };
 		24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B88EE727A2D6C600D5B001 /* LottieView.swift */; };
@@ -127,7 +124,6 @@
 		24D0D33127231520006FF67B /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D33027231520006FF67B /* View+.swift */; };
 		24D0D33327231537006FF67B /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D33227231537006FF67B /* UIScreen+.swift */; };
 		24D6E60E284D889E00DE3493 /* GroupPrayingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D6E60D284D889E00DE3493 /* GroupPrayingTableViewCell.swift */; };
-		24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */; };
 		24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */; };
 		24DABDA72890FE6E00DEB6CC /* Calendar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DABDA62890FE6E00DEB6CC /* Calendar+.swift */; };
 		24DABDA9289180D200DEB6CC /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DABDA8289180D200DEB6CC /* Int+.swift */; };
@@ -155,7 +151,6 @@
 		24E4DC39284C2D1C002ECD83 /* GroupPrayingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4DC38284C2D1C002ECD83 /* GroupPrayingVM.swift */; };
 		24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E60723278EF19E00D5A7F2 /* IndicatorView.swift */; };
 		24E6455D2850E08A00CF10AD /* MoyangButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E6455C2850E08A00CF10AD /* MoyangButton.swift */; };
-		24E779CE2787308D00C732D6 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E779CD2787308D00C732D6 /* Member.swift */; };
 		24E8F07E27DDD7280036C0F0 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E8F07D27DDD7280036C0F0 /* WebView.swift */; };
 		24EDC8BF288EAC5900431A02 /* GroupSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EDC8BE288EAC5900431A02 /* GroupSummary.swift */; };
 		24EFE40F287F10CD00549E07 /* KeychainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EFE40E287F10CD00549E07 /* KeychainSwift.swift */; };
@@ -188,7 +183,6 @@
 		0865D71228979890007E1D7E /* QuickPrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPrayVC.swift; sourceTree = "<group>"; };
 		086CB32228130077003BF6F7 /* GroupIndividualPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupIndividualPray.swift; sourceTree = "<group>"; };
 		0880103827AEBB48002E49F0 /* CommunityMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainVM.swift; sourceTree = "<group>"; };
-		08A02A6327AE20550043EEF0 /* GroupQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQuestion.swift; sourceTree = "<group>"; };
 		08AA085C288520E2008670E3 /* LogInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVM.swift; sourceTree = "<group>"; };
 		08AD9584287BDFF1002D4F94 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		08AD9589287BE063002D4F94 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
@@ -232,7 +226,6 @@
 		242F92A02848FD140023324D /* NewPrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayVC.swift; sourceTree = "<group>"; };
 		242F92A2284904AF0023324D /* MoyangTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangTextField.swift; sourceTree = "<group>"; };
 		2455300328780B8E00E56889 /* ReplyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyTableViewCell.swift; sourceTree = "<group>"; };
-		246BD7E627240AE4005C4E0B /* GroupRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupRepo.swift; sourceTree = "<group>"; };
 		24755366277CA9AB001908A6 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -253,7 +246,6 @@
 		24AACA7D283FC40A00308AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		24B492D027989DAB005CAA5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		24B652AC279584AD007CC58C /* MeetingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInfo.swift; sourceTree = "<group>"; };
 		24B6A2542726BEB00065112A /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
 		24B6E31E275F81CE00AD2E53 /* MoyangError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangError.swift; sourceTree = "<group>"; };
 		24B88EE727A2D6C600D5B001 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
@@ -302,7 +294,6 @@
 		24D0D33027231520006FF67B /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		24D0D33227231537006FF67B /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		24D6E60D284D889E00DE3493 /* GroupPrayingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayingTableViewCell.swift; sourceTree = "<group>"; };
-		24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberPray.swift; sourceTree = "<group>"; };
 		24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCenter.swift; sourceTree = "<group>"; };
 		24DABDA62890FE6E00DEB6CC /* Calendar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+.swift"; sourceTree = "<group>"; };
 		24DABDA8289180D200DEB6CC /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
@@ -329,7 +320,6 @@
 		24E4DC38284C2D1C002ECD83 /* GroupPrayingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayingVM.swift; sourceTree = "<group>"; };
 		24E60723278EF19E00D5A7F2 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		24E6455C2850E08A00CF10AD /* MoyangButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButton.swift; sourceTree = "<group>"; };
-		24E779CD2787308D00C732D6 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		24E8F07D27DDD7280036C0F0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		24EDC8BE288EAC5900431A02 /* GroupSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSummary.swift; sourceTree = "<group>"; };
 		24EFE40E287F10CD00549E07 /* KeychainSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwift.swift; sourceTree = "<group>"; };
@@ -634,12 +624,7 @@
 		246BD7E527240AE4005C4E0B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				246BD7E627240AE4005C4E0B /* GroupRepo.swift */,
 				24B6A2542726BEB00065112A /* GroupInfo.swift */,
-				24D7BB32274D17C000CC8B7C /* GroupMemberPray.swift */,
-				24E779CD2787308D00C732D6 /* Member.swift */,
-				24B652AC279584AD007CC58C /* MeetingInfo.swift */,
-				08A02A6327AE20550043EEF0 /* GroupQuestion.swift */,
 				2499CBFE2806E9DD004C0984 /* ChurchInfo.swift */,
 			);
 			path = Domain;
@@ -1322,7 +1307,6 @@
 				24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */,
 				24EFE40F287F10CD00549E07 /* KeychainSwift.swift in Sources */,
 				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
-				24B652AD279584AD007CC58C /* MeetingInfo.swift in Sources */,
 				08D2FD95286EE24800ED8ECB /* PrayReactionDetailVC.swift in Sources */,
 				082371B727BA84860050420E /* DatePickerTextField.swift in Sources */,
 				24E0AB36283E751800F52505 /* Reachability.swift in Sources */,
@@ -1356,13 +1340,11 @@
 				0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				24AACA7C283FC3DD00308AC3 /* CommunityMainCoordinator.swift in Sources */,
-				24E779CE2787308D00C732D6 /* Member.swift in Sources */,
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
 				08AD959A287BEE00002D4F94 /* AuthUseCase.swift in Sources */,
 				24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */,
 				24CFA8B82878894D00484C89 /* StickyHeaderView.swift in Sources */,
 				086CB32328130077003BF6F7 /* GroupIndividualPray.swift in Sources */,
-				246BD7F727240AE4005C4E0B /* GroupRepo.swift in Sources */,
 				2498F902287C3733007EF510 /* IntroVC.swift in Sources */,
 				08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */,
 				24A55F64279AFE7D007DDE02 /* String+.swift in Sources */,
@@ -1384,7 +1366,6 @@
 				24F41C6D2897EBCC005B5E70 /* ProfileVC.swift in Sources */,
 				08D8295B278D3327001E6B61 /* Color+.swift in Sources */,
 				24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */,
-				08A02A6427AE20550043EEF0 /* GroupQuestion.swift in Sources */,
 				08AD958A287BE063002D4F94 /* SignUpVC.swift in Sources */,
 				24AACA78283FB42A00308AC3 /* CommunityMainAssembly.swift in Sources */,
 				242F92A12848FD140023324D /* NewPrayVC.swift in Sources */,
@@ -1455,7 +1436,6 @@
 				24CFA8C62879300800484C89 /* AllGroupUseCase.swift in Sources */,
 				08AD9596287BEB08002D4F94 /* AuthRepo.swift in Sources */,
 				2493DE6228467441001A9368 /* GroupPrayVC.swift in Sources */,
-				24D7BB33274D17C100CC8B7C /* GroupMemberPray.swift in Sources */,
 				242F92A3284904AF0023324D /* MoyangTextField.swift in Sources */,
 				24E0AB32283E74A900F52505 /* Request.swift in Sources */,
 			);

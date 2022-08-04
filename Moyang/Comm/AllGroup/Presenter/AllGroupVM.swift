@@ -46,9 +46,6 @@ class AllGroupVM: VMType {
 //        groupPrayVM.accept(GroupPrayVM(useCase: communityUseCase))
     }
     
-    private func clearPrayList() {
-        communityUseCase.clearCardMemberPrayList()
-    }
 }
 
 extension AllGroupVM {
@@ -65,7 +62,6 @@ extension AllGroupVM {
     func transform(input: Input) -> Output {
         input.clearList
             .drive(onNext: { [weak self] in
-                self?.clearPrayList()
             }).disposed(by: disposeBag)
         input.selectGroup
             .drive(onNext: { [weak self] indexPath in
