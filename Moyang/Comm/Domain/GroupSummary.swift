@@ -23,14 +23,14 @@ struct GroupSummary: Codable {
 struct GroupSummaryPray: Codable {
     let userID: String
     let userName: String
-    let prayID: String
-    let content: String
-    let answer: String
-    var changes: [PrayChange]
-    let isSecret: Bool
-    let isAnswered: Bool
-    let latestDate: String
-    let createDate: String
+    let prayID: String?
+    let content: String?
+    let answer: String?
+    var changes: [PrayChange]?
+    let isSecret: Bool?
+    let isAnswered: Bool?
+    let latestDate: String?
+    let createDate: String?
     
     enum CodingKeys: String, CodingKey {
         case userID = "user_id"

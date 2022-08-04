@@ -133,7 +133,7 @@ class PrayCVCell: UICollectionViewCell {
     private func setupBgView() {
         contentView.addSubview(bgView)
         bgView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(8)
             $0.left.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview().inset(12)
         }
@@ -379,9 +379,9 @@ class PrayCVCell: UICollectionViewCell {
             }).disposed(by: disposeBag)
     }
     
-    func setupData(item: GroupPrayVM.GroupPrayItem) {
+    func setupData(item: GroupIndividualPray) {
         updateLatestPrayLabelHeight()
-        dateLabel.text = item.latestDate
+        dateLabel.text = item.latestDate.isoToDateString() ?? ""
         latestPrayLabel.text = item.pray
         tags = item.tags
         tagCollectionView.reloadData()
@@ -390,32 +390,31 @@ class PrayCVCell: UICollectionViewCell {
         }
         noTagLabel.isHidden = !item.tags.isEmpty
         isSecretImageView.isHidden = !item.isSecret
-//        setupReactionAndReplyView(reactions: item.reactions, replys: item.replys)
+        setupReactionAndReplyView(reactions: item.reactions, replys: item.replys)
         
-//        prayCountLabel.isHidden = item.changes.isEmpty
-//        firstPrayDateLabel.isHidden = item.changes.isEmpty
-//        firstPrayLabel.isHidden = item.changes.isEmpty
-//        firstPrayDivider.isHidden = item.changes.isEmpty
-//        if !item.changes.isEmpty {
-//            prayCountLabel.text = "총 \(item.changes.count + 1)개의 기도가 있습니다."
-//            firstPrayDateLabel.text = "처음 등록일: " + item.registeredDate
-//            firstPrayLabel.text = item.pray
-//            firstPrayLabel.lineBreakMode = .byTruncatingTail
-//            latestPrayLabel.text = item.changes.first!.reply
-//            dateLabel.text = "최근 기록일: " + item.changes.first!.date
-//
-//            dateLabel.snp.remakeConstraints {
-//                $0.top.equalTo(firstPrayDivider.snp.bottom).offset(8)
-//                $0.left.equalToSuperview().inset(12)
-//                $0.height.equalTo(20)
-//            }
-//        } else {
-//            dateLabel.snp.remakeConstraints {
-//                $0.top.equalTo(nameLabel.snp.bottom).offset(2)
-//                $0.left.equalToSuperview().inset(12)
-//                $0.height.equalTo(20)
-//            }
-//        }
+        prayCountLabel.isHidden = item.changes.isEmpty
+        firstPrayDateLabel.isHidden = item.changes.isEmpty
+        firstPrayLabel.isHidden = item.changes.isEmpty
+        firstPrayDivider.isHidden = item.changes.isEmpty
+        if !item.changes.isEmpty {
+            prayCountLabel.text = "총 \(item.changes.count + 1)개의 기도가 있습니다."
+            firstPrayDateLabel.text = "처음 등록일: " + item.createDate.isoToDateString()!
+            firstPrayLabel.text = item.pray
+            firstPrayLabel.lineBreakMode = .byTruncatingTail
+            latestPrayLabel.text = item.changes.first!.content
+            dateLabel.text = "최근 기록일: " + item.changes.first!.date
+
+            dateLabel.snp.remakeConstraints {
+                $0.top.equalTo(firstPrayDivider.snp.bottom).offset(8)
+                $0.left.equalToSuperview().inset(12)
+                $0.height.equalTo(20)
+            }
+        } else {
+            dateLabel.snp.remakeConstraints {
+                $0.top.equalToSuperview().inset(8)
+                $0.left.right.equalToSuperview().inset(12)
+            }
+        }
     }
 }
 

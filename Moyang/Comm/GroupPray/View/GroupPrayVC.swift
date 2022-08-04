@@ -36,7 +36,7 @@ class GroupPrayVC: UIViewController, VCType {
         $0.register(GroupPrayTableViewCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .sheep1
         $0.separatorStyle = .none
-        $0.rowHeight = 200
+        $0.estimatedRowHeight = 220
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true

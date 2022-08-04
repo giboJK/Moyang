@@ -66,11 +66,6 @@ class GroupPrayVM: VMType {
         useCase.memberPrayList
             .bind(to: memberPrayList)
             .disposed(by: disposeBag)
-        
-        useCase.memberPrayList
-            .subscribe(onNext: { dict in
-                Log.w(dict.keys)
-            }).disposed(by: disposeBag)
     }
     
 //    private func setPrayData(data: [String: [GroupIndividualPray]]) {

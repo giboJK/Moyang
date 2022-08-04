@@ -83,7 +83,7 @@ class CommunityMainVM: VMType {
         formatter.timeZone = TimeZone.current
         data.forEach { item in
             var isThisWeek = false
-            if let removeMilliSec = item.latestDate.split(separator: ".").first {
+            if let removeMilliSec = item.latestDate?.split(separator: ".").first {
                 let timeString = String(removeMilliSec)+"+00:00"
                 if let date = formatter.date(from: timeString) {
                     isThisWeek = Calendar.current.isDateInThisWeek(date)
@@ -91,14 +91,14 @@ class CommunityMainVM: VMType {
             }
             cardList.append(GroupSummaryPrayItem(memberID: item.userID,
                                                  name: item.userName,
-                                                 prayID: item.prayID,
-                                                 pray: item.content,
-                                                 latestDate: item.latestDate.isoToDateString() ?? "",
-                                                 isSecret: item.isSecret,
-                                                 isAnswered: item.isAnswered,
-                                                 answer: item.answer,
-                                                 changes: item.changes,
-                                                 createDate: item.createDate.isoToDateString() ?? "",
+                                                 prayID: item.prayID ?? "",
+                                                 pray: item.content ?? "",
+                                                 latestDate: item.latestDate?.isoToDateString() ?? "",
+                                                 isSecret: item.isSecret ?? true,
+                                                 isAnswered: item.isAnswered ?? false,
+                                                 answer: item.answer ?? "",
+                                                 changes: item.changes ?? [],
+                                                 createDate: item.createDate?.isoToDateString() ?? "",
                                                  isThisWeek: isThisWeek))
         }
         cardPrayItemList.accept(cardList)

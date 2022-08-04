@@ -192,9 +192,11 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
                         cell.dateLabel.text = item.latestDate
                         cell.newView.isHidden = !item.isThisWeek
                     } else {
+                        cell.dateLabel.text = ""
                         cell.prayLabel.text = "기도제목이 없습니다"
                     }
                 } else {
+                    cell.dateLabel.text = ""
                     cell.prayLabel.text = "기도제목이 없습니다"
                 }
             }.disposed(by: disposeBag)
