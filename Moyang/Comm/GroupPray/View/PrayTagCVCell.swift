@@ -1,5 +1,5 @@
 //
-//  PrayTagCollectionViewCell.swift
+//  PrayTagCVCell.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/01.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PrayTagCollectionViewCell: UICollectionViewCell {
+class PrayTagCVCell: UICollectionViewCell {
     let tagLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14, weight: .regular)
         $0.textColor = .sheep2

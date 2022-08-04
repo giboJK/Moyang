@@ -40,6 +40,7 @@
 		08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */; };
 		08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */; };
 		08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFC127FDD78A00BDCB14 /* NetConst.swift */; };
+		08F941F4289B5423003751F1 /* PrayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F3289B5423003751F1 /* PrayCVCell.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		240946D028707379003AEDAD /* PrayWithAndChangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240946CF28707379003AEDAD /* PrayWithAndChangeVC.swift */; };
 		240946D3287073FE003AEDAD /* PrayWithAndChangeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240946D2287073FE003AEDAD /* PrayWithAndChangeVM.swift */; };
@@ -86,7 +87,7 @@
 		24B9AEDC27C1C6DD005391DA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9AEDB27C1C6DD005391DA /* SearchBar.swift */; };
 		24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B86827A03B5F009FADC8 /* Encodable+.swift */; };
 		24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9BF6C275AEB7B0056E694 /* UIColor+.swift */; };
-		24BB426028471F6700E86CCD /* PrayTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB425F28471F6700E86CCD /* PrayTagCollectionViewCell.swift */; };
+		24BB426028471F6700E86CCD /* PrayTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */; };
 		24BB42622847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB42612847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */; };
 		24BE30DE2862C39100413A3B /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE30DD2862C39100413A3B /* AppInfo.swift */; };
@@ -131,7 +132,7 @@
 		24DABE7227E8610C0008D132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24DABE7127E8610C0008D132 /* GoogleService-Info.plist */; };
 		24DABE7327E89E680008D132 /* praysong.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 24FAEF0D27E2153800B2DA81 /* praysong.m4a */; };
 		24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB53BA27479DAA00F861EC /* UINavigationController+.swift */; };
-		24DB58DE2845CA8E001E12B0 /* CommunityGroupPrayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB58DD2845CA8E001E12B0 /* CommunityGroupPrayCollectionViewCell.swift */; };
+		24DB58DE2845CA8E001E12B0 /* CommunityGroupPrayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB58DD2845CA8E001E12B0 /* CommunityGroupPrayCVCell.swift */; };
 		24DDDEBE2879D49D00F7B82A /* GroupInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DDDEBD2879D49D00F7B82A /* GroupInfoTableViewCell.swift */; };
 		24E0AB1D283D1ECF00F52505 /* GroupPrayingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB1C283D1ECF00F52505 /* GroupPrayingVC.swift */; };
 		24E0AB1F283D1FF900F52505 /* MoyangNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB1E283D1FF900F52505 /* MoyangNavBar.swift */; };
@@ -208,6 +209,7 @@
 		08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
 		08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		08EBCFC127FDD78A00BDCB14 /* NetConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConst.swift; sourceTree = "<group>"; };
+		08F941F3289B5423003751F1 /* PrayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayCVCell.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		240946CF28707379003AEDAD /* PrayWithAndChangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayWithAndChangeVC.swift; sourceTree = "<group>"; };
 		240946D2287073FE003AEDAD /* PrayWithAndChangeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayWithAndChangeVM.swift; sourceTree = "<group>"; };
@@ -256,7 +258,7 @@
 		24B9AEDB27C1C6DD005391DA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		24B9B86827A03B5F009FADC8 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		24B9BF6C275AEB7B0056E694 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
-		24BB425F28471F6700E86CCD /* PrayTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayTagCollectionViewCell.swift; sourceTree = "<group>"; };
+		24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayTagCVCell.swift; sourceTree = "<group>"; };
 		24BB42612847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		24BE30DD2862C39100413A3B /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
@@ -302,7 +304,7 @@
 		24DABDA8289180D200DEB6CC /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		24DABE7127E8610C0008D132 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24DB53BA27479DAA00F861EC /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
-		24DB58DD2845CA8E001E12B0 /* CommunityGroupPrayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityGroupPrayCollectionViewCell.swift; sourceTree = "<group>"; };
+		24DB58DD2845CA8E001E12B0 /* CommunityGroupPrayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityGroupPrayCVCell.swift; sourceTree = "<group>"; };
 		24DDDEBD2879D49D00F7B82A /* GroupInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoTableViewCell.swift; sourceTree = "<group>"; };
 		24E0AB1C283D1ECF00F52505 /* GroupPrayingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayingVC.swift; sourceTree = "<group>"; };
 		24E0AB1E283D1FF900F52505 /* MoyangNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangNavBar.swift; sourceTree = "<group>"; };
@@ -654,8 +656,9 @@
 				2493DE6128467441001A9368 /* GroupPrayVC.swift */,
 				24C5273F284708570081AE25 /* GroupPrayTableViewCell.swift */,
 				24F6B0C2289954740001B781 /* MemberItemTableViewCell.swift */,
-				24BB425F28471F6700E86CCD /* PrayTagCollectionViewCell.swift */,
+				24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */,
 				24F6B0C0289951940001B781 /* MemberSelectVC.swift */,
+				08F941F3289B5423003751F1 /* PrayCVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -934,7 +937,7 @@
 				0819D91C27AD1E51009F97BF /* SermonCard.swift */,
 				24E0AB24283E508B00F52505 /* CommunityMainScrollView.swift */,
 				24E0AB26283E5C8500F52505 /* CommunityGroupPrayCard.swift */,
-				24DB58DD2845CA8E001E12B0 /* CommunityGroupPrayCollectionViewCell.swift */,
+				24DB58DD2845CA8E001E12B0 /* CommunityGroupPrayCVCell.swift */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -1301,6 +1304,7 @@
 				240946D3287073FE003AEDAD /* PrayWithAndChangeVM.swift in Sources */,
 				24CFA8BE28792D4800484C89 /* AllGroupVC.swift in Sources */,
 				24CD549F28771AF50081375B /* PrayReplyDetailVM.swift in Sources */,
+				08F941F4289B5423003751F1 /* PrayCVCell.swift in Sources */,
 				24D0D3292723145F006FF67B /* Date+.swift in Sources */,
 				24C877CF282FD76100F69AAD /* VCType.swift in Sources */,
 				24E4DC39284C2D1C002ECD83 /* GroupPrayingVM.swift in Sources */,
@@ -1330,9 +1334,9 @@
 				2498F902287C3733007EF510 /* IntroVC.swift in Sources */,
 				08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */,
 				24A55F64279AFE7D007DDE02 /* String+.swift in Sources */,
-				24DB58DE2845CA8E001E12B0 /* CommunityGroupPrayCollectionViewCell.swift in Sources */,
+				24DB58DE2845CA8E001E12B0 /* CommunityGroupPrayCVCell.swift in Sources */,
 				24E0AB2E283E744200F52505 /* CommunityController.swift in Sources */,
-				24BB426028471F6700E86CCD /* PrayTagCollectionViewCell.swift in Sources */,
+				24BB426028471F6700E86CCD /* PrayTagCVCell.swift in Sources */,
 				24AACA7E283FC40A00308AC3 /* Coordinator.swift in Sources */,
 				24C8E9B5286B14B700AEE46B /* GroupPrayEditVM.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,

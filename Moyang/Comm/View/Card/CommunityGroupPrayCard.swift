@@ -64,7 +64,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         layout.minimumLineSpacing = 4
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(CommunityGroupPrayCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        cv.register(CommunityGroupPrayCVCell.self, forCellWithReuseIdentifier: "cell")
         cv.backgroundColor = .clear
         cv.isPagingEnabled = true
         return cv
@@ -184,7 +184,7 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         output.cardPrayItemList
             .drive(prayCollectionView.rx
                 .items(cellIdentifier: "cell",
-                       cellType: CommunityGroupPrayCollectionViewCell.self)) { (_, item, cell) in
+                       cellType: CommunityGroupPrayCVCell.self)) { (_, item, cell) in
                 cell.nameLabel.text = item.name
                 if !item.pray.isEmpty {
                     if !item.isSecret {

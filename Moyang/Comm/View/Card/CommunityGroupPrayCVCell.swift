@@ -1,5 +1,5 @@
 //
-//  CommunityGroupPrayCollectionViewCell.swift
+//  CommunityGroupPrayCVCell.swift
 //
 //
 //  Created by 정김기보 on 2022/05/31.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CommunityGroupPrayCollectionViewCell: UICollectionViewCell {
+class CommunityGroupPrayCVCell: UICollectionViewCell {
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .semibold)
         $0.textColor = .nightSky1

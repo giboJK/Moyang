@@ -50,26 +50,18 @@ class GroupPrayVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
+        if let groupInfo = UserData.shared.groupInfo {
+            groupName.accept(groupInfo.groupName)
+        } else { Log.e("") }
+        
         useCase.isNetworking
             .bind(to: isNetworking)
             .disposed(by: disposeBag)
         
-        useCase.memberPrayList
-            .skip(1)
-            .subscribe(onNext: { [weak self] (dict: [String: [GroupIndividualPray]]) in
-                guard let self = self else { return }
-                if let groupInfo = UserData.shared.groupInfo {
-                    self.groupName.accept(groupInfo.groupName)
-                    self.setPrayData(data: dict)
-                } else { Log.e("") }
-                
+        useCase.userIDNameDict
+            .subscribe(onNext: { [weak self] dict in
+                self?.setMemberList(dict: dict)
             }).disposed(by: disposeBag)
-//        useCase.groupSummary
-//            .subscribe(onNext: { [weak self] data in
-//                self.setAmenData(data: data.amens)
-//                self.setMemberList(data: data.prays)
-//                self.groupCreateDate.accept(data.groupInfo.createDate.isoToDate())
-//            }).disposed(by: disposeBag)
     }
     
     private func setPrayData(data: [String: [GroupIndividualPray]]) {
@@ -104,8 +96,8 @@ class GroupPrayVM: VMType {
         
     }
     
-    private func setMemberList(data: [GroupSummaryPray]) {
-        var list = data.map { MemberItem(id: $0.userID, name: $0.userName) }
+    private func setMemberList(dict: [String: String]) {
+        var list = dict.map { MemberItem(id: $0.key, name: $0.value) }
         var allItem = MemberItem(id: "", name: "모두")
         allItem.isChecked = true
         list.append(allItem)

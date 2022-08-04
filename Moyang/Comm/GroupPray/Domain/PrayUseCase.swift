@@ -21,7 +21,8 @@ class PrayUseCase {
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
-    var userIDNameDict = [String: String]()
+    let userIDNameDict = BehaviorRelay<[String: String]>(value: [:])
+    private var userPrayFetchDate = [String: Set<String>]() // 유저별로 해당 날짜의 기도를 불러온 적이 있는지 저장하는 모델
     
     // MARK: - Lifecycle
     init(repo: PrayRepo) {
@@ -41,21 +42,24 @@ class PrayUseCase {
             switch result {
             case .success(let response):
                 // 만약에 기도를 하나도 등록하지 않은 유저가 있을 경우 생성되지 않음
+                var userIDNameDict = [String: String]()
                 response.forEach { item in
-                    self.userIDNameDict.updateValue(item.userName, forKey: item.userID)
+                    userIDNameDict.updateValue(item.userName, forKey: item.userID)
+                    self.userPrayFetchDate.updateValue(Set<String>(), forKey: item.userID) // 최초에는 저장 공간을 만들어두기만 한다. 하루에 여러 기도를 저장할 수 있으므로.
                 }
-                var dict = [String: [GroupIndividualPray]]()
-                self.userIDNameDict.keys.forEach { key in
-                    dict.updateValue([], forKey: key)
+                self.userIDNameDict.accept(userIDNameDict)
+                var prayDict = [String: [GroupIndividualPray]]()
+                userIDNameDict.keys.forEach { key in
+                    prayDict.updateValue([], forKey: key)
                 }
                 
                 response.forEach { item in
-                    if var list = dict[item.userID] {
+                    if var list = prayDict[item.userID] {
                         list.append(item)
-                        dict.updateValue(list, forKey: item.userID)
+                        prayDict.updateValue(list, forKey: item.userID)
                     }
                 }
-                self.memberPrayList.accept(dict)
+                self.memberPrayList.accept(prayDict)
             case .failure(let error):
                 Log.e(error)
             }

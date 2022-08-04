@@ -257,11 +257,14 @@ class GroupPrayVC: UIViewController, VCType {
                 self.prayTableView.stickyHeader.height = height
             }).disposed(by: disposeBag)
         
-        output.prayItemList
+        output.memberList
+            .map({ $0.filter { !$0.id.isEmpty } })
             .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { (index, item, cell) in
+                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { [weak self] (index, item, cell) in
                     cell.index = index
-                    cell.setupData(item: item[index], isPreview: true)
+                    cell.nameLabel.text = item.name
+                    cell.vm = self?.vm
+//                    cell.setupData(item: item[index], isPreview: true)
                 }.disposed(by: disposeBag)
         
         output.prayReactionDetailVM

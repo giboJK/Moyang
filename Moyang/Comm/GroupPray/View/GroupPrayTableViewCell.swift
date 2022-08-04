@@ -13,7 +13,11 @@ import RxSwift
 import RxGesture
 
 class GroupPrayTableViewCell: UITableViewCell {
+    typealias VM = GroupPrayVM
     var disposeBag: DisposeBag = DisposeBag()
+    var vm: VM?
+    var isBinded = false
+    
     // MARK: - UI
     let bgView = UIView().then {
         $0.layer.cornerRadius = 12
@@ -68,7 +72,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         $0.collectionViewLayout = layout
         $0.isScrollEnabled = true
         $0.backgroundColor = .clear
-        $0.register(PrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        $0.register(PrayTagCVCell.self, forCellWithReuseIdentifier: "cell")
     }
     let noTagLabel = UILabel().then {
         $0.text = "#태그"
@@ -392,10 +396,8 @@ class GroupPrayTableViewCell: UITableViewCell {
         self.setupReplyView(replys: replys)
         self.setupReactionView(reactions: reactions)
     }
-    func setupData(item: GroupPrayVM.GroupPrayItem, isPreview: Bool = false) {
-        if isPreview {
-            updateLatestPrayLabelHeight()
-        }
+    func setupData(item: GroupPrayVM.GroupPrayItem) {
+        updateLatestPrayLabelHeight()
         nameLabel.text = item.name
         dateLabel.text = item.latestDate
         latestPrayLabel.text = item.pray
@@ -433,6 +435,16 @@ class GroupPrayTableViewCell: UITableViewCell {
 //            }
 //        }
     }
+    func bind() {
+        if let vm = vm {
+            if isBinded { return }
+            isBinded = true
+            
+//            let input = VM.Input(deleteTag: deleteButton.rx.tap.map { self.indexPath }.asDriver(onErrorJustReturn: nil))
+//            _ = vm.transform(input: input)
+
+        }
+    }
 }
 
 extension GroupPrayTableViewCell: UICollectionViewDelegateFlowLayout {
@@ -449,7 +461,7 @@ extension GroupPrayTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PrayTagCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PrayTagCVCell else {
             return UICollectionViewCell()
         }
         cell.tagLabel.text = tags[indexPath.row]
