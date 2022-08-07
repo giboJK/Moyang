@@ -43,7 +43,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.setTitleColor(.nightSky3, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
-    let newPrayTextField = UITextView().then {
+    let newPrayTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
@@ -96,7 +96,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         setupNavBar()
         setupGroupNameLabel()
         setupGroupChangeButton()
-        setupNewPrayTextField()
+        setupNewPrayTextView()
         setupTagInfoLabel()
         setupTagTextField()
         setupTagCollectionView()
@@ -144,12 +144,12 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             $0.right.equalToSuperview().inset(16)
         }
     }
-    private func setupNewPrayTextField() {
-        view.addSubview(newPrayTextField)
-        newPrayTextField.snp.makeConstraints {
-            $0.top.equalTo(groupNameLabel.snp.bottom).offset(8)
+    private func setupNewPrayTextView() {
+        view.addSubview(newPrayTextView)
+        newPrayTextView.snp.makeConstraints {
+            $0.top.equalTo(groupNameLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(240)
+            $0.height.equalTo(220)
         }
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
             $0.sizeToFit()
@@ -162,13 +162,13 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
                                          action: #selector(didTapDoneButton))
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([space, doneButton], animated: false)
-        newPrayTextField.inputAccessoryView = toolBar
+        newPrayTextView.inputAccessoryView = toolBar
     }
     
     private func setupTagInfoLabel() {
         view.addSubview(tagInfoLabel)
         tagInfoLabel.snp.makeConstraints {
-            $0.top.equalTo(newPrayTextField.snp.bottom).offset(12)
+            $0.top.equalTo(newPrayTextView.snp.bottom).offset(12)
             $0.left.right.equalToSuperview().inset(20)
         }
     }
@@ -209,7 +209,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         view.addSubview(isSecretLabel)
         isSecretLabel.snp.makeConstraints {
             $0.top.equalTo(tagCollectionView.snp.bottom).offset(12)
-            $0.left.equalToSuperview().inset(16)
+            $0.left.equalToSuperview().inset(20)
         }
     }
     private func setupIsSecretCheckBox() {
@@ -265,7 +265,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setPray: newPrayTextField.rx.text.asDriver(),
+        let input = VM.Input(setPray: newPrayTextView.rx.text.asDriver(),
                              saveNewPray: saveButton.rx.tap.asDriver(),
                              setTag: tagTextField.rx.text.asDriver(),
                              addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
@@ -286,7 +286,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         
         output.newPray
             .distinctUntilChanged()
-            .drive(newPrayTextField.rx.text)
+            .drive(newPrayTextView.rx.text)
             .disposed(by: disposeBag)
         
         output.newTag
@@ -336,18 +336,6 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
                 }
             }).disposed(by: disposeBag)
         
-        output.addingNewPraySuccess
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
-            }).disposed(by: disposeBag)
-        
-        output.addingNewPrayFailure
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
-            }).disposed(by: disposeBag)
-        
         output.isSecret
             .drive(isSecretCheckBox.rx.isChecked)
             .disposed(by: disposeBag)
@@ -357,6 +345,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.showTopToast(type: .success, message: "기도 추가 완료", disposeBag: self.disposeBag)
+                self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         output.addingNewPrayFailure
@@ -364,6 +353,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.showTopToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
+                self.dismiss(animated: true)
             }).disposed(by: disposeBag)
     }
 }

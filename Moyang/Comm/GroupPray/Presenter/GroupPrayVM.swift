@@ -7,6 +7,7 @@
 
 import RxSwift
 import RxCocoa
+import Foundation
 
 class GroupPrayVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
@@ -28,6 +29,7 @@ class GroupPrayVM: VMType {
     
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
+    let groupPrayDetailVM = BehaviorRelay<GroupPrayDetailVM?>(value: nil)
     
     var curDisplayDate = Date().startOfWeek ?? Date()
     
@@ -159,6 +161,7 @@ extension GroupPrayVM {
         
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
+        let groupPrayDetailVM: Driver<GroupPrayDetailVM?>
     }
     
     func transform(input: Input) -> Output {
@@ -182,9 +185,14 @@ extension GroupPrayVM {
             }).disposed(by: disposeBag)
         
         input.showPrayDetail
-            .drive(onNext: { item in
+            .drive(onNext: { [weak self] item in
+                guard let self = self else { return }
                 guard let item = item else { return }
-                Log.d(item)
+                if let prayList = self.memberPrayList.value[item.0] {
+                    self.groupPrayDetailVM.accept(GroupPrayDetailVM(useCase: self.useCase,
+                                                                    userID: item.0,
+                                                                    prayID: prayList[item.1.row].prayID))
+                }
             }).disposed(by: disposeBag)
         
         return Output(groupName: groupName.asDriver(),
@@ -200,7 +208,8 @@ extension GroupPrayVM {
                       memberPrayList: memberPrayList.asDriver(),
                       
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
-                      prayReplyDetailVM: prayReplyDetailVM.asDriver()
+                      prayReplyDetailVM: prayReplyDetailVM.asDriver(),
+                      groupPrayDetailVM: groupPrayDetailVM.asDriver()
         )
     }
 }

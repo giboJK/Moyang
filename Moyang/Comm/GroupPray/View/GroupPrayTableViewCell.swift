@@ -54,7 +54,7 @@ class GroupPrayTableViewCell: UITableViewCell {
     }
     
     var userID: String = ""
-    var index: Int?
+    var prayID: String = ""
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -121,7 +121,8 @@ class GroupPrayTableViewCell: UITableViewCell {
         if let vm = vm {
             if isBinded { return }
             isBinded = true
-            let input = VM.Input(showPrayDetail: prayCollectionView.rx.itemSelected.map { (self.userID, $0) }.asDriver(onErrorJustReturn: nil))
+            let input = VM.Input(showPrayDetail: prayCollectionView.rx.itemSelected
+                .map { (self.userID, $0) }.asDriver(onErrorJustReturn: nil))
             let output = vm.transform(input: input)
             output.memberPrayList
                 .map { $0[self.userID] ?? [] }

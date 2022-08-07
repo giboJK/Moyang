@@ -18,7 +18,7 @@ struct GroupIndividualPray: Codable {
     var replys: [PrayReply]
     var isSecret: Bool
     var isAnswered: Bool
-    var answer: String
+    var answers: [PrayAnswer]
     var latestDate: String
     let createDate: String
     
@@ -34,7 +34,7 @@ struct GroupIndividualPray: Codable {
         case replys = "replys"
         case isSecret = "is_secret"
         case isAnswered = "is_answered"
-        case answer = "answer"
+        case answers = "answers"
         case latestDate = "latest_date"
         case createDate = "create_date"
     }
@@ -46,6 +46,16 @@ struct PrayChange: Codable {
     
     enum CodingKeys: String, CodingKey {
         case content
+        case date = "create_date"
+    }
+}
+
+struct PrayAnswer: Codable {
+    let answer: String
+    let date: String
+    
+    enum CodingKeys: String, CodingKey {
+        case answer
         case date = "create_date"
     }
 }

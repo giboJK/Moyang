@@ -18,10 +18,11 @@ class NewPrayVM: VMType {
     let newPray = BehaviorRelay<String?>(value: nil)
     let newTag = BehaviorRelay<String?>(value: nil)
     let tagList = BehaviorRelay<[String]>(value: [])
+    let isSecret = BehaviorRelay<Bool>(value: false)
+    
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
-    let isSecret = BehaviorRelay<Bool>(value: false)
-
+    
     init(useCase: PrayUseCase) {
         self.useCase = useCase
         bind()

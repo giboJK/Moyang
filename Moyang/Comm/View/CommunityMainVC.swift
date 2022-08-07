@@ -41,17 +41,17 @@ class CommunityMainVC: UIViewController, VCType {
     let networkIndicator = UIActivityIndicatorView(style: .large).then {
         $0.hidesWhenStopped = true
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         bind()
         presentQuickPrayVC()
     }
-
+    
     deinit { Log.i(self) }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
@@ -60,7 +60,7 @@ class CommunityMainVC: UIViewController, VCType {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -167,8 +167,6 @@ class CommunityMainVC: UIViewController, VCType {
     
     func bindVM() {
         guard let vm = vm else { Log.e(""); return }
-//        let didTapPrayCard = communityGroupPrayCard.rx.tapGesture().when(.ended)
-//            .map { _ in () }.asDriver(onErrorJustReturn: ())
         let input = VM.Input()
         let output = vm.transform(input: input)
         

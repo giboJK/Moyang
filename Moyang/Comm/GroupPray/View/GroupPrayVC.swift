@@ -259,8 +259,7 @@ class GroupPrayVC: UIViewController, VCType {
         output.memberList
             .map({ $0.filter { !$0.id.isEmpty } })
             .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { [weak self] (index, item, cell) in
-                    cell.index = index
+                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { [weak self] (_, item, cell) in
                     cell.userID = item.id
                     cell.nameLabel.text = item.name
                     cell.vm = self?.vm
@@ -288,6 +287,14 @@ class GroupPrayVC: UIViewController, VCType {
             .map { $0.isEmpty ? "모두" : $0 }
             .drive(onNext: { [weak self] name in
                 self?.groupPrayCalendar.memberButton.setTitle(name, for: .normal)
+            }).disposed(by: disposeBag)
+        
+        output.groupPrayDetailVM
+            .drive(onNext: { [weak self] groupPrayDetailVM in
+                guard let groupPrayDetailVM = groupPrayDetailVM else { return }
+                let vc = GroupPrayDetailVC()
+                vc.vm = groupPrayDetailVM
+                self?.present(vc, animated: true)
             }).disposed(by: disposeBag)
     }
 }
