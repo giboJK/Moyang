@@ -70,7 +70,7 @@ class PrayUseCase {
             case .failure(let error):
                 Log.e(error)
             }
-            self.isNetworking.accept(false)
+            self.resetIsNetworking()
         }
     }
     func addPray(pray: String, tags: [String], isSecret: Bool) {
@@ -95,7 +95,7 @@ class PrayUseCase {
                 Log.e(error)
                 self?.addNewPrayFailure.accept(())
             }
-            self?.isNetworking.accept(false)
+            self?.resetIsNetworking()
         }
     }
     
@@ -122,11 +122,11 @@ class PrayUseCase {
                 Log.e(error)
                 self?.addNewPrayFailure.accept(())
             }
-            self?.isNetworking.accept(false)
+            self?.resetIsNetworking()
         }
     }
     
-    func fetchPrayList(userID: String, order: String, page: Int, row: Int = 3) {
+    func fetchPrayList(userID: String, order: String, page: Int, row: Int = 2) {
         guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() {
@@ -137,11 +137,18 @@ class PrayUseCase {
             guard let self = self else { return }
             switch result {
             case .success(let list):
-                Log.d(list)
+                var dict = self.memberPrayList.value
+                if var curList = dict[userID] {
+                    curList.append(contentsOf: list)
+                    dict.updateValue(curList, forKey: userID)
+                } else {
+                    dict.updateValue(list, forKey: userID)
+                }
+                self.memberPrayList.accept(dict)
             case .failure(let error):
                 Log.e(error)
             }
-            self.isNetworking.accept(false)
+            self.resetIsNetworking()
         }
     }
     
@@ -152,6 +159,12 @@ class PrayUseCase {
         }
         isNetworking.accept(true)
         return false
+    }
+    
+    private func resetIsNetworking() {
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) {
+            self.isNetworking.accept(false)
+        }
     }
     
     private func updatePray(userID: String, prayID: String, pray: String, tags: [String], isSecret: Bool) {

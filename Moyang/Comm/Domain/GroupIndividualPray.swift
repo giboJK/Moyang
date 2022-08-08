@@ -41,33 +41,39 @@ struct GroupIndividualPray: Codable {
 }
 
 struct PrayChange: Codable {
+    let id: String
     let content: String
     let date: String
     
     enum CodingKeys: String, CodingKey {
+        case id
         case content
         case date = "create_date"
     }
 }
 
 struct PrayAnswer: Codable {
+    let id: String
     let answer: String
     let date: String
     
     enum CodingKeys: String, CodingKey {
+        case id
         case answer
         case date = "create_date"
     }
 }
 
 struct PrayReaction: Codable {
-    let memberID: String
+    let id: String
+    let userID: String
     let name: String
     var type: Int
     let createDate: String
     
     enum CodingKeys: String, CodingKey {
-        case memberID = "user_id"
+        case id
+        case userID = "user_id"
         case name = "user_name"
         case type
         case createDate = "create_date"

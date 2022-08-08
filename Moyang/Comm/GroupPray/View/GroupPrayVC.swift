@@ -164,22 +164,6 @@ class GroupPrayVC: UIViewController, VCType {
             }).disposed(by: disposeBag)
     }
     
-    func showPrayReactionDetailVC(vm: PrayReactionDetailVM) {
-        if navigationController?.topViewController is GroupPrayVC {
-            let vc = PrayReactionDetailVC()
-            vc.vm = vm
-            present(vc, animated: true)
-        }
-    }
-    
-    func showPrayReplyDetailVC(vm: PrayReplyDetailVM) {
-        if navigationController?.topViewController is GroupPrayVC {
-            let vc = PrayReplyDetailVC()
-            vc.vm = vm
-            present(vc, animated: true)
-        }
-    }
-    
     private func bindViews() {
         navBar.backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -271,18 +255,6 @@ class GroupPrayVC: UIViewController, VCType {
                     cell.vm = self?.vm
                     cell.bind()
                 }.disposed(by: disposeBag)
-        
-        output.prayReactionDetailVM
-            .drive(onNext: { [weak self] prayReactionDetailVM in
-                guard let prayReactionDetailVM = prayReactionDetailVM else { return }
-                self?.showPrayReactionDetailVC(vm: prayReactionDetailVM)
-            }).disposed(by: disposeBag)
-        
-        output.prayReplyDetailVM
-            .drive(onNext: { [weak self] prayReplyDetailVM in
-                guard let prayReplyDetailVM = prayReplyDetailVM else { return }
-                self?.showPrayReplyDetailVC(vm: prayReplyDetailVM)
-            }).disposed(by: disposeBag)
         
         output.order
             .drive(onNext: { [weak self] order in

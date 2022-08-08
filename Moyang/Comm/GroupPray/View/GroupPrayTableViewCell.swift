@@ -63,6 +63,7 @@ class GroupPrayTableViewCell: UITableViewCell {
         selectedBackgroundView = backgroundView
         
         setupUI()
+        bindViews()
     }
     
     required init?(coder: NSCoder) {
@@ -108,6 +109,7 @@ class GroupPrayTableViewCell: UITableViewCell {
             $0.left.equalToSuperview().inset(12)
         }
     }
+    
     private func setupDivider() {
         contentView.addSubview(divider)
         divider.snp.makeConstraints {
@@ -117,6 +119,21 @@ class GroupPrayTableViewCell: UITableViewCell {
             $0.height.equalTo(0.5)
         }
     }
+    
+    private func bindViews() {
+        prayCollectionView.rx.contentOffset.asDriver()
+            .throttle(.milliseconds(350))
+            .drive(onNext: { [weak self] offset in
+                guard let self = self else { return }
+                
+                let offset = self.prayCollectionView.contentOffset.y
+                let maxOffset = self.prayCollectionView.contentSize.height - self.prayCollectionView.frame.size.height
+                if maxOffset - offset <= 0 {
+                    self.vm?.fetchMorePrays(userID: self.userID)
+                }
+            }).disposed(by: disposeBag)
+    }
+    
     func bind() {
         if let vm = vm {
             if isBinded { return }
@@ -124,6 +141,7 @@ class GroupPrayTableViewCell: UITableViewCell {
             let input = VM.Input(showPrayDetail: prayCollectionView.rx.itemSelected
                 .map { (self.userID, $0) }.asDriver(onErrorJustReturn: nil))
             let output = vm.transform(input: input)
+            
             output.memberPrayList
                 .map { $0[self.userID] ?? [] }
                 .drive(prayCollectionView.rx
@@ -164,6 +182,10 @@ class GroupPrayTableViewCell: UITableViewCell {
                     }
                 }).disposed(by: disposeBag)
         }
+    }
+    
+    private func bindVM() {
+        
     }
 }
 

@@ -31,12 +31,10 @@ class PrayCVCell: UICollectionViewCell {
         $0.textColor = .nightSky1
         $0.numberOfLines = 0
     }
-    // TODO: - 자물쇠 아이콘으로 나만 보이도록 수정
-    let isSecretImageView = UILabel().then {
-        $0.text = "비공개 기도입니다"
-        $0.font = .systemFont(ofSize: 13, weight: .regular)
-        $0.textColor = .sheep5
-        $0.isHidden = true
+    let isSecretImageView = UIImageView().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .regular, scale: .large)
+        $0.image = UIImage(systemName: "lock.fill", withConfiguration: config)
+        $0.tintColor = .nightSky1
     }
     let prayCountLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
@@ -123,7 +121,6 @@ class PrayCVCell: UICollectionViewCell {
         setupFirstPrayDateLabel()
         setupFirstPrayLabel()
         setupFirstPrayDivider()
-        setupLatestPrayLabel()
         setupTagDivider()
         setupTagCollectionView()
         setupNoTagLabel()
@@ -143,6 +140,7 @@ class PrayCVCell: UICollectionViewCell {
         dateLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
             $0.left.right.equalToSuperview().inset(12)
+            $0.height.equalTo(17)
         }
     }
     private func setupLatestPrayLabel() {
@@ -158,7 +156,7 @@ class PrayCVCell: UICollectionViewCell {
         isSecretImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
             $0.right.equalToSuperview().inset(12)
-            $0.height.equalTo(20)
+            $0.height.equalTo(14)
         }
     }
     private func setupPrayCountLabel() {
@@ -237,7 +235,7 @@ class PrayCVCell: UICollectionViewCell {
         latestPrayLabel.snp.remakeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(12)
-            $0.height.lessThanOrEqualTo(116)
+            $0.height.equalTo(80)
         }
         latestPrayLabel.lineBreakMode = .byTruncatingTail
     }
@@ -314,7 +312,7 @@ class PrayCVCell: UICollectionViewCell {
         replyCountLabel.text = "\(replys.count)"
         replyView.snp.remakeConstraints {
             $0.bottom.equalToSuperview().inset(8)
-            $0.right.equalToSuperview()
+            $0.right.equalToSuperview().inset(8)
             $0.height.equalTo(28)
             $0.width.equalTo(48)
         }
@@ -398,21 +396,12 @@ class PrayCVCell: UICollectionViewCell {
         firstPrayDivider.isHidden = item.changes.isEmpty
         if !item.changes.isEmpty {
             prayCountLabel.text = "총 \(item.changes.count + 1)개의 기도가 있습니다."
-            firstPrayDateLabel.text = "처음 등록일: " + item.createDate.isoToDateString()!
+            firstPrayDateLabel.text = "처음 등록: " + item.createDate.isoToDateString()!
             firstPrayLabel.text = item.pray
             firstPrayLabel.lineBreakMode = .byTruncatingTail
             latestPrayLabel.text = item.changes.first!.content
-            dateLabel.text = "최근 기록일: " + item.changes.first!.date
-
-            dateLabel.snp.remakeConstraints {
-                $0.top.equalTo(firstPrayDivider.snp.bottom).offset(8)
-                $0.left.equalToSuperview().inset(12)
-                $0.height.equalTo(20)
-            }
-        } else {
-            dateLabel.snp.remakeConstraints {
-                $0.top.equalToSuperview().inset(8)
-                $0.left.right.equalToSuperview().inset(12)
+            if let latestDate = item.changes.first?.date.isoToDateString() {
+                dateLabel.text = "최근 기록: " + latestDate
             }
         }
     }

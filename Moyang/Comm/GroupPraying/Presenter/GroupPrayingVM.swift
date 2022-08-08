@@ -10,8 +10,6 @@ import RxCocoa
 import AVFoundation
 
 class GroupPrayingVM: VMType {
-    typealias PrayList = [GroupIndividualPray]
-    typealias PrayItem = GroupPrayVM.GroupPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
     
@@ -19,7 +17,7 @@ class GroupPrayingVM: VMType {
     private let selectedMemberName = BehaviorRelay<String>(value: "")
     private let songName = BehaviorRelay<String?>(value: nil)
     private let isPlaying = BehaviorRelay<Bool>(value: false)
-    private let prayList = BehaviorRelay<[PrayItem]>(value: [])
+    private let prayList = BehaviorRelay<[GroupIndividualPray]>(value: [])
     private let isPrevEnabled = BehaviorRelay<Bool>(value: false)
     private let isNextEnabled = BehaviorRelay<Bool>(value: false)
 
@@ -214,7 +212,7 @@ extension GroupPrayingVM {
         let selectedMemberName: Driver<String>
         let songName: Driver<String?>
         let isPlaying: Driver<Bool>
-        let prayList: Driver<[PrayItem]>
+        let prayList: Driver<[GroupIndividualPray]>
         let isPrevEnabled: Driver<Bool>
         let isNextEnabled: Driver<Bool>
         let prayingTimeStr: Driver<String>

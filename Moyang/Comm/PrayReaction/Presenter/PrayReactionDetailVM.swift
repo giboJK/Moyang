@@ -33,7 +33,7 @@ class PrayReactionDetailVM: VMType {
         var prayItem = ReactionItem(memberName: [], reaction: PrayReactionType.prayWithYou.rawValue)
 //        sorted.forEach { item in
 //            if let type = PrayReactionType(rawValue: item.reaction) {
-//                guard let member = groupInfo.memberList.first(where: { $0.id == item.memberID }) else { Log.e("No member"); return }
+//                guard let member = groupInfo.memberList.first(where: { $0.id == item.userID }) else { Log.e("No member"); return }
 //                switch type {
 //                case .love:
 //                    loveItem.memberName.append(member.name)

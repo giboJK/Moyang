@@ -27,8 +27,6 @@ class GroupPrayVM: VMType {
     
     let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
     
-    let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
-    let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
     let groupPrayDetailVM = BehaviorRelay<GroupPrayDetailVM?>(value: nil)
     
     var curDisplayDate = Date().startOfWeek ?? Date()
@@ -36,16 +34,6 @@ class GroupPrayVM: VMType {
     init(useCase: PrayUseCase) {
         self.useCase = useCase
         bind()
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.setReactionVM),
-                                               name: NSNotification.Name(rawValue: "GROUP_PRAY_REACTION_TAP"),
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.setReplyVM),
-                                               name: NSNotification.Name(rawValue: "GROUP_PRAY_REPLY_TAP"),
-                                               object: nil)
         fetchPrayAll()
     }
     
@@ -87,22 +75,6 @@ class GroupPrayVM: VMType {
         memberList.accept(list)
     }
     
-    @objc func setReactionVM(notification: NSNotification) {
-        guard let index = notification.userInfo?["index"] as? Int else {
-            Log.e(""); return
-        }
-//        let reactions = prayItemList.value[index].reactions
-//        prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: reactions))
-    }
-    
-    @objc func setReplyVM(notification: NSNotification) {
-        guard let index = notification.userInfo?["index"] as? Int else {
-            Log.e(""); return
-        }
-//        let replys = prayItemList.value[index].replys
-//        prayReplyDetailVM.accept(PrayReplyDetailVM(replys: replys))
-    }
-    
     func changeOrder(_ value: GroupPrayOrder) {
         order.accept(value.rawValue)
     }
@@ -135,6 +107,21 @@ class GroupPrayVM: VMType {
             }
         }
     }
+    
+    func fetchMorePrays(userID: String) {
+        if let orderType = GroupPrayOrder(rawValue: order.value),
+           let list = memberPrayList.value[userID] {
+            Log.e(orderType)
+            Log.e(orderType)
+            Log.e(orderType)
+            Log.e(orderType)
+            Log.e(orderType)
+            Log.e(orderType)
+            Log.e(orderType)
+            Log.e(list.count)
+            useCase.fetchPrayList(userID: userID, order: orderType.parameter, page: list.count)
+        }
+    }
 }
 
 extension GroupPrayVM {
@@ -159,8 +146,6 @@ extension GroupPrayVM {
         
         let memberPrayList: Driver<[String: [GroupIndividualPray]]>
         
-        let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
-        let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
         let groupPrayDetailVM: Driver<GroupPrayDetailVM?>
     }
     
@@ -207,8 +192,6 @@ extension GroupPrayVM {
                       
                       memberPrayList: memberPrayList.asDriver(),
                       
-                      prayReactionDetailVM: prayReactionDetailVM.asDriver(),
-                      prayReplyDetailVM: prayReplyDetailVM.asDriver(),
                       groupPrayDetailVM: groupPrayDetailVM.asDriver()
         )
     }
@@ -240,51 +223,6 @@ extension GroupPrayVM {
             self.id = id
             self.name = name
             isChecked = false
-        }
-    }
-    // TODO: 안 쓸 것 같음.. 지워야 하나..
-    struct GroupPrayItem {
-        let memberID: String
-        let name: String
-        let prayID: String?
-        let pray: String
-        let tags: [String]
-        let latestDate: String
-        let isSecret: Bool
-        let isAnswered: Bool
-        let answer: String
-        let changes: [PrayChange]
-        let replys: [PrayReply]
-        let reactions: [PrayReaction]
-        let createDate: String
-        
-        init(memberID: String,
-             name: String,
-             prayID: String?,
-             pray: String,
-             tags: [String],
-             latestDate: String,
-             isSecret: Bool,
-             isAnswered: Bool,
-             answer: String,
-             changes: [PrayChange],
-             replys: [PrayReply],
-             reactions: [PrayReaction],
-             createDate: String
-        ) {
-            self.memberID = memberID
-            self.name = name
-            self.prayID = prayID
-            self.pray = pray
-            self.tags = tags
-            self.latestDate = latestDate
-            self.isSecret = isSecret
-            self.isAnswered = isAnswered
-            self.answer = answer
-            self.changes = changes
-            self.replys = replys
-            self.reactions = reactions
-            self.createDate = createDate
         }
     }
 }
