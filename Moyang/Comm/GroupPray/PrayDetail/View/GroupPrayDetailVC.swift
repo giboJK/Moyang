@@ -24,17 +24,6 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         $0.backButton.isHidden = true
         $0.title = "기도제목"
     }
-    let deleteButton = UIButton().then {
-        $0.setTitle("삭제", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.appleRed1, for: .normal)
-    }
-    let editButton = UIButton().then {
-        $0.setTitle("수정", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.nightSky2, for: .normal)
-        $0.setTitleColor(.sheep4, for: .disabled)
-    }
     let updateButton = UIButton().then {
         $0.setTitle("저장", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
@@ -55,7 +44,6 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
-        $0.isEditable = false
     }
     let tagInfoLabel = UILabel().then {
         $0.text = "태그는 5개까지 추가되며 하나당 최대 20자입니다."
@@ -89,6 +77,9 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
     let prayButton = MoyangButton(.primary).then {
         $0.setTitle("기도하기", for: .normal)
     }
+    let deleteButton = MoyangButton(.warning).then {
+        $0.setTitle("삭제", for: .normal)
+    }
     let prayChangeLabel = UILabel().then {
         $0.text = "기도 변화"
         $0.font = .systemFont(ofSize: 15, weight: .regular)
@@ -115,6 +106,11 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         $0.semanticContentAttribute = .forceRightToLeft
         $0.tintColor = .nightSky1
     }
+    let deleteConfirmPopup = MoyangPopupView(style: .twoButton).then {
+        $0.desc = "정말로 삭제하시겠어요? 삭제한 기도는 복구할 수 없습니다."
+        $0.firstButton.setTitle("삭제", for: .normal)
+        $0.secondButton.setTitle("취소", for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,6 +135,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         setupTagCollectionView()
         setupIsSecretLabel()
         setupIsSecretCheckBox()
+        setupDeleteButton()
         setupPrayButton()
     }
     private func setupNavBar() {
@@ -148,29 +145,11 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
             $0.top.equalToSuperview()
             $0.height.equalTo(44)
         }
-        setupCancelButton()
-        setupSaveButton()
         setupUpdateButton()
     }
-    private func setupCancelButton() {
-        navBar.addSubview(deleteButton)
-        deleteButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
-        }
-    }
-    private func setupSaveButton() {
+    private func setupUpdateButton() {
         navBar.addSubview(updateButton)
         updateButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
-        }
-    }
-    private func setupUpdateButton() {
-        navBar.addSubview(editButton)
-        editButton.snp.makeConstraints {
             $0.right.equalToSuperview().inset(12)
             $0.bottom.equalToSuperview().inset(10)
             $0.height.equalTo(20)
@@ -224,7 +203,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         tagTextField.snp.makeConstraints {
             $0.top.equalTo(tagInfoLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(0)
+            $0.height.equalTo(36)
         }
         tagTextField.delegate = self
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
@@ -266,10 +245,18 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
             $0.size.equalTo(18)
         }
     }
+    private func setupDeleteButton() {
+        view.addSubview(deleteButton)
+        deleteButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.height.equalTo(48)
+        }
+    }
     private func setupPrayButton() {
         view.addSubview(prayButton)
         prayButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(80)
             $0.left.right.equalToSuperview().inset(24)
             $0.height.equalTo(48)
         }
@@ -304,18 +291,68 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         bindVM()
     }
     private func bineViews() {
-
+        deleteButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.deleteConfirmPopup)
+            }).disposed(by: disposeBag)
+        
+        deleteConfirmPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        deleteConfirmPopup.secondButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(setPray: prayTextView.rx.text.asDriver(),
-                             updatingPray: updateButton.rx.tap.asDriver(),
+                             updatePray: updateButton.rx.tap.asDriver(),
                              setTag: tagTextField.rx.text.asDriver(),
                              addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
                              toggleIsSecret: isSecretCheckBox.rx.tap.asDriver(),
-                             toggleIsEditing: editButton.rx.tap.asDriver())
+                             deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
+        
+        output.isMyPray
+            .drive(onNext: { [weak self] isMyPray in
+                guard let self = self else { return }
+                self.updateButton.isHidden = !isMyPray
+                self.deleteButton.isHidden = !isMyPray
+                self.groupChangeButton.isHidden = !isMyPray
+                self.tagInfoLabel.isHidden = !isMyPray
+                self.tagTextField.isHidden = !isMyPray
+                self.prayTextView.isEditable = isMyPray
+                self.deleteButton.snp.updateConstraints {
+                    if isMyPray {
+                        $0.height.equalTo(48)
+                    } else {
+                        $0.height.equalTo(0)
+                    }
+                }
+                self.prayButton.snp.updateConstraints {
+                    if isMyPray {
+                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(80)
+                    } else {
+                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(20)
+                    }
+                }
+                self.tagCollectionView.snp.remakeConstraints {
+                    if isMyPray {
+                        $0.top.equalTo(self.tagTextField.snp.bottom).offset(12)
+                        $0.left.right.equalToSuperview().inset(16)
+                        $0.height.equalTo(32)
+                    } else {
+                        $0.top.equalTo(self.prayTextView.snp.bottom).offset(12)
+                        $0.left.right.equalToSuperview().inset(16)
+                        $0.height.equalTo(32)
+                    }
+                }
+            }).disposed(by: disposeBag)
         
         output.groupName
             .drive(groupNameLabel.rx.text)
@@ -348,7 +385,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
             }).disposed(by: disposeBag)
         
         output.tagList
-            .delay(.milliseconds(50))
+            .delay(.milliseconds(100))
             .drive(onNext: { [weak self] list in
                 guard let self = self else { return }
                 if self.tagCollectionView.visibleCells.count < list.count {
@@ -377,39 +414,21 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(isSecretCheckBox.rx.isChecked)
             .disposed(by: disposeBag)
         
-        output.isEditing
-            .drive(onNext: { [weak self] isEditing in
-                guard let self = self else { return }
-                self.prayTextView.isEditable = isEditing
-                self.tagTextField.isHidden = !isEditing
-                self.tagInfoLabel.isHidden = !isEditing
-                self.editButton.isHidden = isEditing
-                self.updateButton.isHidden = !isEditing
-                let tagHeight = isEditing ? 36 : 0
-                self.tagTextField.snp.remakeConstraints {
-                    $0.top.equalTo(self.tagInfoLabel.snp.bottom).offset(8)
-                    $0.left.right.equalToSuperview().inset(16)
-                    $0.height.equalTo(tagHeight)
-                }
-            }).disposed(by: disposeBag)
-        
-        output.updatingPraySuccess
+        output.updatePraySuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.showTopToast(type: .success, message: "기도 추가 완료", disposeBag: self.disposeBag)
+                self.showTopToast(type: .success, message: "기도 저장 완료", disposeBag: self.disposeBag)
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
-        output.updatingPrayFailure
+        output.updatePrayFailure
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.showTopToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
+                self.showTopToast(type: .failure, message: "알 수 없는 문제가 발생하였습니다.", disposeBag: self.disposeBag)
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
-        
-        
     }
 }
 

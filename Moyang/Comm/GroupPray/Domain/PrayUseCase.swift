@@ -14,10 +14,10 @@ class PrayUseCase {
     
     let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
     
-    let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
-    let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
-    let editingPraySuccess = BehaviorRelay<Void>(value: ())
-    let editingPrayFailure = BehaviorRelay<Void>(value: ())
+    let addNewPraySuccess = BehaviorRelay<Void>(value: ())
+    let addNewPrayFailure = BehaviorRelay<Void>(value: ())
+    let updatePraySuccess = BehaviorRelay<Void>(value: ())
+    let updatePrayFailure = BehaviorRelay<Void>(value: ())
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -82,19 +82,39 @@ class PrayUseCase {
             switch result {
             case .success(let response):
                 if response.code == 0 {
-                    self?.addingNewPraySuccess.accept(())
+                    self?.addNewPraySuccess.accept(())
                 } else {
-                    self?.addingNewPrayFailure.accept(())
+                    self?.addNewPrayFailure.accept(())
                 }
             case .failure(let error):
                 Log.e(error)
-                self?.addingNewPrayFailure.accept(())
+                self?.addNewPrayFailure.accept(())
             }
             self?.isNetworking.accept(false)
         }
     }
     
     func updatePray(prayID: String, pray: String, tags: [String], isSecret: Bool) {
+        if checkAndSetIsNetworking() {
+            return
+        }
+        repo.updatePray(prayID: prayID,
+                        pray: pray,
+                        tags: tags,
+                        isSecret: isSecret) { [weak self] result in
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self?.updatePraySuccess.accept(())
+                } else {
+                    self?.updatePrayFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self?.addNewPrayFailure.accept(())
+            }
+            self?.isNetworking.accept(false)
+        }
     }
     
     func fetchPrayList(userID: String, order: String, page: Int, row: Int = 3) {

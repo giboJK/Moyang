@@ -36,17 +36,17 @@ class NewPrayVM: VMType {
             .bind(to: isNetworking)
             .disposed(by: disposeBag)
         
-        useCase.addingNewPraySuccess
+        useCase.addNewPraySuccess
             .bind(to: addingNewPraySuccess)
             .disposed(by: disposeBag)
         
-        useCase.addingNewPraySuccess
+        useCase.addNewPraySuccess
             .skip(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
                 self?.clearAutoSave()
             }).disposed(by: disposeBag)
         
-        useCase.addingNewPrayFailure
+        useCase.addNewPrayFailure
             .bind(to: addingNewPrayFailure)
             .disposed(by: disposeBag)
     }

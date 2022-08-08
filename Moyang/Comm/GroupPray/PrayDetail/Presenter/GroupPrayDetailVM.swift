@@ -15,15 +15,15 @@ class GroupPrayDetailVM: VMType {
     let prayID: String
     var groupIndividualPray: GroupIndividualPray!
     
-    let isEditing = BehaviorRelay<Bool>(value: false)
+    let isMyPray = BehaviorRelay<Bool>(value: false)
     let groupName = BehaviorRelay<String>(value: "")
     let pray = BehaviorRelay<String?>(value: nil)
     let newTag = BehaviorRelay<String?>(value: nil)
     let tagList = BehaviorRelay<[String]>(value: [])
     let isSecret = BehaviorRelay<Bool>(value: false)
     
-    let updatingPraySuccess = BehaviorRelay<Void>(value: ())
-    let updatingPrayFailure = BehaviorRelay<Void>(value: ())
+    let updatePraySuccess = BehaviorRelay<Void>(value: ())
+    let updatePrayFailure = BehaviorRelay<Void>(value: ())
     
     init(useCase: PrayUseCase, userID: String, prayID: String) {
         self.useCase = useCase
@@ -45,6 +45,18 @@ class GroupPrayDetailVM: VMType {
                     }
                 }
             }).disposed(by: disposeBag)
+        
+        useCase.updatePraySuccess
+            .bind(to: updatePraySuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.updatePrayFailure
+            .bind(to: updatePrayFailure)
+            .disposed(by: disposeBag)
+        
+        if (userID == UserData.shared.userInfo?.id) {
+            isMyPray.accept(true)
+        }
         groupName.accept(UserData.shared.groupInfo?.groupName ?? "")
     }
     
@@ -55,30 +67,32 @@ class GroupPrayDetailVM: VMType {
         isSecret.accept(data.isSecret)
     }
     
-    private func updatingPray() {
+    private func updatePray() {
+        guard let pray = self.pray.value else { return }
+        useCase.updatePray(prayID: prayID, pray: pray, tags: tagList.value, isSecret: isSecret.value)
     }
 }
 
 extension GroupPrayDetailVM {
     struct Input {
         var setPray: Driver<String?> = .empty()
-        var updatingPray: Driver<Void> = .empty()
+        var updatePray: Driver<Void> = .empty()
         var setTag: Driver<String?> = .empty()
         var addTag: Driver<Void> = .empty()
         var deleteTag: Driver<IndexPath?> = .empty()
         var toggleIsSecret: Driver<Void> = .empty()
-        var toggleIsEditing: Driver<Void> = .empty()
+        var deletePray: Driver<Void> = .empty()
     }
 
     struct Output {
+        let isMyPray: Driver<Bool>
         let groupName: Driver<String>
         let pray: Driver<String?>
         let newTag: Driver<String?>
         let tagList: Driver<[String]>
         let isSecret: Driver<Bool>
-        let isEditing: Driver<Bool>
-        let updatingPraySuccess: Driver<Void>
-        let updatingPrayFailure: Driver<Void>
+        let updatePraySuccess: Driver<Void>
+        let updatePrayFailure: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
@@ -87,9 +101,9 @@ extension GroupPrayDetailVM {
             .drive(pray)
             .disposed(by: disposeBag)
         
-        input.updatingPray
+        input.updatePray
             .drive(onNext: { [weak self] _ in
-                self?.updatingPray()
+                self?.updatePray()
             }).disposed(by: disposeBag)
         
         input.setTag
@@ -128,20 +142,14 @@ extension GroupPrayDetailVM {
                 self.isSecret.accept(!self.isSecret.value)
             }).disposed(by: disposeBag)
         
-        input.toggleIsEditing
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.isEditing.accept(!self.isEditing.value)
-            }).disposed(by: disposeBag)
-        
-        return Output(groupName: groupName.asDriver(),
+        return Output(isMyPray: isMyPray.asDriver(),
+                      groupName: groupName.asDriver(),
                       pray: pray.asDriver(),
                       newTag: newTag.asDriver(),
                       tagList: tagList.asDriver(),
                       isSecret: isSecret.asDriver(),
-                      isEditing: isEditing.asDriver(),
-                      updatingPraySuccess: updatingPraySuccess.asDriver(),
-                      updatingPrayFailure: updatingPrayFailure.asDriver()
+                      updatePraySuccess: updatePraySuccess.asDriver(),
+                      updatePrayFailure: updatePrayFailure.asDriver()
         )
     }
 }

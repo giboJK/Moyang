@@ -18,6 +18,7 @@ class PrayController {
 
 extension PrayController: PrayRepo {
     
+    
     func addPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
                  completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.addPray)
@@ -44,13 +45,11 @@ extension PrayController: PrayRepo {
         }
     }
     
-    func editPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
-                  completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+    func updatePray(prayID: String, pray: String, tags: [String], isSecret: Bool, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.updatePray)
         let dict: [String: Any] = [
-            "group_id": groupID,
-            "user_id": userID,
-            "content": content,
+            "pray_id": prayID,
+            "content": pray,
             "tags": tags,
             "is_secret": isSecret
         ]
