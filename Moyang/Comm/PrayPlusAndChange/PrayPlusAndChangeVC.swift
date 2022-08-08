@@ -1,5 +1,5 @@
 //
-//  PrayWithAndChangeVC.swift
+//  PrayPlusAndChangeVC.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/07/02.
@@ -11,8 +11,8 @@ import RxSwift
 import SnapKit
 import Then
 
-class PrayWithAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
-    typealias VM = PrayWithAndChangeVM
+class PrayPlusAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
+    typealias VM = PrayPlusAndChangeVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     private var tagList = [String]()
@@ -28,30 +28,6 @@ class PrayWithAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         $0.setTitleColor(.nightSky2, for: .normal)
         $0.setTitleColor(.sheep4, for: .disabled)
-    }
-    let nameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .semibold)
-        $0.textColor = .nightSky1
-    }
-    let dateLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 13, weight: .regular)
-        $0.textColor = .sheep5
-    }
-    let parentPrayTextView = UITextView().then {
-        $0.backgroundColor = .sheep1
-        $0.layer.cornerRadius = 8
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
-        $0.isEditable = false
-    }
-    let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
-        let layout = LeftAlignedCollectionViewFlowLayout()
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 8
-        $0.collectionViewLayout = layout
-        $0.isScrollEnabled = true
-        $0.backgroundColor = .clear
-        $0.register(PrayingTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     let replyTextView = UITextView().then {
         $0.backgroundColor = .sheep1
@@ -103,10 +79,6 @@ class PrayWithAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     func setupUI() {
         view.backgroundColor = .sheep2
         setupNavBar()
-        setupNameLabel()
-        setupDateLabel()
-        setupParentPrayTextView()
-        setupTagCollectionView()
         setupReplyTextField()
         setupReplyHintLabel()
     }
@@ -128,44 +100,12 @@ class PrayWithAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
             $0.height.equalTo(20)
         }
     }
-    private func setupNameLabel() {
-        view.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview().inset(16)
-        }
-    }
-    private func setupDateLabel() {
-        view.addSubview(dateLabel)
-        dateLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
-            $0.left.right.equalToSuperview().inset(16)
-        }
-    }
-    private func setupParentPrayTextView() {
-        view.addSubview(parentPrayTextView)
-        parentPrayTextView.snp.makeConstraints {
-            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(180)
-        }
-    }
-    private func setupTagCollectionView() {
-        view.addSubview(tagCollectionView)
-        tagCollectionView.snp.makeConstraints {
-            $0.top.equalTo(parentPrayTextView.snp.bottom).offset(8)
-            $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(0)
-        }
-        tagCollectionView.dataSource = self
-        tagCollectionView.delegate = self
-    }
     private func setupReplyTextField() {
         view.addSubview(replyTextView)
         replyTextView.snp.makeConstraints {
-            $0.top.equalTo(tagCollectionView.snp.bottom).offset(8)
+            $0.top.equalTo(navBar.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(300)
+            $0.height.equalTo(200)
         }
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
             $0.sizeToFit()
@@ -192,18 +132,6 @@ class PrayWithAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
         view.endEditing(true)
     }
     
-    private func increaseTagCollectionViewHeight(count: Int) {
-        let currentHeight = tagCollectionView.bounds.height
-        tagCollectionView.snp.updateConstraints {
-            $0.height.equalTo(currentHeight + 8 + 32)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
-            if self.tagCollectionView.visibleCells.count < count {
-                self.increaseTagCollectionViewHeight(count: count)
-            }
-        }
-    }
-    
     // MARK: - Binding
     func bind() {
         navBar.backButton.rx.tap
@@ -223,29 +151,6 @@ class PrayWithAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(navBar.titleLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output.memberName
-            .drive(nameLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.date
-            .drive(dateLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.parentPray
-            .drive(parentPrayTextView.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.parentTagList
-            .delay(.milliseconds(50))
-            .drive(onNext: { [weak self] list in
-                guard let self = self else { return }
-                self.tagList = list
-                self.tagCollectionView.reloadData()
-                if self.tagCollectionView.visibleCells.count < list.count {
-                    self.increaseTagCollectionViewHeight(count: list.count)
-                }
-            }).disposed(by: disposeBag)
-        
         output.reply
             .map { $0?.isEmpty ?? true }
             .map { !$0 }
@@ -263,29 +168,5 @@ class PrayWithAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
-    }
-}
-
-extension PrayWithAndChangeVC: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let buttonWidth = tagList[indexPath.row].width(withConstraintedHeight: 16,
-                                                       font: .systemFont(ofSize: 14, weight: .regular))
-        return CGSize(width: 20 + 24 + buttonWidth, height: 32)
-    }
-}
-
-extension PrayWithAndChangeVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tagList.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PrayingTagCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        cell.tagLabel.text = tagList[indexPath.row]
-        cell.contentView.backgroundColor = .wilderness1
-        
-        return cell
     }
 }

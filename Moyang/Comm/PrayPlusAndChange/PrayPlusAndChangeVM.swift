@@ -1,5 +1,5 @@
 //
-//  PrayWithAndChangeVM.swift
+//  PrayPlusAndChangeVM.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/07/02.
@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-class PrayWithAndChangeVM: VMType {
+class PrayPlusAndChangeVM: VMType {
     typealias PrayItem = CommunityMainVM.GroupSummaryPrayItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: CommunityMainUseCase
@@ -75,7 +75,7 @@ class PrayWithAndChangeVM: VMType {
     }
 }
 
-extension PrayWithAndChangeVM {
+extension PrayPlusAndChangeVM {
     struct Input {
         var setReply: Driver<String?> = .empty()
         var saveReply: Driver<Void> = .empty()

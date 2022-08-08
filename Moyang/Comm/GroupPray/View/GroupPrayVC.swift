@@ -57,6 +57,12 @@ class GroupPrayVC: UIViewController, VCType {
         $0.setTitleColor(.nightSky1, for: .normal)
         $0.tintColor = .nightSky1
     }
+    let reactionView = ReactionPopupView().then {
+        $0.isHidden = true
+    }
+    
+    let reactionPopupViewHeight: CGFloat = 36 + 8 + 80
+    var selected: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()

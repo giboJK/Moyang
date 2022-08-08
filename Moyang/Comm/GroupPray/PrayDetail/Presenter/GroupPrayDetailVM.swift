@@ -17,6 +17,7 @@ class GroupPrayDetailVM: VMType {
     
     let isMyPray = BehaviorRelay<Bool>(value: false)
     let groupName = BehaviorRelay<String>(value: "")
+    let date = BehaviorRelay<String>(value: "")
     let pray = BehaviorRelay<String?>(value: nil)
     let newTag = BehaviorRelay<String?>(value: nil)
     let tagList = BehaviorRelay<[String]>(value: [])
@@ -56,7 +57,7 @@ class GroupPrayDetailVM: VMType {
             .bind(to: updatePrayFailure)
             .disposed(by: disposeBag)
         
-        if (userID == UserData.shared.userInfo?.id) {
+        if userID == UserData.shared.userInfo?.id {
             isMyPray.accept(true)
         }
         groupName.accept(UserData.shared.groupInfo?.groupName ?? "")
@@ -64,6 +65,7 @@ class GroupPrayDetailVM: VMType {
     
     private func setData(data: GroupIndividualPray) {
         self.groupIndividualPray = data
+        date.accept(data.latestDate.isoToDateString() ?? "")
         pray.accept(data.pray)
         tagList.accept(data.tags)
         isSecret.accept(data.isSecret)
@@ -90,6 +92,7 @@ extension GroupPrayDetailVM {
         let isMyPray: Driver<Bool>
         
         let groupName: Driver<String>
+        let date: Driver<String>
         let pray: Driver<String?>
         let newTag: Driver<String?>
         let tagList: Driver<[String]>
@@ -151,6 +154,7 @@ extension GroupPrayDetailVM {
         return Output(isMyPray: isMyPray.asDriver(),
                       
                       groupName: groupName.asDriver(),
+                      date: date.asDriver(),
                       pray: pray.asDriver(),
                       newTag: newTag.asDriver(),
                       tagList: tagList.asDriver(),

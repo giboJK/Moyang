@@ -38,6 +38,10 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         $0.setTitleColor(.nightSky3, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
+    let dateLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .nightSky2
+    }
     let prayTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
@@ -78,6 +82,9 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
     }
     let deleteButton = MoyangButton(.warning).then {
         $0.setTitle("삭제", for: .normal)
+    }
+    let prayPlusButton = MoyangButton(.secondary).then {
+        $0.setTitle("기도문 더하기", for: .normal)
     }
     let prayChangeLabel = UILabel().then {
         $0.text = "기도 변화"
@@ -125,6 +132,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         setupNavBar()
         setupGroupNameLabel()
         setupGroupChangeButton()
+        setupDateLabel()
         setupPrayTextField()
         setupTagInfoLabel()
         setupTagTextField()
@@ -134,6 +142,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         setupPrayChangeView()
         setupPrayAnswerView()
         setupDeleteButton()
+        setupPrayPlusButton()
         setupPrayButton()
     }
     private func setupNavBar() {
@@ -168,10 +177,17 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
             $0.right.equalToSuperview().inset(16)
         }
     }
+    private func setupDateLabel() {
+        view.addSubview(dateLabel)
+        dateLabel.snp.makeConstraints {
+            $0.top.equalTo(groupNameLabel.snp.bottom).offset(4)
+            $0.left.right.equalToSuperview().inset(16)
+        }
+    }
     private func setupPrayTextField() {
         view.addSubview(prayTextView)
         prayTextView.snp.makeConstraints {
-            $0.top.equalTo(groupNameLabel.snp.bottom).offset(4)
+            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(16)
             $0.height.equalTo(220)
         }
@@ -279,7 +295,15 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
     private func setupDeleteButton() {
         view.addSubview(deleteButton)
         deleteButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.height.equalTo(48)
+        }
+    }
+    private func setupPrayPlusButton() {
+        view.addSubview(prayPlusButton)
+        prayPlusButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
             $0.left.right.equalToSuperview().inset(24)
             $0.height.equalTo(48)
         }
@@ -359,6 +383,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
                 guard let self = self else { return }
                 self.updateButton.isHidden = !isMyPray
                 self.deleteButton.isHidden = !isMyPray
+                self.prayPlusButton.isHidden = isMyPray
                 self.groupChangeButton.isHidden = !isMyPray
                 self.tagInfoLabel.isHidden = !isMyPray
                 self.tagTextField.isHidden = !isMyPray
@@ -367,20 +392,6 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
                 self.addChangeButton.isHidden = !isMyPray
                 self.addAnswerButton.isHidden = !isMyPray
                 self.prayTextView.isEditable = isMyPray
-                self.deleteButton.snp.updateConstraints {
-                    if isMyPray {
-                        $0.height.equalTo(48)
-                    } else {
-                        $0.height.equalTo(0)
-                    }
-                }
-                self.prayButton.snp.updateConstraints {
-                    if isMyPray {
-                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(80)
-                    } else {
-                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(20)
-                    }
-                }
                 self.tagCollectionView.snp.remakeConstraints {
                     if isMyPray {
                         $0.top.equalTo(self.tagTextField.snp.bottom).offset(12)
@@ -405,6 +416,10 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         
         output.groupName
             .drive(groupNameLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.date
+            .drive(dateLabel.rx.text)
             .disposed(by: disposeBag)
         
         output.pray
@@ -469,7 +484,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
             .disposed(by: disposeBag)
         
         output.answers
-            .map { "기도 응당 (\($0.count))" }
+            .map { "기도 응답 (\($0.count))" }
             .drive(prayAnswerLabel.rx.text)
             .disposed(by: disposeBag)
         
