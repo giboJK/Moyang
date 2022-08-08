@@ -326,6 +326,8 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
                 self.groupChangeButton.isHidden = !isMyPray
                 self.tagInfoLabel.isHidden = !isMyPray
                 self.tagTextField.isHidden = !isMyPray
+                self.isSecretLabel.isHidden = !isMyPray
+                self.isSecretCheckBox.isHidden = !isMyPray
                 self.prayTextView.isEditable = isMyPray
                 self.deleteButton.snp.updateConstraints {
                     if isMyPray {

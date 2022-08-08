@@ -98,6 +98,9 @@ class PrayUseCase {
         if checkAndSetIsNetworking() {
             return
         }
+        guard let myID = UserData.shared.userInfo?.id else {
+            updatePrayFailure.accept(()); return
+        }
         repo.updatePray(prayID: prayID,
                         pray: pray,
                         tags: tags,
@@ -106,6 +109,7 @@ class PrayUseCase {
             case .success(let response):
                 if response.code == 0 {
                     self?.updatePraySuccess.accept(())
+                    self?.updatePray(userID: myID, prayID: prayID, pray: pray, tags: tags, isSecret: isSecret)
                 } else {
                     self?.updatePrayFailure.accept(())
                 }
@@ -143,5 +147,18 @@ class PrayUseCase {
         }
         isNetworking.accept(true)
         return false
+    }
+    
+    private func updatePray(userID: String, prayID: String, pray: String, tags: [String], isSecret: Bool) {
+        if var list = memberPrayList.value[userID] {
+            if let index = list.firstIndex(where: { $0.prayID == prayID }) {
+                list[index].pray = pray
+                list[index].tags = tags
+                list[index].isSecret = isSecret
+                var dict = memberPrayList.value
+                dict.updateValue(list, forKey: userID)
+                memberPrayList.accept(dict)
+            }
+        }
     }
 }
