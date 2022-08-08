@@ -292,9 +292,7 @@ class GroupPrayVC: UIViewController, VCType {
         output.groupPrayDetailVM
             .drive(onNext: { [weak self] groupPrayDetailVM in
                 guard let groupPrayDetailVM = groupPrayDetailVM else { return }
-                let vc = GroupPrayDetailVC()
-                vc.vm = groupPrayDetailVM
-                self?.present(vc, animated: true)
+                self?.coordinator?.didTapPray(vm: groupPrayDetailVM)
             }).disposed(by: disposeBag)
     }
 }
@@ -302,5 +300,5 @@ class GroupPrayVC: UIViewController, VCType {
 protocol GroupPrayVCDelegate: AnyObject {
     func didTapInfoButton()
     func didTapNewPrayButton()
-    func didTapPray()
+    func didTapPray(vm: GroupPrayDetailVM)
 }

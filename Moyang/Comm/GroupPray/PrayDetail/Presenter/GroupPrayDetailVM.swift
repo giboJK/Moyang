@@ -21,6 +21,8 @@ class GroupPrayDetailVM: VMType {
     let newTag = BehaviorRelay<String?>(value: nil)
     let tagList = BehaviorRelay<[String]>(value: [])
     let isSecret = BehaviorRelay<Bool>(value: false)
+    let changes = BehaviorRelay<[PrayChange]>(value: [])
+    let answers = BehaviorRelay<[PrayAnswer]>(value: [])
     
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
     let updatePrayFailure = BehaviorRelay<Void>(value: ())
@@ -86,11 +88,15 @@ extension GroupPrayDetailVM {
 
     struct Output {
         let isMyPray: Driver<Bool>
+        
         let groupName: Driver<String>
         let pray: Driver<String?>
         let newTag: Driver<String?>
         let tagList: Driver<[String]>
         let isSecret: Driver<Bool>
+        let changes: Driver<[PrayChange]>
+        let answers: Driver<[PrayAnswer]>
+        
         let updatePraySuccess: Driver<Void>
         let updatePrayFailure: Driver<Void>
     }
@@ -143,11 +149,15 @@ extension GroupPrayDetailVM {
             }).disposed(by: disposeBag)
         
         return Output(isMyPray: isMyPray.asDriver(),
+                      
                       groupName: groupName.asDriver(),
                       pray: pray.asDriver(),
                       newTag: newTag.asDriver(),
                       tagList: tagList.asDriver(),
                       isSecret: isSecret.asDriver(),
+                      changes: changes.asDriver(),
+                      answers: answers.asDriver(),
+                      
                       updatePraySuccess: updatePraySuccess.asDriver(),
                       updatePrayFailure: updatePrayFailure.asDriver()
         )

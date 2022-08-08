@@ -21,7 +21,6 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
-        $0.backButton.isHidden = true
         $0.title = "기도제목"
     }
     let updateButton = UIButton().then {
@@ -31,7 +30,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         $0.setTitleColor(.ydGreen1, for: .disabled)
     }
     let groupNameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .nightSky1
     }
     let groupChangeButton = MoyangButton(.none).then {
@@ -82,28 +81,25 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
     }
     let prayChangeLabel = UILabel().then {
         $0.text = "기도 변화"
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .nightSky1
     }
     let addChangeButton = MoyangButton(.none).then {
         let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
-        $0.setTitle("변화 ", for: .normal)
-        $0.setTitleColor(.nightSky1, for: .normal)
         $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
-        $0.semanticContentAttribute = .forceRightToLeft
         $0.tintColor = .nightSky1
+    }
+    let divider = UIView().then {
+        $0.backgroundColor = .sheep3
     }
     let prayAnswerLabel = UILabel().then {
         $0.text = "기도 응답"
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .nightSky1
     }
     let addAnswerButton = MoyangButton(.none).then {
         let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
-        $0.setTitle("응답 ", for: .normal)
-        $0.setTitleColor(.nightSky1, for: .normal)
         $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
-        $0.semanticContentAttribute = .forceRightToLeft
         $0.tintColor = .nightSky1
     }
     let deleteConfirmPopup = MoyangPopupView(style: .twoButton).then {
@@ -135,6 +131,8 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         setupTagCollectionView()
         setupIsSecretLabel()
         setupIsSecretCheckBox()
+        setupPrayChangeView()
+        setupPrayAnswerView()
         setupDeleteButton()
         setupPrayButton()
     }
@@ -143,7 +141,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         navBar.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalToSuperview()
-            $0.height.equalTo(44)
+            $0.height.equalTo(UIApplication.statusBarHeight + 44)
         }
         setupUpdateButton()
     }
@@ -245,6 +243,39 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
             $0.size.equalTo(18)
         }
     }
+    private func setupPrayChangeView() {
+        view.addSubview(prayChangeLabel)
+        prayChangeLabel.snp.makeConstraints {
+            $0.top.equalTo(tagCollectionView.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(20)
+        }
+        
+        view.addSubview(addChangeButton)
+        addChangeButton.snp.makeConstraints {
+            $0.centerY.equalTo(prayChangeLabel)
+            $0.right.equalToSuperview().inset(20)
+        }
+        
+        view.addSubview(divider)
+        divider.snp.makeConstraints {
+            $0.top.equalTo(prayChangeLabel.snp.bottom).offset(8)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(1)
+        }
+    }
+    private func setupPrayAnswerView() {
+        view.addSubview(prayAnswerLabel)
+        prayAnswerLabel.snp.makeConstraints {
+            $0.top.equalTo(divider.snp.bottom).offset(12)
+            $0.left.equalToSuperview().inset(20)
+        }
+        
+        view.addSubview(addAnswerButton)
+        addAnswerButton.snp.makeConstraints {
+            $0.centerY.equalTo(prayAnswerLabel)
+            $0.right.equalToSuperview().inset(20)
+        }
+    }
     private func setupDeleteButton() {
         view.addSubview(deleteButton)
         deleteButton.snp.makeConstraints {
@@ -291,6 +322,11 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         bindVM()
     }
     private func bineViews() {
+        navBar.backButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
+        
         deleteButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -328,6 +364,8 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
                 self.tagTextField.isHidden = !isMyPray
                 self.isSecretLabel.isHidden = !isMyPray
                 self.isSecretCheckBox.isHidden = !isMyPray
+                self.addChangeButton.isHidden = !isMyPray
+                self.addAnswerButton.isHidden = !isMyPray
                 self.prayTextView.isEditable = isMyPray
                 self.deleteButton.snp.updateConstraints {
                     if isMyPray {
@@ -352,6 +390,15 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
                         $0.top.equalTo(self.prayTextView.snp.bottom).offset(12)
                         $0.left.right.equalToSuperview().inset(16)
                         $0.height.equalTo(32)
+                    }
+                }
+                self.prayChangeLabel.snp.remakeConstraints {
+                    if isMyPray {
+                        $0.top.equalTo(self.tagCollectionView.snp.bottom).offset(44)
+                        $0.left.equalToSuperview().inset(20)
+                    } else {
+                        $0.top.equalTo(self.tagCollectionView.snp.bottom).offset(20)
+                        $0.left.equalToSuperview().inset(20)
                     }
                 }
             }).disposed(by: disposeBag)
@@ -415,6 +462,17 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         output.isSecret
             .drive(isSecretCheckBox.rx.isChecked)
             .disposed(by: disposeBag)
+        
+        output.changes
+            .map { "기도 변화 (\($0.count))" }
+            .drive(prayChangeLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.answers
+            .map { "기도 응당 (\($0.count))" }
+            .drive(prayAnswerLabel.rx.text)
+            .disposed(by: disposeBag)
+        
         
         output.updatePraySuccess
             .skip(1)

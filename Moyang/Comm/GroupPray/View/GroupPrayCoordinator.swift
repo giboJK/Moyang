@@ -54,7 +54,10 @@ extension GroupPrayCoordinator: GroupPrayVCDelegate {
         }
     }
     
-    func didTapPray() {
+    func didTapPray(vm: GroupPrayDetailVM) {
+        let vc = GroupPrayDetailVC()
+        vc.vm = vm
+        nav.pushViewController(vc, animated: true)
     }
 }
 
