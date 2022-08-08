@@ -19,6 +19,11 @@ class PrayUseCase {
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
     let updatePrayFailure = BehaviorRelay<Void>(value: ())
     
+    let plusPraySuccess = BehaviorRelay<Void>(value: ())
+    let plusPrayFailure = BehaviorRelay<Void>(value: ())
+    let addChangeSuccess = BehaviorRelay<Void>(value: ())
+    let addChangeFailure = BehaviorRelay<Void>(value: ())
+    
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
     let userIDNameDict = BehaviorRelay<[String: String]>(value: [:])

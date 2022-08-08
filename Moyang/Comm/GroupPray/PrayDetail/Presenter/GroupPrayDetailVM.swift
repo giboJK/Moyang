@@ -28,6 +28,8 @@ class GroupPrayDetailVM: VMType {
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
     let updatePrayFailure = BehaviorRelay<Void>(value: ())
     
+    let prayPlusAndChangeVM = BehaviorRelay<PrayPlusAndChangeVM?>(value: nil)
+    
     init(useCase: PrayUseCase, userID: String, prayID: String) {
         self.useCase = useCase
         self.userID = userID
@@ -86,6 +88,7 @@ extension GroupPrayDetailVM {
         var deleteTag: Driver<IndexPath?> = .empty()
         var toggleIsSecret: Driver<Void> = .empty()
         var deletePray: Driver<Void> = .empty()
+        var didTapPrayPlusAndChangeButton: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -102,6 +105,8 @@ extension GroupPrayDetailVM {
         
         let updatePraySuccess: Driver<Void>
         let updatePrayFailure: Driver<Void>
+        
+        let prayPlusAndChangeVM: Driver<PrayPlusAndChangeVM?>
     }
 
     func transform(input: Input) -> Output {
@@ -151,6 +156,14 @@ extension GroupPrayDetailVM {
                 self.isSecret.accept(!self.isSecret.value)
             }).disposed(by: disposeBag)
         
+        input.didTapPrayPlusAndChangeButton
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.prayPlusAndChangeVM.accept(PrayPlusAndChangeVM(useCase: self.useCase,
+                                                                    prayID: self.prayID,
+                                                                    userID: self.userID))
+            }).disposed(by: disposeBag)
+        
         return Output(isMyPray: isMyPray.asDriver(),
                       
                       groupName: groupName.asDriver(),
@@ -163,7 +176,9 @@ extension GroupPrayDetailVM {
                       answers: answers.asDriver(),
                       
                       updatePraySuccess: updatePraySuccess.asDriver(),
-                      updatePrayFailure: updatePrayFailure.asDriver()
+                      updatePrayFailure: updatePrayFailure.asDriver(),
+                      
+                      prayPlusAndChangeVM: prayPlusAndChangeVM.asDriver()
         )
     }
 }

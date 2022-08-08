@@ -26,9 +26,6 @@ class CommunityMainUseCase {
     let editingPraySuccess = BehaviorRelay<Void>(value: ())
     let editingPrayFailure = BehaviorRelay<Void>(value: ())
     
-    let addingReplySuccess = BehaviorRelay<Void>(value: ())
-    let addingReplyFailure = BehaviorRelay<Void>(value: ())
-    
     let groupSummary = BehaviorRelay<GroupSummary?>(value: nil)
     let error = BehaviorRelay<MoyangError?>(value: nil)
     

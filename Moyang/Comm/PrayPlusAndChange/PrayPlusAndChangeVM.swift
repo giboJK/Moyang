@@ -9,108 +9,103 @@ import RxSwift
 import RxCocoa
 
 class PrayPlusAndChangeVM: VMType {
-    typealias PrayItem = CommunityMainVM.GroupSummaryPrayItem
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: CommunityMainUseCase
-    let prayItem: PrayItem
+    let useCase: PrayUseCase
+    let prayID: String
+    let userID: String
     
     let title = BehaviorRelay<String>(value: "")
-    let memberName = BehaviorRelay<String>(value: "")
-    let date = BehaviorRelay<String>(value: "")
-    let parentPray = BehaviorRelay<String>(value: "")
-    let parentTagList = BehaviorRelay<[String]>(value: [])
     
-    let reply = BehaviorRelay<String?>(value: nil)
+    let content = BehaviorRelay<String?>(value: nil)
     
-    let addingReplySuccess = BehaviorRelay<Void>(value: ())
-    let addingReplyFailure = BehaviorRelay<Void>(value: ())
+    let plusPraySuccess = BehaviorRelay<Void>(value: ())
+    let plusPrayFailure = BehaviorRelay<Void>(value: ())
+    let addChangeSuccess = BehaviorRelay<Void>(value: ())
+    let addChangeFailure = BehaviorRelay<Void>(value: ())
     
-    init(useCase: CommunityMainUseCase, prayItme: PrayItem) {
+    var isMe = false
+    
+    init(useCase: PrayUseCase, prayID: String, userID: String) {
         self.useCase = useCase
-        self.prayItem = prayItme
+        self.prayID = prayID
+        self.userID = userID
         
         bind()
-        setData(data: prayItme)
     }
 
     deinit { Log.i(self) }
     
     private func bind() {
-        useCase.addingReplySuccess
-            .bind(to: addingReplySuccess)
+        useCase.plusPraySuccess
+            .bind(to: plusPraySuccess)
             .disposed(by: disposeBag)
         
-        useCase.addingReplyFailure
-            .bind(to: addingReplyFailure)
+        useCase.plusPrayFailure
+            .bind(to: plusPrayFailure)
             .disposed(by: disposeBag)
-    }
-    
-    private func setData(data: PrayItem) {
-        memberName.accept(data.name)
-//        date.accept(data.date)
-//        parentPray.accept(data.pray)
-//        parentTagList.accept(data.tags)
         
-//        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
-//        if data.memberID == myInfo.id {
-//            title.accept("변화 기록하기")
-//        } else {
-//            title.accept("같이 기도하기")
-//        }
+        useCase.addChangeSuccess
+            .bind(to: addChangeSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.addChangeFailure
+            .bind(to: addChangeFailure)
+            .disposed(by: disposeBag)
+        
+        guard let myInfo = UserData.shared.userInfo else { Log.e(""); return }
+        if userID == myInfo.id {
+            title.accept("변화 기록하기")
+            isMe = true
+        } else {
+            title.accept("기도문 더하기")
+        }
     }
     
     private func addReply() {
-//        guard let myInfo = UserData.shared.myInfo else { Log.e(""); return }
-//        guard let reply = reply.value else { Log.e(""); return }
-//
-//        let order = prayItem.replys.filter { reply in
-//            reply.memberID == myInfo.id
-//        }.count
-//        useCase.addReply(memberAuth: prayItem.memberAuth,
-//                         email: prayItem.memberEmail,
-//                         prayID: prayItem.prayID,
-//                         reply: reply,
-//                         date: Date().toString(format: "yyyy-MM-dd hh:mm:ss a"),
-//                         order: order + 1)
+    }
+    
+    private func addChange() {
+        
     }
 }
 
 extension PrayPlusAndChangeVM {
     struct Input {
-        var setReply: Driver<String?> = .empty()
-        var saveReply: Driver<Void> = .empty()
+        var setContent: Driver<String?> = .empty()
+        var saveContent: Driver<Void> = .empty()
     }
 
     struct Output {
         let title: Driver<String>
-        let memberName: Driver<String>
-        let date: Driver<String>
-        let parentPray: Driver<String>
-        let parentTagList: Driver<[String]>
-        let reply: Driver<String?>
-        let addingReplySuccess: Driver<Void>
-        let addingReplyFailure: Driver<Void>
+        let content: Driver<String?>
+        let plusPraySuccess: Driver<Void>
+        let plusPrayFailure: Driver<Void>
+        let addChangeSuccess: Driver<Void>
+        let addChangeFailure: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
-        input.setReply
-            .drive(reply)
+        input.setContent
+            .drive(content)
             .disposed(by: disposeBag)
         
-        input.saveReply
+        input.saveContent
             .drive(onNext: { [weak self] _ in
-                self?.addReply()
+                guard let self = self else { return }
+                if self.isMe {
+                    self.addChange()
+                } else {
+                    self.addReply()
+                }
             }).disposed(by: disposeBag)
         
         
         return Output(title: title.asDriver(),
-                      memberName: memberName.asDriver(),
-                      date: date.asDriver(),
-                      parentPray: parentPray.asDriver(),
-                      parentTagList: parentTagList.asDriver(),
-                      reply: reply.asDriver(),
-                      addingReplySuccess: addingReplySuccess.asDriver(),
-                      addingReplyFailure: addingReplyFailure.asDriver()
+                      content: content.asDriver(),
+                      plusPraySuccess: plusPraySuccess.asDriver(),
+                      plusPrayFailure: plusPrayFailure.asDriver(),
+                      addChangeSuccess: addChangeSuccess.asDriver(),
+                      addChangeFailure: addChangeFailure.asDriver()
         )
     }
 }

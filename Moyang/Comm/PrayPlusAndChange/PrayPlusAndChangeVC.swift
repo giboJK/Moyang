@@ -18,25 +18,20 @@ class PrayPlusAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     private var tagList = [String]()
 
     // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
-        $0.title = "같이 기도하기"
-        $0.closeButton.isHidden = true
-        $0.backButton.tintColor = .nightSky1
-    }
-    let saveButton = UIButton().then {
+    let saveButton = MoyangButton(.primary).then {
         $0.setTitle("저장", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         $0.setTitleColor(.nightSky2, for: .normal)
         $0.setTitleColor(.sheep4, for: .disabled)
     }
-    let replyTextView = UITextView().then {
+    let contentTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
     }
     let replyHintLabel = UILabel().then {
-        $0.text = "기도문을 적어보세요."
+        $0.text = "내용을 입력하세요."
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .sheep4
     }
@@ -58,54 +53,45 @@ class PrayPlusAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if (UIScreen.main.bounds.height - keyboardSize.height) < replyTextView.frame.maxY {
-                let diff = replyTextView.frame.maxY - UIScreen.main.bounds.height + keyboardSize.height
-                let height = replyTextView.frame.height - diff
-                
-                replyTextView.snp.updateConstraints {
-                    $0.height.equalTo(height - 8)
+            UIView.animate(withDuration: 1.0) {
+                self.saveButton.snp.remakeConstraints {
+                    $0.left.right.equalToSuperview().inset(24)
+                    $0.height.equalTo(48)
+                    $0.bottom.equalToSuperview().inset(keyboardSize.height + 16)
                 }
-                
             }
         }
+        self.view.layoutIfNeeded()
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        replyTextView.snp.updateConstraints {
-            $0.height.equalTo(300)
+        saveButton.snp.remakeConstraints {
+            $0.left.right.equalToSuperview().inset(24)
+            $0.height.equalTo(48)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
         }
     }
     
     func setupUI() {
         view.backgroundColor = .sheep2
-        setupNavBar()
-        setupReplyTextField()
-        setupReplyHintLabel()
-    }
-    
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(UIApplication.statusBarHeight + 44)
-        }
         setupSaveButton()
+        setupContentTextField()
+        setupContentHintLabel()
     }
     private func setupSaveButton() {
-        navBar.addSubview(saveButton)
+        view.addSubview(saveButton)
         saveButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.height.equalTo(48)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
         }
     }
-    private func setupReplyTextField() {
-        view.addSubview(replyTextView)
-        replyTextView.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom).offset(8)
+    private func setupContentTextField() {
+        view.addSubview(contentTextView)
+        contentTextView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(200)
+            $0.bottom.equalTo(saveButton.snp.top).offset(-16)
         }
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
             $0.sizeToFit()
@@ -118,15 +104,16 @@ class PrayPlusAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
                                          action: #selector(didTapDoneButton))
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([space, doneButton], animated: false)
-        replyTextView.inputAccessoryView = toolBar
+        contentTextView.inputAccessoryView = toolBar
     }
-    private func setupReplyHintLabel() {
+    private func setupContentHintLabel() {
         view.addSubview(replyHintLabel)
         replyHintLabel.snp.makeConstraints {
-            $0.left.equalTo(replyTextView).inset(4)
-            $0.top.equalTo(replyTextView).inset(8)
+            $0.left.equalTo(contentTextView).inset(4)
+            $0.top.equalTo(contentTextView).inset(8)
         }
     }
+    
     
     @objc func didTapDoneButton() {
         view.endEditing(true)
@@ -134,39 +121,59 @@ class PrayPlusAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     
     // MARK: - Binding
     func bind() {
-        navBar.backButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
         bindVM()
     }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setReply: replyTextView.rx.text.asDriver(),
-                             saveReply: saveButton.rx.tap.asDriver())
+        let input = VM.Input(setContent: contentTextView.rx.text.asDriver(),
+                             saveContent: saveButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
         output.title
-            .drive(navBar.titleLabel.rx.text)
-            .disposed(by: disposeBag)
+            .drive(onNext: { [weak self] title in
+                self?.title = title
+            }).disposed(by: disposeBag)
         
-        output.reply
+        output.content
             .map { $0?.isEmpty ?? true }
             .map { !$0 }
             .drive(replyHintLabel.rx.isHidden)
             .disposed(by: disposeBag)
         
-        output.addingReplySuccess
+        output.content
+            .map { $0?.isEmpty ?? true }
+            .map { !$0 }
+            .drive(saveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.plusPraySuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+
+        output.plusPrayFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+
+        
+        output.addChangeSuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
-        output.addingReplyFailure
+        output.addChangeFailure
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
     }
 }

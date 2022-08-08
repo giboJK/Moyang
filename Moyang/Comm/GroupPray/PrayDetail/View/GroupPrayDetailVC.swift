@@ -375,7 +375,8 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
                              setTag: tagTextField.rx.text.asDriver(),
                              addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
                              toggleIsSecret: isSecretCheckBox.rx.tap.asDriver(),
-                             deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver())
+                             deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver(),
+                             didTapPrayPlusAndChangeButton: prayPlusButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
         output.isMyPray
@@ -488,7 +489,6 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(prayAnswerLabel.rx.text)
             .disposed(by: disposeBag)
         
-        
         output.updatePraySuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
@@ -504,6 +504,24 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
                 self.showTopToast(type: .failure, message: "알 수 없는 문제가 발생하였습니다.", disposeBag: self.disposeBag)
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
+        
+        output.prayPlusAndChangeVM
+            .drive(onNext: { [weak self] prayPlusAndChangeVM in
+                guard let prayPlusAndChangeVM = prayPlusAndChangeVM else { return }
+                self?.showPrayPlusAndChangeVC(prayPlusAndChangeVM: prayPlusAndChangeVM)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func showPrayPlusAndChangeVC(prayPlusAndChangeVM: PrayPlusAndChangeVM) {
+        let vc = PrayPlusAndChangeVC()
+        vc.vm = prayPlusAndChangeVM
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .pageSheet
+
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        present(nav, animated: true, completion: nil)
     }
 }
 
