@@ -227,6 +227,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
                 self.isSecretLabel.isHidden = !isMyPray
                 self.isSecretCheckBox.isHidden = !isMyPray
                 self.prayTextView.isEditable = isMyPray
+                self.prayTextView.textDragInteraction?.isEnabled = !isMyPray
                 self.tagCollectionView.snp.remakeConstraints {
                     if isMyPray {
                         $0.top.equalTo(self.tagTextField.snp.bottom).offset(12)

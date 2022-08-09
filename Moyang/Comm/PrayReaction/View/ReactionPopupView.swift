@@ -8,9 +8,10 @@
 import UIKit
 
 class ReactionPopupView: UIView {
+    var delegate: ReactionPopupViewDelegate?
     
     let buttonContainer = UIView().then {
-        $0.backgroundColor = .nightSky4
+        $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
     }
     let loveButton = UIButton().then {
@@ -35,7 +36,7 @@ class ReactionPopupView: UIView {
     }
     
     let actionContainer = UIView().then {
-        $0.backgroundColor = .nightSky4
+        $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.layer.masksToBounds = true
     }
@@ -43,23 +44,9 @@ class ReactionPopupView: UIView {
     let copyLabel = UILabel().then {
         $0.text = "복사"
         $0.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .sheep1
+        $0.textColor = .nightSky2
     }
-    let copyImageView = UIImageView(image: Asset.Images.Pray.copy.image.withTintColor(.sheep1))
-    let replyView = UIView()
-    let replyLabel = UILabel().then {
-        $0.text = "같이 기도하기"
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .sheep1
-    }
-    let replyImageView = UIImageView(image: Asset.Images.Pray.comment.image.withTintColor(.sheep1))
-    let changeView = UIView()
-    let changeLabel = UILabel().then {
-        $0.text = "변화 기록하기"
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .sheep1
-    }
-    let changeImageView = UIImageView(image: Asset.Images.Pray.changeRecord.image.withTintColor(.sheep1))
+    let copyImageView = UIImageView(image: Asset.Images.Pray.copy.image.withTintColor(.nightSky2))
     
     required init() {
         super.init(frame: .zero)
@@ -129,13 +116,6 @@ class ReactionPopupView: UIView {
         }
         setupCopyView()
     }
-    func updateActionContainer(isMyPrayList: Bool) {
-        if isMyPrayList {
-            setupChangeView()
-        } else {
-            setupReplyView()
-        }
-    }
     private func setupCopyView() {
         actionContainer.addSubview(copyView)
         copyView.snp.makeConstraints {
@@ -154,52 +134,12 @@ class ReactionPopupView: UIView {
         copyView.addSubview(copyLabel)
         copyLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.left.equalToSuperview().inset(8)
+            $0.left.equalToSuperview().inset(12)
         }
         copyView.addSubview(copyImageView)
         copyImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.right.equalToSuperview().inset(8)
-            $0.size.equalTo(20)
-        }
-    }
-    private func setupReplyView() {
-        actionContainer.addSubview(replyView)
-        replyView.snp.makeConstraints {
-            $0.top.equalTo(copyView.snp.bottom)
-            $0.left.right.equalToSuperview()
-            $0.height.equalTo(40)
-            $0.bottom.equalToSuperview()
-        }
-        replyView.addSubview(replyLabel)
-        replyLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.left.equalToSuperview().inset(8)
-        }
-        replyView.addSubview(replyImageView)
-        replyImageView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.right.equalToSuperview().inset(8)
-            $0.size.equalTo(20)
-        }
-    }
-    private func setupChangeView() {
-        actionContainer.addSubview(changeView)
-        changeView.snp.makeConstraints {
-            $0.top.equalTo(copyView.snp.bottom)
-            $0.left.right.equalToSuperview()
-            $0.height.equalTo(40)
-            $0.bottom.equalToSuperview()
-        }
-        changeView.addSubview(changeLabel)
-        changeLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.left.equalToSuperview().inset(8)
-        }
-        changeView.addSubview(changeImageView)
-        changeImageView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.right.equalToSuperview().inset(8)
+            $0.right.equalToSuperview().inset(12)
             $0.size.equalTo(20)
         }
     }
@@ -220,4 +160,9 @@ class ReactionPopupView: UIView {
             }
         }
     }
+}
+
+protocol ReactionPopupViewDelegate: AnyObject {
+    func didTapEmoji(type: PrayReactionType)
+    func didTapCopy()
 }

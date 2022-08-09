@@ -66,6 +66,12 @@ class GroupPrayDetailVC: UIViewController, VCType {
         $0.firstButton.setTitle("삭제", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
     }
+    let reactionBgView = UIView()
+    let reactionView = ReactionPopupView().then {
+        $0.isHidden = true
+    }
+    let reactionPopupViewHeight: CGFloat = 36 + 8 + 40
+    var isPopupAnimating = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +94,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
         setupDeleteButton()
         setupPrayPlusButton()
         setupPrayButton()
+        setupReactionView()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -172,6 +179,46 @@ class GroupPrayDetailVC: UIViewController, VCType {
             $0.height.equalTo(48)
         }
     }
+    private func setupReactionView() {
+        view.addSubview(reactionBgView)
+        reactionBgView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        view.addSubview(reactionView)
+        reactionView.snp.makeConstraints {
+            $0.width.equalTo(0)
+            $0.height.equalTo(0)
+            $0.right.equalTo(prayDetailView).inset(16)
+            $0.top.equalTo(prayDetailView).inset(280)
+        }
+    }
+    func showPrayReactionPopupView() {
+        if isPopupAnimating {
+            return
+        }
+        isPopupAnimating = true
+        reactionBgView.isHidden = false
+        reactionView.isHidden = false
+        reactionView.snp.updateConstraints {
+            $0.width.equalTo(156)
+            $0.height.equalTo(reactionPopupViewHeight)
+        }
+        UIView.animate(withDuration: 0.15) {
+            self.view.updateConstraints()
+            self.view.layoutIfNeeded()
+            self.isPopupAnimating = false
+        }
+    }
+    func hidePrayReactionPopupView() {
+        isPopupAnimating = false
+        reactionBgView.isHidden = true
+        reactionView.isHidden = true
+        reactionView.snp.updateConstraints {
+            $0.width.equalTo(0)
+            $0.height.equalTo(0)
+        }
+    }
+    
     // MARK: - Binding
     func bind() {
         bineViews()
@@ -198,6 +245,17 @@ class GroupPrayDetailVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
+        
+        prayDetailView.rx.longPressGesture().when(.began)
+            .subscribe(onNext: { [weak self] _ in
+                self?.showPrayReactionPopupView()
+            }).disposed(by: disposeBag)
+        
+        reactionBgView.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.hidePrayReactionPopupView()
+            }).disposed(by: disposeBag)
+        
     }
 
     private func bindVM() {
