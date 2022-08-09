@@ -125,3 +125,18 @@ struct PrayReply: Codable {
         case createDate = "create_date"
     }
 }
+
+// MARK: - Response
+class AddPrayResponse: BaseResponse {
+    let data: GroupIndividualPray
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        data = try container.decode(GroupIndividualPray.self, forKey: .data)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}

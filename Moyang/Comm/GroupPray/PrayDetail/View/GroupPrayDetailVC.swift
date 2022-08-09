@@ -109,7 +109,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
         $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
         $0.tintColor = .nightSky1
     }
-    let deleteConfirmPopup = MoyangPopupView(style: .twoButton).then {
+    let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .ghost).then {
         $0.desc = "정말로 삭제하시겠어요? 삭제한 기도는 복구할 수 없습니다."
         $0.firstButton.setTitle("삭제", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
@@ -494,7 +494,7 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.showTopToast(type: .success, message: "기도 저장 완료", disposeBag: self.disposeBag)
-                self.dismiss(animated: true)
+                self.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
         output.updatePrayFailure
@@ -502,7 +502,21 @@ class GroupPrayDetailVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.showTopToast(type: .failure, message: "알 수 없는 문제가 발생하였습니다.", disposeBag: self.disposeBag)
-                self.dismiss(animated: true)
+                self.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
+        
+        output.deletePraySuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
+        
+        output.deletePrayFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
         output.prayPlusAndChangeVM

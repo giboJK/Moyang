@@ -35,7 +35,7 @@ type_name:
 
 function_body_length:
     warning: 100
-    error: 120
+    error: 140
 
 nesting:
     type_level:

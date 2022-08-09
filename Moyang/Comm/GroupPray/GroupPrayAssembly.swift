@@ -49,11 +49,15 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - NewPrayVC
-        container.register(NewPrayVC.self) { r in
+        container.register(NewPrayVC.self) { (r, useCase: PrayUseCase) in
             let vc = NewPrayVC()
-            vc.vm = r ~> (NewPrayVM.self)
+            vc.vm = r ~> (NewPrayVM.self, argument: useCase)
             return vc
         }
+        container.register(NewPrayVM.self) { (_, useCase: PrayUseCase) in
+            return NewPrayVM(useCase: useCase)
+        }
+        
         container.register(NewPrayVM.self) { r in
             return NewPrayVM(useCase: (r ~> PrayUseCase.self))
         }

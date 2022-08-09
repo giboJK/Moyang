@@ -9,7 +9,7 @@ import Foundation
 
 protocol PrayRepo {
     func addPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
-                 completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+                 completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?)
     func updatePray(prayID: String, pray: String, tags: [String], isSecret: Bool,
                     completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
@@ -20,4 +20,5 @@ protocol PrayRepo {
     func fetchPrayAll(groupID: String, userID: String, order: String, page: Int, row: Int,
                       completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
     
+    func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
 }

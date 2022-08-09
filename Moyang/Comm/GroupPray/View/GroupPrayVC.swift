@@ -177,7 +177,8 @@ class GroupPrayVC: UIViewController, VCType {
         
         addPrayButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.didTapNewPrayButton()
+                guard let vm = self?.vm else { return }
+                self?.coordinator?.didTapNewPrayButton(vm: vm)
             }).disposed(by: disposeBag)
         
         bindPrayTableView()
@@ -277,6 +278,6 @@ class GroupPrayVC: UIViewController, VCType {
 
 protocol GroupPrayVCDelegate: AnyObject {
     func didTapInfoButton()
-    func didTapNewPrayButton()
+    func didTapNewPrayButton(vm: GroupPrayVM)
     func didTapPray(vm: GroupPrayDetailVM)
 }

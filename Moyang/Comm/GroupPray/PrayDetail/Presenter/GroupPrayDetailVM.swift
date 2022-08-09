@@ -28,6 +28,9 @@ class GroupPrayDetailVM: VMType {
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
     let updatePrayFailure = BehaviorRelay<Void>(value: ())
     
+    let deletePraySuccess = BehaviorRelay<Void>(value: ())
+    let deletePrayFailure = BehaviorRelay<Void>(value: ())
+    
     let prayPlusAndChangeVM = BehaviorRelay<PrayPlusAndChangeVM?>(value: nil)
     
     init(useCase: PrayUseCase, userID: String, prayID: String) {
@@ -59,6 +62,14 @@ class GroupPrayDetailVM: VMType {
             .bind(to: updatePrayFailure)
             .disposed(by: disposeBag)
         
+        useCase.deletePraySuccess
+            .bind(to: deletePraySuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.deletePrayFailure
+            .bind(to: deletePrayFailure)
+            .disposed(by: disposeBag)
+        
         if userID == UserData.shared.userInfo?.id {
             isMyPray.accept(true)
         }
@@ -76,6 +87,10 @@ class GroupPrayDetailVM: VMType {
     private func updatePray() {
         guard let pray = self.pray.value else { return }
         useCase.updatePray(prayID: prayID, pray: pray, tags: tagList.value, isSecret: isSecret.value)
+    }
+    
+    private func deletePray() {
+        useCase.deletePray(prayID: prayID)
     }
 }
 
@@ -105,6 +120,9 @@ extension GroupPrayDetailVM {
         
         let updatePraySuccess: Driver<Void>
         let updatePrayFailure: Driver<Void>
+        
+        let deletePraySuccess: Driver<Void>
+        let deletePrayFailure: Driver<Void>
         
         let prayPlusAndChangeVM: Driver<PrayPlusAndChangeVM?>
     }
@@ -156,6 +174,11 @@ extension GroupPrayDetailVM {
                 self.isSecret.accept(!self.isSecret.value)
             }).disposed(by: disposeBag)
         
+        input.deletePray
+            .drive(onNext: { [weak self] _ in
+                self?.deletePray()
+            }).disposed(by: disposeBag)
+        
         input.didTapPrayPlusAndChangeButton
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -177,6 +200,9 @@ extension GroupPrayDetailVM {
                       
                       updatePraySuccess: updatePraySuccess.asDriver(),
                       updatePrayFailure: updatePrayFailure.asDriver(),
+                      
+                      deletePraySuccess: deletePraySuccess.asDriver(),
+                      deletePrayFailure: deletePrayFailure.asDriver(),
                       
                       prayPlusAndChangeVM: prayPlusAndChangeVM.asDriver()
         )

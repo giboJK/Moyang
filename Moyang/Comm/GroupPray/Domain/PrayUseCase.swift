@@ -21,8 +21,12 @@ class PrayUseCase {
     
     let plusPraySuccess = BehaviorRelay<Void>(value: ())
     let plusPrayFailure = BehaviorRelay<Void>(value: ())
+    
     let addChangeSuccess = BehaviorRelay<Void>(value: ())
     let addChangeFailure = BehaviorRelay<Void>(value: ())
+    
+    let deletePraySuccess = BehaviorRelay<Void>(value: ())
+    let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -75,27 +79,34 @@ class PrayUseCase {
     }
     func addPray(pray: String, tags: [String], isSecret: Bool) {
         guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
-        guard let userID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() {
             return
         }
-        repo.addPray(userID: userID,
+        repo.addPray(userID: myID,
                      groupID: groupID,
                      content: pray,
                      tags: tags,
                      isSecret: isSecret) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let response):
                 if response.code == 0 {
-                    self?.addNewPraySuccess.accept(())
+                    self.addNewPraySuccess.accept(())
+                    var dict = self.memberPrayList.value
+                    if var curList = dict[myID] {
+                        curList.insert(response.data, at: 0)
+                        dict.updateValue(curList, forKey: myID)
+                        self.memberPrayList.accept(dict)
+                    }
                 } else {
-                    self?.addNewPrayFailure.accept(())
+                    self.addNewPrayFailure.accept(())
                 }
             case .failure(let error):
                 Log.e(error)
-                self?.addNewPrayFailure.accept(())
+                self.addNewPrayFailure.accept(())
             }
-            self?.resetIsNetworking()
+            self.resetIsNetworking()
         }
     }
     
@@ -152,6 +163,36 @@ class PrayUseCase {
         }
     }
     
+    func deletePray(prayID: String) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() {
+            return
+        }
+        repo.deletePray(prayID: prayID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.deletePraySuccess.accept(())
+                    var dict = self.memberPrayList.value
+                    if var curList = dict[myID] {
+                        curList.removeAll { $0.prayID == prayID }
+                        dict.updateValue(curList, forKey: myID)
+                        self.memberPrayList.accept(dict)
+                    }
+                } else {
+                    self.deletePrayFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.deletePrayFailure.accept(())
+            }
+            self.resetIsNetworking()
+        }
+    }
+    
+    
+    // MARK: - Local function
     private func checkAndSetIsNetworking() -> Bool {
         if isNetworking.value {
             Log.d("isNetworking...")
