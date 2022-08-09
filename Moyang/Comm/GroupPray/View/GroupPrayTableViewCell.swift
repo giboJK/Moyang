@@ -121,9 +121,10 @@ class GroupPrayTableViewCell: UITableViewCell {
     }
     
     private func bindViews() {
-        prayCollectionView.rx.contentOffset.asDriver()
-            .throttle(.milliseconds(350))
-            .drive(onNext: { [weak self] offset in
+        prayCollectionView.rx.contentOffset
+            .skip(.seconds(2), scheduler: MainScheduler.asyncInstance)
+            .throttle(.milliseconds(400), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] offset in
                 guard let self = self else { return }
                 
                 let offset = self.prayCollectionView.contentOffset.y

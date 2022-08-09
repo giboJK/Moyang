@@ -22,19 +22,14 @@ class PrayReplyDetailVM: VMType {
     deinit { Log.i(self) }
     
     private func setData() {
-//        guard let groupInfo = UserData.shared.groupInfo else { return }
-//        var itemList = [ReplyItem]()
-//        replys.forEach { reply in
-//            if let member = groupInfo.memberList.first(where: { $0.id == reply.memberID }) {
-//                itemList.append(ReplyItem(memberID: reply.memberID,
-//                                          name: member.name,
-//                                          reply: reply.reply,
-//                                          date: reply.date,
-//                                          reactions: reply.reactions,
-//                                          order: reply.order))
-//            }
-//        }
-//        self.itemList.accept(itemList)
+        var itemList = [ReplyItem]()
+        replys.forEach { reply in
+            itemList.append(ReplyItem(memberID: reply.memberID,
+                                      name: reply.name,
+                                      reply: reply.reply,
+                                      date: reply.createDate))
+        }
+        self.itemList.accept(itemList)
     }
     
     private func sortByLatest() {
@@ -83,24 +78,18 @@ extension PrayReplyDetailVM {
         let name: String
         let reply: String
         let date: String
-        var reactions: [PrayReaction]
-        let order: Int
         let isHeader: Bool
         
         init(memberID: String,
              name: String,
              reply: String,
              date: String,
-             reactions: [PrayReaction],
-             order: Int,
              isHeader: Bool = false
         ) {
             self.memberID = memberID
             self.name = name
             self.reply = reply
             self.date = date
-            self.reactions = reactions
-            self.order = order
             self.isHeader = isHeader
         }
     }

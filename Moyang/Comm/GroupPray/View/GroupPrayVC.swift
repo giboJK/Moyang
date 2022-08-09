@@ -230,9 +230,21 @@ class GroupPrayVC: UIViewController, VCType {
         present(nav, animated: true, completion: nil)
     }
     
-    private func showMemberReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
+    private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
         let vc = PrayReactionDetailVC()
         vc.vm = prayReactionDetailVM
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .pageSheet
+
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        present(nav, animated: true, completion: nil)
+    }
+    
+    private func showReplyView(prayReplyDetailVM: PrayReplyDetailVM) {
+        let vc = PrayReplyDetailVC()
+        vc.vm = prayReplyDetailVM
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .pageSheet
 
@@ -283,7 +295,13 @@ class GroupPrayVC: UIViewController, VCType {
         output.prayReactionDetailVM
             .drive(onNext: { [weak self] prayReactionDetailVM in
                 guard let prayReactionDetailVM = prayReactionDetailVM else { return }
-                self?.showMemberReactionView(prayReactionDetailVM: prayReactionDetailVM)
+                self?.showReactionView(prayReactionDetailVM: prayReactionDetailVM)
+            }).disposed(by: disposeBag)
+        
+        output.prayReplyDetailVM
+            .drive(onNext: { [weak self] prayReplyDetailVM in
+                guard let prayReplyDetailVM = prayReplyDetailVM else { return }
+                self?.showReplyView(prayReplyDetailVM: prayReplyDetailVM)
             }).disposed(by: disposeBag)
         
         output.groupPrayDetailVM

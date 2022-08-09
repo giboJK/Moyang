@@ -189,10 +189,6 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         let input = VM.Input(toggleIsWeek: displayUnitChangeButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
-        if let start = Date().startOfWeek {
-            vm.selectDateRange(date: start)
-        }
-        
         output.isWeek
             .skip(1)
             .drive(onNext: { [weak self] isWeek in

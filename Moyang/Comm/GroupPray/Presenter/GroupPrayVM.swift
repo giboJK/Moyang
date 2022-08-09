@@ -28,6 +28,7 @@ class GroupPrayVM: VMType {
     let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
     
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
+    let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
     
     let groupPrayDetailVM = BehaviorRelay<GroupPrayDetailVM?>(value: nil)
     
@@ -143,6 +144,7 @@ extension GroupPrayVM {
         let memberPrayList: Driver<[String: [GroupIndividualPray]]>
         
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
+        let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
         let groupPrayDetailVM: Driver<GroupPrayDetailVM?>
     }
     
@@ -191,7 +193,7 @@ extension GroupPrayVM {
                 guard let self = self else { return }
                 guard let item = item else { return }
                 if let prayList = self.memberPrayList.value[item.0] {
-//                    self.prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: prayList[item.1].replys))
+                    self.prayReplyDetailVM.accept(PrayReplyDetailVM(replys: prayList[item.1].replys))
                 }
             }).disposed(by: disposeBag)
         
@@ -208,6 +210,7 @@ extension GroupPrayVM {
                       
                       memberPrayList: memberPrayList.asDriver(),
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
+                      prayReplyDetailVM: prayReplyDetailVM.asDriver(),
                       groupPrayDetailVM: groupPrayDetailVM.asDriver()
         )
     }
