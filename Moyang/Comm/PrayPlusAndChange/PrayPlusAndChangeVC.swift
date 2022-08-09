@@ -65,11 +65,14 @@ class PrayPlusAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        saveButton.snp.remakeConstraints {
-            $0.left.right.equalToSuperview().inset(24)
-            $0.height.equalTo(48)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
+        UIView.animate(withDuration: 1.0) {
+            self.saveButton.snp.remakeConstraints {
+                $0.left.right.equalToSuperview().inset(24)
+                $0.height.equalTo(48)
+                $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(12)
+            }
         }
+        self.view.layoutIfNeeded()
     }
     
     func setupUI() {
