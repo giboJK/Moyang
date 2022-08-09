@@ -107,7 +107,7 @@ class GroupPrayingVC: UIViewController, VCType {
     }
     
     func setupUI() {
-        view.setGradient(color1: .nightSky3, color2: .nightSky2)
+        view.setGradient(startColor: .nightSky3, endColor: .nightSky2)
         setupNavBar()
         setupTitleLabel()
         setupPrevButton()
