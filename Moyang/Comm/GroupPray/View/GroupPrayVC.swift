@@ -230,6 +230,18 @@ class GroupPrayVC: UIViewController, VCType {
         present(nav, animated: true, completion: nil)
     }
     
+    private func showMemberReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
+        let vc = PrayReactionDetailVC()
+        vc.vm = prayReactionDetailVM
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .pageSheet
+
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        present(nav, animated: true, completion: nil)
+    }
+    
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(selectMember: prayTableView.rx.itemSelected.asDriver())
@@ -266,6 +278,12 @@ class GroupPrayVC: UIViewController, VCType {
             .map { $0.isEmpty ? "모두" : $0 }
             .drive(onNext: { [weak self] name in
                 self?.groupPrayCalendar.memberButton.setTitle(name, for: .normal)
+            }).disposed(by: disposeBag)
+        
+        output.prayReactionDetailVM
+            .drive(onNext: { [weak self] prayReactionDetailVM in
+                guard let prayReactionDetailVM = prayReactionDetailVM else { return }
+                self?.showMemberReactionView(prayReactionDetailVM: prayReactionDetailVM)
             }).disposed(by: disposeBag)
         
         output.groupPrayDetailVM

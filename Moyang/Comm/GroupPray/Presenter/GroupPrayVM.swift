@@ -27,6 +27,8 @@ class GroupPrayVM: VMType {
     
     let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
     
+    let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
+    
     let groupPrayDetailVM = BehaviorRelay<GroupPrayDetailVM?>(value: nil)
     
     var curDisplayDate = Date().startOfWeek ?? Date()
@@ -111,14 +113,6 @@ class GroupPrayVM: VMType {
     func fetchMorePrays(userID: String) {
         if let orderType = GroupPrayOrder(rawValue: order.value),
            let list = memberPrayList.value[userID] {
-            Log.e(orderType)
-            Log.e(orderType)
-            Log.e(orderType)
-            Log.e(orderType)
-            Log.e(orderType)
-            Log.e(orderType)
-            Log.e(orderType)
-            Log.e(list.count)
             useCase.fetchPrayList(userID: userID, order: orderType.parameter, page: list.count)
         }
     }
@@ -131,6 +125,8 @@ extension GroupPrayVM {
         var selectMember: Driver<IndexPath> = .empty()
         
         var showPrayDetail: Driver<(String, IndexPath)?> = .empty()
+        var showReactions: Driver<(String, Int)?> = .empty()
+        var showReplys: Driver<(String, Int)?> = .empty()
     }
     
     struct Output {
@@ -146,6 +142,7 @@ extension GroupPrayVM {
         
         let memberPrayList: Driver<[String: [GroupIndividualPray]]>
         
+        let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let groupPrayDetailVM: Driver<GroupPrayDetailVM?>
     }
     
@@ -180,6 +177,25 @@ extension GroupPrayVM {
                 }
             }).disposed(by: disposeBag)
         
+        input.showReactions
+            .drive(onNext: { [weak self] item in
+                guard let self = self else { return }
+                guard let item = item else { return }
+                if let prayList = self.memberPrayList.value[item.0] {
+                    self.prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: prayList[item.1].reactions))
+                }
+            }).disposed(by: disposeBag)
+        
+        input.showReplys
+            .drive(onNext: { [weak self] item in
+                guard let self = self else { return }
+                guard let item = item else { return }
+                if let prayList = self.memberPrayList.value[item.0] {
+//                    self.prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: prayList[item.1].replys))
+                }
+            }).disposed(by: disposeBag)
+        
+        
         return Output(groupName: groupName.asDriver(),
                       groupCreateDate: groupCreateDate.asDriver(),
                       isWeek: isWeek.asDriver(),
@@ -191,7 +207,7 @@ extension GroupPrayVM {
                       displayDate: displayDate.asDriver(),
                       
                       memberPrayList: memberPrayList.asDriver(),
-                      
+                      prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       groupPrayDetailVM: groupPrayDetailVM.asDriver()
         )
     }

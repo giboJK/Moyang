@@ -17,18 +17,6 @@ class PrayReactionDetailVC: UIViewController, VCType {
     var vm: VM?
     
     // MARK: - UI
-    let cornerRadiusView = UIView().then {
-        $0.backgroundColor = .sheep2
-        $0.layer.cornerRadius = 14
-        $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        $0.layer.masksToBounds = true
-    }
-    let titleLabel = UILabel().then {
-        $0.text = "함께하는 성도들"
-        $0.font = .systemFont(ofSize: 17, weight: .heavy)
-        $0.textColor = .nightSky1
-        $0.textAlignment = .center
-    }
     let scrollView = UIScrollView()
     let container = UIView()
     let loveContainer = UIView()
@@ -48,34 +36,16 @@ class PrayReactionDetailVC: UIViewController, VCType {
     deinit { Log.i(self) }
     
     func setupUI() {
+        title = "함께하는 성도들"
         view.backgroundColor = .clear
-        setupCornerRadiusView()
-        setupTitleLabel()
         setupScrollView()
     }
-    private func setupCornerRadiusView() {
-        view.addSubview(cornerRadiusView)
-        cornerRadiusView.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview().inset(360)
-            $0.height.equalTo(32)
-        }
-    }
-    private func setupTitleLabel() {
-        view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview().inset(368)
-            $0.height.equalTo(24)
-        }
-    }
-    
     private func setupScrollView() {
         view.addSubview(scrollView)
         scrollView.backgroundColor = .sheep2
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom)
-            $0.left.right.bottom.equalToSuperview()
+            $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
         }
         
         scrollView.addSubview(container)
@@ -149,22 +119,22 @@ class PrayReactionDetailVC: UIViewController, VCType {
                         switch type {
                         case .love:
                             self.loveContainer.snp.updateConstraints {
-                                $0.height.equalTo(self.rowHeight * list[i].memberName.count)
+                                $0.height.equalTo(self.rowHeight * list[i].name.count)
                             }
                         case .joyful:
                             self.joyContainer.snp.updateConstraints {
-                                $0.height.equalTo(self.rowHeight * list[i].memberName.count)
+                                $0.height.equalTo(self.rowHeight * list[i].name.count)
                             }
                         case .sad:
                             self.sadContainer.snp.updateConstraints {
-                                $0.height.equalTo(self.rowHeight * list[i].memberName.count)
+                                $0.height.equalTo(self.rowHeight * list[i].name.count)
                             }
                         case .prayWithYou:
                             self.prayContainer.snp.updateConstraints {
-                                $0.height.equalTo(self.rowHeight * list[i].memberName.count)
+                                $0.height.equalTo(self.rowHeight * list[i].name.count)
                             }
                         }
-                        for j in 0 ..< list[i].memberName.count {
+                        for j in 0 ..< list[i].name.count {
                             let memberView = UIView()
                             let memberName = UILabel().then {
                                 $0.textColor = .nightSky1
@@ -181,7 +151,7 @@ class PrayReactionDetailVC: UIViewController, VCType {
                                 $0.centerY.equalToSuperview()
                                 $0.right.equalToSuperview().inset(20)
                             }
-                            memberName.text = list[i].memberName[j]
+                            memberName.text = list[i].name[j]
                             imoticonLabel.text = type.desc
                             switch type {
                             case .love:

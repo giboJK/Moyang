@@ -99,7 +99,8 @@ class PrayCVCell: UICollectionViewCell {
     
     var tags = [String]()
     var userID: String = ""
-    var row: Int?
+    var row: Int!
+    var isBinded = false
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -340,41 +341,17 @@ class PrayCVCell: UICollectionViewCell {
         self.setupReactionView(reactions: reactions)
     }
     
-    private func bind() {
-        self.rx.longPressGesture().when(.began)
-            .subscribe(onNext: { [weak self] _ in
-                guard let row = self?.row else { return }
-                let indexDict = ["index": row]
-                NotificationCenter.default.post(name: NSNotification.Name("GROUP_PRAY_REACTIONVIEW_MOVE"),
-                                                object: nil,
-                                                userInfo: indexDict)
-            }).disposed(by: disposeBag)
-        
-        self.rx.longPressGesture().when(.began)
-            .delay(.milliseconds(100), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { _ in
-                NotificationCenter.default.post(name: NSNotification.Name("GROUP_PRAY_REACTIONVIEW_SHOW"),
-                                                object: nil,
-                                                userInfo: nil)
-            }).disposed(by: disposeBag)
-        
-        reactionView.rx.tapGesture().when(.ended)
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self, let row = self.row else { return }
-                let indexDict = ["index": row]
-                NotificationCenter.default.post(name: NSNotification.Name("GROUP_PRAY_REACTION_TAP"),
-                                                object: nil,
-                                                userInfo: indexDict)
-            }).disposed(by: disposeBag)
-        
-        replyView.rx.tapGesture().when(.ended)
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self, let row = self.row else { return }
-                let indexDict = ["index": row]
-                NotificationCenter.default.post(name: NSNotification.Name("GROUP_PRAY_REPLY_TAP"),
-                                                object: nil,
-                                                userInfo: indexDict)
-            }).disposed(by: disposeBag)
+    func bind() {
+        if let vm = vm {
+            if isBinded { return }
+            isBinded = true
+            let reactions = reactionView.rx.tapGesture().when(.ended).map { _ -> (String, Int)? in (self.userID, self.row) }
+            let replys = replyView.rx.tapGesture().when(.ended).map { _ -> (String, Int)? in (self.userID, self.row) }
+            
+            let input = VM.Input(showReactions: reactions.asDriver(onErrorJustReturn: nil),
+                                 showReplys: replys.asDriver(onErrorJustReturn: nil))
+            _ = vm.transform(input: input)
+        }
     }
     
     func setupData(item: GroupIndividualPray) {

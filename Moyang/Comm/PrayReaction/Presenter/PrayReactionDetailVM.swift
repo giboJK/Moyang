@@ -27,35 +27,34 @@ class PrayReactionDetailVM: VMType {
             let typeB = PrayReactionType(rawValue: b.type)!
             return typeA.order < typeB.order
         }
-        var loveItem = ReactionItem(memberName: [], reaction: PrayReactionType.love.rawValue)
-        var joyfulItem = ReactionItem(memberName: [], reaction: PrayReactionType.joyful.rawValue)
-        var sadItem = ReactionItem(memberName: [], reaction: PrayReactionType.sad.rawValue)
-        var prayItem = ReactionItem(memberName: [], reaction: PrayReactionType.prayWithYou.rawValue)
-//        sorted.forEach { item in
-//            if let type = PrayReactionType(rawValue: item.reaction) {
-//                guard let member = groupInfo.memberList.first(where: { $0.id == item.userID }) else { Log.e("No member"); return }
-//                switch type {
-//                case .love:
-//                    loveItem.memberName.append(member.name)
-//                case .joyful:
-//                    joyfulItem.memberName.append(member.name)
-//                case .sad:
-//                    sadItem.memberName.append(member.name)
-//                case .prayWithYou:
-//                    prayItem.memberName.append(member.name)
-//                }
-//            }
-//        }
-        if !loveItem.memberName.isEmpty {
+        var loveItem = ReactionItem(name: [], reaction: PrayReactionType.love.rawValue)
+        var joyfulItem = ReactionItem(name: [], reaction: PrayReactionType.joyful.rawValue)
+        var sadItem = ReactionItem(name: [], reaction: PrayReactionType.sad.rawValue)
+        var prayItem = ReactionItem(name: [], reaction: PrayReactionType.prayWithYou.rawValue)
+        sorted.forEach { item in
+            if let type = PrayReactionType(rawValue: item.type) {
+                switch type {
+                case .love:
+                    loveItem.name.append(item.name)
+                case .joyful:
+                    joyfulItem.name.append(item.name)
+                case .sad:
+                    sadItem.name.append(item.name)
+                case .prayWithYou:
+                    prayItem.name.append(item.name)
+                }
+            }
+        }
+        if !loveItem.name.isEmpty {
             itemList.append(loveItem)
         }
-        if !joyfulItem.memberName.isEmpty {
+        if !joyfulItem.name.isEmpty {
             itemList.append(joyfulItem)
         }
-        if !sadItem.memberName.isEmpty {
+        if !sadItem.name.isEmpty {
             itemList.append(sadItem)
         }
-        if !prayItem.memberName.isEmpty {
+        if !prayItem.name.isEmpty {
             itemList.append(prayItem)
         }
         reactionItemList.accept(itemList)
@@ -77,13 +76,13 @@ extension PrayReactionDetailVM {
 
 extension PrayReactionDetailVM {
     struct ReactionItem {
-        var memberName: [String]
+        var name: [String]
         let reaction: Int
         
-        init(memberName: [String],
+        init(name: [String],
              reaction: Int
         ) {
-            self.memberName = memberName
+            self.name = name
             self.reaction = reaction
         }
     }

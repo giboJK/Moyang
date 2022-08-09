@@ -138,8 +138,8 @@ class GroupPrayTableViewCell: UITableViewCell {
         if let vm = vm {
             if isBinded { return }
             isBinded = true
-            let input = VM.Input(showPrayDetail: prayCollectionView.rx.itemSelected
-                .map { (self.userID, $0) }.asDriver(onErrorJustReturn: nil))
+            let showPrayDetail = prayCollectionView.rx.itemSelected.map { (self.userID, $0) }.asDriver(onErrorJustReturn: nil)
+            let input = VM.Input(showPrayDetail: showPrayDetail)
             let output = vm.transform(input: input)
             
             output.memberPrayList
@@ -149,6 +149,8 @@ class GroupPrayTableViewCell: UITableViewCell {
                         cell.userID = self!.userID
                         cell.row = index
                         cell.setupData(item: item)
+                        cell.vm = self?.vm
+                        cell.bind()
                     }.disposed(by: disposeBag)
             
             output.memberPrayList
