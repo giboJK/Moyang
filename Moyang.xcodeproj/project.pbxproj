@@ -90,6 +90,7 @@
 		24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */; };
 		24BE30DE2862C39100413A3B /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE30DD2862C39100413A3B /* AppInfo.swift */; };
 		24BFD9ED28307B2200E105D3 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BFD9EC28307B2200E105D3 /* MainVM.swift */; };
+		24C3379E28A200DA00AA042A /* PrayDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C3379D28A200DA00AA042A /* PrayDetailView.swift */; };
 		24C52740284708570081AE25 /* GroupPrayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C5273F284708570081AE25 /* GroupPrayTableViewCell.swift */; };
 		24C68AC0287D7C4800330178 /* SetUserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C68ABF287D7C4800330178 /* SetUserInfoVC.swift */; };
 		24C877CD282FD6B400F69AAD /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C877CC282FD6B400F69AAD /* MainVC.swift */; };
@@ -254,6 +255,7 @@
 		24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		24BE30DD2862C39100413A3B /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		24BFD9EC28307B2200E105D3 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
+		24C3379D28A200DA00AA042A /* PrayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayDetailView.swift; sourceTree = "<group>"; };
 		24C5273F284708570081AE25 /* GroupPrayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayTableViewCell.swift; sourceTree = "<group>"; };
 		24C68ABF287D7C4800330178 /* SetUserInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUserInfoVC.swift; sourceTree = "<group>"; };
 		24C877CC282FD6B400F69AAD /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 			isa = PBXGroup;
 			children = (
 				08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */,
+				24C3379D28A200DA00AA042A /* PrayDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1376,6 +1379,7 @@
 				24E0AB1F283D1FF900F52505 /* MoyangNavBar.swift in Sources */,
 				08AD958F287BE2D6002D4F94 /* AuthAssembly.swift in Sources */,
 				242D745C274267C80053EF2A /* MainCard.swift in Sources */,
+				24C3379E28A200DA00AA042A /* PrayDetailView.swift in Sources */,
 				24C877D5282FE8B100F69AAD /* CommunityMainVC.swift in Sources */,
 				08D21A422884C93E002823E6 /* LogInVC.swift in Sources */,
 				08AD9594287BE433002D4F94 /* UserInfoRequest.swift in Sources */,
