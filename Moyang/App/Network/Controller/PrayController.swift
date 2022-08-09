@@ -136,4 +136,25 @@ extension PrayController: PrayRepo {
             }
         }
     }
+    
+    func addReaction(userID: String, prayID: String, type: Int, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.addReaction)
+        let dict: [String: Any] = ["user_id": userID,
+                                   "pray_id": prayID,
+                                   "type": type]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+        
+    }
 }

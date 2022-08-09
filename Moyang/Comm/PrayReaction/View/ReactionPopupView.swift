@@ -8,7 +8,7 @@
 import UIKit
 
 class ReactionPopupView: UIView {
-    var delegate: ReactionPopupViewDelegate?
+    weak var delegate: ReactionPopupViewDelegate?
     
     let buttonContainer = UIView().then {
         $0.backgroundColor = .sheep1
@@ -18,21 +18,25 @@ class ReactionPopupView: UIView {
         $0.setTitle("❤️", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         $0.layer.cornerRadius = 4
+        $0.tag = PrayReactionType.love.rawValue
     }
     let joyfulButton = UIButton().then {
         $0.setTitle("😄", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         $0.layer.cornerRadius = 4
+        $0.tag = PrayReactionType.joyful.rawValue
     }
     let sadButton = UIButton().then {
         $0.setTitle("😭", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         $0.layer.cornerRadius = 4
+        $0.tag = PrayReactionType.sad.rawValue
     }
     let prayButton = UIButton().then {
         $0.setTitle("🙏", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         $0.layer.cornerRadius = 4
+        $0.tag = PrayReactionType.prayWithYou.rawValue
     }
     
     let actionContainer = UIView().then {
@@ -45,8 +49,11 @@ class ReactionPopupView: UIView {
         $0.text = "복사"
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .nightSky2
+        $0.isUserInteractionEnabled = false
     }
-    let copyImageView = UIImageView(image: Asset.Images.Pray.copy.image.withTintColor(.nightSky2))
+    let copyImageView = UIImageView(image: Asset.Images.Pray.copy.image.withTintColor(.nightSky2)).then {
+        $0.isUserInteractionEnabled = false
+    }
     
     required init() {
         super.init(frame: .zero)
@@ -83,6 +90,7 @@ class ReactionPopupView: UIView {
             $0.left.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(8)
         }
+        loveButton.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
     }
     private func setupJoyfulButton() {
         buttonContainer.addSubview(joyfulButton)
@@ -91,6 +99,7 @@ class ReactionPopupView: UIView {
             $0.size.equalTo(20)
             $0.left.equalTo(loveButton.snp.right).offset(16)
         }
+        joyfulButton.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
     }
     private func setupSadButton() {
         buttonContainer.addSubview(sadButton)
@@ -99,6 +108,7 @@ class ReactionPopupView: UIView {
             $0.size.equalTo(20)
             $0.left.equalTo(joyfulButton.snp.right).offset(16)
         }
+        sadButton.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
     }
     private func setupPrayButton() {
         buttonContainer.addSubview(prayButton)
@@ -107,6 +117,7 @@ class ReactionPopupView: UIView {
             $0.size.equalTo(20)
             $0.right.equalToSuperview().inset(16)
         }
+        prayButton.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
     }
     private func setupActionContainer() {
         addSubview(actionContainer)
@@ -142,6 +153,8 @@ class ReactionPopupView: UIView {
             $0.right.equalToSuperview().inset(12)
             $0.size.equalTo(20)
         }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapCopyView))
+        copyView.addGestureRecognizer(tapGesture)
     }
 
     func setMyReaction(reaction: Int) {
@@ -159,6 +172,25 @@ class ReactionPopupView: UIView {
                 prayButton.backgroundColor = .sheep2
             }
         }
+    }
+    
+    @objc func didTapButton(_ sender: UIButton) {
+        switch sender.tag {
+        case PrayReactionType.love.rawValue:
+            delegate?.didTapEmoji(type: .love)
+        case PrayReactionType.joyful.rawValue:
+            delegate?.didTapEmoji(type: .joyful)
+        case PrayReactionType.sad.rawValue:
+            delegate?.didTapEmoji(type: .sad)
+        case PrayReactionType.prayWithYou.rawValue:
+            delegate?.didTapEmoji(type: .prayWithYou)
+        default:
+            return
+        }
+    }
+    
+    @objc func didTapCopyView() {
+        delegate?.didTapCopy()
     }
 }
 

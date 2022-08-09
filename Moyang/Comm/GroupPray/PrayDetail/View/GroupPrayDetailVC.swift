@@ -72,6 +72,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
     }
     let reactionPopupViewHeight: CGFloat = 36 + 8 + 40
     var isPopupAnimating = false
+    var isMyPray = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +126,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
     private func setupPrayChangeView() {
         view.addSubview(prayChangeLabel)
         prayChangeLabel.snp.makeConstraints {
-            $0.top.equalTo(prayDetailView.snp.bottom).offset(20)
+            $0.top.equalTo(prayDetailView.snp.bottom).offset(8)
             $0.left.equalToSuperview().inset(20)
         }
         
@@ -191,9 +192,10 @@ class GroupPrayDetailVC: UIViewController, VCType {
             $0.right.equalTo(prayDetailView).inset(16)
             $0.top.equalTo(prayDetailView).inset(280)
         }
+        reactionView.delegate = self
     }
     func showPrayReactionPopupView() {
-        if isPopupAnimating {
+        if isMyPray || isPopupAnimating {
             return
         }
         isPopupAnimating = true
@@ -219,11 +221,24 @@ class GroupPrayDetailVC: UIViewController, VCType {
         }
     }
     
+    private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
+        let vc = PrayReactionDetailVC()
+        vc.vm = prayReactionDetailVM
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .pageSheet
+
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        present(nav, animated: true, completion: nil)
+    }
+    
     // MARK: - Binding
     func bind() {
         bineViews()
         bindVM()
     }
+    
     private func bineViews() {
         navBar.backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -255,19 +270,21 @@ class GroupPrayDetailVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.hidePrayReactionPopupView()
             }).disposed(by: disposeBag)
-        
     }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
+        let tapReactionView = prayDetailView.reactionView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let input = VM.Input(updatePray: updateButton.rx.tap.asDriver(),
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver(),
-                             didTapPrayPlusAndChangeButton: prayPlusButton.rx.tap.asDriver())
+                             didTapPrayPlusAndChangeButton: prayPlusButton.rx.tap.asDriver(),
+                             didTapPrayReaction: tapReactionView)
         let output = vm.transform(input: input)
         
         output.isMyPray
             .drive(onNext: { [weak self] isMyPray in
                 guard let self = self else { return }
+                self.isMyPray = isMyPray
                 self.updateButton.isHidden = !isMyPray
                 self.deleteButton.isHidden = !isMyPray
                 self.prayPlusButton.isHidden = isMyPray
@@ -313,15 +330,25 @@ class GroupPrayDetailVC: UIViewController, VCType {
         output.deletePraySuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.navigationController?.popViewController(animated: true)
+                self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
         output.deletePrayFailure
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.navigationController?.popViewController(animated: true)
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
+        
+        output.isSuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.hidePrayReactionPopupView()
+            }).disposed(by: disposeBag)
+        
+        output.prayReactionDetailVM
+            .drive(onNext: { [weak self] prayReactionDetailVM in
+                guard let prayReactionDetailVM = prayReactionDetailVM else { return }
+                self?.showReactionView(prayReactionDetailVM: prayReactionDetailVM)
             }).disposed(by: disposeBag)
         
         output.prayPlusAndChangeVM
@@ -346,4 +373,14 @@ class GroupPrayDetailVC: UIViewController, VCType {
 
 protocol GroupPrayDetailVCDelegate: AnyObject {
 
+}
+
+extension GroupPrayDetailVC: ReactionPopupViewDelegate {
+    func didTapEmoji(type: PrayReactionType) {
+        vm?.addReaction(type: type)
+    }
+    
+    func didTapCopy() {
+        
+    }
 }

@@ -28,7 +28,10 @@ class PrayUseCase {
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
+    // MARK: - Default events
     let isNetworking = BehaviorRelay<Bool>(value: false)
+    let isSuccess = BehaviorRelay<Void>(value: ())
+    let isFailure = BehaviorRelay<Void>(value: ())
     
     let userIDNameDict = BehaviorRelay<[String: String]>(value: [:])
     private var userPrayFetchDate = [String: Set<String>]() // 유저별로 해당 날짜의 기도를 불러온 적이 있는지 저장하는 모델
@@ -191,6 +194,28 @@ class PrayUseCase {
         }
     }
     
+    func addReaction(prayID: String, type: Int) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() {
+            return
+        }
+        repo.addReaction(userID: myID, prayID: prayID, type: type) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.isSuccess.accept(())
+                } else {
+                    Log.e("")
+                    self.isFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.isFailure.accept(())
+            }
+            self.resetIsNetworking()
+        }
+    }
     
     // MARK: - Local function
     private func checkAndSetIsNetworking() -> Bool {

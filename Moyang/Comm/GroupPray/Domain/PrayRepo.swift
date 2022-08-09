@@ -21,4 +21,6 @@ protocol PrayRepo {
                       completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
     
     func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    
+    func addReaction(userID: String, prayID: String, type: Int, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
 }

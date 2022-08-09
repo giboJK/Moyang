@@ -63,6 +63,13 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         $0.textColor = .nightSky1
     }
     let isSecretCheckBox = CheckBox()
+    let reactionView = UIStackView().then {
+        $0.backgroundColor = .sheep1
+        $0.layer.cornerRadius = 14
+        $0.axis = .horizontal
+        $0.distribution = .fillEqually
+        $0.isHidden = true
+    }
     
     // MARK: - Property
     private var tagList = [String]()
@@ -83,6 +90,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         setupGroupChangeButton()
         setupDateLabel()
         setupPrayTextField()
+        setupReactionView()
         setupTagInfoLabel()
         setupTagTextField()
         setupTagCollectionView()
@@ -132,11 +140,22 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         prayTextView.inputAccessoryView = toolBar
     }
     
+    func setupReactionView() {
+        addSubview(reactionView)
+        reactionView.snp.makeConstraints {
+            $0.top.equalTo(prayTextView.snp.bottom).offset(8)
+            $0.right.equalTo(prayTextView)
+            $0.width.equalTo(0)
+            $0.height.equalTo(32)
+        }
+    }
+    
     private func setupTagInfoLabel() {
         addSubview(tagInfoLabel)
         tagInfoLabel.snp.makeConstraints {
             $0.top.equalTo(prayTextView.snp.bottom).offset(12)
-            $0.left.right.equalToSuperview().inset(20)
+            $0.left.equalToSuperview().inset(20)
+            $0.right.equalTo(reactionView.snp.left).offset(-16)
         }
     }
     private func setupTagTextField() {
@@ -164,7 +183,8 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         addSubview(tagCollectionView)
         tagCollectionView.snp.makeConstraints {
             $0.top.equalTo(tagTextField.snp.bottom).offset(12)
-            $0.left.right.equalToSuperview().inset(16)
+            $0.left.equalToSuperview().inset(16)
+            $0.right.equalTo(reactionView.snp.left).offset(16)
             $0.height.equalTo(32)
         }
         tagCollectionView.dataSource = self
@@ -209,7 +229,48 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         tagTextField.text?.removeAll()
         endEditing(true)
     }
-
+    func setupReactionView(reactions: [PrayReaction]) {
+        var love = 0
+        var joy = 0
+        var sad = 0
+        var pray = 0
+        reactions.forEach { reaction in
+            if let type = PrayReactionType(rawValue: reaction.type) {
+                switch type {
+                case .love:
+                    love += 1
+                case .joyful:
+                    joy += 1
+                case .sad:
+                    sad += 1
+                case .prayWithYou:
+                    pray += 1
+                }
+            }
+        }
+        if love > 0 {
+            let view = PrayReactionView(type: .love, count: love)
+            reactionView.addArrangedSubview(view)
+        }
+        
+        if joy > 0 {
+            let view = PrayReactionView(type: .joyful, count: joy)
+            reactionView.addArrangedSubview(view)
+        }
+        if sad > 0 {
+            let view = PrayReactionView(type: .sad, count: sad)
+            reactionView.addArrangedSubview(view)
+        }
+        if pray > 0 {
+            let view = PrayReactionView(type: .prayWithYou, count: pray)
+            reactionView.addArrangedSubview(view)
+        }
+        reactionView.snp.updateConstraints {
+            $0.width.equalTo(reactionView.subviews.count * 48)
+        }
+        reactionView.isHidden = false
+    }
+    
     func bind() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(setPray: prayTextView.rx.text.asDriver(),
@@ -231,11 +292,13 @@ class PrayDetailView: UIView, UITextFieldDelegate {
                 self.tagCollectionView.snp.remakeConstraints {
                     if isMyPray {
                         $0.top.equalTo(self.tagTextField.snp.bottom).offset(12)
-                        $0.left.right.equalToSuperview().inset(16)
+                        $0.left.equalToSuperview().inset(16)
+                        $0.right.equalTo(self.reactionView.snp.left).offset(16)
                         $0.height.equalTo(32)
                     } else {
                         $0.top.equalTo(self.prayTextView.snp.bottom).offset(12)
-                        $0.left.right.equalToSuperview().inset(16)
+                        $0.left.equalToSuperview().inset(16)
+                        $0.right.equalTo(self.reactionView.snp.left).offset(16)
                         $0.height.equalTo(32)
                     }
                 }
@@ -259,14 +322,10 @@ class PrayDetailView: UIView, UITextFieldDelegate {
             .disposed(by: disposeBag)
         
         output.tagList
-            .map { $0.count < 5 }
-            .drive(tagTextField.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
-        output.tagList
             .map { $0.count >= 5 }
             .drive(onNext: { [weak self] isFullTag in
                 self?.tagTextField.backgroundColor = isFullTag ? .sheep3 : .sheep1
+                self?.tagTextField.isEnabled = !isFullTag
             }).disposed(by: disposeBag)
         
         output.tagList
@@ -304,6 +363,15 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         output.isSecret
             .drive(isSecretCheckBox.rx.isChecked)
             .disposed(by: disposeBag)
+        
+        output.reactions
+            .drive(onNext: { [weak self] reactions in
+                if reactions.isEmpty {
+                    self?.reactionView.isHidden = true
+                    return
+                }
+                self?.setupReactionView(reactions: reactions)
+            }).disposed(by: disposeBag)
     }
 }
 

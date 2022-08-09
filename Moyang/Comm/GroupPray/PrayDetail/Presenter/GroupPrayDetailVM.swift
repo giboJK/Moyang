@@ -24,6 +24,7 @@ class GroupPrayDetailVM: VMType {
     let isSecret = BehaviorRelay<Bool>(value: false)
     let changes = BehaviorRelay<[PrayChange]>(value: [])
     let answers = BehaviorRelay<[PrayAnswer]>(value: [])
+    let reactions = BehaviorRelay<[PrayReaction]>(value: [])
     
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
     let updatePrayFailure = BehaviorRelay<Void>(value: ())
@@ -31,7 +32,12 @@ class GroupPrayDetailVM: VMType {
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
+    // 기타 이벤트
+    let isSuccess = BehaviorRelay<Void>(value: ())
+    let isFailure = BehaviorRelay<Void>(value: ())
+    
     let prayPlusAndChangeVM = BehaviorRelay<PrayPlusAndChangeVM?>(value: nil)
+    let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     
     init(useCase: PrayUseCase, userID: String, prayID: String) {
         self.useCase = useCase
@@ -70,6 +76,14 @@ class GroupPrayDetailVM: VMType {
             .bind(to: deletePrayFailure)
             .disposed(by: disposeBag)
         
+        useCase.isSuccess
+            .bind(to: isSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.isFailure
+            .bind(to: isFailure)
+            .disposed(by: disposeBag)
+        
         if userID == UserData.shared.userInfo?.id {
             isMyPray.accept(true)
         }
@@ -82,6 +96,7 @@ class GroupPrayDetailVM: VMType {
         pray.accept(data.pray)
         tagList.accept(data.tags)
         isSecret.accept(data.isSecret)
+        reactions.accept(data.reactions)
     }
     
     private func updatePray() {
@@ -91,6 +106,11 @@ class GroupPrayDetailVM: VMType {
     
     private func deletePray() {
         useCase.deletePray(prayID: prayID)
+    }
+    
+    func addReaction(type: PrayReactionType) {
+        Log.i(type)
+        useCase.addReaction(prayID: prayID, type: type.rawValue)
     }
 }
 
@@ -104,6 +124,7 @@ extension GroupPrayDetailVM {
         var toggleIsSecret: Driver<Void> = .empty()
         var deletePray: Driver<Void> = .empty()
         var didTapPrayPlusAndChangeButton: Driver<Void> = .empty()
+        var didTapPrayReaction: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -117,6 +138,7 @@ extension GroupPrayDetailVM {
         let isSecret: Driver<Bool>
         let changes: Driver<[PrayChange]>
         let answers: Driver<[PrayAnswer]>
+        let reactions: Driver<[PrayReaction]>
         
         let updatePraySuccess: Driver<Void>
         let updatePrayFailure: Driver<Void>
@@ -124,6 +146,10 @@ extension GroupPrayDetailVM {
         let deletePraySuccess: Driver<Void>
         let deletePrayFailure: Driver<Void>
         
+        let isSuccess: Driver<Void>
+        let isFailure: Driver<Void>
+        
+        let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayPlusAndChangeVM: Driver<PrayPlusAndChangeVM?>
     }
 
@@ -187,6 +213,12 @@ extension GroupPrayDetailVM {
                                                                     userID: self.userID))
             }).disposed(by: disposeBag)
         
+        input.didTapPrayReaction
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: self.reactions.value))
+            }).disposed(by: disposeBag)
+        
         return Output(isMyPray: isMyPray.asDriver(),
                       
                       groupName: groupName.asDriver(),
@@ -197,12 +229,18 @@ extension GroupPrayDetailVM {
                       isSecret: isSecret.asDriver(),
                       changes: changes.asDriver(),
                       answers: answers.asDriver(),
+                      reactions: reactions.asDriver(),
                       
                       updatePraySuccess: updatePraySuccess.asDriver(),
                       updatePrayFailure: updatePrayFailure.asDriver(),
                       
                       deletePraySuccess: deletePraySuccess.asDriver(),
                       deletePrayFailure: deletePrayFailure.asDriver(),
+                      
+                      isSuccess: isSuccess.asDriver(),
+                      isFailure: isFailure.asDriver(),
+                      
+                      prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       
                       prayPlusAndChangeVM: prayPlusAndChangeVM.asDriver()
         )
