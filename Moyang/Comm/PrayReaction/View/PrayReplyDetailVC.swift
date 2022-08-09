@@ -18,12 +18,6 @@ class PrayReplyDetailVC: UIViewController, VCType {
     var coordinator: VCDelegate?
 
     // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
-        $0.closeButton.isHidden = true
-        $0.backButton.isHidden = true
-        $0.title = "같이 기도하기"
-        $0.backButton.tintColor = .nightSky1
-    }
     let dateSortButton = UIButton().then {
         $0.setTitle("날짜순", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
@@ -62,24 +56,16 @@ class PrayReplyDetailVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
+        title = "함께하는 기도문들"
         view.backgroundColor = .sheep2
-        setupNavBar()
         setupDateSortButton()
         setupNameSortButton()
         setupReplyTableView()
     }
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(44)
-        }
-    }
     private func setupDateSortButton() {
         view.addSubview(dateSortButton)
         dateSortButton.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom).offset(8)
+            $0.top.equalToSuperview()
             $0.left.equalToSuperview().inset(12)
             $0.height.equalTo(32)
             $0.width.equalTo(64)
@@ -88,7 +74,7 @@ class PrayReplyDetailVC: UIViewController, VCType {
     private func setupNameSortButton() {
         view.addSubview(nameSortButton)
         nameSortButton.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom).offset(8)
+            $0.top.equalToSuperview()
             $0.left.equalTo(dateSortButton.snp.right).offset(12)
             $0.height.equalTo(32)
             $0.width.equalTo(64)
@@ -109,10 +95,6 @@ class PrayReplyDetailVC: UIViewController, VCType {
     }
     
     private func bindViews() {
-        navBar.backButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
-            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
