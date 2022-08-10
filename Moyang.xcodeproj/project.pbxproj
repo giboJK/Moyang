@@ -32,6 +32,7 @@
 		08D0CEB228A36ADE00A15F3C /* TodayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CEB128A36ADE00A15F3C /* TodayVC.swift */; };
 		08D0CEB528A36AFE00A15F3C /* TodayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CEB428A36AFE00A15F3C /* TodayVM.swift */; };
 		08D0CEB728A36B1D00A15F3C /* TodayCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CEB628A36B1D00A15F3C /* TodayCoordinator.swift */; };
+		08D0CEBA28A37EFF00A15F3C /* TodayTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CEB928A37EFF00A15F3C /* TodayTask.swift */; };
 		08D21A422884C93E002823E6 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D21A412884C93E002823E6 /* LogInVC.swift */; };
 		08D2FD95286EE24800ED8ECB /* PrayReactionDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2FD94286EE24800ED8ECB /* PrayReactionDetailVC.swift */; };
 		08D2FD97286EE27300ED8ECB /* PrayReactionDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2FD96286EE27300ED8ECB /* PrayReactionDetailVM.swift */; };
@@ -198,6 +199,7 @@
 		08D0CEB128A36ADE00A15F3C /* TodayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayVC.swift; sourceTree = "<group>"; };
 		08D0CEB428A36AFE00A15F3C /* TodayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayVM.swift; sourceTree = "<group>"; };
 		08D0CEB628A36B1D00A15F3C /* TodayCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCoordinator.swift; sourceTree = "<group>"; };
+		08D0CEB928A37EFF00A15F3C /* TodayTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTask.swift; sourceTree = "<group>"; };
 		08D21A412884C93E002823E6 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		08D2FD94286EE24800ED8ECB /* PrayReactionDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReactionDetailVC.swift; sourceTree = "<group>"; };
 		08D2FD96286EE27300ED8ECB /* PrayReactionDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReactionDetailVM.swift; sourceTree = "<group>"; };
@@ -474,6 +476,7 @@
 		08D0CEAF28A36A6100A15F3C /* Today */ = {
 			isa = PBXGroup;
 			children = (
+				08D0CEB828A37EED00A15F3C /* Domain */,
 				08D0CEB328A36AF600A15F3C /* Presenter */,
 				08D0CEB028A36A7300A15F3C /* View */,
 			);
@@ -495,6 +498,14 @@
 				08D0CEB428A36AFE00A15F3C /* TodayVM.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		08D0CEB828A37EED00A15F3C /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				08D0CEB928A37EFF00A15F3C /* TodayTask.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		08D2FD98286EE29C00ED8ECB /* PrayReaction */ = {
@@ -1381,6 +1392,7 @@
 				24294C5F2861DD7A00458CA0 /* CheckBox.swift in Sources */,
 				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
 				24F41C6D2897EBCC005B5E70 /* ProfileVC.swift in Sources */,
+				08D0CEBA28A37EFF00A15F3C /* TodayTask.swift in Sources */,
 				08D8295B278D3327001E6B61 /* Color+.swift in Sources */,
 				24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */,
 				08AD958A287BE063002D4F94 /* SignUpVC.swift in Sources */,
