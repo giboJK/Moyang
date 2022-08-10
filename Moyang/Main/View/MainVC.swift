@@ -43,8 +43,9 @@ class MainVC: UITabBarController, VCType {
         guard let communityMainVC = communityMainVC else {
             Log.e("CommunityMainVC init failed"); return
         }
-
-        self.setViewControllers([todayVC, communityMainVC, profileVC], animated: false)
+        navigationController?.navigationBar.isTranslucent = false
+        tabBar.isTranslucent = false
+        setViewControllers([todayVC, communityMainVC, profileVC], animated: false)
         guard let items = tabBar.items else { return }
         let images = [Asset.Images.Tabbar.today.image, Asset.Images.Tabbar.cross.image, UIImage(systemName: "person.crop.circle.fill")] as [UIImage?]
         let titles = ["오늘", "공동체", "내 정보"]
