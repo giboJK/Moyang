@@ -19,17 +19,32 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
         container.register(MainVC.self) { r in
             let vc = MainVC()
             
-            let communityMainVC = r ~> (CommunityMainVC.self)
-            communityMainVC.coordinator = r ~> (CommunityMainCoordinator.self)
-            vc.communityMainVC = communityMainVC
+            vc.todayVC = r ~> (TodayVC.self)
+            vc.communityMainVC = r ~> (CommunityMainVC.self)
             
             return vc
         }
         
+        // MARK: - Today
+        container.register(TodayVC.self) { r in
+            let vc = TodayVC()
+            
+            vc.vm = r ~> (TodayVM.self)
+            vc.coordinator = r ~> (TodayCoordinator.self)
+            
+            return vc
+        }
+        
+        container.register(TodayVM.self) { _ in
+            TodayVM()
+        }
+        
+        // MARK: - CommunityMain
         container.register(CommunityMainVC.self) { r in
             let vc = CommunityMainVC()
             
             vc.vm = r ~> (CommunityMainVM.self)
+            vc.coordinator = r ~> (CommunityMainCoordinator.self)
             
             return vc
         }
@@ -84,6 +99,12 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - Coordinator
+        container.register(TodayCoordinator.self) { _ in
+            guard let nav = self.nav else { return TodayCoordinator() }
+            let coordinator = TodayCoordinator(nav: nav, assembler: Assembler([self]))
+            return coordinator
+        }
+        
         container.register(CommunityMainCoordinator.self) { r in
             guard let nav = self.nav else { return CommunityMainCoordinator() }
             let coordinator = CommunityMainCoordinator(nav: nav, assembler: Assembler([self,

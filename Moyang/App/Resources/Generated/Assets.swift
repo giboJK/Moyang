@@ -67,6 +67,7 @@ public enum Asset {
     }
     public enum Tabbar {
       public static let cross = ImageAsset(name: "cross")
+      public static let today = ImageAsset(name: "today")
     }
   }
 }
