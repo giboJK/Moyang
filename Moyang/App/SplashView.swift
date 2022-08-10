@@ -9,20 +9,48 @@ import SwiftUI
 
 struct SplashView: View {
     @State var isCompleted = false
-    @State private var timeRemaining = 2
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var move = false
+    @State private var timeRemaining = 1.4
+    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
 //            LottieView(filename: "intro", contentMode: .scaleAspectFill, loopMode: .playOnce) {
 //                isCompleted = true
 //            }
             Spacer()
-            HStack {
+            HStack(spacing: 0) {
                 Spacer()
-                Text("하나님 저는 예배자입니다")
+                    .frame(width: 120)
+                Text("하나님")
                     .foregroundColor(.sheep1)
-                    .font(.system(size: 18))
+                    .font(.system(size: 36))
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            .padding(.bottom, 12)
+            HStack(spacing: 0) {
+                Spacer()
+                    .frame(width: 120)
+                Text("제 삶이")
+                    .foregroundColor(.sheep1)
+                    .font(.system(size: 20))
                     .fontWeight(.regular)
+                    .opacity(move ? 1 : 0.4)
+                    .offset(y: move ? 0 : 16)
+                    .animation(Animation.easeIn(duration: 1.0), value: move)
+                Spacer()
+            }
+            .padding(.bottom, 4)
+            HStack(spacing: 0) {
+                Spacer()
+                    .frame(width: 120)
+                Text("예배입니다")
+                    .foregroundColor(.sheep1)
+                    .font(.system(size: 26))
+                    .fontWeight(.regular)
+                    .opacity(move ? 1 : 0.2)
+                    .offset(y: move ? 0 : 28)
+                    .animation(Animation.easeIn(duration: 1.0), value: move)
                 Spacer()
             }
             Spacer()
@@ -32,7 +60,8 @@ struct SplashView: View {
         )
         .onReceive(timer) { time in
             if timeRemaining > 0 {
-                timeRemaining -= 1
+                timeRemaining -= 0.1
+                move = true
             } else {
                 isCompleted = true
             }
