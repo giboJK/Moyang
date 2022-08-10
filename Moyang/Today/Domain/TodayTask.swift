@@ -19,8 +19,10 @@ struct TodayTask: Codable {
 }
 
 enum TodayTaskType: Int {
-    case praying
-    case readingBible
-    case writingToday
+    case worship
+    case praise
+    case pray
+    case readBible
+    case writeToday
     case quietTime
 }
