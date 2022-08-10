@@ -87,9 +87,9 @@ class TaskItemView: UIView {
         let caShapeLayer = CAShapeLayer()
         caShapeLayer.strokeColor = .sheep2
         caShapeLayer.lineWidth = 2
-        caShapeLayer.lineDashPattern = [6, 6]
+        caShapeLayer.lineDashPattern = [5.46, 5.46]
         let cgPath = CGMutablePath()
-        let cgPoint = [CGPoint(x: 10, y: 0), CGPoint(x: 10, y: 42)]
+        let cgPoint = [CGPoint(x: 10, y: 2.73), CGPoint(x: 10, y: 42)]
         cgPath.addLines(between: cgPoint)
         caShapeLayer.path = cgPath
         layer.addSublayer(caShapeLayer)
@@ -98,7 +98,7 @@ class TaskItemView: UIView {
         let caShapeLayer = CAShapeLayer()
         caShapeLayer.strokeColor = .sheep2
         caShapeLayer.lineWidth = 2
-        caShapeLayer.lineDashPattern = [6, 6]
+        caShapeLayer.lineDashPattern = [5.46, 5.46]
         let cgPath = CGMutablePath()
         let cgPoint = [CGPoint(x: 10, y: 62), CGPoint(x: 10, y: 104)]
         cgPath.addLines(between: cgPoint)

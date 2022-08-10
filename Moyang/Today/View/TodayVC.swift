@@ -17,7 +17,9 @@ class TodayVC: UIViewController, VCType {
     var vm: VM?
     var coordinator: TodayVCDelegate?
     
-    let scrollView = UIScrollView()
+    let scrollView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
     let container = UIView().then {
         $0.backgroundColor = .clear
     }
