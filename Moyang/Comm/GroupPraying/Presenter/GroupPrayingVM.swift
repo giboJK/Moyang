@@ -18,8 +18,6 @@ class GroupPrayingVM: VMType {
     private let songName = BehaviorRelay<String?>(value: nil)
     private let isPlaying = BehaviorRelay<Bool>(value: false)
     private let prayList = BehaviorRelay<[GroupIndividualPray]>(value: [])
-    private let isPrevEnabled = BehaviorRelay<Bool>(value: false)
-    private let isNextEnabled = BehaviorRelay<Bool>(value: false)
 
     private var timer: Timer?
     private var prayingTime: Int = 0
@@ -31,11 +29,18 @@ class GroupPrayingVM: VMType {
     
     private var player: AVAudioPlayer?
     private var url: URL?
+    private var userID = ""
+    private var groupID = ""
     
-    init(useCase: PrayUseCase) {
+    init(useCase: PrayUseCase, groupID: String?, userID: String? = nil) {
         self.useCase = useCase
+        self.groupID = groupID ?? ""
+        if let userID = userID {
+            self.userID = userID
+        } else {
+            self.userID = UserData.shared.userInfo!.id
+        }
         bind()
-        setButtonEnabled()
         loadSong()
         createTimer()
     }
@@ -73,8 +78,11 @@ class GroupPrayingVM: VMType {
             }).disposed(by: disposeBag)
         
         useCase.amenSuccess
-            .bind(to: amenSuccess)
-            .disposed(by: disposeBag)
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                self?.amenSuccess.accept(())
+                self?.stopSong()
+            }).disposed(by: disposeBag)
     }
     
     private func setPrayList() {
@@ -108,25 +116,6 @@ class GroupPrayingVM: VMType {
 //        }) {
 //            selectedMemberName.accept(item.member.name)
 //        }
-    }
-    
-    private func setButtonEnabled() {
-    }
-    
-    private func fetchPrayList(date: String = Date().toString("yyyy-MM-dd hh:mm:ss a")) {
-    }
-    
-    
-    func fetchMorePrayList() {
-//        if let date = prayList.value.last?.date {
-//            fetchPrayList(date: date)
-//        }
-    }
-    
-    private func fetchNextMember() {
-    }
-    
-    private func fetchPrevMember() {
     }
     
     private func loadSong() {
@@ -169,6 +158,7 @@ class GroupPrayingVM: VMType {
     }
     
     private func amen() {
+        useCase.addAmen(groupID: groupID, time: prayingTime)
     }
     
     private func createTimer() {
@@ -200,8 +190,6 @@ class GroupPrayingVM: VMType {
 
 extension GroupPrayingVM {
     struct Input {
-        var prevMemberPray: Driver<Void> = .empty()
-        var nextMemberPray: Driver<Void> = .empty()
         var togglePlaySong: Driver<Void> = .empty()
         var didLongPressPray: Driver<Int?> = .empty()
         var amen: Driver<Void> = .empty()
@@ -213,8 +201,6 @@ extension GroupPrayingVM {
         let songName: Driver<String?>
         let isPlaying: Driver<Bool>
         let prayList: Driver<[GroupIndividualPray]>
-        let isPrevEnabled: Driver<Bool>
-        let isNextEnabled: Driver<Bool>
         let prayingTimeStr: Driver<String>
         let amenSuccess: Driver<Void>
         let isAmenEnable: Driver<Bool>
@@ -222,16 +208,6 @@ extension GroupPrayingVM {
     }
     
     func transform(input: Input) -> Output {
-        input.prevMemberPray
-            .drive(onNext: { [weak self] in
-                self?.fetchPrevMember()
-            }).disposed(by: disposeBag)
-        
-        input.nextMemberPray
-            .drive(onNext: { [weak self] in
-                self?.fetchNextMember()
-            }).disposed(by: disposeBag)
-        
         input.togglePlaySong
             .drive(onNext: { [weak self] _ in
                 self?.toggleIsPlaying()
@@ -253,8 +229,6 @@ extension GroupPrayingVM {
                       songName: songName.asDriver(),
                       isPlaying: isPlaying.asDriver(),
                       prayList: prayList.asDriver(),
-                      isPrevEnabled: isPrevEnabled.asDriver(),
-                      isNextEnabled: isNextEnabled.asDriver(),
                       prayingTimeStr: prayingTimeStr.asDriver(),
                       amenSuccess: amenSuccess.asDriver(),
                       isAmenEnable: isAmenEnable.asDriver(),

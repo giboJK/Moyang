@@ -223,6 +223,28 @@ class PrayUseCase {
             self.resetIsNetworking()
         }
     }
+    func addAmen(groupID: String, time: Int) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() {
+            return
+        }
+        repo.addAmen(userID: myID, groupID: groupID, time: time) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.amenSuccess.accept(())
+                } else {
+                    Log.e("")
+                    self.amenFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.amenFailure.accept(())
+            }
+            self.resetIsNetworking()
+        }
+    }
     
     // MARK: - Firestore
     func loadSong() {

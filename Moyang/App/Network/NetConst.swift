@@ -48,5 +48,6 @@ class NetConst {
         
         /// post
         static let addReaction = "/pray/add_pray_reaction"
+        static let addAmen = "/pray/add_amen_record"
     }
 }

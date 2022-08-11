@@ -23,7 +23,7 @@ protocol PrayRepo {
     func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
     func addReaction(userID: String, prayID: String, type: Int, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
-    
+    func addAmen(userID: String, groupID: String, time: Int, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
     
     func downloadSong(fileName: String, path: String, fileExt: String,

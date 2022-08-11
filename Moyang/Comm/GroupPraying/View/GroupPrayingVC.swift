@@ -229,24 +229,22 @@ class GroupPrayingVC: UIViewController, VCType {
                 self?.closePopup()
             }).disposed(by: disposeBag)
         
-        prayTableView.rx.contentOffset.asDriver()
-            .throttle(.milliseconds(300))
-            .drive(onNext: { [weak self] offset in
-                guard let self = self else { return }
-                
-                let offset = self.prayTableView.contentOffset.y
-                let maxOffset = self.prayTableView.contentSize.height - self.prayTableView.frame.size.height
-                if maxOffset - offset <= 0 {
-                    self.vm?.fetchMorePrayList()
-                }
-            }).disposed(by: disposeBag)
+//        prayTableView.rx.contentOffset.asDriver()
+//            .throttle(.milliseconds(300))
+//            .drive(onNext: { [weak self] offset in
+//                guard let self = self else { return }
+//
+//                let offset = self.prayTableView.contentOffset.y
+//                let maxOffset = self.prayTableView.contentSize.height - self.prayTableView.frame.size.height
+//                if maxOffset - offset <= 0 {
+//                    self.vm?.fetchMorePrayList()
+//                }
+//            }).disposed(by: disposeBag)
     }
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(prevMemberPray: prevButton.rx.tap.asDriver(),
-                             nextMemberPray: nextButton.rx.tap.asDriver(),
-                             togglePlaySong: togglePlayingButton.rx.tap.asDriver(),
+        let input = VM.Input(togglePlaySong: togglePlayingButton.rx.tap.asDriver(),
                              amen: amenButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
@@ -287,14 +285,6 @@ class GroupPrayingVC: UIViewController, VCType {
                     cell.bind()
                 }.disposed(by: disposeBag)
         
-        output.isNextEnabled
-            .drive(nextButton.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
-        output.isPrevEnabled
-            .drive(prevButton.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
         output.prayingTimeStr
             .drive(prayingTimeLabel.rx.text)
             .disposed(by: disposeBag)
@@ -308,7 +298,7 @@ class GroupPrayingVC: UIViewController, VCType {
             .drive(onNext: { [weak self] _ in
                 self?.view.makeToast("예수님의 이름으로 기도드립니다. 아멘.", duration: 3.0, position: .center)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-                    self?.dismiss(animated: true)
+                    self?.navigationController?.popViewController(animated: true)
                 }
             })
             .disposed(by: disposeBag)
