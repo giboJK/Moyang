@@ -28,9 +28,13 @@ class TaskItemView: UIView {
         $0.layer.borderColor = .sheep2
         $0.layer.borderWidth = 1
     }
+    let typeImageView = UIImageView()
+    let titleLabel = UILabel()
+    let descLabel = UILabel()
     
     let type: TaskOrder
     let item: TodayVM.TodayTaskItem
+    
     init(type: TaskOrder, item: TodayVM.TodayTaskItem) {
         self.type = type
         self.item = item
