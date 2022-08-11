@@ -132,7 +132,7 @@ class GroupPrayingVC: UIViewController, VCType {
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(navBar.snp.bottom)
+            $0.top.equalTo(navBar.snp.bottom).offset(12)
         }
     }
     private func setupPrevButton() {
@@ -214,14 +214,13 @@ class GroupPrayingVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.displayPopup(popup: self.closeConfirmPopup)
-                Log.w(self)
             }).disposed(by: disposeBag)
         
         closeConfirmPopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.closePopup {
-                    self.dismiss(animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 }
             }).disposed(by: disposeBag)
         
