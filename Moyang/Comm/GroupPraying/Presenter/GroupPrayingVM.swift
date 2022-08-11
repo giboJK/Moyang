@@ -10,20 +10,23 @@ import RxCocoa
 import AVFoundation
 
 class GroupPrayingVM: VMType {
+    typealias MemberItem = GroupPrayVM.MemberItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: PrayUseCase
     
-    private let memberNameList = BehaviorRelay<[String]>(value: [])
-    private let selectedMemberName = BehaviorRelay<String>(value: "")
-    private let songName = BehaviorRelay<String?>(value: nil)
-    private let isPlaying = BehaviorRelay<Bool>(value: false)
-    private let prayList = BehaviorRelay<[GroupIndividualPray]>(value: [])
+    let isNetworking = BehaviorRelay<Bool>(value: false)
+    
+    let memberList = BehaviorRelay<[MemberItem]>(value: [])
+    let selectedMemberName = BehaviorRelay<String>(value: "")
+    let songName = BehaviorRelay<String?>(value: nil)
+    let isPlaying = BehaviorRelay<Bool>(value: false)
+    let prayList = BehaviorRelay<[GroupIndividualPray]>(value: [])
 
-    private var timer: Timer?
-    private var prayingTime: Int = 0
-    private let prayingTimeStr = BehaviorRelay<String>(value: "00:00")
-    private let amenSuccess = BehaviorRelay<Void>(value: ())
-    private let isAmenEnable = BehaviorRelay<Bool>(value: false)
+    var timer: Timer?
+    var prayingTime: Int = 0
+    let prayingTimeStr = BehaviorRelay<String>(value: "00:00")
+    let amenSuccess = BehaviorRelay<Void>(value: ())
+    let isAmenEnable = BehaviorRelay<Bool>(value: false)
     
     private let longPressIndex = BehaviorRelay<Int?>(value: nil)
     
@@ -52,12 +55,15 @@ class GroupPrayingVM: VMType {
     }
     
     private func bind() {
-//        useCase.memberList
-//            .subscribe(onNext: { [weak self] list in
-//                self?.members = list
-//                self?.memberNameList.accept(list.map { $0.name }.sorted(by: <))
-//            }).disposed(by: disposeBag)
-//
+        useCase.isNetworking
+            .bind(to: isNetworking)
+            .disposed(by: disposeBag)
+        
+        useCase.userIDNameDict
+            .subscribe(onNext: { [weak self] dict in
+                self?.setMemberList(dict: dict)
+            }).disposed(by: disposeBag)
+        
 //        useCase.memberPrayList
 //            .subscribe(onNext: { [weak self] list in
 //                self?.memberPrayList.accept(list)
@@ -85,37 +91,22 @@ class GroupPrayingVM: VMType {
             }).disposed(by: disposeBag)
     }
     
+    private func setMemberList(dict: [String: String]) {
+        var list = dict.map { MemberItem(id: $0.key, name: $0.value) }
+        list = list.sorted(by: { $0.name < $1.name })
+        var allItem = MemberItem(id: "", name: "모두")
+        allItem.isChecked = true
+        list.append(allItem)
+        memberList.accept(list)
+        if let user = list.first(where: { item in
+            item.id == userID
+        }) {
+            selectedMemberName.accept(user.name)
+
+        }
+    }
     private func setPrayList() {
-//        list.filter { $0.member.auth == self.auth && $0.member.email == self.email }
-//            .forEach { item in
-//            item.list.forEach { pray in
-//                if pray.isSecret {
-//                    if self.auth != myInfo.authType || self.email != myInfo.email {
-//                        return
-//                    }
-//                }
-//                itemList.append(PrayItem(memberID: item.member.id,
-//                                         name: item.member.name,
-//                                         pray: pray.pray,
-//                                         date: pray.date,
-//                                         prayID: pray.id,
-//                                         tags: pray.tags,
-//                                         isSecret: pray.isSecret,
-//                                         latestDate: pray.late
-//                                         createDate: pray.registeredDate
-//                                        ))
-//            }
-//        }
-//        prayList.accept(itemList)
-//        if itemList.isEmpty {
-//            fetchPrayList()
-//        }
-//
-//        if let item = memberPrayList.value.first(where: { $0.member.auth == self.auth &&
-//            $0.member.email == self.email
-//        }) {
-//            selectedMemberName.accept(item.member.name)
-//        }
+        
     }
     
     private func loadSong() {
@@ -196,7 +187,6 @@ extension GroupPrayingVM {
     }
     
     struct Output {
-        let memberList: Driver<[String]>
         let selectedMemberName: Driver<String>
         let songName: Driver<String?>
         let isPlaying: Driver<Bool>
@@ -224,8 +214,7 @@ extension GroupPrayingVM {
                 self?.amen()
             }).disposed(by: disposeBag)
         
-        return Output(memberList: memberNameList.asDriver(),
-                      selectedMemberName: selectedMemberName.asDriver(),
+        return Output(selectedMemberName: selectedMemberName.asDriver(),
                       songName: songName.asDriver(),
                       isPlaying: isPlaying.asDriver(),
                       prayList: prayList.asDriver(),
