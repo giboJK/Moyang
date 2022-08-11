@@ -23,10 +23,12 @@ class GroupPrayTableViewCell: UITableViewCell {
         $0.layer.cornerRadius = 12
         $0.layer.masksToBounds = true
         $0.backgroundColor = .sheep2
+        $0.isUserInteractionEnabled = false
     }
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .nightSky1
+        $0.isUserInteractionEnabled = false
     }
     let prayCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

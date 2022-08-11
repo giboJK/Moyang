@@ -181,6 +181,12 @@ class GroupPrayVC: UIViewController, VCType {
                 self?.coordinator?.didTapNewPrayButton(vm: vm)
             }).disposed(by: disposeBag)
         
+        prayButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let vm = self?.vm else { return }
+                self?.coordinator?.didTapPrayButton(vm: vm)
+            }).disposed(by: disposeBag)
+        
         bindPrayTableView()
         
         groupPrayCalendar.orderButton.rx.tap
@@ -256,7 +262,7 @@ class GroupPrayVC: UIViewController, VCType {
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(selectMember: prayTableView.rx.itemSelected.asDriver())
+        let input = VM.Input()
         let output = vm.transform(input: input)
         
         output.groupName
@@ -315,5 +321,6 @@ class GroupPrayVC: UIViewController, VCType {
 protocol GroupPrayVCDelegate: AnyObject {
     func didTapInfoButton()
     func didTapNewPrayButton(vm: GroupPrayVM)
+    func didTapPrayButton(vm: GroupPrayVM)
     func didTapPray(vm: GroupPrayDetailVM)
 }

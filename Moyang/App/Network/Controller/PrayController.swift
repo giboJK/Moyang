@@ -10,6 +10,7 @@ import Alamofire
 
 class PrayController {
     let networkService: NetworkServiceProtocol
+    let fsShared = FSServiceImplShared()
     
     init(networkService: NetworkServiceProtocol) {
         self.networkService = networkService
@@ -156,5 +157,23 @@ extension PrayController: PrayRepo {
             }
         }
         
+    }
+    
+    func downloadSong(fileName: String, path: String, fileExt: String,
+                      completion: ((Result<URL, MoyangError>) -> Void)?) {
+        if hasFile(fileName: fileName, path: path, fileExt: fileExt) {
+            let documentsUrl: URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let localURL = documentsUrl.appendingPathComponent(path + "/" + fileName + "." + fileExt)
+            completion?(.success(localURL))
+        } else {
+            fsShared.downloadFile(fileName: fileName, path: path, fileExt: fileExt, completion: completion)
+        }
+    }
+    
+    private func hasFile(fileName: String, path: String, fileExt: String) -> Bool {
+        let documentsUrl: URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let localURL = documentsUrl.appendingPathComponent(path + "/" + fileName + "." + fileExt)
+        
+        return FileManager.default.fileExists(atPath: localURL.path)
     }
 }

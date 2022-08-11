@@ -11,7 +11,7 @@ import AVFoundation
 
 class GroupPrayingVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: CommunityMainUseCase
+    let useCase: PrayUseCase
     
     private let memberNameList = BehaviorRelay<[String]>(value: [])
     private let selectedMemberName = BehaviorRelay<String>(value: "")
@@ -32,7 +32,7 @@ class GroupPrayingVM: VMType {
     private var player: AVAudioPlayer?
     private var url: URL?
     
-    init(useCase: CommunityMainUseCase) {
+    init(useCase: PrayUseCase) {
         self.useCase = useCase
         bind()
         setButtonEnabled()

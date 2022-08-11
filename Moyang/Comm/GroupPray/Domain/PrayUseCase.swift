@@ -28,6 +28,13 @@ class PrayUseCase {
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
+    // MARK: - GroupPraying
+    let songName = BehaviorRelay<String?>(value: nil)
+    let songURL = BehaviorRelay<URL?>(value: nil)
+    
+    let amenSuccess = BehaviorRelay<Void>(value: ())
+    let amenFailure = BehaviorRelay<Void>(value: ())
+    
     // MARK: - Default events
     let isNetworking = BehaviorRelay<Bool>(value: false)
     let isSuccess = BehaviorRelay<Void>(value: ())
@@ -216,6 +223,25 @@ class PrayUseCase {
             self.resetIsNetworking()
         }
     }
+    
+    // MARK: - Firestore
+    func loadSong() {
+        downloadSong()
+    }
+    
+    private func downloadSong(fileName: String = "Road to God", fileExt: String = "mp3") {
+        repo.downloadSong(fileName: fileName, path: "music/", fileExt: "mp3") { [weak self] result in
+            switch result {
+            case .success(let url):
+                Log.d(url)
+                self?.songName.accept(fileName)
+                self?.songURL.accept(url)
+            case .failure(let error):
+                Log.e(MoyangError.other(error))
+            }
+        }
+    }
+    
     
     // MARK: - Local function
     private func checkAndSetIsNetworking() -> Bool {
