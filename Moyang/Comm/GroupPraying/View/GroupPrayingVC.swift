@@ -272,12 +272,12 @@ class GroupPrayingVC: UIViewController, VCType {
                 .items(cellIdentifier: "cell", cellType: GroupPrayingTableViewCell.self)) { (index, item, cell) in
                     cell.prayLabel.text = item.pray
                     cell.prayLabel.lineBreakMode = .byTruncatingTail
-//                    cell.tags = item.tags
+                    cell.tags = item.tags
                     cell.tagCollectionView.reloadData()
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                         cell.updateTagCollectionViewHeight()
                     }
-//                    cell.noTagLabel.isHidden = !item.tags.isEmpty
+                    cell.noTagLabel.isHidden = !item.tags.isEmpty
                     cell.layer.backgroundColor = UIColor.clear.cgColor
                     
                     cell.vm = vm
