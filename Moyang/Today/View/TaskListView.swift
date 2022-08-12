@@ -12,6 +12,10 @@ import Then
 import RxCocoa
 
 class TaskListView: UIView {
+    typealias VM = TodayVM
+    var disposeBag: DisposeBag = DisposeBag()
+    var vm: VM?
+    
     let titleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 20, weight: .bold)
         $0.textColor = .sheep1
@@ -55,45 +59,49 @@ class TaskListView: UIView {
     func setItemList(list: [TodayVM.TodayTaskItem]) {
         // 서버에서 1 ~ 4 개의 할 일을 보내준다
         for i in 0..<list.count {
+            var itemView: TaskItemView?
             if i == 0 {
                 if list.count == 1 {
-                    let itemView = TaskItemView(type: .one, item: list[i])
-                    container.addSubview(itemView)
-                    itemView.snp.makeConstraints {
+                    itemView = TaskItemView(type: .one, item: list[i])
+                    container.addSubview(itemView!)
+                    itemView?.snp.makeConstraints {
                         $0.edges.equalToSuperview()
                         $0.height.equalTo(itemViewHeight)
                     }
-                    itemView.setType(type: list[i].type)
+                    
                 } else {
-                    let itemView = TaskItemView(type: .first, item: list[i])
-                    container.addSubview(itemView)
-                    itemView.snp.makeConstraints {
+                    itemView = TaskItemView(type: .first, item: list[i])
+                    container.addSubview(itemView!)
+                    itemView?.snp.makeConstraints {
                         $0.top.equalToSuperview()
                         $0.left.right.equalToSuperview()
                         $0.height.equalTo(itemViewHeight)
                     }
-                    itemView.setType(type: list[i].type)
                 }
             } else if i == (list.count - 1) {
-                let itemView = TaskItemView(type: .last, item: list[i])
-                container.addSubview(itemView)
-                itemView.snp.makeConstraints {
+                itemView = TaskItemView(type: .last, item: list[i])
+                container.addSubview(itemView!)
+                itemView?.snp.makeConstraints {
                     $0.top.equalToSuperview().inset(i * itemViewHeight)
                     $0.left.right.equalToSuperview()
                     $0.bottom.equalToSuperview()
                     $0.height.equalTo(itemViewHeight)
                 }
-                itemView.setType(type: list[i].type)
             } else {
-                let itemView = TaskItemView(type: .middle, item: list[i])
-                container.addSubview(itemView)
-                itemView.snp.makeConstraints {
+                itemView = TaskItemView(type: .middle, item: list[i])
+                container.addSubview(itemView!)
+                itemView?.snp.makeConstraints {
                     $0.top.equalToSuperview().inset(i * itemViewHeight)
                     $0.left.right.equalToSuperview()
                     $0.height.equalTo(itemViewHeight)
                 }
-                itemView.setType(type: list[i].type)
             }
+            itemView?.setType(type: list[i].type)
+            itemView?.tapHandler = { [weak self] in self?.didTapItemView(item: list[i]) }
         }
+    }
+    
+    func didTapItemView(item: TodayVM.TodayTaskItem) {
+        vm?.moveToTaskDetail(item: item)
     }
 }

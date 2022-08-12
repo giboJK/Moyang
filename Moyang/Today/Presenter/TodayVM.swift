@@ -18,11 +18,11 @@ class TodayVM: VMType {
     let morningList = BehaviorRelay<[TodayTaskItem]>(value: [])
     let afternoonList = BehaviorRelay<[TodayTaskItem]>(value: [])
     let nightList = BehaviorRelay<[TodayTaskItem]>(value: [])
-
+    
     init() {
         setupData()
     }
-
+    
     deinit { Log.i(self) }
     
     private func setupData() {
@@ -31,10 +31,10 @@ class TodayVM: VMType {
         
         var greeting = ""
         switch hour {
-        case 5..<11 : greeting = "평안한 아침이에요!"
-        case 11..<13 : greeting = "평안한 오후네요,"
-        case 13..<17 : greeting = "평안한 오후네요,"
-        case 17..<22 : greeting = "평안한 저녁이에요,"
+        case 5..<11 : greeting = "주님과 함께 여는 아침,"
+        case 11..<13 : greeting = "좋은 오후네요,"
+        case 13..<17 : greeting = "좋은 오후네요,"
+        case 17..<22 : greeting = "좋은 저녁이에요,"
         default: greeting = "평안한 밤이네요,"
         }
         greeting += " " + myInfo.name
@@ -44,21 +44,26 @@ class TodayVM: VMType {
         afternoon.accept("오후에도 주님과")
         night.accept("평안한 밤")
         
-        morningList.accept([TodayTaskItem(type: 2, title: nil, content: nil, isDone: true),
-                            TodayTaskItem(type: 4, title: nil, content: nil, isDone: false),
-                            TodayTaskItem(type: 1, title: nil, content: nil, isDone: false)])
-        afternoonList.accept([TodayTaskItem(type: 3, title: nil, content: nil, isDone: false),
-                              TodayTaskItem(type: 1, title: nil, content: nil, isDone: false)])
-        nightList.accept([TodayTaskItem(type: 2, title: nil, content: nil, isDone: false)])
+        morningList.accept([TodayTaskItem(taskType: .pray),
+                            TodayTaskItem(taskType: .praise),
+                            TodayTaskItem(taskType: .quietTime)])
+        afternoonList.accept([TodayTaskItem(taskType: .quietTime),
+                              TodayTaskItem(taskType: .stop)])
+        nightList.accept([TodayTaskItem(taskType: .praise),
+                          TodayTaskItem(taskType: .pray)])
         
+    }
+    
+    func moveToTaskDetail(item: TodayTaskItem) {
+        Log.d(item)
     }
 }
 
 extension TodayVM {
     struct Input {
-
+        
     }
-
+    
     struct Output {
         let greeting: Driver<String>
         let morning: Driver<String>
@@ -69,7 +74,7 @@ extension TodayVM {
         let afternoonList: Driver<[TodayTaskItem]>
         let nightList: Driver<[TodayTaskItem]>
     }
-
+    
     func transform(input: Input) -> Output {
         return Output(greeting: greeting.asDriver(),
                       morning: morning.asDriver(),
@@ -83,19 +88,18 @@ extension TodayVM {
     }
     
     struct TodayTaskItem {
+        let taskType: TodayTaskType
         let type: Int
         let title: String?
         let content: String?
         let isDone: Bool
         
-        init(type: Int,
-             title: String?,
-             content: String?,
-             isDone: Bool) {
-            self.type = type
-            self.title = title
-            self.content = content
-            self.isDone = isDone
+        init(taskType: TodayTaskType) {
+            self.taskType = taskType
+            type = taskType.rawValue
+            isDone = false
+            title = ""
+            content = ""
         }
     }
 }

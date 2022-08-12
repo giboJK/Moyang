@@ -92,6 +92,7 @@ class TodayVC: UIViewController, VCType {
             $0.top.equalTo(titleLabel.snp.bottom).offset(32)
             $0.left.right.equalToSuperview().inset(20)
         }
+        morningTaskListView.vm = vm
     }
     private func setupAfternoonTaskListView() {
         container.addSubview(afternoonTaskListView)
@@ -99,6 +100,7 @@ class TodayVC: UIViewController, VCType {
             $0.top.equalTo(morningTaskListView.snp.bottom).offset(32)
             $0.left.right.equalToSuperview().inset(20)
         }
+        afternoonTaskListView.vm = vm
     }
     private func setupNightTaskListView() {
         container.addSubview(nightTaskListView)
@@ -107,6 +109,7 @@ class TodayVC: UIViewController, VCType {
             $0.left.right.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().inset(40)
         }
+        nightTaskListView.vm = vm
     }
 
     // MARK: - Binding

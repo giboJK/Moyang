@@ -10,9 +10,10 @@ import RxSwift
 import SnapKit
 import Then
 import RxCocoa
+import RxGesture
 
 class TaskItemView: UIView {
-    
+    var disposeBag: DisposeBag = DisposeBag()
     enum TaskOrder {
         case one
         case first
@@ -41,12 +42,19 @@ class TaskItemView: UIView {
     let type: TaskOrder
     let item: TodayVM.TodayTaskItem
     
+    var tapHandler: (() -> Void)?
+    
     init(type: TaskOrder, item: TodayVM.TodayTaskItem) {
         self.type = type
         self.item = item
         super.init(frame: .zero)
         setupUI()
         setData(item: item)
+        
+        self.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.tapHandler?()
+            }).disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {

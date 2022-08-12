@@ -47,7 +47,7 @@ class CommunityMainVC: UIViewController, VCType {
         
         setupUI()
         bind()
-        presentQuickPrayVC()
+//        presentQuickPrayVC()
     }
     
     deinit { Log.i(self) }
