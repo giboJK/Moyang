@@ -211,7 +211,7 @@ class GroupPrayingVC: UIViewController, VCType {
     private func setupPrayingTimeLabel() {
         view.addSubview(prayingTimeLabel)
         prayingTimeLabel.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(28)
+            $0.right.equalToSuperview().inset(24)
             $0.bottom.equalTo(titleLabel)
         }
     }
@@ -276,7 +276,7 @@ class GroupPrayingVC: UIViewController, VCType {
     private func toggleSongController() {
         if showSongController {
             songController.snp.updateConstraints {
-                $0.right.equalToSuperview().inset(28)
+                $0.right.equalToSuperview().inset(24)
             }
         } else {
             songController.snp.updateConstraints {
