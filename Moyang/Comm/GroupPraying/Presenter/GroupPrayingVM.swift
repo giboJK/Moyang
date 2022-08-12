@@ -21,6 +21,7 @@ class GroupPrayingVM: VMType {
     let songName = BehaviorRelay<String?>(value: nil)
     let isPlaying = BehaviorRelay<Bool>(value: false)
     let prayList = BehaviorRelay<[GroupIndividualPray]>(value: [])
+    let isMe = BehaviorRelay<Bool>(value: false)
 
     var timer: Timer?
     var prayingTime: Int = 0
@@ -74,7 +75,7 @@ class GroupPrayingVM: VMType {
             }).disposed(by: disposeBag)
         
         useCase.songName
-            .map { ($0 ?? "") + "                     " }
+            .map { ($0 ?? "") + "                    " }
             .bind(to: songName)
             .disposed(by: disposeBag)
         
@@ -89,8 +90,8 @@ class GroupPrayingVM: VMType {
             .skip(1)
             .subscribe(onNext: { [weak self] _ in
                 self?.amenSuccess.accept(())
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                    self?.stopSong()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2500)) {
+                    self?.finishPray()
                 }
             }).disposed(by: disposeBag)
     }
@@ -107,6 +108,11 @@ class GroupPrayingVM: VMType {
         }) {
             selectedMemberName.accept(user.name)
         }
+        if UserData.shared.userInfo?.id == userID {
+            isMe.accept(true)
+        } else {
+            isMe.accept(false)
+        }
     }
     
     private func loadSong() {
@@ -116,7 +122,7 @@ class GroupPrayingVM: VMType {
     private func toggleIsPlaying() {
         let current = isPlaying.value
         if current {
-            stopSong()
+            pauseSong()
         } else {
             player?.play()
         }
@@ -139,8 +145,15 @@ class GroupPrayingVM: VMType {
         }
     }
     
-    func stopSong() {
+    func pauseSong() {
         player?.pause()
+    }
+    
+    func finishPray() {
+        player?.stop()
+        player = nil
+        timer?.invalidate()
+        timer = nil
     }
     
     private func amen() {
@@ -179,6 +192,7 @@ extension GroupPrayingVM {
         var togglePlaySong: Driver<Void> = .empty()
         var didLongPressPray: Driver<Int?> = .empty()
         var amen: Driver<Void> = .empty()
+        var amenPopup: Driver<Void> = .empty()
     }
     
     struct Output {
@@ -186,6 +200,7 @@ extension GroupPrayingVM {
         let songName: Driver<String?>
         let isPlaying: Driver<Bool>
         let prayList: Driver<[GroupIndividualPray]>
+        let isMe: Driver<Bool>
         let prayingTimeStr: Driver<String>
         let amenSuccess: Driver<Void>
         let isAmenEnable: Driver<Bool>
@@ -209,10 +224,16 @@ extension GroupPrayingVM {
                 self?.amen()
             }).disposed(by: disposeBag)
         
+        input.amenPopup
+            .drive(onNext: { [weak self] _ in
+                self?.amen()
+            }).disposed(by: disposeBag)
+        
         return Output(selectedMemberName: selectedMemberName.asDriver(),
                       songName: songName.asDriver(),
                       isPlaying: isPlaying.asDriver(),
                       prayList: prayList.asDriver(),
+                      isMe: isMe.asDriver(),
                       prayingTimeStr: prayingTimeStr.asDriver(),
                       amenSuccess: amenSuccess.asDriver(),
                       isAmenEnable: isAmenEnable.asDriver(),

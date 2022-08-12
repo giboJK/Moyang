@@ -19,6 +19,7 @@ class GroupPrayingVC: UIViewController, VCType {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupPrayingVCDelegate?
+    var showSongController = false
     
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
@@ -28,7 +29,7 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.backgroundColor = .clear
     }
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 20, weight: .semibold)
+        $0.font = .systemFont(ofSize: 21, weight: .semibold)
         $0.textColor = .sheep1
     }
     let prevButton = UIButton().then {
@@ -52,7 +53,7 @@ class GroupPrayingVC: UIViewController, VCType {
         cv.isPagingEnabled = true
         return cv
     }()
-    let buttonContainer = UIView()
+    let myPrayButtonContainer = UIView()
     let answerButton = MoyangButton(.none).then {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 15, weight: .regular),
@@ -84,6 +85,19 @@ class GroupPrayingVC: UIViewController, VCType {
         )
         $0.setAttributedTitle(attributeString, for: .normal)
     }
+    let prayPlusButton = MoyangButton(.none).then {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 15, weight: .regular),
+            .foregroundColor: UIColor.sheep2,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        
+        let attributeString = NSMutableAttributedString(
+            string: "더하고 싶은 기도가 있나요?",
+            attributes: attributes
+        )
+        $0.setAttributedTitle(attributeString, for: .normal)
+    }
     
     let songController = UIView().then {
         $0.backgroundColor = .sheep2
@@ -94,9 +108,9 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 17, weight: .semibold)
         $0.textColor = .nightSky1
     }
-    lazy var musicNoteImageView = UIImageView().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .semibold, scale: .large)
-        $0.image = UIImage(systemName: "music.note", withConfiguration: config)
+    let musicNoteButton = UIButton().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
+        $0.setImage(UIImage(systemName: "music.note", withConfiguration: config), for: .normal)
         $0.tintColor = .nightSky1
     }
     let togglePlayingButton = UIButton().then {
@@ -114,9 +128,9 @@ class GroupPrayingVC: UIViewController, VCType {
     }
     let reactionPopupView = UIView()
     let closeConfirmPopup = MoyangPopupView(style: .twoButton).then {
-        $0.desc = "기도를 마치시겠어요? 하단의 버튼을 통해 예수님의 이름으로 아멘해보세요."
-        $0.firstButton.setTitle("나가기", for: .normal)
-        $0.secondButton.setTitle("취소", for: .normal)
+        $0.desc = "기도를 마치시겠어요?\n예수님의 이름으로 기도드립니다."
+        $0.firstButton.setTitle("아멘", for: .normal)
+        $0.secondButton.setTitle("더 기도하기", for: .normal)
     }
     
     override func viewDidLoad() {
@@ -132,8 +146,7 @@ class GroupPrayingVC: UIViewController, VCType {
     
     deinit {
         Log.i(self)
-        vm?.stopSong()
-        NotificationCenter.default.post(name: NSNotification.Name("PRAYING_STOP"), object: nil, userInfo: nil)
+        vm?.finishPray()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -144,11 +157,12 @@ class GroupPrayingVC: UIViewController, VCType {
         view.setGradient(startColor: .nightSky3, endColor: .nightSky2)
         setupNavBar()
         setupTitleLabel()
-        setupPrayingTimeLabel()
-        setupAmenButton()
-        setupPrayCollectionView()
         setupSongController()
-        setupButtonContainer()
+        setupPrayingTimeLabel()
+        setupPrayCollectionView()
+        setupAmenButton()
+        setupMyPrayButtonContainer()
+        setupPrayPlusButton()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -161,54 +175,23 @@ class GroupPrayingVC: UIViewController, VCType {
     private func setupTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(32)
+            $0.left.equalToSuperview().inset(28)
             $0.right.equalToSuperview().inset(120)
-            $0.top.equalTo(navBar.snp.bottom).offset(16)
-        }
-    }
-    private func setupPrevButton() {
-        view.addSubview(prevButton)
-        prevButton.snp.makeConstraints {
-            $0.centerY.equalTo(titleLabel)
-            $0.size.equalTo(24)
-            $0.left.equalToSuperview().inset(24)
-        }
-    }
-    private func setupNextButton() {
-        view.addSubview(nextButton)
-        nextButton.snp.makeConstraints {
-            $0.centerY.equalTo(titleLabel)
-            $0.size.equalTo(24)
-            $0.right.equalToSuperview().inset(24)
-        }
-    }
-    private func setupAmenButton() {
-        view.addSubview(amenButton)
-        amenButton.snp.makeConstraints {
-            $0.height.equalTo(48)
-            $0.left.right.equalToSuperview().inset(28)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(48)
-        }
-    }
-    private func setupPrayingTimeLabel() {
-        view.addSubview(prayingTimeLabel)
-        prayingTimeLabel.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(24)
-            $0.bottom.equalTo(titleLabel)
+            $0.top.equalTo(navBar.snp.bottom).offset(20)
         }
     }
     private func setupSongController() {
         view.addSubview(songController)
         songController.snp.makeConstraints {
-            $0.top.equalTo(prayCollectionView.snp.bottom).offset(44)
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.right.equalToSuperview().offset(140)
         }
 
-        songController.addSubview(musicNoteImageView)
-        musicNoteImageView.snp.makeConstraints {
-            $0.size.equalTo(20)
+        songController.addSubview(musicNoteButton)
+        musicNoteButton.snp.makeConstraints {
+            $0.size.equalTo(24)
             $0.top.bottom.equalToSuperview().inset(4)
-            $0.left.equalToSuperview().inset(8)
+            $0.left.equalToSuperview().inset(4)
         }
         songController.addSubview(togglePlayingButton)
         togglePlayingButton.snp.makeConstraints {
@@ -219,25 +202,40 @@ class GroupPrayingVC: UIViewController, VCType {
         songController.addSubview(songNameLabel)
         songNameLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.left.equalTo(musicNoteImageView.snp.right).offset(4)
+            $0.left.equalTo(musicNoteButton.snp.right).offset(4)
             $0.right.equalTo(togglePlayingButton.snp.left).offset(-4)
-            $0.width.equalTo(112)
+            $0.width.equalTo(104)
         }
         
+    }
+    private func setupPrayingTimeLabel() {
+        view.addSubview(prayingTimeLabel)
+        prayingTimeLabel.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(28)
+            $0.bottom.equalTo(titleLabel)
+        }
     }
     private func setupPrayCollectionView() {
         view.addSubview(prayCollectionView)
         prayCollectionView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(32)
-            $0.left.right.equalToSuperview().inset(28)
-            $0.height.equalTo(380)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(36)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.height.equalTo(400)
         }
         prayCollectionView.delegate = self
     }
     
-    private func setupButtonContainer() {
-        view.addSubview(buttonContainer)
-        buttonContainer.snp.makeConstraints {
+    private func setupAmenButton() {
+        view.addSubview(amenButton)
+        amenButton.snp.makeConstraints {
+            $0.height.equalTo(48)
+            $0.left.right.equalToSuperview().inset(28)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(48)
+        }
+    }
+    private func setupMyPrayButtonContainer() {
+        view.addSubview(myPrayButtonContainer)
+        myPrayButtonContainer.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
             $0.centerX.equalToSuperview()
         }
@@ -246,25 +244,49 @@ class GroupPrayingVC: UIViewController, VCType {
         setupChangeButton()
     }
     private func setupAnswerButton() {
-        buttonContainer.addSubview(answerButton)
+        myPrayButtonContainer.addSubview(answerButton)
         answerButton.snp.makeConstraints {
             $0.left.equalToSuperview()
             $0.top.bottom.equalToSuperview()
         }
     }
     private func setupMiddleLable() {
-        buttonContainer.addSubview(middleLable)
+        myPrayButtonContainer.addSubview(middleLable)
         middleLable.snp.makeConstraints {
             $0.left.equalTo(answerButton.snp.right)
             $0.centerY.equalToSuperview()
         }
     }
     private func setupChangeButton() {
-        buttonContainer.addSubview(changeButton)
+        myPrayButtonContainer.addSubview(changeButton)
         changeButton.snp.makeConstraints {
             $0.right.equalToSuperview()
             $0.left.equalTo(middleLable.snp.right)
             $0.top.bottom.equalToSuperview()
+        }
+    }
+    private func setupPrayPlusButton() {
+        view.addSubview(prayPlusButton)
+        prayPlusButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
+            $0.centerX.equalToSuperview()
+        }
+    }
+    
+    private func toggleSongController() {
+        if showSongController {
+            songController.snp.updateConstraints {
+                $0.right.equalToSuperview().inset(28)
+            }
+        } else {
+            songController.snp.updateConstraints {
+                $0.right.equalToSuperview().offset(140)
+            }
+        }
+        showSongController.toggle()
+        UIView.animate(withDuration: 1.5) {
+            self.view.updateConstraints()
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -283,22 +305,25 @@ class GroupPrayingVC: UIViewController, VCType {
         
         closeConfirmPopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.closePopup {
-                    self.navigationController?.popViewController(animated: true)
-                }
+                self?.closePopup()
             }).disposed(by: disposeBag)
         
         closeConfirmPopup.secondButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
+        
+        musicNoteButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.toggleSongController()
+            }).disposed(by: disposeBag)
     }
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(togglePlaySong: togglePlayingButton.rx.tap.asDriver(),
-                             amen: amenButton.rx.tap.asDriver())
+                             amen: amenButton.rx.tap.asDriver(),
+                             amenPopup: closeConfirmPopup.firstButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
         output.selectedMemberName
@@ -335,6 +360,12 @@ class GroupPrayingVC: UIViewController, VCType {
                     cell.layer.backgroundColor = UIColor.clear.cgColor
                 }.disposed(by: disposeBag)
         
+        output.isMe
+            .drive(onNext: { [weak self] isMe in
+                self?.myPrayButtonContainer.isHidden = !isMe
+                self?.prayPlusButton.isHidden = isMe
+            }).disposed(by: disposeBag)
+        
         output.prayingTimeStr
             .drive(prayingTimeLabel.rx.text)
             .disposed(by: disposeBag)
@@ -358,7 +389,7 @@ class GroupPrayingVC: UIViewController, VCType {
 extension GroupPrayingVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width-58, height: 380)
+        return CGSize(width: UIScreen.main.bounds.width-58, height: 400)
     }
 }
 

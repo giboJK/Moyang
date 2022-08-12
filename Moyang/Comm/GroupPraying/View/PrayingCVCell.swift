@@ -72,7 +72,7 @@ class PrayingCVCell: UICollectionViewCell {
         addSubview(tagDivider)
         tagDivider.snp.makeConstraints {
             $0.top.equalTo(prayTextView.snp.bottom).offset(8)
-            $0.left.right.equalToSuperview().inset(4)
+            $0.left.right.equalToSuperview().inset(8)
             $0.height.equalTo(1)
         }
     }
