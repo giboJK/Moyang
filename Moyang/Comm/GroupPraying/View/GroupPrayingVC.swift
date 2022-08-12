@@ -319,11 +319,26 @@ class GroupPrayingVC: UIViewController, VCType {
             }).disposed(by: disposeBag)
     }
     
+    private func showPrayPlusAndChangeVC(prayPlusAndChangeVM: PrayPlusAndChangeVM) {
+        let vc = PrayPlusAndChangeVC()
+        vc.vm = prayPlusAndChangeVM
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .pageSheet
+
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        present(nav, animated: true, completion: nil)
+    }
+    
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(togglePlaySong: togglePlayingButton.rx.tap.asDriver(),
                              amen: amenButton.rx.tap.asDriver(),
-                             amenPopup: closeConfirmPopup.firstButton.rx.tap.asDriver())
+                             amenPopup: closeConfirmPopup.firstButton.rx.tap.asDriver(),
+                             addPrayPlus: prayPlusButton.rx.tap.asDriver(),
+                             addChange: changeButton.rx.tap.asDriver(),
+                             addAnswer: answerButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
         output.selectedMemberName
@@ -373,6 +388,12 @@ class GroupPrayingVC: UIViewController, VCType {
         output.isAmenEnable
             .drive(amenButton.rx.isEnabled)
             .disposed(by: disposeBag)
+        
+        output.prayPlusAndChangeVM
+            .drive(onNext: { [weak self] prayPlusAndChangeVM in
+                guard let prayPlusAndChangeVM = prayPlusAndChangeVM else { return }
+                self?.showPrayPlusAndChangeVC(prayPlusAndChangeVM: prayPlusAndChangeVM)
+            }).disposed(by: disposeBag)
         
         output.amenSuccess
             .skip(1)

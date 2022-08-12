@@ -29,12 +29,13 @@ class GroupPrayingVM: VMType {
     let amenSuccess = BehaviorRelay<Void>(value: ())
     let isAmenEnable = BehaviorRelay<Bool>(value: false)
     
-    private let longPressIndex = BehaviorRelay<Int?>(value: nil)
+    let prayPlusAndChangeVM = BehaviorRelay<PrayPlusAndChangeVM?>(value: nil)
     
     private var player: AVAudioPlayer?
     private var url: URL?
-    private var userID = ""
-    private var groupID = ""
+    var userID = ""
+    var groupID = ""
+    var prayID = ""
     
     init(useCase: PrayUseCase, groupID: String?, userID: String? = nil) {
         self.useCase = useCase
@@ -190,9 +191,11 @@ class GroupPrayingVM: VMType {
 extension GroupPrayingVM {
     struct Input {
         var togglePlaySong: Driver<Void> = .empty()
-        var didLongPressPray: Driver<Int?> = .empty()
         var amen: Driver<Void> = .empty()
         var amenPopup: Driver<Void> = .empty()
+        var addPrayPlus: Driver<Void> = .empty()
+        var addChange: Driver<Void> = .empty()
+        var addAnswer: Driver<Void> = .empty()
     }
     
     struct Output {
@@ -204,19 +207,13 @@ extension GroupPrayingVM {
         let prayingTimeStr: Driver<String>
         let amenSuccess: Driver<Void>
         let isAmenEnable: Driver<Bool>
-        let longPressIndex: Driver<Int?>
+        let prayPlusAndChangeVM: Driver<PrayPlusAndChangeVM?>
     }
     
     func transform(input: Input) -> Output {
         input.togglePlaySong
             .drive(onNext: { [weak self] _ in
                 self?.toggleIsPlaying()
-            }).disposed(by: disposeBag)
-        
-        input.didLongPressPray
-            .drive(onNext: { [weak self] index in
-                guard let index = index else { return }
-                self?.longPressIndex.accept(index)
             }).disposed(by: disposeBag)
         
         input.amen
@@ -229,6 +226,31 @@ extension GroupPrayingVM {
                 self?.amen()
             }).disposed(by: disposeBag)
         
+        input.addPrayPlus
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.prayPlusAndChangeVM.accept(PrayPlusAndChangeVM(useCase: self.useCase,
+                                                                    prayID: self.prayID,
+                                                                    userID: self.userID))
+            }).disposed(by: disposeBag)
+        
+        input.addChange
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.prayPlusAndChangeVM.accept(PrayPlusAndChangeVM(useCase: self.useCase,
+                                                                    prayID: self.prayID,
+                                                                    userID: self.userID))
+            }).disposed(by: disposeBag)
+        
+        input.addAnswer
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.prayPlusAndChangeVM.accept(PrayPlusAndChangeVM(useCase: self.useCase,
+                                                                    prayID: self.prayID,
+                                                                    userID: self.userID,
+                                                                    isAnswer: true))
+            }).disposed(by: disposeBag)
+        
         return Output(selectedMemberName: selectedMemberName.asDriver(),
                       songName: songName.asDriver(),
                       isPlaying: isPlaying.asDriver(),
@@ -237,8 +259,7 @@ extension GroupPrayingVM {
                       prayingTimeStr: prayingTimeStr.asDriver(),
                       amenSuccess: amenSuccess.asDriver(),
                       isAmenEnable: isAmenEnable.asDriver(),
-                      
-                      longPressIndex: longPressIndex.asDriver()
+                      prayPlusAndChangeVM: prayPlusAndChangeVM.asDriver()
         )
     }
     
