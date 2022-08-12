@@ -35,6 +35,21 @@ class TodayCoordinator: Coordinator {
     }
 }
 
+
+// MARK: - TodayVCDelegate
 extension TodayCoordinator: TodayVCDelegate {
+    func didTapTaskItem(taskDetailVM: TaskDetailVM) {
+        if let vc = assembler.resolver.resolve(TaskDetailVC.self, argument: taskDetailVM) {
+            nav.pushViewController(vc, animated: true)
+            vc.coordinator = self
+        } else {
+            Log.e("error")
+        }
+    }
+}
+
+
+// MARK: - TaskDetailVCDelegate
+extension TodayCoordinator: TaskDetailVCDelegate {
     
 }

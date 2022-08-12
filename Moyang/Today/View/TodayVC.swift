@@ -158,9 +158,15 @@ class TodayVC: UIViewController, VCType {
                 guard let self = self else { return }
                 self.nightTaskListView.setItemList(list: list)
             }).disposed(by: disposeBag)
+        
+        output.taskDetailVM
+            .drive(onNext: { [weak self] taskDetailVM in
+                guard let taskDetailVM = taskDetailVM else { return }
+                self?.coordinator?.didTapTaskItem(taskDetailVM: taskDetailVM)
+            }).disposed(by: disposeBag)
     }
 }
 
 protocol TodayVCDelegate: AnyObject {
-
+    func didTapTaskItem(taskDetailVM: TaskDetailVM)
 }

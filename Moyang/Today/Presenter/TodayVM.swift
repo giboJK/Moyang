@@ -19,6 +19,8 @@ class TodayVM: VMType {
     let afternoonList = BehaviorRelay<[TodayTaskItem]>(value: [])
     let nightList = BehaviorRelay<[TodayTaskItem]>(value: [])
     
+    let taskDetailVM = BehaviorRelay<TaskDetailVM?>(value: nil)
+    
     init() {
         setupData()
     }
@@ -55,7 +57,7 @@ class TodayVM: VMType {
     }
     
     func moveToTaskDetail(item: TodayTaskItem) {
-        Log.d(item)
+        taskDetailVM.accept(TaskDetailVM(item: item))
     }
 }
 
@@ -73,6 +75,8 @@ extension TodayVM {
         let morningList: Driver<[TodayTaskItem]>
         let afternoonList: Driver<[TodayTaskItem]>
         let nightList: Driver<[TodayTaskItem]>
+        
+        let taskDetailVM: Driver<TaskDetailVM?>
     }
     
     func transform(input: Input) -> Output {
@@ -83,7 +87,9 @@ extension TodayVM {
                       
                       morningList: morningList.asDriver(),
                       afternoonList: afternoonList.asDriver(),
-                      nightList: nightList.asDriver()
+                      nightList: nightList.asDriver(),
+                      
+                      taskDetailVM: taskDetailVM.asDriver()
         )
     }
     

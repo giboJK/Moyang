@@ -73,12 +73,6 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             AFNetworkService(sessionConfiguration: .default)
         }
         
-        container.register(GroupPrayAssembly.self) { _ in
-            let assembly = GroupPrayAssembly()
-            assembly.nav = self.nav
-            return assembly
-        }
-        
         // MARK: - AllGroup
         container.register(AllGroupRepo.self) { r in
             CommunityController(networkService: r ~> (NetworkServiceProtocol.self))
@@ -98,17 +92,34 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             return vc
         }
         
+        // MARK: - Assembly
+        container.register(TodayAssembly.self) { _ in
+            let assembly = TodayAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
+        
+        container.register(GroupPrayAssembly.self) { _ in
+            let assembly = GroupPrayAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
+        
+        
         // MARK: - Coordinator
-        container.register(TodayCoordinator.self) { _ in
+        container.register(TodayCoordinator.self) { r in
             guard let nav = self.nav else { return TodayCoordinator() }
-            let coordinator = TodayCoordinator(nav: nav, assembler: Assembler([self]))
+            let coordinator = TodayCoordinator(nav: nav,
+                                               assembler: Assembler([self,
+                                                                     r ~> (TodayAssembly.self)]))
             return coordinator
         }
         
         container.register(CommunityMainCoordinator.self) { r in
             guard let nav = self.nav else { return CommunityMainCoordinator() }
-            let coordinator = CommunityMainCoordinator(nav: nav, assembler: Assembler([self,
-                                                                                       r ~> (GroupPrayAssembly.self)]))
+            let coordinator = CommunityMainCoordinator(nav: nav,
+                                                       assembler: Assembler([self,
+                                                                             r ~> (GroupPrayAssembly.self)]))
             return coordinator
         }
     }
