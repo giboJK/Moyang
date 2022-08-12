@@ -63,18 +63,24 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - GroupPrayingVC
+        container.register(GroupPrayingVC.self) { (r, useCase: PrayUseCase, groupID: String, userID: String) in
+            let vc = GroupPrayingVC()
+            vc.vm = r ~> (GroupPrayingVM.self, arguments: (useCase, groupID, userID))
+            return vc
+        }
         container.register(GroupPrayingVC.self) { (r, useCase: PrayUseCase, groupID: String) in
             let vc = GroupPrayingVC()
             vc.vm = r ~> (GroupPrayingVM.self, arguments: (useCase, groupID))
             return vc
         }
+        
+        container.register(GroupPrayingVM.self) { (_, useCase: PrayUseCase, groupID: String, userID: String) in
+            return GroupPrayingVM(useCase: useCase, groupID: groupID, userID: userID)
+        }
         container.register(GroupPrayingVM.self) { (_, useCase: PrayUseCase, groupID: String) in
             return GroupPrayingVM(useCase: useCase, groupID: groupID)
         }
         
-        container.register(NewPrayVM.self) { r in
-            return NewPrayVM(useCase: (r ~> PrayUseCase.self))
-        }
         
         container.register(PrayUseCase.self) { r in
             return PrayUseCase(repo: (r ~> PrayRepo.self))

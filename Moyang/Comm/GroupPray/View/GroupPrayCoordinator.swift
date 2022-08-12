@@ -66,7 +66,20 @@ extension GroupPrayCoordinator: GroupPrayVCDelegate {
     func didTapPray(vm: GroupPrayDetailVM) {
         let vc = GroupPrayDetailVC()
         vc.vm = vm
+        vc.coordinator = self
         nav.pushViewController(vc, animated: true)
+    }
+}
+
+extension GroupPrayCoordinator: GroupPrayDetailVCDelegate {
+    func didTapPrayButton(vm: GroupPrayDetailVM) {
+        guard let groupID = UserData.shared.groupID else { Log.e("No group"); return }
+        if let vc = assembler.resolver.resolve(GroupPrayingVC.self,
+                                               arguments: vm.useCase, groupID, vm.userID) {
+            nav.pushViewController(vc, animated: true)
+        } else {
+            Log.e("")
+        }
     }
 }
 

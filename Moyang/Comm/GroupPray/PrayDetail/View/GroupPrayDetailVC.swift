@@ -66,7 +66,9 @@ class GroupPrayDetailVC: UIViewController, VCType {
         $0.firstButton.setTitle("삭제", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
     }
-    let reactionBgView = UIView()
+    let reactionBgView = UIView().then {
+        $0.isHidden = true
+    }
     let reactionView = ReactionPopupView().then {
         $0.isHidden = true
     }
@@ -270,7 +272,12 @@ class GroupPrayDetailVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.hidePrayReactionPopupView()
             }).disposed(by: disposeBag)
-    }
+        
+        prayButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let vm = self?.vm else { return }
+                self?.coordinator?.didTapPrayButton(vm: vm)
+            }).disposed(by: disposeBag)    }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
@@ -372,7 +379,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
 }
 
 protocol GroupPrayDetailVCDelegate: AnyObject {
-
+    func didTapPrayButton(vm: GroupPrayDetailVM)
 }
 
 extension GroupPrayDetailVC: ReactionPopupViewDelegate {
