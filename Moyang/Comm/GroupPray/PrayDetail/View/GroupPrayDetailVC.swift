@@ -277,14 +277,17 @@ class GroupPrayDetailVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 guard let vm = self?.vm else { return }
                 self?.coordinator?.didTapPrayButton(vm: vm)
-            }).disposed(by: disposeBag)    }
+            }).disposed(by: disposeBag)
+    }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let tapReactionView = prayDetailView.reactionView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let input = VM.Input(updatePray: updateButton.rx.tap.asDriver(),
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver(),
-                             didTapPrayPlusAndChangeButton: prayPlusButton.rx.tap.asDriver(),
+                             addPrayPlus: prayPlusButton.rx.tap.asDriver(),
+                             addChange: addChangeButton.rx.tap.asDriver(),
+                             addAnswer: addAnswerButton.rx.tap.asDriver(),
                              didTapPrayReaction: tapReactionView)
         let output = vm.transform(input: input)
         

@@ -110,8 +110,8 @@ class GroupPrayingVC: UIViewController, VCType {
         view.setGradient(startColor: .nightSky3, endColor: .nightSky2)
         setupNavBar()
         setupTitleLabel()
-        setupPrevButton()
-        setupNextButton()
+//        setupPrevButton()
+//        setupNextButton()
         
         setupAmenButton()
         setupPrayingTimeLabel()

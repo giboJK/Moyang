@@ -15,6 +15,7 @@ class PrayPlusAndChangeVM: VMType {
     let userID: String
     
     let title = BehaviorRelay<String>(value: "")
+    var isAnswer = false
     
     let content = BehaviorRelay<String?>(value: nil)
     
@@ -25,10 +26,11 @@ class PrayPlusAndChangeVM: VMType {
     
     var isMe = false
     
-    init(useCase: PrayUseCase, prayID: String, userID: String) {
+    init(useCase: PrayUseCase, prayID: String, userID: String, isAnswer: Bool = false) {
         self.useCase = useCase
         self.prayID = prayID
         self.userID = userID
+        self.isAnswer = isAnswer
         
         bind()
     }
@@ -54,7 +56,11 @@ class PrayPlusAndChangeVM: VMType {
         
         guard let myInfo = UserData.shared.userInfo else { Log.e(""); return }
         if userID == myInfo.id {
-            title.accept("변화 기록하기")
+            if isAnswer {
+                title.accept("응답 기록하기")
+            } else {
+                title.accept("변화 기록하기")
+            }
             isMe = true
         } else {
             title.accept("기도문 더하기")
@@ -65,7 +71,9 @@ class PrayPlusAndChangeVM: VMType {
     }
     
     private func addChange() {
-        
+    }
+    
+    private func addAnswer() {
     }
 }
 
@@ -93,7 +101,11 @@ extension PrayPlusAndChangeVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 if self.isMe {
-                    self.addChange()
+                    if self.isAnswer {
+                        self.addAnswer()
+                    } else {
+                        self.addChange()
+                    }
                 } else {
                     self.addReply()
                 }

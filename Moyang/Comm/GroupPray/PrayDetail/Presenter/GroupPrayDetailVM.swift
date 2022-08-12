@@ -123,7 +123,9 @@ extension GroupPrayDetailVM {
         var deleteTag: Driver<IndexPath?> = .empty()
         var toggleIsSecret: Driver<Void> = .empty()
         var deletePray: Driver<Void> = .empty()
-        var didTapPrayPlusAndChangeButton: Driver<Void> = .empty()
+        var addPrayPlus: Driver<Void> = .empty()
+        var addChange: Driver<Void> = .empty()
+        var addAnswer: Driver<Void> = .empty()
         var didTapPrayReaction: Driver<Void> = .empty()
     }
 
@@ -205,13 +207,31 @@ extension GroupPrayDetailVM {
                 self?.deletePray()
             }).disposed(by: disposeBag)
         
-        input.didTapPrayPlusAndChangeButton
+        input.addPrayPlus
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.prayPlusAndChangeVM.accept(PrayPlusAndChangeVM(useCase: self.useCase,
                                                                     prayID: self.prayID,
                                                                     userID: self.userID))
             }).disposed(by: disposeBag)
+        
+        input.addChange
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.prayPlusAndChangeVM.accept(PrayPlusAndChangeVM(useCase: self.useCase,
+                                                                    prayID: self.prayID,
+                                                                    userID: self.userID))
+            }).disposed(by: disposeBag)
+        
+        input.addAnswer
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.prayPlusAndChangeVM.accept(PrayPlusAndChangeVM(useCase: self.useCase,
+                                                                    prayID: self.prayID,
+                                                                    userID: self.userID,
+                                                                    isAnswer: true))
+            }).disposed(by: disposeBag)
+        
         
         input.didTapPrayReaction
             .drive(onNext: { [weak self] _ in
