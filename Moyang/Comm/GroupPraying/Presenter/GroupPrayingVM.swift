@@ -52,6 +52,7 @@ class GroupPrayingVM: VMType {
         Log.i(self)
         timer?.invalidate()
         timer = nil
+        player = nil
     }
     
     private func bind() {
@@ -73,7 +74,7 @@ class GroupPrayingVM: VMType {
             }).disposed(by: disposeBag)
         
         useCase.songName
-            .map { ($0 ?? "") + "                      " }
+            .map { ($0 ?? "") + "                     " }
             .bind(to: songName)
             .disposed(by: disposeBag)
         
@@ -88,7 +89,9 @@ class GroupPrayingVM: VMType {
             .skip(1)
             .subscribe(onNext: { [weak self] _ in
                 self?.amenSuccess.accept(())
-                self?.stopSong()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                    self?.stopSong()
+                }
             }).disposed(by: disposeBag)
     }
     
@@ -115,9 +118,7 @@ class GroupPrayingVM: VMType {
         if current {
             stopSong()
         } else {
-            if let url = url {
-                playSong(songURL: url)
-            }
+            player?.play()
         }
         isPlaying.accept(!current)
     }
@@ -139,10 +140,7 @@ class GroupPrayingVM: VMType {
     }
     
     func stopSong() {
-        player?.stop()
-        player = nil
-        timer?.invalidate()
-        timer = nil
+        player?.pause()
     }
     
     private func amen() {

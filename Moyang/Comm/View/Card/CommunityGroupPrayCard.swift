@@ -235,7 +235,6 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
             }).disposed(by: disposeBag)
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width - 16 - 36, height: 120)

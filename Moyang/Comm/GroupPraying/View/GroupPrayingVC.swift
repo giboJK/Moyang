@@ -22,13 +22,13 @@ class GroupPrayingVC: UIViewController, VCType {
     
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
-        $0.backButton.isHidden = true
-        $0.closeButton.tintColor = .sheep2
+        $0.closeButton.isHidden = true
+        $0.backButton.tintColor = .sheep2
         $0.titleLabel.isHidden = true
         $0.backgroundColor = .clear
     }
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .semibold)
+        $0.font = .systemFont(ofSize: 20, weight: .semibold)
         $0.textColor = .sheep1
     }
     let prevButton = UIButton().then {
@@ -41,17 +41,51 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.setImage(UIImage(systemName: "chevron.right", withConfiguration: config), for: .normal)
         $0.tintColor = .sheep2
     }
-    let prayTableView = UITableView().then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(GroupPrayingTableViewCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .clear
-        $0.separatorStyle = .none
-        $0.estimatedRowHeight = 220
-        $0.showsVerticalScrollIndicator = false
-        $0.bounces = true
-        $0.isScrollEnabled = true
+    let prayCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 4
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.register(PrayingCVCell.self, forCellWithReuseIdentifier: "cell")
+        cv.backgroundColor = .clear
+        cv.isPagingEnabled = true
+        return cv
+    }()
+    let buttonContainer = UIView()
+    let answerButton = MoyangButton(.none).then {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 15, weight: .regular),
+            .foregroundColor: UIColor.sheep2,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        
+        let attributeString = NSMutableAttributedString(
+            string: "대답을 주셨나요?",
+            attributes: attributes
+        )
+        $0.setAttributedTitle(attributeString, for: .normal)
     }
-    let songNameLabelBgView = UIView().then {
+    let middleLable = UILabel().then {
+        $0.text = " 혹은 기도에 "
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .sheep2.withAlphaComponent(0.9)
+    }
+    let changeButton = MoyangButton(.none).then {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 15, weight: .regular),
+            .foregroundColor: UIColor.sheep2,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        
+        let attributeString = NSMutableAttributedString(
+            string: "변화가 있나요?",
+            attributes: attributes
+        )
+        $0.setAttributedTitle(attributeString, for: .normal)
+    }
+    
+    let songController = UIView().then {
         $0.backgroundColor = .sheep2
         $0.layer.cornerRadius = 8
         $0.alpha = 0.6
@@ -68,7 +102,7 @@ class GroupPrayingVC: UIViewController, VCType {
     let togglePlayingButton = UIButton().then {
         let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
         $0.setImage(UIImage(systemName: "play.fill", withConfiguration: config), for: .normal)
-        $0.tintColor = .sheep1
+        $0.tintColor = .nightSky1
     }
     let prayingTimeLabel = UILabel().then {
         $0.textColor = .sheep1
@@ -110,15 +144,11 @@ class GroupPrayingVC: UIViewController, VCType {
         view.setGradient(startColor: .nightSky3, endColor: .nightSky2)
         setupNavBar()
         setupTitleLabel()
-//        setupPrevButton()
-//        setupNextButton()
-        
-        setupAmenButton()
         setupPrayingTimeLabel()
-        setupTogglePlayingButton()
-        setupSongNameLabel()
-        
-        setupPrayTableView()
+        setupAmenButton()
+        setupPrayCollectionView()
+        setupSongController()
+        setupButtonContainer()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -131,8 +161,9 @@ class GroupPrayingVC: UIViewController, VCType {
     private func setupTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(navBar.snp.bottom).offset(12)
+            $0.left.equalToSuperview().inset(32)
+            $0.right.equalToSuperview().inset(120)
+            $0.top.equalTo(navBar.snp.bottom).offset(16)
         }
     }
     private func setupPrevButton() {
@@ -156,50 +187,84 @@ class GroupPrayingVC: UIViewController, VCType {
         amenButton.snp.makeConstraints {
             $0.height.equalTo(48)
             $0.left.right.equalToSuperview().inset(28)
-            $0.bottom.equalTo(view.safeAreaInsets).inset(28)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(48)
         }
     }
     private func setupPrayingTimeLabel() {
         view.addSubview(prayingTimeLabel)
         prayingTimeLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(amenButton.snp.top).offset(-12)
+            $0.right.equalToSuperview().inset(24)
+            $0.bottom.equalTo(titleLabel)
         }
     }
-    private func setupTogglePlayingButton() {
-        view.addSubview(togglePlayingButton)
-        togglePlayingButton.snp.makeConstraints {
+    private func setupSongController() {
+        view.addSubview(songController)
+        songController.snp.makeConstraints {
+            $0.top.equalTo(prayCollectionView.snp.bottom).offset(44)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(prayingTimeLabel.snp.top).offset(-8)
-            $0.size.equalTo(24)
-        }
-    }
-    private func setupSongNameLabel() {
-        view.addSubview(songNameLabelBgView)
-        songNameLabelBgView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(96)
-            $0.bottom.equalTo(togglePlayingButton.snp.top).offset(-4)
         }
 
-        songNameLabelBgView.addSubview(songNameLabel)
-        songNameLabel.snp.makeConstraints {
-            $0.right.top.bottom.equalToSuperview().inset(8)
-            $0.left.equalToSuperview().inset(36)
-        }
-        
-        songNameLabelBgView.addSubview(musicNoteImageView)
+        songController.addSubview(musicNoteImageView)
         musicNoteImageView.snp.makeConstraints {
             $0.size.equalTo(20)
-            $0.centerY.equalTo(songNameLabel)
+            $0.top.bottom.equalToSuperview().inset(4)
             $0.left.equalToSuperview().inset(8)
         }
+        songController.addSubview(togglePlayingButton)
+        togglePlayingButton.snp.makeConstraints {
+            $0.size.equalTo(20)
+            $0.top.bottom.equalToSuperview().inset(4)
+            $0.right.equalToSuperview().inset(8)
+        }
+        songController.addSubview(songNameLabel)
+        songNameLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalTo(musicNoteImageView.snp.right).offset(4)
+            $0.right.equalTo(togglePlayingButton.snp.left).offset(-4)
+            $0.width.equalTo(112)
+        }
+        
     }
-    private func setupPrayTableView() {
-        view.addSubview(prayTableView)
-        prayTableView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
-            $0.left.right.equalToSuperview().inset(24)
-            $0.bottom.equalTo(songNameLabelBgView.snp.top).offset(-12)
+    private func setupPrayCollectionView() {
+        view.addSubview(prayCollectionView)
+        prayCollectionView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(32)
+            $0.left.right.equalToSuperview().inset(28)
+            $0.height.equalTo(380)
+        }
+        prayCollectionView.delegate = self
+    }
+    
+    private func setupButtonContainer() {
+        view.addSubview(buttonContainer)
+        buttonContainer.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
+            $0.centerX.equalToSuperview()
+        }
+        setupAnswerButton()
+        setupMiddleLable()
+        setupChangeButton()
+    }
+    private func setupAnswerButton() {
+        buttonContainer.addSubview(answerButton)
+        answerButton.snp.makeConstraints {
+            $0.left.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+        }
+    }
+    private func setupMiddleLable() {
+        buttonContainer.addSubview(middleLable)
+        middleLable.snp.makeConstraints {
+            $0.left.equalTo(answerButton.snp.right)
+            $0.centerY.equalToSuperview()
+        }
+    }
+    private func setupChangeButton() {
+        buttonContainer.addSubview(changeButton)
+        changeButton.snp.makeConstraints {
+            $0.right.equalToSuperview()
+            $0.left.equalTo(middleLable.snp.right)
+            $0.top.bottom.equalToSuperview()
         }
     }
     
@@ -210,7 +275,7 @@ class GroupPrayingVC: UIViewController, VCType {
     }
     
     private func bindViews() {
-        navBar.closeButton.rx.tap
+        navBar.backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.displayPopup(popup: self.closeConfirmPopup)
@@ -228,18 +293,6 @@ class GroupPrayingVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
-        
-//        prayTableView.rx.contentOffset.asDriver()
-//            .throttle(.milliseconds(300))
-//            .drive(onNext: { [weak self] offset in
-//                guard let self = self else { return }
-//
-//                let offset = self.prayTableView.contentOffset.y
-//                let maxOffset = self.prayTableView.contentSize.height - self.prayTableView.frame.size.height
-//                if maxOffset - offset <= 0 {
-//                    self.vm?.fetchMorePrayList()
-//                }
-//            }).disposed(by: disposeBag)
     }
     
     private func bindVM() {
@@ -249,6 +302,7 @@ class GroupPrayingVC: UIViewController, VCType {
         let output = vm.transform(input: input)
         
         output.selectedMemberName
+            .map { $0 + "의 기도"}
             .drive(titleLabel.rx.text)
             .disposed(by: disposeBag)
         
@@ -268,10 +322,10 @@ class GroupPrayingVC: UIViewController, VCType {
             .disposed(by: disposeBag)
         
         output.prayList
-            .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupPrayingTableViewCell.self)) { (index, item, cell) in
-                    cell.prayLabel.text = item.pray
-                    cell.prayLabel.lineBreakMode = .byTruncatingTail
+            .drive(prayCollectionView.rx
+                .items(cellIdentifier: "cell", cellType: PrayingCVCell.self)) { (_, item, cell) in
+                    cell.dateLabel.text = item.latestDate.isoToDateString()
+                    cell.prayTextView.text = item.pray
                     cell.tags = item.tags
                     cell.tagCollectionView.reloadData()
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
@@ -279,10 +333,6 @@ class GroupPrayingVC: UIViewController, VCType {
                     }
                     cell.noTagLabel.isHidden = !item.tags.isEmpty
                     cell.layer.backgroundColor = UIColor.clear.cgColor
-                    
-                    cell.vm = vm
-                    cell.index = index
-                    cell.bind()
                 }.disposed(by: disposeBag)
         
         output.prayingTimeStr
@@ -302,6 +352,13 @@ class GroupPrayingVC: UIViewController, VCType {
                 }
             })
             .disposed(by: disposeBag)
+    }
+}
+
+extension GroupPrayingVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.width-58, height: 380)
     }
 }
 
