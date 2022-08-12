@@ -26,7 +26,7 @@ enum TodayTaskType: Int {
     case worship
     case praise
     case pray
-    case read
+    case study
     case quietTime
     case stop
     case love
@@ -39,15 +39,33 @@ enum TodayTaskType: Int {
             return "찬양하기"
         case .pray:
             return "기도하기"
-        case .read:
-            return "성경 읽기"
+        case .study:
+            return "하나님 공부하기"
         case .quietTime:
-            return "묵상하기"
+            return "말씀 묵상하기"
         case .stop:
-            return "잠시 멈추기"
+            return "잠깐 멈추기"
         case .love:
             return "사랑하기"
         }
     }
     
+    var defaultTime: Int {
+        switch self {
+        case .worship:
+            return 30
+        case .praise:
+            return 15
+        case .pray:
+            return 5
+        case .study:
+            return 30
+        case .quietTime:
+            return 30
+        case .stop:
+            return 30
+        case .love:
+            return 0
+        }
+    }
 }

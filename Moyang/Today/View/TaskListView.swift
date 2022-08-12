@@ -63,6 +63,7 @@ class TaskListView: UIView {
                         $0.edges.equalToSuperview()
                         $0.height.equalTo(itemViewHeight)
                     }
+                    itemView.setType(type: list[i].type)
                 } else {
                     let itemView = TaskItemView(type: .first, item: list[i])
                     container.addSubview(itemView)
@@ -71,6 +72,7 @@ class TaskListView: UIView {
                         $0.left.right.equalToSuperview()
                         $0.height.equalTo(itemViewHeight)
                     }
+                    itemView.setType(type: list[i].type)
                 }
             } else if i == (list.count - 1) {
                 let itemView = TaskItemView(type: .last, item: list[i])
@@ -81,6 +83,7 @@ class TaskListView: UIView {
                     $0.bottom.equalToSuperview()
                     $0.height.equalTo(itemViewHeight)
                 }
+                itemView.setType(type: list[i].type)
             } else {
                 let itemView = TaskItemView(type: .middle, item: list[i])
                 container.addSubview(itemView)
@@ -89,6 +92,7 @@ class TaskListView: UIView {
                     $0.left.right.equalToSuperview()
                     $0.height.equalTo(itemViewHeight)
                 }
+                itemView.setType(type: list[i].type)
             }
         }
     }

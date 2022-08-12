@@ -44,12 +44,12 @@ class TodayVM: VMType {
         afternoon.accept("오후에도 주님과")
         night.accept("평안한 밤")
         
-        morningList.accept([TodayTaskItem(type: 0, title: "ddd", content: "asdd", isDone: true),
-                            TodayTaskItem(type: 1, title: "ddd", content: "asdd", isDone: false),
-                            TodayTaskItem(type: 2, title: "ddd", content: "asdd", isDone: false)])
-        afternoonList.accept([TodayTaskItem(type: 0, title: "ddd", content: "asdd", isDone: false),
-                              TodayTaskItem(type: 4, title: "ddd", content: "asdd", isDone: false)])
-        nightList.accept([TodayTaskItem(type: 5, title: "ddd", content: "asdd", isDone: false)])
+        morningList.accept([TodayTaskItem(type: 2, title: nil, content: nil, isDone: true),
+                            TodayTaskItem(type: 4, title: nil, content: nil, isDone: false),
+                            TodayTaskItem(type: 1, title: nil, content: nil, isDone: false)])
+        afternoonList.accept([TodayTaskItem(type: 3, title: nil, content: nil, isDone: false),
+                              TodayTaskItem(type: 1, title: nil, content: nil, isDone: false)])
+        nightList.accept([TodayTaskItem(type: 2, title: nil, content: nil, isDone: false)])
         
     }
 }
@@ -84,13 +84,13 @@ extension TodayVM {
     
     struct TodayTaskItem {
         let type: Int
-        let title: String
-        let content: String
+        let title: String?
+        let content: String?
         let isDone: Bool
         
         init(type: Int,
-             title: String,
-             content: String,
+             title: String?,
+             content: String?,
              isDone: Bool) {
             self.type = type
             self.title = title

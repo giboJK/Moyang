@@ -29,8 +29,14 @@ class TaskItemView: UIView {
         $0.layer.borderWidth = 1
     }
     let typeImageView = UIImageView()
-    let titleLabel = UILabel()
-    let descLabel = UILabel()
+    let titleLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 17, weight: .semibold)
+        $0.textColor = .sheep1
+    }
+    let descLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.textColor = .sheep2
+    }
     
     let type: TaskOrder
     let item: TodayVM.TodayTaskItem
@@ -51,6 +57,9 @@ class TaskItemView: UIView {
         backgroundColor = .clear
         setupDoneImageView()
         setupContainer()
+        setupTypeImageView()
+        setupTitleLabel()
+        setupDescLabel()
         switch type {
         case .one:
             break
@@ -76,6 +85,30 @@ class TaskItemView: UIView {
         container.snp.makeConstraints {
             $0.top.bottom.right.equalToSuperview().inset(12)
             $0.left.equalToSuperview().inset(40)
+        }
+    }
+    private func setupTypeImageView() {
+        container.addSubview(typeImageView)
+        typeImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.left.equalToSuperview().inset(20)
+            $0.size.equalTo(24)
+        }
+    }
+    private func setupTitleLabel() {
+        container.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.left.equalTo(typeImageView.snp.right).offset(4)
+            $0.right.equalToSuperview().inset(20)
+        }
+    }
+    private func setupDescLabel() {
+        container.addSubview(descLabel)
+        descLabel.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(16)
+            $0.left.equalTo(typeImageView.snp.right).offset(4)
+            $0.right.equalToSuperview().inset(20)
         }
     }
     
@@ -108,5 +141,11 @@ class TaskItemView: UIView {
         cgPath.addLines(between: cgPoint)
         caShapeLayer.path = cgPath
         layer.addSublayer(caShapeLayer)
+    }
+    
+    func setType(type: Int) {
+        guard let type = TodayTaskType(rawValue: type) else { Log.e("type error"); return }
+        titleLabel.text = type.defaultTitle
+        descLabel.text = "\(type.defaultTime) 분"
     }
 }
