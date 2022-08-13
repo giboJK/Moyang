@@ -39,6 +39,7 @@ class GroupPrayDetailVM: VMType {
     
     let prayPlusAndChangeVM = BehaviorRelay<PrayPlusAndChangeVM?>(value: nil)
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
+    let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
     
     init(useCase: PrayUseCase, userID: String, prayID: String) {
         self.useCase = useCase
@@ -131,6 +132,7 @@ extension GroupPrayDetailVM {
         var addChange: Driver<Void> = .empty()
         var addAnswer: Driver<Void> = .empty()
         var didTapPrayReaction: Driver<Void> = .empty()
+        var showReplys: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -158,6 +160,7 @@ extension GroupPrayDetailVM {
         
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayPlusAndChangeVM: Driver<PrayPlusAndChangeVM?>
+        let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
     }
 
     func transform(input: Input) -> Output {
@@ -237,11 +240,16 @@ extension GroupPrayDetailVM {
                                                                     isAnswer: true))
             }).disposed(by: disposeBag)
         
-        
         input.didTapPrayReaction
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: self.reactions.value))
+            }).disposed(by: disposeBag)
+        
+        input.showReplys
+            .drive(onNext: { [weak self] item in
+                guard let self = self else { return }
+                self.prayReplyDetailVM.accept(PrayReplyDetailVM(replys: self.groupIndividualPray.replys))
             }).disposed(by: disposeBag)
         
         return Output(isMyPray: isMyPray.asDriver(),
@@ -267,8 +275,8 @@ extension GroupPrayDetailVM {
                       isFailure: isFailure.asDriver(),
                       
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
-                      
-                      prayPlusAndChangeVM: prayPlusAndChangeVM.asDriver()
+                      prayPlusAndChangeVM: prayPlusAndChangeVM.asDriver(),
+                      prayReplyDetailVM: prayReplyDetailVM.asDriver()
         )
     }
 }

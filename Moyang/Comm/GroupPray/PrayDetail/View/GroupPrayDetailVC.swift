@@ -10,6 +10,7 @@ import RxCocoa
 import RxSwift
 import SnapKit
 import Then
+import RxGesture
 
 class GroupPrayDetailVC: UIViewController, VCType {
     typealias VM = GroupPrayDetailVM
@@ -235,6 +236,18 @@ class GroupPrayDetailVC: UIViewController, VCType {
         present(nav, animated: true, completion: nil)
     }
     
+    private func showReplyView(prayReplyDetailVM: PrayReplyDetailVM) {
+        let vc = PrayReplyDetailVC()
+        vc.vm = prayReplyDetailVM
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .pageSheet
+
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        present(nav, animated: true, completion: nil)
+    }
+    
     // MARK: - Binding
     func bind() {
         bineViews()
@@ -283,12 +296,14 @@ class GroupPrayDetailVC: UIViewController, VCType {
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let tapReactionView = prayDetailView.reactionView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let replys = prayDetailView.replyView.rx.tapGesture().when(.ended).map { _ in () }
         let input = VM.Input(updatePray: updateButton.rx.tap.asDriver(),
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver(),
                              addPrayPlus: prayPlusButton.rx.tap.asDriver(),
                              addChange: addChangeButton.rx.tap.asDriver(),
                              addAnswer: addAnswerButton.rx.tap.asDriver(),
-                             didTapPrayReaction: tapReactionView)
+                             didTapPrayReaction: tapReactionView,
+                             showReplys: replys.asDriver(onErrorJustReturn: ()))
         let output = vm.transform(input: input)
         
         output.isMyPray
@@ -365,6 +380,12 @@ class GroupPrayDetailVC: UIViewController, VCType {
             .drive(onNext: { [weak self] prayPlusAndChangeVM in
                 guard let prayPlusAndChangeVM = prayPlusAndChangeVM else { return }
                 self?.showPrayPlusAndChangeVC(prayPlusAndChangeVM: prayPlusAndChangeVM)
+            }).disposed(by: disposeBag)
+        
+        output.prayReplyDetailVM
+            .drive(onNext: { [weak self] prayReplyDetailVM in
+                guard let prayReplyDetailVM = prayReplyDetailVM else { return }
+                self?.showReplyView(prayReplyDetailVM: prayReplyDetailVM)
             }).disposed(by: disposeBag)
     }
     
