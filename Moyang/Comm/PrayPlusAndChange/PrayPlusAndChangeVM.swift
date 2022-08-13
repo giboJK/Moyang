@@ -23,6 +23,8 @@ class PrayPlusAndChangeVM: VMType {
     let plusPrayFailure = BehaviorRelay<Void>(value: ())
     let addChangeSuccess = BehaviorRelay<Void>(value: ())
     let addChangeFailure = BehaviorRelay<Void>(value: ())
+    let addAnswerSuccess = BehaviorRelay<Void>(value: ())
+    let addAnswerFailure = BehaviorRelay<Void>(value: ())
     
     var isMe = false
     
@@ -54,6 +56,14 @@ class PrayPlusAndChangeVM: VMType {
             .bind(to: addChangeFailure)
             .disposed(by: disposeBag)
         
+        useCase.addAnswerSuccess
+            .bind(to: addChangeSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.addAnswerFailure
+            .bind(to: addChangeFailure)
+            .disposed(by: disposeBag)
+        
         guard let myInfo = UserData.shared.userInfo else { Log.e(""); return }
         if userID == myInfo.id {
             if isAnswer {
@@ -74,6 +84,8 @@ class PrayPlusAndChangeVM: VMType {
     }
     
     private func addAnswer() {
+        guard let content = content.value else { Log.e("No content"); return }
+        useCase.addAnswer(prayID: prayID, answer: content)
     }
 }
 
@@ -90,6 +102,8 @@ extension PrayPlusAndChangeVM {
         let plusPrayFailure: Driver<Void>
         let addChangeSuccess: Driver<Void>
         let addChangeFailure: Driver<Void>
+        let addAnswerSuccess: Driver<Void>
+        let addAnswerFailure: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
@@ -117,7 +131,9 @@ extension PrayPlusAndChangeVM {
                       plusPraySuccess: plusPraySuccess.asDriver(),
                       plusPrayFailure: plusPrayFailure.asDriver(),
                       addChangeSuccess: addChangeSuccess.asDriver(),
-                      addChangeFailure: addChangeFailure.asDriver()
+                      addChangeFailure: addChangeFailure.asDriver(),
+                      addAnswerSuccess: addAnswerSuccess.asDriver(),
+                      addAnswerFailure: addAnswerFailure.asDriver()
         )
     }
 }

@@ -54,11 +54,13 @@ struct PrayChange: Codable {
 
 struct PrayAnswer: Codable {
     let id: String
+    let prayID: String
     let answer: String
     let date: String
     
     enum CodingKeys: String, CodingKey {
         case id
+        case prayID = "pray_id"
         case answer
         case date = "create_date"
     }

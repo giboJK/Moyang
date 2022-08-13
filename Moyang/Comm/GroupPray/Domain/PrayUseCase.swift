@@ -25,6 +25,9 @@ class PrayUseCase {
     let addChangeSuccess = BehaviorRelay<Void>(value: ())
     let addChangeFailure = BehaviorRelay<Void>(value: ())
     
+    let addAnswerSuccess = BehaviorRelay<Void>(value: ())
+    let addAnswerFailure = BehaviorRelay<Void>(value: ())
+    
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
@@ -223,6 +226,30 @@ class PrayUseCase {
             self.resetIsNetworking()
         }
     }
+    
+    func addAnswer(prayID: String, answer: String) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() {
+            return
+        }
+        repo.addAnswer(userID: myID, prayID: prayID, answer: answer) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.addAnswerSuccess.accept(())
+                } else {
+                    Log.e("")
+                    self.addAnswerFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.addAnswerFailure.accept(())
+            }
+            self.resetIsNetworking()
+        }
+    }
+    
     func addAmen(groupID: String, time: Int) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() {
