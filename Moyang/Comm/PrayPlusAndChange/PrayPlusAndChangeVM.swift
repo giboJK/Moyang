@@ -89,7 +89,7 @@ class PrayPlusAndChangeVM: VMType {
     
     private func addReply() {
         guard let content = content.value else { Log.e("No content"); return }
-        useCase.addReply(prayID: prayID, reply: content)
+        useCase.addReply(userID: userID, prayID: prayID, reply: content)
     }
     
     private func addChange() {

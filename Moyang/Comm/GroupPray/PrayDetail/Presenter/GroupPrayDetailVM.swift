@@ -24,6 +24,7 @@ class GroupPrayDetailVM: VMType {
     let isSecret = BehaviorRelay<Bool>(value: false)
     let changes = BehaviorRelay<[PrayChange]>(value: [])
     let answers = BehaviorRelay<[PrayAnswer]>(value: [])
+    let replys = BehaviorRelay<[PrayReply]>(value: [])
     let reactions = BehaviorRelay<[PrayReaction]>(value: [])
     
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
@@ -99,6 +100,7 @@ class GroupPrayDetailVM: VMType {
         reactions.accept(data.reactions)
         changes.accept(data.changes)
         answers.accept(data.answers)
+        replys.accept(data.replys)
     }
     
     private func updatePray() {
@@ -143,6 +145,7 @@ extension GroupPrayDetailVM {
         let changes: Driver<[PrayChange]>
         let answers: Driver<[PrayAnswer]>
         let reactions: Driver<[PrayReaction]>
+        let replys: Driver<[PrayReply]>
         
         let updatePraySuccess: Driver<Void>
         let updatePrayFailure: Driver<Void>
@@ -252,6 +255,7 @@ extension GroupPrayDetailVM {
                       changes: changes.asDriver(),
                       answers: answers.asDriver(),
                       reactions: reactions.asDriver(),
+                      replys: replys.asDriver(),
                       
                       updatePraySuccess: updatePraySuccess.asDriver(),
                       updatePrayFailure: updatePrayFailure.asDriver(),

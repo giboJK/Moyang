@@ -251,7 +251,7 @@ class PrayUseCase {
         }
     }
     
-    func addReply(prayID: String, reply: String) {
+    func addReply(userID: String, prayID: String, reply: String) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() { return }
         repo.addReply(userID: myID, prayID: prayID, reply: reply) { [weak self] result in
@@ -261,7 +261,7 @@ class PrayUseCase {
                 if response.code == 0 {
                     self.addReplySuccess.accept(())
                     var dict = self.memberPrayList.value
-                    if var curList = dict[myID] {
+                    if var curList = dict[userID] {
                         if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
                             curList[index].replys.append(response.data)
                             dict.updateValue(curList, forKey: myID)

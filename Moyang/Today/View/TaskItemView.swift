@@ -123,7 +123,7 @@ class TaskItemView: UIView {
         timeImageView.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(16)
             $0.left.equalTo(typeImageView.snp.right).offset(4)
-            $0.width.equalTo(14)
+            $0.width.equalTo(16)
             $0.height.equalTo(12)
         }
     }

@@ -69,7 +69,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
     let reactionBgView = UIView().then {
         $0.isHidden = true
     }
-    let reactionView = ReactionPopupView().then {
+    let reactionPopupView = ReactionPopupView().then {
         $0.isHidden = true
     }
     let reactionPopupViewHeight: CGFloat = 36 + 8 + 40
@@ -187,14 +187,14 @@ class GroupPrayDetailVC: UIViewController, VCType {
         reactionBgView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        view.addSubview(reactionView)
-        reactionView.snp.makeConstraints {
+        view.addSubview(reactionPopupView)
+        reactionPopupView.snp.makeConstraints {
             $0.width.equalTo(0)
             $0.height.equalTo(0)
             $0.right.equalTo(prayDetailView).inset(16)
             $0.top.equalTo(prayDetailView).inset(280)
         }
-        reactionView.delegate = self
+        reactionPopupView.delegate = self
     }
     func showPrayReactionPopupView() {
         if isMyPray || isPopupAnimating {
@@ -202,8 +202,8 @@ class GroupPrayDetailVC: UIViewController, VCType {
         }
         isPopupAnimating = true
         reactionBgView.isHidden = false
-        reactionView.isHidden = false
-        reactionView.snp.updateConstraints {
+        reactionPopupView.isHidden = false
+        reactionPopupView.snp.updateConstraints {
             $0.width.equalTo(156)
             $0.height.equalTo(reactionPopupViewHeight)
         }
@@ -216,8 +216,8 @@ class GroupPrayDetailVC: UIViewController, VCType {
     func hidePrayReactionPopupView() {
         isPopupAnimating = false
         reactionBgView.isHidden = true
-        reactionView.isHidden = true
-        reactionView.snp.updateConstraints {
+        reactionPopupView.isHidden = true
+        reactionPopupView.snp.updateConstraints {
             $0.width.equalTo(0)
             $0.height.equalTo(0)
         }

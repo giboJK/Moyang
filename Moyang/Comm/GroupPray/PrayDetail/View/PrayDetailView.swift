@@ -70,9 +70,19 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         $0.distribution = .fillEqually
         $0.isHidden = true
     }
+    let replyView = UIView().then {
+        $0.backgroundColor = .sheep1
+        $0.layer.cornerRadius = 14
+    }
+    let replyImageView = UIImageView(image: Asset.Images.Pray.comment.image.withTintColor(.nightSky1))
+    let replyCountLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.textColor = .nightSky3
+    }
     
     // MARK: - Property
     private var tagList = [String]()
+    var isMyPray = false
     
     init() {
         super.init(frame: .zero)
@@ -91,6 +101,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         setupDateLabel()
         setupPrayTextField()
         setupReactionView()
+        setupReplyView()
         setupTagInfoLabel()
         setupTagTextField()
         setupTagCollectionView()
@@ -150,6 +161,36 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         }
     }
     
+    private func setupReplyView() {
+        addSubview(replyView)
+        replyView.snp.makeConstraints {
+            $0.top.equalTo(prayTextView.snp.bottom).offset(8)
+            $0.right.equalTo(prayTextView)
+            $0.height.equalTo(32)
+        }
+        replyView.addSubview(replyImageView)
+        replyView.addSubview(replyCountLabel)
+        replyImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().inset(8)
+            $0.size.equalTo(20)
+        }
+        replyCountLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalTo(replyImageView.snp.right).offset(4)
+            $0.right.equalToSuperview().inset(8)
+        }
+        replyView.isHidden = true
+    }
+    func setupReplyView(replys: [PrayReply]) {
+        if replys.isEmpty { replyView.isHidden = true; return }
+        replyView.isHidden = false
+        replyCountLabel.text = "\(replys.count)"
+        reactionView.snp.updateConstraints {
+            $0.right.equalTo(prayTextView).offset(-replyView.frame.width-16)
+        }
+    }
+    
     private func setupTagInfoLabel() {
         addSubview(tagInfoLabel)
         tagInfoLabel.snp.makeConstraints {
@@ -184,7 +225,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         tagCollectionView.snp.makeConstraints {
             $0.top.equalTo(tagTextField.snp.bottom).offset(12)
             $0.left.equalToSuperview().inset(16)
-            $0.right.equalTo(reactionView.snp.left).offset(16)
+            $0.right.equalTo(reactionView.snp.left).offset(-16)
             $0.height.equalTo(32)
         }
         tagCollectionView.dataSource = self
@@ -290,16 +331,13 @@ class PrayDetailView: UIView, UITextFieldDelegate {
                 self.prayTextView.isEditable = isMyPray
                 self.prayTextView.textDragInteraction?.isEnabled = !isMyPray
                 self.tagCollectionView.snp.remakeConstraints {
+                    $0.left.equalToSuperview().inset(16)
+                    $0.height.equalTo(32)
+                    $0.right.equalTo(self.reactionView.snp.left).offset(-16)
                     if isMyPray {
                         $0.top.equalTo(self.tagTextField.snp.bottom).offset(12)
-                        $0.left.equalToSuperview().inset(16)
-                        $0.right.equalTo(self.reactionView.snp.left).offset(16)
-                        $0.height.equalTo(32)
                     } else {
                         $0.top.equalTo(self.prayTextView.snp.bottom).offset(12)
-                        $0.left.equalToSuperview().inset(16)
-                        $0.right.equalTo(self.reactionView.snp.left).offset(16)
-                        $0.height.equalTo(32)
                     }
                 }
             }).disposed(by: disposeBag)
@@ -307,16 +345,13 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         output.groupName
             .drive(groupNameLabel.rx.text)
             .disposed(by: disposeBag)
-        
         output.date
             .drive(dateLabel.rx.text)
             .disposed(by: disposeBag)
-        
         output.pray
             .distinctUntilChanged()
             .drive(prayTextView.rx.text)
             .disposed(by: disposeBag)
-        
         output.newTag
             .drive(tagTextField.rx.text)
             .disposed(by: disposeBag)
@@ -359,18 +394,25 @@ class PrayDetailView: UIView, UITextFieldDelegate {
                     }
                 }
             }).disposed(by: disposeBag)
-        
         output.isSecret
             .drive(isSecretCheckBox.rx.isChecked)
             .disposed(by: disposeBag)
         
         output.reactions
             .drive(onNext: { [weak self] reactions in
-                if reactions.isEmpty {
-                    self?.reactionView.isHidden = true
-                    return
-                }
+                if reactions.isEmpty { self?.reactionView.isHidden = true; return }
                 self?.setupReactionView(reactions: reactions)
+            }).disposed(by: disposeBag)
+        
+        output.isMyPray
+            .drive(onNext: { [weak self] isMyPray in
+                self?.isMyPray = isMyPray
+            }).disposed(by: disposeBag)
+        
+        output.replys
+            .delay(.milliseconds(100))
+            .drive(onNext: { [weak self] replys in
+                self?.setupReplyView(replys: replys)
             }).disposed(by: disposeBag)
     }
 }
@@ -379,7 +421,10 @@ extension PrayDetailView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let buttonWidth = tagList[indexPath.row].width(withConstraintedHeight: 16,
                                                        font: .systemFont(ofSize: 14, weight: .regular))
-        return CGSize(width: 20 + 24 + buttonWidth, height: 32)
+        if isMyPray {
+            return CGSize(width: 20 + 24 + buttonWidth, height: 32)
+        }
+        return CGSize(width: 20 + buttonWidth, height: 32)
     }
 }
 
@@ -396,6 +441,7 @@ extension PrayDetailView: UICollectionViewDataSource {
         cell.detailVM = vm
         cell.indexPath = indexPath
         cell.bind()
+        cell.deleteButton.isHidden = !isMyPray
         
         return cell
     }
