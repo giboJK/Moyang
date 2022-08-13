@@ -69,6 +69,10 @@ public enum Asset {
       public static let cross = ImageAsset(name: "cross")
       public static let today = ImageAsset(name: "today")
     }
+    public enum Today {
+      public static let myHistory = ImageAsset(name: "myHistory")
+      public static let taskSelect = ImageAsset(name: "taskSelect")
+    }
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

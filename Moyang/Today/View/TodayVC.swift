@@ -27,9 +27,12 @@ class TodayVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep1
     }
-    let newsButton = UIButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
-        $0.setImage(UIImage(systemName: "bell", withConfiguration: config), for: .normal)
+    let myHistoryButton = UIButton().then {
+        $0.setImage(Asset.Images.Today.myHistory.image.withTintColor(.sheep1), for: .normal)
+        $0.tintColor = .sheep1
+    }
+    let taskSelectButton = UIButton().then {
+        $0.setImage(Asset.Images.Today.taskSelect.image.withTintColor(.sheep1), for: .normal)
         $0.tintColor = .sheep1
     }
     let morningTaskListView = TaskListView()
@@ -53,7 +56,8 @@ class TodayVC: UIViewController, VCType {
         view.backgroundColor = .nightSky1
         setupScrollView()
         setupTitleLabel()
-        setupNewsButton()
+        setupTaskSelectButton()
+        setupMyHistoryButton()
         setupMorningTaskListView()
         setupAfternoonTaskListView()
         setupNightTaskListView()
@@ -78,12 +82,20 @@ class TodayVC: UIViewController, VCType {
             $0.top.equalToSuperview().inset(24)
         }
     }
-    private func setupNewsButton() {
-        container.addSubview(newsButton)
-        newsButton.snp.makeConstraints {
+    private func setupTaskSelectButton() {
+        container.addSubview(taskSelectButton)
+        taskSelectButton.snp.makeConstraints {
             $0.right.equalToSuperview().inset(28)
             $0.top.equalToSuperview().inset(24)
-            $0.size.equalTo(20)
+            $0.size.equalTo(24)
+        }
+    }
+    private func setupMyHistoryButton() {
+        container.addSubview(myHistoryButton)
+        myHistoryButton.snp.makeConstraints {
+            $0.right.equalTo(taskSelectButton.snp.left).offset(-16)
+            $0.top.equalToSuperview().inset(24)
+            $0.size.equalTo(24)
         }
     }
     private func setupMorningTaskListView() {
