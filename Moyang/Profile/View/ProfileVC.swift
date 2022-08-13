@@ -31,6 +31,7 @@ class ProfileVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
+        view.backgroundColor = .nightSky1
     }
     // MARK: - Binding
     func bind() {

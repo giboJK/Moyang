@@ -41,20 +41,6 @@ class PrayCVCell: UICollectionViewCell {
         $0.textColor = .nightSky1
         $0.isHidden = true
     }
-    let firstPrayDateLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 13, weight: .regular)
-        $0.textColor = .nightSky4
-        $0.isHidden = true
-    }
-    let firstPrayLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 13, weight: .regular)
-        $0.textColor = .nightSky4
-        $0.isHidden = true
-    }
-    let firstPrayDivider = UIView().then {
-        $0.backgroundColor = .sheep3
-        $0.isHidden = true
-    }
     let tagDivider = UIView().then {
         $0.backgroundColor = .sheep3
     }
@@ -119,9 +105,6 @@ class PrayCVCell: UICollectionViewCell {
         setupIsSecretImageView()
         setupLatestPrayLabel()
         setupPrayCountLabel()
-        setupFirstPrayDateLabel()
-        setupFirstPrayLabel()
-        setupFirstPrayDivider()
         setupTagDivider()
         setupTagCollectionView()
         setupNoTagLabel()
@@ -165,28 +148,6 @@ class PrayCVCell: UICollectionViewCell {
         prayCountLabel.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(12)
-        }
-    }
-    private func setupFirstPrayDateLabel() {
-        bgView.addSubview(firstPrayDateLabel)
-        firstPrayDateLabel.snp.makeConstraints {
-            $0.top.equalTo(prayCountLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview().inset(12)
-        }
-    }
-    private func setupFirstPrayLabel() {
-        bgView.addSubview(firstPrayLabel)
-        firstPrayLabel.snp.makeConstraints {
-            $0.top.equalTo(firstPrayDateLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview().inset(12)
-        }
-    }
-    private func setupFirstPrayDivider() {
-        bgView.addSubview(firstPrayDivider)
-        firstPrayDivider.snp.makeConstraints {
-            $0.top.equalTo(firstPrayLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview()
-            $0.height.equalTo(1)
         }
     }
     private func setupTagDivider() {
@@ -368,14 +329,8 @@ class PrayCVCell: UICollectionViewCell {
         setupReactionAndReplyView(reactions: item.reactions, replys: item.replys)
         
         prayCountLabel.isHidden = item.changes.isEmpty
-        firstPrayDateLabel.isHidden = item.changes.isEmpty
-        firstPrayLabel.isHidden = item.changes.isEmpty
-        firstPrayDivider.isHidden = item.changes.isEmpty
         if !item.changes.isEmpty {
-            prayCountLabel.text = "총 \(item.changes.count + 1)개의 기도가 있습니다."
-            firstPrayDateLabel.text = "처음 등록: " + item.createDate.isoToDateString()!
-            firstPrayLabel.text = item.pray
-            firstPrayLabel.lineBreakMode = .byTruncatingTail
+            prayCountLabel.text = "총 \(item.changes.count + 1)번의 변화가 있습니다."
             latestPrayLabel.text = item.changes.first!.content
             if let latestDate = item.changes.first?.date.isoToDateString() {
                 dateLabel.text = "최근 기록: " + latestDate
