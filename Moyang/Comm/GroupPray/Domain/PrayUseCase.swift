@@ -93,9 +93,7 @@ class PrayUseCase {
     func addPray(pray: String, tags: [String], isSecret: Bool) {
         guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() {
-            return
-        }
+        if checkAndSetIsNetworking() { return }
         repo.addPray(userID: myID,
                      groupID: groupID,
                      content: pray,
@@ -124,9 +122,7 @@ class PrayUseCase {
     }
     
     func updatePray(prayID: String, pray: String, tags: [String], isSecret: Bool) {
-        if checkAndSetIsNetworking() {
-            return
-        }
+        if checkAndSetIsNetworking() { return }
         guard let myID = UserData.shared.userInfo?.id else {
             updatePrayFailure.accept(()); return
         }
@@ -178,9 +174,7 @@ class PrayUseCase {
     
     func deletePray(prayID: String) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() {
-            return
-        }
+        if checkAndSetIsNetworking() { return }
         repo.deletePray(prayID: prayID) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -206,9 +200,7 @@ class PrayUseCase {
     
     func addReaction(prayID: String, type: Int) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() {
-            return
-        }
+        if checkAndSetIsNetworking() { return }
         repo.addReaction(userID: myID, prayID: prayID, type: type) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -229,9 +221,7 @@ class PrayUseCase {
     
     func addAnswer(prayID: String, answer: String) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() {
-            return
-        }
+        if checkAndSetIsNetworking() { return }
         repo.addAnswer(userID: myID, prayID: prayID, answer: answer) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -258,11 +248,38 @@ class PrayUseCase {
         }
     }
     
+    func addChange(prayID: String, content: String) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() { return }
+        repo.addChange(prayID: prayID, content: content) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.addChangeSuccess.accept(())
+                    var dict = self.memberPrayList.value
+                    if var curList = dict[myID] {
+                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
+                            curList[index].changes.append(response.data)
+                            dict.updateValue(curList, forKey: myID)
+                            self.memberPrayList.accept(dict)
+                        }
+                    }
+                } else {
+                    Log.e("")
+                    self.addChangeFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.addChangeFailure.accept(())
+            }
+            self.resetIsNetworking()
+        }
+    }
+    
     func addAmen(groupID: String, time: Int) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() {
-            return
-        }
+        if checkAndSetIsNetworking() { return }
         repo.addAmen(userID: myID, groupID: groupID, time: time) { [weak self] result in
             guard let self = self else { return }
             switch result {

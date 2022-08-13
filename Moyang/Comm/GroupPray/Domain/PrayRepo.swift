@@ -26,6 +26,10 @@ protocol PrayRepo {
     
     func addAnswer(userID: String, prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?)
     
+    func addReply(userID: String, prayID: String, reply: String, completion: ((Result<AddPrayReplyResponse, MoyangError>) -> Void)?)
+    
+    func addChange(prayID: String, content: String, completion: ((Result<AddPrayChangeResponse, MoyangError>) -> Void)?)
+    
     
     func addAmen(userID: String, groupID: String, time: Int, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
@@ -56,6 +60,34 @@ class AddPrayAnswerResponse: BaseResponse {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         data = try container.decode(PrayAnswer.self, forKey: .data)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}
+
+class AddPrayReplyResponse: BaseResponse {
+    let data: PrayReply
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        data = try container.decode(PrayReply.self, forKey: .data)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}
+
+class AddPrayChangeResponse: BaseResponse {
+    let data: PrayChange
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        data = try container.decode(PrayChange.self, forKey: .data)
         try super.init(from: decoder)
     }
     

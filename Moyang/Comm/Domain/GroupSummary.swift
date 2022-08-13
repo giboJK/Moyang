@@ -25,7 +25,6 @@ struct GroupSummaryPray: Codable {
     let userName: String
     let prayID: String?
     let content: String?
-    var changes: [PrayChange]?
     let isSecret: Bool?
     let isAnswered: Bool?
     let latestDate: String?
@@ -36,7 +35,6 @@ struct GroupSummaryPray: Codable {
         case userName = "user_name"
         case prayID = "pray_id"
         case content = "content"
-        case changes = "changes"
         case isSecret = "is_secret"
         case isAnswered = "is_answered"
         case latestDate = "latest_date"

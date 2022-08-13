@@ -147,6 +147,7 @@ class GroupPrayingVC: UIViewController, VCType {
     deinit {
         Log.i(self)
         vm?.finishPray()
+        closePopup()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -410,7 +411,7 @@ class GroupPrayingVC: UIViewController, VCType {
 extension GroupPrayingVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width-58, height: 400)
+        return CGSize(width: UIScreen.main.bounds.width - 56, height: 400)
     }
 }
 

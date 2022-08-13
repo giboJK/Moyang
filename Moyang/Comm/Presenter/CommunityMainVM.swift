@@ -96,7 +96,6 @@ class CommunityMainVM: VMType {
                                                  latestDate: item.latestDate?.isoToDateString() ?? "",
                                                  isSecret: item.isSecret ?? true,
                                                  isAnswered: item.isAnswered ?? false,
-                                                 changes: item.changes ?? [],
                                                  createDate: item.createDate?.isoToDateString() ?? "",
                                                  isThisWeek: isThisWeek))
         }
@@ -146,7 +145,6 @@ extension CommunityMainVM {
         let latestDate: String
         let isSecret: Bool
         let isAnswered: Bool
-        let changes: [PrayChange]
         let createDate: String
         let isThisWeek: Bool
         
@@ -157,7 +155,6 @@ extension CommunityMainVM {
              latestDate: String,
              isSecret: Bool,
              isAnswered: Bool,
-             changes: [PrayChange],
              createDate: String,
              isThisWeek: Bool
         ) {
@@ -168,7 +165,6 @@ extension CommunityMainVM {
             self.latestDate = latestDate
             self.isSecret = isSecret
             self.isAnswered = isAnswered
-            self.changes = changes
             self.createDate = createDate
             self.isThisWeek = isThisWeek
         }

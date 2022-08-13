@@ -50,7 +50,8 @@ class NetConst {
         static let addReaction = "/pray/add_pray_reaction"
         static let addAmen = "/pray/add_amen_record"
         
-        static let addReply = "/pray/add_pray_reaction"
+        static let addReply = "/pray/add_reply"
+        static let addChange = "/pray/add_change"
         static let addAnswer = "/pray/add_answer"
     }
 }
