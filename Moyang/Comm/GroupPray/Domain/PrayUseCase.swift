@@ -25,6 +25,9 @@ class PrayUseCase {
     let addChangeSuccess = BehaviorRelay<Void>(value: ())
     let addChangeFailure = BehaviorRelay<Void>(value: ())
     
+    let addReplySuccess = BehaviorRelay<Void>(value: ())
+    let addReplyFailure = BehaviorRelay<Void>(value: ())
+    
     let addAnswerSuccess = BehaviorRelay<Void>(value: ())
     let addAnswerFailure = BehaviorRelay<Void>(value: ())
     
@@ -243,6 +246,35 @@ class PrayUseCase {
             case .failure(let error):
                 Log.e(error)
                 self.addAnswerFailure.accept(())
+            }
+            self.resetIsNetworking()
+        }
+    }
+    
+    func addReply(prayID: String, reply: String) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() { return }
+        repo.addReply(userID: myID, prayID: prayID, reply: reply) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.addReplySuccess.accept(())
+                    var dict = self.memberPrayList.value
+                    if var curList = dict[myID] {
+                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
+                            curList[index].replys.append(response.data)
+                            dict.updateValue(curList, forKey: myID)
+                            self.memberPrayList.accept(dict)
+                        }
+                    }
+                } else {
+                    Log.e("")
+                    self.addReplyFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.addReplyFailure.accept(())
             }
             self.resetIsNetworking()
         }

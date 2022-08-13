@@ -23,6 +23,8 @@ class PrayPlusAndChangeVM: VMType {
     let plusPrayFailure = BehaviorRelay<Void>(value: ())
     let addChangeSuccess = BehaviorRelay<Void>(value: ())
     let addChangeFailure = BehaviorRelay<Void>(value: ())
+    let addReplySuccess = BehaviorRelay<Void>(value: ())
+    let addReplyFailure = BehaviorRelay<Void>(value: ())
     let addAnswerSuccess = BehaviorRelay<Void>(value: ())
     let addAnswerFailure = BehaviorRelay<Void>(value: ())
     
@@ -56,12 +58,20 @@ class PrayPlusAndChangeVM: VMType {
             .bind(to: addChangeFailure)
             .disposed(by: disposeBag)
         
+        useCase.addReplySuccess
+            .bind(to: addReplySuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.addReplyFailure
+            .bind(to: addReplyFailure)
+            .disposed(by: disposeBag)
+        
         useCase.addAnswerSuccess
-            .bind(to: addChangeSuccess)
+            .bind(to: addAnswerSuccess)
             .disposed(by: disposeBag)
         
         useCase.addAnswerFailure
-            .bind(to: addChangeFailure)
+            .bind(to: addAnswerFailure)
             .disposed(by: disposeBag)
         
         guard let myInfo = UserData.shared.userInfo else { Log.e(""); return }
@@ -78,6 +88,8 @@ class PrayPlusAndChangeVM: VMType {
     }
     
     private func addReply() {
+        guard let content = content.value else { Log.e("No content"); return }
+        useCase.addReply(prayID: prayID, reply: content)
     }
     
     private func addChange() {
@@ -104,6 +116,8 @@ extension PrayPlusAndChangeVM {
         let plusPrayFailure: Driver<Void>
         let addChangeSuccess: Driver<Void>
         let addChangeFailure: Driver<Void>
+        let addReplySuccess: Driver<Void>
+        let addReplyFailure: Driver<Void>
         let addAnswerSuccess: Driver<Void>
         let addAnswerFailure: Driver<Void>
     }
@@ -134,6 +148,8 @@ extension PrayPlusAndChangeVM {
                       plusPrayFailure: plusPrayFailure.asDriver(),
                       addChangeSuccess: addChangeSuccess.asDriver(),
                       addChangeFailure: addChangeFailure.asDriver(),
+                      addReplySuccess: addReplySuccess.asDriver(),
+                      addReplyFailure: addReplyFailure.asDriver(),
                       addAnswerSuccess: addAnswerSuccess.asDriver(),
                       addAnswerFailure: addAnswerFailure.asDriver()
         )

@@ -25,7 +25,7 @@ class CommunityMainVC: UIViewController, VCType {
         $0.layer.cornerRadius = 16
         $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         $0.layer.masksToBounds = true
-        $0.backgroundColor = .sheep2
+        $0.backgroundColor = .nightSky1
     }
     let groupNameLabel = UILabel().then {
         $0.textColor = .nightSky1
@@ -68,7 +68,7 @@ class CommunityMainVC: UIViewController, VCType {
     
     func setupUI() {
         title = "공동체"
-        view.backgroundColor = .nightSky3
+        view.backgroundColor = .nightSky1
         setupSermonCard()
         setupScrollView()
         setupEmptyGroupView()

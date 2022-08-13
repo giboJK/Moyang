@@ -64,7 +64,7 @@ class SermonCard: UIView {
     }
     
     private func setupUI() {
-        backgroundColor = .nightSky3
+        backgroundColor = .nightSky1
         setupNewsButton()
         setupSermonCalendarButton()
         setupSubTitleLabel()

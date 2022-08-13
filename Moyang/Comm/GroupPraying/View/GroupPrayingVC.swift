@@ -29,18 +29,8 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.backgroundColor = .clear
     }
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 21, weight: .semibold)
+        $0.font = .systemFont(ofSize: 23, weight: .semibold)
         $0.textColor = .sheep1
-    }
-    let prevButton = UIButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
-        $0.setImage(UIImage(systemName: "chevron.left", withConfiguration: config), for: .normal)
-        $0.tintColor = .sheep2
-    }
-    let nextButton = UIButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
-        $0.setImage(UIImage(systemName: "chevron.right", withConfiguration: config), for: .normal)
-        $0.tintColor = .sheep2
     }
     let prayCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
