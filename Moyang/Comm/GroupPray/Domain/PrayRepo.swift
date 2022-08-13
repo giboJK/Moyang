@@ -24,7 +24,7 @@ protocol PrayRepo {
     
     func addReaction(userID: String, prayID: String, type: Int, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
-    func addAnswer(userID: String, prayID: String, answer: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    func addAnswer(userID: String, prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?)
     
     
     func addAmen(userID: String, groupID: String, time: Int, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
@@ -33,4 +33,33 @@ protocol PrayRepo {
     func downloadSong(fileName: String, path: String, fileExt: String,
                       completion: ((Result<URL, MoyangError>) -> Void)?)
     
+}
+
+// MARK: - Response
+class AddPrayResponse: BaseResponse {
+    let data: GroupIndividualPray
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        data = try container.decode(GroupIndividualPray.self, forKey: .data)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}
+
+class AddPrayAnswerResponse: BaseResponse {
+    let data: PrayAnswer
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        data = try container.decode(PrayAnswer.self, forKey: .data)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
 }

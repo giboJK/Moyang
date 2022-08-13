@@ -238,6 +238,14 @@ class PrayUseCase {
             case .success(let response):
                 if response.code == 0 {
                     self.addAnswerSuccess.accept(())
+                    var dict = self.memberPrayList.value
+                    if var curList = dict[myID] {
+                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
+                            curList[index].answers.append(response.data)
+                            dict.updateValue(curList, forKey: myID)
+                            self.memberPrayList.accept(dict)
+                        }
+                    }
                 } else {
                     Log.e("")
                     self.addAnswerFailure.accept(())

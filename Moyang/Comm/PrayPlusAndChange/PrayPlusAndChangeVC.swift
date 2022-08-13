@@ -153,39 +153,37 @@ class PrayPlusAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
         output.plusPraySuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
                 self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
 
         output.plusPrayFailure
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
                 self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
 
         output.addChangeSuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         output.addChangeFailure
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         output.addAnswerSuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         output.addAnswerFailure
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
     }
 }

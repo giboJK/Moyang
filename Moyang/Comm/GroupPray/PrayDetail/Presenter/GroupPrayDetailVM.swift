@@ -97,6 +97,7 @@ class GroupPrayDetailVM: VMType {
         tagList.accept(data.tags)
         isSecret.accept(data.isSecret)
         reactions.accept(data.reactions)
+        answers.accept(data.answers)
     }
     
     private func updatePray() {
