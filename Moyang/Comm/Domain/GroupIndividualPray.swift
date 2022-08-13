@@ -115,12 +115,14 @@ enum PrayReactionType: Int, CaseIterable {
 }
 
 struct PrayReply: Codable {
+    let id: String
     let memberID: String
     let name: String
     let reply: String
     let createDate: String
     
     enum CodingKeys: String, CodingKey {
+        case id
         case memberID = "user_id"
         case name = "user_name"
         case reply
