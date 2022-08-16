@@ -111,6 +111,7 @@ class LogInVC: UIViewController, VCType {
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
         
+        vm?.isLoginVC = true
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = vm
         authorizationController.presentationContextProvider = self

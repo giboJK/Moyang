@@ -85,6 +85,9 @@ class AFNetworkService: NetworkServiceProtocol {
                 if let data = result.data {
                     Log.i(NSString(data: data, encoding: String.Encoding.utf8.rawValue) as Any)
                 }
+                if let requestData = result.request?.httpBody {
+                    Log.i(NSString(data: requestData, encoding: String.Encoding.utf8.rawValue) as Any)
+                }
             }
 #endif
             .responseDecodable(of: T.self) { response in

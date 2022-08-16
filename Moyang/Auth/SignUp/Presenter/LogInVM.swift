@@ -25,6 +25,8 @@ class LogInVM: NSObject, VMType {
     let isLoginSuccess = BehaviorRelay<Void>(value: ())
     let isLoginFailure = BehaviorRelay<Void>(value: ())
     
+    var isLoginVC = false
+    
     init(useCase: AuthUseCase) {
         self.useCase = useCase
         super.init()
@@ -83,6 +85,10 @@ class LogInVM: NSObject, VMType {
         useCase.checkEmailExist(email: email ?? "",
                                 credential: userIdentifier, auth: AuthType.apple.rawValue)
     }
+    private func appleLogin(_ userIdentifier: String, _ email: String?) {
+        useCase.appLogin(email: email ?? "",
+                         credential: userIdentifier)
+    }
 }
 
 extension LogInVM {
@@ -122,8 +128,12 @@ extension LogInVM: ASAuthorizationControllerDelegate {
             } else {
                 email = keychain.get("appleEmailKey")
             }
-            // Register user in fitto server system.
-            self.appleSignIn(userIdentifier, fullName, email)
+            
+            if isLoginVC {
+                self.appleLogin(userIdentifier, email)
+            } else {
+                self.appleSignIn(userIdentifier, fullName, email)
+            }
             
         case let passwordCredential as ASPasswordCredential:
             
