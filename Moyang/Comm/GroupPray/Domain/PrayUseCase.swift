@@ -201,7 +201,7 @@ class PrayUseCase {
         }
     }
     
-    func addReaction(prayID: String, type: Int) {
+    func addReaction(userID: String, prayID: String, type: Int) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() { return }
         repo.addReaction(userID: myID, prayID: prayID, type: type) { [weak self] result in
@@ -210,6 +210,15 @@ class PrayUseCase {
             case .success(let response):
                 if response.code == 0 {
                     self.isSuccess.accept(())
+                    var dict = self.memberPrayList.value
+                    if var curList = dict[userID] {
+                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
+                            curList[index].reactions.removeAll { $0.userID == myID }
+                            curList[index].reactions.append(response.data)
+                            dict.updateValue(curList, forKey: userID)
+                            self.memberPrayList.accept(dict)
+                        }
+                    }
                 } else {
                     Log.e("")
                     self.isFailure.accept(())
@@ -264,7 +273,7 @@ class PrayUseCase {
                     if var curList = dict[userID] {
                         if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
                             curList[index].replys.append(response.data)
-                            dict.updateValue(curList, forKey: myID)
+                            dict.updateValue(curList, forKey: userID)
                             self.memberPrayList.accept(dict)
                         }
                     }

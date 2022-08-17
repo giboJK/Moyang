@@ -138,7 +138,7 @@ extension PrayController: PrayRepo {
         }
     }
     
-    func addReaction(userID: String, prayID: String, type: Int, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+    func addReaction(userID: String, prayID: String, type: Int, completion: ((Result<AddPrayReactionResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.addReaction)
         let dict: [String: Any] = ["user_id": userID,
                                    "pray_id": prayID,
@@ -147,7 +147,7 @@ extension PrayController: PrayRepo {
                                                  method: .post,
                                                  parameters: dict)
         networkService.requestAPI(request: request,
-                                  type: BaseResponse.self,
+                                  type: AddPrayReactionResponse.self,
                                   token: nil) { result in
             switch result {
             case .success(let response):

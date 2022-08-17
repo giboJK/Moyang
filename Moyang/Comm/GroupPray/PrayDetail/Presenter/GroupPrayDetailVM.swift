@@ -114,8 +114,7 @@ class GroupPrayDetailVM: VMType {
     }
     
     func addReaction(type: PrayReactionType) {
-        Log.i(type)
-        useCase.addReaction(prayID: prayID, type: type.rawValue)
+        useCase.addReaction(userID: userID, prayID: prayID, type: type.rawValue)
     }
 }
 
@@ -247,7 +246,7 @@ extension GroupPrayDetailVM {
             }).disposed(by: disposeBag)
         
         input.showReplys
-            .drive(onNext: { [weak self] item in
+            .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.prayReplyDetailVM.accept(PrayReplyDetailVM(replys: self.groupIndividualPray.replys))
             }).disposed(by: disposeBag)

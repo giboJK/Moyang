@@ -271,6 +271,10 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         endEditing(true)
     }
     func setupReactionView(reactions: [PrayReaction]) {
+        for view in reactionView.arrangedSubviews {
+            reactionView.removeArrangedSubview(view)
+            view.removeFromSuperview()
+        }
         var love = 0
         var joy = 0
         var sad = 0

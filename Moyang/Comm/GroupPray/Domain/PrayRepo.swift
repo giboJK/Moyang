@@ -22,7 +22,7 @@ protocol PrayRepo {
     
     func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
-    func addReaction(userID: String, prayID: String, type: Int, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    func addReaction(userID: String, prayID: String, type: Int, completion: ((Result<AddPrayReactionResponse, MoyangError>) -> Void)?)
     
     func addAnswer(userID: String, prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?)
     
@@ -74,6 +74,20 @@ class AddPrayReplyResponse: BaseResponse {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         data = try container.decode(PrayReply.self, forKey: .data)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}
+
+class AddPrayReactionResponse: BaseResponse {
+    let data: PrayReaction
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        data = try container.decode(PrayReaction.self, forKey: .data)
         try super.init(from: decoder)
     }
     
