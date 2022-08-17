@@ -37,8 +37,8 @@ class PrayCVCell: UICollectionViewCell {
         $0.tintColor = .nightSky1
     }
     let prayCountLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.textColor = .nightSky2
         $0.isHidden = true
     }
     let tagDivider = UIView().then {
@@ -331,9 +331,9 @@ class PrayCVCell: UICollectionViewCell {
         prayCountLabel.isHidden = item.changes.isEmpty
         if !item.changes.isEmpty {
             prayCountLabel.text = "총 \(item.changes.count + 1)번의 변화가 있습니다."
-            latestPrayLabel.text = item.changes.first!.content
-            if let latestDate = item.changes.first?.date.isoToDateString() {
-                dateLabel.text = "최근 기록: " + latestDate
+            latestPrayLabel.snp.updateConstraints {
+                $0.top.equalTo(dateLabel.snp.bottom).offset(24)
+                $0.height.equalTo(56)
             }
         }
     }
