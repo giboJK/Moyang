@@ -1,5 +1,5 @@
 //
-//  PrayPlusAndChangeVC.swift
+//  AddReplyAndChangeVC.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/07/02.
@@ -11,8 +11,8 @@ import RxSwift
 import SnapKit
 import Then
 
-class PrayPlusAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
-    typealias VM = PrayPlusAndChangeVM
+class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
+    typealias VM = AddReplyAndChangeVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     private var tagList = [String]()

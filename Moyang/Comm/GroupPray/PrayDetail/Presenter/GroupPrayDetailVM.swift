@@ -37,7 +37,7 @@ class GroupPrayDetailVM: VMType {
     let isSuccess = BehaviorRelay<Void>(value: ())
     let isFailure = BehaviorRelay<Void>(value: ())
     
-    let prayPlusAndChangeVM = BehaviorRelay<PrayPlusAndChangeVM?>(value: nil)
+    let prayPlusAndChangeVM = BehaviorRelay<AddReplyAndChangeVM?>(value: nil)
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
     
@@ -158,7 +158,7 @@ extension GroupPrayDetailVM {
         let isFailure: Driver<Void>
         
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
-        let prayPlusAndChangeVM: Driver<PrayPlusAndChangeVM?>
+        let prayPlusAndChangeVM: Driver<AddReplyAndChangeVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
     }
 
@@ -217,7 +217,7 @@ extension GroupPrayDetailVM {
         input.addPrayPlus
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(PrayPlusAndChangeVM(useCase: self.useCase,
+                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
                                                                     prayID: self.prayID,
                                                                     userID: self.userID))
             }).disposed(by: disposeBag)
@@ -225,7 +225,7 @@ extension GroupPrayDetailVM {
         input.addChange
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(PrayPlusAndChangeVM(useCase: self.useCase,
+                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
                                                                     prayID: self.prayID,
                                                                     userID: self.userID))
             }).disposed(by: disposeBag)
@@ -233,7 +233,7 @@ extension GroupPrayDetailVM {
         input.addAnswer
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(PrayPlusAndChangeVM(useCase: self.useCase,
+                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
                                                                     prayID: self.prayID,
                                                                     userID: self.userID,
                                                                     isAnswer: true))

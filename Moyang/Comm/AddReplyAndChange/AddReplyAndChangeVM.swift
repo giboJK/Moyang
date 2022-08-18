@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-class PrayPlusAndChangeVM: VMType {
+class AddReplyAndChangeVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: PrayUseCase
     let prayID: String
@@ -103,7 +103,7 @@ class PrayPlusAndChangeVM: VMType {
     }
 }
 
-extension PrayPlusAndChangeVM {
+extension AddReplyAndChangeVM {
     struct Input {
         var setContent: Driver<String?> = .empty()
         var saveContent: Driver<Void> = .empty()

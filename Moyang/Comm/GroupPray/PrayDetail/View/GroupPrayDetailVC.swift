@@ -389,8 +389,8 @@ class GroupPrayDetailVC: UIViewController, VCType {
             }).disposed(by: disposeBag)
     }
     
-    private func showPrayPlusAndChangeVC(prayPlusAndChangeVM: PrayPlusAndChangeVM) {
-        let vc = PrayPlusAndChangeVC()
+    private func showPrayPlusAndChangeVC(prayPlusAndChangeVM: AddReplyAndChangeVM) {
+        let vc = AddReplyAndChangeVC()
         vc.vm = prayPlusAndChangeVM
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .pageSheet

@@ -18,6 +18,11 @@ class ProfileVC: UIViewController, VCType {
     var coordinator: ProfileVCDelegate?
 
     // MARK: - UI
+    let logoutButton = MoyangButton(.none).then {
+        $0.setTitle("로그아웃", for: .normal)
+        $0.setTitleColor(.sheep1, for: .normal)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,13 +37,27 @@ class ProfileVC: UIViewController, VCType {
     }
     func setupUI() {
         view.backgroundColor = .nightSky1
+        setupLogoutButton()
     }
     // MARK: - Binding
     func bind() {
         bindVM()
+        bineViews()
     }
+    private func setupLogoutButton() {
+        view.addSubview(logoutButton)
+        logoutButton.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+    }
+    
     private func bineViews() {
-
+        logoutButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                UserData.shared.email = nil
+                UserData.shared.password = nil
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
