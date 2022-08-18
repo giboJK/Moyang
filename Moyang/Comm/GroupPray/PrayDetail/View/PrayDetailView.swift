@@ -137,18 +137,6 @@ class PrayDetailView: UIView, UITextFieldDelegate {
             $0.left.right.equalToSuperview().inset(16)
             $0.height.equalTo(220)
         }
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
-            $0.sizeToFit()
-            $0.clipsToBounds = true
-            $0.barTintColor = .sheep3
-        }
-        let doneButton = UIBarButtonItem(title: "완료",
-                                         style: .done,
-                                         target: self,
-                                         action: #selector(didTapDoneButton))
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([space, doneButton], animated: false)
-        prayTextView.inputAccessoryView = toolBar
     }
     
     func setupReactionView() {
@@ -315,6 +303,20 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         }
         reactionView.isHidden = false
     }
+    private func setupToolbar() {
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
+            $0.sizeToFit()
+            $0.clipsToBounds = true
+            $0.barTintColor = .sheep3
+        }
+        let doneButton = UIBarButtonItem(title: "완료",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(didTapDoneButton))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([space, doneButton], animated: false)
+        prayTextView.inputAccessoryView = toolBar
+    }
     
     func bind() {
         guard let vm = vm else { Log.e("vm is nil"); return }
@@ -334,6 +336,9 @@ class PrayDetailView: UIView, UITextFieldDelegate {
                 self.isSecretCheckBox.isHidden = !isMyPray
                 self.prayTextView.isEditable = isMyPray
                 self.prayTextView.textDragInteraction?.isEnabled = !isMyPray
+                if isMyPray {
+                    self.setupToolbar()
+                }
                 self.tagCollectionView.snp.remakeConstraints {
                     $0.left.equalToSuperview().inset(16)
                     $0.height.equalTo(32)

@@ -33,7 +33,7 @@ class GroupPrayVC: UIViewController, VCType {
     lazy var groupPrayCalendar = GroupPrayCalendar(vm: self.vm, groupCreateDate: self.groupCreateDate)
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(GroupPrayTableViewCell.self, forCellReuseIdentifier: "cell")
+        $0.register(GroupPrayTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .sheep1
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 220
@@ -280,7 +280,7 @@ class GroupPrayVC: UIViewController, VCType {
         output.memberList
             .map({ $0.filter { !$0.id.isEmpty } })
             .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupPrayTableViewCell.self)) { [weak self] (_, item, cell) in
+                .items(cellIdentifier: "cell", cellType: GroupPrayTVCell.self)) { [weak self] (_, item, cell) in
                     cell.userID = item.id
                     cell.nameLabel.text = item.name
                     cell.vm = self?.vm

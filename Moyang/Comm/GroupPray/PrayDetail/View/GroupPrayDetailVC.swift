@@ -248,6 +248,12 @@ class GroupPrayDetailVC: UIViewController, VCType {
         present(nav, animated: true, completion: nil)
     }
     
+    private func showChangeAndAnswerVC(changeAndAnswerVM: ChangeAndAnswerVM) {
+        let vc = ChangeAndAnswerVC()
+        vc.vm = changeAndAnswerVM
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     // MARK: - Binding
     func bind() {
         bineViews()
@@ -297,13 +303,18 @@ class GroupPrayDetailVC: UIViewController, VCType {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let tapReactionView = prayDetailView.reactionView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let replys = prayDetailView.replyView.rx.tapGesture().when(.ended).map { _ in () }
+        let changes = prayChangeLabel.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let answers = prayAnswerLabel.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let input = VM.Input(updatePray: updateButton.rx.tap.asDriver(),
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver(),
                              addPrayPlus: prayPlusButton.rx.tap.asDriver(),
                              addChange: addChangeButton.rx.tap.asDriver(),
                              addAnswer: addAnswerButton.rx.tap.asDriver(),
                              didTapPrayReaction: tapReactionView,
-                             showReplys: replys.asDriver(onErrorJustReturn: ()))
+                             showReplys: replys.asDriver(onErrorJustReturn: ()),
+                             showChanges: changes,
+                             showAnswers: answers
+        )
         let output = vm.transform(input: input)
         
         output.isMyPray
@@ -386,6 +397,12 @@ class GroupPrayDetailVC: UIViewController, VCType {
             .drive(onNext: { [weak self] prayReplyDetailVM in
                 guard let prayReplyDetailVM = prayReplyDetailVM else { return }
                 self?.showReplyView(prayReplyDetailVM: prayReplyDetailVM)
+            }).disposed(by: disposeBag)
+        
+        output.changeAndAnswerVM
+            .drive(onNext: { [weak self] changeAndAnswerVM in
+                guard let changeAndAnswerVM = changeAndAnswerVM else { return }
+                self?.showChangeAndAnswerVC(changeAndAnswerVM: changeAndAnswerVM)
             }).disposed(by: disposeBag)
     }
     

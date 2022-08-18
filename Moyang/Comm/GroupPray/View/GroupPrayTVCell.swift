@@ -1,5 +1,5 @@
 //
-//  GroupPrayTableViewCell.swift
+//  GroupPrayTVCell.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/01.
@@ -12,7 +12,7 @@ import RxCocoa
 import RxSwift
 import RxGesture
 
-class GroupPrayTableViewCell: UITableViewCell {
+class GroupPrayTVCell: UITableViewCell {
     typealias VM = GroupPrayVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
@@ -194,7 +194,7 @@ class GroupPrayTableViewCell: UITableViewCell {
     }
 }
 
-extension GroupPrayTableViewCell: UICollectionViewDelegateFlowLayout {
+extension GroupPrayTVCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width * 0.8, height: 200)
     }

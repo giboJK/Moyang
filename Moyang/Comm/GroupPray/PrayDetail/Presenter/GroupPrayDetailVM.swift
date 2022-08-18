@@ -40,6 +40,7 @@ class GroupPrayDetailVM: VMType {
     let prayPlusAndChangeVM = BehaviorRelay<AddReplyAndChangeVM?>(value: nil)
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
+    let changeAndAnswerVM = BehaviorRelay<ChangeAndAnswerVM?>(value: nil)
     
     init(useCase: PrayUseCase, userID: String, prayID: String) {
         self.useCase = useCase
@@ -104,6 +105,10 @@ class GroupPrayDetailVM: VMType {
         replys.accept(data.replys)
     }
     
+    private func setChangeAndAnswerVM() {
+        changeAndAnswerVM.accept(ChangeAndAnswerVM(useCase: useCase, userID: userID, prayID: prayID))
+    }
+    
     private func updatePray() {
         guard let pray = self.pray.value else { return }
         useCase.updatePray(prayID: prayID, pray: pray, tags: tagList.value, isSecret: isSecret.value)
@@ -132,6 +137,9 @@ extension GroupPrayDetailVM {
         var addAnswer: Driver<Void> = .empty()
         var didTapPrayReaction: Driver<Void> = .empty()
         var showReplys: Driver<Void> = .empty()
+        
+        var showChanges: Driver<Void> = .empty()
+        var showAnswers: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -160,26 +168,22 @@ extension GroupPrayDetailVM {
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayPlusAndChangeVM: Driver<AddReplyAndChangeVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
+        let changeAndAnswerVM: Driver<ChangeAndAnswerVM?>
     }
 
     func transform(input: Input) -> Output {
-        input.setPray
-            .skip(1)
+        input.setPray.skip(1)
             .drive(pray)
             .disposed(by: disposeBag)
-        
         input.updatePray
             .drive(onNext: { [weak self] _ in
                 self?.updatePray()
             }).disposed(by: disposeBag)
-        
-        input.setTag
-            .skip(1)
+        input.setTag.skip(1)
             .drive(onNext: { [weak self] tag in
                 guard let tag = tag else { return }
                 self?.newTag.accept(String(tag.prefix(10)))
             }).disposed(by: disposeBag)
-        
         input.addTag
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -244,11 +248,18 @@ extension GroupPrayDetailVM {
                 guard let self = self else { return }
                 self.prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: self.reactions.value))
             }).disposed(by: disposeBag)
-        
         input.showReplys
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.prayReplyDetailVM.accept(PrayReplyDetailVM(replys: self.groupIndividualPray.replys))
+            }).disposed(by: disposeBag)
+        input.showChanges
+            .drive(onNext: { [weak self] _ in
+                self?.setChangeAndAnswerVM()
+            }).disposed(by: disposeBag)
+        input.showAnswers
+            .drive(onNext: { [weak self] _ in
+                self?.setChangeAndAnswerVM()
             }).disposed(by: disposeBag)
         
         return Output(isMyPray: isMyPray.asDriver(),
@@ -266,16 +277,15 @@ extension GroupPrayDetailVM {
                       
                       updatePraySuccess: updatePraySuccess.asDriver(),
                       updatePrayFailure: updatePrayFailure.asDriver(),
-                      
                       deletePraySuccess: deletePraySuccess.asDriver(),
                       deletePrayFailure: deletePrayFailure.asDriver(),
-                      
                       isSuccess: isSuccess.asDriver(),
                       isFailure: isFailure.asDriver(),
                       
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayPlusAndChangeVM: prayPlusAndChangeVM.asDriver(),
-                      prayReplyDetailVM: prayReplyDetailVM.asDriver()
+                      prayReplyDetailVM: prayReplyDetailVM.asDriver(),
+                      changeAndAnswerVM: changeAndAnswerVM.asDriver()
         )
     }
 }
