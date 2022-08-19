@@ -15,7 +15,7 @@ import RxGesture
 class ChangeAnswerTVCell: UITableViewCell {
     typealias VM = ChangeAndAnswerVM
     var disposeBag: DisposeBag = DisposeBag()
-    var vm: VM?
+    weak var vm: VM?
     var isBinded = false
     var type = ChangeAnswertype.change
     
@@ -24,7 +24,9 @@ class ChangeAnswerTVCell: UITableViewCell {
         case change = 1
         case answer = 2
     }
-    
+    let bgView = UIView().then {
+        $0.layer.cornerRadius = 10
+    }
     let dateLabel = UILabel().then {
         $0.textColor = .sheep1
         $0.font = .systemFont(ofSize: 16, weight: .regular)
@@ -36,6 +38,7 @@ class ChangeAnswerTVCell: UITableViewCell {
     let contentLabel = UILabel().then {
         $0.textColor = .sheep1
         $0.font = .systemFont(ofSize: 18, weight: .regular)
+        $0.numberOfLines = 0
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -57,28 +60,38 @@ class ChangeAnswerTVCell: UITableViewCell {
     
     // MARK: - UI
     private func setupUI() {
-        contentView.backgroundColor = .sheep1
+        contentView.backgroundColor = .clear
+        setupBgView()
         setupDateLabel()
         setupTypeLabel()
         setupContentLabel()
     }
     
+    private func setupBgView() {
+        contentView.addSubview(bgView)
+        bgView.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(32)
+            $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(32)
+        }
+    }
+    
     private func setupDateLabel() {
-        contentView.addSubview(dateLabel)
+        bgView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(12)
             $0.top.equalToSuperview().inset(20)
         }
     }
     private func setupTypeLabel() {
-        contentView.addSubview(typeLabel)
+        bgView.addSubview(typeLabel)
         typeLabel.snp.makeConstraints {
             $0.right.equalToSuperview().inset(12)
             $0.top.equalToSuperview().inset(20)
         }
     }
     private func setupContentLabel() {
-        contentView.addSubview(contentLabel)
+        bgView.addSubview(contentLabel)
         contentLabel.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(12)
             $0.top.equalTo(dateLabel.snp.bottom).offset(20)
@@ -90,13 +103,13 @@ class ChangeAnswerTVCell: UITableViewCell {
         switch self.type {
         case .pray:
             typeLabel.text = "기도"
-            contentView.backgroundColor = .ydGreen1
+            bgView.backgroundColor = .ydGreen1
         case .change:
             typeLabel.text = "변화"
-            contentView.backgroundColor = .nightSky3
+            bgView.backgroundColor = .nightSky3
         case .answer:
             typeLabel.text = "응답"
-            contentView.backgroundColor = .wilderness1
+            bgView.backgroundColor = .wilderness1
         }
     }
 }
