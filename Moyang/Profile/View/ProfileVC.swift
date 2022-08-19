@@ -12,12 +12,15 @@ import SnapKit
 import Then
 
 class ProfileVC: UIViewController, VCType {
-    typealias VM = DummyVM
+    typealias VM = ProfileVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: ProfileVCDelegate?
 
     // MARK: - UI
+    let nameLabel = UILabel().then {
+        $0.textColor = .sheep1
+    }
     let logoutButton = MoyangButton(.none).then {
         $0.setTitle("로그아웃", for: .normal)
         $0.setTitleColor(.sheep1, for: .normal)

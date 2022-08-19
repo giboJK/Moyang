@@ -38,6 +38,7 @@
 		08D21A422884C93E002823E6 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D21A412884C93E002823E6 /* LogInVC.swift */; };
 		08D2FD95286EE24800ED8ECB /* PrayReactionDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2FD94286EE24800ED8ECB /* PrayReactionDetailVC.swift */; };
 		08D2FD97286EE27300ED8ECB /* PrayReactionDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2FD96286EE27300ED8ECB /* PrayReactionDetailVM.swift */; };
+		08D4B76F28AF394A000BD7C6 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D4B76E28AF394A000BD7C6 /* ProfileVM.swift */; };
 		08D82957278D2548001E6B61 /* MoyangButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */; };
 		08D82959278D25F0001E6B61 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82958278D25F0001E6B61 /* Font+.swift */; };
 		08D8295B278D3327001E6B61 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295A278D3327001E6B61 /* Color+.swift */; };
@@ -213,6 +214,7 @@
 		08D21A412884C93E002823E6 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		08D2FD94286EE24800ED8ECB /* PrayReactionDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReactionDetailVC.swift; sourceTree = "<group>"; };
 		08D2FD96286EE27300ED8ECB /* PrayReactionDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReactionDetailVM.swift; sourceTree = "<group>"; };
+		08D4B76E28AF394A000BD7C6 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButtonStyle.swift; sourceTree = "<group>"; };
 		08D82958278D25F0001E6B61 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		08D8295A278D3327001E6B61 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
@@ -554,6 +556,14 @@
 			children = (
 				08D2FD96286EE27300ED8ECB /* PrayReactionDetailVM.swift */,
 				24CD549E28771AF50081375B /* PrayReplyDetailVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		08D4B76D28AF3941000BD7C6 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				08D4B76E28AF394A000BD7C6 /* ProfileVM.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1112,6 +1122,7 @@
 		24F41C6A2897EBBE005B5E70 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				08D4B76D28AF3941000BD7C6 /* Presenter */,
 				24F41C6B2897EBC3005B5E70 /* View */,
 			);
 			path = Profile;
@@ -1512,6 +1523,7 @@
 				24B6A2552726BEB00065112A /* GroupInfo.swift in Sources */,
 				24E0AB1D283D1ECF00F52505 /* GroupPrayingVC.swift in Sources */,
 				08AD958D287BE0A3002D4F94 /* SignUpVM.swift in Sources */,
+				08D4B76F28AF394A000BD7C6 /* ProfileVM.swift in Sources */,
 				24C877CD282FD6B400F69AAD /* MainVC.swift in Sources */,
 				08AD9591287BE371002D4F94 /* AuthCoordinator.swift in Sources */,
 				24E0AB27283E5C8500F52505 /* CommunityGroupPrayCard.swift in Sources */,

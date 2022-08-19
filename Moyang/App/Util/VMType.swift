@@ -29,7 +29,7 @@ class DummyVM: VMType {
 //import RxSwift
 //import RxCocoa
 //
-//class SomeVM: VMType {
+//class VM: VMType {
 //    var disposeBag: DisposeBag = DisposeBag()
 //
 //    init() {
@@ -38,7 +38,7 @@ class DummyVM: VMType {
 //    deinit { Log.i(self) }
 //}
 //
-//extension SomeVM {
+//extension VM {
 //    struct Input {
 //
 //    }

@@ -20,7 +20,7 @@ class MainVC: UITabBarController, VCType {
     // MARK: - UI
     var todayVC: TodayVC?
     var communityMainVC: CommunityMainVC?
-    var profileVC = ProfileVC()
+    var profileVC: ProfileVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +42,9 @@ class MainVC: UITabBarController, VCType {
         }
         guard let communityMainVC = communityMainVC else {
             Log.e("CommunityMainVC init failed"); return
+        }
+        guard let profileVC = profileVC else {
+            Log.e("profileVC init failed"); return
         }
         navigationController?.navigationBar.isTranslucent = false
 

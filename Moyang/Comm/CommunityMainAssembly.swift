@@ -21,6 +21,7 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             
             vc.todayVC = r ~> (TodayVC.self)
             vc.communityMainVC = r ~> (CommunityMainVC.self)
+            vc.profileVC = r ~> (ProfileVC.self)
             
             return vc
         }
@@ -72,6 +73,22 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
         container.register(NetworkServiceProtocol.self) { _ in
             AFNetworkService(sessionConfiguration: .default)
         }
+        
+        // MARK: - Profile
+        container.register(ProfileVC.self) { r in
+            let vc = ProfileVC()
+            
+            vc.vm = r ~> (ProfileVM.self)
+//            vc.coordinator = r ~> (TodayCoordinator.self)
+            
+            return vc
+        }
+        
+        container.register(ProfileVM.self) { _ in
+            ProfileVM()
+        }
+        
+        
         
         // MARK: - AllGroup
         container.register(AllGroupRepo.self) { r in
