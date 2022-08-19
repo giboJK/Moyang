@@ -25,7 +25,7 @@ extension String {
 }
 
 extension String {
-    func isoToDateString() -> String? {
+    func isoToDateString(_ format: String = "yyyy년 MM월 dd일 hh:mm a") -> String? {
         if let removeMilliSec = self.split(separator: ".").first {
             let timeString = String(removeMilliSec)+"+00:00"
             let formatter = DateFormatter()
@@ -33,7 +33,7 @@ extension String {
             formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             formatter.timeZone = TimeZone.current
             if let date = formatter.date(from: timeString) {
-                return date.toString("yyyy년 MM월 dd일 hh:mm a")
+                return date.toString(format)
             }
         }
         return nil

@@ -84,7 +84,10 @@ class GroupPrayDetailVC: UIViewController, VCType {
         bind()
     }
 
-    deinit { Log.i(self) }
+    deinit {
+        Log.i(self)
+        vm?.deinitVMs()
+    }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent

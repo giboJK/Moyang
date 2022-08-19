@@ -15,7 +15,7 @@ import RxGesture
 class PrayCVCell: UICollectionViewCell {
     typealias VM = GroupPrayVM
     var disposeBag: DisposeBag = DisposeBag()
-    var vm: VM?
+    weak var vm: VM?
     
     let bgView = UIView().then {
         $0.layer.cornerRadius = 12

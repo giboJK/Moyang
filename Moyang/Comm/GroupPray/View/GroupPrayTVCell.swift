@@ -15,7 +15,7 @@ import RxGesture
 class GroupPrayTVCell: UITableViewCell {
     typealias VM = GroupPrayVM
     var disposeBag: DisposeBag = DisposeBag()
-    var vm: VM?
+    weak var vm: VM?
     var isBinded = false
     
     // MARK: - UI
@@ -144,7 +144,7 @@ class GroupPrayTVCell: UITableViewCell {
             let showPrayDetail = prayCollectionView.rx.itemSelected.map { (self.userID, $0) }.asDriver(onErrorJustReturn: nil)
             let input = VM.Input(showPrayDetail: showPrayDetail)
             let output = vm.transform(input: input)
-            
+
             output.memberPrayList
                 .map { $0[self.userID] ?? [] }
                 .drive(prayCollectionView.rx
@@ -155,7 +155,7 @@ class GroupPrayTVCell: UITableViewCell {
                         cell.vm = self?.vm
                         cell.bind()
                     }.disposed(by: disposeBag)
-            
+
             output.memberPrayList
                 .map { $0[self.userID] ?? [] }
                 .map { $0.isEmpty }

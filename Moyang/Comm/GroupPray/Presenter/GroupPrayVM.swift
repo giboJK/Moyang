@@ -55,7 +55,7 @@ class GroupPrayVM: VMType {
             .subscribe(onNext: { [weak self] dict in
                 self?.setMemberList(dict: dict)
             }).disposed(by: disposeBag)
-        
+
         useCase.memberPrayList
             .bind(to: memberPrayList)
             .disposed(by: disposeBag)

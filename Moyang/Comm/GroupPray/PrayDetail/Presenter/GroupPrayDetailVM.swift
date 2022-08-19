@@ -50,7 +50,16 @@ class GroupPrayDetailVM: VMType {
         bind()
     }
     
-    deinit { Log.i(self) }
+    deinit {
+        Log.i(self)
+    }
+    
+    func deinitVMs() {
+        prayPlusAndChangeVM.accept(nil)
+        prayReactionDetailVM.accept(nil)
+        prayReplyDetailVM.accept(nil)
+        changeAndAnswerVM.accept(nil)
+    }
         
     private func bind() {
         useCase.memberPrayList

@@ -19,9 +19,10 @@ class ChangeAnswerTVCell: UITableViewCell {
     var isBinded = false
     var type = ChangeAnswertype.change
     
-    enum ChangeAnswertype {
-        case change
-        case answer
+    enum ChangeAnswertype: Int {
+        case pray = 0
+        case change = 1
+        case answer = 2
     }
     
     let dateLabel = UILabel().then {
@@ -87,6 +88,9 @@ class ChangeAnswerTVCell: UITableViewCell {
     
     func setBg() {
         switch self.type {
+        case .pray:
+            typeLabel.text = "기도"
+            contentView.backgroundColor = .ydGreen1
         case .change:
             typeLabel.text = "변화"
             contentView.backgroundColor = .nightSky3

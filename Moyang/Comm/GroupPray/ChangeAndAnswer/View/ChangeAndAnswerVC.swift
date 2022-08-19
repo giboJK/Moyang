@@ -22,16 +22,6 @@ class ChangeAndAnswerVC: UIViewController, VCType {
         $0.closeButton.isHidden = true
         $0.backgroundColor = .clear
     }
-    let dateLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky2
-    }
-    let prayTextView = UITextView().then {
-        $0.backgroundColor = .sheep1
-        $0.layer.cornerRadius = 8
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
-    }
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(ChangeAnswerTVCell.self, forCellReuseIdentifier: "cell")
@@ -50,13 +40,17 @@ class ChangeAndAnswerVC: UIViewController, VCType {
         bind()
     }
 
-    deinit { Log.i(self) }
+    deinit {
+        Log.i(self)
+    }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
     func setupUI() {
+        view.backgroundColor = .nightSky1
         setupNavBar()
+        setupPrayTextView()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -64,6 +58,13 @@ class ChangeAndAnswerVC: UIViewController, VCType {
             $0.left.right.equalToSuperview()
             $0.top.equalToSuperview()
             $0.height.equalTo(UIApplication.statusBarHeight + 44)
+        }
+    }
+    private func setupPrayTextView() {
+        view.addSubview(prayTableView)
+        prayTableView.snp.makeConstraints {
+            $0.top.equalTo(navBar.snp.bottom).offset(12)
+            $0.left.right.bottom.equalToSuperview()
         }
     }
 
@@ -80,8 +81,18 @@ class ChangeAndAnswerVC: UIViewController, VCType {
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input()
+        let output = vm.transform(input: input)
+        
+        output.itemList
+            .drive(prayTableView.rx
+                .items(cellIdentifier: "cell", cellType: ChangeAnswerTVCell.self)) { [weak self] (_, item, cell) in
+                    cell.type = item.type
+                    cell.dateLabel.text = item.date.isoToDateString()
+                    cell.contentLabel.text = item.content
+                    cell.setBg()
+                }.disposed(by: disposeBag)
     }
 }
 

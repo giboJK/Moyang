@@ -14,6 +14,8 @@ class ChangeAndAnswerVM: VMType {
     let userID: String
     let prayID: String
     var groupIndividualPray: GroupIndividualPray!
+    
+    let itemList = BehaviorRelay<[TableItem]>(value: [])
 
     init(useCase: PrayUseCase, userID: String, prayID: String) {
         self.useCase = useCase
@@ -38,6 +40,19 @@ class ChangeAndAnswerVM: VMType {
     }
     private func setData(data: GroupIndividualPray) {
         self.groupIndividualPray = data
+        var items = [TableItem]()
+        items.append(TableItem(type: .pray,
+                               date: data.createDate,
+                               content: data.pray))
+        for change in data.changes {
+            items.append(TableItem(type: .change, date: change.date, content: change.content))
+        }
+        for answer in data.answers {
+            items.append(TableItem(type: .answer, date: answer.date, content: answer.answer))
+        }
+        items.sort { $0.date < $1.date }
+        
+        itemList.accept(items)
     }
 }
 
@@ -47,10 +62,24 @@ extension ChangeAndAnswerVM {
     }
 
     struct Output {
-
+        let itemList: Driver<[TableItem]>
     }
 
     func transform(input: Input) -> Output {
-        return Output()
+        return Output(itemList: itemList.asDriver())
+    }
+    
+    struct TableItem {
+        let type: ChangeAnswerTVCell.ChangeAnswertype
+        let date: String
+        let content: String
+        
+        init(type: ChangeAnswerTVCell.ChangeAnswertype,
+             date: String,
+             content: String) {
+            self.type = type
+            self.date = date
+            self.content = content
+        }
     }
 }
