@@ -8,10 +8,6 @@
 import Foundation
 
 protocol PrayRepo {
-    func addPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
-                 completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?)
-    func updatePray(prayID: String, pray: String, tags: [String], isSecret: Bool,
-                    completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
     func fetchPrayList(groupID: String, userID: String, isMe: Bool, order: String, page: Int, row: Int,
                        completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
@@ -20,7 +16,10 @@ protocol PrayRepo {
     func fetchPrayAll(groupID: String, userID: String, order: String, page: Int, row: Int,
                       completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
     
-    func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    
+    // Add
+    func addPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
+                 completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?)
     
     func addReaction(userID: String, prayID: String, type: Int, completion: ((Result<AddPrayReactionResponse, MoyangError>) -> Void)?)
     
@@ -33,7 +32,16 @@ protocol PrayRepo {
     
     func addAmen(userID: String, groupID: String, time: Int, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
+    // Update
+    func updatePray(prayID: String, pray: String, tags: [String], isSecret: Bool,
+                    completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    func updateReply(replyID: String, reply: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
+    // Delete
+    func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    func deleteReply(replyID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    
+    // Download
     func downloadSong(fileName: String, path: String, fileExt: String,
                       completion: ((Result<URL, MoyangError>) -> Void)?)
     

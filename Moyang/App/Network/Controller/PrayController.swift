@@ -18,6 +18,46 @@ class PrayController {
 }
 
 extension PrayController: PrayRepo {
+    func updateReply(replyID: String, reply: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.updateReply)
+        let dict: [String: Any] = [
+            "reply_id": replyID,
+            "reply": reply
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil,
+                                  encoding: JSONEncoding.default) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
+    func deleteReply(replyID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.deleteReply)
+        let dict: [String: Any] = ["reply_id": replyID]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
     
     func addPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
                  completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?) {

@@ -37,21 +37,21 @@ class NetConst {
     enum PrayAPI {
         /// post
         static let addPray = "/pray/add_pray"
-        /// post
-        static let updatePray = "/pray/update_pray"
-        /// post
-        static let fetchPrayList = "/pray/fetch_pray_list"
-        /// post
-        static let fetchPrayAll = "/pray/fetch_pray_all"
-        /// post
-        static let deletePray = "/pray/delete_pray"
-        
-        /// post
-        static let addReaction = "/pray/add_pray_reaction"
-        static let addAmen = "/pray/add_amen_record"
-        
         static let addReply = "/pray/add_reply"
         static let addChange = "/pray/add_change"
         static let addAnswer = "/pray/add_answer"
+        static let addReaction = "/pray/add_pray_reaction"
+        static let addAmen = "/pray/add_amen_record"
+        /// post
+        static let updatePray = "/pray/update_pray"
+        static let updateReply = "/pray/update_reply"
+        /// post
+        static let deletePray = "/pray/delete_pray"
+        static let deleteReply = "/pray/delete_reply"
+        
+        /// post
+        static let fetchPrayList = "/pray/fetch_pray_list"
+        static let fetchPrayAll = "/pray/fetch_pray_all"
+        
     }
 }
