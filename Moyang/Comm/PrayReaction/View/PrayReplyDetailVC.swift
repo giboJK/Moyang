@@ -34,7 +34,7 @@ class PrayReplyDetailVC: UIViewController, VCType {
     }
     let replyTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(ReplyTableViewCell.self, forCellReuseIdentifier: "cell")
+        $0.register(ReplyTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .sheep2
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 200
@@ -107,7 +107,7 @@ class PrayReplyDetailVC: UIViewController, VCType {
         
         output.itemList
             .drive(replyTableView.rx
-                .items(cellIdentifier: "cell", cellType: ReplyTableViewCell.self)) { (index, item, cell) in
+                .items(cellIdentifier: "cell", cellType: ReplyTVCell.self)) { (index, item, cell) in
                     cell.index = index
                     cell.setupData(item: item)
                 }.disposed(by: disposeBag)
