@@ -226,7 +226,6 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
                 self?.hasAmenDict = hasAmenDict
                 self?.hasPrayDict = hasPrayDict
                 self?.calendar.reloadData()
-                Log.w(hasAmenDict)
                 Log.w(hasPrayDict)
             }).disposed(by: disposeBag)
     }
@@ -294,8 +293,8 @@ class GroupCalendarCell: FSCalendarCell {
             return
         }
         
-        hasPrayView.isHidden = !hasPray
-        hasAmenView.isHidden = false
+//        hasPrayView.isHidden = !hasPray
+        hasAmenView.isHidden = true
         hasAmenView.snp.remakeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(4)

@@ -344,6 +344,13 @@ class PrayUseCase {
     }
     
     func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String) {
+        let amenDict = self.hasAmenDict.value
+        if let start = date.toDate("yyyy-MM-dd hh:mm:ss Z") {
+            if amenDict[start.toString("yyyy-MM-dd")] != nil {
+                Log.d("Has data")
+                return
+            }
+        }
         repo.fetchGroupAcitvity(groupID: groupID, isWeek: isWeek, date: date) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -358,6 +365,7 @@ class PrayUseCase {
                             for i in 0 ..< dayDiff {
                                 let keyDate = start.addDays(i)
                                 amenDict.updateValue(Set<String>(), forKey: keyDate.toString("yyyy-MM-dd"))
+                                prayDict.updateValue(Set<String>(), forKey: keyDate.toString("yyyy-MM-dd"))
                             }
                         }
                     } else { // month
@@ -367,6 +375,7 @@ class PrayUseCase {
                             for i in 0 ..< dayDiff {
                                 let keyDate = start.addDays(i)
                                 amenDict.updateValue(Set<String>(), forKey: keyDate.toString("yyyy-MM-dd"))
+                                prayDict.updateValue(Set<String>(), forKey: keyDate.toString("yyyy-MM-dd"))
                             }
                         }
                     }

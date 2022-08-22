@@ -116,7 +116,6 @@ class GroupPrayVM: VMType {
     }
     
     func selectDateRange(date: Date) {
-        Log.w(date)
         curDisplayDate = date
         if isWeek.value {
             if let endDate = date.endOfWeek {
