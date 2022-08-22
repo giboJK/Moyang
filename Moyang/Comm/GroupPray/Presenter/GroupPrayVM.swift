@@ -41,7 +41,9 @@ class GroupPrayVM: VMType {
         self.useCase = useCase
         bind()
         fetchPrayAll()
-        fetchActivity(Date())
+        if let start = Date().startOfWeek {
+            fetchActivity(start.toString("yyyy-MM-dd hh:mm:ss Z"))
+        }
         setFirstDate()
     }
     
@@ -91,11 +93,9 @@ class GroupPrayVM: VMType {
         }
     }
     
-    private func fetchActivity(_ date: Date) {
+    private func fetchActivity(_ dateString: String) {
         guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
-        if let dateString = date.startOfWeek?.toString("yyyy-MM-dd hh:mm:ss Z") {
-            useCase.fetchGroupAcitvity(groupID: groupInfo.id, isWeek: self.isWeek.value, date: dateString)
-        }
+        useCase.fetchGroupAcitvity(groupID: groupInfo.id, isWeek: self.isWeek.value, date: dateString)
     }
     
     private func setMemberList(dict: [String: String]) {
@@ -116,6 +116,7 @@ class GroupPrayVM: VMType {
     }
     
     func selectDateRange(date: Date) {
+        Log.w(date)
         curDisplayDate = date
         if isWeek.value {
             if let endDate = date.endOfWeek {
@@ -138,7 +139,7 @@ class GroupPrayVM: VMType {
                 displayDate.accept(value)
             }
         }
-        fetchActivity(curDisplayDate)
+        fetchActivity(curDisplayDate.toString("yyyy-MM-dd hh:mm:ss Z"))
     }
     
     func fetchMorePrays(userID: String) {
@@ -185,7 +186,11 @@ extension GroupPrayVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.isWeek.accept(!self.isWeek.value)
-                self.selectDateRange(date: self.curDisplayDate)
+                if self.isWeek.value {
+                    self.selectDateRange(date: self.curDisplayDate.startOfWeek ?? Date())
+                } else {
+                    self.selectDateRange(date: self.curDisplayDate.startOfMonth ?? Date())
+                }
             }).disposed(by: disposeBag)
         
         input.selectMember

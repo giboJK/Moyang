@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import SwiftDate
 
 class PrayUseCase {
     let repo: PrayRepo
@@ -354,7 +353,8 @@ class PrayUseCase {
                     var prayDict = self.hasPrayDict.value
                     if isWeek {
                         if let start = date.toDate("yyyy-MM-dd hh:mm:ss Z"),
-                           let end = start.endOfWeek, let dayDiff = (end - start).day {
+                           let end = start.endOfWeek {
+                            let dayDiff = Calendar.current.numberOfDaysBetween(start, and: end)
                             for i in 0 ..< dayDiff {
                                 let keyDate = start.addDays(i)
                                 amenDict.updateValue(Set<String>(), forKey: keyDate.toString("yyyy-MM-dd"))
@@ -362,7 +362,8 @@ class PrayUseCase {
                         }
                     } else { // month
                         if let start = date.toDate("yyyy-MM-dd hh:mm:ss Z"),
-                           let end = start.endOfMonth, let dayDiff = (end - start).day {
+                           let end = start.endOfMonth {
+                            let dayDiff = Calendar.current.numberOfDaysBetween(start, and: end)
                             for i in 0 ..< dayDiff {
                                 let keyDate = start.addDays(i)
                                 amenDict.updateValue(Set<String>(), forKey: keyDate.toString("yyyy-MM-dd"))

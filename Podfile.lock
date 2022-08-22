@@ -377,7 +377,6 @@ PODS:
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
   - SnapKit (5.6.0)
-  - SwiftDate (6.3.1)
   - SwiftGen (6.5.1)
   - SwiftLint (0.45.1)
   - SwiftyBeaver (1.9.5)
@@ -405,7 +404,6 @@ DEPENDENCIES:
   - RxGesture
   - RxSwift
   - SnapKit
-  - SwiftDate
   - SwiftGen
   - SwiftLint
   - SwiftyBeaver
@@ -452,7 +450,6 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SnapKit
-    - SwiftDate
     - SwiftGen
     - SwiftLint
     - SwiftyBeaver
@@ -498,7 +495,6 @@ SPEC CHECKSUMS:
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
-  SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
   SwiftGen: a6d22010845f08fe18fbdf3a07a8e380fd22e0ea
   SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
   SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
@@ -507,6 +503,6 @@ SPEC CHECKSUMS:
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: ee535d750f2901ea1abc9173d9c6f48b56227827
+PODFILE CHECKSUM: b85f919528199caa6983d5e35fe21159b70c8293
 
 COCOAPODS: 1.11.3
