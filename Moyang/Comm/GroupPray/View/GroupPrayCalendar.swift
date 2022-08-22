@@ -109,6 +109,7 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         calendar.delegate = self
         calendar.dataSource = self
         calendar.scope = .week
+        calendar.register(GroupCalendarCell.self, forCellReuseIdentifier: "cell")
         
         addSubview(calendar)
         calendar.appearance.caseOptions = .weekdayUsesSingleUpperCase
@@ -212,5 +213,41 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         vm?.selectDateRange(date: calendar.currentPage)
+    }
+    
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        guard let cell: GroupCalendarCell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: .current) as? GroupCalendarCell else {
+            return GroupCalendarCell()
+        }
+        return cell
+    }
+}
+
+class GroupCalendarCell: FSCalendarCell {
+    let hasAmenView = UIView().then {
+        $0.backgroundColor = .appleRed1
+        $0.layer.cornerRadius = 3
+    }
+    let hasPrayView = UIView().then {
+        $0.backgroundColor = .wilderness2
+        $0.layer.cornerRadius = 3
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // Your custom code here.
+        contentView.addSubview(hasAmenView)
+        hasAmenView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(4)
+            $0.size.equalTo(6)
+        }
     }
 }

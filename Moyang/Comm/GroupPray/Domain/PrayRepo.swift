@@ -41,6 +41,10 @@ protocol PrayRepo {
     func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     func deleteReply(replyID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
+    
+    // Fetch
+    func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupActivityResponse, MoyangError>) -> Void)?)
+    
     // Download
     func downloadSong(fileName: String, path: String, fileExt: String,
                       completion: ((Result<URL, MoyangError>) -> Void)?)

@@ -38,6 +38,7 @@ class GroupPrayVM: VMType {
         self.useCase = useCase
         bind()
         fetchPrayAll()
+        fetchActivity()
     }
     
     deinit { Log.i(self) }
@@ -65,8 +66,11 @@ class GroupPrayVM: VMType {
         useCase.fetchPrayAll(order: GroupPrayOrder.latest.parameter)
     }
     
-    private func setAmenData(data: [GroupSummaryAmen]) {
-        
+    private func fetchActivity() {
+        guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
+        if let dateString = Date().startOfWeek?.toString("yyyy-MM-dd hh:mm:ss Z") {
+            useCase.fetchGroupAcitvity(groupID: groupInfo.id, isWeek: true, date: dateString)
+        }
     }
     
     private func setMemberList(dict: [String: String]) {

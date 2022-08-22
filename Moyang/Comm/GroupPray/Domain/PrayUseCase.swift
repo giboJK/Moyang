@@ -339,6 +339,17 @@ class PrayUseCase {
         }
     }
     
+    func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String) {
+        repo.fetchGroupAcitvity(groupID: groupID, isWeek: isWeek, date: date) { [weak self] result in
+            switch result {
+            case .success(let response):
+                Log.d(response)
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
+    }
+    
     // MARK: - Firestore
     func loadSong() {
         downloadSong()
