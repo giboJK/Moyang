@@ -26,6 +26,9 @@ class GroupPrayVM: VMType {
     let displayDate = BehaviorRelay<String>(value: "")
     
     let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
+    // Calendar mark
+    let hasAmenDict = BehaviorRelay<[String: Set<String>]>(value: [:])
+    let hasPrayDict = BehaviorRelay<[String: Set<String>]>(value: [:])
     
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
@@ -38,7 +41,8 @@ class GroupPrayVM: VMType {
         self.useCase = useCase
         bind()
         fetchPrayAll()
-        fetchActivity()
+        fetchActivity(Date())
+        setFirstDate()
     }
     
     deinit { Log.i(self) }
@@ -60,16 +64,37 @@ class GroupPrayVM: VMType {
         useCase.memberPrayList
             .bind(to: memberPrayList)
             .disposed(by: disposeBag)
+        
+        useCase.hasAmenDict
+            .bind(to: hasAmenDict)
+            .disposed(by: disposeBag)
+
+        useCase.hasPrayDict
+            .bind(to: hasPrayDict)
+            .disposed(by: disposeBag)
     }
     
     private func fetchPrayAll() {
         useCase.fetchPrayAll(order: GroupPrayOrder.latest.parameter)
     }
     
-    private func fetchActivity() {
+    private func setFirstDate() {
+        if let endDate = Date().endOfWeek,
+           let startDate = Date().startOfWeek {
+            var value = ""
+            if Date() < endDate {
+                value = startDate.toString("M월 d일") + "-" + Date().toString("M월 d일")
+            } else {
+                value = startDate.toString("M월 d일") + "-" + endDate.toString("M월 d일")
+            }
+            displayDate.accept(value)
+        }
+    }
+    
+    private func fetchActivity(_ date: Date) {
         guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
-        if let dateString = Date().startOfWeek?.toString("yyyy-MM-dd hh:mm:ss Z") {
-            useCase.fetchGroupAcitvity(groupID: groupInfo.id, isWeek: true, date: dateString)
+        if let dateString = date.startOfWeek?.toString("yyyy-MM-dd hh:mm:ss Z") {
+            useCase.fetchGroupAcitvity(groupID: groupInfo.id, isWeek: self.isWeek.value, date: dateString)
         }
     }
     
@@ -113,6 +138,7 @@ class GroupPrayVM: VMType {
                 displayDate.accept(value)
             }
         }
+        fetchActivity(curDisplayDate)
     }
     
     func fetchMorePrays(userID: String) {
@@ -146,6 +172,8 @@ extension GroupPrayVM {
         let displayDate: Driver<String>
         
         let memberPrayList: Driver<[String: [GroupIndividualPray]]>
+        let hasAmenDict: Driver<[String: Set<String>]>
+        let hasPrayDict: Driver<[String: Set<String>]>
         
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
@@ -213,6 +241,9 @@ extension GroupPrayVM {
                       displayDate: displayDate.asDriver(),
                       
                       memberPrayList: memberPrayList.asDriver(),
+                      hasAmenDict: hasAmenDict.asDriver(),
+                      hasPrayDict: hasPrayDict.asDriver(),
+                      
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver(),
                       groupPrayDetailVM: groupPrayDetailVM.asDriver()

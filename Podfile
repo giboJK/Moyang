@@ -7,6 +7,8 @@ def etc
   pod 'SwiftyBeaver'
   pod 'SwiftGen', :inhibit_warnings => true
   pod 'SwiftLint'
+  # Date 관련
+  pod 'SwiftDate'
 end
 
 def db

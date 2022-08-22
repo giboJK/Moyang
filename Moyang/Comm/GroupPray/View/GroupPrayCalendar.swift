@@ -35,6 +35,10 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
     let todayPrayValueLabel = UILabel()
     let calendar = FSCalendar()
     
+    var memberCount = 0
+    var hasAmenDict = [String: Set<String>]()
+    var hasPrayDict = [String: Set<String>]()
+    
     let orderButton = MoyangButton(.none).then {
         $0.layer.cornerRadius = 8
         $0.tintColor = .sheep1
@@ -116,9 +120,11 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         calendar.appearance.weekdayTextColor = .nightSky1
         calendar.appearance.headerTitleColor = .nightSky1
-        calendar.appearance.selectionColor = .ydGreen2
-        calendar.appearance.todayColor = .ydGreen1
-        calendar.appearance.todaySelectionColor = .black
+        calendar.appearance.selectionColor = nil
+        calendar.appearance.titleSelectionColor = .ydGreen2
+        calendar.appearance.todayColor = nil
+        calendar.appearance.todaySelectionColor = nil
+        calendar.appearance.titleTodayColor = .ydGreen1
 
         calendar.headerHeight = 0
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
@@ -161,9 +167,9 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         Date()
     }
     
-    func minimumDate(for calendar: FSCalendar) -> Date {
-        groupCreateDate
-    }
+//    func minimumDate(for calendar: FSCalendar) -> Date {
+//        groupCreateDate
+//    }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         calendar.snp.updateConstraints { (make) in
@@ -201,9 +207,27 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
             .drive(dateLabel.rx.text)
             .disposed(by: disposeBag)
         
+        output.memberPrayList
+            .map { $0.keys.count }
+            .skip(1)
+            .drive(onNext: { [weak self] memberCount in
+                self?.memberCount = max(memberCount, 1)
+                self?.calendar.reloadData()
+            }).disposed(by: disposeBag)
+        
         moveToToday.rx.tap
             .subscribe(onNext: { [weak self]_ in
                 self?.calendar.select(Date(), scrollToDate: true)
+            }).disposed(by: disposeBag)
+        
+        Driver.zip(output.hasAmenDict, output.hasPrayDict)
+            .skip(1)
+            .drive(onNext: { [weak self] (hasAmenDict, hasPrayDict) in
+                self?.hasAmenDict = hasAmenDict
+                self?.hasPrayDict = hasPrayDict
+                self?.calendar.reloadData()
+                Log.w(hasAmenDict)
+                Log.w(hasPrayDict)
             }).disposed(by: disposeBag)
     }
     
@@ -219,32 +243,73 @@ class GroupPrayCalendar: UIView, FSCalendarDelegate, FSCalendarDataSource {
         guard let cell: GroupCalendarCell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: .current) as? GroupCalendarCell else {
             return GroupCalendarCell()
         }
+        cell.memberCount = memberCount
+        if let set = hasPrayDict[date.toString("yyyy-MM-dd")] {
+            cell.hasPray = !set.isEmpty
+        } else {
+            cell.hasPray = false
+        }
+        if let set = hasAmenDict[date.toString("yyyy-MM-dd")] {
+            cell.hasAmenCount = set.count
+        } else {
+            cell.hasAmenCount = 0
+        }
+        cell.date = date
+        cell.setNeedsLayout()
         return cell
     }
 }
 
 class GroupCalendarCell: FSCalendarCell {
     let hasAmenView = UIView().then {
-        $0.backgroundColor = .appleRed1
+        $0.backgroundColor = .appleRed1.withAlphaComponent(0.3)
         $0.layer.cornerRadius = 3
     }
     let hasPrayView = UIView().then {
         $0.backgroundColor = .wilderness2
         $0.layer.cornerRadius = 3
     }
+    
+    var memberCount = 0
+    var hasAmenCount = 0
+    var hasPray = false
+    var date: Date?
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupHasAmenView()
+        setupHasPrayView()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         // Your custom code here.
+        if memberCount == 0 {
+            hasPrayView.isHidden = true
+            hasAmenView.isHidden = true
+            return
+        }
+        
+        hasPrayView.isHidden = !hasPray
+        hasAmenView.isHidden = false
+        hasAmenView.snp.remakeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(4)
+            $0.width.equalTo(28)
+            $0.height.equalToSuperview().multipliedBy(Double(hasAmenCount) / Double(memberCount))
+        }
+    }
+    
+    private func setupHasAmenView() {
         contentView.addSubview(hasAmenView)
-        hasAmenView.snp.makeConstraints {
+    }
+    private func setupHasPrayView() {
+        contentView.addSubview(hasPrayView)
+        hasPrayView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(4)
             $0.size.equalTo(6)

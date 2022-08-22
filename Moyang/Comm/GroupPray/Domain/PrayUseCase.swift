@@ -8,12 +8,17 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import SwiftDate
 
 class PrayUseCase {
     let repo: PrayRepo
     
+    // MARK: - GroupPray
     let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
+    let hasAmenDict = BehaviorRelay<[String: Set<String>]>(value: [:])
+    let hasPrayDict = BehaviorRelay<[String: Set<String>]>(value: [:])
     
+    // MARK: - Event
     let addNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addNewPrayFailure = BehaviorRelay<Void>(value: ())
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
@@ -341,12 +346,56 @@ class PrayUseCase {
     
     func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String) {
         repo.fetchGroupAcitvity(groupID: groupID, isWeek: isWeek, date: date) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let response):
-                Log.d(response)
+                if response.code == 0 {
+                    var amenDict = self.hasAmenDict.value
+                    var prayDict = self.hasPrayDict.value
+                    if isWeek {
+                        if let start = date.toDate("yyyy-MM-dd hh:mm:ss Z"),
+                           let end = start.endOfWeek, let dayDiff = (end - start).day {
+                            for i in 0 ..< dayDiff {
+                                let keyDate = start.addDays(i)
+                                amenDict.updateValue(Set<String>(), forKey: keyDate.toString("yyyy-MM-dd"))
+                            }
+                        }
+                    } else { // month
+                        if let start = date.toDate("yyyy-MM-dd hh:mm:ss Z"),
+                           let end = start.endOfMonth, let dayDiff = (end - start).day {
+                            for i in 0 ..< dayDiff {
+                                let keyDate = start.addDays(i)
+                                amenDict.updateValue(Set<String>(), forKey: keyDate.toString("yyyy-MM-dd"))
+                            }
+                        }
+                    }
+                    
+                    response.data.amenList.forEach { item in
+                        if let dateString = item.date.isoToDateString("yyyy-MM-dd") {
+                            if var set = amenDict[dateString] {
+                                set.insert(item.userID)
+                                amenDict.updateValue(set, forKey: dateString)
+                            }
+                        }
+                    }
+                    self.hasAmenDict.accept(amenDict)
+                    
+                    response.data.prayList.forEach { item in
+                        if let dateString = item.date.isoToDateString("yyyy-MM-dd") {
+                            if var set = prayDict[dateString] {
+                                set.insert(item.userID)
+                                prayDict.updateValue(set, forKey: dateString)
+                            }
+                        }
+                    }
+                    self.hasPrayDict.accept(prayDict)
+                } else {
+                    Log.e("")
+                }
             case .failure(let error):
                 Log.e(error)
             }
+            self.resetIsNetworking()
         }
     }
     
