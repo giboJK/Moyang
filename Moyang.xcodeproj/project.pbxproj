@@ -11,8 +11,6 @@
 		0819D91D27AD1E52009F97BF /* SermonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819D91C27AD1E51009F97BF /* SermonCard.swift */; };
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
-		0865D70A289783FE007E1D7E /* MyFaithReocrdVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0865D709289783FE007E1D7E /* MyFaithReocrdVC.swift */; };
-		0865D70D289784C3007E1D7E /* MyFaithReocrdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0865D70C289784C3007E1D7E /* MyFaithReocrdVM.swift */; };
 		0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0865D70E289791AA007E1D7E /* GroupSelectVC.swift */; };
 		0865D71328979890007E1D7E /* QuickPrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0865D71228979890007E1D7E /* QuickPrayVC.swift */; };
 		086CB32328130077003BF6F7 /* GroupIndividualPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086CB32228130077003BF6F7 /* GroupIndividualPray.swift */; };
@@ -46,6 +44,7 @@
 		08D8295B278D3327001E6B61 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295A278D3327001E6B61 /* Color+.swift */; };
 		08D8295F278D8116001E6B61 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295E278D8116001E6B61 /* IntroView.swift */; };
 		08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */; };
+		08DE7CC828B4BE32003639B0 /* Bible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DE7CC728B4BE32003639B0 /* Bible.swift */; };
 		08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */; };
 		08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFC127FDD78A00BDCB14 /* NetConst.swift */; };
 		08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08ECAAD628A6281E00B546F1 /* TaskDetailVC.swift */; };
@@ -188,8 +187,6 @@
 		0819D91C27AD1E51009F97BF /* SermonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonCard.swift; sourceTree = "<group>"; };
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
-		0865D709289783FE007E1D7E /* MyFaithReocrdVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFaithReocrdVC.swift; sourceTree = "<group>"; };
-		0865D70C289784C3007E1D7E /* MyFaithReocrdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFaithReocrdVM.swift; sourceTree = "<group>"; };
 		0865D70E289791AA007E1D7E /* GroupSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectVC.swift; sourceTree = "<group>"; };
 		0865D71228979890007E1D7E /* QuickPrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPrayVC.swift; sourceTree = "<group>"; };
 		086CB32228130077003BF6F7 /* GroupIndividualPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupIndividualPray.swift; sourceTree = "<group>"; };
@@ -223,6 +220,7 @@
 		08D8295A278D3327001E6B61 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		08D8295E278D8116001E6B61 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
+		08DE7CC728B4BE32003639B0 /* Bible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bible.swift; sourceTree = "<group>"; };
 		08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		08EBCFC127FDD78A00BDCB14 /* NetConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConst.swift; sourceTree = "<group>"; };
 		08ECAAD628A6281E00B546F1 /* TaskDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailVC.swift; sourceTree = "<group>"; };
@@ -383,31 +381,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0865D7072897835E007E1D7E /* MyFaithRecord */ = {
-			isa = PBXGroup;
-			children = (
-				0865D70B289784B3007E1D7E /* Presenter */,
-				0865D70828978374007E1D7E /* View */,
-			);
-			path = MyFaithRecord;
-			sourceTree = "<group>";
-		};
-		0865D70828978374007E1D7E /* View */ = {
-			isa = PBXGroup;
-			children = (
-				0865D709289783FE007E1D7E /* MyFaithReocrdVC.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		0865D70B289784B3007E1D7E /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				0865D70C289784C3007E1D7E /* MyFaithReocrdVM.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
 		0865D7102897987C007E1D7E /* QuickPray */ = {
 			isa = PBXGroup;
 			children = (
@@ -569,6 +542,22 @@
 				08D4B76E28AF394A000BD7C6 /* ProfileVM.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		08DE7CC528B4BE1D003639B0 /* Bible */ = {
+			isa = PBXGroup;
+			children = (
+				08DE7CC628B4BE29003639B0 /* Domain */,
+			);
+			path = Bible;
+			sourceTree = "<group>";
+		};
+		08DE7CC628B4BE29003639B0 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				08DE7CC728B4BE32003639B0 /* Bible.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		08ECAAD428A627F200B546F1 /* TaskDetail */ = {
@@ -957,9 +946,9 @@
 				08AD9586287BE03E002D4F94 /* Auth */,
 				246BD7A327240A96005C4E0B /* Comm */,
 				0865D7102897987C007E1D7E /* QuickPray */,
-				0865D7072897835E007E1D7E /* MyFaithRecord */,
 				08D0CEAF28A36A6100A15F3C /* Today */,
 				24F41C6A2897EBBE005B5E70 /* Profile */,
+				08DE7CC528B4BE1D003639B0 /* Bible */,
 			);
 			path = Moyang;
 			sourceTree = "<group>";
@@ -1491,7 +1480,6 @@
 				249FD1E62893A73800BDF995 /* GroupPrayHeader.swift in Sources */,
 				24B9AEDC27C1C6DD005391DA /* SearchBar.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
-				0865D70A289783FE007E1D7E /* MyFaithReocrdVC.swift in Sources */,
 				24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */,
 				2498F8FE287C316D007EF510 /* TermsVC.swift in Sources */,
 				24C8E9BB286B1F5200AEE46B /* PrayUseCase.swift in Sources */,
@@ -1526,6 +1514,7 @@
 				08AD9594287BE433002D4F94 /* UserInfoRequest.swift in Sources */,
 				24B6A2552726BEB00065112A /* GroupInfo.swift in Sources */,
 				24E0AB1D283D1ECF00F52505 /* GroupPrayingVC.swift in Sources */,
+				08DE7CC828B4BE32003639B0 /* Bible.swift in Sources */,
 				08AD958D287BE0A3002D4F94 /* SignUpVM.swift in Sources */,
 				08D4B76F28AF394A000BD7C6 /* ProfileVM.swift in Sources */,
 				24C877CD282FD6B400F69AAD /* MainVC.swift in Sources */,
@@ -1552,7 +1541,6 @@
 				24E0AB2A283E73C300F52505 /* CommunityMainUseCase.swift in Sources */,
 				24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */,
 				24F6B0C1289951940001B781 /* MemberSelectVC.swift in Sources */,
-				0865D70D289784C3007E1D7E /* MyFaithReocrdVM.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
 				08D0CEBC28A3845900A15F3C /* TaskListView.swift in Sources */,
 				08D8295F278D8116001E6B61 /* IntroView.swift in Sources */,
