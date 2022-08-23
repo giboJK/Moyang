@@ -46,14 +46,28 @@ class GroupPrayVC: UIViewController, VCType {
         $0.setTitle("새 기도", for: .normal)
         $0.setTitleColor(.sheep1, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.backgroundColor = .wilderness2
+        $0.backgroundColor = .nightSky4.withAlphaComponent(0.8)
+        $0.layer.cornerRadius = 16
+    }
+    let addChangeButton = MoyangButton(.none).then {
+        $0.setTitle("변화 기록", for: .normal)
+        $0.setTitleColor(.sheep1, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.backgroundColor = .nightSky4.withAlphaComponent(0.8)
+        $0.layer.cornerRadius = 16
+    }
+    let addAnswerButton = MoyangButton(.none).then {
+        $0.setTitle("응답 기록", for: .normal)
+        $0.setTitleColor(.sheep1, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.backgroundColor = .nightSky4.withAlphaComponent(0.8)
         $0.layer.cornerRadius = 16
     }
     let prayButton = MoyangButton(.none).then {
         $0.setTitle("기도하기", for: .normal)
         $0.setTitleColor(.sheep1, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.backgroundColor = .nightSky4
+        $0.backgroundColor = .wilderness1.withAlphaComponent(0.8)
         $0.layer.cornerRadius = 16
     }
     let reactionView = ReactionPopupView().then {
@@ -84,6 +98,8 @@ class GroupPrayVC: UIViewController, VCType {
         setupSearchBar()
         setupPrayTableView()
         setupAddPrayButton()
+        setupAddChangeButton()
+        setupAddAnswerButton()
         setupPrayButton()
     }
     
@@ -133,6 +149,24 @@ class GroupPrayVC: UIViewController, VCType {
             $0.height.equalTo(40)
             $0.width.equalTo(64)
             $0.left.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    private func setupAddChangeButton() {
+        view.addSubview(addChangeButton)
+        addChangeButton.snp.makeConstraints {
+            $0.height.equalTo(40)
+            $0.width.equalTo(64)
+            $0.left.equalTo(addPrayButton.snp.right).offset(12)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    private func setupAddAnswerButton() {
+        view.addSubview(addAnswerButton)
+        addAnswerButton.snp.makeConstraints {
+            $0.height.equalTo(40)
+            $0.width.equalTo(64)
+            $0.left.equalTo(addChangeButton.snp.right).offset(12)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
