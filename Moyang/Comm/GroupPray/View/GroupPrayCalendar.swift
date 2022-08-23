@@ -281,7 +281,7 @@ class GroupCalendarCell: FSCalendarCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupHasAmenView()
-        setupHasPrayView()
+//        setupHasPrayView()
     }
 
     override func layoutSubviews() {
@@ -294,7 +294,7 @@ class GroupCalendarCell: FSCalendarCell {
         }
         
 //        hasPrayView.isHidden = !hasPray
-        hasAmenView.isHidden = true
+//        hasPrayView.isHidden = true
         hasAmenView.snp.remakeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(4)
