@@ -92,7 +92,6 @@
 		24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B88EE727A2D6C600D5B001 /* LottieView.swift */; };
 		24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B88EE927A2D77B00D5B001 /* SplashView.swift */; };
 		24B88EEC27A2D86E00D5B001 /* intro.json in Resources */ = {isa = PBXBuildFile; fileRef = 24B88EEB27A2D86E00D5B001 /* intro.json */; };
-		24B9AEDC27C1C6DD005391DA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9AEDB27C1C6DD005391DA /* SearchBar.swift */; };
 		24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9B86827A03B5F009FADC8 /* Encodable+.swift */; };
 		24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9BF6C275AEB7B0056E694 /* UIColor+.swift */; };
 		24BB426028471F6700E86CCD /* PrayTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */; };
@@ -171,6 +170,7 @@
 		24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */; };
 		24F6B0C1289951940001B781 /* MemberSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F6B0C0289951940001B781 /* MemberSelectVC.swift */; };
 		24F6B0C3289954740001B781 /* MemberItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F6B0C2289954740001B781 /* MemberItemTableViewCell.swift */; };
+		24F7021328B4F967009A8414 /* BibleSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7021228B4F967009A8414 /* BibleSelectVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -270,7 +270,6 @@
 		24B88EE727A2D6C600D5B001 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		24B88EE927A2D77B00D5B001 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		24B88EEB27A2D86E00D5B001 /* intro.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = intro.json; sourceTree = "<group>"; };
-		24B9AEDB27C1C6DD005391DA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		24B9B86827A03B5F009FADC8 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		24B9BF6C275AEB7B0056E694 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayTagCVCell.swift; sourceTree = "<group>"; };
@@ -350,6 +349,7 @@
 		24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoVM.swift; sourceTree = "<group>"; };
 		24F6B0C0289951940001B781 /* MemberSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSelectVC.swift; sourceTree = "<group>"; };
 		24F6B0C2289954740001B781 /* MemberItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberItemTableViewCell.swift; sourceTree = "<group>"; };
+		24F7021228B4F967009A8414 /* BibleSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleSelectVC.swift; sourceTree = "<group>"; };
 		24FAEF0D27E2153800B2DA81 /* praysong.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = praysong.m4a; sourceTree = "<group>"; };
 		2928AF0E9E86176E64F5A826 /* Pods-MoyangTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoyangTests.release.xcconfig"; path = "Target Support Files/Pods-MoyangTests/Pods-MoyangTests.release.xcconfig"; sourceTree = "<group>"; };
 		38544549B563C36B981B4536 /* Pods-Moyang-MoyangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moyang-MoyangUITests.release.xcconfig"; path = "Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -547,6 +547,7 @@
 		08DE7CC528B4BE1D003639B0 /* Bible */ = {
 			isa = PBXGroup;
 			children = (
+				24F7021128B4F95C009A8414 /* View */,
 				08DE7CC628B4BE29003639B0 /* Domain */,
 			);
 			path = Bible;
@@ -632,7 +633,6 @@
 				082371B627BA84860050420E /* DatePickerTextField.swift */,
 				24E6455C2850E08A00CF10AD /* MoyangButton.swift */,
 				24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */,
-				24B9AEDB27C1C6DD005391DA /* SearchBar.swift */,
 				08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */,
 				24E8F07D27DDD7280036C0F0 /* WebView.swift */,
 				08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */,
@@ -1154,6 +1154,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		24F7021128B4F95C009A8414 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				24F7021228B4F967009A8414 /* BibleSelectVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		24FAEF0C27E2152F00B2DA81 /* Music */ = {
 			isa = PBXGroup;
 			children = (
@@ -1470,6 +1478,7 @@
 				24294C5F2861DD7A00458CA0 /* CheckBox.swift in Sources */,
 				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
 				24F41C6D2897EBCC005B5E70 /* ProfileVC.swift in Sources */,
+				24F7021328B4F967009A8414 /* BibleSelectVC.swift in Sources */,
 				08D0CEBA28A37EFF00A15F3C /* TodayTask.swift in Sources */,
 				08D8295B278D3327001E6B61 /* Color+.swift in Sources */,
 				24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */,
@@ -1478,7 +1487,6 @@
 				242F92A12848FD140023324D /* NewPrayVC.swift in Sources */,
 				24DABDA9289180D200DEB6CC /* Int+.swift in Sources */,
 				249FD1E62893A73800BDF995 /* GroupPrayHeader.swift in Sources */,
-				24B9AEDC27C1C6DD005391DA /* SearchBar.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
 				24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */,
 				2498F8FE287C316D007EF510 /* TermsVC.swift in Sources */,

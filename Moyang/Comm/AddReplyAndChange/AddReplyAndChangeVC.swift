@@ -24,6 +24,15 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
         $0.setTitleColor(.nightSky2, for: .normal)
         $0.setTitleColor(.sheep4, for: .disabled)
     }
+    let addVerseButton = MoyangButton(.none).then {
+        $0.setTitle("성경구절 추가", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        $0.setTitleColor(.nightSky1, for: .normal)
+        let config = UIImage.SymbolConfiguration(pointSize: 13, weight: .bold, scale: .large)
+        $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
+        $0.tintColor = .nightSky1
+        $0.semanticContentAttribute = .forceRightToLeft
+    }
     let contentTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
@@ -78,6 +87,7 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     func setupUI() {
         view.backgroundColor = .sheep2
         setupSaveButton()
+        setupAddVerseButton()
         setupContentTextField()
         setupContentHintLabel()
     }
@@ -89,10 +99,17 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
         }
     }
+    private func setupAddVerseButton() {
+        view.addSubview(addVerseButton)
+        addVerseButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.left.equalToSuperview().inset(16)
+        }
+    }
     private func setupContentTextField() {
         view.addSubview(contentTextView)
         contentTextView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(addVerseButton.snp.bottom).offset(12)
             $0.left.right.equalToSuperview().inset(16)
             $0.bottom.equalTo(saveButton.snp.top).offset(-16)
         }
@@ -124,7 +141,12 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     
     // MARK: - Binding
     func bind() {
+        bindViews()
         bindVM()
+    }
+    
+    func bindViews() {
+        
     }
 
     private func bindVM() {

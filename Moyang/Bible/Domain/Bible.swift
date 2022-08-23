@@ -8,7 +8,7 @@
 import Foundation
 
 class BibleInfo {
-    enum OldTestament: Int {
+    enum Old: Int {
         case Genesis = 0
         case Exodus
         case Leviticus
@@ -133,7 +133,7 @@ class BibleInfo {
         }
     }
     
-    enum NewTestament: Int {
+    enum New: Int {
         case Matthew = 0
         case Mark
         case Luke
@@ -221,99 +221,180 @@ class BibleInfo {
             }
         }
     }
-    static let Genesis = BibleBook(type: OldTestament.Genesis.rawValue, bookType: "", bookName: OldTestament.Genesis.bookName, author: "", chapterInfoList: [])
-    static let Exodus = BibleBook(type: OldTestament.Exodus.rawValue, bookType: "", bookName: OldTestament.Exodus.bookName, author: "", chapterInfoList: [])
-    static let Leviticus = BibleBook(type: OldTestament.Leviticus.rawValue, bookType: "", bookName: OldTestament.Leviticus.bookName, author: "", chapterInfoList: [])
-    static let Numbers = BibleBook(type: OldTestament.Numbers.rawValue, bookType: "", bookName: OldTestament.Numbers.bookName, author: "", chapterInfoList: [])
-    static let Deuteronomy = BibleBook(type: OldTestament.Deuteronomy.rawValue, bookType: "", bookName: OldTestament.Deuteronomy.bookName, author: "", chapterInfoList: [])
-    static let Joshua = BibleBook(type: OldTestament.Joshua.rawValue, bookType: "", bookName: OldTestament.Joshua.bookName, author: "", chapterInfoList: [])
-    static let Judges = BibleBook(type: OldTestament.Judges.rawValue, bookType: "", bookName: OldTestament.Judges.bookName, author: "", chapterInfoList: [])
-    static let Ruth = BibleBook(type: OldTestament.Ruth.rawValue, bookType: "", bookName: OldTestament.Ruth.bookName, author: "", chapterInfoList: [])
-    static let SamuelOne = BibleBook(type: OldTestament.SamuelOne.rawValue, bookType: "", bookName: OldTestament.SamuelOne.bookName, author: "", chapterInfoList: [])
-    static let SamuelTwo = BibleBook(type: OldTestament.SamuelTwo.rawValue, bookType: "", bookName: OldTestament.SamuelTwo.bookName, author: "", chapterInfoList: [])
-    static let KingsOne = BibleBook(type: OldTestament.KingsOne.rawValue, bookType: "", bookName: OldTestament.KingsOne.bookName, author: "", chapterInfoList: [])
-    static let KingsTow = BibleBook(type: OldTestament.KingsTow.rawValue, bookType: "", bookName: OldTestament.KingsTow.bookName, author: "", chapterInfoList: [])
-    static let ChroniclesOne = BibleBook(type: OldTestament.ChroniclesOne.rawValue, bookType: "", bookName: OldTestament.ChroniclesOne.bookName, author: "", chapterInfoList: [])
-    static let ChroniclesTwo = BibleBook(type: OldTestament.ChroniclesTwo.rawValue, bookType: "", bookName: OldTestament.ChroniclesTwo.bookName, author: "", chapterInfoList: [])
-    static let Ezra = BibleBook(type: OldTestament.Ezra.rawValue, bookType: "", bookName: OldTestament.Ezra.bookName, author: "", chapterInfoList: [])
-    static let Nehemiah = BibleBook(type: OldTestament.Nehemiah.rawValue, bookType: "", bookName: OldTestament.Nehemiah.bookName, author: "", chapterInfoList: [])
-    static let Esther = BibleBook(type: OldTestament.Esther.rawValue, bookType: "", bookName: OldTestament.Esther.bookName, author: "", chapterInfoList: [])
-    static let Job = BibleBook(type: OldTestament.Job.rawValue, bookType: "", bookName: OldTestament.Job.bookName, author: "", chapterInfoList: [])
-    static let Psalms = BibleBook(type: OldTestament.Psalms.rawValue, bookType: "", bookName: OldTestament.Psalms.bookName, author: "", chapterInfoList: [])
-    static let Proverbs = BibleBook(type: OldTestament.Proverbs.rawValue, bookType: "", bookName: OldTestament.Proverbs.bookName, author: "", chapterInfoList: [])
-    static let Ecclesiastes = BibleBook(type: OldTestament.Ecclesiastes.rawValue, bookType: "", bookName: OldTestament.Ecclesiastes.bookName, author: "", chapterInfoList: [])
-    static let SongOfSongs = BibleBook(type: OldTestament.SongOfSongs.rawValue, bookType: "", bookName: OldTestament.SongOfSongs.bookName, author: "", chapterInfoList: [])
-    static let Isaiah = BibleBook(type: OldTestament.Isaiah.rawValue, bookType: "", bookName: OldTestament.Isaiah.bookName, author: "", chapterInfoList: [])
-    static let Jeremiah = BibleBook(type: OldTestament.Jeremiah.rawValue, bookType: "", bookName: OldTestament.Jeremiah.bookName, author: "", chapterInfoList: [])
-    static let Lamentations = BibleBook(type: OldTestament.Lamentations.rawValue, bookType: "", bookName: OldTestament.Lamentations.bookName, author: "", chapterInfoList: [])
-    static let Ezekiel = BibleBook(type: OldTestament.Ezekiel.rawValue, bookType: "", bookName: OldTestament.Ezekiel.bookName, author: "", chapterInfoList: [])
-    static let Daniel = BibleBook(type: OldTestament.Daniel.rawValue, bookType: "", bookName: OldTestament.Daniel.bookName, author: "", chapterInfoList: [])
-    static let Hosea = BibleBook(type: OldTestament.Hosea.rawValue, bookType: "", bookName: OldTestament.Hosea.bookName, author: "", chapterInfoList: [])
-    static let Joel = BibleBook(type: OldTestament.Joel.rawValue, bookType: "", bookName: OldTestament.Joel.bookName, author: "", chapterInfoList: [])
-    static let Amos = BibleBook(type: OldTestament.Amos.rawValue, bookType: "", bookName: OldTestament.Amos.bookName, author: "", chapterInfoList: [])
-    static let Obadiah = BibleBook(type: OldTestament.Obadiah.rawValue, bookType: "", bookName: OldTestament.Obadiah.bookName, author: "", chapterInfoList: [])
-    static let Jonah = BibleBook(type: OldTestament.Jonah.rawValue, bookType: "", bookName: OldTestament.Jonah.bookName, author: "", chapterInfoList: [])
-    static let Micah = BibleBook(type: OldTestament.Micah.rawValue, bookType: "", bookName: OldTestament.Micah.bookName, author: "", chapterInfoList: [])
-    static let Nahum = BibleBook(type: OldTestament.Nahum.rawValue, bookType: "", bookName: OldTestament.Nahum.bookName, author: "", chapterInfoList: [])
-    static let Habakkuk = BibleBook(type: OldTestament.Habakkuk.rawValue, bookType: "", bookName: OldTestament.Habakkuk.bookName, author: "", chapterInfoList: [])
-    static let Zephaniah = BibleBook(type: OldTestament.Zephaniah.rawValue, bookType: "", bookName: OldTestament.Zephaniah.bookName, author: "", chapterInfoList: [])
-    static let Haggai = BibleBook(type: OldTestament.Haggai.rawValue, bookType: "", bookName: OldTestament.Haggai.bookName, author: "", chapterInfoList: [])
-    static let Zechariah = BibleBook(type: OldTestament.Zechariah.rawValue, bookType: "", bookName: OldTestament.Zechariah.bookName, author: "", chapterInfoList: [])
-    static let Malachi = BibleBook(type: OldTestament.Malachi.rawValue, bookType: "", bookName: OldTestament.Malachi.bookName, author: "", chapterInfoList: [])
+    static let Genesis = BibleBookInfo(type: Old.Genesis.rawValue, category: "", bookName: Old.Genesis.bookName, author: "",
+                                       chapterCount: [31,25,24,26,32,22,24,22,29,32,
+                                                      32,20,18,24,21,16,27,33,38,18,
+                                                      34,24,20,67,34,35,46,22,35,43,
+                                                      55,32,20,31,29,43,36,30,23,23,
+                                                      57,38,34,34,28,34,31,22,33,26])
+    static let Exodus = BibleBookInfo(type: Old.Exodus.rawValue, category: "", bookName: Old.Exodus.bookName, author: "",
+                                      chapterCount: [22,25,22,31,23,30,25,32,35,29,
+                                                     10,51,22,31,27,36,16,27,25,26,
+                                                     36,31,33,18,40,37,21,43,46,38,
+                                                     18,35,23,35,35,38,29,31,43,38])
+    static let Leviticus = BibleBookInfo(type: Old.Leviticus.rawValue, category: "", bookName: Old.Leviticus.bookName, author: "",
+                                         chapterCount: [17,16,17,35,19,30,38,36,24,20,
+                                                        47,8,59,57,33,34,16,30,37,27,
+                                                        24,33,44,23,55,46,34])
+    static let Numbers = BibleBookInfo(type: Old.Numbers.rawValue, category: "", bookName: Old.Numbers.bookName, author: "",
+                                       chapterCount: [54,34,51,49,31,27,89,26,23,36,
+                                                      35,16,33,45,41,50,13,32,22,29,
+                                                      35,41,30,25,18,65,23,31,40,16,
+                                                      54,42,56,29,34,13])
+    static let Deuteronomy = BibleBookInfo(type: Old.Deuteronomy.rawValue, category: "", bookName: Old.Deuteronomy.bookName, author: "",
+                                           chapterCount: [46,37,29,49,33,25,26,20,29,22,
+                                                          32,32,18,29,23,22,20,22,21,20,
+                                                          23,30,25,22,19,19,26,68,29,20,
+                                                          30,52,29,12])
+    static let Joshua = BibleBookInfo(type: Old.Joshua.rawValue, category: "", bookName: Old.Joshua.bookName, author: "",
+                                      chapterCount: [18,24,17,24,15,27,26,35,27,43,
+                                                     23,24,33,15,63,10,18,28,51,9,
+                                                     45,34,16,33])
+    static let Judges = BibleBookInfo(type: Old.Judges.rawValue, category: "", bookName: Old.Judges.bookName, author: "",
+                                      chapterCount: [36,23,31,24,31,40,25,35,57,18,
+                                                     40,15,25,20,20,31,13,31,30,48,
+                                                     25])
+    static let Ruth = BibleBookInfo(type: Old.Ruth.rawValue, category: "", bookName: Old.Ruth.bookName, author: "",
+                                    chapterCount: [22,23,18,22])
+    static let SamuelOne = BibleBookInfo(type: Old.SamuelOne.rawValue, category: "", bookName: Old.SamuelOne.bookName, author: "",
+                                         chapterCount: [28,36,21,22,12,21,17,22,27,27,
+                                                        15,25,23,52,35,23,58,30,24,42,
+                                                        15,23,29,22,44,25,12,25,11,31,
+                                                        13])
+    static let SamuelTwo = BibleBookInfo(type: Old.SamuelTwo.rawValue, category: "", bookName: Old.SamuelTwo.bookName, author: "",
+                                         chapterCount: [27,32,39,12,25,23,29,18,13,19,
+                                                        27,31,39,33,37,23,29,33,43,26,
+                                                        22,51,39,25])
+    static let KingsOne = BibleBookInfo(type: Old.KingsOne.rawValue, category: "", bookName: Old.KingsOne.bookName, author: "",
+                                        chapterCount: [53,46,28,34,18,38,51,66,28,29,
+                                                       43,33,34,31,34,34,24,46,21,43,
+                                                       29,53])
+    static let KingsTow = BibleBookInfo(type: Old.KingsTow.rawValue, category: "", bookName: Old.KingsTow.bookName, author: "",
+                                        chapterCount: [])
+    static let ChroniclesOne = BibleBookInfo(type: Old.ChroniclesOne.rawValue, category: "", bookName: Old.ChroniclesOne.bookName, author: "",
+                                             chapterCount: [])
+    static let ChroniclesTwo = BibleBookInfo(type: Old.ChroniclesTwo.rawValue, category: "", bookName: Old.ChroniclesTwo.bookName, author: "",
+                                             chapterCount: [])
+    static let Ezra = BibleBookInfo(type: Old.Ezra.rawValue, category: "", bookName: Old.Ezra.bookName, author: "",
+                                    chapterCount: [])
+    static let Nehemiah = BibleBookInfo(type: Old.Nehemiah.rawValue, category: "", bookName: Old.Nehemiah.bookName, author: "",
+                                        chapterCount: [])
+    static let Esther = BibleBookInfo(type: Old.Esther.rawValue, category: "", bookName: Old.Esther.bookName, author: "",
+                                      chapterCount: [])
+    static let Job = BibleBookInfo(type: Old.Job.rawValue, category: "", bookName: Old.Job.bookName, author: "",
+                                   chapterCount: [])
+    static let Psalms = BibleBookInfo(type: Old.Psalms.rawValue, category: "", bookName: Old.Psalms.bookName, author: "",
+                                      chapterCount: [])
+    static let Proverbs = BibleBookInfo(type: Old.Proverbs.rawValue, category: "", bookName: Old.Proverbs.bookName, author: "",
+                                        chapterCount: [])
+    static let Ecclesiastes = BibleBookInfo(type: Old.Ecclesiastes.rawValue, category: "", bookName: Old.Ecclesiastes.bookName, author: "",
+                                            chapterCount: [])
+    static let SongOfSongs = BibleBookInfo(type: Old.SongOfSongs.rawValue, category: "", bookName: Old.SongOfSongs.bookName, author: "",
+                                           chapterCount: [])
+    static let Isaiah = BibleBookInfo(type: Old.Isaiah.rawValue, category: "", bookName: Old.Isaiah.bookName, author: "",
+                                      chapterCount: [])
+    static let Jeremiah = BibleBookInfo(type: Old.Jeremiah.rawValue, category: "", bookName: Old.Jeremiah.bookName, author: "",
+                                        chapterCount: [])
+    static let Lamentations = BibleBookInfo(type: Old.Lamentations.rawValue, category: "", bookName: Old.Lamentations.bookName, author: "",
+                                            chapterCount: [])
+    static let Ezekiel = BibleBookInfo(type: Old.Ezekiel.rawValue, category: "", bookName: Old.Ezekiel.bookName, author: "",
+                                       chapterCount: [])
+    static let Daniel = BibleBookInfo(type: Old.Daniel.rawValue, category: "", bookName: Old.Daniel.bookName, author: "",
+                                      chapterCount: [])
+    static let Hosea = BibleBookInfo(type: Old.Hosea.rawValue, category: "", bookName: Old.Hosea.bookName, author: "",
+                                     chapterCount: [])
+    static let Joel = BibleBookInfo(type: Old.Joel.rawValue, category: "", bookName: Old.Joel.bookName, author: "",
+                                    chapterCount: [])
+    static let Amos = BibleBookInfo(type: Old.Amos.rawValue, category: "", bookName: Old.Amos.bookName, author: "",
+                                    chapterCount: [])
+    static let Obadiah = BibleBookInfo(type: Old.Obadiah.rawValue, category: "", bookName: Old.Obadiah.bookName, author: "",
+                                       chapterCount: [])
+    static let Jonah = BibleBookInfo(type: Old.Jonah.rawValue, category: "", bookName: Old.Jonah.bookName, author: "",
+                                     chapterCount: [])
+    static let Micah = BibleBookInfo(type: Old.Micah.rawValue, category: "", bookName: Old.Micah.bookName, author: "",
+                                     chapterCount: [])
+    static let Nahum = BibleBookInfo(type: Old.Nahum.rawValue, category: "", bookName: Old.Nahum.bookName, author: "",
+                                     chapterCount: [])
+    static let Habakkuk = BibleBookInfo(type: Old.Habakkuk.rawValue, category: "", bookName: Old.Habakkuk.bookName, author: "",
+                                        chapterCount: [])
+    static let Zephaniah = BibleBookInfo(type: Old.Zephaniah.rawValue, category: "", bookName: Old.Zephaniah.bookName, author: "",
+                                         chapterCount: [])
+    static let Haggai = BibleBookInfo(type: Old.Haggai.rawValue, category: "", bookName: Old.Haggai.bookName, author: "",
+                                      chapterCount: [])
+    static let Zechariah = BibleBookInfo(type: Old.Zechariah.rawValue, category: "", bookName: Old.Zechariah.bookName, author: "",
+                                         chapterCount: [])
+    static let Malachi = BibleBookInfo(type: Old.Malachi.rawValue, category: "", bookName: Old.Malachi.bookName, author: "",
+                                       chapterCount: [])
     
-    static let Matthew = BibleBook(type: NewTestament.Matthew.rawValue, bookType: "", bookName: NewTestament.Matthew.bookName, author: "", chapterInfoList: [])
-    static let Mark = BibleBook(type: NewTestament.Mark.rawValue, bookType: "", bookName: NewTestament.Mark.bookName, author: "", chapterInfoList: [])
-    static let Luke = BibleBook(type: NewTestament.Luke.rawValue, bookType: "", bookName: NewTestament.Luke.bookName, author: "", chapterInfoList: [])
-    static let John = BibleBook(type: NewTestament.John.rawValue, bookType: "", bookName: NewTestament.John.bookName, author: "", chapterInfoList: [])
-    static let ActsOfTheApostles = BibleBook(type: NewTestament.ActsOfTheApostles.rawValue, bookType: "", bookName: NewTestament.ActsOfTheApostles.bookName, author: "", chapterInfoList: [])
-    static let Romans = BibleBook(type: NewTestament.Romans.rawValue, bookType: "", bookName: NewTestament.Romans.bookName, author: "", chapterInfoList: [])
-    static let CorinthiansOne = BibleBook(type: NewTestament.CorinthiansOne.rawValue, bookType: "", bookName: NewTestament.CorinthiansOne.bookName, author: "", chapterInfoList: [])
-    static let CorinthiansTwo = BibleBook(type: NewTestament.CorinthiansTwo.rawValue, bookType: "", bookName: NewTestament.CorinthiansTwo.bookName, author: "", chapterInfoList: [])
-    static let Galatians = BibleBook(type: NewTestament.Galatians.rawValue, bookType: "", bookName: NewTestament.Galatians.bookName, author: "", chapterInfoList: [])
-    static let Ephesians = BibleBook(type: NewTestament.Ephesians.rawValue, bookType: "", bookName: NewTestament.Ephesians.bookName, author: "", chapterInfoList: [])
-    static let Philippians = BibleBook(type: NewTestament.Philippians.rawValue, bookType: "", bookName: NewTestament.Philippians.bookName, author: "", chapterInfoList: [])
-    static let Colossians = BibleBook(type: NewTestament.Colossians.rawValue, bookType: "", bookName: NewTestament.Colossians.bookName, author: "", chapterInfoList: [])
-    static let ThessaloniansOne = BibleBook(type: NewTestament.ThessaloniansOne.rawValue, bookType: "", bookName: NewTestament.ThessaloniansOne.bookName, author: "", chapterInfoList: [])
-    static let ThessaloniansTwo = BibleBook(type: NewTestament.ThessaloniansTwo.rawValue, bookType: "", bookName: NewTestament.ThessaloniansTwo.bookName, author: "", chapterInfoList: [])
-    static let TimothyOne = BibleBook(type: NewTestament.TimothyOne.rawValue, bookType: "", bookName: NewTestament.TimothyOne.bookName, author: "", chapterInfoList: [])
-    static let TimothyTwo = BibleBook(type: NewTestament.TimothyTwo.rawValue, bookType: "", bookName: NewTestament.TimothyTwo.bookName, author: "", chapterInfoList: [])
-    static let Titus = BibleBook(type: NewTestament.Titus.rawValue, bookType: "", bookName: NewTestament.Titus.bookName, author: "", chapterInfoList: [])
-    static let Philemon = BibleBook(type: NewTestament.Philemon.rawValue, bookType: "", bookName: NewTestament.Philemon.bookName, author: "", chapterInfoList: [])
-    static let Hebrews = BibleBook(type: NewTestament.Hebrews.rawValue, bookType: "", bookName: NewTestament.Hebrews.bookName, author: "", chapterInfoList: [])
-    static let James = BibleBook(type: NewTestament.James.rawValue, bookType: "", bookName: NewTestament.James.bookName, author: "", chapterInfoList: [])
-    static let PeterOne = BibleBook(type: NewTestament.PeterOne.rawValue, bookType: "", bookName: NewTestament.PeterOne.bookName, author: "", chapterInfoList: [])
-    static let PeterTwo = BibleBook(type: NewTestament.PeterTwo.rawValue, bookType: "", bookName: NewTestament.PeterTwo.bookName, author: "", chapterInfoList: [])
-    static let JohnOne = BibleBook(type: NewTestament.JohnOne.rawValue, bookType: "", bookName: NewTestament.JohnOne.bookName, author: "", chapterInfoList: [])
-    static let JohnTwo = BibleBook(type: NewTestament.JohnTwo.rawValue, bookType: "", bookName: NewTestament.JohnTwo.bookName, author: "", chapterInfoList: [])
-    static let JohnThree = BibleBook(type: NewTestament.JohnThree.rawValue, bookType: "", bookName: NewTestament.JohnThree.bookName, author: "", chapterInfoList: [])
-    static let Jude = BibleBook(type: NewTestament.Jude.rawValue, bookType: "", bookName: NewTestament.Jude.bookName, author: "", chapterInfoList: [])
-    static let Revelation = BibleBook(type: NewTestament.Revelation.rawValue, bookType: "", bookName: NewTestament.Revelation.bookName, author: "", chapterInfoList: [])
+    static let Matthew = BibleBookInfo(type: New.Matthew.rawValue, category: "", bookName: New.Matthew.bookName, author: "",
+                                       chapterCount: [])
+    static let Mark = BibleBookInfo(type: New.Mark.rawValue, category: "", bookName: New.Mark.bookName, author: "",
+                                    chapterCount: [])
+    static let Luke = BibleBookInfo(type: New.Luke.rawValue, category: "", bookName: New.Luke.bookName, author: "",
+                                    chapterCount: [])
+    static let John = BibleBookInfo(type: New.John.rawValue, category: "", bookName: New.John.bookName, author: "",
+                                    chapterCount: [])
+    static let ActsOfTheApostles = BibleBookInfo(type: New.ActsOfTheApostles.rawValue, category: "", bookName: New.ActsOfTheApostles.bookName, author: "",
+                                                 chapterCount: [])
+    static let Romans = BibleBookInfo(type: New.Romans.rawValue, category: "", bookName: New.Romans.bookName, author: "",
+                                      chapterCount: [])
+    static let CorinthiansOne = BibleBookInfo(type: New.CorinthiansOne.rawValue, category: "", bookName: New.CorinthiansOne.bookName, author: "",
+                                              chapterCount: [])
+    static let CorinthiansTwo = BibleBookInfo(type: New.CorinthiansTwo.rawValue, category: "", bookName: New.CorinthiansTwo.bookName, author: "",
+                                              chapterCount: [])
+    static let Galatians = BibleBookInfo(type: New.Galatians.rawValue, category: "", bookName: New.Galatians.bookName, author: "",
+                                         chapterCount: [])
+    static let Ephesians = BibleBookInfo(type: New.Ephesians.rawValue, category: "", bookName: New.Ephesians.bookName, author: "",
+                                         chapterCount: [])
+    static let Philippians = BibleBookInfo(type: New.Philippians.rawValue, category: "", bookName: New.Philippians.bookName, author: "",
+                                           chapterCount: [])
+    static let Colossians = BibleBookInfo(type: New.Colossians.rawValue, category: "", bookName: New.Colossians.bookName, author: "",
+                                          chapterCount: [])
+    static let ThessaloniansOne = BibleBookInfo(type: New.ThessaloniansOne.rawValue, category: "", bookName: New.ThessaloniansOne.bookName, author: "",
+                                                chapterCount: [])
+    static let ThessaloniansTwo = BibleBookInfo(type: New.ThessaloniansTwo.rawValue, category: "", bookName: New.ThessaloniansTwo.bookName, author: "",
+                                                chapterCount: [])
+    static let TimothyOne = BibleBookInfo(type: New.TimothyOne.rawValue, category: "", bookName: New.TimothyOne.bookName, author: "",
+                                          chapterCount: [])
+    static let TimothyTwo = BibleBookInfo(type: New.TimothyTwo.rawValue, category: "", bookName: New.TimothyTwo.bookName, author: "",
+                                          chapterCount: [])
+    static let Titus = BibleBookInfo(type: New.Titus.rawValue, category: "", bookName: New.Titus.bookName, author: "",
+                                     chapterCount: [])
+    static let Philemon = BibleBookInfo(type: New.Philemon.rawValue, category: "", bookName: New.Philemon.bookName, author: "",
+                                        chapterCount: [])
+    static let Hebrews = BibleBookInfo(type: New.Hebrews.rawValue, category: "", bookName: New.Hebrews.bookName, author: "",
+                                       chapterCount: [])
+    static let James = BibleBookInfo(type: New.James.rawValue, category: "", bookName: New.James.bookName, author: "",
+                                     chapterCount: [])
+    static let PeterOne = BibleBookInfo(type: New.PeterOne.rawValue, category: "", bookName: New.PeterOne.bookName, author: "",
+                                        chapterCount: [])
+    static let PeterTwo = BibleBookInfo(type: New.PeterTwo.rawValue, category: "", bookName: New.PeterTwo.bookName, author: "",
+                                        chapterCount: [])
+    static let JohnOne = BibleBookInfo(type: New.JohnOne.rawValue, category: "", bookName: New.JohnOne.bookName, author: "",
+                                       chapterCount: [])
+    static let JohnTwo = BibleBookInfo(type: New.JohnTwo.rawValue, category: "", bookName: New.JohnTwo.bookName, author: "",
+                                       chapterCount: [])
+    static let JohnThree = BibleBookInfo(type: New.JohnThree.rawValue, category: "", bookName: New.JohnThree.bookName, author: "",
+                                         chapterCount: [])
+    static let Jude = BibleBookInfo(type: New.Jude.rawValue, category: "", bookName: New.Jude.bookName, author: "",
+                                    chapterCount: [])
+    static let Revelation = BibleBookInfo(type: New.Revelation.rawValue, category: "", bookName: New.Revelation.bookName, author: "",
+                                          chapterCount: [])
         
 }
 
-struct BibleBook: Codable {
+struct BibleBookInfo: Codable {
     let type: Int
-    let bookType: String
+    let category: String
     let bookName: String
     let author: String
-    let chapterInfoList: [BibleChapterInfo]
+    let chapterCount: [Int]
     
     enum CodingKeys: String, CodingKey {
         case type
-        case bookType = "book_type"
+        case category = "category"
         case bookName = "book_name"
         case author
-        case chapterInfoList = "chapter_info_list"
+        case chapterCount = "chapter_count"
     }
 }
-
-struct BibleChapterInfo: Codable {
-    let chapter: Int
-    let verseCount: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case chapter
-        case verseCount = "verse_count"
-    }
-}
-
