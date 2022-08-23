@@ -175,8 +175,9 @@ class PrayCVCell: UICollectionViewCell {
         bgView.addSubview(noTagLabel)
         noTagLabel.snp.makeConstraints {
             $0.top.equalTo(tagDivider.snp.bottom).offset(4)
-            $0.height.equalTo(28)
             $0.left.right.equalToSuperview().inset(12)
+            $0.bottom.equalToSuperview().inset(8)
+            $0.height.equalTo(28)
         }
     }
     private func setupReplyView() {

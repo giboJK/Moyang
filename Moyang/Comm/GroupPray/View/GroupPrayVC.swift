@@ -42,21 +42,19 @@ class GroupPrayVC: UIViewController, VCType {
         $0.bounces = true
         $0.isScrollEnabled = true
     }
-    let bottomTapView = UIView().then {
-        $0.backgroundColor = .sheep1
-    }
     let addPrayButton = MoyangButton(.none).then {
-        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
-        $0.setTitle("새 기도 ", for: .normal)
-        $0.setTitleColor(.nightSky1, for: .normal)
-        $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
-        $0.semanticContentAttribute = .forceRightToLeft
-        $0.tintColor = .nightSky1
+        $0.setTitle("새 기도", for: .normal)
+        $0.setTitleColor(.sheep1, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.backgroundColor = .wilderness2
+        $0.layer.cornerRadius = 16
     }
     let prayButton = MoyangButton(.none).then {
         $0.setTitle("기도하기", for: .normal)
-        $0.setTitleColor(.nightSky1, for: .normal)
-        $0.tintColor = .nightSky1
+        $0.setTitleColor(.sheep1, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.backgroundColor = .nightSky4
+        $0.layer.cornerRadius = 16
     }
     let reactionView = ReactionPopupView().then {
         $0.isHidden = true
@@ -83,9 +81,10 @@ class GroupPrayVC: UIViewController, VCType {
         view.backgroundColor = .sheep1
         setupNavBar()
         setupInfoButton()
-        setupBottomTapView()
         setupSearchBar()
         setupPrayTableView()
+        setupAddPrayButton()
+        setupPrayButton()
     }
     
     private func setupNavBar() {
@@ -118,41 +117,32 @@ class GroupPrayVC: UIViewController, VCType {
         view.addSubview(prayTableView)
         prayTableView.snp.makeConstraints {
             $0.top.equalTo(searchBar.snp.bottom).offset(8)
-            $0.bottom.equalTo(bottomTapView.snp.top)
-            $0.left.right.equalToSuperview()
+            $0.bottom.left.right.equalToSuperview()
         }
         prayTableView.stickyHeader.view = headerView
         prayTableView.stickyHeader.height = headerHeight
         prayTableView.stickyHeader.minimumHeight = 48
-        let footer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 8)).then {
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 60)).then {
             $0.backgroundColor = .clear
         }
         prayTableView.tableFooterView = footer
     }
-    private func setupBottomTapView() {
-        view.addSubview(bottomTapView)
-        bottomTapView.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(49 + UIApplication.bottomInset)
-        }
-        setupAddPrayButton()
-        setupPrayButton()
-    }
     private func setupAddPrayButton() {
-        bottomTapView.addSubview(addPrayButton)
+        view.addSubview(addPrayButton)
         addPrayButton.snp.makeConstraints {
-            $0.width.equalToSuperview().dividedBy(2)
-            $0.height.equalTo(49)
-            $0.left.equalToSuperview()
+            $0.height.equalTo(40)
+            $0.width.equalTo(64)
+            $0.left.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     private func setupPrayButton() {
-        bottomTapView.addSubview(prayButton)
+        view.addSubview(prayButton)
         prayButton.snp.makeConstraints {
-            $0.width.equalToSuperview().dividedBy(2)
-            $0.height.equalTo(49)
-            $0.right.equalToSuperview()
+            $0.height.equalTo(40)
+            $0.width.equalTo(64)
+            $0.right.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
