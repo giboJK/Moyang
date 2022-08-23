@@ -18,8 +18,7 @@ class GroupPrayVC: UIViewController, VCType {
     var coordinator: GroupPrayVCDelegate?
     var groupCreateDate: Date!
     
-    let headerMinHeight: CGFloat = 100 + 48
-    let headerMaxHeight: CGFloat = 248 + 48
+    let headerHeight: CGFloat = 48
     
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
@@ -30,7 +29,9 @@ class GroupPrayVC: UIViewController, VCType {
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
         $0.setTitleColor(.nightSky1, for: .normal)
     }
-    lazy var groupPrayCalendar = GroupPrayCalendar(vm: self.vm, groupCreateDate: self.groupCreateDate)
+    let searchBar = MoyangSearchBar()
+    
+    let headerView = GroupPrayHeader()
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(GroupPrayTVCell.self, forCellReuseIdentifier: "cell")
@@ -83,6 +84,7 @@ class GroupPrayVC: UIViewController, VCType {
         setupNavBar()
         setupInfoButton()
         setupBottomTapView()
+        setupSearchBar()
         setupPrayTableView()
     }
     
@@ -104,15 +106,23 @@ class GroupPrayVC: UIViewController, VCType {
             $0.width.equalTo(32)
         }
     }
+    private func setupSearchBar() {
+        view.addSubview(searchBar)
+        searchBar.snp.makeConstraints {
+            $0.top.equalTo(navBar.snp.bottom).offset(12)
+            $0.height.equalTo(56)
+            $0.left.right.equalToSuperview().inset(20)
+        }
+    }
     private func setupPrayTableView() {
         view.addSubview(prayTableView)
         prayTableView.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom)
+            $0.top.equalTo(searchBar.snp.bottom).offset(8)
             $0.bottom.equalTo(bottomTapView.snp.top)
             $0.left.right.equalToSuperview()
         }
-        prayTableView.stickyHeader.view = groupPrayCalendar
-        prayTableView.stickyHeader.height = headerMinHeight
+        prayTableView.stickyHeader.view = headerView
+        prayTableView.stickyHeader.height = headerHeight
         prayTableView.stickyHeader.minimumHeight = 48
         let footer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 8)).then {
             $0.backgroundColor = .clear
@@ -189,12 +199,12 @@ class GroupPrayVC: UIViewController, VCType {
         
         bindPrayTableView()
         
-        groupPrayCalendar.orderButton.rx.tap
+        headerView.orderButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.showOrderOptionView()
             }).disposed(by: disposeBag)
         
-        groupPrayCalendar.memberButton.rx.tap
+        headerView.memberButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.showMemberSelectView()
             }).disposed(by: disposeBag)
@@ -269,14 +279,6 @@ class GroupPrayVC: UIViewController, VCType {
             .drive(navBar.titleLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output.isWeek
-            .skip(1)
-            .drive(onNext: { [weak self] isWeek in
-                guard let self = self else { return }
-                let height = isWeek ? self.headerMinHeight : self.headerMaxHeight
-                self.prayTableView.stickyHeader.height = height
-            }).disposed(by: disposeBag)
-        
         output.memberList
             .map({ $0.filter { !$0.id.isEmpty } })
             .drive(prayTableView.rx
@@ -289,13 +291,13 @@ class GroupPrayVC: UIViewController, VCType {
         
         output.order
             .drive(onNext: { [weak self] order in
-                self?.groupPrayCalendar.orderButton.setTitle(order, for: .normal)
+                self?.headerView.orderButton.setTitle(order, for: .normal)
             }).disposed(by: disposeBag)
         
         output.selectedMember
             .map { $0.isEmpty ? "모두" : $0 }
             .drive(onNext: { [weak self] name in
-                self?.groupPrayCalendar.memberButton.setTitle(name, for: .normal)
+                self?.headerView.memberButton.setTitle(name, for: .normal)
             }).disposed(by: disposeBag)
         
         output.prayReactionDetailVM
