@@ -38,9 +38,9 @@ class TaskItemView: UIView {
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep2
     }
-    let timeImageView = UIImageView().then {
+    let hourglassImageView = UIImageView().then {
         let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular, scale: .large)
-        $0.image = UIImage(systemName: "clock", withConfiguration: config)
+        $0.image = UIImage(systemName: "hourglass", withConfiguration: config)
         $0.tintColor = .sheep1
         $0.contentMode = .scaleToFill
     }
@@ -73,7 +73,7 @@ class TaskItemView: UIView {
         setupContainer()
         setupTypeImageView()
         setupTitleLabel()
-        setupTimeImageView()
+        setupHourglassImageView()
         setupDescLabel()
         switch type {
         case .one:
@@ -118,20 +118,20 @@ class TaskItemView: UIView {
             $0.right.equalToSuperview().inset(20)
         }
     }
-    private func setupTimeImageView() {
-        container.addSubview(timeImageView)
-        timeImageView.snp.makeConstraints {
+    private func setupHourglassImageView() {
+        container.addSubview(hourglassImageView)
+        hourglassImageView.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(16)
             $0.left.equalTo(typeImageView.snp.right).offset(4)
-            $0.width.equalTo(16)
+            $0.width.equalTo(12)
             $0.height.equalTo(12)
         }
     }
     private func setupDescLabel() {
         container.addSubview(descLabel)
         descLabel.snp.makeConstraints {
-            $0.left.equalTo(timeImageView.snp.right).offset(4)
-            $0.centerY.equalTo(timeImageView)
+            $0.left.equalTo(hourglassImageView.snp.right).offset(4)
+            $0.centerY.equalTo(hourglassImageView)
             $0.right.equalToSuperview().inset(20)
         }
     }
