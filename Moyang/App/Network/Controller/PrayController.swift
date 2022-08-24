@@ -18,6 +18,34 @@ class PrayController {
 }
 
 extension PrayController: PrayRepo {
+    func fetchPray(prayID: String, completion: ((Result<GroupIndividualPray, MoyangError>) -> Void)?) {
+        
+    }
+    
+    func fetchTagAutocomplete(tag: String, completion: ((Result<TagAutocompleteResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.searchTag)
+        let dict: [String: Any] = [
+            "tag": tag
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: TagAutocompleteResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
+    func searchPrays(tag: String, groupID: String, completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?) {
+        
+    }
+    
     func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupActivityResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.GroupAPI.fetchGroupActivity)
         let dict: [String: Any] = [

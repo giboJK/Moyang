@@ -9,12 +9,6 @@ import Foundation
 
 protocol PrayRepo {
     
-    func fetchPrayList(groupID: String, userID: String, isMe: Bool, order: String, page: Int, row: Int,
-                       completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
-    
-    // 전체 인원 기도 가져올 때
-    func fetchPrayAll(groupID: String, userID: String, order: String, page: Int, row: Int,
-                      completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
     
     
     // Add
@@ -43,7 +37,21 @@ protocol PrayRepo {
     
     
     // Fetch
+    func fetchPrayList(groupID: String, userID: String, isMe: Bool, order: String, page: Int, row: Int,
+                       completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
+    func fetchPray(prayID: String, completion: ((Result<GroupIndividualPray, MoyangError>) -> Void)?)
+    
+    func fetchTagAutocomplete(tag: String, completion: ((Result<TagAutocompleteResponse, MoyangError>) -> Void)?)
+    
+    // 전체 인원 기도 가져올 때
+    func fetchPrayAll(groupID: String, userID: String, order: String, page: Int, row: Int,
+                      completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
+    
     func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupActivityResponse, MoyangError>) -> Void)?)
+    
+    // Search
+    func searchPrays(tag: String, groupID: String, completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
+    
     
     // Download
     func downloadSong(fileName: String, path: String, fileExt: String,
@@ -119,5 +127,43 @@ class AddPrayChangeResponse: BaseResponse {
     
     enum CodingKeys: String, CodingKey {
         case data
+    }
+}
+
+class TagAutocompleteResponse: BaseResponse {
+    let tags: [PrayTag]
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        tags = try container.decode([PrayTag].self, forKey: .tags)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case tags
+    }
+}
+
+struct PrayTag: Codable {
+    let content: String
+    let type: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case content
+        case type
+    }
+}
+
+class PraySearchResponse: BaseResponse {
+    let prays: [GroupIndividualPray]
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        prays = try container.decode([GroupIndividualPray].self, forKey: .prays)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case prays
     }
 }

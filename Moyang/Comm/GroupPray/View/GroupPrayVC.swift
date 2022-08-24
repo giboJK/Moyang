@@ -42,6 +42,16 @@ class GroupPrayVC: UIViewController, VCType {
         $0.bounces = true
         $0.isScrollEnabled = true
     }
+    let autoCompleteTableView = UITableView().then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.register(AutoCompleteTVCell.self, forCellReuseIdentifier: "cell")
+        $0.backgroundColor = .sheep1
+        $0.separatorStyle = .none
+        $0.estimatedRowHeight = 48
+        $0.showsVerticalScrollIndicator = false
+        $0.bounces = true
+        $0.isScrollEnabled = true
+    }
     let addPrayButton = MoyangButton(.none).then {
         $0.setTitle("새 기도", for: .normal)
         $0.setTitleColor(.sheep1, for: .normal)
@@ -95,8 +105,12 @@ class GroupPrayVC: UIViewController, VCType {
         view.backgroundColor = .sheep1
         setupNavBar()
         setupInfoButton()
+        
         setupSearchBar()
+        
         setupPrayTableView()
+        setupAutoCompleteTableView()
+        
         setupAddPrayButton()
         setupAddChangeButton()
         setupAddAnswerButton()
@@ -127,6 +141,14 @@ class GroupPrayVC: UIViewController, VCType {
             $0.top.equalTo(navBar.snp.bottom).offset(12)
             $0.height.equalTo(56)
             $0.left.right.equalToSuperview().inset(20)
+        }
+    }
+    private func setupAutoCompleteTableView() {
+        view.addSubview(autoCompleteTableView)
+        autoCompleteTableView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
     private func setupPrayTableView() {
@@ -296,7 +318,9 @@ class GroupPrayVC: UIViewController, VCType {
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(setKeyword: searchBar.textField.rx.text.asDriver(),
+                             fetchAutocomplete: searchBar.textField.rx.controlEvent([.editingChanged]).asDriver())
+            
         let output = vm.transform(input: input)
         
         output.groupName
@@ -311,6 +335,16 @@ class GroupPrayVC: UIViewController, VCType {
                     cell.nameLabel.text = item.name
                     cell.vm = self?.vm
                     cell.bind()
+                }.disposed(by: disposeBag)
+        
+        output.autoCompleteList.map { $0.isEmpty }
+            .drive(autoCompleteTableView.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        output.autoCompleteList
+            .drive(autoCompleteTableView.rx
+                .items(cellIdentifier: "cell", cellType: AutoCompleteTVCell.self)) { (_, item, cell) in
+                    cell.tagLabel.text = item
                 }.disposed(by: disposeBag)
         
         output.order

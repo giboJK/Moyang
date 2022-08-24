@@ -14,9 +14,11 @@ class PrayUseCase {
     
     // MARK: - GroupPray
     let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
+    
+    let autoCompleteList = BehaviorRelay<[String]>(value: [])
+    
     let hasAmenDict = BehaviorRelay<[String: Set<String>]>(value: [:])
     let hasPrayDict = BehaviorRelay<[String: Set<String>]>(value: [:])
-    
     // MARK: - Event
     let addNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addNewPrayFailure = BehaviorRelay<Void>(value: ())
@@ -409,11 +411,28 @@ class PrayUseCase {
         }
     }
     
+    func fetchAutocompleteList(keyword: String) {
+        repo.fetchTagAutocomplete(tag: keyword) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.autoCompleteList.accept(response.tags.map { $0.content })
+            case .failure(let error):
+                Log.e(error)
+            }
+            
+        }
+    }
+    func removeAutoCompleteList() {
+        
+    }
+    
     // MARK: - Firestore
     func loadSong() {
         downloadSong()
     }
     
+    
+    // MARK: - Local function
     private func downloadSong(fileName: String = "Road to God", fileExt: String = "mp3") {
         repo.downloadSong(fileName: fileName, path: "music/", fileExt: "mp3") { [weak self] result in
             switch result {
@@ -427,8 +446,6 @@ class PrayUseCase {
         }
     }
     
-    
-    // MARK: - Local function
     private func checkAndSetIsNetworking() -> Bool {
         if isNetworking.value {
             Log.d("isNetworking...")

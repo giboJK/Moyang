@@ -18,7 +18,6 @@ class GroupPrayVM: VMType {
     let groupName = BehaviorRelay<String>(value: "")
     let groupCreateDate = BehaviorRelay<Date?>(value: nil)
     let isWeek = BehaviorRelay<Bool>(value: true)
-    let amenItemList = BehaviorRelay<[AmenItem]>(value: [])
     
     let order = BehaviorRelay<String>(value: GroupPrayOrder.latest.rawValue)
     let selectedMember = BehaviorRelay<String>(value: "")
@@ -26,9 +25,10 @@ class GroupPrayVM: VMType {
     let displayDate = BehaviorRelay<String>(value: "")
     
     let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
-    // Calendar mark
-    let hasAmenDict = BehaviorRelay<[String: Set<String>]>(value: [:])
-    let hasPrayDict = BehaviorRelay<[String: Set<String>]>(value: [:])
+    
+    let keyword = BehaviorRelay<String?>(value: nil)
+    let autoCompleteList = BehaviorRelay<[String]>(value: [])
+    
     
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
@@ -62,17 +62,14 @@ class GroupPrayVM: VMType {
             .subscribe(onNext: { [weak self] dict in
                 self?.setMemberList(dict: dict)
             }).disposed(by: disposeBag)
-
+        
         useCase.memberPrayList
             .bind(to: memberPrayList)
             .disposed(by: disposeBag)
         
-        useCase.hasAmenDict
-            .bind(to: hasAmenDict)
-            .disposed(by: disposeBag)
-
-        useCase.hasPrayDict
-            .bind(to: hasPrayDict)
+        
+        useCase.autoCompleteList
+            .bind(to: autoCompleteList)
             .disposed(by: disposeBag)
     }
     
@@ -150,13 +147,23 @@ class GroupPrayVM: VMType {
             useCase.fetchPrayList(userID: userID, order: orderType.parameter, page: list.count)
         }
     }
+    
+    private func fetchAutocomplete(keyword: String) {
+        useCase.fetchAutocompleteList(keyword: keyword)
+    }
+    
+    private func removeAutoCompleteList() {
+        useCase.removeAutoCompleteList()
+    }
 }
 
 extension GroupPrayVM {
     struct Input {
-        var toggleIsWeek: Driver<Void> = .empty()
-        
         var selectMember: Driver<IndexPath> = .empty()
+        
+        var setKeyword: Driver<String?> = .empty()
+        var fetchAutocomplete: Driver<Void> = .empty()
+        var selectAutocomplete: Driver<IndexPath> = .empty()
         
         var showPrayDetail: Driver<(String, IndexPath)?> = .empty()
         var showReactions: Driver<(String, Int)?> = .empty()
@@ -167,7 +174,6 @@ extension GroupPrayVM {
         let groupName: Driver<String>
         let groupCreateDate: Driver<Date?>
         let isWeek: Driver<Bool>
-        let amenItemList: Driver<[AmenItem]>
         
         let order: Driver<String>
         let selectedMember: Driver<String>
@@ -175,8 +181,7 @@ extension GroupPrayVM {
         let displayDate: Driver<String>
         
         let memberPrayList: Driver<[String: [GroupIndividualPray]]>
-        let hasAmenDict: Driver<[String: Set<String>]>
-        let hasPrayDict: Driver<[String: Set<String>]>
+        let autoCompleteList: Driver<[String]>
         
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
@@ -184,17 +189,6 @@ extension GroupPrayVM {
     }
     
     func transform(input: Input) -> Output {
-        input.toggleIsWeek
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.isWeek.accept(!self.isWeek.value)
-                if self.isWeek.value {
-                    self.selectDateRange(date: self.curDisplayDate.startOfWeek ?? Date())
-                } else {
-                    self.selectDateRange(date: self.curDisplayDate.startOfMonth ?? Date())
-                }
-            }).disposed(by: disposeBag)
-        
         input.selectMember
             .drive(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
@@ -205,6 +199,35 @@ extension GroupPrayVM {
                 }
                 curList[indexPath.row].isChecked = true
                 self.memberList.accept(curList)
+            }).disposed(by: disposeBag)
+        
+        input.setKeyword
+            .drive(keyword)
+            .disposed(by: disposeBag)
+        
+        input.fetchAutocomplete
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                if let keyword = self.keyword.value {
+                    if keyword.count < 2 {
+                        self.removeAutoCompleteList()
+                        return
+                    }
+                    self.fetchAutocomplete(keyword: keyword)
+                }
+            }).disposed(by: disposeBag)
+        
+        
+        input.selectAutocomplete
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                if let keyword = self.keyword.value {
+                    if keyword.count < 3 {
+                        self.removeAutoCompleteList()
+                        return
+                    }
+                    self.fetchAutocomplete(keyword: keyword)
+                }
             }).disposed(by: disposeBag)
         
         input.showPrayDetail
@@ -240,7 +263,6 @@ extension GroupPrayVM {
         return Output(groupName: groupName.asDriver(),
                       groupCreateDate: groupCreateDate.asDriver(),
                       isWeek: isWeek.asDriver(),
-                      amenItemList: amenItemList.asDriver(),
                       
                       order: order.asDriver(),
                       selectedMember: selectedMember.asDriver(),
@@ -248,8 +270,7 @@ extension GroupPrayVM {
                       displayDate: displayDate.asDriver(),
                       
                       memberPrayList: memberPrayList.asDriver(),
-                      hasAmenDict: hasAmenDict.asDriver(),
-                      hasPrayDict: hasPrayDict.asDriver(),
+                      autoCompleteList: autoCompleteList.asDriver(),
                       
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver(),
@@ -259,20 +280,6 @@ extension GroupPrayVM {
 }
 
 extension GroupPrayVM {
-    struct AmenItem {
-        let date: String
-        let goalValue: Int
-        let value: Int
-        init(date: String,
-             goalValue: Int,
-             value: Int
-        ) {
-            self.date = date
-            self.goalValue = goalValue
-            self.value = value
-        }
-    }
-    
     struct MemberItem {
         let id: String
         let name: String
