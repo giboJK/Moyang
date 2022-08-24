@@ -21,7 +21,7 @@ class GroupPraySearchView: UIView {
         $0.register(SearchPrayTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .sheep1
         $0.separatorStyle = .none
-        $0.estimatedRowHeight = 124
+        $0.estimatedRowHeight = 128
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true

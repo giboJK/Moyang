@@ -96,8 +96,8 @@ class SearchPrayTVCell: UITableViewCell {
         contentView.addSubview(tagCollectionView)
         tagCollectionView.snp.makeConstraints {
             $0.height.equalTo(28)
-            $0.bottom.equalToSuperview().inset(24)
-            $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(8)
+            $0.left.right.equalToSuperview().inset(24)
         }
         tagCollectionView.delegate = self
         tagCollectionView.dataSource = self

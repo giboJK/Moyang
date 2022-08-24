@@ -356,8 +356,7 @@ class GroupPrayVC: UIViewController, VCType {
         let input = VM.Input(setKeyword: searchBar.textField.rx.text.asDriver(),
                              clearKeyword: searchBar.clearButton.rx.tap.asDriver(),
                              fetchAutocomplete: searchBar.textField.rx.controlEvent([.editingChanged]).asDriver(),
-                             selectAutocomplete: autoCompleteTableView.rx.itemSelected.asDriver(),
-                             selectSearched: praySearchView.searchPrayTableView.rx.itemSelected.asDriver())
+                             selectAutocomplete: autoCompleteTableView.rx.itemSelected.asDriver())
             
         let output = vm.transform(input: input)
         
