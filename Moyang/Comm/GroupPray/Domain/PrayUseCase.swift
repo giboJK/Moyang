@@ -423,7 +423,7 @@ class PrayUseCase {
         }
     }
     func removeAutoCompleteList() {
-        
+        autoCompleteList.accept([])
     }
     
     // MARK: - Firestore
