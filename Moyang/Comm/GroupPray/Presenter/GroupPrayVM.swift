@@ -75,6 +75,13 @@ class GroupPrayVM: VMType {
             .map { $0.map { SearchPrayItem(data: $0) } }
             .bind(to: searchPrayItemList)
             .disposed(by: disposeBag)
+        
+        useCase.fetchPraySuccess
+            .subscribe(onNext: { [weak self] pray in
+                guard let self = self, let pray = pray else { return }
+                self.groupPrayDetailVM.accept(GroupPrayDetailVM(useCase: self.useCase,
+                                                                userID: pray.userID, prayID: pray.prayID))
+            }).disposed(by: disposeBag)
     }
     
     private func fetchPrayAll() {
@@ -161,6 +168,9 @@ class GroupPrayVM: VMType {
         }
         useCase.searchWithKeyword(keyword: keyword, groupID: groupID)
     }
+    private func fetchPray(prayID: String, userID: String) {
+        useCase.fetchPray(prayID: prayID, userID: userID)
+    }
     
     private func removeAutoCompleteList() {
         useCase.removeAutoCompleteList()
@@ -175,6 +185,7 @@ extension GroupPrayVM {
         var clearKeyword: Driver<Void> = .empty()
         var fetchAutocomplete: Driver<Void> = .empty()
         var selectAutocomplete: Driver<IndexPath> = .empty()
+        var selectSearched: Driver<IndexPath> = .empty()
         
         var showPrayDetail: Driver<(String, IndexPath)?> = .empty()
         var showReactions: Driver<(String, Int)?> = .empty()
@@ -239,6 +250,14 @@ extension GroupPrayVM {
                 guard let self = self else { return }
                 let keyword = self.autoCompleteList.value[index.row]
                 self.searchWithKeyword(keyword: keyword)
+            }).disposed(by: disposeBag)
+        
+        input.selectSearched
+            .drive(onNext: { [weak self] index in
+                guard let self = self else { return }
+                let id = self.searchPrayItemList.value[index.row].id
+                let userID = self.searchPrayItemList.value[index.row].userID
+                self.fetchPray(prayID: id, userID: userID)
             }).disposed(by: disposeBag)
         
         input.showPrayDetail
@@ -308,6 +327,7 @@ extension GroupPrayVM {
     
     struct SearchPrayItem {
         let id: String
+        let userID: String
         let name: String
         let date: String
         let pray: String
@@ -315,6 +335,7 @@ extension GroupPrayVM {
         
         init(data: SearchedPray) {
             self.id = data.prayID
+            self.userID = data.userID
             self.name = data.userName
             self.date = data.latestDate
             self.pray = data.pray

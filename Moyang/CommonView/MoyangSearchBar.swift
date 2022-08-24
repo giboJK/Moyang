@@ -32,6 +32,12 @@ class MoyangSearchBar: UIView {
         $0.tintColor = .nightSky2
         $0.isHidden = true
     }
+    let cancelButton = MoyangButton(.none).then {
+        $0.setTitle("취소", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.setTitleColor(.nightSky1, for: .normal)
+        $0.isHidden = true
+    }
     
     init() {
         super.init(frame: .zero)
@@ -45,6 +51,7 @@ class MoyangSearchBar: UIView {
     
     private func setupUI() {
         setupSearchImageView()
+        setupCancelButton()
         setupTextField()
         setupClearButton()
     }
@@ -78,11 +85,48 @@ class MoyangSearchBar: UIView {
         clearButton.snp.makeConstraints {
             $0.size.equalTo(24)
             $0.centerY.equalToSuperview()
+            $0.right.equalTo(textField).inset(12)
+        }
+    }
+    
+    private func setupCancelButton() {
+        addSubview(cancelButton)
+        cancelButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().inset(12)
+            $0.width.equalTo(40)
         }
     }
     
     @objc func didTapDone() {
+        textField.endEditing(true)
+    }
+    
+    func showCancelButton() {
+        cancelButton.isHidden = false
+        textField.snp.remakeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+            $0.left.equalTo(searchImageView.snp.right).offset(12)
+            $0.right.equalTo(cancelButton.snp.left).offset(-12)
+        }
+        UIView.animate(withDuration: 0.25) {
+            self.layoutIfNeeded()
+        }
+    }
+    
+    func hideCancelButton() {
+        cancelButton.isHidden = true
+        textField.snp.remakeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+            $0.left.equalTo(searchImageView.snp.right).offset(12)
+            $0.right.equalToSuperview()
+        }
+        
+        UIView.animate(withDuration: 0.25) {
+            self.layoutIfNeeded()
+        }
         textField.endEditing(true)
     }
     
@@ -97,6 +141,23 @@ class MoyangSearchBar: UIView {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.clearButton.isHidden = self.textField.text?.isEmpty ?? true
+            }).disposed(by: disposeBag)
+        
+        textField.rx.controlEvent([.editingDidBegin])
+            .subscribe(onNext: { [weak self] _ in
+                self?.showCancelButton()
+            }).disposed(by: disposeBag)
+        
+        textField.rx.controlEvent([.editingDidEnd, .editingDidEndOnExit])
+            .subscribe(onNext: { [weak self] _ in
+                self?.hideCancelButton()
+            }).disposed(by: disposeBag)
+        
+        cancelButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.textField.text?.removeAll()
+                self?.clearButton.isHidden = true
+                self?.hideCancelButton()
             }).disposed(by: disposeBag)
     }
 }

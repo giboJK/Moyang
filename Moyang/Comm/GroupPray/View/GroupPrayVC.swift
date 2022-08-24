@@ -52,15 +52,8 @@ class GroupPrayVC: UIViewController, VCType {
         $0.bounces = true
         $0.isScrollEnabled = true
     }
-    let searchPrayTableView = UITableView().then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(SearchPrayTVCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .sheep1
-        $0.separatorStyle = .none
-        $0.estimatedRowHeight = 140
-        $0.showsVerticalScrollIndicator = false
-        $0.bounces = true
-        $0.isScrollEnabled = true
+    let praySearchView = GroupPraySearchView().then {
+        $0.isHidden = true
     }
     let addPrayButton = MoyangButton(.none).then {
         $0.setTitle("새 기도", for: .normal)
@@ -120,7 +113,7 @@ class GroupPrayVC: UIViewController, VCType {
         
         setupPrayTableView()
         setupAutoCompleteTableView()
-        setupSearchPrayTableView()
+        setupPraySearchView()
         setupAddPrayButton()
         setupAddChangeButton()
         setupAddAnswerButton()
@@ -161,9 +154,9 @@ class GroupPrayVC: UIViewController, VCType {
             $0.bottom.equalToSuperview()
         }
     }
-    private func setupSearchPrayTableView() {
-        view.addSubview(searchPrayTableView)
-        searchPrayTableView.snp.makeConstraints {
+    private func setupPraySearchView() {
+        view.addSubview(praySearchView)
+        praySearchView.snp.makeConstraints {
             $0.top.equalTo(searchBar.snp.bottom)
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview()
@@ -339,7 +332,8 @@ class GroupPrayVC: UIViewController, VCType {
         let input = VM.Input(setKeyword: searchBar.textField.rx.text.asDriver(),
                              clearKeyword: searchBar.clearButton.rx.tap.asDriver(),
                              fetchAutocomplete: searchBar.textField.rx.controlEvent([.editingChanged]).asDriver(),
-                             selectAutocomplete: autoCompleteTableView.rx.itemSelected.asDriver())
+                             selectAutocomplete: autoCompleteTableView.rx.itemSelected.asDriver(),
+                             selectSearched: praySearchView.searchPrayTableView.rx.itemSelected.asDriver())
             
         let output = vm.transform(input: input)
         
@@ -365,20 +359,6 @@ class GroupPrayVC: UIViewController, VCType {
             .drive(autoCompleteTableView.rx
                 .items(cellIdentifier: "cell", cellType: AutoCompleteTVCell.self)) { (_, item, cell) in
                     cell.tagLabel.text = item
-                }.disposed(by: disposeBag)
-        
-        output.searchPrayItemList.map { $0.isEmpty }
-            .drive(searchPrayTableView.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        output.searchPrayItemList
-            .drive(searchPrayTableView.rx
-                .items(cellIdentifier: "cell", cellType: SearchPrayTVCell.self)) { (_, item, cell) in
-                    cell.nameLabel.text = item.name
-                    cell.dateLabel.text = item.date.isoToDateString("yyyy년 MM월 dd일")
-                    cell.prayLabel.text = item.pray
-                    cell.prayLabel.lineBreakMode = .byTruncatingTail
-                    cell.tags = item.tags
                 }.disposed(by: disposeBag)
         
         output.order

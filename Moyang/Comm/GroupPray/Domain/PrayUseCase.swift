@@ -25,6 +25,8 @@ class PrayUseCase {
     let addNewPrayFailure = BehaviorRelay<Void>(value: ())
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
     let updatePrayFailure = BehaviorRelay<Void>(value: ())
+    let fetchPraySuccess = BehaviorRelay<GroupIndividualPray?>(value: nil)
+    let fetchPrayFailure = BehaviorRelay<Void>(value: ())
     
     let plusPraySuccess = BehaviorRelay<Void>(value: ())
     let plusPrayFailure = BehaviorRelay<Void>(value: ())
@@ -439,6 +441,26 @@ class PrayUseCase {
         autoCompleteList.accept([])
     }
     
+    
+    func fetchPray(prayID: String, userID: String) {
+        repo.fetchPray(prayID: prayID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let pray):
+                var dict = self.memberPrayList.value
+                if var curList = dict[userID] {
+                    curList.append(pray)
+                    curList.sort { $0.latestDate < $1.latestDate }
+                    dict.updateValue(curList, forKey: userID)
+                }
+                self.memberPrayList.accept(dict)
+                self.fetchPraySuccess.accept(pray)
+            case .failure(let error):
+                Log.e(error)
+                self.fetchPrayFailure.accept(())
+            }
+        }
+    }
     // MARK: - Firestore
     func loadSong() {
         downloadSong()
