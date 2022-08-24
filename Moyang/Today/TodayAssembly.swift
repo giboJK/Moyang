@@ -16,7 +16,7 @@ class TodayAssembly: Assembly, BaseAssembly {
     deinit { Log.i(self) }
     
     func assemble(container: Container) {
-        container.register(TaskDetailVC.self) { (r, vm: TaskDetailVM) in
+        container.register(TaskDetailVC.self) { (_, vm: TaskDetailVM) in
             let vc = TaskDetailVC()
             vc.vm = vm
             return vc

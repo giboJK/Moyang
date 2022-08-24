@@ -63,7 +63,7 @@ struct SplashView: View {
         .background(
             LinearGradient(gradient: Gradient(colors: [.nightSky2, .nightSky1]), startPoint: .top, endPoint: .bottom)
         )
-        .onReceive(timer) { time in
+        .onReceive(timer) { _ in
             if timeRemaining > 0 {
                 timeRemaining -= 0.1
                 move = true

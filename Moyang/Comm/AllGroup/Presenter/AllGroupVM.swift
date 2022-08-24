@@ -60,9 +60,6 @@ extension AllGroupVM {
     }
 
     func transform(input: Input) -> Output {
-        input.clearList
-            .drive(onNext: { [weak self] in
-            }).disposed(by: disposeBag)
         input.selectGroup
             .drive(onNext: { [weak self] indexPath in
                 self?.selectGroup(indexPath: indexPath)

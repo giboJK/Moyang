@@ -422,6 +422,18 @@ class PrayUseCase {
             
         }
     }
+    
+    func searchWithKeyword(keyword: String, groupID: String) {
+        repo.searchPrays(tag: keyword, groupID: groupID) { [weak self] result in
+            switch result {
+            case .success(let response):
+                Log.d(response)
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
+    }
+    
     func removeAutoCompleteList() {
         autoCompleteList.accept([])
     }

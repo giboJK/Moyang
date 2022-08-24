@@ -151,6 +151,12 @@ class GroupPrayVM: VMType {
     private func fetchAutocomplete(keyword: String) {
         useCase.fetchAutocompleteList(keyword: keyword)
     }
+    private func searchWithKeyword(keyword: String) {
+        guard let groupID = UserData.shared.groupID else {
+            Log.e(""); return
+        }
+        useCase.searchWithKeyword(keyword: keyword, groupID: groupID)
+    }
     
     private func removeAutoCompleteList() {
         useCase.removeAutoCompleteList()
@@ -162,6 +168,7 @@ extension GroupPrayVM {
         var selectMember: Driver<IndexPath> = .empty()
         
         var setKeyword: Driver<String?> = .empty()
+        var clearKeyword: Driver<Void> = .empty()
         var fetchAutocomplete: Driver<Void> = .empty()
         var selectAutocomplete: Driver<IndexPath> = .empty()
         
@@ -205,6 +212,11 @@ extension GroupPrayVM {
             .drive(keyword)
             .disposed(by: disposeBag)
         
+        input.clearKeyword
+            .drive(onNext: { [weak self] _ in
+                self?.removeAutoCompleteList()
+            }).disposed(by: disposeBag)
+        
         input.fetchAutocomplete
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -217,17 +229,11 @@ extension GroupPrayVM {
                 }
             }).disposed(by: disposeBag)
         
-        
         input.selectAutocomplete
-            .drive(onNext: { [weak self] _ in
+            .drive(onNext: { [weak self] index in
                 guard let self = self else { return }
-                if let keyword = self.keyword.value {
-                    if keyword.count < 3 {
-                        self.removeAutoCompleteList()
-                        return
-                    }
-                    self.fetchAutocomplete(keyword: keyword)
-                }
+                let keyword = self.autoCompleteList.value[index.row]
+                self.searchWithKeyword(keyword: keyword)
             }).disposed(by: disposeBag)
         
         input.showPrayDetail

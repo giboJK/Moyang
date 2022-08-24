@@ -319,7 +319,9 @@ class GroupPrayVC: UIViewController, VCType {
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(setKeyword: searchBar.textField.rx.text.asDriver(),
-                             fetchAutocomplete: searchBar.textField.rx.controlEvent([.editingChanged]).asDriver())
+                             clearKeyword: searchBar.clearButton.rx.tap.asDriver(),
+                             fetchAutocomplete: searchBar.textField.rx.controlEvent([.editingChanged]).asDriver(),
+                             selectAutocomplete: autoCompleteTableView.rx.itemSelected.asDriver())
             
         let output = vm.transform(input: input)
         

@@ -42,7 +42,25 @@ extension PrayController: PrayRepo {
         }
     }
     
-    func searchPrays(tag: String, groupID: String, completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?) {
+    func searchPrays(tag: String, groupID: String, completion: ((Result<PraySearchResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.searchPray)
+        let dict: [String: Any] = [
+            "tag": tag,
+            "group_id": groupID
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: PraySearchResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
         
     }
     

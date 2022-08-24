@@ -87,7 +87,7 @@ class ChangeAndAnswerVC: UIViewController, VCType {
         
         output.itemList
             .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: ChangeAnswerTVCell.self)) { [weak self] (_, item, cell) in
+                .items(cellIdentifier: "cell", cellType: ChangeAnswerTVCell.self)) { (_, item, cell) in
                     cell.type = item.type
                     cell.dateLabel.text = item.date.isoToDateString()
                     cell.contentLabel.text = item.content

@@ -50,7 +50,7 @@ protocol PrayRepo {
     func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupActivityResponse, MoyangError>) -> Void)?)
     
     // Search
-    func searchPrays(tag: String, groupID: String, completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
+    func searchPrays(tag: String, groupID: String, completion: ((Result<PraySearchResponse, MoyangError>) -> Void)?)
     
     
     // Download
@@ -155,11 +155,11 @@ struct PrayTag: Codable {
 }
 
 class PraySearchResponse: BaseResponse {
-    let prays: [GroupIndividualPray]
+    let prays: [SearchedPray]
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        prays = try container.decode([GroupIndividualPray].self, forKey: .prays)
+        prays = try container.decode([SearchedPray].self, forKey: .prays)
         try super.init(from: decoder)
     }
     

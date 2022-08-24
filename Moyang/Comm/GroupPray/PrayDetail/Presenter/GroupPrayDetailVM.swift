@@ -230,26 +230,19 @@ extension GroupPrayDetailVM {
         input.addPrayPlus
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
-                                                                    prayID: self.prayID,
-                                                                    userID: self.userID))
+                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase, prayID: self.prayID, userID: self.userID))
             }).disposed(by: disposeBag)
         
         input.addChange
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
-                                                                    prayID: self.prayID,
-                                                                    userID: self.userID))
+                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase, prayID: self.prayID, userID: self.userID))
             }).disposed(by: disposeBag)
         
         input.addAnswer
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
-                                                                    prayID: self.prayID,
-                                                                    userID: self.userID,
-                                                                    isAnswer: true))
+                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase, prayID: self.prayID, userID: self.userID, isAnswer: true))
             }).disposed(by: disposeBag)
         
         input.didTapPrayReaction

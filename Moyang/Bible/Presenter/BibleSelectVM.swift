@@ -23,8 +23,8 @@ class BibleSelectVM: VMType {
     
     private func setupBooks() {
         var list = [String]()
-        list.append(contentsOf: BibleInfo.Old.allCases.map { $0.bookName} )
-        list.append(contentsOf: BibleInfo.New.allCases.map { $0.bookName} )
+        list.append(contentsOf: BibleInfo.Old.allCases.map { $0.bookName })
+        list.append(contentsOf: BibleInfo.New.allCases.map { $0.bookName })
         books.accept(list)
     }
 }

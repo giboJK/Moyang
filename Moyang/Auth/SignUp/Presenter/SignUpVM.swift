@@ -105,10 +105,6 @@ extension SignUpVM {
     }
     
     func transform(input: Input) -> Output {
-        input.apple
-            .drive(onNext: { [weak self] _ in
-            }).disposed(by: disposeBag)
-        
         input.setName
             .drive(onNext: { [weak self] name in
                 if let name = name, !(name.first?.isWhitespace ?? false) {
