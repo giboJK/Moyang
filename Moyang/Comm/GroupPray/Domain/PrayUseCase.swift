@@ -16,6 +16,7 @@ class PrayUseCase {
     let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
     
     let autoCompleteList = BehaviorRelay<[String]>(value: [])
+    let searchedPrayList = BehaviorRelay<[SearchedPray]>(value: [])
     
     let hasAmenDict = BehaviorRelay<[String: Set<String>]>(value: [:])
     let hasPrayDict = BehaviorRelay<[String: Set<String>]>(value: [:])
@@ -427,7 +428,7 @@ class PrayUseCase {
         repo.searchPrays(tag: keyword, groupID: groupID) { [weak self] result in
             switch result {
             case .success(let response):
-                Log.d(response)
+                self?.searchedPrayList.accept(response.prays.sorted(by: { $0.latestDate < $1.latestDate }))
             case .failure(let error):
                 Log.e(error)
             }

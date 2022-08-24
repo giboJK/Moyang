@@ -28,7 +28,7 @@ class GroupPrayVM: VMType {
     
     let keyword = BehaviorRelay<String?>(value: nil)
     let autoCompleteList = BehaviorRelay<[String]>(value: [])
-    
+    let searchPrayItemList = BehaviorRelay<[SearchPrayItem]>(value: [])
     
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
@@ -67,9 +67,13 @@ class GroupPrayVM: VMType {
             .bind(to: memberPrayList)
             .disposed(by: disposeBag)
         
-        
         useCase.autoCompleteList
             .bind(to: autoCompleteList)
+            .disposed(by: disposeBag)
+        
+        useCase.searchedPrayList
+            .map { $0.map { SearchPrayItem(data: $0) } }
+            .bind(to: searchPrayItemList)
             .disposed(by: disposeBag)
     }
     
@@ -189,6 +193,7 @@ extension GroupPrayVM {
         
         let memberPrayList: Driver<[String: [GroupIndividualPray]]>
         let autoCompleteList: Driver<[String]>
+        let searchPrayItemList: Driver<[SearchPrayItem]>
         
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
@@ -277,6 +282,7 @@ extension GroupPrayVM {
                       
                       memberPrayList: memberPrayList.asDriver(),
                       autoCompleteList: autoCompleteList.asDriver(),
+                      searchPrayItemList: searchPrayItemList.asDriver(),
                       
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver(),
@@ -297,6 +303,22 @@ extension GroupPrayVM {
             self.id = id
             self.name = name
             isChecked = false
+        }
+    }
+    
+    struct SearchPrayItem {
+        let id: String
+        let name: String
+        let date: String
+        let pray: String
+        let tags: [String]
+        
+        init(data: SearchedPray) {
+            self.id = data.prayID
+            self.name = data.userName
+            self.date = data.latestDate
+            self.pray = data.pray
+            self.tags = data.tags
         }
     }
 }
