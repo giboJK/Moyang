@@ -118,9 +118,9 @@ class GroupPrayingVC: UIViewController, VCType {
     }
     let reactionPopupView = UIView()
     let closeConfirmPopup = MoyangPopupView(style: .twoButton).then {
-        $0.desc = "기도를 마치시겠어요?\n예수님의 이름으로 기도드립니다."
-        $0.firstButton.setTitle("아멘", for: .normal)
-        $0.secondButton.setTitle("더 기도하기", for: .normal)
+        $0.desc = "기도를 마치시겠어요?"
+        $0.firstButton.setTitle("나가기", for: .normal)
+        $0.secondButton.setTitle("계속 기도하기", for: .normal)
     }
     
     override func viewDidLoad() {
@@ -297,6 +297,7 @@ class GroupPrayingVC: UIViewController, VCType {
         closeConfirmPopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
+                self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
         closeConfirmPopup.secondButton.rx.tap
@@ -326,7 +327,6 @@ class GroupPrayingVC: UIViewController, VCType {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(togglePlaySong: togglePlayingButton.rx.tap.asDriver(),
                              amen: amenButton.rx.tap.asDriver(),
-                             amenPopup: closeConfirmPopup.firstButton.rx.tap.asDriver(),
                              addPrayPlus: prayPlusButton.rx.tap.asDriver(),
                              addChange: changeButton.rx.tap.asDriver(),
                              addAnswer: answerButton.rx.tap.asDriver())

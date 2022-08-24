@@ -192,7 +192,6 @@ extension GroupPrayingVM {
     struct Input {
         var togglePlaySong: Driver<Void> = .empty()
         var amen: Driver<Void> = .empty()
-        var amenPopup: Driver<Void> = .empty()
         var addPrayPlus: Driver<Void> = .empty()
         var addChange: Driver<Void> = .empty()
         var addAnswer: Driver<Void> = .empty()
@@ -217,11 +216,6 @@ extension GroupPrayingVM {
             }).disposed(by: disposeBag)
         
         input.amen
-            .drive(onNext: { [weak self] _ in
-                self?.amen()
-            }).disposed(by: disposeBag)
-        
-        input.amenPopup
             .drive(onNext: { [weak self] _ in
                 self?.amen()
             }).disposed(by: disposeBag)
