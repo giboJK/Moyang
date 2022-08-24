@@ -28,6 +28,8 @@ class AddReplyAndChangeVM: VMType {
     let addAnswerSuccess = BehaviorRelay<Void>(value: ())
     let addAnswerFailure = BehaviorRelay<Void>(value: ())
     
+    let bibleSelectVM = BehaviorRelay<BibleSelectVM?>(value: nil)
+    
     var isMe = false
     
     init(useCase: PrayUseCase, prayID: String, userID: String, isAnswer: Bool = false) {
@@ -120,6 +122,8 @@ extension AddReplyAndChangeVM {
         let addReplyFailure: Driver<Void>
         let addAnswerSuccess: Driver<Void>
         let addAnswerFailure: Driver<Void>
+        
+        let bibleSelectVM: Driver<BibleSelectVM?>
     }
 
     func transform(input: Input) -> Output {
@@ -151,7 +155,9 @@ extension AddReplyAndChangeVM {
                       addReplySuccess: addReplySuccess.asDriver(),
                       addReplyFailure: addReplyFailure.asDriver(),
                       addAnswerSuccess: addAnswerSuccess.asDriver(),
-                      addAnswerFailure: addAnswerFailure.asDriver()
+                      addAnswerFailure: addAnswerFailure.asDriver(),
+                      
+                      bibleSelectVM: bibleSelectVM.asDriver()
         )
     }
 }

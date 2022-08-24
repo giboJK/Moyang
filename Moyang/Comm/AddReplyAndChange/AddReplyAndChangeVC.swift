@@ -219,5 +219,15 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(onNext: { [weak self] _ in
                 self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
+        
+        output.bibleSelectVM
+            .drive(onNext: { [weak self] bibleSelectVM in
+                guard let bibleSelectVM = bibleSelectVM else { return }
+                self?.openBibleSelectVC(bibleSelectVM: bibleSelectVM)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func openBibleSelectVC(bibleSelectVM: BibleSelectVM) {
+        
     }
 }

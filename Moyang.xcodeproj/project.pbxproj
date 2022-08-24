@@ -50,6 +50,8 @@
 		08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08ECAAD628A6281E00B546F1 /* TaskDetailVC.swift */; };
 		08ECAADA28A6284F00B546F1 /* TaskDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08ECAAD928A6284F00B546F1 /* TaskDetailVM.swift */; };
 		08ECAADC28A62B1300B546F1 /* TodayAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08ECAADB28A62B1300B546F1 /* TodayAssembly.swift */; };
+		08F4738928B5BAA70070CE2A /* BookSelectCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738828B5BAA70070CE2A /* BookSelectCVCell.swift */; };
+		08F4738C28B5BCDF0070CE2A /* BibleSelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */; };
 		08F941F4289B5423003751F1 /* PrayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F3289B5423003751F1 /* PrayCVCell.swift */; };
 		08F941FA289BA0E8003751F1 /* GroupPrayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */; };
 		08F941FD289BA110003751F1 /* GroupPrayDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941FC289BA110003751F1 /* GroupPrayDetailVM.swift */; };
@@ -226,6 +228,8 @@
 		08ECAAD628A6281E00B546F1 /* TaskDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailVC.swift; sourceTree = "<group>"; };
 		08ECAAD928A6284F00B546F1 /* TaskDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailVM.swift; sourceTree = "<group>"; };
 		08ECAADB28A62B1300B546F1 /* TodayAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayAssembly.swift; sourceTree = "<group>"; };
+		08F4738828B5BAA70070CE2A /* BookSelectCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSelectCVCell.swift; sourceTree = "<group>"; };
+		08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleSelectVM.swift; sourceTree = "<group>"; };
 		08F941F3289B5423003751F1 /* PrayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayCVCell.swift; sourceTree = "<group>"; };
 		08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayDetailVC.swift; sourceTree = "<group>"; };
 		08F941FC289BA110003751F1 /* GroupPrayDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayDetailVM.swift; sourceTree = "<group>"; };
@@ -547,8 +551,9 @@
 		08DE7CC528B4BE1D003639B0 /* Bible */ = {
 			isa = PBXGroup;
 			children = (
-				24F7021128B4F95C009A8414 /* View */,
 				08DE7CC628B4BE29003639B0 /* Domain */,
+				08F4738A28B5BCD30070CE2A /* Presenter */,
+				24F7021128B4F95C009A8414 /* View */,
 			);
 			path = Bible;
 			sourceTree = "<group>";
@@ -582,6 +587,14 @@
 			isa = PBXGroup;
 			children = (
 				08ECAAD928A6284F00B546F1 /* TaskDetailVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		08F4738A28B5BCD30070CE2A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1158,6 +1171,7 @@
 			isa = PBXGroup;
 			children = (
 				24F7021228B4F967009A8414 /* BibleSelectVC.swift */,
+				08F4738828B5BAA70070CE2A /* BookSelectCVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1437,6 +1451,7 @@
 				24E4DC39284C2D1C002ECD83 /* GroupPrayingVM.swift in Sources */,
 				24F6B0C3289954740001B781 /* MemberItemTableViewCell.swift in Sources */,
 				24BB42622847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
+				08F4738C28B5BCDF0070CE2A /* BibleSelectVM.swift in Sources */,
 				08AA085D288520E2008670E3 /* LogInVM.swift in Sources */,
 				24D0D32D272314F7006FF67B /* Log.swift in Sources */,
 				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
@@ -1470,6 +1485,7 @@
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
 				08D134D228B488A8008707F3 /* MoyangSearchBar.swift in Sources */,
 				24E0AB25283E508B00F52505 /* CommunityMainScrollView.swift in Sources */,
+				08F4738928B5BAA70070CE2A /* BookSelectCVCell.swift in Sources */,
 				24DDDEBE2879D49D00F7B82A /* GroupInfoTableViewCell.swift in Sources */,
 				242F929C2848E02F0023324D /* GroupPrayCoordinator.swift in Sources */,
 				24F41C662897E467005B5E70 /* NewPrayVM.swift in Sources */,

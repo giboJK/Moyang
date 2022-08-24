@@ -8,7 +8,7 @@
 import Foundation
 
 class BibleInfo {
-    enum Old: Int {
+    enum Old: Int, CaseIterable {
         case Genesis = 0
         case Exodus
         case Leviticus
@@ -133,8 +133,8 @@ class BibleInfo {
         }
     }
     
-    enum New: Int {
-        case Matthew = 0
+    enum New: Int, CaseIterable {
+        case Matthew = 39
         case Mark
         case Luke
         case John
@@ -271,19 +271,31 @@ class BibleInfo {
                                                        43,33,34,31,34,34,24,46,21,43,
                                                        29,53])
     static let KingsTow = BibleBookInfo(type: Old.KingsTow.rawValue, category: "", bookName: Old.KingsTow.bookName, author: "",
-                                        chapterCount: [18,25,27,44,27,33,20,29,37,36,21,21,25,29,38,20,41,37,37,21,26,20,37,20,30])
+                                        chapterCount: [18,25,27,44,27,33,20,29,37,36,
+                                                       21,21,25,29,38,20,41,37,37,21,
+                                                       26,20,37,20,30])
     static let ChroniclesOne = BibleBookInfo(type: Old.ChroniclesOne.rawValue, category: "", bookName: Old.ChroniclesOne.bookName, author: "",
-                                             chapterCount: [54,55,24,43,26,81,40,40,44,14,47,40,14,17,29,43,27,17,19,8,30,19,32,31,31,32,34,21,30])
+                                             chapterCount: [54,55,24,43,26,81,40,40,44,14,
+                                                            47,40,14,17,29,43,27,17,19,8,
+                                                            30,19,32,31,31,32,34,21,30])
     static let ChroniclesTwo = BibleBookInfo(type: Old.ChroniclesTwo.rawValue, category: "", bookName: Old.ChroniclesTwo.bookName, author: "",
-                                             chapterCount: [17,18,17,22,14,42,22,18,31,19,23,16,22,15,19,14,19,34,11,37,20,12,21,27,28,23,9,27,36,27,21,33,25,33,27,23])
+                                             chapterCount: [17,18,17,22,14,42,22,18,31,19,
+                                                            23,16,22,15,19,14,19,34,11,37,
+                                                            20,12,21,27,28,23,9,27,36,27,
+                                                            21,33,25,33,27,23])
     static let Ezra = BibleBookInfo(type: Old.Ezra.rawValue, category: "", bookName: Old.Ezra.bookName, author: "",
                                     chapterCount: [11,70,13,24,17,22,28,36,15,44])
     static let Nehemiah = BibleBookInfo(type: Old.Nehemiah.rawValue, category: "", bookName: Old.Nehemiah.bookName, author: "",
-                                        chapterCount: [11,20,32,23,19,19,73,18,38,39,36,47,31])
+                                        chapterCount: [11,20,32,23,19,19,73,18,38,39,
+                                                       36,47,31])
     static let Esther = BibleBookInfo(type: Old.Esther.rawValue, category: "", bookName: Old.Esther.bookName, author: "",
                                       chapterCount: [22,23,15,17,14,14,10,17,32,3])
     static let Job = BibleBookInfo(type: Old.Job.rawValue, category: "", bookName: Old.Job.bookName, author: "",
-                                   chapterCount: [22,13,26,21,27,30,21,22,35,22,20,25,28,22,35,22,16,21,29,29,34,30,17,25,6,14,23,28,25,31,40,22,33,37,16,33,24,41,30,24,34,17])
+                                   chapterCount: [22,13,26,21,27,30,21,22,35,22,
+                                                  20,25,28,22,35,22,16,21,29,29,
+                                                  34,30,17,25,6,14,23,28,25,31,
+                                                  40,22,33,37,16,33,24,41,30,24,
+                                                  34,17])
     static let Psalms = BibleBookInfo(type: Old.Psalms.rawValue, category: "", bookName: Old.Psalms.bookName, author: "",
                                       chapterCount: [6,12,8,8,12,10,17,9,20,18,
                                                      7,8,6,7,5,11,15,50,14,9,
@@ -424,5 +436,25 @@ struct BibleBookInfo: Codable {
         case bookName = "book_name"
         case author
         case chapterCount = "chapter_count"
+    }
+}
+
+struct SelectedBibleBookInfo: Codable {
+    let id: String
+    let type: Int
+    let category: Int
+    let bookName: String
+    let author: String
+    let chapter: Int
+    let verses: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case type
+        case category
+        case bookName = "book_name"
+        case author
+        case chapter
+        case verses
     }
 }

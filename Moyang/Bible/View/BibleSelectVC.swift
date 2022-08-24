@@ -11,14 +11,44 @@ import RxSwift
 import SnapKit
 import Then
 
-class BibleSelectVC: UIViewController, VCType {
-    typealias VM = DummyVM
+class BibleSelectVC: UIViewController, VCType, UICollectionViewDelegateFlowLayout {
+    typealias VM = BibleSelectVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
 
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
         $0.closeButton.isHidden = true
+    }
+    let bookCV: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.register(BookSelectCVCell.self, forCellWithReuseIdentifier: "cell")
+        cv.backgroundColor = .clear
+        return cv
+    }()
+    let chapterCV: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.register(BookSelectCVCell.self, forCellWithReuseIdentifier: "cell")
+        cv.backgroundColor = .clear
+        return cv
+    }()
+    let verseCV: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.register(BookSelectCVCell.self, forCellWithReuseIdentifier: "cell")
+        cv.backgroundColor = .clear
+        return cv
+    }()
+    let confirmButton = MoyangButton(.primary).then {
+        $0.setTitle("완료", for: .normal)
     }
 
     override func viewDidLoad() {
@@ -35,6 +65,8 @@ class BibleSelectVC: UIViewController, VCType {
     }
     func setupUI() {
         setupNavBar()
+        
+        setupConfirmButton()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -42,6 +74,14 @@ class BibleSelectVC: UIViewController, VCType {
             $0.left.right.equalToSuperview()
             $0.top.equalToSuperview()
             $0.height.equalTo(UIApplication.statusBarHeight + 44)
+        }
+    }
+    private func setupConfirmButton() {
+        view.addSubview(confirmButton)
+        confirmButton.snp.makeConstraints {
+            $0.height.equalTo(48)
+            $0.left.right.equalToSuperview().inset(28)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 
@@ -56,5 +96,10 @@ class BibleSelectVC: UIViewController, VCType {
     private func bindVM() {
 //        guard let vm = vm else { Log.e("vm is nil"); return }
 //        let input = VM.Input()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 40, height: 40)
     }
 }
