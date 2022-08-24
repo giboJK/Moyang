@@ -104,6 +104,9 @@ class GroupPrayVM: VMType {
         var allItem = MemberItem(id: "", name: "모두")
         allItem.isChecked = true
         list.append(allItem)
+        if let index = list.firstIndex(where: { $0.id == UserData.shared.userInfo?.id }) {
+            list.insert(list.remove(at: index), at: 0)
+        }
         memberList.accept(list)
     }
     
