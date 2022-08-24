@@ -27,7 +27,7 @@ class SearchPrayTVCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
         $0.isUserInteractionEnabled = false
-        $0.numberOfLines = 4
+        $0.numberOfLines = 3
     }
     let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
         let layout = LeftAlignedCollectionViewFlowLayout()
@@ -96,9 +96,11 @@ class SearchPrayTVCell: UITableViewCell {
         contentView.addSubview(tagCollectionView)
         tagCollectionView.snp.makeConstraints {
             $0.height.equalTo(28)
-            $0.bottom.equalToSuperview().inset(4)
+            $0.bottom.equalToSuperview().inset(24)
             $0.left.right.equalToSuperview()
         }
+        tagCollectionView.delegate = self
+        tagCollectionView.dataSource = self
     }
     private func setupBottomLine() {
         contentView.addSubview(bottomLine)

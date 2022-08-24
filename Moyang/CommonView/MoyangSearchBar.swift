@@ -157,6 +157,7 @@ class MoyangSearchBar: UIView {
             .subscribe(onNext: { [weak self] _ in
                 self?.textField.text?.removeAll()
                 self?.clearButton.isHidden = true
+                self?.clearButton.sendActions(for: .touchUpInside)
                 self?.hideCancelButton()
             }).disposed(by: disposeBag)
     }

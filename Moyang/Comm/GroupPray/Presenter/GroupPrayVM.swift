@@ -81,6 +81,12 @@ class GroupPrayVM: VMType {
                 guard let self = self, let pray = pray else { return }
                 self.groupPrayDetailVM.accept(GroupPrayDetailVM(useCase: self.useCase,
                                                                 userID: pray.userID, prayID: pray.prayID))
+                self.removeAutoCompleteList()
+            }).disposed(by: disposeBag)
+        
+        useCase.fetchPrayFailure
+            .subscribe(onNext: { [weak self] _ in
+                self?.removeAutoCompleteList()
             }).disposed(by: disposeBag)
     }
     

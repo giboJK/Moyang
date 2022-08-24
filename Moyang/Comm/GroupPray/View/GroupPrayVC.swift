@@ -51,6 +51,7 @@ class GroupPrayVC: UIViewController, VCType {
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true
+        $0.isHidden = true
     }
     let praySearchView = GroupPraySearchView().then {
         $0.isHidden = true
@@ -161,6 +162,8 @@ class GroupPrayVC: UIViewController, VCType {
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
+        praySearchView.vm = vm
+        praySearchView.bind()
     }
     private func setupPrayTableView() {
         view.addSubview(prayTableView)
@@ -265,7 +268,28 @@ class GroupPrayVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.showMemberSelectView()
             }).disposed(by: disposeBag)
+        
+        searchBar.textField.rx.controlEvent([.editingDidBegin])
+            .subscribe(onNext: { [weak self] _ in
+                self?.autoCompleteTableView.isHidden = false
+            }).disposed(by: disposeBag)
+        
+        searchBar.textField.rx.controlEvent([.editingDidEnd, .editingDidEndOnExit])
+            .subscribe(onNext: { [weak self] _ in
+                self?.autoCompleteTableView.isHidden = true
+            }).disposed(by: disposeBag)
+        
+        searchBar.cancelButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.praySearchView.isHidden = true
+            }).disposed(by: disposeBag)
+        
+        autoCompleteTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] _ in
+                self?.praySearchView.isHidden = false
+            }).disposed(by: disposeBag)
     }
+    
     private func showOrderOptionView() {
         let actionSheet = UIAlertController(title: nil, message: "옵션을 선택하세요", preferredStyle: .actionSheet)
         
@@ -350,10 +374,6 @@ class GroupPrayVC: UIViewController, VCType {
                     cell.vm = self?.vm
                     cell.bind()
                 }.disposed(by: disposeBag)
-        
-        output.autoCompleteList.map { $0.isEmpty }
-            .drive(autoCompleteTableView.rx.isHidden)
-            .disposed(by: disposeBag)
         
         output.autoCompleteList
             .drive(autoCompleteTableView.rx

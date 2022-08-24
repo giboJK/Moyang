@@ -21,7 +21,7 @@ class GroupPraySearchView: UIView {
         $0.register(SearchPrayTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .sheep1
         $0.separatorStyle = .none
-        $0.estimatedRowHeight = 140
+        $0.estimatedRowHeight = 124
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true
@@ -30,7 +30,6 @@ class GroupPraySearchView: UIView {
         $0.text = "검색 결과가 없습니다."
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .nightSky1
-        $0.isHidden = true
     }
     init() {
         super.init(frame: .zero)
@@ -67,7 +66,7 @@ class GroupPraySearchView: UIView {
         output.searchPrayItemList.map { $0.isEmpty }
             .drive(searchPrayTableView.rx.isHidden)
             .disposed(by: disposeBag)
-        
+
         output.searchPrayItemList.map { $0.isEmpty }.map { !$0 }
             .drive(noResultLabel.rx.isHidden)
             .disposed(by: disposeBag)
@@ -76,10 +75,11 @@ class GroupPraySearchView: UIView {
             .drive(searchPrayTableView.rx
                 .items(cellIdentifier: "cell", cellType: SearchPrayTVCell.self)) { (_, item, cell) in
                     cell.nameLabel.text = item.name
-                    cell.dateLabel.text = item.date.isoToDateString("yyyy년 MM월 dd일")
+                    cell.dateLabel.text = item.date.isoToDateString("yyyy년 M월 d일")
                     cell.prayLabel.text = item.pray
                     cell.prayLabel.lineBreakMode = .byTruncatingTail
                     cell.tags = item.tags
+                    cell.tagCollectionView.reloadData()
                 }.disposed(by: disposeBag)
     }
 }

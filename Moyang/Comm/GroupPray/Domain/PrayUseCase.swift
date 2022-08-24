@@ -430,7 +430,7 @@ class PrayUseCase {
         repo.searchPrays(tag: keyword, groupID: groupID) { [weak self] result in
             switch result {
             case .success(let response):
-                self?.searchedPrayList.accept(response.prays.sorted(by: { $0.latestDate < $1.latestDate }))
+                self?.searchedPrayList.accept(response.prays.sorted(by: { $0.latestDate > $1.latestDate }))
             case .failure(let error):
                 Log.e(error)
             }
