@@ -57,6 +57,7 @@ class GroupPrayTVCell: UITableViewCell {
     
     var userID: String = ""
     var prayID: String = ""
+    var prayList = [GroupIndividualPray]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -99,6 +100,7 @@ class GroupPrayTVCell: UITableViewCell {
             $0.height.equalTo(200)
         }
         prayCollectionView.delegate = self
+        prayCollectionView.dataSource = self
     }
     
     private func setupEmptyPrayView() {
@@ -139,6 +141,35 @@ class GroupPrayTVCell: UITableViewCell {
     
     func bind() {
         if let vm = vm {
+            prayList = vm.memberPrayList.value[userID] ?? []
+            prayCollectionView.reloadData()
+            let isEmptyList = prayList.isEmpty
+            
+            if isEmptyList {
+                prayCollectionView.snp.remakeConstraints {
+                    $0.top.equalTo(nameLabel.snp.bottom)
+                    $0.left.right.bottom.equalToSuperview()
+                    $0.height.equalTo(40)
+                }
+                if emptyPrayView.superview == nil {
+                    contentView.addSubview(emptyPrayView)
+                    emptyPrayView.snp.remakeConstraints {
+                        $0.top.equalTo(nameLabel.snp.bottom)
+                        $0.left.right.bottom.equalToSuperview()
+                        $0.height.equalTo(40)
+                    }
+                }
+                emptyPrayView.isHidden = false
+            } else {
+                prayCollectionView.snp.remakeConstraints {
+                    $0.top.equalTo(nameLabel.snp.bottom)
+                    $0.left.right.bottom.equalToSuperview()
+                    $0.height.equalTo(200)
+                }
+                emptyPrayView.removeFromSuperview()
+                emptyPrayView.isHidden = true
+            }
+            
             if isBinded { return }
             isBinded = true
             let showPrayDetail = prayCollectionView.rx.itemSelected.map { (self.userID, $0) }.asDriver(onErrorJustReturn: nil)
@@ -147,55 +178,32 @@ class GroupPrayTVCell: UITableViewCell {
 
             output.memberPrayList
                 .map { $0[self.userID] ?? [] }
-                .drive(prayCollectionView.rx
-                    .items(cellIdentifier: "cell", cellType: PrayCVCell.self)) { [weak self] (index, item, cell) in
-                        cell.userID = self!.userID
-                        cell.row = index
-                        cell.setupData(item: item)
-                        cell.vm = self?.vm
-                        cell.bind()
-                    }.disposed(by: disposeBag)
-
-            output.memberPrayList
-                .map { $0[self.userID] ?? [] }
-                .map { $0.isEmpty }
-                .drive(onNext: { [weak self] isEmpty in
-                    guard let self = self else { return }
-                    if isEmpty {
-                        self.prayCollectionView.snp.remakeConstraints {
-                            $0.top.equalTo(self.nameLabel.snp.bottom)
-                            $0.left.right.bottom.equalToSuperview()
-                            $0.height.equalTo(40)
-                        }
-                        if self.emptyPrayView.superview == nil {
-                            self.contentView.addSubview(self.emptyPrayView)
-                            self.emptyPrayView.snp.remakeConstraints {
-                                $0.top.equalTo(self.nameLabel.snp.bottom)
-                                $0.left.right.bottom.equalToSuperview()
-                                $0.height.equalTo(40)
-                            }
-                        }
-                        self.emptyPrayView.isHidden = false
-                    } else {
-                        self.prayCollectionView.snp.remakeConstraints {
-                            $0.top.equalTo(self.nameLabel.snp.bottom)
-                            $0.left.right.bottom.equalToSuperview()
-                            $0.height.equalTo(200)
-                        }
-                        self.emptyPrayView.removeFromSuperview()
-                        self.emptyPrayView.isHidden = true
-                    }
+                .drive(onNext: { [weak self] list in
+                    self?.prayList = list
+                    self?.prayCollectionView.reloadData()
                 }).disposed(by: disposeBag)
         }
-    }
-    
-    private func bindVM() {
-        
     }
 }
 
 extension GroupPrayTVCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width * 0.8, height: 200)
+    }
+}
+
+extension GroupPrayTVCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return prayList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = prayCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PrayCVCell
+        cell.userID = userID
+        cell.row = indexPath.row
+        cell.setupData(item: prayList[indexPath.row])
+        cell.vm = vm
+        cell.bind()
+        return cell
     }
 }
