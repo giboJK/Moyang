@@ -287,6 +287,7 @@ class GroupPrayVC: UIViewController, VCType {
         autoCompleteTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] _ in
                 self?.praySearchView.isHidden = false
+                self?.searchBar.textField.endEditing(true)
             }).disposed(by: disposeBag)
     }
     

@@ -48,7 +48,8 @@ class GroupPraySearchView: UIView {
     private func setupSearchPrayTableView() {
         addSubview(searchPrayTableView)
         searchPrayTableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalToSuperview().inset(4)
+            $0.left.right.bottom.equalToSuperview()
         }
     }
     private func setupNoResultLabel() {

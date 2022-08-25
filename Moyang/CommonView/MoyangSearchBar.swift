@@ -93,8 +93,8 @@ class MoyangSearchBar: UIView {
         addSubview(cancelButton)
         cancelButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.right.equalToSuperview().inset(12)
-            $0.width.equalTo(40)
+            $0.right.equalToSuperview().inset(4)
+            $0.width.equalTo(36)
         }
     }
     
@@ -146,11 +146,6 @@ class MoyangSearchBar: UIView {
         textField.rx.controlEvent([.editingDidBegin])
             .subscribe(onNext: { [weak self] _ in
                 self?.showCancelButton()
-            }).disposed(by: disposeBag)
-        
-        textField.rx.controlEvent([.editingDidEnd, .editingDidEndOnExit])
-            .subscribe(onNext: { [weak self] _ in
-                self?.hideCancelButton()
             }).disposed(by: disposeBag)
         
         cancelButton.rx.tap
