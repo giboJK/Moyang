@@ -46,13 +46,13 @@ class GroupPrayingVC: UIViewController, VCType {
     let myPrayButtonContainer = UIView()
     let answerButton = MoyangButton(.none).then {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 15, weight: .regular),
-            .foregroundColor: UIColor.sheep2,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
+            .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
+            .foregroundColor: UIColor.wilderness1,
+//            .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         
         let attributeString = NSMutableAttributedString(
-            string: "대답을 주셨나요?",
+            string: "응답을 받았나요?",
             attributes: attributes
         )
         $0.setAttributedTitle(attributeString, for: .normal)
@@ -64,9 +64,9 @@ class GroupPrayingVC: UIViewController, VCType {
     }
     let changeButton = MoyangButton(.none).then {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 15, weight: .regular),
-            .foregroundColor: UIColor.sheep2,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
+            .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
+            .foregroundColor: UIColor.wilderness1,
+//            .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         
         let attributeString = NSMutableAttributedString(
@@ -77,9 +77,9 @@ class GroupPrayingVC: UIViewController, VCType {
     }
     let prayPlusButton = MoyangButton(.none).then {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 15, weight: .regular),
-            .foregroundColor: UIColor.sheep2,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
+            .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
+            .foregroundColor: UIColor.wilderness1,
+//            .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         
         let attributeString = NSMutableAttributedString(

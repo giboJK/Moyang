@@ -186,7 +186,7 @@ class GroupPrayVC: UIViewController, VCType {
             $0.height.equalTo(40)
             $0.width.equalTo(64)
             $0.left.equalToSuperview().inset(20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
         }
     }
     private func setupAddChangeButton() {
@@ -195,7 +195,7 @@ class GroupPrayVC: UIViewController, VCType {
             $0.height.equalTo(40)
             $0.width.equalTo(64)
             $0.left.equalTo(addPrayButton.snp.right).offset(12)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
         }
     }
     private func setupAddAnswerButton() {
@@ -204,7 +204,7 @@ class GroupPrayVC: UIViewController, VCType {
             $0.height.equalTo(40)
             $0.width.equalTo(64)
             $0.left.equalTo(addChangeButton.snp.right).offset(12)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
         }
     }
     private func setupPrayButton() {
@@ -213,7 +213,7 @@ class GroupPrayVC: UIViewController, VCType {
             $0.height.equalTo(40)
             $0.width.equalTo(64)
             $0.right.equalToSuperview().inset(20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
         }
     }
     
@@ -236,6 +236,8 @@ class GroupPrayVC: UIViewController, VCType {
     }
     
     private func bindViews() {
+        bindScrollView()
+        
         navBar.backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
@@ -295,6 +297,37 @@ class GroupPrayVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.praySearchView.isHidden = false
                 self?.searchBar.textField.endEditing(true)
+            }).disposed(by: disposeBag)
+        
+    }
+    
+    private func bindScrollView() {
+        prayTableView.rx.willBeginDragging
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.contentOffset = max(self.prayTableView.contentOffset.y, 0)
+            }).disposed(by: disposeBag)
+        
+        prayTableView.rx.didScroll
+            .debounce(.milliseconds(12), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                if self.isAnimating { return }
+                
+                let height = self.prayTableView.frame.size.height
+                let contentYoffset = self.prayTableView.contentOffset.y
+                let distanceFromBottom = self.prayTableView.contentSize.height - contentYoffset
+                if distanceFromBottom < height {
+                    self.moveUpButtons()
+                    return
+                }
+                
+                if self.contentOffset - self.prayTableView.contentOffset.y > 30 {
+                    self.moveUpButtons()
+                } else if self.prayTableView.contentOffset.y - self.contentOffset > 30 {
+                    self.moveDownButtons()
+                }
             }).disposed(by: disposeBag)
     }
     
@@ -359,6 +392,57 @@ class GroupPrayVC: UIViewController, VCType {
         present(nav, animated: true, completion: nil)
     }
     
+    private func moveDownButtons() {
+        if isAnimating { return }
+        isAnimating = true
+        addPrayButton.snp.updateConstraints {
+            $0.bottom.equalTo(view).inset(12)
+        }
+        addChangeButton.snp.updateConstraints {
+            $0.bottom.equalTo(view).inset(12)
+        }
+        addAnswerButton.snp.updateConstraints {
+            $0.bottom.equalTo(view).inset(12)
+        }
+        prayButton.snp.updateConstraints {
+            $0.bottom.equalTo(view).inset(12)
+        }
+        addPrayButton.alpha = 0.4
+        addChangeButton.alpha = 0.4
+        addAnswerButton.alpha = 0.4
+        prayButton.alpha = 0.4
+        UIView.animate(withDuration: animationTime) {
+            self.view.updateConstraints()
+            self.view.layoutIfNeeded()
+            self.isAnimating = false
+        }
+    }
+    
+    private func moveUpButtons() {
+        if isAnimating { return }
+        isAnimating = true
+        addPrayButton.snp.updateConstraints {
+            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
+        }
+        addChangeButton.snp.updateConstraints {
+            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
+        }
+        addAnswerButton.snp.updateConstraints {
+            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
+        }
+        prayButton.snp.updateConstraints {
+            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
+        }
+        addPrayButton.alpha = 1
+        addChangeButton.alpha = 1
+        addAnswerButton.alpha = 1
+        prayButton.alpha = 1
+        UIView.animate(withDuration: animationTime) {
+            self.view.updateConstraints()
+            self.view.layoutIfNeeded()
+            self.isAnimating = false
+        }
+    }
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(setKeyword: searchBar.textField.rx.text.asDriver(),
