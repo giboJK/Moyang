@@ -71,13 +71,6 @@ class MoyangSearchBar: UIView {
             $0.left.equalTo(searchImageView.snp.right).offset(12)
             $0.right.equalToSuperview()
         }
-        let keyboardToolbar = UIToolbar()
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let donButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(didTapDone))
-        keyboardToolbar.items = [space, donButton]
-        keyboardToolbar.sizeToFit()
-
-        textField.inputAccessoryView = keyboardToolbar
     }
     
     private func setupClearButton() {
@@ -96,10 +89,6 @@ class MoyangSearchBar: UIView {
             $0.right.equalToSuperview().inset(4)
             $0.width.equalTo(36)
         }
-    }
-    
-    @objc func didTapDone() {
-        textField.endEditing(true)
     }
     
     func showCancelButton() {
