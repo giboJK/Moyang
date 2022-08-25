@@ -111,14 +111,15 @@ class GroupPrayVC: UIViewController, VCType {
         setupInfoButton()
         
         setupSearchBar()
-        
         setupPrayTableView()
-        setupAutoCompleteTableView()
-        setupPraySearchView()
+        
         setupAddPrayButton()
         setupAddChangeButton()
         setupAddAnswerButton()
         setupPrayButton()
+        
+        setupPraySearchView()
+        setupAutoCompleteTableView()
     }
     
     private func setupNavBar() {
@@ -279,9 +280,15 @@ class GroupPrayVC: UIViewController, VCType {
                 self?.autoCompleteTableView.isHidden = true
             }).disposed(by: disposeBag)
         
+        // MARK: - praySearchView.isHidden
         searchBar.cancelButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.praySearchView.isHidden = true
+            }).disposed(by: disposeBag)
+        
+        searchBar.textField.rx.controlEvent([.editingDidEndOnExit])
+            .subscribe(onNext: { [weak self] _ in
+                self?.praySearchView.isHidden = false
             }).disposed(by: disposeBag)
         
         autoCompleteTableView.rx.itemSelected
@@ -356,6 +363,7 @@ class GroupPrayVC: UIViewController, VCType {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(setKeyword: searchBar.textField.rx.text.asDriver(),
                              clearKeyword: searchBar.clearButton.rx.tap.asDriver(),
+                             searchKeyword: searchBar.textField.rx.controlEvent([.editingDidEndOnExit]).asDriver(),
                              fetchAutocomplete: searchBar.textField.rx.controlEvent([.editingChanged]).asDriver(),
                              selectAutocomplete: autoCompleteTableView.rx.itemSelected.asDriver())
             

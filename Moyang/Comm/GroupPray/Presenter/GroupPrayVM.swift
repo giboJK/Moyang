@@ -189,6 +189,7 @@ extension GroupPrayVM {
         
         var setKeyword: Driver<String?> = .empty()
         var clearKeyword: Driver<Void> = .empty()
+        var searchKeyword: Driver<Void> = .empty()
         var fetchAutocomplete: Driver<Void> = .empty()
         var selectAutocomplete: Driver<IndexPath> = .empty()
         var selectSearched: Driver<IndexPath> = .empty()
@@ -237,6 +238,13 @@ extension GroupPrayVM {
         input.clearKeyword
             .drive(onNext: { [weak self] _ in
                 self?.removeAutoCompleteList()
+            }).disposed(by: disposeBag)
+        
+        input.searchKeyword
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                guard let keyword = self.keyword.value else { return }
+                self.searchWithKeyword(keyword: keyword)
             }).disposed(by: disposeBag)
         
         input.fetchAutocomplete

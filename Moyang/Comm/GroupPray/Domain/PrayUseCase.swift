@@ -447,14 +447,17 @@ class PrayUseCase {
             guard let self = self else { return }
             switch result {
             case .success(let pray):
+                self.fetchPraySuccess.accept(pray)
                 var dict = self.memberPrayList.value
                 if var curList = dict[userID] {
+                    if curList.contains(where: { $0.prayID == pray.prayID }) {
+                        return
+                    }
                     curList.append(pray)
                     curList.sort { $0.latestDate < $1.latestDate }
                     dict.updateValue(curList, forKey: userID)
+                    self.memberPrayList.accept(dict)
                 }
-                self.memberPrayList.accept(dict)
-                self.fetchPraySuccess.accept(pray)
             case .failure(let error):
                 Log.e(error)
                 self.fetchPrayFailure.accept(())
