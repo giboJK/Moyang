@@ -131,6 +131,89 @@ class BibleInfo {
                 return "말라기"
             }
         }
+        
+        var short: String {
+            switch self {
+            case .Genesis:
+                return "창"
+            case .Exodus:
+                return "출"
+            case .Leviticus:
+                return "레"
+            case .Numbers:
+                return "민"
+            case .Deuteronomy:
+                return "신"
+            case .Joshua:
+                return "수"
+            case .Judges:
+                return "삿"
+            case .Ruth:
+                return "룻"
+            case .SamuelOne:
+                return "삼상"
+            case .SamuelTwo:
+                return "삼하"
+            case .KingsOne:
+                return "왕상"
+            case .KingsTow:
+                return "왕하"
+            case .ChroniclesOne:
+                return "대상"
+            case .ChroniclesTwo:
+                return "대하"
+            case .Ezra:
+                return "스"
+            case .Nehemiah:
+                return "느"
+            case .Esther:
+                return "에"
+            case .Job:
+                return "욥"
+            case .Psalms:
+                return "시"
+            case .Proverbs:
+                return "잠"
+            case .Ecclesiastes:
+                return "전"
+            case .SongOfSongs:
+                return "아"
+            case .Isaiah:
+                return "사"
+            case .Jeremiah:
+                return "렘"
+            case .Lamentations:
+                return "애"
+            case .Ezekiel:
+                return "겔"
+            case .Daniel:
+                return "단"
+            case .Hosea:
+                return "호"
+            case .Joel:
+                return "욜"
+            case .Amos:
+                return "암"
+            case .Obadiah:
+                return "옵"
+            case .Jonah:
+                return "욘"
+            case .Micah:
+                return "미"
+            case .Nahum:
+                return "나"
+            case .Habakkuk:
+                return "합"
+            case .Zephaniah:
+                return "습"
+            case .Haggai:
+                return "학"
+            case .Zechariah:
+                return "슥"
+            case .Malachi:
+                return "말"
+            }
+        }
     }
     
     enum New: Int, CaseIterable {
@@ -220,7 +303,67 @@ class BibleInfo {
                 return "요한계시록"
             }
         }
+        
+        var short: String {
+            switch self {
+            case .Matthew:
+                return "마"
+            case .Mark:
+                return "막"
+            case .Luke:
+                return "눅"
+            case .John:
+                return "요"
+            case .Acts:
+                return "행"
+            case .Romans:
+                return "롬"
+            case .CorinthiansOne:
+                return "고전"
+            case .CorinthiansTwo:
+                return "고후"
+            case .Galatians:
+                return "갈"
+            case .Ephesians:
+                return "엡"
+            case .Philippians:
+                return "빌"
+            case .Colossians:
+                return "골"
+            case .ThessaloniansOne:
+                return "살전"
+            case .ThessaloniansTwo:
+                return "살후"
+            case .TimothyOne:
+                return "딤전"
+            case .TimothyTwo:
+                return "딤후"
+            case .Titus:
+                return "딛"
+            case .Philemon:
+                return "몬"
+            case .Hebrews:
+                return "히"
+            case .James:
+                return "약"
+            case .PeterOne:
+                return "벧전"
+            case .PeterTwo:
+                return "벧후"
+            case .JohnOne:
+                return "요일"
+            case .JohnTwo:
+                return "요이"
+            case .JohnThree:
+                return "요삼"
+            case .Jude:
+                return "유"
+            case .Revelation:
+                return "계"
+            }
+        }
     }
+    
     // https://thebible.life/bible-books-and-number-of-chapters-old-testament/
     static let Genesis = BibleBookInfo(type: Old.Genesis.rawValue, category: "", bookName: Old.Genesis.bookName, author: "",
                                        chapterCount: [31,25,24,26,32,22,24,22,29,32,
