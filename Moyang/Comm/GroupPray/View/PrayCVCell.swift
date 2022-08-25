@@ -259,7 +259,7 @@ class PrayCVCell: UICollectionViewCell {
         reactionView.snp.remakeConstraints {
             $0.bottom.equalToSuperview().inset(8)
             if replyView.superview == nil {
-                $0.right.equalToSuperview()
+                $0.right.equalToSuperview().inset(8)
             } else {
                 $0.right.equalTo(replyView.snp.left).offset(-8)
             }
