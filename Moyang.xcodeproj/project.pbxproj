@@ -87,8 +87,8 @@
 		24A55F64279AFE7D007DDE02 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A55F63279AFE7D007DDE02 /* String+.swift */; };
 		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
 		24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */; };
-		24AACA78283FB42A00308AC3 /* CommunityMainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */; };
-		24AACA7C283FC3DD00308AC3 /* CommunityMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7B283FC3DD00308AC3 /* CommunityMainCoordinator.swift */; };
+		24AACA78283FB42A00308AC3 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA77283FB42A00308AC3 /* MainAssembly.swift */; };
+		24AACA7C283FC3DD00308AC3 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7B283FC3DD00308AC3 /* MainCoordinator.swift */; };
 		24AACA7E283FC40A00308AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7D283FC40A00308AC3 /* Coordinator.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
 		24B6A2552726BEB00065112A /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* GroupInfo.swift */; };
@@ -269,8 +269,8 @@
 		24A55F63279AFE7D007DDE02 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
 		24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssembly.swift; sourceTree = "<group>"; };
-		24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainAssembly.swift; sourceTree = "<group>"; };
-		24AACA7B283FC3DD00308AC3 /* CommunityMainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainCoordinator.swift; sourceTree = "<group>"; };
+		24AACA77283FB42A00308AC3 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
+		24AACA7B283FC3DD00308AC3 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		24AACA7D283FC40A00308AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		24B492D027989DAB005CAA5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -685,7 +685,7 @@
 		246BD7A327240A96005C4E0B /* Comm */ = {
 			isa = PBXGroup;
 			children = (
-				24AACA77283FB42A00308AC3 /* CommunityMainAssembly.swift */,
+				24AACA77283FB42A00308AC3 /* MainAssembly.swift */,
 				089E8A1927AF52A600640A39 /* Domain */,
 				246BD7A427240A96005C4E0B /* Presenter */,
 				246BD7A627240A96005C4E0B /* View */,
@@ -693,7 +693,6 @@
 				24F4D383287B1DA300B1AC06 /* GroupInfo */,
 				240946CD28707361003AEDAD /* AddReplyAndChange */,
 				08D2FD98286EE29C00ED8ECB /* PrayReaction */,
-				24D9646928A11C0D000EC915 /* PrayList */,
 				2493DE602846742B001A9368 /* GroupPray */,
 				24E4DC35284C2CFF002ECD83 /* GroupPraying */,
 			);
@@ -711,7 +710,7 @@
 		246BD7A627240A96005C4E0B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				24AACA7B283FC3DD00308AC3 /* CommunityMainCoordinator.swift */,
+				24AACA7B283FC3DD00308AC3 /* MainCoordinator.swift */,
 				24E0AB28283E730D00F52505 /* Card */,
 				24C877D4282FE8B100F69AAD /* CommunityMainVC.swift */,
 				241DA138288B86EE0046BF21 /* EmptyGroupView.swift */,
@@ -1041,13 +1040,6 @@
 				242D7461274282F00053EF2A /* Localizable.strings */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		24D9646928A11C0D000EC915 /* PrayList */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PrayList;
 			sourceTree = "<group>";
 		};
 		24E0AB28283E730D00F52505 /* Card */ = {
@@ -1485,7 +1477,7 @@
 				08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */,
 				0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
-				24AACA7C283FC3DD00308AC3 /* CommunityMainCoordinator.swift in Sources */,
+				24AACA7C283FC3DD00308AC3 /* MainCoordinator.swift in Sources */,
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
 				08AD959A287BEE00002D4F94 /* AuthUseCase.swift in Sources */,
 				24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */,
@@ -1517,7 +1509,7 @@
 				08D8295B278D3327001E6B61 /* Color+.swift in Sources */,
 				24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */,
 				08AD958A287BE063002D4F94 /* SignUpVC.swift in Sources */,
-				24AACA78283FB42A00308AC3 /* CommunityMainAssembly.swift in Sources */,
+				24AACA78283FB42A00308AC3 /* MainAssembly.swift in Sources */,
 				242F92A12848FD140023324D /* NewPrayVC.swift in Sources */,
 				24DABDA9289180D200DEB6CC /* Int+.swift in Sources */,
 				249FD1E62893A73800BDF995 /* GroupPrayHeader.swift in Sources */,

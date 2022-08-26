@@ -38,8 +38,8 @@ class IntroAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - Assembly & Coordinator
-        container.register(CommunityMainAssembly.self) { _ in
-            let assembly = CommunityMainAssembly()
+        container.register(MainAssembly.self) { _ in
+            let assembly = MainAssembly()
             assembly.nav = self.nav
             return assembly
         }
@@ -50,13 +50,21 @@ class IntroAssembly: Assembly, BaseAssembly {
             return assembly
         }
         
+        container.register(GroupPrayAssembly.self) { _ in
+            let assembly = GroupPrayAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
+        
         container.register(IntroCoordinator.self) { r in
             guard let nav = self.nav else { return IntroCoordinator() }
-            let authAssembly = r ~> (AuthAssembly.self)
-            let main = r ~> (CommunityMainAssembly.self)
+            let auth = r ~> (AuthAssembly.self)
+            let main = r ~> (MainAssembly.self)
+            let groupPray = r ~> (GroupPrayAssembly.self)
             return IntroCoordinator(nav: nav, assembler: Assembler([self,
-                                                                    authAssembly,
-                                                                    main]))
+                                                                    auth,
+                                                                    main,
+                                                                    groupPray]))
         }
     }
 }

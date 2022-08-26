@@ -21,13 +21,14 @@ class GroupPrayVC: UIViewController, VCType {
     let headerHeight: CGFloat = 48
     
     // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
-        $0.closeButton.isHidden = true
-    }
     let infoButton = UIButton().then {
         $0.setTitle("정보", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
         $0.setTitleColor(.nightSky1, for: .normal)
+    }
+    let groupNameLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 20, weight: .semibold)
+        $0.textColor = .sheep1
     }
     let searchBar = MoyangSearchBar()
     
@@ -106,10 +107,9 @@ class GroupPrayVC: UIViewController, VCType {
     }
     
     func setupUI() {
-        view.backgroundColor = .sheep1
-        setupNavBar()
-        setupInfoButton()
+        view.backgroundColor = .nightSky1
         
+        setupGroupNameLabel()
         setupSearchBar()
         setupPrayTableView()
         
@@ -121,29 +121,18 @@ class GroupPrayVC: UIViewController, VCType {
         setupPraySearchView()
         setupAutoCompleteTableView()
     }
-    
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(UIApplication.statusBarHeight + 44)
+    private func setupGroupNameLabel() {
+        view.addSubview(groupNameLabel)
+        groupNameLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.left.equalToSuperview().inset(24)
         }
     }
     
-    private func setupInfoButton() {
-        navBar.addSubview(infoButton)
-        infoButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(10)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
-            $0.width.equalTo(32)
-        }
-    }
     private func setupSearchBar() {
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom).offset(12)
+            $0.top.equalTo(groupNameLabel.snp.bottom).offset(20)
             $0.height.equalTo(56)
             $0.left.right.equalToSuperview().inset(20)
         }
@@ -237,11 +226,6 @@ class GroupPrayVC: UIViewController, VCType {
     
     private func bindViews() {
         bindScrollView()
-        
-        navBar.backButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
         
         infoButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -454,7 +438,7 @@ class GroupPrayVC: UIViewController, VCType {
         let output = vm.transform(input: input)
         
         output.groupName
-            .drive(navBar.titleLabel.rx.text)
+            .drive(groupNameLabel.rx.text)
             .disposed(by: disposeBag)
         
         output.memberList

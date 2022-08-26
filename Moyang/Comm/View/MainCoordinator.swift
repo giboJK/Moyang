@@ -1,5 +1,5 @@
 //
-//  CommunityMainCoordinator.swift
+//  MainCoordinator.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/05/26.
@@ -9,7 +9,7 @@ import Foundation
 import Swinject
 import UIKit
 
-class CommunityMainCoordinator: Coordinator {
+class MainCoordinator: Coordinator {
     
     var assembler: Assembler
     var nav: UINavigationController
@@ -35,7 +35,7 @@ class CommunityMainCoordinator: Coordinator {
     }
 }
 
-extension CommunityMainCoordinator: CommunityMainVCDelegate {
+extension MainCoordinator: CommunityMainVCDelegate {
     func didTapGroupPrayCard() {
         if let coordinator = assembler.resolver.resolve(GroupPrayCoordinator.self) {
             coordinator.start(true, completion: nil)
@@ -56,7 +56,7 @@ extension CommunityMainCoordinator: CommunityMainVCDelegate {
     }
 }
 
-extension CommunityMainCoordinator: AllGroupVCDelegate {
+extension MainCoordinator: AllGroupVCDelegate {
     func didTapGroup(groupPrayVM: GroupPrayVM) {
         guard let groupPrayCoordinator = assembler.resolver.resolve(GroupPrayCoordinator.self) else {
             Log.e("Coordinator init failed")

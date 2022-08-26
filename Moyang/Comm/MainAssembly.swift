@@ -1,5 +1,5 @@
 //
-//  CommunityMainAssembly.swift
+//  MainAssembly.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/05/26.
@@ -10,7 +10,7 @@ import SwinjectAutoregistration
 import Foundation
 import UIKit
 
-class CommunityMainAssembly: Assembly, BaseAssembly {
+class MainAssembly: Assembly, BaseAssembly {
     var nav: UINavigationController?
     
     deinit { Log.i(self) }
@@ -20,7 +20,7 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             let vc = MainVC()
             
             vc.todayVC = r ~> (TodayVC.self)
-            vc.communityMainVC = r ~> (CommunityMainVC.self)
+            vc.groupPrayVC = r ~> (GroupPrayVC.self)
             vc.profileVC = r ~> (ProfileVC.self)
             
             return vc
@@ -45,7 +45,7 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             let vc = CommunityMainVC()
             
             vc.vm = r ~> (CommunityMainVM.self)
-            vc.coordinator = r ~> (CommunityMainCoordinator.self)
+            vc.coordinator = r ~> (MainCoordinator.self)
             
             return vc
         }
@@ -79,7 +79,6 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             let vc = ProfileVC()
             
             vc.vm = r ~> (ProfileVM.self)
-//            vc.coordinator = r ~> (TodayCoordinator.self)
             
             return vc
         }
@@ -122,7 +121,6 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             return assembly
         }
         
-        
         // MARK: - Coordinator
         container.register(TodayCoordinator.self) { r in
             guard let nav = self.nav else { return TodayCoordinator() }
@@ -132,11 +130,11 @@ class CommunityMainAssembly: Assembly, BaseAssembly {
             return coordinator
         }
         
-        container.register(CommunityMainCoordinator.self) { r in
-            guard let nav = self.nav else { return CommunityMainCoordinator() }
-            let coordinator = CommunityMainCoordinator(nav: nav,
-                                                       assembler: Assembler([self,
-                                                                             r ~> (GroupPrayAssembly.self)]))
+        container.register(MainCoordinator.self) { r in
+            guard let nav = self.nav else { return MainCoordinator() }
+            let coordinator = MainCoordinator(nav: nav,
+                                              assembler: Assembler([self,
+                                                                    r ~> (GroupPrayAssembly.self)]))
             return coordinator
         }
     }

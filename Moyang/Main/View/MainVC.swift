@@ -19,7 +19,7 @@ class MainVC: UITabBarController, VCType {
 
     // MARK: - UI
     var todayVC: TodayVC?
-    var communityMainVC: CommunityMainVC?
+    var groupPrayVC: GroupPrayVC?
     var profileVC: ProfileVC?
 
     override func viewDidLoad() {
@@ -40,7 +40,7 @@ class MainVC: UITabBarController, VCType {
         guard let todayVC = todayVC else {
             Log.e("TodayVC init failed"); return
         }
-        guard let communityMainVC = communityMainVC else {
+        guard let groupPrayVC = groupPrayVC else {
             Log.e("CommunityMainVC init failed"); return
         }
         guard let profileVC = profileVC else {
@@ -56,7 +56,7 @@ class MainVC: UITabBarController, VCType {
         let standardAppearance = UITabBarAppearance()
         standardAppearance.backgroundColor = .nightSky1
         tabBar.standardAppearance = standardAppearance
-        setViewControllers([todayVC, communityMainVC, profileVC], animated: false)
+        setViewControllers([todayVC, groupPrayVC, profileVC], animated: false)
         guard let items = tabBar.items else { return }
         let images = [Asset.Images.Tabbar.today.image, Asset.Images.Tabbar.cross.image, UIImage(systemName: "person.crop.circle.fill")] as [UIImage?]
         let titles = ["오늘", "공동체", "내 정보"]
