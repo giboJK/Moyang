@@ -18,7 +18,7 @@ class TaskListView: UIView {
     
     let titleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 21, weight: .semibold)
-        $0.textColor = .sheep1
+        $0.textColor = .sheep2
     }
     let container = UIView()
     var itemViewList = [TaskItemView]()

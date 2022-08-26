@@ -25,15 +25,15 @@ class TodayVC: UIViewController, VCType {
     }
     let titleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 18, weight: .regular)
-        $0.textColor = .sheep1
+        $0.textColor = .sheep2
     }
     let myHistoryButton = UIButton().then {
         $0.setImage(Asset.Images.Today.myHistory.image.withTintColor(.sheep1), for: .normal)
-        $0.tintColor = .sheep1
+        $0.tintColor = .sheep2
     }
     let taskSelectButton = UIButton().then {
         $0.setImage(Asset.Images.Today.taskSelect.image.withTintColor(.sheep1), for: .normal)
-        $0.tintColor = .sheep1
+        $0.tintColor = .sheep2
     }
     let morningTaskListView = TaskListView()
     let afternoonTaskListView = TaskListView()

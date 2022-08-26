@@ -26,22 +26,22 @@ class TaskItemView: UIView {
     }
     let container = UIView().then {
         $0.layer.cornerRadius = 8
-        $0.layer.borderColor = .sheep2
+        $0.layer.borderColor = .sheep3
         $0.layer.borderWidth = 1
     }
     let typeImageView = UIImageView()
     let titleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 17, weight: .semibold)
-        $0.textColor = .sheep1
+        $0.textColor = .sheep2
     }
     let descLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .sheep2
+        $0.textColor = .sheep3
     }
     let hourglassImageView = UIImageView().then {
         let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular, scale: .large)
         $0.image = UIImage(systemName: "hourglass", withConfiguration: config)
-        $0.tintColor = .sheep1
+        $0.tintColor = .sheep2
         $0.contentMode = .scaleToFill
     }
     

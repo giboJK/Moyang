@@ -33,7 +33,7 @@ class TodayVM: VMType {
         
         var greeting = ""
         switch hour {
-        case 5..<11 : greeting = "주님과 함께 여는 아침,"
+        case 5..<11 : greeting = "주님과 함께하는 아침,"
         case 11..<13 : greeting = "좋은 오후네요,"
         case 13..<17 : greeting = "좋은 오후네요,"
         case 17..<22 : greeting = "좋은 저녁이에요,"
