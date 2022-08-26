@@ -29,6 +29,7 @@ struct UserInfo: Codable {
     let name: String
     let birth: String
     let isPastor: Bool
+    let groupIDList: [String]
     let createDate: String
     
     enum CodingKeys: String, CodingKey {
@@ -38,5 +39,6 @@ struct UserInfo: Codable {
         case birth = "birth"
         case isPastor = "is_pastor"
         case createDate = "create_date"
+        case groupIDList = "group_id_list"
     }
 }
