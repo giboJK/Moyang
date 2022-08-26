@@ -21,7 +21,7 @@ class IntroVC: UIViewController, VCType {
     let titleLabel = UILabel().then {
         $0.text = "Moyang"
         $0.font = .systemFont(ofSize: 36, weight: .heavy)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
     }
     let signUpButton = MoyangButton(.primary).then {
         $0.setTitle("회원가입", for: .normal)
@@ -47,7 +47,7 @@ class IntroVC: UIViewController, VCType {
     }
     
     func setupUI() {
-        view.backgroundColor = .sheep2
+        view.backgroundColor = .nightSky1
         setupTitleLabel()
         setupPastorLoginButton()
         setupLoginButton()

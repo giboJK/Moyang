@@ -23,13 +23,17 @@ struct UserInfoRequest: Codable {
     }
 }
 
+struct AppLoginResponse: Codable {
+    
+}
+
 struct UserInfo: Codable {
     let id: String
     let email: String
     let name: String
     let birth: String
     let isPastor: Bool
-    let groupIDList: [String]
+    let groupList: [GroupInfo]
     let createDate: String
     
     enum CodingKeys: String, CodingKey {
@@ -39,6 +43,6 @@ struct UserInfo: Codable {
         case birth = "birth"
         case isPastor = "is_pastor"
         case createDate = "create_date"
-        case groupIDList = "group_id_list"
+        case groupList = "group_list"
     }
 }

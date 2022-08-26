@@ -15,7 +15,7 @@ struct GroupInfo: Codable, Identifiable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case groupName = "group_name"
         case createDate = "create_date"
+        case groupName = "group_name"
     }
 }

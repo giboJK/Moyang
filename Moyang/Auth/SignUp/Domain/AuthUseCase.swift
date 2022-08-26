@@ -90,11 +90,13 @@ class AuthUseCase {
         }
         repo.appLogin(email: email.lowercased(), credential: credential) { [weak self] result in
             switch result {
-            case .success(let response):
-                Log.d(response)
+            case .success(let user):
+                Log.d(user)
                 UserData.shared.email = email
                 UserData.shared.password = credential
-                UserData.shared.userInfo = response
+                UserData.shared.userInfo = user
+                UserData.shared.groupID = user.groupList.first?.id
+                UserData.shared.groupInfo = user.groupList.first
                 self?.isLoginSuccess.accept(())
             case .failure(let error):
                 Log.e(error)

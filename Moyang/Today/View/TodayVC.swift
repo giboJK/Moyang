@@ -24,7 +24,7 @@ class TodayVC: UIViewController, VCType {
         $0.backgroundColor = .clear
     }
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.font = .systemFont(ofSize: 18, weight: .regular)
         $0.textColor = .sheep1
     }
     let myHistoryButton = UIButton().then {

@@ -101,6 +101,10 @@ extension AuthCoordinator: LogInVCDelegate {
     func loginSuccess() {
         if let vc = assembler.resolver.resolve(MainVC.self) {
             nav.pushViewController(vc, animated: true)
+            
+            var vcList = self.nav.viewControllers
+            vcList.removeAll(where: { $0 is LogInVC })
+            nav.viewControllers = vcList
         } else {
             Log.e("init failed")
         }

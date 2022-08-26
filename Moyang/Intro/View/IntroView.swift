@@ -14,6 +14,9 @@ struct IntroView: View {
     var body: some View {
         IntroViewRepresentable()
             .edgesIgnoringSafeArea([.top, .bottom])
+            .onAppear {
+                UIView.setAnimationsEnabled(true)
+            }
     }
 }
 

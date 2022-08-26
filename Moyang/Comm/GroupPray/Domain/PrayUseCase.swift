@@ -66,7 +66,7 @@ class PrayUseCase {
     // MARK: - Function
     // 아래 함수가 먼저 실행이 되어야 함
     func fetchPrayAll(order: String, row: Int = 2) {
-        guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
+        guard let groupID = UserData.shared.groupID else { Log.e("No group ID"); return }
         guard let userID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() {
             return

@@ -59,7 +59,7 @@ class ProfileVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 UserData.shared.email = nil
                 UserData.shared.password = nil
-                self?.dismiss(animated: true)
+                self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
     }
 

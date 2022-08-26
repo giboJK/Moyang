@@ -27,7 +27,7 @@ class GroupPrayVC: UIViewController, VCType {
         $0.setTitleColor(.nightSky1, for: .normal)
     }
     let groupNameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 20, weight: .semibold)
+        $0.font = .systemFont(ofSize: 21, weight: .semibold)
         $0.textColor = .sheep1
     }
     let searchBar = MoyangSearchBar()
@@ -36,7 +36,7 @@ class GroupPrayVC: UIViewController, VCType {
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(GroupPrayTVCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .sheep1
+        $0.backgroundColor = .nightSky1
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 220
         $0.showsVerticalScrollIndicator = false

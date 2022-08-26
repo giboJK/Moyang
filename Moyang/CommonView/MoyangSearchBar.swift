@@ -15,7 +15,7 @@ class MoyangSearchBar: UIView {
     var disposeBag: DisposeBag = DisposeBag()
     
     let searchImageView = UIImageView().then {
-        $0.tintColor = .nightSky2
+        $0.tintColor = .sheep2
         $0.image = UIImage(systemName: "magnifyingglass")?.withTintColor(.nightSky2)
     }
     let textField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
@@ -35,7 +35,7 @@ class MoyangSearchBar: UIView {
     let cancelButton = MoyangButton(.none).then {
         $0.setTitle("취소", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.nightSky1, for: .normal)
+        $0.setTitleColor(.sheep1, for: .normal)
         $0.isHidden = true
     }
     
