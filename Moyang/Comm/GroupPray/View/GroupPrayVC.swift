@@ -27,10 +27,12 @@ class GroupPrayVC: UIViewController, VCType {
         $0.setTitleColor(.nightSky1, for: .normal)
     }
     let groupNameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 21, weight: .semibold)
+        $0.font = .systemFont(ofSize: 22, weight: .semibold)
         $0.textColor = .sheep1
     }
-    let searchBar = MoyangSearchBar()
+    let searchBar = MoyangSearchBar().then {
+        $0.isHidden = true
+    }
     
     let headerView = GroupPrayHeader()
     let prayTableView = UITableView().then {
@@ -46,7 +48,7 @@ class GroupPrayVC: UIViewController, VCType {
     let autoCompleteTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(AutoCompleteTVCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .sheep1
+        $0.backgroundColor = .nightSky1
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 48
         $0.showsVerticalScrollIndicator = false
@@ -56,34 +58,6 @@ class GroupPrayVC: UIViewController, VCType {
     }
     let praySearchView = GroupPraySearchView().then {
         $0.isHidden = true
-    }
-    let addPrayButton = MoyangButton(.none).then {
-        $0.setTitle("새 기도", for: .normal)
-        $0.setTitleColor(.sheep1, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.backgroundColor = .nightSky4.withAlphaComponent(0.8)
-        $0.layer.cornerRadius = 16
-    }
-    let addChangeButton = MoyangButton(.none).then {
-        $0.setTitle("변화 기록", for: .normal)
-        $0.setTitleColor(.sheep1, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.backgroundColor = .nightSky4.withAlphaComponent(0.8)
-        $0.layer.cornerRadius = 16
-    }
-    let addAnswerButton = MoyangButton(.none).then {
-        $0.setTitle("응답 기록", for: .normal)
-        $0.setTitleColor(.sheep1, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.backgroundColor = .nightSky4.withAlphaComponent(0.8)
-        $0.layer.cornerRadius = 16
-    }
-    let prayButton = MoyangButton(.none).then {
-        $0.setTitle("기도하기", for: .normal)
-        $0.setTitleColor(.sheep1, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.backgroundColor = .wilderness1.withAlphaComponent(0.8)
-        $0.layer.cornerRadius = 16
     }
     let reactionView = ReactionPopupView().then {
         $0.isHidden = true
@@ -110,14 +84,9 @@ class GroupPrayVC: UIViewController, VCType {
         view.backgroundColor = .nightSky1
         
         setupGroupNameLabel()
-        setupSearchBar()
         setupPrayTableView()
         
-        setupAddPrayButton()
-        setupAddChangeButton()
-        setupAddAnswerButton()
-        setupPrayButton()
-        
+        setupSearchBar()
         setupPraySearchView()
         setupAutoCompleteTableView()
     }
@@ -132,7 +101,7 @@ class GroupPrayVC: UIViewController, VCType {
     private func setupSearchBar() {
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints {
-            $0.top.equalTo(groupNameLabel.snp.bottom).offset(20)
+            $0.top.equalTo(groupNameLabel.snp.bottom).offset(16)
             $0.height.equalTo(40)
             $0.left.right.equalToSuperview().inset(20)
         }
@@ -158,7 +127,7 @@ class GroupPrayVC: UIViewController, VCType {
     private func setupPrayTableView() {
         view.addSubview(prayTableView)
         prayTableView.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom).offset(8)
+            $0.top.equalTo(groupNameLabel.snp.bottom).offset(16)
             $0.bottom.left.right.equalToSuperview()
         }
         prayTableView.stickyHeader.view = headerView
@@ -169,86 +138,40 @@ class GroupPrayVC: UIViewController, VCType {
         }
         prayTableView.tableFooterView = footer
     }
-    private func setupAddPrayButton() {
-        view.addSubview(addPrayButton)
-        addPrayButton.snp.makeConstraints {
-            $0.height.equalTo(40)
-            $0.width.equalTo(64)
-            $0.left.equalToSuperview().inset(20)
-            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
-        }
-    }
-    private func setupAddChangeButton() {
-        view.addSubview(addChangeButton)
-        addChangeButton.snp.makeConstraints {
-            $0.height.equalTo(40)
-            $0.width.equalTo(64)
-            $0.left.equalTo(addPrayButton.snp.right).offset(12)
-            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
-        }
-    }
-    private func setupAddAnswerButton() {
-        view.addSubview(addAnswerButton)
-        addAnswerButton.snp.makeConstraints {
-            $0.height.equalTo(40)
-            $0.width.equalTo(64)
-            $0.left.equalTo(addChangeButton.snp.right).offset(12)
-            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
-        }
-    }
-    private func setupPrayButton() {
-        view.addSubview(prayButton)
-        prayButton.snp.makeConstraints {
-            $0.height.equalTo(40)
-            $0.width.equalTo(64)
-            $0.right.equalToSuperview().inset(20)
-            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
-        }
-    }
-    
     // MARK: - Binding
     func bind() {
         bindViews()
         bindVM()
     }
-    var contentOffset: CGFloat = 0
-    var isAnimating = false
-    let animationTime = 0.3
-    
-    private func bindPrayTableView() {
-        prayTableView.rx.willBeginDragging
-            .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.contentOffset = max(self.prayTableView.contentOffset.y, 0)
-            }).disposed(by: disposeBag)
-    }
     
     private func bindViews() {
-        bindScrollView()
-        
         infoButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.coordinator?.didTapInfoButton()
             }).disposed(by: disposeBag)
         
-        addPrayButton.rx.tap
+        headerView.addPrayButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let vm = self?.vm else { return }
                 self?.coordinator?.didTapNewPrayButton(vm: vm)
             }).disposed(by: disposeBag)
         
-        prayButton.rx.tap
+        headerView.prayButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let vm = self?.vm else { return }
                 self?.coordinator?.didTapPrayButton(vm: vm)
             }).disposed(by: disposeBag)
         
-        bindPrayTableView()
+//        headerView.orderButton.rx.tap
+//            .subscribe(onNext: { [weak self] _ in
+//                self?.showOrderOptionView()
+//            }).disposed(by: disposeBag)
         
-        headerView.orderButton.rx.tap
+        headerView.searchButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.showOrderOptionView()
+                self?.searchBar.isHidden = false
+                self?.prayTableView.isHidden = true
+                self?.searchBar.textField.becomeFirstResponder()
             }).disposed(by: disposeBag)
         
         headerView.memberButton.rx.tap
@@ -269,7 +192,9 @@ class GroupPrayVC: UIViewController, VCType {
         // MARK: - praySearchView.isHidden
         searchBar.cancelButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
+                self?.searchBar.isHidden = true
                 self?.praySearchView.isHidden = true
+                self?.prayTableView.isHidden = false
             }).disposed(by: disposeBag)
         
         searchBar.textField.rx.controlEvent([.editingDidEndOnExit])
@@ -283,36 +208,6 @@ class GroupPrayVC: UIViewController, VCType {
                 self?.searchBar.textField.endEditing(true)
             }).disposed(by: disposeBag)
         
-    }
-    
-    private func bindScrollView() {
-        prayTableView.rx.willBeginDragging
-            .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.contentOffset = max(self.prayTableView.contentOffset.y, 0)
-            }).disposed(by: disposeBag)
-        
-        prayTableView.rx.didScroll
-            .debounce(.milliseconds(12), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                if self.isAnimating { return }
-                
-                let height = self.prayTableView.frame.size.height
-                let contentYoffset = self.prayTableView.contentOffset.y
-                let distanceFromBottom = self.prayTableView.contentSize.height - contentYoffset
-                if distanceFromBottom < height {
-                    self.moveUpButtons()
-                    return
-                }
-                
-                if self.contentOffset - self.prayTableView.contentOffset.y > 30 {
-                    self.moveUpButtons()
-                } else if self.prayTableView.contentOffset.y - self.contentOffset > 30 {
-                    self.moveDownButtons()
-                }
-            }).disposed(by: disposeBag)
     }
     
     private func showOrderOptionView() {
@@ -376,57 +271,6 @@ class GroupPrayVC: UIViewController, VCType {
         present(nav, animated: true, completion: nil)
     }
     
-    private func moveDownButtons() {
-        if isAnimating { return }
-        isAnimating = true
-        addPrayButton.snp.updateConstraints {
-            $0.bottom.equalTo(view).inset(12)
-        }
-        addChangeButton.snp.updateConstraints {
-            $0.bottom.equalTo(view).inset(12)
-        }
-        addAnswerButton.snp.updateConstraints {
-            $0.bottom.equalTo(view).inset(12)
-        }
-        prayButton.snp.updateConstraints {
-            $0.bottom.equalTo(view).inset(12)
-        }
-        addPrayButton.alpha = 0.4
-        addChangeButton.alpha = 0.4
-        addAnswerButton.alpha = 0.4
-        prayButton.alpha = 0.4
-        UIView.animate(withDuration: animationTime) {
-            self.view.updateConstraints()
-            self.view.layoutIfNeeded()
-            self.isAnimating = false
-        }
-    }
-    
-    private func moveUpButtons() {
-        if isAnimating { return }
-        isAnimating = true
-        addPrayButton.snp.updateConstraints {
-            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
-        }
-        addChangeButton.snp.updateConstraints {
-            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
-        }
-        addAnswerButton.snp.updateConstraints {
-            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
-        }
-        prayButton.snp.updateConstraints {
-            $0.bottom.equalTo(view).inset(UIApplication.bottomInset)
-        }
-        addPrayButton.alpha = 1
-        addChangeButton.alpha = 1
-        addAnswerButton.alpha = 1
-        prayButton.alpha = 1
-        UIView.animate(withDuration: animationTime) {
-            self.view.updateConstraints()
-            self.view.layoutIfNeeded()
-            self.isAnimating = false
-        }
-    }
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(setKeyword: searchBar.textField.rx.text.asDriver(),
@@ -456,11 +300,6 @@ class GroupPrayVC: UIViewController, VCType {
                 .items(cellIdentifier: "cell", cellType: AutoCompleteTVCell.self)) { (_, item, cell) in
                     cell.tagLabel.text = item
                 }.disposed(by: disposeBag)
-        
-        output.order
-            .drive(onNext: { [weak self] order in
-                self?.headerView.orderButton.setTitle(order, for: .normal)
-            }).disposed(by: disposeBag)
         
         output.selectedMember
             .map { $0.isEmpty ? "모두" : $0 }

@@ -28,17 +28,17 @@ class PrayCVCell: UICollectionViewCell {
     }
     let latestPrayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+        $0.textColor = .nightSky2
         $0.numberOfLines = 0
     }
     let isSecretImageView = UIImageView().then {
         let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .regular, scale: .large)
         $0.image = UIImage(systemName: "lock.fill", withConfiguration: config)
-        $0.tintColor = .nightSky1
+        $0.tintColor = .sheep3
     }
     let prayCountLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.textColor = .nightSky2
+        $0.textColor = .sheep2
         $0.isHidden = true
     }
     let tagDivider = UIView().then {
@@ -55,7 +55,7 @@ class PrayCVCell: UICollectionViewCell {
     }
     let noTagLabel = UILabel().then {
         $0.text = "#태그"
-        $0.textColor = .nightSky3
+        $0.textColor = .nightSky1
         $0.font = .systemFont(ofSize: 15, weight: .regular)
     }
     let reactionView = UIStackView().then {
@@ -153,7 +153,7 @@ class PrayCVCell: UICollectionViewCell {
     private func setupTagDivider() {
         bgView.addSubview(tagDivider)
         tagDivider.snp.makeConstraints {
-            $0.top.equalTo(latestPrayLabel.snp.bottom).offset(4)
+            $0.top.equalTo(latestPrayLabel.snp.bottom)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(1)
         }

@@ -22,12 +22,11 @@ class GroupPrayTVCell: UITableViewCell {
     let bgView = UIView().then {
         $0.layer.cornerRadius = 12
         $0.layer.masksToBounds = true
-        $0.backgroundColor = .sheep2
         $0.isUserInteractionEnabled = false
     }
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
         $0.isUserInteractionEnabled = false
     }
     let prayCollectionView: UICollectionView = {
@@ -41,14 +40,14 @@ class GroupPrayTVCell: UITableViewCell {
         return cv
     }()
     let emptyPrayView = UIView().then {
-        $0.backgroundColor = .sheep1
+        $0.backgroundColor = .nightSky1
         $0.layer.cornerRadius = 12
         $0.layer.masksToBounds = true
         $0.isHidden = true
     }
     let emptyPrayLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
         $0.text = "기도 제목이 없습니다."
     }
     let divider = UIView().then {
@@ -62,7 +61,7 @@ class GroupPrayTVCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .sheep1
+        backgroundView.backgroundColor = .nightSky1
         selectedBackgroundView = backgroundView
         
         setupUI()
@@ -79,7 +78,7 @@ class GroupPrayTVCell: UITableViewCell {
     
     // MARK: - UI
     private func setupUI() {
-        contentView.backgroundColor = .sheep1
+        contentView.backgroundColor = .nightSky1
         setupNameLabel()
         setupPrayCollectionView()
         setupEmptyPrayView()

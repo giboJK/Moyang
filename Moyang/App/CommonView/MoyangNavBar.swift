@@ -18,14 +18,14 @@ class MoyangNavBar: UIView {
     }
 
     let backButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "chevron.backward")?.withTintColor(.sheep1), for: .normal)
+        $0.setImage(UIImage(systemName: "chevron.backward")?.withTintColor(.sheep2), for: .normal)
     }
     let closeButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "xmark")?.withTintColor(.sheep1), for: .normal)
+        $0.setImage(UIImage(systemName: "xmark")?.withTintColor(.sheep2), for: .normal)
     }
     let titleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 17, weight: .heavy)
-        $0.textColor = .sheep1
+        $0.textColor = .sheep2
         $0.textAlignment = .center
     }
     
@@ -84,7 +84,7 @@ class MoyangNavBar: UIView {
         } else {
             backButton.setImage(UIImage(systemName: "chevron.backward")?.withTintColor(.sheep1),
                                 for: .normal)
-            backButton.tintColor = .sheep1
+            backButton.tintColor = .sheep2
         }
     }
     
@@ -102,7 +102,7 @@ class MoyangNavBar: UIView {
         } else {
             closeButton.setImage(UIImage(systemName: "xmark")?.withTintColor(.sheep1),
                                 for: .normal)
-            closeButton.tintColor = .sheep1
+            closeButton.tintColor = .sheep2
         }
     }
     
@@ -116,7 +116,7 @@ class MoyangNavBar: UIView {
         if style == .light {
             titleLabel.textColor = .nightSky1
         } else {
-            titleLabel.textColor = .sheep1
+            titleLabel.textColor = .sheep2
         }
     }
 }

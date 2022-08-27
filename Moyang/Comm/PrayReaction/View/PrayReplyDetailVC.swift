@@ -35,9 +35,9 @@ class PrayReplyDetailVC: UIViewController, VCType {
     let replyTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(ReplyTVCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .sheep2
+        $0.backgroundColor = .clear
         $0.separatorStyle = .none
-        $0.estimatedRowHeight = 200
+        $0.estimatedRowHeight = 220
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true
@@ -57,7 +57,7 @@ class PrayReplyDetailVC: UIViewController, VCType {
     }
     func setupUI() {
         title = "함께하는 기도문들"
-        view.backgroundColor = .sheep2
+        view.backgroundColor = .nightSky1
         setupDateSortButton()
         setupNameSortButton()
         setupReplyTableView()

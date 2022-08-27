@@ -21,23 +21,20 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     let saveButton = MoyangButton(.primary).then {
         $0.setTitle("저장", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.nightSky2, for: .normal)
-        $0.setTitleColor(.sheep4, for: .disabled)
     }
     let addVerseButton = MoyangButton(.none).then {
         $0.setTitle("성경구절 추가", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-        $0.setTitleColor(.nightSky1, for: .normal)
+        $0.setTitleColor(.sheep2, for: .normal)
         let config = UIImage.SymbolConfiguration(pointSize: 13, weight: .bold, scale: .large)
         $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
-        $0.tintColor = .nightSky1
-        $0.semanticContentAttribute = .forceRightToLeft
+        $0.tintColor = .sheep2
     }
     let contentTextView = UITextView().then {
-        $0.backgroundColor = .sheep1
+        $0.backgroundColor = .nightSky2
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
     }
     let replyHintLabel = UILabel().then {
         $0.text = "내용을 입력하세요."
@@ -85,7 +82,7 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     func setupUI() {
-        view.backgroundColor = .sheep2
+        view.backgroundColor = .nightSky1
         setupSaveButton()
         setupAddVerseButton()
         setupContentTextField()

@@ -23,15 +23,15 @@ class ReplyTVCell: UITableViewCell {
     let bgView = UIView().then {
         $0.layer.cornerRadius = 12
         $0.layer.masksToBounds = true
-        $0.backgroundColor = .sheep1
+        $0.backgroundColor = .nightSky1
     }
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
     }
     let dateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 13, weight: .regular)
-        $0.textColor = .sheep5
+        $0.textColor = .sheep4
     }
     let contentTextView = UITextView().then {
         $0.backgroundColor = .sheep1
@@ -43,7 +43,7 @@ class ReplyTVCell: UITableViewCell {
     let editButton = MoyangButton(.none).then {
         $0.setTitle("수정", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.setTitleColor(.nightSky2, for: .normal)
+        $0.setTitleColor(.sheep3, for: .normal)
     }
     let saveButton = MoyangButton(.none).then {
         $0.setTitle("저장", for: .normal)
@@ -80,34 +80,34 @@ class ReplyTVCell: UITableViewCell {
     }
     
     private func setupUI() {
-        backgroundColor = .sheep2
-        setupBgView()
+        backgroundColor = .nightSky1
         setupNameLabel()
+        setupBgView()
         setupDateLabel()
         setupContentTextView()
         setupDeleteButton()
         setupEditButton()
         setupSaveButton()
     }
+    private func setupNameLabel() {
+        contentView.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(12)
+            $0.left.right.equalToSuperview().inset(20)
+        }
+    }
     private func setupBgView() {
         contentView.addSubview(bgView)
         bgView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(12)
             $0.bottom.equalToSuperview().inset(12)
-        }
-    }
-    private func setupNameLabel() {
-        bgView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
-            $0.left.right.equalToSuperview().inset(12)
         }
     }
     private func setupDateLabel() {
         bgView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
+            $0.top.equalToSuperview().inset(8)
             $0.left.equalToSuperview().inset(12)
         }
     }
@@ -116,7 +116,7 @@ class ReplyTVCell: UITableViewCell {
         contentTextView.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(8)
-            $0.height.equalTo(120)
+            $0.height.equalTo(140)
             $0.bottom.equalToSuperview().inset(12)
         }
         let doneButton = UIBarButtonItem(title: "완료",
@@ -128,24 +128,24 @@ class ReplyTVCell: UITableViewCell {
         contentTextView.inputAccessoryView = toolBar
     }
     private func setupDeleteButton() {
-        bgView.addSubview(deleteButton)
+        contentView.addSubview(deleteButton)
         deleteButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
+            $0.top.equalToSuperview().inset(12)
             $0.right.equalToSuperview().inset(12)
         }
     }
     private func setupSaveButton() {
-        bgView.addSubview(saveButton)
+        contentView.addSubview(saveButton)
         saveButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
+            $0.top.equalToSuperview().inset(12)
             $0.right.equalTo(deleteButton.snp.left).offset(-12)
         }
     }
     
     private func setupEditButton() {
-        bgView.addSubview(editButton)
+        contentView.addSubview(editButton)
         editButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
+            $0.top.equalToSuperview().inset(12)
             $0.right.equalTo(deleteButton.snp.left).offset(-12)
         }
         editButton.addTarget(self, action: #selector(toggleIsEditable(_:)), for: .touchUpInside)

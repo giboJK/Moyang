@@ -37,12 +37,12 @@ class PrayReactionDetailVC: UIViewController, VCType {
     
     func setupUI() {
         title = "함께하는 성도들"
-        view.backgroundColor = .clear
+        view.backgroundColor = .nightSky1
         setupScrollView()
     }
     private func setupScrollView() {
         view.addSubview(scrollView)
-        scrollView.backgroundColor = .sheep2
+        scrollView.backgroundColor = .nightSky1
         scrollView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalToSuperview()
@@ -137,7 +137,7 @@ class PrayReactionDetailVC: UIViewController, VCType {
                         for j in 0 ..< list[i].name.count {
                             let memberView = UIView()
                             let memberName = UILabel().then {
-                                $0.textColor = .nightSky1
+                                $0.textColor = .sheep2
                                 $0.font = .systemFont(ofSize: 15, weight: .regular)
                             }
                             let imoticonLabel = UILabel()

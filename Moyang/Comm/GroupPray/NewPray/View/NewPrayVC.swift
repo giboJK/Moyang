@@ -18,7 +18,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     private var tagList = [String]()
     
     // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
+    let navBar = MoyangNavBar(.dark).then {
         $0.closeButton.isHidden = true
         $0.backButton.isHidden = true
         $0.title = "새 기도"
@@ -31,16 +31,16 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     let saveButton = UIButton().then {
         $0.setTitle("저장", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.nightSky2, for: .normal)
+        $0.setTitleColor(.sheep2, for: .normal)
         $0.setTitleColor(.sheep4, for: .disabled)
     }
     let groupNameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
     }
     let groupChangeButton = MoyangButton(.none).then {
         $0.setTitle("그룹 변경", for: .normal)
-        $0.setTitleColor(.nightSky3, for: .normal)
+        $0.setTitleColor(.sheep2, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
     let newPrayTextView = UITextView().then {
@@ -75,7 +75,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     let isSecretLabel = UILabel().then {
         $0.text = "비공개 기도"
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
     }
     let isSecretCheckBox = CheckBox()
     
@@ -92,7 +92,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     func setupUI() {
-        view.backgroundColor = .sheep2
+        view.backgroundColor = .nightSky1
         setupNavBar()
         setupGroupNameLabel()
         setupGroupChangeButton()

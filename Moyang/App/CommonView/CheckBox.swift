@@ -11,8 +11,8 @@ import RxSwift
 
 class CheckBox: UIButton {
     // Images
-    let checkedImage = Asset.Images.Common.checkFill.image
-    let uncheckedImage = Asset.Images.Common.checkEmpty.image
+    let checkedImage = Asset.Images.Common.checkFill.image.withTintColor(.sheep2)
+    let uncheckedImage = Asset.Images.Common.checkEmpty.image.withTintColor(.sheep2)
     
     // Bool property
     var isChecked: Bool = false {

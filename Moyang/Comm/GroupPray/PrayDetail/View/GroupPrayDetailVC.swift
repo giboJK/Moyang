@@ -30,7 +30,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
         $0.setTitleColor(.ydGreen1, for: .disabled)
     }
     let prayDetailView = PrayDetailView()
-    let prayButton = MoyangButton(.primary).then {
+    let prayButton = MoyangButton(.secondary).then {
         $0.setTitle("기도하기", for: .normal)
     }
     let deleteButton = MoyangButton(.warning).then {
