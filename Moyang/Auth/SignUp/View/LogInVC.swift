@@ -48,6 +48,7 @@ class LogInVC: UIViewController, VCType {
 
         setupUI()
         bind()
+        self.navigationController?.navigationBar.backItem?.title = ""
     }
 
     deinit { Log.i(self) }
