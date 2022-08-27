@@ -19,6 +19,7 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
         container.register(GroupPrayVC.self) { r in
             let vc = GroupPrayVC()
             vc.vm = (r ~> GroupPrayVM.self)
+            vc.coordinator = r ~> (GroupPrayCoordinator.self)
             return vc
         }
         

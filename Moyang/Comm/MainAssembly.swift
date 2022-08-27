@@ -38,6 +38,7 @@ class MainAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - Profile
+        // TODO: - ProfileAssembly
         container.register(ProfileVC.self) { r in
             let vc = ProfileVC()
             
