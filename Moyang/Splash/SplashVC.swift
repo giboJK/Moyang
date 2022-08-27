@@ -42,6 +42,8 @@ class SplashVC: UIViewController, VCType {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
             self.startAnimation()
         }
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.backButtonDisplayMode = .minimal
     }
 
     deinit { Log.i(self) }

@@ -19,10 +19,6 @@ class TermsVC: UIViewController, VCType {
     var coordinator: TermsVCDelegate?
 
     // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
-        $0.closeButton.isHidden = true
-        $0.title = "이용약관"
-    }
     let webView = WKWebView().then {
         $0.backgroundColor = .sheep4
     }
@@ -47,24 +43,16 @@ class TermsVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
-        view.backgroundColor = .sheep2
-        setupNavBar()
+        title = "이용약관"
+        view.backgroundColor = .nightSky1
         setupAgreeButton()
         setupDisagreeButton()
         setupWebView()
     }
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(UIApplication.statusBarHeight + 44)
-        }
-    }
     private func setupWebView() {
         view.addSubview(webView)
         webView.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom).offset(12)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
             $0.left.right.equalToSuperview()
             $0.bottom.equalTo(agreeButton.snp.top).offset(-8)
         }
@@ -102,11 +90,6 @@ class TermsVC: UIViewController, VCType {
     }
     
     private func bindViews() {
-        navBar.backButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
-        
         agreeButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.coordinator?.didTapAgreeButton()

@@ -42,6 +42,7 @@ extension IntroCoordinator: IntroVCDelegate {
     func didTapSignUpButton() {
         if let coordinator = assembler.resolver.resolve(AuthCoordinator.self) {
             coordinator.start(true, completion: nil)
+            nav.isNavigationBarHidden = false
         } else {
             Log.e("VC init failed")
         }
@@ -50,6 +51,7 @@ extension IntroCoordinator: IntroVCDelegate {
     func didTapLogInButton() {
         if let coordinator = assembler.resolver.resolve(AuthCoordinator.self) {
             coordinator.startLogin(true, completion: nil)
+            nav.isNavigationBarHidden = false
         } else {
             Log.e("VC init failed")
         }

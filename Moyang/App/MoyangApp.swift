@@ -17,12 +17,12 @@ struct MoyangApp: App {
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .sheep2
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.nightSky1]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.nightSky1]
+        appearance.backgroundColor = .nightSky1
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.sheep2]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.sheep2]
 
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        UINavigationBar.appearance().tintColor = .nightSky1
+        UINavigationBar.appearance().tintColor = .sheep2
         
         let appAssembly = AppAssembly()
         assembler.apply(assembly: appAssembly)

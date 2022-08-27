@@ -22,15 +22,7 @@ class LogInVC: UIViewController, VCType {
     let signInConfig = GIDConfiguration.init(clientID: NetConst.googleClientID)
     
     // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
-        $0.closeButton.isHidden = true
-    }
-    let titleLabel = UILabel().then {
-        $0.text = "로그인"
-        $0.font = .systemFont(ofSize: 32, weight: .bold)
-        $0.textColor = .nightSky1
-    }
-    let appleSigninButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black) .then {
+    let appleSigninButton = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline) .then {
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 14
     }
@@ -64,43 +56,27 @@ class LogInVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
-        view.backgroundColor = .sheep2
-        setupNavBar()
-        setupTitleLabel()
-        setupAppleLoginButton()
+        title = "로그인"
+        view.backgroundColor = .nightSky1
         setupGoogleLoginButton()
+        setupAppleLoginButton()
     }
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(UIApplication.statusBarHeight + 44)
-        }
-    }
-    private func setupTitleLabel() {
-        view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(32)
-            $0.top.equalTo(navBar.snp.bottom).offset(32)
+    private func setupGoogleLoginButton() {
+        view.addSubview(googleSignupButton)
+        googleSignupButton.addTarget(self, action: #selector(handleGoogleSigninButtonPress), for: .touchDown)
+        googleSignupButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.left.right.equalToSuperview().inset(28)
+            $0.height.equalTo(48)
         }
     }
     private func setupAppleLoginButton() {
         view.addSubview(appleSigninButton)
         appleSigninButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchDown)
         appleSigninButton.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(32)
+            $0.bottom.equalTo(googleSignupButton.snp.top).offset(-32)
             $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(50)
-        }
-    }
-    private func setupGoogleLoginButton() {
-        view.addSubview(googleSignupButton)
-        googleSignupButton.addTarget(self, action: #selector(handleGoogleSigninButtonPress), for: .touchDown)
-        googleSignupButton.snp.makeConstraints {
-            $0.top.equalTo(appleSigninButton.snp.bottom).offset(24)
-            $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(50)
+            $0.height.equalTo(48)
         }
     }
     
@@ -140,11 +116,6 @@ class LogInVC: UIViewController, VCType {
     }
     
     private func bindViews() {
-        navBar.backButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
-        
         loginFailurePopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
