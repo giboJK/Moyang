@@ -1,15 +1,15 @@
 //
-//  IntroCoordinator.swift
+//  SplashCoordinator.swift
 //  Moyang
 //
-//  Created by 정김기보 on 2022/07/11.
+//  Created by 정김기보 on 2022/08/27.
 //
 
 import Foundation
 import Swinject
 import UIKit
 
-class IntroCoordinator: Coordinator {
+class SplashCoordinator: Coordinator {
     var assembler: Assembler
     
     var nav: UINavigationController
@@ -28,7 +28,7 @@ class IntroCoordinator: Coordinator {
     deinit { Log.i(self) }
     
     func start(_ animated: Bool, completion: (() -> Void)?) {
-        if let vc = assembler.resolver.resolve(IntroVC.self) {
+        if let vc = assembler.resolver.resolve(SplashVC.self) {
             nav.pushViewController(vc, animated: animated)
             nav.isNavigationBarHidden = true
             vc.coordinator = self
@@ -38,24 +38,21 @@ class IntroCoordinator: Coordinator {
     }
 }
 
-extension IntroCoordinator: IntroVCDelegate {
-    func didTapSignUpButton() {
-        if let coordinator = assembler.resolver.resolve(AuthCoordinator.self) {
+extension SplashCoordinator: SplashVCDelegate {
+    func loginSuccess() {
+        if let coordinator = assembler.resolver.resolve(MainCoordinator.self) {
+            coordinator.start(true) {
+                Log.d("Auto Login Success")
+            }
+        } else {
+            Log.e("init failed")
+        }
+    }
+    func loginFailure() {
+        if let coordinator = assembler.resolver.resolve(IntroCoordinator.self) {
             coordinator.start(true, completion: nil)
         } else {
-            Log.e("VC init failed")
+            Log.e("Init failed")
         }
-    }
-    
-    func didTapLogInButton() {
-        if let coordinator = assembler.resolver.resolve(AuthCoordinator.self) {
-            coordinator.startLogin(true, completion: nil)
-        } else {
-            Log.e("VC init failed")
-        }
-    }
-    
-    func didTapPastorLogInButton() {
-        
     }
 }

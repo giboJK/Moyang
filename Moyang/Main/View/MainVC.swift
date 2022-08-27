@@ -56,10 +56,10 @@ class MainVC: UITabBarController, VCType {
         let standardAppearance = UITabBarAppearance()
         standardAppearance.backgroundColor = .nightSky1
         tabBar.standardAppearance = standardAppearance
-        setViewControllers([todayVC, groupPrayVC, profileVC], animated: false)
+        setViewControllers([groupPrayVC, todayVC, profileVC], animated: false)
         guard let items = tabBar.items else { return }
-        let images = [Asset.Images.Tabbar.today.image, Asset.Images.Tabbar.cross.image, UIImage(systemName: "person.crop.circle.fill")] as [UIImage?]
-        let titles = ["오늘", "공동체", "내 정보"]
+        let images = [Asset.Images.Tabbar.cross.image, Asset.Images.Tabbar.today.image, UIImage(systemName: "person.crop.circle.fill")] as [UIImage?]
+        let titles = ["공동체", "오늘", "내 정보"]
         for i in 0 ..< images.count {
             items[i].image = images[i]
             items[i].title = titles[i]

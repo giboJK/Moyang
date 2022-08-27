@@ -42,7 +42,6 @@
 		08D82957278D2548001E6B61 /* MoyangButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */; };
 		08D82959278D25F0001E6B61 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82958278D25F0001E6B61 /* Font+.swift */; };
 		08D8295B278D3327001E6B61 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295A278D3327001E6B61 /* Color+.swift */; };
-		08D8295F278D8116001E6B61 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295E278D8116001E6B61 /* IntroView.swift */; };
 		08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */; };
 		08DE7CC828B4BE32003639B0 /* Bible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DE7CC728B4BE32003639B0 /* Bible.swift */; };
 		08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */; };
@@ -158,6 +157,10 @@
 		24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E36116284B806C00C7EE26 /* UIViewController+.swift */; };
 		24E36119284B812D00C7EE26 /* MoyangPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E36118284B812D00C7EE26 /* MoyangPopupView.swift */; };
 		24E4DC39284C2D1C002ECD83 /* GroupPrayingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4DC38284C2D1C002ECD83 /* GroupPrayingVM.swift */; };
+		24E5D0EF28B9E6C300680101 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E5D0EE28B9E6C300680101 /* SplashVC.swift */; };
+		24E5D0F228B9FA4B00680101 /* SplashVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E5D0F128B9FA4B00680101 /* SplashVM.swift */; };
+		24E5D0F428B9FEDA00680101 /* SplashCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E5D0F328B9FEDA00680101 /* SplashCoordinator.swift */; };
+		24E5D0F628BA118C00680101 /* SplashAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E5D0F528BA118C00680101 /* SplashAssembly.swift */; };
 		24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E60723278EF19E00D5A7F2 /* IndicatorView.swift */; };
 		24E6455D2850E08A00CF10AD /* MoyangButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E6455C2850E08A00CF10AD /* MoyangButton.swift */; };
 		24E79EBF28A6619A00B34298 /* PrayingCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E79EBE28A6619A00B34298 /* PrayingCVCell.swift */; };
@@ -223,7 +226,6 @@
 		08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButtonStyle.swift; sourceTree = "<group>"; };
 		08D82958278D25F0001E6B61 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		08D8295A278D3327001E6B61 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
-		08D8295E278D8116001E6B61 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
 		08DE7CC728B4BE32003639B0 /* Bible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bible.swift; sourceTree = "<group>"; };
 		08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
@@ -342,6 +344,10 @@
 		24E36116284B806C00C7EE26 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		24E36118284B812D00C7EE26 /* MoyangPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangPopupView.swift; sourceTree = "<group>"; };
 		24E4DC38284C2D1C002ECD83 /* GroupPrayingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayingVM.swift; sourceTree = "<group>"; };
+		24E5D0EE28B9E6C300680101 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
+		24E5D0F128B9FA4B00680101 /* SplashVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVM.swift; sourceTree = "<group>"; };
+		24E5D0F328B9FEDA00680101 /* SplashCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashCoordinator.swift; sourceTree = "<group>"; };
+		24E5D0F528BA118C00680101 /* SplashAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashAssembly.swift; sourceTree = "<group>"; };
 		24E60723278EF19E00D5A7F2 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		24E6455C2850E08A00CF10AD /* MoyangButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButton.swift; sourceTree = "<group>"; };
 		24E79EBE28A6619A00B34298 /* PrayingCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayingCVCell.swift; sourceTree = "<group>"; };
@@ -806,7 +812,6 @@
 			isa = PBXGroup;
 			children = (
 				2498F908287C514D007EF510 /* IntroCoordinator.swift */,
-				08D8295E278D8116001E6B61 /* IntroView.swift */,
 				2498F901287C3733007EF510 /* IntroVC.swift */,
 			);
 			path = View;
@@ -828,11 +833,11 @@
 				24B6E31D275F81C100AD2E53 /* Network */,
 				24D0D334272315FA006FF67B /* Resources */,
 				24D0D3272723144C006FF67B /* Extension */,
+				242D745A274267AA0053EF2A /* CommonView */,
 				24D0D32627231442006FF67B /* Util */,
 				24D0D2F727230CA3006FF67B /* MoyangApp.swift */,
 				24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */,
 				24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */,
-				24B88EE927A2D77B00D5B001 /* SplashView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -969,10 +974,10 @@
 			children = (
 				24B492D027989DAB005CAA5A /* Info.plist */,
 				24A6A4A9275A2BCB00D7DB25 /* App */,
-				242D745A274267AA0053EF2A /* CommonView */,
+				24E5D0F028B9E6EB00680101 /* Splash */,
 				2498F8FF287C3726007EF510 /* Intro */,
-				248FEC0E2723A07D00321E5E /* Main */,
 				08AD9586287BE03E002D4F94 /* Auth */,
+				248FEC0E2723A07D00321E5E /* Main */,
 				246BD7A327240A96005C4E0B /* Comm */,
 				0865D7102897987C007E1D7E /* QuickPray */,
 				08D0CEAF28A36A6100A15F3C /* Today */,
@@ -1077,6 +1082,18 @@
 				24E4DC38284C2D1C002ECD83 /* GroupPrayingVM.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		24E5D0F028B9E6EB00680101 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				24B88EE927A2D77B00D5B001 /* SplashView.swift */,
+				24E5D0EE28B9E6C300680101 /* SplashVC.swift */,
+				24E5D0F128B9FA4B00680101 /* SplashVM.swift */,
+				24E5D0F328B9FEDA00680101 /* SplashCoordinator.swift */,
+				24E5D0F528BA118C00680101 /* SplashAssembly.swift */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 		24ED982B28AE32BF0086C043 /* ChangeAndAnswer */ = {
@@ -1438,6 +1455,7 @@
 				08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */,
 				24E79EBF28A6619A00B34298 /* PrayingCVCell.swift in Sources */,
 				24E0AB30283E746700F52505 /* Network.swift in Sources */,
+				24E5D0EF28B9E6C300680101 /* SplashVC.swift in Sources */,
 				24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */,
 				24EFE40F287F10CD00549E07 /* KeychainSwift.swift in Sources */,
 				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
@@ -1473,6 +1491,7 @@
 				08D2FD97286EE27300ED8ECB /* PrayReactionDetailVM.swift in Sources */,
 				24E0AB21283D228A00F52505 /* UIView+.swift in Sources */,
 				24E36115284B157A00C7EE26 /* NewPrayTagCollectionViewCell.swift in Sources */,
+				24E5D0F628BA118C00680101 /* SplashAssembly.swift in Sources */,
 				24126C8C285D7B5A00E8282B /* ReactionPopupView.swift in Sources */,
 				08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */,
 				0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */,
@@ -1496,6 +1515,7 @@
 				08D134D228B488A8008707F3 /* MoyangSearchBar.swift in Sources */,
 				24E0AB25283E508B00F52505 /* CommunityMainScrollView.swift in Sources */,
 				08F4738928B5BAA70070CE2A /* BookSelectCVCell.swift in Sources */,
+				24E5D0F428B9FEDA00680101 /* SplashCoordinator.swift in Sources */,
 				24DDDEBE2879D49D00F7B82A /* GroupInfoTableViewCell.swift in Sources */,
 				242F929C2848E02F0023324D /* GroupPrayCoordinator.swift in Sources */,
 				24F41C662897E467005B5E70 /* NewPrayVM.swift in Sources */,
@@ -1579,13 +1599,13 @@
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
 				08F4738E28B5F6090070CE2A /* AutoCompleteTVCell.swift in Sources */,
 				08D0CEBC28A3845900A15F3C /* TaskListView.swift in Sources */,
-				08D8295F278D8116001E6B61 /* IntroView.swift in Sources */,
 				08D2F6F828B3483D00D95840 /* GroupActivity.swift in Sources */,
 				24CFA8C62879300800484C89 /* AllGroupUseCase.swift in Sources */,
 				08AD9596287BEB08002D4F94 /* AuthRepo.swift in Sources */,
 				2493DE6228467441001A9368 /* GroupPrayVC.swift in Sources */,
 				242F92A3284904AF0023324D /* MoyangTextField.swift in Sources */,
 				24E0AB32283E74A900F52505 /* Request.swift in Sources */,
+				24E5D0F228B9FA4B00680101 /* SplashVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -104,21 +104,6 @@ class IntroVC: UIViewController, VCType {
     }
     
     private func bindVM() {
-        guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
-        let output = vm.transform(input: input)
-        
-        output.isLoginSuccess
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.coordinator?.autoLogin()
-            }).disposed(by: disposeBag)
-        
-        output.isLoginFailure
-            .skip(1)
-            .drive(onNext: { _ in
-                Log.e("")
-            }).disposed(by: disposeBag)
     }
 }
 
@@ -126,5 +111,4 @@ protocol IntroVCDelegate: AnyObject {
     func didTapSignUpButton()
     func didTapLogInButton()
     func didTapPastorLogInButton()
-    func autoLogin()
 }

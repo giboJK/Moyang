@@ -41,10 +41,10 @@ class GroupPrayVM: VMType {
         self.useCase = useCase
         bind()
         fetchPrayAll()
-        if let start = Date().startOfWeek {
-            fetchActivity(start.toString("yyyy-MM-dd hh:mm:ss Z"))
-        }
-        setFirstDate()
+//        if let start = Date().startOfWeek {
+//            fetchActivity(start.toString("yyyy-MM-dd hh:mm:ss Z"))
+//        }
+//        setFirstDate()
     }
     
     deinit { Log.i(self) }
