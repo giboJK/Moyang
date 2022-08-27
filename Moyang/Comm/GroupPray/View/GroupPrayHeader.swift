@@ -43,7 +43,7 @@ class GroupPrayHeader: UIView {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .sheep1
+        backgroundColor = .nightSky1
         setupUI()
     }
     

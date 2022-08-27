@@ -49,22 +49,13 @@ class IntroAssembly: Assembly, BaseAssembly {
             assembly.nav = self.nav
             return assembly
         }
-        
-        container.register(GroupPrayAssembly.self) { _ in
-            let assembly = GroupPrayAssembly()
-            assembly.nav = self.nav
-            return assembly
-        }
-        
         container.register(IntroCoordinator.self) { r in
             guard let nav = self.nav else { return IntroCoordinator() }
             let auth = r ~> (AuthAssembly.self)
             let main = r ~> (MainAssembly.self)
-            let groupPray = r ~> (GroupPrayAssembly.self)
             return IntroCoordinator(nav: nav, assembler: Assembler([self,
                                                                     auth,
-                                                                    main,
-                                                                    groupPray]))
+                                                                    main]))
         }
     }
 }

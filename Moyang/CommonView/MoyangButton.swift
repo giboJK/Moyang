@@ -88,7 +88,7 @@ class MoyangButton: UIButton {
     private func setupPrimaryButton() {
         layer.cornerRadius = 14
         layer.masksToBounds = true
-        setTitleColor(.sheep1, for: .normal)
+        setTitleColor(.nightSky1, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
         setTitleColor(.sheep3, for: .highlighted)
         backgroundColor = (isEnabled && !isHighlighted) ? .sheep2 : .sheep5

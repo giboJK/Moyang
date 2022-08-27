@@ -60,8 +60,10 @@ extension IntroCoordinator: IntroVCDelegate {
     }
     
     func autoLogin() {
-        if let vc = assembler.resolver.resolve(MainVC.self) {
-            nav.pushViewController(vc, animated: true)
+        if let coordinator = assembler.resolver.resolve(MainCoordinator.self) {
+            coordinator.start(true) {
+                Log.d("Auto Login Success")
+            }
         } else {
             Log.e("init failed")
         }

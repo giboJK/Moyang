@@ -27,32 +27,10 @@ class MainCoordinator: Coordinator {
     
     func start(_ animated: Bool, completion: (() -> Void)?) {
         // Do nothing
-        if let vc = assembler.resolver.resolve(CommunityMainVC.self) {
+        if let vc = assembler.resolver.resolve(MainVC.self) {
             nav.pushViewController(vc, animated: animated)
-            vc.coordinator = self
             completion?()
         }
-    }
-}
-
-extension MainCoordinator: CommunityMainVCDelegate {
-    func didTapGroupPrayCard() {
-        if let coordinator = assembler.resolver.resolve(GroupPrayCoordinator.self) {
-            coordinator.start(true, completion: nil)
-        } else {
-            Log.e("!tart error")
-        }
-    }
-    
-    func showAllGroup() {
-        if let vc = assembler.resolver.resolve(AllGroupVC.self) {
-            vc.coordinator = self
-            nav.pushViewController(vc, animated: true)
-        }
-    }
-    
-    func letsPray() {
-        
     }
 }
 

@@ -133,7 +133,7 @@ class GroupPrayVC: UIViewController, VCType {
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints {
             $0.top.equalTo(groupNameLabel.snp.bottom).offset(20)
-            $0.height.equalTo(56)
+            $0.height.equalTo(40)
             $0.left.right.equalToSuperview().inset(20)
         }
     }

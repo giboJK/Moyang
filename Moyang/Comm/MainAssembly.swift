@@ -25,47 +25,10 @@ class MainAssembly: Assembly, BaseAssembly {
             
             return vc
         }
-        
-        // MARK: - Today
-        container.register(TodayVC.self) { r in
-            let vc = TodayVC()
-            
-            vc.vm = r ~> (TodayVM.self)
-            vc.coordinator = r ~> (TodayCoordinator.self)
-            
-            return vc
-        }
-        
-        container.register(TodayVM.self) { _ in
-            TodayVM()
-        }
-        
-        // MARK: - CommunityMain
-        container.register(CommunityMainVC.self) { r in
-            let vc = CommunityMainVC()
-            
-            vc.vm = r ~> (CommunityMainVM.self)
-            vc.coordinator = r ~> (MainCoordinator.self)
-            
-            return vc
-        }
-        
-        container.register(CommunityMainVM.self) { r in
-            CommunityMainVM(useCase: r ~> (CommunityMainUseCase.self))
-        }
-        
-        container.register(CommunityMainUseCase.self) { r in
-            CommunityMainUseCase(repo: r ~> (CommunityMainRepo.self))
-        }
-        
         container.register(NetworkServiceProtocol.self) { _ in
             AFNetworkService(sessionConfiguration: .default)
         }
-        
-        container.register(CommunityMainRepo.self) { r in
-            CommunityController(networkService: r ~> (NetworkServiceProtocol.self))
-        }
-        
+                
         container.register(PrayRepo.self) { r in
             PrayController(networkService: r ~> (NetworkServiceProtocol.self))
         }
@@ -87,27 +50,6 @@ class MainAssembly: Assembly, BaseAssembly {
             ProfileVM()
         }
         
-        
-        
-        // MARK: - AllGroup
-        container.register(AllGroupRepo.self) { r in
-            CommunityController(networkService: r ~> (NetworkServiceProtocol.self))
-        }
-        
-        container.register(AllGroupUseCase.self) { r in
-            AllGroupUseCase(repo: r ~> (AllGroupRepo.self))
-        }
-        
-        container.register(AllGroupVM.self) { r in
-            AllGroupVM(useCase: r ~> (AllGroupUseCase.self), communityUseCase: r ~> (CommunityMainUseCase.self))
-        }
-        
-        container.register(AllGroupVC.self) { r in
-            let vc = AllGroupVC()
-            vc.vm = r ~> (AllGroupVM.self)
-            return vc
-        }
-        
         // MARK: - Assembly
         container.register(TodayAssembly.self) { _ in
             let assembly = TodayAssembly()
@@ -121,20 +63,12 @@ class MainAssembly: Assembly, BaseAssembly {
             return assembly
         }
         
-        // MARK: - Coordinator
-        container.register(TodayCoordinator.self) { r in
-            guard let nav = self.nav else { return TodayCoordinator() }
-            let coordinator = TodayCoordinator(nav: nav,
-                                               assembler: Assembler([self,
-                                                                     r ~> (TodayAssembly.self)]))
-            return coordinator
-        }
-        
         container.register(MainCoordinator.self) { r in
             guard let nav = self.nav else { return MainCoordinator() }
-            let coordinator = MainCoordinator(nav: nav,
-                                              assembler: Assembler([self,
-                                                                    r ~> (GroupPrayAssembly.self)]))
+            let today = r ~> (TodayAssembly.self)
+            let pray = r ~> (GroupPrayAssembly.self)
+            let assembler = Assembler([self, today, pray])
+            let coordinator = MainCoordinator(nav: nav, assembler: assembler)
             return coordinator
         }
     }

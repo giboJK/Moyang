@@ -16,6 +16,19 @@ class TodayAssembly: Assembly, BaseAssembly {
     deinit { Log.i(self) }
     
     func assemble(container: Container) {
+        container.register(TodayVC.self) { r in
+            let vc = TodayVC()
+            
+            vc.vm = r ~> (TodayVM.self)
+            vc.coordinator = r ~> (TodayCoordinator.self)
+            
+            return vc
+        }
+        
+        container.register(TodayVM.self) { _ in
+            TodayVM()
+        }
+        
         container.register(TaskDetailVC.self) { (_, vm: TaskDetailVM) in
             let vc = TaskDetailVC()
             vc.vm = vm
