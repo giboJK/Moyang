@@ -15,11 +15,11 @@ class AutoCompleteTVCell: UITableViewCell {
     // MARK: - UI
     let tagLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
         $0.isUserInteractionEnabled = false
     }
     let bottomLine = UIView().then {
-        $0.backgroundColor = .sheep2
+        $0.backgroundColor = .sheep4
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,7 +40,7 @@ class AutoCompleteTVCell: UITableViewCell {
     
     // MARK: - UI
     private func setupUI() {
-        contentView.backgroundColor = .sheep1
+        contentView.backgroundColor = .nightSky1
         setupTagLabel()
         setupBottomLine()
     }

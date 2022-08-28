@@ -21,10 +21,10 @@ class GroupPrayVC: UIViewController, VCType {
     let headerHeight: CGFloat = 48
     
     // MARK: - UI
-    let infoButton = UIButton().then {
-        $0.setTitle("정보", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.setTitleColor(.nightSky1, for: .normal)
+    let newsButton = UIButton().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
+        $0.setImage(UIImage(systemName: "bell", withConfiguration: config), for: .normal)
+        $0.tintColor = .sheep1
     }
     let groupNameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 22, weight: .semibold)
@@ -84,6 +84,7 @@ class GroupPrayVC: UIViewController, VCType {
         view.backgroundColor = .nightSky1
         
         setupGroupNameLabel()
+        setupNewsButton()
         setupPrayTableView()
         
         setupSearchBar()
@@ -98,6 +99,15 @@ class GroupPrayVC: UIViewController, VCType {
         }
     }
     
+    private func setupNewsButton() {
+        view.addSubview(newsButton)
+        newsButton.snp.makeConstraints {
+            $0.right.equalTo(view.safeAreaLayoutGuide).inset(28)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.size.equalTo(24)
+        }
+    }
+    
     private func setupSearchBar() {
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints {
@@ -109,7 +119,7 @@ class GroupPrayVC: UIViewController, VCType {
     private func setupAutoCompleteTableView() {
         view.addSubview(autoCompleteTableView)
         autoCompleteTableView.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom)
+            $0.top.equalTo(searchBar.snp.bottom).offset(8)
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
@@ -117,7 +127,7 @@ class GroupPrayVC: UIViewController, VCType {
     private func setupPraySearchView() {
         view.addSubview(praySearchView)
         praySearchView.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom)
+            $0.top.equalTo(searchBar.snp.bottom).offset(8)
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
@@ -145,9 +155,9 @@ class GroupPrayVC: UIViewController, VCType {
     }
     
     private func bindViews() {
-        infoButton.rx.tap
+        newsButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.didTapInfoButton()
+                self?.coordinator?.didTapNewsButton()
             }).disposed(by: disposeBag)
         
         headerView.addPrayButton.rx.tap
@@ -172,11 +182,6 @@ class GroupPrayVC: UIViewController, VCType {
                 self?.searchBar.isHidden = false
                 self?.prayTableView.isHidden = true
                 self?.searchBar.textField.becomeFirstResponder()
-            }).disposed(by: disposeBag)
-        
-        headerView.memberButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.showMemberSelectView()
             }).disposed(by: disposeBag)
         
         searchBar.textField.rx.controlEvent([.editingDidBegin])
@@ -235,18 +240,6 @@ class GroupPrayVC: UIViewController, VCType {
         self.present(actionSheet, animated: true, completion: nil)
     }
     
-    private func showMemberSelectView() {
-        let vc = MemberSelectVC()
-        vc.vm = self.vm
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .pageSheet
-
-        if let sheet = nav.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-        }
-        present(nav, animated: true, completion: nil)
-    }
-    
     private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
         let vc = PrayReactionDetailVC()
         vc.vm = prayReactionDetailVM
@@ -301,12 +294,6 @@ class GroupPrayVC: UIViewController, VCType {
                     cell.tagLabel.text = item
                 }.disposed(by: disposeBag)
         
-        output.selectedMember
-            .map { $0.isEmpty ? "모두" : $0 }
-            .drive(onNext: { [weak self] name in
-                self?.headerView.memberButton.setTitle(name, for: .normal)
-            }).disposed(by: disposeBag)
-        
         output.prayReactionDetailVM
             .drive(onNext: { [weak self] prayReactionDetailVM in
                 guard let prayReactionDetailVM = prayReactionDetailVM else { return }
@@ -328,7 +315,7 @@ class GroupPrayVC: UIViewController, VCType {
 }
 
 protocol GroupPrayVCDelegate: AnyObject {
-    func didTapInfoButton()
+    func didTapNewsButton()
     func didTapNewPrayButton(vm: GroupPrayVM)
     func didTapPrayButton(vm: GroupPrayVM)
     func didTapPray(vm: GroupPrayDetailVM)

@@ -52,20 +52,6 @@ class GroupPrayHeader: UIView {
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
     }
-    let memberButton = MoyangButton(.none).then {
-        $0.layer.cornerRadius = 8
-        $0.tintColor = .sheep1
-        var container = AttributeContainer()
-        container.font = .systemFont(ofSize: 14, weight: .regular)
-        var configuration = UIButton.Configuration.filled()
-        configuration.buttonSize = .mini
-        configuration.attributedTitle = AttributedString("모두", attributes: container)
-        configuration.image = UIImage(systemName: "person.crop.circle.badge.checkmark")
-        configuration.imagePadding = 4
-        configuration.baseBackgroundColor = .nightSky3
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-        $0.configuration = configuration
-    }
     
     init() {
         super.init(frame: .zero)
@@ -82,7 +68,6 @@ class GroupPrayHeader: UIView {
         setupPrayButton()
 
         setupSearchButton()
-        setupMemberButton()
     }
     private func setupAddPrayButton() {
         addSubview(addPrayButton)
@@ -107,14 +92,6 @@ class GroupPrayHeader: UIView {
             $0.bottom.equalToSuperview().inset(8)
             $0.height.equalTo(36)
             $0.right.equalToSuperview().inset(20)
-        }
-    }
-    private func setupMemberButton() {
-        addSubview(memberButton)
-        memberButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(8)
-            $0.height.equalTo(36)
-            $0.right.equalTo(searchButton.snp.left).offset(-12)
         }
     }
 }
