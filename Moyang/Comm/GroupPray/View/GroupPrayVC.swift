@@ -18,7 +18,8 @@ class GroupPrayVC: UIViewController, VCType {
     var coordinator: GroupPrayVCDelegate?
     var groupCreateDate: Date!
     
-    let headerHeight: CGFloat = 48
+    let headerHeight: CGFloat = 152
+    let minHeaderHeight: CGFloat = 48
     
     // MARK: - UI
     let newsButton = UIButton().then {
@@ -142,7 +143,7 @@ class GroupPrayVC: UIViewController, VCType {
         }
         prayTableView.stickyHeader.view = headerView
         prayTableView.stickyHeader.height = headerHeight
-        prayTableView.stickyHeader.minimumHeight = 48
+        prayTableView.stickyHeader.minimumHeight = minHeaderHeight
         let footer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 60)).then {
             $0.backgroundColor = .clear
         }

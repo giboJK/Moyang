@@ -12,6 +12,7 @@ import Then
 import SnapKit
 
 class GroupPrayHeader: UIView {
+    let thisMonthTopicView = ThisMonthTopicView()
     let addPrayButton = MoyangButton(.none).then {
         $0.layer.cornerRadius = 8
         $0.tintColor = .sheep1
@@ -68,6 +69,14 @@ class GroupPrayHeader: UIView {
         setupPrayButton()
 
         setupSearchButton()
+    }
+    private func setupThisMonthTopicView() {
+        addSubview(thisMonthTopicView)
+        thisMonthTopicView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(24)
+            $0.height.equalTo(100)
+        }
     }
     private func setupAddPrayButton() {
         addSubview(addPrayButton)

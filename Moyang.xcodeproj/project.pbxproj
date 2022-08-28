@@ -52,6 +52,7 @@
 		08F4738928B5BAA70070CE2A /* BookSelectCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738828B5BAA70070CE2A /* BookSelectCVCell.swift */; };
 		08F4738C28B5BCDF0070CE2A /* BibleSelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */; };
 		08F4738E28B5F6090070CE2A /* AutoCompleteTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */; };
+		08F66EF628BC240D0078B6AB /* ThisMonthTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EF528BC240D0078B6AB /* ThisMonthTopicView.swift */; };
 		08F6796928B6DF0E00B6F287 /* GroupPraySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F6796828B6DF0E00B6F287 /* GroupPraySearchView.swift */; };
 		08F941F4289B5423003751F1 /* PrayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F3289B5423003751F1 /* PrayCVCell.swift */; };
 		08F941FA289BA0E8003751F1 /* GroupPrayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */; };
@@ -236,6 +237,7 @@
 		08F4738828B5BAA70070CE2A /* BookSelectCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSelectCVCell.swift; sourceTree = "<group>"; };
 		08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleSelectVM.swift; sourceTree = "<group>"; };
 		08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteTVCell.swift; sourceTree = "<group>"; };
+		08F66EF528BC240D0078B6AB /* ThisMonthTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisMonthTopicView.swift; sourceTree = "<group>"; };
 		08F6796828B6DF0E00B6F287 /* GroupPraySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPraySearchView.swift; sourceTree = "<group>"; };
 		08F941F3289B5423003751F1 /* PrayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayCVCell.swift; sourceTree = "<group>"; };
 		08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayDetailVC.swift; sourceTree = "<group>"; };
@@ -611,6 +613,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		08F66EF428BC23E80078B6AB /* ThisMonthTopic */ = {
+			isa = PBXGroup;
+			children = (
+				08F66EF528BC240D0078B6AB /* ThisMonthTopicView.swift */,
+			);
+			path = ThisMonthTopic;
+			sourceTree = "<group>";
+		};
 		08F6796A28B6DF1500B6F287 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,6 +787,7 @@
 		2493DE632846746A001A9368 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				08F66EF428BC23E80078B6AB /* ThisMonthTopic */,
 				08F6796A28B6DF1500B6F287 /* Search */,
 				242F929B2848E02F0023324D /* GroupPrayCoordinator.swift */,
 				249FD1E52893A73800BDF995 /* GroupPrayHeader.swift */,
@@ -1516,6 +1527,7 @@
 				24AACA7C283FC3DD00308AC3 /* MainCoordinator.swift in Sources */,
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
 				08AD959A287BEE00002D4F94 /* AuthUseCase.swift in Sources */,
+				08F66EF628BC240D0078B6AB /* ThisMonthTopicView.swift in Sources */,
 				24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */,
 				24CFA8B82878894D00484C89 /* StickyHeaderView.swift in Sources */,
 				086CB32328130077003BF6F7 /* GroupIndividualPray.swift in Sources */,
