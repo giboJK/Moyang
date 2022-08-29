@@ -113,9 +113,11 @@ class GroupPrayVM: VMType {
     }
     
     private func setMemberList(dict: [String: String]) {
-        var list = dict.map { MemberItem(id: $0.key, name: $0.value) }
+        guard let userInfo = UserData.shared.userInfo else { Log.e("No User info"); return }
+        var list = dict.map { MemberItem(id: $0.key, name: $0.value,
+                                         isMe: $0.key == userInfo.id) }
         list = list.sorted(by: { $0.name < $1.name })
-        var allItem = MemberItem(id: "", name: "모두")
+        var allItem = MemberItem(id: "", name: "모두", isMe: false)
         allItem.isChecked = true
         list.append(allItem)
         if let index = list.firstIndex(where: { $0.id == UserData.shared.userInfo?.id }) {
@@ -328,13 +330,13 @@ extension GroupPrayVM {
     struct MemberItem {
         let id: String
         let name: String
+        let isMe: Bool
         var isChecked: Bool
         
-        init(id: String,
-             name: String
-        ) {
+        init(id: String, name: String, isMe: Bool) {
             self.id = id
             self.name = name
+            self.isMe = isMe
             isChecked = false
         }
     }

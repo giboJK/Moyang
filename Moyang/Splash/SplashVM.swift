@@ -13,8 +13,8 @@ class SplashVM: VMType {
     let useCase: AuthUseCase
         
     let first = ["하나님"]
-    let second = ["저는", "오늘도", "영원히", "제 삶을"]
-    let third = ["예배자입니다", "감사합니다", "사랑합니다", "드립니다"]
+    let second = ["약속을", "말씀은", "영원히", "저는"]
+    let third = ["이루십니다", "살아있습니다", "사랑합니다", "예배자입니다"]
     
     let firstStr = BehaviorRelay<String>(value: "")
     let secondStr = BehaviorRelay<String>(value: "")

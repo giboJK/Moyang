@@ -98,9 +98,13 @@ class GroupPrayingVM: VMType {
     }
     
     private func setMemberList(dict: [String: String]) {
-        var list = dict.map { MemberItem(id: $0.key, name: $0.value) }
+        let isMyID = UserData.shared.userInfo?.id == userID
+        isMe.accept(isMyID)
+
+        var list = dict.map { MemberItem(id: $0.key, name: $0.value,
+                                         isMe: isMyID) }
         list = list.sorted(by: { $0.name < $1.name })
-        var allItem = MemberItem(id: "", name: "모두")
+        var allItem = MemberItem(id: "", name: "모두", isMe: false)
         allItem.isChecked = true
         list.append(allItem)
         memberList.accept(list)
@@ -108,11 +112,6 @@ class GroupPrayingVM: VMType {
             item.id == userID
         }) {
             selectedMemberName.accept(user.name)
-        }
-        if UserData.shared.userInfo?.id == userID {
-            isMe.accept(true)
-        } else {
-            isMe.accept(false)
         }
     }
     

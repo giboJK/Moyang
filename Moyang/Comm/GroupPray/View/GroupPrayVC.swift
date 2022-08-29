@@ -284,7 +284,7 @@ class GroupPrayVC: UIViewController, VCType {
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: GroupPrayTVCell.self)) { [weak self] (_, item, cell) in
                     cell.userID = item.id
-                    cell.nameLabel.text = item.name
+                    cell.nameLabel.text = item.isMe ? "내 기도" : item.name
                     cell.vm = self?.vm
                     cell.bind()
                 }.disposed(by: disposeBag)
