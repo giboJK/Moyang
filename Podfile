@@ -36,6 +36,7 @@ def firebase
   pod 'Firebase/Storage'
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Crashlytics'
+  pod 'Firebase/Messaging'
 end
 
 def ui
