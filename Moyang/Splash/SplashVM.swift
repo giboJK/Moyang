@@ -23,6 +23,7 @@ class SplashVM: VMType {
     let isLoginSuccess = BehaviorRelay<Void>(value: ())
     let isLoginFailure = BehaviorRelay<Void>(value: ())
     
+    var hasTryAutoLogin = false
     init(useCase: AuthUseCase) {
         self.useCase = useCase
         let randomInt = Int.random(in: 0..<4)
@@ -33,6 +34,10 @@ class SplashVM: VMType {
         
         NotificationCenter.default.addObserver(self, selector: #selector(autoLogin),
                                                name: NSNotification.Name("AUTO_LOGIN"), object: nil)
+        // Token이 안 날라올 경우 2초뒤에 autoLogin시도
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            self.moveToIntro()
+        }
     }
 
     deinit { Log.i(self) }
@@ -50,11 +55,19 @@ class SplashVM: VMType {
     }
     
     @objc func autoLogin() {
+        hasTryAutoLogin = true
         if let email = UserData.shared.email, let pw = UserData.shared.password {
             useCase.appLogin(email: email, credential: pw)
         } else {
             isLoginFailure.accept(())
         }
+    }
+    
+    private func moveToIntro() {
+        if hasTryAutoLogin {
+            return
+        }
+        isLoginFailure.accept(())
     }
 }
 
