@@ -84,18 +84,20 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
 }
 
-extension AppDelegate : MessagingDelegate {
+extension AppDelegate: MessagingDelegate {
     
     // fcm 등록 토큰을 받았을 때
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        Log.d("Firebase registration token: \(String(describing: fcmToken))")
+        UserData.shared.fcmToken = fcmToken
+        NotificationCenter.default.post(name: NSNotification.Name("AUTO_LOGIN"), object: nil, userInfo: nil)
+        Log.d("🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢\nFCM token: \(String(describing: fcmToken))\n🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
     }
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
         Log.d(messaging)
     }
 }
 
-extension AppDelegate : UNUserNotificationCenterDelegate {
+extension AppDelegate: UNUserNotificationCenterDelegate {
     
     // 푸시메세지가 앱이 켜져 있을때 나올때
     func userNotificationCenter(_ center: UNUserNotificationCenter,

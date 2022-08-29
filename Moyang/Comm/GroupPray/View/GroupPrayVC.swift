@@ -18,7 +18,7 @@ class GroupPrayVC: UIViewController, VCType {
     var coordinator: GroupPrayVCDelegate?
     var groupCreateDate: Date!
     
-    let headerHeight: CGFloat = 152
+    let headerHeight: CGFloat = 48
     let minHeaderHeight: CGFloat = 48
     
     // MARK: - UI

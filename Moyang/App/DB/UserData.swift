@@ -27,6 +27,15 @@ class UserData {
         }
     }
     
+    var fcmToken: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "FCM_TOKEN")
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: "FCM_TOKEN")
+        }
+    }
+    
     var userName: String? {
         get {
             return UserDefaults.standard.string(forKey: "USER_NAME")

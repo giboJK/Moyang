@@ -56,12 +56,13 @@ extension AuthController: AuthRepo {
         }
     }
     
-    func appLogin(email: String, credential: String, completion: ((Result<UserInfo, Error>) -> Void)?) {
+    func appLogin(email: String, credential: String, token: String, completion: ((Result<UserInfo, Error>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.LoginAPI.appLogin)
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
                                                  parameters: ["email": email,
-                                                              "user_pw": credential])
+                                                              "user_pw": credential,
+                                                              "token": token])
         
         networkService.requestAPI(request: request,
                                   type: UserInfo.self,

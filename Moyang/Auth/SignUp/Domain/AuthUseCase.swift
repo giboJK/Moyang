@@ -85,10 +85,12 @@ class AuthUseCase {
     }
     
     func appLogin(email: String, credential: String) {
-        if checkAndSetIsNetworking() {
+        guard let fcmToken = UserData.shared.fcmToken else {
+            Log.e("No token")
+            isLoginFailure.accept(())
             return
         }
-        repo.appLogin(email: email.lowercased(), credential: credential) { [weak self] result in
+        repo.appLogin(email: email.lowercased(), credential: credential, token: fcmToken) { [weak self] result in
             switch result {
             case .success(let user):
                 Log.d(user)
@@ -102,7 +104,6 @@ class AuthUseCase {
                 Log.e(error)
                 self?.isLoginFailure.accept(())
             }
-            self?.isNetworking.accept(false)
         }
     }
     

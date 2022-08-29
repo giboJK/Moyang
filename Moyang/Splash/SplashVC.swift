@@ -127,9 +127,6 @@ class SplashVC: UIViewController, VCType {
             .drive(onNext: { [weak self] _ in
                 self?.coordinator?.loginFailure()
             }).disposed(by: disposeBag)
-        
-        // 시간순서를 보장하기 위해 가장 마지막
-        vm.autoLogin()
     }
 }
 

@@ -12,7 +12,7 @@ protocol AuthRepo {
     func registUser(email: String, pw: String, name: String, birth: String, authType: String,
                     completion: ((Result<UserInfo, Error>) -> Void)?)
     
-    func appLogin(email: String, credential: String, completion: ((Result<UserInfo, Error>) -> Void)?)
+    func appLogin(email: String, credential: String, token: String, completion: ((Result<UserInfo, Error>) -> Void)?)
 }
 
 enum AuthType: String {

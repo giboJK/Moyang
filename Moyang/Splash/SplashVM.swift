@@ -30,6 +30,9 @@ class SplashVM: VMType {
         secondStr.accept(second[randomInt])
         thirdStr.accept(third[randomInt])
         bind()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(autoLogin),
+                                               name: NSNotification.Name("AUTO_LOGIN"), object: nil)
     }
 
     deinit { Log.i(self) }
@@ -46,7 +49,7 @@ class SplashVM: VMType {
             .disposed(by: disposeBag)
     }
     
-    func autoLogin() {
+    @objc func autoLogin() {
         if let email = UserData.shared.email, let pw = UserData.shared.password {
             useCase.appLogin(email: email, credential: pw)
         } else {
