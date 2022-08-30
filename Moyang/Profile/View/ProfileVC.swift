@@ -38,6 +38,12 @@ class ProfileVC: UIViewController, VCType {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     func setupUI() {
         view.backgroundColor = .nightSky1
         setupLogoutButton()

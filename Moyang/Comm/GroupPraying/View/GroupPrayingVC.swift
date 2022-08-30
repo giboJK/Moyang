@@ -29,7 +29,7 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.backgroundColor = .clear
     }
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 23, weight: .semibold)
+        $0.font = .systemFont(ofSize: 28, weight: .semibold)
         $0.textColor = .sheep1
     }
     let prayCollectionView: UICollectionView = {
@@ -168,7 +168,7 @@ class GroupPrayingVC: UIViewController, VCType {
         titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(28)
             $0.right.equalToSuperview().inset(120)
-            $0.top.equalTo(navBar.snp.bottom).offset(20)
+            $0.top.equalTo(navBar.snp.bottom).offset(16)
         }
     }
     private func setupSongController() {

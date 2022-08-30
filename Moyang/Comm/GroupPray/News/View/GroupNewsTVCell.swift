@@ -22,9 +22,9 @@ class GroupNewsTVCell: UITableViewCell {
         $0.textColor = .nightSky2
         $0.isUserInteractionEnabled = false
     }
-    let prayLabel = UILabel().then {
+    let contentLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
         $0.isUserInteractionEnabled = false
         $0.numberOfLines = 3
     }
@@ -73,8 +73,8 @@ class GroupNewsTVCell: UITableViewCell {
         }
     }
     private func setupPrayLabel() {
-        contentView.addSubview(prayLabel)
-        prayLabel.snp.makeConstraints {
+        contentView.addSubview(contentLabel)
+        contentLabel.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(24)
             $0.bottom.equalToSuperview().inset(36)

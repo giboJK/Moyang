@@ -80,12 +80,6 @@ class GroupPrayVC: UIViewController, VCType {
         navigationController?.isNavigationBarHidden = true
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.backItem?.title = ""
-    }
-    
     deinit { Log.i(self) }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
