@@ -51,7 +51,7 @@ class GroupPrayTVCell: UITableViewCell {
         $0.text = "기도 제목이 없습니다."
     }
     let divider = UIView().then {
-        $0.backgroundColor = .sheep3
+        $0.backgroundColor = .sheep3.withAlphaComponent(0.7)
     }
     
     var userID: String = ""
@@ -119,7 +119,7 @@ class GroupPrayTVCell: UITableViewCell {
             $0.bottom.equalToSuperview()
             $0.left.equalToSuperview().inset(12)
             $0.right.equalToSuperview()
-            $0.height.equalTo(0.5)
+            $0.height.equalTo(0.3)
         }
     }
     

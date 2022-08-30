@@ -29,11 +29,6 @@ class GroupNewsVC: UIViewController, VCType {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        navigationController?.navigationBar.backItem?.title = ""
-    }
     func setupUI() {
         title = "소식"
         view.backgroundColor = .nightSky1
