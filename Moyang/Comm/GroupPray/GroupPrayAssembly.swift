@@ -38,6 +38,17 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
             GroupPrayVM(useCase: (r ~> PrayUseCase.self))
         }
         
+        // MARK: - GroupNews
+        container.register(GroupNewsVM.self) { r in
+            GroupNewsVM(groupUseCase: r ~> (GroupUseCase.self), prayUseCase: r ~> (PrayUseCase.self))
+        }
+        container.register(GroupNewsVC.self) { r in
+            let vc = GroupNewsVC()
+            vc.vm = r ~> (GroupNewsVM.self)
+            return vc
+        }
+        
+        
         // MARK: - GroupInfo
         container.register(GroupInfoVM.self) { _ in
             GroupInfoVM()
@@ -85,17 +96,22 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
             return GroupPrayingVM(useCase: useCase, groupID: groupID)
         }
         
-        
-        container.register(PrayUseCase.self) { r in
-            return PrayUseCase(repo: (r ~> PrayRepo.self))
-        }
-        
+        // MARK: - PrayUseCase
         container.register(PrayRepo.self) { r in
             PrayController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         
         container.register(PrayUseCase.self) { r in
             PrayUseCase(repo: r ~> (PrayRepo.self))
+        }
+        
+        // MARK: - GroupUseCase
+        container.register(GroupRepo.self) { r in
+            GroupController(networkService: r ~> (NetworkServiceProtocol.self))
+        }
+        
+        container.register(GroupUseCase.self) { r in
+            GroupUseCase(repo: r ~> (GroupRepo.self))
         }
         
         // MARK: - Coordinator

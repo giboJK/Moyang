@@ -28,7 +28,7 @@ class GroupPrayVC: UIViewController, VCType {
         $0.tintColor = .sheep1
     }
     let groupNameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 22, weight: .semibold)
+        $0.font = .systemFont(ofSize: 24, weight: .semibold)
         $0.textColor = .sheep1
     }
     let searchBar = MoyangSearchBar().then {
@@ -73,6 +73,16 @@ class GroupPrayVC: UIViewController, VCType {
         setupUI()
         bind()
         self.hidesBottomBarWhenPushed = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
     }
     
     deinit { Log.i(self) }

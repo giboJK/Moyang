@@ -10,7 +10,7 @@ import RxCocoa
 
 class AllGroupVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: AllGroupUseCase
+    let useCase: GroupUseCase
     let communityUseCase: CommunityMainUseCase
 
     let itemList = BehaviorRelay<[GroupInfoItem]>(value: [])
@@ -18,7 +18,7 @@ class AllGroupVM: VMType {
     
     private var groupInfoList = [GroupInfo]()
     
-    init(useCase: AllGroupUseCase, communityUseCase: CommunityMainUseCase) {
+    init(useCase: GroupUseCase, communityUseCase: CommunityMainUseCase) {
         self.useCase = useCase
         self.communityUseCase = communityUseCase
         bind()

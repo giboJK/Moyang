@@ -53,6 +53,7 @@
 		08F4738C28B5BCDF0070CE2A /* BibleSelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */; };
 		08F4738E28B5F6090070CE2A /* AutoCompleteTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */; };
 		08F66EF628BC240D0078B6AB /* ThisMonthTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EF528BC240D0078B6AB /* ThisMonthTopicView.swift */; };
+		08F66EF928BD9D5F0078B6AB /* GroupNewsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EF828BD9D5F0078B6AB /* GroupNewsVM.swift */; };
 		08F6796928B6DF0E00B6F287 /* GroupPraySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F6796828B6DF0E00B6F287 /* GroupPraySearchView.swift */; };
 		08F941F4289B5423003751F1 /* PrayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F3289B5423003751F1 /* PrayCVCell.swift */; };
 		08F941FA289BA0E8003751F1 /* GroupPrayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */; };
@@ -122,8 +123,8 @@
 		24CFA8B82878894D00484C89 /* StickyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8B72878894D00484C89 /* StickyHeaderView.swift */; };
 		24CFA8BE28792D4800484C89 /* AllGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8BD28792D4800484C89 /* AllGroupVC.swift */; };
 		24CFA8C128792D6700484C89 /* AllGroupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8C028792D6700484C89 /* AllGroupVM.swift */; };
-		24CFA8C428792F4600484C89 /* AllGroupRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8C328792F4600484C89 /* AllGroupRepo.swift */; };
-		24CFA8C62879300800484C89 /* AllGroupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8C52879300800484C89 /* AllGroupUseCase.swift */; };
+		24CFA8C428792F4600484C89 /* GroupRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8C328792F4600484C89 /* GroupRepo.swift */; };
+		24CFA8C62879300800484C89 /* GroupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8C52879300800484C89 /* GroupUseCase.swift */; };
 		24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F727230CA3006FF67B /* MoyangApp.swift */; };
 		24D0D2FC27230CA6006FF67B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D0D2FB27230CA6006FF67B /* Images.xcassets */; };
 		24D0D30927230CA6006FF67B /* MoyangTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D30827230CA6006FF67B /* MoyangTests.swift */; };
@@ -148,7 +149,7 @@
 		24E0AB27283E5C8500F52505 /* CommunityGroupPrayCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB26283E5C8500F52505 /* CommunityGroupPrayCard.swift */; };
 		24E0AB2A283E73C300F52505 /* CommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB29283E73C300F52505 /* CommunityMainUseCase.swift */; };
 		24E0AB2C283E73F800F52505 /* CommunityMainRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB2B283E73F800F52505 /* CommunityMainRepo.swift */; };
-		24E0AB2E283E744200F52505 /* CommunityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB2D283E744200F52505 /* CommunityController.swift */; };
+		24E0AB2E283E744200F52505 /* GroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB2D283E744200F52505 /* GroupController.swift */; };
 		24E0AB30283E746700F52505 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB2F283E746700F52505 /* Network.swift */; };
 		24E0AB32283E74A900F52505 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB31283E74A900F52505 /* Request.swift */; };
 		24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB33283E74B900F52505 /* NetworkImpl.swift */; };
@@ -238,6 +239,7 @@
 		08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleSelectVM.swift; sourceTree = "<group>"; };
 		08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteTVCell.swift; sourceTree = "<group>"; };
 		08F66EF528BC240D0078B6AB /* ThisMonthTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisMonthTopicView.swift; sourceTree = "<group>"; };
+		08F66EF828BD9D5F0078B6AB /* GroupNewsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNewsVM.swift; sourceTree = "<group>"; };
 		08F6796828B6DF0E00B6F287 /* GroupPraySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPraySearchView.swift; sourceTree = "<group>"; };
 		08F941F3289B5423003751F1 /* PrayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayCVCell.swift; sourceTree = "<group>"; };
 		08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayDetailVC.swift; sourceTree = "<group>"; };
@@ -309,8 +311,8 @@
 		24CFA8B72878894D00484C89 /* StickyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyHeaderView.swift; sourceTree = "<group>"; };
 		24CFA8BD28792D4800484C89 /* AllGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupVC.swift; sourceTree = "<group>"; };
 		24CFA8C028792D6700484C89 /* AllGroupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupVM.swift; sourceTree = "<group>"; };
-		24CFA8C328792F4600484C89 /* AllGroupRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupRepo.swift; sourceTree = "<group>"; };
-		24CFA8C52879300800484C89 /* AllGroupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupUseCase.swift; sourceTree = "<group>"; };
+		24CFA8C328792F4600484C89 /* GroupRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRepo.swift; sourceTree = "<group>"; };
+		24CFA8C52879300800484C89 /* GroupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUseCase.swift; sourceTree = "<group>"; };
 		24D0D2F427230CA3006FF67B /* Moyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0D2F727230CA3006FF67B /* MoyangApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangApp.swift; sourceTree = "<group>"; };
 		24D0D2FB27230CA6006FF67B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -336,7 +338,7 @@
 		24E0AB26283E5C8500F52505 /* CommunityGroupPrayCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityGroupPrayCard.swift; sourceTree = "<group>"; };
 		24E0AB29283E73C300F52505 /* CommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainUseCase.swift; sourceTree = "<group>"; };
 		24E0AB2B283E73F800F52505 /* CommunityMainRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainRepo.swift; sourceTree = "<group>"; };
-		24E0AB2D283E744200F52505 /* CommunityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityController.swift; sourceTree = "<group>"; };
+		24E0AB2D283E744200F52505 /* GroupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupController.swift; sourceTree = "<group>"; };
 		24E0AB2F283E746700F52505 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		24E0AB31283E74A900F52505 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		24E0AB33283E74B900F52505 /* NetworkImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImpl.swift; sourceTree = "<group>"; };
@@ -621,6 +623,14 @@
 			path = ThisMonthTopic;
 			sourceTree = "<group>";
 		};
+		08F66EF728BD9D550078B6AB /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				08F66EF828BD9D5F0078B6AB /* GroupNewsVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		08F6796A28B6DF1500B6F287 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -709,7 +719,6 @@
 				24F4D383287B1DA300B1AC06 /* GroupInfo */,
 				240946CD28707361003AEDAD /* AddReplyAndChange */,
 				08D2FD98286EE29C00ED8ECB /* PrayReaction */,
-				24E7547728BAF2EA00E49EB2 /* News */,
 				2493DE602846742B001A9368 /* GroupPray */,
 				24E4DC35284C2CFF002ECD83 /* GroupPraying */,
 			);
@@ -777,6 +786,7 @@
 				24C8E9B6286B1F1C00AEE46B /* Domain */,
 				2493DE64284674D5001A9368 /* Presenter */,
 				2493DE632846746A001A9368 /* View */,
+				24E7547728BAF2EA00E49EB2 /* News */,
 				08F941F7289BA0CE003751F1 /* PrayDetail */,
 				242F929F2848FD090023324D /* NewPray */,
 				24ED982B28AE32BF0086C043 /* ChangeAndAnswer */,
@@ -953,8 +963,8 @@
 		24CFA8C228792F3D00484C89 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				24CFA8C328792F4600484C89 /* AllGroupRepo.swift */,
-				24CFA8C52879300800484C89 /* AllGroupUseCase.swift */,
+				24CFA8C328792F4600484C89 /* GroupRepo.swift */,
+				24CFA8C52879300800484C89 /* GroupUseCase.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1110,6 +1120,7 @@
 		24E7547728BAF2EA00E49EB2 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				08F66EF728BD9D550078B6AB /* Presenter */,
 				24E7547828BAF2FB00E49EB2 /* View */,
 			);
 			path = News;
@@ -1170,7 +1181,7 @@
 		24F41C672897E96D005B5E70 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				24E0AB2D283E744200F52505 /* CommunityController.swift */,
+				24E0AB2D283E744200F52505 /* GroupController.swift */,
 				08AD9584287BDFF1002D4F94 /* AuthController.swift */,
 				24F41C682897E9E9005B5E70 /* PrayController.swift */,
 			);
@@ -1537,7 +1548,7 @@
 				08D0CEB528A36AFE00A15F3C /* TodayVM.swift in Sources */,
 				24A55F64279AFE7D007DDE02 /* String+.swift in Sources */,
 				24DB58DE2845CA8E001E12B0 /* CommunityGroupPrayCVCell.swift in Sources */,
-				24E0AB2E283E744200F52505 /* CommunityController.swift in Sources */,
+				24E0AB2E283E744200F52505 /* GroupController.swift in Sources */,
 				24BB426028471F6700E86CCD /* PrayTagCVCell.swift in Sources */,
 				24AACA7E283FC40A00308AC3 /* Coordinator.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
@@ -1576,6 +1587,7 @@
 				24CD549D28771ABC0081375B /* PrayReplyDetailVC.swift in Sources */,
 				08D82959278D25F0001E6B61 /* Font+.swift in Sources */,
 				242F929E2848E0FF0023324D /* GroupPrayAssembly.swift in Sources */,
+				08F66EF928BD9D5F0078B6AB /* GroupNewsVM.swift in Sources */,
 				24F41C692897E9EA005B5E70 /* PrayController.swift in Sources */,
 				08BBB8BB27F9257E0005663C /* PopOver+.swift in Sources */,
 				2498F909287C514D007EF510 /* IntroCoordinator.swift in Sources */,
@@ -1618,7 +1630,7 @@
 				08AD9598287BEB52002D4F94 /* BaseResponse.swift in Sources */,
 				24BFD9ED28307B2200E105D3 /* MainVM.swift in Sources */,
 				24CFA8C128792D6700484C89 /* AllGroupVM.swift in Sources */,
-				24CFA8C428792F4600484C89 /* AllGroupRepo.swift in Sources */,
+				24CFA8C428792F4600484C89 /* GroupRepo.swift in Sources */,
 				241DA139288B86EE0046BF21 /* EmptyGroupView.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
 				2498F905287C4E4A007EF510 /* IntroVM.swift in Sources */,
@@ -1628,7 +1640,7 @@
 				08F4738E28B5F6090070CE2A /* AutoCompleteTVCell.swift in Sources */,
 				08D0CEBC28A3845900A15F3C /* TaskListView.swift in Sources */,
 				08D2F6F828B3483D00D95840 /* GroupActivity.swift in Sources */,
-				24CFA8C62879300800484C89 /* AllGroupUseCase.swift in Sources */,
+				24CFA8C62879300800484C89 /* GroupUseCase.swift in Sources */,
 				08AD9596287BEB08002D4F94 /* AuthRepo.swift in Sources */,
 				2493DE6228467441001A9368 /* GroupPrayVC.swift in Sources */,
 				242F92A3284904AF0023324D /* MoyangTextField.swift in Sources */,

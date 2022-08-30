@@ -64,24 +64,6 @@ class CommunityMainUseCase {
                   order: Int) {
         if checkAndSetIsNetworking() { return }
     }
-    
-    func loadSong() {
-        downloadSong()
-    }
-    
-    private func downloadSong(fileName: String = "Road to God", fileExt: String = "mp3") {
-        repo.downloadSong(fileName: fileName, path: "music/", fileExt: "mp3") { [weak self] result in
-            switch result {
-            case .success(let url):
-                Log.d(url)
-                self?.songName.accept(fileName)
-                self?.songURL.accept(url)
-            case .failure(let error):
-                Log.e(MoyangError.other(error))
-            }
-        }
-    }
-    
     private func checkAndSetIsNetworking() -> Bool {
         if isNetworking.value { Log.d("isNetworking..."); return true }
         isNetworking.accept(true)

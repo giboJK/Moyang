@@ -90,7 +90,7 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         UserData.shared.fcmToken = fcmToken
         NotificationCenter.default.post(name: NSNotification.Name("AUTO_LOGIN"), object: nil, userInfo: nil)
-        Log.d("🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢\nFCM token: \(String(describing: fcmToken))\n🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
+        Log.d("🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢\nFCM token: \(fcmToken)\n🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
     }
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
         Log.d(messaging)

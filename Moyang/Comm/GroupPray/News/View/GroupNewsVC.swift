@@ -12,15 +12,10 @@ import SnapKit
 import Then
 
 class GroupNewsVC: UIViewController, VCType {
-    typealias VM = DummyVM
+    typealias VM = GroupNewsVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: VCDelegate?
-
-    // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
-        $0.closeButton.isHidden = true
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,18 +29,15 @@ class GroupNewsVC: UIViewController, VCType {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        navigationController?.navigationBar.backItem?.title = ""
+    }
     func setupUI() {
-        setupNavBar()
+        title = "소식"
+        view.backgroundColor = .nightSky1
     }
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(UIApplication.statusBarHeight + 44)
-        }
-    }
-
     // MARK: - Binding
     func bind() {
         bindVM()

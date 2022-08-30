@@ -11,7 +11,4 @@ protocol CommunityMainRepo {
     func fetchGroupSummary(myInfo: UserInfo, completion: ((Result<GroupSummary, MoyangError>) -> Void)?) 
     
     func fetchGroupInfo(community: String, groupID: String, completion: ((Result<GroupInfo, MoyangError>) -> Void)?)
-    
-    func downloadSong(fileName: String, path: String, fileExt: String,
-                      completion: ((Result<URL, MoyangError>) -> Void)?)
 }

@@ -39,7 +39,7 @@ class GroupPrayCoordinator: Coordinator {
 
 extension GroupPrayCoordinator: GroupPrayVCDelegate {
     func didTapNewsButton() {
-        if let vc = assembler.resolver.resolve(GroupInfoVC.self) {
+        if let vc = assembler.resolver.resolve(GroupNewsVC.self) {
             nav.pushViewController(vc, animated: true)
         } else {
             Log.e("")
