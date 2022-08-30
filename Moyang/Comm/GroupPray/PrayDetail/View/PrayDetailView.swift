@@ -21,12 +21,12 @@ class PrayDetailView: UIView, UITextFieldDelegate {
     }
     let groupChangeButton = MoyangButton(.none).then {
         $0.setTitle("그룹 변경", for: .normal)
-        $0.setTitleColor(.nightSky3, for: .normal)
+        $0.setTitleColor(.sheep2, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
     }
     let dateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky2
+        $0.textColor = .sheep2
     }
     let prayTextView = UITextView().then {
         $0.backgroundColor = .sheep1
@@ -35,7 +35,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         $0.textColor = .nightSky1
     }
     let tagInfoLabel = UILabel().then {
-        $0.text = "태그는 5개까지 추가되며 하나당 최대 20자입니다."
+        $0.text = "태그는 5개까지 추가되며 최대 20자입니다."
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .sheep4
         $0.numberOfLines = 0
@@ -60,7 +60,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
     let isSecretLabel = UILabel().then {
         $0.text = "비공개 기도"
         $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
     }
     let isSecretCheckBox = CheckBox()
     let reactionView = UIStackView().then {
