@@ -39,12 +39,12 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - GroupNews
-        container.register(GroupNewsVM.self) { r in
-            GroupNewsVM(groupUseCase: r ~> (GroupUseCase.self), prayUseCase: r ~> (PrayUseCase.self))
+        container.register(GroupEventVM.self) { r in
+            GroupEventVM(groupUseCase: r ~> (GroupUseCase.self), prayUseCase: r ~> (PrayUseCase.self))
         }
-        container.register(GroupNewsVC.self) { r in
-            let vc = GroupNewsVC()
-            vc.vm = r ~> (GroupNewsVM.self)
+        container.register(GroupEventVC.self) { r in
+            let vc = GroupEventVC()
+            vc.vm = r ~> (GroupEventVM.self)
             return vc
         }
         

@@ -22,4 +22,8 @@ class GroupUseCase {
     // MARK: - Function
     func fetchGroupList() {
     }
+    
+    func fetchEvents() {
+        
+    }
 }

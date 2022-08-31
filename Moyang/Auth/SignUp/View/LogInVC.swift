@@ -76,7 +76,7 @@ class LogInVC: UIViewController, VCType {
         appleSigninButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchDown)
         appleSigninButton.snp.makeConstraints {
             $0.bottom.equalTo(googleSignupButton.snp.top).offset(-32)
-            $0.left.right.equalToSuperview().inset(20)
+            $0.left.right.equalToSuperview().inset(28)
             $0.height.equalTo(48)
         }
     }

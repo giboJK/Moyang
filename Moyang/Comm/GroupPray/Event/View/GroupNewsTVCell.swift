@@ -14,19 +14,19 @@ class GroupNewsTVCell: UITableViewCell {
     // MARK: - UI
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
         $0.isUserInteractionEnabled = false
     }
     let dateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.textColor = .nightSky2
+        $0.textColor = .sheep3
         $0.isUserInteractionEnabled = false
     }
     let contentLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .sheep2
         $0.isUserInteractionEnabled = false
-        $0.numberOfLines = 3
+        $0.numberOfLines = 2
     }
     let bottomLine = UIView().then {
         $0.backgroundColor = .sheep2
@@ -51,10 +51,10 @@ class GroupNewsTVCell: UITableViewCell {
     
     // MARK: - UI
     private func setupUI() {
-        contentView.backgroundColor = .sheep1
+        contentView.backgroundColor = .nightSky1
         setupNameLabel()
         setupDateLabel()
-        setupPrayLabel()
+        setupContentLabel()
         
         setupBottomLine()
     }
@@ -72,7 +72,7 @@ class GroupNewsTVCell: UITableViewCell {
             $0.left.right.equalToSuperview().inset(24)
         }
     }
-    private func setupPrayLabel() {
+    private func setupContentLabel() {
         contentView.addSubview(contentLabel)
         contentLabel.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(8)
