@@ -41,7 +41,7 @@ class SplashCoordinator: Coordinator {
 extension SplashCoordinator: SplashVCDelegate {
     func loginSuccess() {
         if let coordinator = assembler.resolver.resolve(MainCoordinator.self) {
-            coordinator.start(true) {
+            coordinator.start(false) {
                 Log.d("Auto Login Success")
             }
         } else {
@@ -50,7 +50,7 @@ extension SplashCoordinator: SplashVCDelegate {
     }
     func loginFailure() {
         if let coordinator = assembler.resolver.resolve(IntroCoordinator.self) {
-            coordinator.start(true, completion: nil)
+            coordinator.start(false, completion: nil)
         } else {
             Log.e("Init failed")
         }

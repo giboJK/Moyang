@@ -19,10 +19,6 @@ class GroupPrayDetailVC: UIViewController, VCType {
     var coordinator: GroupPrayDetailVCDelegate?
 
     // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
-        $0.closeButton.isHidden = true
-        $0.title = "기도제목"
-    }
     let updateButton = UIButton().then {
         $0.setTitle("저장", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
@@ -93,8 +89,9 @@ class GroupPrayDetailVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
-        view.backgroundColor = .sheep2
-        setupNavBar()
+        title = "기도제목"
+        view.backgroundColor = .nightSky1
+        setupUpdateButton()
         setupPrayDetailView()
         setupPrayChangeView()
         setupPrayAnswerView()
@@ -103,27 +100,17 @@ class GroupPrayDetailVC: UIViewController, VCType {
         setupPrayButton()
         setupReactionView()
     }
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(UIApplication.statusBarHeight + 44)
-        }
-        setupUpdateButton()
-    }
     private func setupUpdateButton() {
-        navBar.addSubview(updateButton)
-        updateButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
-        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(addTapped))
+    }
+    
+    @objc func addTapped() {
+        
     }
     private func setupPrayDetailView() {
         view.addSubview(prayDetailView)
         prayDetailView.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.left.right.equalToSuperview()
         }
         prayDetailView.vm = vm
@@ -264,11 +251,6 @@ class GroupPrayDetailVC: UIViewController, VCType {
     }
     
     private func bineViews() {
-        navBar.backButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
-        
         deleteButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }

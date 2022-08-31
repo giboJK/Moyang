@@ -26,7 +26,7 @@ class PrayReactionView: UIView {
         setupUI()
     }
     
-    deinit { Log.i(self) }
+//    deinit { Log.i(self) }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

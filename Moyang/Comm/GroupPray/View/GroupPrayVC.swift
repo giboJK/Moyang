@@ -28,7 +28,7 @@ class GroupPrayVC: UIViewController, VCType {
         $0.tintColor = .sheep1
     }
     let groupNameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 22, weight: .semibold)
+        $0.font = .systemFont(ofSize: 31, weight: .semibold)
         $0.textColor = .sheep1
     }
     let searchBar = MoyangSearchBar().then {
@@ -75,6 +75,11 @@ class GroupPrayVC: UIViewController, VCType {
         self.hidesBottomBarWhenPushed = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     deinit { Log.i(self) }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -95,7 +100,7 @@ class GroupPrayVC: UIViewController, VCType {
     private func setupGroupNameLabel() {
         view.addSubview(groupNameLabel)
         groupNameLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(48)
             $0.left.equalToSuperview().inset(24)
         }
     }
@@ -104,7 +109,7 @@ class GroupPrayVC: UIViewController, VCType {
         view.addSubview(newsButton)
         newsButton.snp.makeConstraints {
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(28)
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.size.equalTo(24)
         }
     }
