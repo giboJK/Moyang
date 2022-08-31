@@ -33,7 +33,7 @@ class NetConst {
         /// post
         static let fetchGroupSummary = "/group/group_summary_fetch"
         /// post
-        static let fetchGroupActivity = "/group/activity_fetch"
+        static let fetchGroupEvent = "/group/event_fetch"
     }
     
     enum PrayAPI {

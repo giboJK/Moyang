@@ -38,17 +38,3 @@ struct PrayActivityItem: Codable {
     }
 }
 
-
-class GroupActivityResponse: BaseResponse {
-    let data: GroupActivity
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        data = try container.decode(GroupActivity.self, forKey: .data)
-        try super.init(from: decoder)
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case data
-    }
-}

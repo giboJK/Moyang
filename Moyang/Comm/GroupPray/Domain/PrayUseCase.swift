@@ -385,24 +385,24 @@ class PrayUseCase {
                         }
                     }
                     
-                    response.data.amenList.forEach { item in
-                        if let dateString = item.date.isoToDateString("yyyy-MM-dd") {
-                            if var set = amenDict[dateString] {
-                                set.insert(item.userID)
-                                amenDict.updateValue(set, forKey: dateString)
-                            }
-                        }
-                    }
-                    self.hasAmenDict.accept(amenDict)
-                    
-                    response.data.prayList.forEach { item in
-                        if let dateString = item.date.isoToDateString("yyyy-MM-dd") {
-                            if var set = prayDict[dateString] {
-                                set.insert(item.userID)
-                                prayDict.updateValue(set, forKey: dateString)
-                            }
-                        }
-                    }
+//                    response.data.amenList.forEach { item in
+//                        if let dateString = item.date.isoToDateString("yyyy-MM-dd") {
+//                            if var set = amenDict[dateString] {
+//                                set.insert(item.userID)
+//                                amenDict.updateValue(set, forKey: dateString)
+//                            }
+//                        }
+//                    }
+//                    self.hasAmenDict.accept(amenDict)
+//                    
+//                    response.data.prayList.forEach { item in
+//                        if let dateString = item.date.isoToDateString("yyyy-MM-dd") {
+//                            if var set = prayDict[dateString] {
+//                                set.insert(item.userID)
+//                                prayDict.updateValue(set, forKey: dateString)
+//                            }
+//                        }
+//                    }
                     self.hasPrayDict.accept(prayDict)
                 } else {
                     Log.e("")

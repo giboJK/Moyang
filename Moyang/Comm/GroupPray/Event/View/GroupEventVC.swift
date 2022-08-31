@@ -68,9 +68,10 @@ class GroupEventVC: UIViewController, VCType {
         
         output.news
             .drive(newsTableView.rx
-                .items(cellIdentifier: "cell", cellType: ReplyTVCell.self)) { (index, item, cell) in
-                    cell.contentTextView.text = item.content
+                .items(cellIdentifier: "cell", cellType: GroupNewsTVCell.self)) { (_, item, cell) in
+                    cell.nameLabel.text = item.userName
                     cell.dateLabel.text = item.date.isoToDateString("yyyy년 M월 d일 hh:mm")
+                    cell.contentLabel.text = item.preview
                 }.disposed(by: disposeBag)
     }
 }

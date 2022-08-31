@@ -80,8 +80,8 @@ extension PrayController: PrayRepo {
         
     }
     
-    func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupActivityResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.GroupAPI.fetchGroupActivity)
+    func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupEventResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.GroupAPI.fetchGroupEvent)
         let dict: [String: Any] = [
             "group_id": groupID,
             "is_week": isWeek,
@@ -91,7 +91,7 @@ extension PrayController: PrayRepo {
                                                  method: .post,
                                                  parameters: dict)
         networkService.requestAPI(request: request,
-                                  type: GroupActivityResponse.self,
+                                  type: GroupEventResponse.self,
                                   token: nil) { result in
             switch result {
             case .success(let response):

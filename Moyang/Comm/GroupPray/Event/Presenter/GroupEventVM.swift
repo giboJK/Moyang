@@ -13,19 +13,38 @@ class GroupEventVM: VMType {
     let groupUseCase: GroupUseCase
     let prayUseCase: PrayUseCase
     
-    let news = BehaviorRelay<[NewsItem]>(value: [])
+    let events = BehaviorRelay<[EventItem]>(value: [])
 
     init(groupUseCase: GroupUseCase, prayUseCase: PrayUseCase) {
         self.groupUseCase = groupUseCase
         self.prayUseCase = prayUseCase
-        fetchNews()
+        if let date = Date().startOfWeek?.toString("yyyy-MM-dd hh:mm:ss Z") {
+            fetchNews(date: date)
+        }
+        bind()
     }
 
     deinit { Log.i(self) }
     
-    // 1달씩
-    private func fetchNews() {
-        
+    private func bind() {
+        groupUseCase.groupEvents
+            .subscribe(onNext: { [weak self] events in
+                var list = [EventItem]()
+                events.forEach { event in
+                    list.append(EventItem(id: event.id,
+                                          date: event.createDate,
+                                          userName: event.userName,
+                                          targetUserName: event.targetUserName,
+                                          eventType: event.eventType,
+                                          preview: event.preview))
+                }
+                self?.events.accept(list)
+            }).disposed(by: disposeBag)
+    }
+    
+    // 1주씩
+    private func fetchNews(date: String) {
+        groupUseCase.fetchEvents(date: date)
     }
     
     func fetchMoreNews() {
@@ -39,22 +58,33 @@ extension GroupEventVM {
     }
 
     struct Output {
-        let news: Driver<[NewsItem]>
+        let news: Driver<[EventItem]>
     }
 
     func transform(input: Input) -> Output {
-        return Output(news: news.asDriver())
+        return Output(news: events.asDriver())
     }
     
-    struct NewsItem {
+    struct EventItem {
         let id: String
         let date: String
-        let content: String
+        let userName: String
+        let targetUserName: String?
+        let eventType: String
+        let preview: String?
         
-        init(id: String, date: String, content: String) {
+        init(id: String,
+             date: String,
+             userName: String,
+             targetUserName: String?,
+             eventType: String,
+             preview: String?) {
             self.id = id
             self.date = date
-            self.content = content
+            self.userName = userName
+            self.targetUserName = targetUserName
+            self.eventType = eventType
+            self.preview = preview
         }
     }
 }

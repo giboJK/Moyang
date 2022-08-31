@@ -213,7 +213,11 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         tagCollectionView.snp.makeConstraints {
             $0.top.equalTo(tagTextField.snp.bottom).offset(12)
             $0.left.equalToSuperview().inset(16)
-            $0.right.equalTo(reactionView.snp.left).offset(-16)
+            if isMyPray {
+                $0.right.equalToSuperview().inset(16)
+            } else {
+                $0.right.equalTo(reactionView.snp.left).offset(-16)
+            }
             $0.height.equalTo(32)
         }
         tagCollectionView.dataSource = self
@@ -342,10 +346,11 @@ class PrayDetailView: UIView, UITextFieldDelegate {
                 self.tagCollectionView.snp.remakeConstraints {
                     $0.left.equalToSuperview().inset(16)
                     $0.height.equalTo(32)
-                    $0.right.equalTo(self.reactionView.snp.left).offset(-16)
                     if isMyPray {
+                        $0.right.equalToSuperview().inset(16)
                         $0.top.equalTo(self.tagTextField.snp.bottom).offset(12)
                     } else {
+                        $0.right.equalTo(self.reactionView.snp.left).offset(-16)
                         $0.top.equalTo(self.prayTextView.snp.bottom).offset(12)
                     }
                 }

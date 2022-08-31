@@ -47,7 +47,7 @@ protocol PrayRepo {
     func fetchPrayAll(groupID: String, userID: String, order: String, page: Int, row: Int,
                       completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
     
-    func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupActivityResponse, MoyangError>) -> Void)?)
+    func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupEventResponse, MoyangError>) -> Void)?)
     
     // Search
     func searchPrays(tag: String, groupID: String, completion: ((Result<PraySearchResponse, MoyangError>) -> Void)?)

@@ -182,6 +182,7 @@
 		24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */; };
 		24F6B0C3289954740001B781 /* MemberItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F6B0C2289954740001B781 /* MemberItemTableViewCell.swift */; };
 		24F7021328B4F967009A8414 /* BibleSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7021228B4F967009A8414 /* BibleSelectVC.swift */; };
+		24FF077228BFAE7400F30ED0 /* GroupEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF077128BFAE7400F30ED0 /* GroupEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -373,6 +374,7 @@
 		24F6B0C2289954740001B781 /* MemberItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberItemTableViewCell.swift; sourceTree = "<group>"; };
 		24F7021228B4F967009A8414 /* BibleSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleSelectVC.swift; sourceTree = "<group>"; };
 		24FAEF0D27E2153800B2DA81 /* praysong.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = praysong.m4a; sourceTree = "<group>"; };
+		24FF077128BFAE7400F30ED0 /* GroupEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEvent.swift; sourceTree = "<group>"; };
 		2928AF0E9E86176E64F5A826 /* Pods-MoyangTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoyangTests.release.xcconfig"; path = "Target Support Files/Pods-MoyangTests/Pods-MoyangTests.release.xcconfig"; sourceTree = "<group>"; };
 		38544549B563C36B981B4536 /* Pods-Moyang-MoyangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moyang-MoyangUITests.release.xcconfig"; path = "Target Support Files/Pods-Moyang-MoyangUITests/Pods-Moyang-MoyangUITests.release.xcconfig"; sourceTree = "<group>"; };
 		45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1122,6 +1124,7 @@
 		24E7547728BAF2EA00E49EB2 /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				24FF077028BFAE6A00F30ED0 /* Domain */,
 				08F66EF728BD9D550078B6AB /* Presenter */,
 				24E7547828BAF2FB00E49EB2 /* View */,
 			);
@@ -1249,6 +1252,14 @@
 				24FAEF0D27E2153800B2DA81 /* praysong.m4a */,
 			);
 			path = Music;
+			sourceTree = "<group>";
+		};
+		24FF077028BFAE6A00F30ED0 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				24FF077128BFAE7400F30ED0 /* GroupEvent.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		A053003BDE8D7C2A3DF86D0B /* Pods */ = {
@@ -1507,6 +1518,7 @@
 				24ECC31528B6620B00A758CF /* SearchPrayTVCell.swift in Sources */,
 				24DABDA72890FE6E00DEB6CC /* Calendar+.swift in Sources */,
 				24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */,
+				24FF077228BFAE7400F30ED0 /* GroupEvent.swift in Sources */,
 				24E0AB2C283E73F800F52505 /* CommunityMainRepo.swift in Sources */,
 				2498F907287C4F60007EF510 /* IntroAssembly.swift in Sources */,
 				240946D3287073FE003AEDAD /* AddReplyAndChangeVM.swift in Sources */,

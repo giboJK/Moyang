@@ -38,12 +38,12 @@ class GroupPrayDetailVC: UIViewController, VCType {
     let prayChangeLabel = UILabel().then {
         $0.text = "기도 변화"
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
     }
     let addChangeButton = MoyangButton(.none).then {
         let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
         $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
-        $0.tintColor = .nightSky1
+        $0.tintColor = .sheep2
     }
     let divider = UIView().then {
         $0.backgroundColor = .sheep3
@@ -51,12 +51,12 @@ class GroupPrayDetailVC: UIViewController, VCType {
     let prayAnswerLabel = UILabel().then {
         $0.text = "기도 응답"
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.textColor = .nightSky1
+        $0.textColor = .sheep2
     }
     let addAnswerButton = MoyangButton(.none).then {
         let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
         $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
-        $0.tintColor = .nightSky1
+        $0.tintColor = .sheep2
     }
     let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .ghost).then {
         $0.desc = "정말로 삭제하시겠어요? 삭제한 기도는 복구할 수 없습니다."
