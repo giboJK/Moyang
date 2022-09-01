@@ -19,12 +19,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
     var coordinator: GroupPrayDetailVCDelegate?
 
     // MARK: - UI
-    let updateButton = UIButton().then {
-        $0.setTitle("저장", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.nightSky2, for: .normal)
-        $0.setTitleColor(.ydGreen1, for: .disabled)
-    }
+    let updateButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
     let prayDetailView = PrayDetailView()
     let prayButton = MoyangButton(.secondary).then {
         $0.setTitle("기도하기", for: .normal)
@@ -101,12 +96,9 @@ class GroupPrayDetailVC: UIViewController, VCType {
         setupReactionView()
     }
     private func setupUpdateButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = updateButton
     }
     
-    @objc func addTapped() {
-        
-    }
     private func setupPrayDetailView() {
         view.addSubview(prayDetailView)
         prayDetailView.snp.makeConstraints {
@@ -306,7 +298,8 @@ class GroupPrayDetailVC: UIViewController, VCType {
             .drive(onNext: { [weak self] isMyPray in
                 guard let self = self else { return }
                 self.isMyPray = isMyPray
-                self.updateButton.isHidden = !isMyPray
+                self.updateButton.isEnabled = isMyPray
+                self.updateButton.title = isMyPray ? "저장" : ""
                 self.deleteButton.isHidden = !isMyPray
                 self.prayPlusButton.isHidden = isMyPray
                 self.addChangeButton.isHidden = !isMyPray

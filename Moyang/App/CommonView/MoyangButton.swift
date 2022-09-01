@@ -124,9 +124,9 @@ class MoyangButton: UIButton {
     
     
     private func setupGhostButton() {
-        setTitleColor(.sheep2, for: .normal)
+        setTitleColor(.nightSky3, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
-        setTitleColor(.nightSky3, for: .highlighted)
+        setTitleColor(.nightSky4, for: .highlighted)
         backgroundColor = .clear
     }
 }
