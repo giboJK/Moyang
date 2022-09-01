@@ -37,6 +37,9 @@ class GroupPrayVM: VMType {
     
     var curDisplayDate = Date().startOfWeek ?? Date()
     
+    let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
+    let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
+    
     init(useCase: PrayUseCase) {
         self.useCase = useCase
         bind()
@@ -88,6 +91,15 @@ class GroupPrayVM: VMType {
             .subscribe(onNext: { [weak self] _ in
                 self?.removeAutoCompleteList()
             }).disposed(by: disposeBag)
+        
+        // network result event
+        useCase.addNewPraySuccess
+            .bind(to: addingNewPraySuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.addNewPrayFailure
+            .bind(to: addingNewPrayFailure)
+            .disposed(by: disposeBag)
     }
     
     private func fetchPrayAll() {
@@ -218,6 +230,9 @@ extension GroupPrayVM {
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
         let groupPrayDetailVM: Driver<GroupPrayDetailVM?>
+        
+        let addingNewPraySuccess: Driver<Void>
+        let addingNewPrayFailure: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -324,7 +339,10 @@ extension GroupPrayVM {
                       
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver(),
-                      groupPrayDetailVM: groupPrayDetailVM.asDriver()
+                      groupPrayDetailVM: groupPrayDetailVM.asDriver(),
+                      
+                      addingNewPraySuccess: addingNewPraySuccess.asDriver(),
+                      addingNewPrayFailure: addingNewPrayFailure.asDriver()
         )
     }
 }
