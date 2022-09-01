@@ -253,7 +253,10 @@ extension GroupPrayDetailVM {
         input.showReplys
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayReplyDetailVM.accept(PrayReplyDetailVM(replys: self.groupIndividualPray.replys))
+                self.prayReplyDetailVM.accept(PrayReplyDetailVM(useCase: self.useCase,
+                                                                userID: self.groupIndividualPray.userID,
+                                                                prayID: self.groupIndividualPray.prayID,
+                                                                replys: self.groupIndividualPray.replys))
             }).disposed(by: disposeBag)
         input.showChanges
             .drive(onNext: { [weak self] _ in

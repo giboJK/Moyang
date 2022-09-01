@@ -67,12 +67,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // 메세징 델리겟
         Messaging.messaging().delegate = self
         
-        application.registerForRemoteNotifications()
-        
         // 푸시 포그라운드 설정
         UNUserNotificationCenter.current().delegate = self
         
+        application.registerForRemoteNotifications()
+        
         return true
+    }
+    // fcm 토큰이 등록 되었을 때
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
     }
 }
 
@@ -83,9 +87,6 @@ extension AppDelegate: MessagingDelegate {
         UserData.shared.fcmToken = fcmToken
         NotificationCenter.default.post(name: NSNotification.Name("AUTO_LOGIN"), object: nil, userInfo: nil)
         Log.d("🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢\nFCM token: \(fcmToken)\n🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
-    }
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        Log.d(messaging)
     }
 }
 

@@ -37,6 +37,9 @@ class PrayUseCase {
     let addReplySuccess = BehaviorRelay<Void>(value: ())
     let addReplyFailure = BehaviorRelay<Void>(value: ())
     
+    let deleteReplySuccess = BehaviorRelay<Void>(value: ())
+    let deleteReplyFailure = BehaviorRelay<Void>(value: ())
+    
     let addAnswerSuccess = BehaviorRelay<Void>(value: ())
     let addAnswerFailure = BehaviorRelay<Void>(value: ())
     
@@ -197,6 +200,30 @@ class PrayUseCase {
                     if var curList = dict[myID] {
                         curList.removeAll { $0.prayID == prayID }
                         dict.updateValue(curList, forKey: myID)
+                        self.memberPrayList.accept(dict)
+                    }
+                } else {
+                    self.deletePrayFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.deletePrayFailure.accept(())
+            }
+            self.resetIsNetworking()
+        }
+    }
+    func deleteReply(replyID: String, userID: String, prayID: String) {
+        if checkAndSetIsNetworking() { return }
+        repo.deleteReply(replyID: replyID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.deletePraySuccess.accept(())
+                    var dict = self.memberPrayList.value
+                    if var curList = dict[userID] {
+                        curList.removeAll { $0.prayID == prayID }
+                        dict.updateValue(curList, forKey: userID)
                         self.memberPrayList.accept(dict)
                     }
                 } else {

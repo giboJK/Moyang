@@ -301,7 +301,10 @@ extension GroupPrayVM {
                 guard let self = self else { return }
                 guard let item = item else { return }
                 if let prayList = self.memberPrayList.value[item.0] {
-                    self.prayReplyDetailVM.accept(PrayReplyDetailVM(replys: prayList[item.1].replys))
+                    self.prayReplyDetailVM.accept(PrayReplyDetailVM(useCase: self.useCase,
+                                                                    userID: prayList[item.1].userID,
+                                                                    prayID: prayList[item.1].prayID,
+                                                                    replys: prayList[item.1].replys))
                 }
             }).disposed(by: disposeBag)
         

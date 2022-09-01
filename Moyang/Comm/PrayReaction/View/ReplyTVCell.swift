@@ -68,7 +68,6 @@ class ReplyTVCell: UITableViewCell {
         backgroundView.backgroundColor = .clear
         selectedBackgroundView = backgroundView
         setupUI()
-        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -133,6 +132,7 @@ class ReplyTVCell: UITableViewCell {
             $0.top.equalToSuperview().inset(12)
             $0.right.equalToSuperview().inset(12)
         }
+        deleteButton.addTarget(self, action: #selector(didTapDeleteButton), for: .touchUpInside)
     }
     private func setupSaveButton() {
         contentView.addSubview(saveButton)
@@ -181,10 +181,11 @@ class ReplyTVCell: UITableViewCell {
     @objc func didTapDoneButton() {
         self.endEditing(true)
     }
-    func bind() {
-//        if let vm = vm {
-//            if isBinded { return }
-//            isBinded = true
-//        }
+    
+    @objc func didTapDeleteButton() {
+        guard let index = index else {
+            return
+        }
+        vm?.deleteReply(index: index)
     }
 }

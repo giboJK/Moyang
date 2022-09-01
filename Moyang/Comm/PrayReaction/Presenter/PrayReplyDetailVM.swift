@@ -11,10 +11,17 @@ import RxCocoa
 class PrayReplyDetailVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     private let replys: [PrayReply]
+    let useCase: PrayUseCase
+    let userID: String
+    let prayID: String
+    
     let itemList = BehaviorRelay<[ReplyItem]>(value: [])
     let isDateSorted = BehaviorRelay<Bool>(value: true)
     
-    init(replys: [PrayReply]) {
+    init(useCase: PrayUseCase, userID: String, prayID: String, replys: [PrayReply]) {
+        self.useCase = useCase
+        self.userID = userID
+        self.prayID = prayID
         self.replys = replys.sorted(by: { $0.createDate > $1.createDate })
         setData()
     }
@@ -32,23 +39,15 @@ class PrayReplyDetailVM: VMType {
         self.itemList.accept(itemList)
     }
     
-    private func sortByLatest() {
-        
-    }
-    
-    private func sortByOldest() {
-        
-    }
-    
-    private func sortByName() {
-        
+    func deleteReply(index: Int) {
+        Log.d("index \(index)")
     }
 }
 
 extension PrayReplyDetailVM {
     struct Input {
-        let orderByDate: Driver<Void>
-        let orderByName: Driver<Void>
+        var orderByDate: Driver<Void> = .empty()
+        var orderByName: Driver<Void> = .empty()
     }
     
     struct Output {
