@@ -48,7 +48,6 @@ class GroupPrayingVC: UIViewController, VCType {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
             .foregroundColor: UIColor.wilderness1,
-//            .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         
         let attributeString = NSMutableAttributedString(
@@ -66,7 +65,6 @@ class GroupPrayingVC: UIViewController, VCType {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
             .foregroundColor: UIColor.wilderness1,
-//            .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         
         let attributeString = NSMutableAttributedString(
@@ -79,7 +77,6 @@ class GroupPrayingVC: UIViewController, VCType {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
             .foregroundColor: UIColor.wilderness1,
-//            .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         
         let attributeString = NSMutableAttributedString(
@@ -128,6 +125,7 @@ class GroupPrayingVC: UIViewController, VCType {
         
         setupUI()
         bind()
+        navigationController?.isNavigationBarHidden = true
     }
     override  func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

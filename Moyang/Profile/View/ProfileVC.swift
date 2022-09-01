@@ -19,11 +19,27 @@ class ProfileVC: UIViewController, VCType {
 
     // MARK: - UI
     let nameLabel = UILabel().then {
-        $0.textColor = .sheep1
+        $0.textColor = .sheep2
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+    }
+    let noticeButton = MoyangButton(.none).then {
+        $0.setTitle("공지사항", for: .normal)
+        $0.contentHorizontalAlignment = .left
+        $0.setTitleColor(.sheep2, for: .normal)
     }
     let logoutButton = MoyangButton(.none).then {
         $0.setTitle("로그아웃", for: .normal)
-        $0.setTitleColor(.sheep1, for: .normal)
+        $0.contentHorizontalAlignment = .left
+        $0.setTitleColor(.sheep2, for: .normal)
+    }
+    let deleteButton = MoyangButton(.none).then {
+        $0.setTitle("계정삭제", for: .normal)
+        $0.contentHorizontalAlignment = .left
+        $0.setTitleColor(.appleRed1, for: .normal)
+    }
+    let versionLabel = UILabel().then {
+        $0.textColor = .sheep3
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
     }
     
     override func viewDidLoad() {
@@ -46,17 +62,58 @@ class ProfileVC: UIViewController, VCType {
     
     func setupUI() {
         view.backgroundColor = .nightSky1
+        setupNameLabel()
+        setupNoticeButton()
         setupLogoutButton()
+        setupDeleteButton()
+        setupVersionLabel()
     }
     // MARK: - Binding
     func bind() {
         bindVM()
         bineViews()
     }
+    private func setupNameLabel() {
+        view.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(48)
+            $0.left.equalToSuperview().inset(24)
+        }
+    }
+    private func setupNoticeButton() {
+        view.addSubview(noticeButton)
+        noticeButton.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(32)
+            $0.left.equalToSuperview().inset(24)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(48)
+        }
+    }
     private func setupLogoutButton() {
         view.addSubview(logoutButton)
         logoutButton.snp.makeConstraints {
-            $0.center.equalToSuperview()
+            $0.top.equalTo(noticeButton.snp.bottom)
+            $0.left.equalToSuperview().inset(24)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(48)
+        }
+    }
+    private func setupDeleteButton() {
+        view.addSubview(deleteButton)
+        deleteButton.snp.makeConstraints {
+            $0.top.equalTo(logoutButton.snp.bottom)
+            $0.left.equalToSuperview().inset(24)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(48)
+        }
+        
+    }
+    private func setupVersionLabel() {
+        view.addSubview(versionLabel)
+        versionLabel.text = "버전 정보: " + CommonUtils.currentVersion + "." + CommonUtils.currentBuildVersion
+        versionLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
         }
     }
     
