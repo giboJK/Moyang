@@ -27,6 +27,11 @@ class ProfileVC: UIViewController, VCType {
         $0.contentHorizontalAlignment = .left
         $0.setTitleColor(.sheep2, for: .normal)
     }
+    let alarmButton = MoyangButton(.none).then {
+        $0.setTitle("알람설정", for: .normal)
+        $0.contentHorizontalAlignment = .left
+        $0.setTitleColor(.sheep2, for: .normal)
+    }
     let logoutButton = MoyangButton(.none).then {
         $0.setTitle("로그아웃", for: .normal)
         $0.contentHorizontalAlignment = .left
@@ -64,6 +69,7 @@ class ProfileVC: UIViewController, VCType {
         view.backgroundColor = .nightSky1
         setupNameLabel()
         setupNoticeButton()
+        setupAlarmButton()
         setupLogoutButton()
         setupDeleteButton()
         setupVersionLabel()
@@ -86,16 +92,25 @@ class ProfileVC: UIViewController, VCType {
             $0.top.equalTo(nameLabel.snp.bottom).offset(32)
             $0.left.equalToSuperview().inset(24)
             $0.right.equalToSuperview()
-            $0.height.equalTo(48)
+            $0.height.equalTo(52)
+        }
+    }
+    private func setupAlarmButton() {
+        view.addSubview(alarmButton)
+        alarmButton.snp.makeConstraints {
+            $0.top.equalTo(noticeButton.snp.bottom)
+            $0.left.equalToSuperview().inset(24)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(52)
         }
     }
     private func setupLogoutButton() {
         view.addSubview(logoutButton)
         logoutButton.snp.makeConstraints {
-            $0.top.equalTo(noticeButton.snp.bottom)
+            $0.top.equalTo(alarmButton.snp.bottom)
             $0.left.equalToSuperview().inset(24)
             $0.right.equalToSuperview()
-            $0.height.equalTo(48)
+            $0.height.equalTo(52)
         }
     }
     private func setupDeleteButton() {
@@ -104,10 +119,10 @@ class ProfileVC: UIViewController, VCType {
             $0.top.equalTo(logoutButton.snp.bottom)
             $0.left.equalToSuperview().inset(24)
             $0.right.equalToSuperview()
-            $0.height.equalTo(48)
+            $0.height.equalTo(52)
         }
-        
     }
+    
     private func setupVersionLabel() {
         view.addSubview(versionLabel)
         versionLabel.text = "버전 정보: " + CommonUtils.currentVersion + "." + CommonUtils.currentBuildVersion

@@ -12,7 +12,6 @@
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
 		0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0865D70E289791AA007E1D7E /* GroupSelectVC.swift */; };
-		0865D71328979890007E1D7E /* QuickPrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0865D71228979890007E1D7E /* QuickPrayVC.swift */; };
 		086CB32328130077003BF6F7 /* GroupIndividualPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086CB32228130077003BF6F7 /* GroupIndividualPray.swift */; };
 		0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880103827AEBB48002E49F0 /* CommunityMainVM.swift */; };
 		08AA085D288520E2008670E3 /* LogInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AA085C288520E2008670E3 /* LogInVM.swift */; };
@@ -200,7 +199,6 @@
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		0865D70E289791AA007E1D7E /* GroupSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectVC.swift; sourceTree = "<group>"; };
-		0865D71228979890007E1D7E /* QuickPrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPrayVC.swift; sourceTree = "<group>"; };
 		086CB32228130077003BF6F7 /* GroupIndividualPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupIndividualPray.swift; sourceTree = "<group>"; };
 		0880103827AEBB48002E49F0 /* CommunityMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainVM.swift; sourceTree = "<group>"; };
 		08AA085C288520E2008670E3 /* LogInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVM.swift; sourceTree = "<group>"; };
@@ -405,30 +403,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0865D7102897987C007E1D7E /* QuickPray */ = {
-			isa = PBXGroup;
-			children = (
-				0865D71428979893007E1D7E /* Presenter */,
-				0865D71128979887007E1D7E /* View */,
-			);
-			path = QuickPray;
-			sourceTree = "<group>";
-		};
-		0865D71128979887007E1D7E /* View */ = {
-			isa = PBXGroup;
-			children = (
-				0865D71228979890007E1D7E /* QuickPrayVC.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		0865D71428979893007E1D7E /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
 		089E8A1927AF52A600640A39 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1004,7 +978,6 @@
 				08AD9586287BE03E002D4F94 /* Auth */,
 				248FEC0E2723A07D00321E5E /* Main */,
 				246BD7A327240A96005C4E0B /* Comm */,
-				0865D7102897987C007E1D7E /* QuickPray */,
 				08D0CEAF28A36A6100A15F3C /* Today */,
 				24F41C6A2897EBBE005B5E70 /* Profile */,
 				08DE7CC528B4BE1D003639B0 /* Bible */,
@@ -1638,7 +1611,6 @@
 				24126C8A285D68EC00E8282B /* PrayReactionView.swift in Sources */,
 				0819D91D27AD1E52009F97BF /* SermonCard.swift in Sources */,
 				08D0CEBE28A3853600A15F3C /* TaskItemView.swift in Sources */,
-				0865D71328979890007E1D7E /* QuickPrayVC.swift in Sources */,
 				24E36119284B812D00C7EE26 /* MoyangPopupView.swift in Sources */,
 				24755367277CA9AB001908A6 /* UserData.swift in Sources */,
 				084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */,

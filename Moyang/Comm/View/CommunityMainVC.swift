@@ -47,7 +47,6 @@ class CommunityMainVC: UIViewController, VCType {
         
         setupUI()
         bind()
-//        presentQuickPrayVC()
     }
     
     deinit { Log.i(self) }
@@ -132,20 +131,6 @@ class CommunityMainVC: UIViewController, VCType {
     private func setupNetworkIndicator() {
         view.addSubview(networkIndicator)
         networkIndicator.center = view.center
-    }
-    
-    private func presentQuickPrayVC() {
-        if let isToday = UserData.shared.todayPrayPopup {
-            if Date().toString("yyyy-MM-dd") == isToday {
-                return
-            }
-        }
-        UserData.shared.todayPrayPopup = Date().toString("yyyy-MM-dd")
-        let vc = QuickPrayVC()
-        vc.vm = self.vm
-        vc.bind()
-        vc.modalPresentationStyle = .overFullScreen
-        self.present(vc, animated: true)
     }
     
     func bind() {
