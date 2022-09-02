@@ -268,9 +268,8 @@ class GroupPrayDetailVC: UIViewController, VCType {
     private func showMoreOptions() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "그룹 변경", style: .default , handler: { _ in
-        }))
-        
+//        alert.addAction(UIAlertAction(title: "그룹 변경", style: .default , handler: { _ in
+//        }))
 
         alert.addAction(UIAlertAction(title: "삭제", style: .destructive , handler: { [weak self] _ in
             guard let self = self else { return }
@@ -355,6 +354,10 @@ class GroupPrayDetailVC: UIViewController, VCType {
                 self.addAnswerButton.isHidden = !isMyPray
             }).disposed(by: disposeBag)
         
+        output.memberName
+            .drive(onNext: { [weak self] name in
+                self?.title = name
+            }).disposed(by: disposeBag)
         output.updatePraySuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in

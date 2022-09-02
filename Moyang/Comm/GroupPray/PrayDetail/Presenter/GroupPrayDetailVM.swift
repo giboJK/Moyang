@@ -16,6 +16,7 @@ class GroupPrayDetailVM: VMType {
     var groupIndividualPray: GroupIndividualPray!
     
     let isMyPray = BehaviorRelay<Bool>(value: false)
+    let memberName = BehaviorRelay<String>(value: "내 기도")
     let groupName = BehaviorRelay<String>(value: "")
     let date = BehaviorRelay<String>(value: "")
     let pray = BehaviorRelay<String?>(value: nil)
@@ -112,6 +113,12 @@ class GroupPrayDetailVM: VMType {
         changes.accept(data.changes)
         answers.accept(data.answers)
         replys.accept(data.replys)
+        
+        if userID == UserData.shared.userInfo?.id {
+            memberName.accept("내 기도")
+        } else {
+            memberName.accept(data.userName)
+        }
     }
     
     private func setChangeAndAnswerVM() {
@@ -151,6 +158,7 @@ extension GroupPrayDetailVM {
     struct Output {
         let isMyPray: Driver<Bool>
         
+        let memberName: Driver<String>
         let groupName: Driver<String>
         let date: Driver<String>
         let pray: Driver<String?>
@@ -267,6 +275,7 @@ extension GroupPrayDetailVM {
         
         return Output(isMyPray: isMyPray.asDriver(),
                       
+                      memberName: memberName.asDriver(),
                       groupName: groupName.asDriver(),
                       date: date.asDriver(),
                       pray: pray.asDriver(),
