@@ -29,7 +29,7 @@ class GroupPrayVC: UIViewController, VCType {
     }
     let groupNameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 31, weight: .semibold)
-        $0.textColor = .sheep1
+        $0.textColor = .sheep2
     }
     let searchBar = MoyangSearchBar().then {
         $0.isHidden = true
@@ -65,7 +65,6 @@ class GroupPrayVC: UIViewController, VCType {
     }
     
     let reactionPopupViewHeight: CGFloat = 36 + 8 + 80
-    var selected: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +100,7 @@ class GroupPrayVC: UIViewController, VCType {
         view.addSubview(groupNameLabel)
         groupNameLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(48)
-            $0.left.equalToSuperview().inset(24)
+            $0.left.equalToSuperview().inset(17)
         }
     }
     

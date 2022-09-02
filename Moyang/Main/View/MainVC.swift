@@ -46,7 +46,7 @@ class MainVC: UITabBarController, VCType {
         guard let profileVC = profileVC else {
             Log.e("profileVC init failed"); return
         }
-        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = true
 
         tabBar.tintColor = .sheep2
         let appearance = UITabBarAppearance()

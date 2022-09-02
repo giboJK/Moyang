@@ -19,11 +19,6 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .nightSky1
     }
-    let groupChangeButton = MoyangButton(.none).then {
-        $0.setTitle("그룹 변경", for: .normal)
-        $0.setTitleColor(.sheep2, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-    }
     let dateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .sheep2
@@ -97,7 +92,6 @@ class PrayDetailView: UIView, UITextFieldDelegate {
     
     private func setupUI() {
         setupGroupNameLabel()
-        setupGroupChangeButton()
         setupDateLabel()
         setupPrayTextField()
         setupReactionView()
@@ -116,17 +110,10 @@ class PrayDetailView: UIView, UITextFieldDelegate {
             $0.right.equalToSuperview().inset(80)
         }
     }
-    private func setupGroupChangeButton() {
-        addSubview(groupChangeButton)
-        groupChangeButton.snp.makeConstraints {
-            $0.top.bottom.equalTo(groupNameLabel)
-            $0.right.equalToSuperview().inset(16)
-        }
-    }
     private func setupDateLabel() {
         addSubview(dateLabel)
         dateLabel.snp.makeConstraints {
-            $0.top.equalTo(groupNameLabel.snp.bottom).offset(4)
+            $0.top.equalToSuperview()
             $0.left.right.equalToSuperview().inset(16)
         }
     }
@@ -333,7 +320,6 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         output.isMyPray
             .drive(onNext: { [weak self] isMyPray in
                 guard let self = self else { return }
-                self.groupChangeButton.isHidden = !isMyPray
                 self.tagInfoLabel.isHidden = !isMyPray
                 self.tagTextField.isHidden = !isMyPray
                 self.isSecretLabel.isHidden = !isMyPray

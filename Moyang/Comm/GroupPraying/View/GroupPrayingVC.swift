@@ -29,7 +29,7 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.backgroundColor = .clear
     }
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 28, weight: .semibold)
+        $0.font = .systemFont(ofSize: 26, weight: .semibold)
         $0.textColor = .sheep1
     }
     let prayCollectionView: UICollectionView = {
@@ -125,7 +125,7 @@ class GroupPrayingVC: UIViewController, VCType {
         
         setupUI()
         bind()
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.isHidden = true
     }
     override  func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

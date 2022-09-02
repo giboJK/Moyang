@@ -20,14 +20,37 @@ class GroupPrayDetailVC: UIViewController, VCType {
 
     // MARK: - UI
     let updateButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
-    let prayButton = MoyangButton(.secondary).then {
-        $0.setTitle("기도하기", for: .normal)
+    let prayButton = MoyangButton(.none).then {
+        $0.layer.cornerRadius = 8
+        $0.tintColor = .sheep1
+        var container = AttributeContainer()
+        container.font = .systemFont(ofSize: 14, weight: .regular)
+        var configuration = UIButton.Configuration.filled()
+        configuration.buttonSize = .mini
+        configuration.attributedTitle = AttributedString("기도하기", attributes: container)
+        configuration.baseBackgroundColor = .nightSky4
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+        $0.configuration = configuration
     }
-    let deleteButton = MoyangButton(.warning).then {
-        $0.setTitle("삭제", for: .normal)
+    let moreButton = MoyangButton(.none).then {
+        $0.layer.cornerRadius = 8
+        $0.tintColor = .sheep1
+        $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        $0.backgroundColor = .clear
     }
-    let prayPlusButton = MoyangButton(.secondary).then {
-        $0.setTitle("기도문 더하기", for: .normal)
+    let prayPlusButton = MoyangButton(.none).then {
+        $0.layer.cornerRadius = 8
+        $0.tintColor = .sheep1
+        var container = AttributeContainer()
+        container.font = .systemFont(ofSize: 14, weight: .regular)
+        var configuration = UIButton.Configuration.filled()
+        configuration.buttonSize = .mini
+        configuration.attributedTitle = AttributedString("기도 더하기", attributes: container)
+        configuration.image = UIImage(systemName: "plus")
+        configuration.imagePadding = 4
+        configuration.baseBackgroundColor = .nightSky4
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+        $0.configuration = configuration
     }
     let prayChangeLabel = UILabel().then {
         $0.text = "기도 변화"
@@ -36,9 +59,18 @@ class GroupPrayDetailVC: UIViewController, VCType {
     }
     let prayDetailView = PrayDetailView()
     let addChangeButton = MoyangButton(.none).then {
-        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
-        $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
-        $0.tintColor = .sheep2
+        $0.layer.cornerRadius = 8
+        $0.tintColor = .sheep1
+        var container = AttributeContainer()
+        container.font = .systemFont(ofSize: 14, weight: .regular)
+        var configuration = UIButton.Configuration.filled()
+        configuration.buttonSize = .mini
+        configuration.attributedTitle = AttributedString("변화", attributes: container)
+        configuration.image = UIImage(systemName: "plus")
+        configuration.imagePadding = 4
+        configuration.baseBackgroundColor = .nightSky4
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+        $0.configuration = configuration
     }
     let divider = UIView().then {
         $0.backgroundColor = .sheep3
@@ -49,9 +81,18 @@ class GroupPrayDetailVC: UIViewController, VCType {
         $0.textColor = .sheep2
     }
     let addAnswerButton = MoyangButton(.none).then {
-        let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
-        $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
-        $0.tintColor = .sheep2
+        $0.layer.cornerRadius = 8
+        $0.tintColor = .sheep1
+        var container = AttributeContainer()
+        container.font = .systemFont(ofSize: 14, weight: .regular)
+        var configuration = UIButton.Configuration.filled()
+        configuration.buttonSize = .mini
+        configuration.attributedTitle = AttributedString("응답", attributes: container)
+        configuration.image = UIImage(systemName: "plus")
+        configuration.imagePadding = 4
+        configuration.baseBackgroundColor = .nightSky4
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+        $0.configuration = configuration
     }
     let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .ghost).then {
         $0.desc = "정말로 삭제하시겠어요? 삭제한 기도는 복구할 수 없습니다."
@@ -74,6 +115,12 @@ class GroupPrayDetailVC: UIViewController, VCType {
         setupUI()
         bind()
     }
+    
+    // 기도하기 화면 후 복귀 시 필요
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
 
     deinit {
         Log.i(self)
@@ -89,7 +136,9 @@ class GroupPrayDetailVC: UIViewController, VCType {
         setupUpdateButton()
         setupPrayButton()
         setupPrayPlusButton()
-        setupDeleteButton()
+        setupAddChangeButton()
+        setupAddAnswerButton()
+        setupMoreButton()
         setupPrayDetailView()
         setupPrayChangeView()
         setupPrayAnswerView()
@@ -103,7 +152,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
         prayButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
             $0.height.equalTo(36)
-            $0.left.equalToSuperview().inset(20)
+            $0.left.equalToSuperview().inset(17)
         }
     }
     private func setupPrayPlusButton() {
@@ -114,18 +163,34 @@ class GroupPrayDetailVC: UIViewController, VCType {
             $0.left.equalTo(prayButton.snp.right).offset(12)
         }
     }
-    private func setupDeleteButton() {
-        view.addSubview(deleteButton)
-        deleteButton.snp.makeConstraints {
+    private func setupAddChangeButton() {
+        view.addSubview(addChangeButton)
+        addChangeButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
             $0.height.equalTo(36)
             $0.left.equalTo(prayButton.snp.right).offset(12)
         }
     }
+    private func setupAddAnswerButton() {
+        view.addSubview(addAnswerButton)
+        addAnswerButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
+            $0.height.equalTo(36)
+            $0.left.equalTo(addChangeButton.snp.right).offset(12)
+        }
+    }
+    private func setupMoreButton() {
+        view.addSubview(moreButton)
+        moreButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
+            $0.height.equalTo(36)
+            $0.right.equalToSuperview().inset(16)
+        }
+    }
     private func setupPrayDetailView() {
         view.addSubview(prayDetailView)
         prayDetailView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(44)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(52)
             $0.left.right.equalToSuperview()
         }
         prayDetailView.vm = vm
@@ -136,12 +201,6 @@ class GroupPrayDetailVC: UIViewController, VCType {
         prayChangeLabel.snp.makeConstraints {
             $0.top.equalTo(prayDetailView.snp.bottom).offset(8)
             $0.left.equalToSuperview().inset(20)
-        }
-        
-        view.addSubview(addChangeButton)
-        addChangeButton.snp.makeConstraints {
-            $0.centerY.equalTo(prayChangeLabel)
-            $0.right.equalToSuperview().inset(20)
         }
         
         view.addSubview(divider)
@@ -156,12 +215,6 @@ class GroupPrayDetailVC: UIViewController, VCType {
         prayAnswerLabel.snp.makeConstraints {
             $0.top.equalTo(divider.snp.bottom).offset(12)
             $0.left.equalToSuperview().inset(20)
-        }
-        
-        view.addSubview(addAnswerButton)
-        addAnswerButton.snp.makeConstraints {
-            $0.centerY.equalTo(prayAnswerLabel)
-            $0.right.equalToSuperview().inset(20)
         }
     }
     private func setupReactionView() {
@@ -242,7 +295,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
     }
     
     private func bineViews() {
-        deleteButton.rx.tap
+        moreButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.displayPopup(popup: self.deleteConfirmPopup)
@@ -299,7 +352,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
                 self.isMyPray = isMyPray
                 self.updateButton.isEnabled = isMyPray
                 self.updateButton.title = isMyPray ? "저장" : ""
-                self.deleteButton.isHidden = !isMyPray
+                self.moreButton.isHidden = !isMyPray
                 self.prayPlusButton.isHidden = isMyPray
                 self.addChangeButton.isHidden = !isMyPray
                 self.addAnswerButton.isHidden = !isMyPray
