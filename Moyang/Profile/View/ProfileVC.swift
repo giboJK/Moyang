@@ -44,7 +44,7 @@ class ProfileVC: UIViewController, VCType {
     }
     let versionLabel = UILabel().then {
         $0.textColor = .sheep3
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
     }
     
     override func viewDidLoad() {
@@ -125,10 +125,10 @@ class ProfileVC: UIViewController, VCType {
     
     private func setupVersionLabel() {
         view.addSubview(versionLabel)
-        versionLabel.text = "버전 정보: " + CommonUtils.currentVersion + "." + CommonUtils.currentBuildVersion
+        versionLabel.text = "버전 " + CommonUtils.currentVersion + "." + CommonUtils.currentBuildVersion
         versionLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
         }
     }
     

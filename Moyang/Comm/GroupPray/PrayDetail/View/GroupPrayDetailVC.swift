@@ -20,7 +20,6 @@ class GroupPrayDetailVC: UIViewController, VCType {
 
     // MARK: - UI
     let updateButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
-    let prayDetailView = PrayDetailView()
     let prayButton = MoyangButton(.secondary).then {
         $0.setTitle("기도하기", for: .normal)
     }
@@ -35,6 +34,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .sheep2
     }
+    let prayDetailView = PrayDetailView()
     let addChangeButton = MoyangButton(.none).then {
         let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold, scale: .large)
         $0.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
@@ -87,22 +87,45 @@ class GroupPrayDetailVC: UIViewController, VCType {
         title = "기도제목"
         view.backgroundColor = .nightSky1
         setupUpdateButton()
+        setupPrayButton()
+        setupPrayPlusButton()
+        setupDeleteButton()
         setupPrayDetailView()
         setupPrayChangeView()
         setupPrayAnswerView()
-        setupDeleteButton()
-        setupPrayPlusButton()
-        setupPrayButton()
         setupReactionView()
     }
     private func setupUpdateButton() {
         navigationItem.rightBarButtonItem = updateButton
     }
-    
+    private func setupPrayButton() {
+        view.addSubview(prayButton)
+        prayButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
+            $0.height.equalTo(36)
+            $0.left.equalToSuperview().inset(20)
+        }
+    }
+    private func setupPrayPlusButton() {
+        view.addSubview(prayPlusButton)
+        prayPlusButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
+            $0.height.equalTo(36)
+            $0.left.equalTo(prayButton.snp.right).offset(12)
+        }
+    }
+    private func setupDeleteButton() {
+        view.addSubview(deleteButton)
+        deleteButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
+            $0.height.equalTo(36)
+            $0.left.equalTo(prayButton.snp.right).offset(12)
+        }
+    }
     private func setupPrayDetailView() {
         view.addSubview(prayDetailView)
         prayDetailView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(44)
             $0.left.right.equalToSuperview()
         }
         prayDetailView.vm = vm
@@ -139,30 +162,6 @@ class GroupPrayDetailVC: UIViewController, VCType {
         addAnswerButton.snp.makeConstraints {
             $0.centerY.equalTo(prayAnswerLabel)
             $0.right.equalToSuperview().inset(20)
-        }
-    }
-    private func setupDeleteButton() {
-        view.addSubview(deleteButton)
-        deleteButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
-            $0.left.right.equalToSuperview().inset(24)
-            $0.height.equalTo(48)
-        }
-    }
-    private func setupPrayPlusButton() {
-        view.addSubview(prayPlusButton)
-        prayPlusButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
-            $0.left.right.equalToSuperview().inset(24)
-            $0.height.equalTo(48)
-        }
-    }
-    private func setupPrayButton() {
-        view.addSubview(prayButton)
-        prayButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(80)
-            $0.left.right.equalToSuperview().inset(24)
-            $0.height.equalTo(48)
         }
     }
     private func setupReactionView() {
