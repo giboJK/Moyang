@@ -61,9 +61,37 @@ class BibleSelectVC: UIViewController, VCType, UICollectionViewDelegateFlowLayou
         .darkContent
     }
     func setupUI() {
-        
+        view.backgroundColor = .nightSky1
+        title = "성경 구절"
+        setupBookCV()
+        setupChapterCV()
+        setupVerseCV()
         setupConfirmButton()
     }
+    private func setupBookCV() {
+        view.addSubview(bookCV)
+        bookCV.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview()
+            $0.height.equalTo(300)
+        }
+    }
+    private func setupChapterCV() {
+        view.addSubview(chapterCV)
+        chapterCV.snp.makeConstraints {
+            $0.top.equalTo(bookCV.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(300)
+        }
+    }
+    private func setupVerseCV() {
+        view.addSubview(verseCV)
+        verseCV.snp.makeConstraints {
+            $0.top.equalTo(chapterCV.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(300)
+        }
+    }
+    
     private func setupConfirmButton() {
         view.addSubview(confirmButton)
         confirmButton.snp.makeConstraints {
@@ -82,8 +110,14 @@ class BibleSelectVC: UIViewController, VCType, UICollectionViewDelegateFlowLayou
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input()
+        let output = vm.transform(input: input)
+        output.books
+            .drive(bookCV.rx
+                .items(cellIdentifier: "cell", cellType: BookSelectCVCell.self)) { [weak self] (_, item, cell) in
+                    
+                }.disposed(by: disposeBag)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,

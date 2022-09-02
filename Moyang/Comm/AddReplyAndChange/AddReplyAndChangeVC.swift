@@ -149,7 +149,9 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(setContent: contentTextView.rx.text.asDriver(),
-                             saveContent: saveButton.rx.tap.asDriver())
+                             saveContent: saveButton.rx.tap.asDriver(),
+                             setBible: addVerseButton.rx.tap.asDriver()
+        )
         let output = vm.transform(input: input)
         
         output.title
@@ -225,6 +227,8 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     private func openBibleSelectVC(bibleSelectVM: BibleSelectVM) {
-        
+        let vc = BibleSelectVC()
+        vc.vm = bibleSelectVM
+        present(vc, animated: true)
     }
 }

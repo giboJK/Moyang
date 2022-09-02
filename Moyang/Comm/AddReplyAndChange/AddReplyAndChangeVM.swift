@@ -103,12 +103,17 @@ class AddReplyAndChangeVM: VMType {
         guard let content = content.value else { Log.e("No content"); return }
         useCase.addAnswer(prayID: prayID, answer: content)
     }
+    
+    private func setBibleSelectVM() {
+        bibleSelectVM.accept(BibleSelectVM())
+    }
 }
 
 extension AddReplyAndChangeVM {
     struct Input {
         var setContent: Driver<String?> = .empty()
         var saveContent: Driver<Void> = .empty()
+        var setBible: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -145,6 +150,10 @@ extension AddReplyAndChangeVM {
                 }
             }).disposed(by: disposeBag)
         
+        input.setBible
+            .drive(onNext: { [weak self] _ in
+                self?.setBibleSelectVM()
+            }).disposed(by: disposeBag)
         
         return Output(title: title.asDriver(),
                       content: content.asDriver(),
