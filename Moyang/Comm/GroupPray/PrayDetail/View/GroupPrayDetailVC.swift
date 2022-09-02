@@ -52,11 +52,6 @@ class GroupPrayDetailVC: UIViewController, VCType {
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
     }
-    let prayChangeLabel = UILabel().then {
-        $0.text = "기도 변화"
-        $0.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.textColor = .sheep2
-    }
     let prayDetailView = PrayDetailView()
     let addChangeButton = MoyangButton(.none).then {
         $0.layer.cornerRadius = 8
@@ -72,14 +67,6 @@ class GroupPrayDetailVC: UIViewController, VCType {
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
     }
-    let divider = UIView().then {
-        $0.backgroundColor = .sheep3
-    }
-    let prayAnswerLabel = UILabel().then {
-        $0.text = "기도 응답"
-        $0.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.textColor = .sheep2
-    }
     let addAnswerButton = MoyangButton(.none).then {
         $0.layer.cornerRadius = 8
         $0.tintColor = .sheep1
@@ -93,6 +80,11 @@ class GroupPrayDetailVC: UIViewController, VCType {
         configuration.baseBackgroundColor = .nightSky4
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
+    }
+    let prayChangeAndAnswerLabel = UILabel().then {
+        $0.text = "기도 변화 / 응답"
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
+        $0.textColor = .sheep2
     }
     let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .ghost).then {
         $0.desc = "정말로 삭제하시겠어요? 삭제한 기도는 복구할 수 없습니다."
@@ -140,8 +132,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
         setupAddAnswerButton()
         setupMoreButton()
         setupPrayDetailView()
-        setupPrayChangeView()
-        setupPrayAnswerView()
+        setupPrayChangeAndAnswerLabel()
         setupReactionView()
     }
     private func setupUpdateButton() {
@@ -196,24 +187,10 @@ class GroupPrayDetailVC: UIViewController, VCType {
         prayDetailView.vm = vm
         prayDetailView.bind()
     }
-    private func setupPrayChangeView() {
-        view.addSubview(prayChangeLabel)
-        prayChangeLabel.snp.makeConstraints {
-            $0.top.equalTo(prayDetailView.snp.bottom).offset(8)
-            $0.left.equalToSuperview().inset(20)
-        }
-        
-        view.addSubview(divider)
-        divider.snp.makeConstraints {
-            $0.top.equalTo(prayChangeLabel.snp.bottom).offset(8)
-            $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(1)
-        }
-    }
-    private func setupPrayAnswerView() {
-        view.addSubview(prayAnswerLabel)
-        prayAnswerLabel.snp.makeConstraints {
-            $0.top.equalTo(divider.snp.bottom).offset(12)
+    private func setupPrayChangeAndAnswerLabel() {
+        view.addSubview(prayChangeAndAnswerLabel)
+        prayChangeAndAnswerLabel.snp.makeConstraints {
+            $0.top.equalTo(prayDetailView.snp.bottom).offset(16)
             $0.left.equalToSuperview().inset(20)
         }
     }
@@ -288,6 +265,29 @@ class GroupPrayDetailVC: UIViewController, VCType {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    private func showMoreOptions() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "그룹 변경", style: .default , handler: { _ in
+        }))
+        
+
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive , handler: { [weak self] _ in
+            guard let self = self else { return }
+            self.displayPopup(popup: self.deleteConfirmPopup)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { _ in
+        }))
+
+//        uncomment for iPad Support
+        alert.popoverPresentationController?.sourceView = self.view
+
+        self.present(alert, animated: true, completion: {
+            print("completion block")
+        })
+    }
+    
     // MARK: - Binding
     func bind() {
         bineViews()
@@ -298,7 +298,8 @@ class GroupPrayDetailVC: UIViewController, VCType {
         moreButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.displayPopup(popup: self.deleteConfirmPopup)
+                self.showMoreOptions()
+//                self.displayPopup(popup: self.deleteConfirmPopup)
             }).disposed(by: disposeBag)
         
         deleteConfirmPopup.firstButton.rx.tap
@@ -332,17 +333,13 @@ class GroupPrayDetailVC: UIViewController, VCType {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let tapReactionView = prayDetailView.reactionView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let replys = prayDetailView.replyView.rx.tapGesture().when(.ended).map { _ in () }
-        let changes = prayChangeLabel.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
-        let answers = prayAnswerLabel.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let input = VM.Input(updatePray: updateButton.rx.tap.asDriver(),
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver(),
                              addPrayPlus: prayPlusButton.rx.tap.asDriver(),
                              addChange: addChangeButton.rx.tap.asDriver(),
                              addAnswer: addAnswerButton.rx.tap.asDriver(),
                              didTapPrayReaction: tapReactionView,
-                             showReplys: replys.asDriver(onErrorJustReturn: ()),
-                             showChanges: changes,
-                             showAnswers: answers
+                             showReplys: replys.asDriver(onErrorJustReturn: ())
         )
         let output = vm.transform(input: input)
         
@@ -356,26 +353,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
                 self.prayPlusButton.isHidden = isMyPray
                 self.addChangeButton.isHidden = !isMyPray
                 self.addAnswerButton.isHidden = !isMyPray
-                self.prayChangeLabel.snp.remakeConstraints {
-                    if isMyPray {
-                        $0.top.equalTo(self.prayDetailView.snp.bottom).offset(44)
-                        $0.left.equalToSuperview().inset(20)
-                    } else {
-                        $0.top.equalTo(self.prayDetailView.snp.bottom).offset(20)
-                        $0.left.equalToSuperview().inset(20)
-                    }
-                }
             }).disposed(by: disposeBag)
-        
-        output.changes
-            .map { "기도 변화 (\($0.count))" }
-            .drive(prayChangeLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.answers
-            .map { "기도 응답 (\($0.count))" }
-            .drive(prayAnswerLabel.rx.text)
-            .disposed(by: disposeBag)
         
         output.updatePraySuccess
             .skip(1)
