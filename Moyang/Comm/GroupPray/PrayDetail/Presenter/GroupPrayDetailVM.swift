@@ -146,9 +146,6 @@ extension GroupPrayDetailVM {
         var addAnswer: Driver<Void> = .empty()
         var didTapPrayReaction: Driver<Void> = .empty()
         var showReplys: Driver<Void> = .empty()
-        
-        var showChanges: Driver<Void> = .empty()
-        var showAnswers: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -258,14 +255,15 @@ extension GroupPrayDetailVM {
                                                                 prayID: self.groupIndividualPray.prayID,
                                                                 replys: self.groupIndividualPray.replys))
             }).disposed(by: disposeBag)
-        input.showChanges
-            .drive(onNext: { [weak self] _ in
-                self?.setChangeAndAnswerVM()
-            }).disposed(by: disposeBag)
-        input.showAnswers
-            .drive(onNext: { [weak self] _ in
-                self?.setChangeAndAnswerVM()
-            }).disposed(by: disposeBag)
+        
+//        input.showChanges
+//            .drive(onNext: { [weak self] _ in
+//                self?.setChangeAndAnswerVM()
+//            }).disposed(by: disposeBag)
+//        input.showAnswers
+//            .drive(onNext: { [weak self] _ in
+//                self?.setChangeAndAnswerVM()
+//            }).disposed(by: disposeBag)
         
         return Output(isMyPray: isMyPray.asDriver(),
                       

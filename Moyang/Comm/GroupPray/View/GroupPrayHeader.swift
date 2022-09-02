@@ -83,7 +83,7 @@ class GroupPrayHeader: UIView {
         addPrayButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(8)
             $0.height.equalTo(36)
-            $0.left.equalToSuperview().inset(20)
+            $0.left.equalToSuperview().inset(17)
         }
     }
     private func setupPrayButton() {

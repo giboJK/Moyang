@@ -17,9 +17,6 @@ class BibleSelectVC: UIViewController, VCType, UICollectionViewDelegateFlowLayou
     var vm: VM?
 
     // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
-        $0.closeButton.isHidden = true
-    }
     let bookCV: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -64,17 +61,8 @@ class BibleSelectVC: UIViewController, VCType, UICollectionViewDelegateFlowLayou
         .darkContent
     }
     func setupUI() {
-        setupNavBar()
         
         setupConfirmButton()
-    }
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(UIApplication.statusBarHeight + 44)
-        }
     }
     private func setupConfirmButton() {
         view.addSubview(confirmButton)

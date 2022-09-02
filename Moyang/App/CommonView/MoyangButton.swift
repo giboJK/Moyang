@@ -122,7 +122,6 @@ class MoyangButton: UIButton {
         backgroundColor = (isEnabled && !isHighlighted) ? .sheep4 : .sheep5
     }
     
-    
     private func setupGhostButton() {
         setTitleColor(.nightSky3, for: .normal)
         setTitleColor(.sheep4, for: .disabled)

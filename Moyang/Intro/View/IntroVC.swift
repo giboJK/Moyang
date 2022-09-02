@@ -32,6 +32,10 @@ class IntroVC: UIViewController, VCType {
     let pastorLoginButton = MoyangButton(.ghost).then {
         $0.setTitle("목회자 로그인", for: .normal)
     }
+    let versionLabel = UILabel().then {
+        $0.textColor = .sheep3
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +61,7 @@ class IntroVC: UIViewController, VCType {
         setupPastorLoginButton()
         setupLoginButton()
         setupSignUpButton()
+        setupVersionLabel()
     }
     private func setupTitleLabel() {
         view.addSubview(titleLabel)
@@ -70,7 +75,7 @@ class IntroVC: UIViewController, VCType {
         pastorLoginButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(32)
             $0.height.equalTo(48)
-            $0.bottom.equalToSuperview().inset(32)
+            $0.bottom.equalToSuperview().inset(76)
         }
     }
     private func setupLoginButton() {
@@ -78,7 +83,7 @@ class IntroVC: UIViewController, VCType {
         loginButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(32)
             $0.height.equalTo(48)
-            $0.bottom.equalTo(pastorLoginButton.snp.top).offset(-20)
+            $0.bottom.equalTo(pastorLoginButton.snp.top).offset(-16)
         }
     }
     private func setupSignUpButton() {
@@ -86,7 +91,15 @@ class IntroVC: UIViewController, VCType {
         signUpButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(32)
             $0.height.equalTo(48)
-            $0.bottom.equalTo(loginButton.snp.top).offset(-20)
+            $0.bottom.equalTo(loginButton.snp.top).offset(-16)
+        }
+    }
+    private func setupVersionLabel() {
+        view.addSubview(versionLabel)
+        versionLabel.text = "버전 " + CommonUtils.currentVersion + "." + CommonUtils.currentBuildVersion
+        versionLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
         }
     }
 

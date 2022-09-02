@@ -19,11 +19,6 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .nightSky1
     }
-    let groupChangeButton = MoyangButton(.none).then {
-        $0.setTitle("그룹 변경", for: .normal)
-        $0.setTitleColor(.sheep2, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-    }
     let dateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .sheep2
@@ -31,19 +26,14 @@ class PrayDetailView: UIView, UITextFieldDelegate {
     let prayTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
+        $0.textContainerInset = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
-    }
-    let tagInfoLabel = UILabel().then {
-        $0.text = "태그는 5개까지 추가되며 최대 20자입니다."
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .sheep4
-        $0.numberOfLines = 0
     }
     let tagTextField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
         $0.backgroundColor = .sheep3
         $0.layer.cornerRadius = 8
-        $0.attributedPlaceholder = NSAttributedString(string: "#태그 추가",
+        $0.attributedPlaceholder = NSAttributedString(string: "#카테고리 선택",
                                                       attributes: [.foregroundColor: UIColor.sheep4])
         $0.textColor = .nightSky1
         $0.returnKeyType = .done
@@ -58,7 +48,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         $0.register(NewPrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     let isSecretLabel = UILabel().then {
-        $0.text = "비공개 기도"
+        $0.text = "나만 보기"
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .sheep2
     }
@@ -97,12 +87,10 @@ class PrayDetailView: UIView, UITextFieldDelegate {
     
     private func setupUI() {
         setupGroupNameLabel()
-        setupGroupChangeButton()
         setupDateLabel()
         setupPrayTextField()
         setupReactionView()
         setupReplyView()
-        setupTagInfoLabel()
         setupTagTextField()
         setupTagCollectionView()
         setupIsSecretLabel()
@@ -116,17 +104,10 @@ class PrayDetailView: UIView, UITextFieldDelegate {
             $0.right.equalToSuperview().inset(80)
         }
     }
-    private func setupGroupChangeButton() {
-        addSubview(groupChangeButton)
-        groupChangeButton.snp.makeConstraints {
-            $0.top.bottom.equalTo(groupNameLabel)
-            $0.right.equalToSuperview().inset(16)
-        }
-    }
     private func setupDateLabel() {
         addSubview(dateLabel)
         dateLabel.snp.makeConstraints {
-            $0.top.equalTo(groupNameLabel.snp.bottom).offset(4)
+            $0.top.equalToSuperview()
             $0.left.right.equalToSuperview().inset(16)
         }
     }
@@ -178,19 +159,10 @@ class PrayDetailView: UIView, UITextFieldDelegate {
             $0.right.equalTo(prayTextView).offset(-replyView.frame.width-16)
         }
     }
-    
-    private func setupTagInfoLabel() {
-        addSubview(tagInfoLabel)
-        tagInfoLabel.snp.makeConstraints {
-            $0.top.equalTo(prayTextView.snp.bottom).offset(12)
-            $0.left.equalToSuperview().inset(20)
-            $0.right.equalTo(reactionView.snp.left).offset(-16)
-        }
-    }
     private func setupTagTextField() {
         addSubview(tagTextField)
         tagTextField.snp.makeConstraints {
-            $0.top.equalTo(tagInfoLabel.snp.bottom).offset(8)
+            $0.top.equalTo(prayTextView.snp.bottom).offset(48)
             $0.left.right.equalToSuperview().inset(16)
             $0.height.equalTo(36)
         }
@@ -333,8 +305,6 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         output.isMyPray
             .drive(onNext: { [weak self] isMyPray in
                 guard let self = self else { return }
-                self.groupChangeButton.isHidden = !isMyPray
-                self.tagInfoLabel.isHidden = !isMyPray
                 self.tagTextField.isHidden = !isMyPray
                 self.isSecretLabel.isHidden = !isMyPray
                 self.isSecretCheckBox.isHidden = !isMyPray

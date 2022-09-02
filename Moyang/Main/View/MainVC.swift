@@ -46,7 +46,7 @@ class MainVC: UITabBarController, VCType {
         guard let profileVC = profileVC else {
             Log.e("profileVC init failed"); return
         }
-        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = true
 
         tabBar.tintColor = .sheep2
         let appearance = UITabBarAppearance()
@@ -63,7 +63,9 @@ class MainVC: UITabBarController, VCType {
         let images = [Asset.Images.Tabbar.cross.image,
 //                      Asset.Images.Tabbar.today.image,
                       UIImage(systemName: "person.crop.circle.fill")] as [UIImage?]
-        let titles = ["공동체", "오늘", "내 정보"]
+        let titles = ["공동체",
+//                      "오늘",
+                      "내 정보"]
         for i in 0 ..< images.count {
             items[i].image = images[i]
             items[i].title = titles[i]
