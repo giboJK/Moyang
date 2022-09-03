@@ -67,6 +67,7 @@ class BibleSelectVC: UIViewController, VCType {
     let confirmButton = MoyangButton(.primary).then {
         $0.setTitle("완료", for: .normal)
     }
+    var verses = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,15 +84,26 @@ class BibleSelectVC: UIViewController, VCType {
     func setupUI() {
         view.backgroundColor = .nightSky1
         title = "성경 구절"
+        setupSelectedVersesCV()
         setupBookTV()
         setupChapterTV()
         setupVerseTV()
         setupConfirmButton()
     }
+    private func setupSelectedVersesCV() {
+        view.addSubview(selectedVersesCV)
+        selectedVersesCV.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(4)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(40)
+        }
+        selectedVersesCV.delegate = self
+        selectedVersesCV.dataSource = self
+    }
     private func setupBookTV() {
         view.addSubview(bookTV)
         bookTV.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(36)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(52)
             $0.left.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(72)
             $0.width.equalToSuperview().dividedBy(2)
@@ -155,9 +167,6 @@ class BibleSelectVC: UIViewController, VCType {
             .drive(bookTV.rx
                 .items(cellIdentifier: "cell", cellType: BookSelectTVCell.self)) { (_, item, cell) in
                     cell.contentLabel.text = item.content
-                    if item.isSelected {
-                        Log.d(item)
-                    }
                     cell.setSelected(item.isSelected, animated: true)
                 }.disposed(by: disposeBag)
         
@@ -174,5 +183,36 @@ class BibleSelectVC: UIViewController, VCType {
                     cell.contentLabel.text = item.content
                     cell.setSelected(item.isSelected, animated: true)
                 }.disposed(by: disposeBag)
+        
+        output.selected
+            .drive(onNext: { [weak self] list in
+                self?.verses = list.map { $0.content }
+                self?.selectedVersesCV.reloadData()
+            }).disposed(by: disposeBag)
+    }
+}
+
+extension BibleSelectVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let buttonWidth = verses[indexPath.row].width(withConstraintedHeight: 16,
+                                                      font: .systemFont(ofSize: 14, weight: .regular))
+        return CGSize(width: 20 + 16 + buttonWidth, height: 28)
+    }
+}
+
+extension BibleSelectVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return verses.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? BibleVerseCVCell else {
+            return UICollectionViewCell()
+        }
+        cell.verseLabel.text = verses[indexPath.row]
+        cell.vm = vm
+        cell.bind()
+        
+        return cell
     }
 }

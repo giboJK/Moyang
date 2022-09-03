@@ -44,7 +44,7 @@ class BibleSelectVM: VMType {
         selectedBookNo = bookNo
         var curChapters = [BibleItem]()
         
-        for i in 0...BibleInfo.books[bookNo].chapterCount.count {
+        for i in 0..<BibleInfo.books[bookNo].chapterCount.count {
             curChapters.append(BibleItem("\(i + 1)", false))
         }
         chapters.accept(curChapters)
@@ -55,7 +55,7 @@ class BibleSelectVM: VMType {
         selectedChapterNo = chapterNo
         var curVerses = [BibleItem]()
         
-        for i in 0...BibleInfo.books[selectedBookNo].chapterCount[chapterNo] {
+        for i in 0..<BibleInfo.books[selectedBookNo].chapterCount[chapterNo] {
             curVerses.append(BibleItem("\(i + 1)", false))
         }
         verses.accept(curVerses)
@@ -63,7 +63,19 @@ class BibleSelectVM: VMType {
     
     private func selectVerses(verseNo: Int) {
         checkNearByVerses()
+        var cur = selected.value
+        let new = SelectedBibleVerse(selectedBookNo, selectedChapterNo, verseNo)
+        
+        if cur.contains(where: { $0 == new }) {
+            Log.d("Has same")
+            return
+        } else {
+            Log.d("New verse")
+            cur.append(new)
+            selected.accept(cur)
+        }
     }
+    
     private func checkNearByVerses() {
         
     }
@@ -118,7 +130,8 @@ extension BibleSelectVM {
         }
     }
     
-    struct SelectedBibleVerse {
+    struct SelectedBibleVerse: Equatable {
+        let content: String
         let bookNo: Int
         let chapter: Int
         let verse: Int
@@ -129,6 +142,20 @@ extension BibleSelectVM {
             self.bookNo = bookNo
             self.chapter = chapter
             self.verse = verse
+            if let old = BibleInfo.Old.init(rawValue: bookNo) {
+                content = "\(old.short) \(chapter)장 \(verse)절"
+            } else if let new = BibleInfo.New.init(rawValue: bookNo) {
+                content = "\(new.short) \(chapter)장 \(verse)절"
+            } else {
+                content = ""
+            }
+        }
+        
+        static func == (lhs: SelectedBibleVerse, rhs: SelectedBibleVerse) -> Bool {
+            let isBookEqual = lhs.bookNo == rhs.bookNo
+            let isChapterEqual = lhs.chapter == rhs.chapter
+            let isVerseEqual = lhs.verse == rhs.verse
+            return (isBookEqual && isChapterEqual && isVerseEqual)
         }
     }
 }

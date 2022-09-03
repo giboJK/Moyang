@@ -16,7 +16,7 @@ class BibleVerseCVCell: UICollectionViewCell {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
-    let tagLabel = UILabel().then {
+    let verseLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14, weight: .regular)
         $0.tintColor = .sheep2
     }
@@ -33,7 +33,7 @@ class BibleVerseCVCell: UICollectionViewCell {
         contentView.backgroundColor = .wilderness2
         contentView.layer.cornerRadius = 8
         contentView.layer.masksToBounds = true
-        setupTagLabel()
+        setupVerseLabel()
         setupDeleteButton()
     }
     
@@ -41,9 +41,9 @@ class BibleVerseCVCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupTagLabel() {
-        contentView.addSubview(tagLabel)
-        tagLabel.snp.makeConstraints {
+    private func setupVerseLabel() {
+        contentView.addSubview(verseLabel)
+        verseLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(8)
             $0.centerY.equalToSuperview()
         }
