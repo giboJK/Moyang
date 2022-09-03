@@ -37,9 +37,9 @@ class MainVC: UITabBarController, VCType {
     }
 
     func setupUI() {
-        guard let todayVC = todayVC else {
-            Log.e("TodayVC init failed"); return
-        }
+//        guard let todayVC = todayVC else {
+//            Log.e("TodayVC init failed"); return
+//        }
         guard let groupPrayVC = groupPrayVC else {
             Log.e("CommunityMainVC init failed"); return
         }

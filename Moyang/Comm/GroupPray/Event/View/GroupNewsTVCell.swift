@@ -90,4 +90,3 @@ class GroupNewsTVCell: UITableViewCell {
         }
     }
 }
-

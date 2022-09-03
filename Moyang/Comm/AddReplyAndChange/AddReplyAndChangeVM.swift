@@ -105,7 +105,7 @@ class AddReplyAndChangeVM: VMType {
     }
     
     private func setBibleSelectVM() {
-        bibleSelectVM.accept(BibleSelectVM())
+        bibleSelectVM.accept(BibleSelectVM(useCase: useCase))
     }
 }
 

@@ -1,5 +1,6 @@
 excluded:
   - Pods
+  - Moyang/Bible/Domain
 
 disabled_rules:
 - trailing_whitespace

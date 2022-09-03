@@ -37,4 +37,3 @@ struct PrayActivityItem: Codable {
         case userID = "user_id"
     }
 }
-

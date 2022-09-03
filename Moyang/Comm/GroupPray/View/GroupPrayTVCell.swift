@@ -197,7 +197,8 @@ extension GroupPrayTVCell: UICollectionViewDelegate, UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = prayCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PrayCVCell
+        guard let cell = prayCollectionView.dequeueReusableCell(withReuseIdentifier: "cell",
+                                                                for: indexPath) as? PrayCVCell else { return UICollectionViewCell() }
         cell.userID = userID
         cell.row = indexPath.row
         cell.setupData(item: prayList[indexPath.row])

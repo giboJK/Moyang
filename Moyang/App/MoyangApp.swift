@@ -42,7 +42,7 @@ struct MoyangApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     // 앱이 켜졌을때
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         
         // Use Firebase library to configure APIs
         // 파이어베이스 설정

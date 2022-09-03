@@ -578,7 +578,23 @@ class BibleInfo {
                                     chapterCount: [25])
     static let Revelation = BibleBookInfo(type: New.Revelation.rawValue, category: "", bookName: New.Revelation.bookName, author: "",
                                           chapterCount: [20,29,22,11,14,17,17,13,21,11,19,17,18,20,8,21,18,24,21,15,27,21])
-    
+    // Old
+    static let books = [Genesis, Exodus, Leviticus, Numbers, Deuteronomy,
+                        Joshua, Judges, Ruth, SamuelOne, SamuelTwo,
+                        KingsOne, KingsTow, ChroniclesOne, ChroniclesTwo, Ezra,
+                        Nehemiah, Esther, Job, Psalms, Proverbs,
+                        Ecclesiastes, SongOfSongs, Isaiah, Jeremiah, Lamentations,
+                        Ezekiel, Daniel, Hosea, Joel, Amos,
+                        Obadiah, Jonah, Micah, Nahum, Habakkuk,
+                        Zephaniah, Haggai, Zechariah, Malachi,
+                        // New
+                        Matthew, Mark, Luke, John, Acts,
+                        Romans, CorinthiansOne, CorinthiansTwo, Galatians, Ephesians,
+                        Philippians, Colossians, ThessaloniansOne, ThessaloniansTwo, TimothyOne,
+                        TimothyTwo, Titus, Philemon, Hebrews, James,
+                        PeterOne, PeterTwo, JohnOne, JohnTwo, JohnThree,
+                        Jude, Revelation
+    ]
 }
 
 struct BibleBookInfo: Codable {

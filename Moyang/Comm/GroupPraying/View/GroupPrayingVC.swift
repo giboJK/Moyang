@@ -47,7 +47,7 @@ class GroupPrayingVC: UIViewController, VCType {
     let answerButton = MoyangButton(.none).then {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
-            .foregroundColor: UIColor.wilderness1,
+            .foregroundColor: UIColor.wilderness1
         ]
         
         let attributeString = NSMutableAttributedString(
@@ -64,7 +64,7 @@ class GroupPrayingVC: UIViewController, VCType {
     let changeButton = MoyangButton(.none).then {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
-            .foregroundColor: UIColor.wilderness1,
+            .foregroundColor: UIColor.wilderness1
         ]
         
         let attributeString = NSMutableAttributedString(
@@ -76,7 +76,7 @@ class GroupPrayingVC: UIViewController, VCType {
     let prayPlusButton = MoyangButton(.none).then {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
-            .foregroundColor: UIColor.wilderness1,
+            .foregroundColor: UIColor.wilderness1
         ]
         
         let attributeString = NSMutableAttributedString(
