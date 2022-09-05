@@ -53,10 +53,19 @@ class SplashVM: VMType {
         useCase.versionInfo
             .subscribe(onNext: { [weak self] info in
                 guard let info = info else { return }
+                let cur = CommonUtils.currentVersion + "." + CommonUtils.currentBuildVersion
                 if info.status == "Required" {
-                    self?.isRequired.accept(true)
+                    if cur == info.version {
+                        self?.isLatestVersion.accept(true)
+                    } else {
+                        self?.isRequired.accept(true)
+                    }
                 } else if info.status == "Recommended" {
-                    self?.isRecommended.accept(true)
+                    if cur == info.version {
+                        self?.isLatestVersion.accept(true)
+                    } else {
+                        self?.isRecommended.accept(true)
+                    }
                 } else {
                     self?.isLatestVersion.accept(true)
                 }

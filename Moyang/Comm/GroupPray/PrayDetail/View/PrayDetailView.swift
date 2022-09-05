@@ -33,7 +33,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
     let tagTextField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
         $0.backgroundColor = .sheep3
         $0.layer.cornerRadius = 8
-        $0.attributedPlaceholder = NSAttributedString(string: "#카테고리 선택",
+        $0.attributedPlaceholder = NSAttributedString(string: "#태그 선택",
                                                       attributes: [.foregroundColor: UIColor.sheep4])
         $0.textColor = .nightSky1
         $0.returnKeyType = .done
