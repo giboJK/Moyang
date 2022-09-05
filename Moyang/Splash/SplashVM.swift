@@ -23,10 +23,13 @@ class SplashVM: VMType {
     let isLoginSuccess = BehaviorRelay<Void>(value: ())
     let isLoginFailure = BehaviorRelay<Void>(value: ())
     
-    let isRequired = BehaviorRelay<Void>(value: ())
-    let isRecommended = BehaviorRelay<Void>(value: ())
+    let isRequired = BehaviorRelay<Bool>(value: false)
+    let isRecommended = BehaviorRelay<Bool>(value: false)
+    let isLatestVersion = BehaviorRelay<Bool>(value: false)
+    let hasLatestToken = BehaviorRelay<Bool>(value: false)
     
     var hasTryAutoLogin = false
+    
     init(useCase: AuthUseCase) {
         self.useCase = useCase
         let randomInt = Int.random(in: 0..<4)
@@ -36,8 +39,8 @@ class SplashVM: VMType {
         useCase.checkAppVersion()
         bind()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(autoLogin),
-                                               name: NSNotification.Name("AUTO_LOGIN"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTokenSuccess),
+                                               name: NSNotification.Name("UPDATE_TOKEN_SUCCESS"), object: nil)
         // Token이 안 날라올 경우 3초뒤에 autoLogin시도
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
             self.moveToIntro()
@@ -51,11 +54,11 @@ class SplashVM: VMType {
             .subscribe(onNext: { [weak self] info in
                 guard let info = info else { return }
                 if info.status == "Required" {
-                    self?.isRequired.accept(())
+                    self?.isRequired.accept(true)
                 } else if info.status == "Recommended" {
-                    self?.isRecommended.accept(())
+                    self?.isRecommended.accept(true)
                 } else {
-                    
+                    self?.isLatestVersion.accept(true)
                 }
             }).disposed(by: disposeBag)
         
@@ -68,6 +71,17 @@ class SplashVM: VMType {
             .skip(1)
             .bind(to: isLoginFailure)
             .disposed(by: disposeBag)
+        
+        Observable.combineLatest(isLatestVersion, hasLatestToken)
+            .subscribe(onNext: { [weak self] (isLatestVersion, hasLatestToken) in
+                if isLatestVersion && hasLatestToken {
+                    self?.autoLogin()
+                }
+            }).disposed(by: disposeBag)
+    }
+    
+    @objc func updateTokenSuccess() {
+        hasLatestToken.accept(true)
     }
     
     @objc func autoLogin() {
@@ -80,6 +94,14 @@ class SplashVM: VMType {
     }
     
     private func moveToIntro() {
+        if isRequired.value {
+            Log.d("Update is required")
+            return
+        }
+        if isRecommended.value {
+            Log.d("Update is recommended")
+            return
+        }
         if hasTryAutoLogin {
             return
         }
@@ -100,8 +122,8 @@ extension SplashVM {
         let isLoginSuccess: Driver<Void>
         let isLoginFailure: Driver<Void>
         
-        let isRequired: Driver<Void>
-        let isRecommended: Driver<Void>
+        let isRequired: Driver<Bool>
+        let isRecommended: Driver<Bool>
     }
 
     func transform(input: Input) -> Output {

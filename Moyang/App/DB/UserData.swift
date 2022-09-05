@@ -18,6 +18,15 @@ class UserData {
         password = nil
     }
     
+    var latestVersion: String {
+        get {
+            return UserDefaults.standard.string(forKey: "LATEST_VERSION") ?? ""
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: "LATEST_VERSION")
+        }
+    }
+    
     var isNotFirstLaunch: Bool {
         get {
             return UserDefaults.standard.bool(forKey: "IS_NOT_FIRST_LAUNCH")

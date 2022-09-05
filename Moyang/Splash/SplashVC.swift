@@ -33,6 +33,15 @@ class SplashVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 22, weight: .semibold)
         $0.textAlignment = .left
     }
+    let requiredPopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .secondary).then {
+        $0.desc = "최신 버전의 앱을 설치하셔야 서비스를 이용하실 수 있습니다."
+        $0.firstButton.setTitle("업데이트 하기", for: .normal)
+    }
+    let recommendedPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .secondary, secondButtonStyle: .ghost).then {
+        $0.desc = "최신 버전의 앱으로 업데이트를 권장합니다. 최신 버전으로 앱을 업데이트 해주세요."
+        $0.firstButton.setTitle("업데이트 하기", for: .normal)
+        $0.secondButton.setTitle("확인", for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +106,26 @@ class SplashVC: UIViewController, VCType {
 
     // MARK: - Binding
     func bind() {
+        bindViews()
         bindVM()
+    }
+    
+    private func bindViews() {
+        requiredPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        recommendedPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        recommendedPopup.secondButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+                self?.vm?.autoLogin()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
@@ -129,9 +157,21 @@ class SplashVC: UIViewController, VCType {
             }).disposed(by: disposeBag)
         
         output.isRequired
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                
+            .delay(.milliseconds(700))
+            .drive(onNext: { [weak self] isRequired in
+                guard let self = self else { return }
+                if isRequired {
+                    self.displayPopup(popup: self.requiredPopup)
+                }
+            }).disposed(by: disposeBag)
+        
+        output.isRecommended
+            .delay(.milliseconds(700))
+            .drive(onNext: { [weak self] isRecommended in
+                guard let self = self else { return }
+                if isRecommended {
+                    self.displayPopup(popup: self.recommendedPopup)
+                }
             }).disposed(by: disposeBag)
     }
 }
