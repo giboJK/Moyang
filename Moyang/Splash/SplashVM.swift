@@ -23,6 +23,9 @@ class SplashVM: VMType {
     let isLoginSuccess = BehaviorRelay<Void>(value: ())
     let isLoginFailure = BehaviorRelay<Void>(value: ())
     
+    let isRequired = BehaviorRelay<Void>(value: ())
+    let isRecommended = BehaviorRelay<Void>(value: ())
+    
     var hasTryAutoLogin = false
     init(useCase: AuthUseCase) {
         self.useCase = useCase
@@ -44,6 +47,18 @@ class SplashVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
+        useCase.versionInfo
+            .subscribe(onNext: { [weak self] info in
+                guard let info = info else { return }
+                if info.status == "Required" {
+                    self?.isRequired.accept(())
+                } else if info.status == "Recommended" {
+                    self?.isRecommended.accept(())
+                } else {
+                    
+                }
+            }).disposed(by: disposeBag)
+        
         useCase.isLoginSuccess
             .skip(1)
             .bind(to: isLoginSuccess)
@@ -84,6 +99,9 @@ extension SplashVM {
         
         let isLoginSuccess: Driver<Void>
         let isLoginFailure: Driver<Void>
+        
+        let isRequired: Driver<Void>
+        let isRecommended: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
@@ -93,7 +111,10 @@ extension SplashVM {
             third: thirdStr.asDriver(),
             
             isLoginSuccess: isLoginSuccess.asDriver(),
-            isLoginFailure: isLoginFailure.asDriver()
+            isLoginFailure: isLoginFailure.asDriver(),
+            
+            isRequired: isRequired.asDriver(),
+            isRecommended: isRecommended.asDriver()
         )
     }
 }

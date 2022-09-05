@@ -34,7 +34,7 @@ class PrayCVCell: UICollectionViewCell {
     let isSecretImageView = UIImageView().then {
         let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .regular, scale: .large)
         $0.image = UIImage(systemName: "lock.fill", withConfiguration: config)
-        $0.tintColor = .sheep3
+        $0.tintColor = .nightSky2
     }
     let prayCountLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14, weight: .regular)

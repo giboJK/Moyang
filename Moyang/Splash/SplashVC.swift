@@ -127,6 +127,12 @@ class SplashVC: UIViewController, VCType {
             .drive(onNext: { [weak self] _ in
                 self?.coordinator?.loginFailure()
             }).disposed(by: disposeBag)
+        
+        output.isRequired
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                
+            }).disposed(by: disposeBag)
     }
 }
 
