@@ -30,12 +30,13 @@ class SplashVM: VMType {
         firstStr.accept(first[0])
         secondStr.accept(second[randomInt])
         thirdStr.accept(third[randomInt])
+        useCase.checkAppVersion()
         bind()
         
         NotificationCenter.default.addObserver(self, selector: #selector(autoLogin),
                                                name: NSNotification.Name("AUTO_LOGIN"), object: nil)
-        // Token이 안 날라올 경우 2초뒤에 autoLogin시도
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+        // Token이 안 날라올 경우 3초뒤에 autoLogin시도
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
             self.moveToIntro()
         }
     }

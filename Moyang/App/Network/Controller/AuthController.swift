@@ -75,4 +75,22 @@ extension AuthController: AuthRepo {
             }
         }
     }
+    
+    func checkAppVersion(completion: ((Result<AppVersionInfo, Error>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.LoginAPI.appInfo)
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: [:])
+        
+        networkService.requestAPI(request: request,
+                                  type: AppVersionInfo.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
 }

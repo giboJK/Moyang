@@ -23,10 +23,6 @@ struct UserInfoRequest: Codable {
     }
 }
 
-struct AppLoginResponse: Codable {
-    
-}
-
 struct UserInfo: Codable {
     let id: String
     let email: String

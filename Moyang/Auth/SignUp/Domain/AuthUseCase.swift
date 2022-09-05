@@ -30,9 +30,23 @@ class AuthUseCase {
     let isLoginSuccess = BehaviorRelay<Void>(value: ())
     let isLoginFailure = BehaviorRelay<Void>(value: ())
     
+    let versionInfo = BehaviorRelay<AppVersionInfo?>(value: nil)
+    
     // MARK: - Lifecycle
     init(repo: AuthRepo) {
         self.repo = repo
+    }
+    
+    func checkAppVersion() {
+        repo.checkAppVersion { [weak self] result in
+            switch result {
+            case .success(let response):
+                Log.d(response)
+                self?.versionInfo.accept(response)
+            case .failure(let error):
+                Log.e("")
+            }
+        }
     }
 
     func checkEmailExist(email: String, credential: String, auth: String) {

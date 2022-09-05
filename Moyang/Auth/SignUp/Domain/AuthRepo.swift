@@ -13,6 +13,8 @@ protocol AuthRepo {
                     completion: ((Result<UserInfo, Error>) -> Void)?)
     
     func appLogin(email: String, credential: String, token: String, completion: ((Result<UserInfo, Error>) -> Void)?)
+    
+    func checkAppVersion(completion: ((Result<AppVersionInfo, Error>) -> Void)?)
 }
 
 enum AuthType: String {
