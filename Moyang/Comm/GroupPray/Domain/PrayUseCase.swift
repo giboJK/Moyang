@@ -39,6 +39,8 @@ class PrayUseCase {
     
     let deleteReplySuccess = BehaviorRelay<Void>(value: ())
     let deleteReplyFailure = BehaviorRelay<Void>(value: ())
+    let updateReplySuccess = BehaviorRelay<Void>(value: ())
+    let updateReplyFailure = BehaviorRelay<Void>(value: ())
     
     let addAnswerSuccess = BehaviorRelay<Void>(value: ())
     let addAnswerFailure = BehaviorRelay<Void>(value: ())
@@ -212,6 +214,32 @@ class PrayUseCase {
             self.resetIsNetworking()
         }
     }
+    func updateReply(replyID: String, reply: String, userID: String, prayID: String) {
+        repo.updateReply(replyID: replyID, reply: reply) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.updateReplySuccess.accept(())
+                    var dict = self.memberPrayList.value
+                    if var curList = dict[userID] {
+                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
+                            if let replyIndex = curList[index].replys.firstIndex(where: { $0.id == replyID}) {
+                                curList[index].replys[replyIndex].reply = reply
+                            }
+                        }
+                        dict.updateValue(curList, forKey: userID)
+                        self.memberPrayList.accept(dict)
+                    }
+                } else {
+                    self.updateReplyFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.updateReplyFailure.accept(())
+            }
+        }
+    }
     func deleteReply(replyID: String, userID: String, prayID: String) {
         if checkAndSetIsNetworking() { return }
         repo.deleteReply(replyID: replyID) { [weak self] result in
@@ -219,19 +247,21 @@ class PrayUseCase {
             switch result {
             case .success(let response):
                 if response.code == 0 {
-                    self.deletePraySuccess.accept(())
+                    self.deleteReplySuccess.accept(())
                     var dict = self.memberPrayList.value
                     if var curList = dict[userID] {
-                        curList.removeAll { $0.prayID == prayID }
+                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
+                            curList[index].replys.removeAll { $0.id == replyID }
+                        }
                         dict.updateValue(curList, forKey: userID)
                         self.memberPrayList.accept(dict)
                     }
                 } else {
-                    self.deletePrayFailure.accept(())
+                    self.deleteReplyFailure.accept(())
                 }
             case .failure(let error):
                 Log.e(error)
-                self.deletePrayFailure.accept(())
+                self.deleteReplyFailure.accept(())
             }
             self.resetIsNetworking()
         }

@@ -140,6 +140,7 @@ class ReplyTVCell: UITableViewCell {
             $0.top.equalToSuperview().inset(12)
             $0.right.equalTo(deleteButton.snp.left).offset(-12)
         }
+        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
     }
     
     private func setupEditButton() {
@@ -187,5 +188,12 @@ class ReplyTVCell: UITableViewCell {
             return
         }
         vm?.deleteReply(index: index)
+    }
+    
+    @objc func didTapSaveButton() {
+        guard let index = index else {
+            return
+        }
+        vm?.updateReply(index: index, reply: contentTextView.text)
     }
 }

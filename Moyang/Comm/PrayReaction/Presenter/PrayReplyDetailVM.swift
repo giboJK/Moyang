@@ -14,24 +14,42 @@ class PrayReplyDetailVM: VMType {
     let useCase: PrayUseCase
     let userID: String
     let prayID: String
+    var indexToDelete: Int = -1
+    
     
     let itemList = BehaviorRelay<[ReplyItem]>(value: [])
     let isDateSorted = BehaviorRelay<Bool>(value: true)
+    let askingDeletion = BehaviorRelay<Void>(value: ())
+    let deleteReplySuccess = BehaviorRelay<Void>(value: ())
+    let deleteReplyFailure = BehaviorRelay<Void>(value: ())
     
     init(useCase: PrayUseCase, userID: String, prayID: String, replys: [PrayReply]) {
         self.useCase = useCase
         self.userID = userID
         self.prayID = prayID
         self.replys = replys.sorted(by: { $0.createDate > $1.createDate })
+
+        bind()
         setData()
     }
     
     deinit { Log.i(self) }
     
+    private func bind() {
+        useCase.deleteReplySuccess
+            .bind(to: deleteReplySuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.deleteReplyFailure
+            .bind(to: deleteReplyFailure)
+            .disposed(by: disposeBag)
+    }
+    
     private func setData() {
         var itemList = [ReplyItem]()
         replys.forEach { reply in
-            itemList.append(ReplyItem(memberID: reply.memberID,
+            itemList.append(ReplyItem(id: reply.id,
+                                      memberID: reply.memberID,
                                       name: reply.name,
                                       reply: reply.reply,
                                       date: reply.createDate))
@@ -40,7 +58,18 @@ class PrayReplyDetailVM: VMType {
     }
     
     func deleteReply(index: Int) {
-        Log.d("index \(index)")
+        indexToDelete = index
+        askingDeletion.accept(())
+    }
+    
+    private func deleteReply() {
+        let replyID = itemList.value[indexToDelete].id
+        useCase.deleteReply(replyID: replyID, userID: userID, prayID: prayID)
+    }
+    
+    func updateReply(index: Int, reply: String) {
+        let replyID = itemList.value[index].id
+        useCase.updateReply(replyID: replyID, reply: reply, userID: userID, prayID: prayID)
     }
 }
 
@@ -48,11 +77,15 @@ extension PrayReplyDetailVM {
     struct Input {
         var orderByDate: Driver<Void> = .empty()
         var orderByName: Driver<Void> = .empty()
+        var deleteConfirm: Driver<Void> = .empty()
     }
     
     struct Output {
         let itemList: Driver<[ReplyItem]>
         let isDateSorted: Driver<Bool>
+        let askingDeletion: Driver<Void>
+        let deleteReplySuccess: Driver<Void>
+        let deleteReplyFailure: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -66,25 +99,37 @@ extension PrayReplyDetailVM {
             .drive(isDateSorted)
             .disposed(by: disposeBag)
         
+        input.deleteConfirm
+            .drive(onNext: { [weak self] _ in
+                self?.deleteReply()
+            }).disposed(by: disposeBag)
+        
         return Output(itemList: itemList.asDriver(),
-                      isDateSorted: isDateSorted.asDriver())
+                      isDateSorted: isDateSorted.asDriver(),
+                      askingDeletion: askingDeletion.asDriver(),
+                      deleteReplySuccess: deleteReplySuccess.asDriver(),
+                      deleteReplyFailure: deleteReplyFailure.asDriver()
+        )
     }
 }
 
 extension PrayReplyDetailVM {
     struct ReplyItem {
+        let id: String
         let memberID: String
         let name: String
         let reply: String
         let date: String
         let isHeader: Bool
         
-        init(memberID: String,
+        init(id: String,
+             memberID: String,
              name: String,
              reply: String,
              date: String,
              isHeader: Bool = false
         ) {
+            self.id = id
             self.memberID = memberID
             self.name = name
             self.reply = reply

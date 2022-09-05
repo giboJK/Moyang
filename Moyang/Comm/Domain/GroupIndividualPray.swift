@@ -118,7 +118,7 @@ struct PrayReply: Codable {
     let id: String
     let memberID: String
     let name: String
-    let reply: String
+    var reply: String
     let createDate: String
     
     enum CodingKeys: String, CodingKey {

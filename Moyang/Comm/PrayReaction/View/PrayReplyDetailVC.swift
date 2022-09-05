@@ -42,6 +42,11 @@ class PrayReplyDetailVC: UIViewController, VCType {
         $0.bounces = true
         $0.isScrollEnabled = true
     }
+    let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .ghost).then {
+        $0.desc = "정말로 삭제하시겠어요? 삭제된 내용은 복구할 수 없습니다."
+        $0.firstButton.setTitle("삭제", for: .normal)
+        $0.secondButton.setTitle("취소", for: .normal)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,21 +100,31 @@ class PrayReplyDetailVC: UIViewController, VCType {
     }
     
     private func bindViews() {
+        deleteConfirmPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        deleteConfirmPopup.secondButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(orderByDate: dateSortButton.rx.tap.asDriver(),
-                             orderByName: nameSortButton.rx.tap.asDriver()
+                             orderByName: nameSortButton.rx.tap.asDriver(),
+                             deleteConfirm: deleteConfirmPopup.firstButton.rx.tap.asDriver()
         )
         
         let output = vm.transform(input: input)
         
         output.itemList
             .drive(replyTableView.rx
-                .items(cellIdentifier: "cell", cellType: ReplyTVCell.self)) { (index, item, cell) in
+                .items(cellIdentifier: "cell", cellType: ReplyTVCell.self)) { [weak self] (index, item, cell) in
                     cell.index = index
                     cell.setupData(item: item)
+                    cell.vm = self?.vm
                 }.disposed(by: disposeBag)
 
         
@@ -127,6 +142,25 @@ class PrayReplyDetailVC: UIViewController, VCType {
                     self.dateSortButton.backgroundColor = .sheep1
                     self.nameSortButton.backgroundColor = .nightSky4
                 }
+            }).disposed(by: disposeBag)
+        
+        output.askingDeletion
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.deleteConfirmPopup)
+            }).disposed(by: disposeBag)
+        
+        output.deleteReplySuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        output.deleteReplyFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
     }
 }
