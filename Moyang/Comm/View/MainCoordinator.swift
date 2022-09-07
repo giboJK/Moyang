@@ -36,7 +36,7 @@ class MainCoordinator: Coordinator {
 
 extension MainCoordinator: AllGroupVCDelegate {
     func didTapGroup(groupPrayVM: GroupPrayVM) {
-        guard let groupPrayCoordinator = assembler.resolver.resolve(GroupPrayCoordinator.self) else {
+        guard let groupPrayCoordinator = assembler.resolver.resolve(GroupActivityCoordinator.self) else {
             Log.e("Coordinator init failed")
             return
         }

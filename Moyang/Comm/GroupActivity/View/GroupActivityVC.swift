@@ -107,7 +107,7 @@ class GroupActivityVC: UIViewController, VCType {
     private func setupNewsButton() {
         view.addSubview(newsButton)
         newsButton.snp.makeConstraints {
-            $0.right.equalTo(view.safeAreaLayoutGuide).inset(28)
+            $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.size.equalTo(24)
         }

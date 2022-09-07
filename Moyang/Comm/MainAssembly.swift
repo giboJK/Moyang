@@ -58,8 +58,8 @@ class MainAssembly: Assembly, BaseAssembly {
             return assembly
         }
         
-        container.register(GroupPrayAssembly.self) { _ in
-            let assembly = GroupPrayAssembly()
+        container.register(GroupActivityAssembly.self) { _ in
+            let assembly = GroupActivityAssembly()
             assembly.nav = self.nav
             return assembly
         }
@@ -67,7 +67,7 @@ class MainAssembly: Assembly, BaseAssembly {
         container.register(MainCoordinator.self) { r in
             guard let nav = self.nav else { return MainCoordinator() }
             let today = r ~> (TodayAssembly.self)
-            let pray = r ~> (GroupPrayAssembly.self)
+            let pray = r ~> (GroupActivityAssembly.self)
             let assembler = Assembler([self, today, pray])
             let coordinator = MainCoordinator(nav: nav, assembler: assembler)
             return coordinator

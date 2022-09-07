@@ -19,7 +19,7 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         container.register(GroupActivityVC.self) { r in
             let vc = GroupActivityVC()
             vc.vm = (r ~> GroupPrayVM.self)
-            vc.coordinator = r ~> (GroupPrayCoordinator.self)
+            vc.coordinator = r ~> (GroupActivityCoordinator.self)
             return vc
         }
         
@@ -115,9 +115,9 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - Coordinator
-        container.register(GroupPrayCoordinator.self) { _ in
-            guard let nav = self.nav else { return GroupPrayCoordinator() }
-            let coordinator = GroupPrayCoordinator(nav: nav, assembler: Assembler([self]))
+        container.register(GroupActivityCoordinator.self) { _ in
+            guard let nav = self.nav else { return GroupActivityCoordinator() }
+            let coordinator = GroupActivityCoordinator(nav: nav, assembler: Assembler([self]))
             return coordinator
         }
     }
