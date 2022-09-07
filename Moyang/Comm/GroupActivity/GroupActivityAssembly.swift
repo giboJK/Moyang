@@ -1,5 +1,5 @@
 //
-//  GroupPrayAssembly.swift
+//  GroupActivityAssembly.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/02.
@@ -10,7 +10,7 @@ import SwinjectAutoregistration
 import Foundation
 import UIKit
 
-class GroupPrayAssembly: Assembly, BaseAssembly {
+class GroupActivityAssembly: Assembly, BaseAssembly {
     var nav: UINavigationController?
     
     deinit { Log.i(self) }

@@ -1,5 +1,5 @@
 //
-//  GroupPrayCoordinator.swift
+//  GroupActivityCoordinator.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/02.
@@ -9,7 +9,7 @@ import Foundation
 import Swinject
 import UIKit
 
-class GroupPrayCoordinator: Coordinator {
+class GroupActivityCoordinator: Coordinator {
     
     var assembler: Assembler
     var nav: UINavigationController
@@ -37,7 +37,7 @@ class GroupPrayCoordinator: Coordinator {
     }
 }
 
-extension GroupPrayCoordinator: GroupPrayVCDelegate {
+extension GroupActivityCoordinator: GroupPrayVCDelegate {
     func didTapNewsButton() {
         if let vc = assembler.resolver.resolve(GroupEventVC.self) {
             nav.pushViewController(vc, animated: true)
@@ -75,7 +75,7 @@ extension GroupPrayCoordinator: GroupPrayVCDelegate {
     }
 }
 
-extension GroupPrayCoordinator: GroupPrayDetailVCDelegate {
+extension GroupActivityCoordinator: GroupPrayDetailVCDelegate {
     func didTapPrayButton(vm: GroupPrayDetailVM) {
         guard let groupID = UserData.shared.groupID else { Log.e("No group"); return }
         if let vc = assembler.resolver.resolve(GroupPrayingVC.self,
@@ -87,6 +87,6 @@ extension GroupPrayCoordinator: GroupPrayDetailVCDelegate {
     }
 }
 
-extension GroupPrayCoordinator: GroupPrayingVCDelegate {
+extension GroupActivityCoordinator: GroupPrayingVCDelegate {
     
 }
