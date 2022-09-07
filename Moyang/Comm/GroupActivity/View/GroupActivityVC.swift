@@ -41,6 +41,7 @@ class GroupActivityVC: UIViewController, VCType {
         $0.textColor = .sheep2
         $0.numberOfLines = 2
     }
+    let tabView = GroupActivityTabView()
     let searchBar = MoyangSearchBar().then {
         $0.isHidden = true
     }
@@ -102,6 +103,7 @@ class GroupActivityVC: UIViewController, VCType {
         setupAddButton()
         setupSearchButton()
         setupGreetingLabel()
+        setupTabView()
         setupPrayTableView()
         
         setupSearchBar()
@@ -112,7 +114,7 @@ class GroupActivityVC: UIViewController, VCType {
         view.addSubview(newsButton)
         newsButton.snp.makeConstraints {
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(12)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.size.equalTo(24)
         }
     }
@@ -168,10 +170,18 @@ class GroupActivityVC: UIViewController, VCType {
         praySearchView.vm = vm
         praySearchView.bind()
     }
+    private func setupTabView() {
+        view.addSubview(tabView)
+        tabView.snp.makeConstraints {
+            $0.top.equalTo(greetingLabel.snp.bottom).offset(16)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+    }
     private func setupPrayTableView() {
         view.addSubview(prayTableView)
         prayTableView.snp.makeConstraints {
-            $0.top.equalTo(greetingLabel.snp.bottom).offset(16)
+            $0.top.equalTo(tabView.snp.bottom)
             $0.bottom.left.right.equalToSuperview()
         }
         prayTableView.stickyHeader.view = headerView
