@@ -16,8 +16,8 @@ class GroupPrayAssembly: Assembly, BaseAssembly {
     deinit { Log.i(self) }
     
     func assemble(container: Container) {
-        container.register(GroupPrayVC.self) { r in
-            let vc = GroupPrayVC()
+        container.register(GroupActivityVC.self) { r in
+            let vc = GroupActivityVC()
             vc.vm = (r ~> GroupPrayVM.self)
             vc.coordinator = r ~> (GroupPrayCoordinator.self)
             return vc

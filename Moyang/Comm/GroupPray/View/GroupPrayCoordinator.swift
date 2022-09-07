@@ -27,7 +27,7 @@ class GroupPrayCoordinator: Coordinator {
     
     func start(_ animated: Bool, completion: (() -> Void)?) {
         guard let groupInfo = UserData.shared.groupInfo else { Log.e("No group"); return }
-        if let vc = assembler.resolver.resolve(GroupPrayVC.self) {
+        if let vc = assembler.resolver.resolve(GroupActivityVC.self) {
             nav.pushViewController(vc, animated: true)
             vc.coordinator = self
             vc.groupCreateDate = groupInfo.createDate.isoToDate()

@@ -40,7 +40,7 @@ extension MainCoordinator: AllGroupVCDelegate {
             Log.e("Coordinator init failed")
             return
         }
-        if let vc = assembler.resolver.resolve(GroupPrayVC.self, argument: groupPrayVM) {
+        if let vc = assembler.resolver.resolve(GroupActivityVC.self, argument: groupPrayVM) {
             nav.pushViewController(vc, animated: true)
             vc.coordinator = groupPrayCoordinator
             vc.groupCreateDate = groupPrayVM.groupCreateDate.value ?? Date()

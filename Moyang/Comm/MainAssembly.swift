@@ -20,7 +20,7 @@ class MainAssembly: Assembly, BaseAssembly {
             let vc = MainVC()
             
             vc.todayVC = r ~> (TodayVC.self)
-            vc.groupPrayVC = r ~> (GroupPrayVC.self)
+            vc.groupPrayVC = r ~> (GroupActivityVC.self)
             vc.profileVC = r ~> (ProfileVC.self)
             
             return vc

@@ -19,7 +19,7 @@ class MainVC: UITabBarController, VCType {
 
     // MARK: - UI
     var todayVC: TodayVC?
-    var groupPrayVC: GroupPrayVC?
+    var groupPrayVC: GroupActivityVC?
     var profileVC: ProfileVC?
 
     override func viewDidLoad() {

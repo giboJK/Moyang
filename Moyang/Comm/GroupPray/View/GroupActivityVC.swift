@@ -1,5 +1,5 @@
 //
-//  GroupPrayVC.swift
+//  GroupActivityVC.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/01.
@@ -11,7 +11,7 @@ import RxSwift
 import SnapKit
 import Then
 
-class GroupPrayVC: UIViewController, VCType {
+class GroupActivityVC: UIViewController, VCType {
     typealias VM = GroupPrayVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
@@ -153,6 +153,28 @@ class GroupPrayVC: UIViewController, VCType {
         }
         prayTableView.tableFooterView = footer
     }
+    
+    private func showSharingOptions() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "새 기도", style: .default , handler: { [weak self] _ in
+            guard let vm = self?.vm else { return }
+            self?.coordinator?.didTapNewPrayButton(vm: vm)
+        }))
+        alert.addAction(UIAlertAction(title: "새 묵상", style: .default , handler: { _ in
+        }))
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { _ in
+        }))
+
+//        uncomment for iPad Support
+        alert.popoverPresentationController?.sourceView = self.view
+
+        self.present(alert, animated: true, completion: {
+            print("completion block")
+        })
+    }
+    
     // MARK: - Binding
     func bind() {
         bindViews()
@@ -165,10 +187,10 @@ class GroupPrayVC: UIViewController, VCType {
                 self?.coordinator?.didTapNewsButton()
             }).disposed(by: disposeBag)
         
-        headerView.addPrayButton.rx.tap
+        headerView.addSharingButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                guard let vm = self?.vm else { return }
-                self?.coordinator?.didTapNewPrayButton(vm: vm)
+                self?.showSharingOptions()
+//                self?.coordinator?.didTapNewPrayButton(vm: vm)
             }).disposed(by: disposeBag)
         
         headerView.prayButton.rx.tap

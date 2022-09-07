@@ -13,14 +13,14 @@ import SnapKit
 
 class GroupPrayHeader: UIView {
     let thisMonthTopicView = ThisMonthTopicView()
-    let addPrayButton = MoyangButton(.none).then {
+    let addSharingButton = MoyangButton(.none).then {
         $0.layer.cornerRadius = 8
         $0.tintColor = .sheep1
         var container = AttributeContainer()
         container.font = .systemFont(ofSize: 14, weight: .regular)
         var configuration = UIButton.Configuration.filled()
         configuration.buttonSize = .mini
-        configuration.attributedTitle = AttributedString("새 기도", attributes: container)
+        configuration.attributedTitle = AttributedString("새 나눔", attributes: container)
         configuration.image = UIImage(systemName: "plus")
         configuration.imagePadding = 4
         configuration.baseBackgroundColor = .nightSky4
@@ -79,8 +79,8 @@ class GroupPrayHeader: UIView {
         }
     }
     private func setupAddPrayButton() {
-        addSubview(addPrayButton)
-        addPrayButton.snp.makeConstraints {
+        addSubview(addSharingButton)
+        addSharingButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(8)
             $0.height.equalTo(36)
             $0.left.equalToSuperview().inset(17)
@@ -91,7 +91,7 @@ class GroupPrayHeader: UIView {
         prayButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(8)
             $0.height.equalTo(36)
-            $0.left.equalTo(addPrayButton.snp.right).offset(12)
+            $0.left.equalTo(addSharingButton.snp.right).offset(12)
         }
     }
 
