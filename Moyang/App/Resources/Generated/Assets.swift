@@ -52,11 +52,10 @@ public enum Asset {
       public static let checkFill = ImageAsset(name: "checkFill")
     }
     public enum Pray {
+      public static let addItem = ImageAsset(name: "addItem")
       public static let changeRecord = ImageAsset(name: "change_record")
       public static let comment = ImageAsset(name: "comment")
       public static let copy = ImageAsset(name: "copy")
-      public static let sliderEmpty = ImageAsset(name: "sliderEmpty")
-      public static let sliderFill = ImageAsset(name: "sliderFill")
     }
     public enum Profile {
       public static let logout = ImageAsset(name: "logout")

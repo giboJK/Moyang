@@ -15,6 +15,8 @@ class GroupPrayVM: VMType {
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
+    let greeting = BehaviorRelay<String>(value: "")
+    
     let groupName = BehaviorRelay<String>(value: "")
     let groupCreateDate = BehaviorRelay<Date?>(value: nil)
     let isWeek = BehaviorRelay<Bool>(value: true)
@@ -43,6 +45,7 @@ class GroupPrayVM: VMType {
     init(useCase: PrayUseCase) {
         self.useCase = useCase
         bind()
+        setupGreeting()
         fetchPrayAll()
 //        if let start = Date().startOfWeek {
 //            fetchActivity(start.toString("yyyy-MM-dd hh:mm:ss Z"))
@@ -102,6 +105,22 @@ class GroupPrayVM: VMType {
             .disposed(by: disposeBag)
     }
     
+    private func setupGreeting() {
+        guard let myInfo = UserData.shared.userInfo else { Log.e("No Info"); return }
+        let hour = Calendar.current.component(.hour, from: Date())
+        
+        var greeting = ""
+        switch hour {
+        case 5..<11 : greeting = "주님과 함께하는 아침,"
+        case 11..<13 : greeting = "좋은 오후네요,"
+        case 13..<17 : greeting = "좋은 오후네요,"
+        case 17..<22 : greeting = "좋은 저녁이에요,"
+        default: greeting = "평안한 밤이네요,"
+        }
+        greeting += " " + myInfo.name
+        self.greeting.accept(greeting)
+    }
+    
     private func fetchPrayAll() {
         useCase.fetchPrayAll(order: GroupPrayOrder.latest.parameter)
     }
@@ -133,7 +152,8 @@ class GroupPrayVM: VMType {
         allItem.isChecked = true
         list.append(allItem)
         if let index = list.firstIndex(where: { $0.id == UserData.shared.userInfo?.id }) {
-            list.insert(list.remove(at: index), at: 0)
+//            list.insert(list.remove(at: index), at: 0)
+            list.remove(at: index)
         }
         memberList.accept(list)
     }
@@ -214,6 +234,8 @@ extension GroupPrayVM {
     }
     
     struct Output {
+        let greeting: Driver<String>
+        
         let groupName: Driver<String>
         let groupCreateDate: Driver<Date?>
         let isWeek: Driver<Bool>
@@ -324,7 +346,9 @@ extension GroupPrayVM {
             }).disposed(by: disposeBag)
         
         
-        return Output(groupName: groupName.asDriver(),
+        return Output(greeting: greeting.asDriver(),
+                      
+                      groupName: groupName.asDriver(),
                       groupCreateDate: groupCreateDate.asDriver(),
                       isWeek: isWeek.asDriver(),
                       

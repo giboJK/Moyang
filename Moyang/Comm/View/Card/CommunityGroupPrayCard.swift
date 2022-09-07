@@ -51,8 +51,8 @@ class CommunityGroupPrayCard: UIView, UICollectionViewDelegateFlowLayout {
         $0.setThumbImage(UIImage(), for: .normal)
         $0.setValue(0.0, animated: true)
         $0.layer.cornerRadius = 8
-        $0.setMaximumTrackImage(Asset.Images.Pray.sliderEmpty.image, for: .normal)
-        $0.setMinimumTrackImage(Asset.Images.Pray.sliderFill.image, for: .normal)
+//        $0.setMaximumTrackImage(Asset.Images.Pray.sliderEmpty.image, for: .normal)
+//        $0.setMinimumTrackImage(Asset.Images.Pray.sliderFill.image, for: .normal)
     }
     let myLatestPrayDateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)

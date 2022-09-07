@@ -18,8 +18,8 @@ class GroupActivityVC: UIViewController, VCType {
     var coordinator: GroupPrayVCDelegate?
     var groupCreateDate: Date!
     
-    let headerHeight: CGFloat = 48
-    let minHeaderHeight: CGFloat = 48
+    let headerHeight: CGFloat = 140
+    let minHeaderHeight: CGFloat = 44
     
     // MARK: - UI
     let newsButton = UIButton().then {
@@ -27,9 +27,19 @@ class GroupActivityVC: UIViewController, VCType {
         $0.setImage(UIImage(systemName: "bell", withConfiguration: config), for: .normal)
         $0.tintColor = .sheep1
     }
-    let groupNameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 31, weight: .semibold)
+    let addButton = UIButton().then {
+        $0.setImage(Asset.Images.Pray.addItem.image.withTintColor(.sheep1), for: .normal)
+        $0.tintColor = .sheep1
+    }
+    let searchButton = UIButton().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
+        $0.setImage(UIImage(systemName: "magnifyingglass", withConfiguration: config), for: .normal)
+        $0.tintColor = .sheep1
+    }
+    let greetingLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 22, weight: .semibold)
         $0.textColor = .sheep2
+        $0.numberOfLines = 2
     }
     let searchBar = MoyangSearchBar().then {
         $0.isHidden = true
@@ -88,35 +98,54 @@ class GroupActivityVC: UIViewController, VCType {
     func setupUI() {
         view.backgroundColor = .nightSky1
         
-        setupGroupNameLabel()
         setupNewsButton()
+        setupAddButton()
+        setupSearchButton()
+        setupGreetingLabel()
         setupPrayTableView()
         
         setupSearchBar()
         setupPraySearchView()
         setupAutoCompleteTableView()
     }
-    private func setupGroupNameLabel() {
-        view.addSubview(groupNameLabel)
-        groupNameLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(48)
-            $0.left.equalToSuperview().inset(17)
-        }
-    }
-    
     private func setupNewsButton() {
         view.addSubview(newsButton)
         newsButton.snp.makeConstraints {
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(12)
             $0.size.equalTo(24)
+        }
+    }
+    private func setupAddButton() {
+        view.addSubview(addButton)
+        addButton.snp.makeConstraints {
+            $0.right.equalTo(newsButton.snp.left).offset(-16)
+            $0.top.equalTo(newsButton)
+            $0.size.equalTo(24)
+        }
+    }
+    private func setupSearchButton() {
+        view.addSubview(searchButton)
+        searchButton.snp.makeConstraints {
+            $0.right.equalTo(addButton.snp.left).offset(-16)
+            $0.top.equalTo(newsButton)
+            $0.size.equalTo(24)
+        }
+        
+    }
+    private func setupGreetingLabel() {
+        view.addSubview(greetingLabel)
+        greetingLabel.snp.makeConstraints {
+            $0.top.equalTo(newsButton)
+            $0.left.equalToSuperview().inset(17)
+            $0.right.equalTo(searchButton.snp.left).offset(-8)
         }
     }
     
     private func setupSearchBar() {
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints {
-            $0.top.equalTo(groupNameLabel.snp.bottom).offset(16)
+            $0.top.equalTo(greetingLabel.snp.bottom).offset(16)
             $0.height.equalTo(40)
             $0.left.right.equalToSuperview().inset(20)
         }
@@ -142,7 +171,7 @@ class GroupActivityVC: UIViewController, VCType {
     private func setupPrayTableView() {
         view.addSubview(prayTableView)
         prayTableView.snp.makeConstraints {
-            $0.top.equalTo(groupNameLabel.snp.bottom).offset(16)
+            $0.top.equalTo(greetingLabel.snp.bottom).offset(16)
             $0.bottom.left.right.equalToSuperview()
         }
         prayTableView.stickyHeader.view = headerView
@@ -162,6 +191,9 @@ class GroupActivityVC: UIViewController, VCType {
             self?.coordinator?.didTapNewPrayButton(vm: vm)
         }))
         alert.addAction(UIAlertAction(title: "새 묵상", style: .default , handler: { _ in
+        }))
+        
+        alert.addAction(UIAlertAction(title: "한 줄 감사", style: .default , handler: { _ in
         }))
         
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { _ in
@@ -187,7 +219,8 @@ class GroupActivityVC: UIViewController, VCType {
                 self?.coordinator?.didTapNewsButton()
             }).disposed(by: disposeBag)
         
-        headerView.addSharingButton.rx.tap
+//        headerView.addSharingButton.rx.tap
+        addButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.showSharingOptions()
 //                self?.coordinator?.didTapNewPrayButton(vm: vm)
@@ -204,7 +237,8 @@ class GroupActivityVC: UIViewController, VCType {
 //                self?.showOrderOptionView()
 //            }).disposed(by: disposeBag)
         
-        headerView.searchButton.rx.tap
+//        headerView.searchButton.rx.tap
+        searchButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.searchBar.isHidden = false
                 self?.prayTableView.isHidden = true
@@ -301,8 +335,12 @@ class GroupActivityVC: UIViewController, VCType {
             
         let output = vm.transform(input: input)
         
+        output.greeting
+            .drive(greetingLabel.rx.text)
+            .disposed(by: disposeBag)
+        
         output.groupName
-            .drive(groupNameLabel.rx.text)
+            .drive(headerView.groupNameLabel.rx.text)
             .disposed(by: disposeBag)
         
         output.memberList

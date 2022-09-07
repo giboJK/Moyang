@@ -13,20 +13,6 @@ import SnapKit
 
 class GroupPrayHeader: UIView {
     let thisMonthTopicView = ThisMonthTopicView()
-    let addSharingButton = MoyangButton(.none).then {
-        $0.layer.cornerRadius = 8
-        $0.tintColor = .sheep1
-        var container = AttributeContainer()
-        container.font = .systemFont(ofSize: 14, weight: .regular)
-        var configuration = UIButton.Configuration.filled()
-        configuration.buttonSize = .mini
-        configuration.attributedTitle = AttributedString("새 나눔", attributes: container)
-        configuration.image = UIImage(systemName: "plus")
-        configuration.imagePadding = 4
-        configuration.baseBackgroundColor = .nightSky4
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-        $0.configuration = configuration
-    }
     let prayButton = MoyangButton(.none).then {
         $0.layer.cornerRadius = 8
         $0.tintColor = .sheep1
@@ -39,19 +25,9 @@ class GroupPrayHeader: UIView {
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
     }
-    let searchButton = MoyangButton(.none).then {
-        $0.layer.cornerRadius = 8
-        $0.tintColor = .sheep1
-        var container = AttributeContainer()
-        container.font = .systemFont(ofSize: 14, weight: .regular)
-        var configuration = UIButton.Configuration.filled()
-        configuration.buttonSize = .mini
-        configuration.attributedTitle = AttributedString("검색", attributes: container)
-        configuration.image = UIImage(systemName: "magnifyingglass")
-        configuration.imagePadding = 4
-        configuration.baseBackgroundColor = .nightSky3
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-        $0.configuration = configuration
+    let groupNameLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 20, weight: .semibold)
+        $0.textColor = .sheep2
     }
     
     init() {
@@ -65,11 +41,11 @@ class GroupPrayHeader: UIView {
     }
     
     private func setupUI() {
-        setupAddPrayButton()
+        setupThisMonthTopicView()
         setupPrayButton()
-
-        setupSearchButton()
+        setupGroupNameLabel()
     }
+    
     private func setupThisMonthTopicView() {
         addSubview(thisMonthTopicView)
         thisMonthTopicView.snp.makeConstraints {
@@ -78,29 +54,19 @@ class GroupPrayHeader: UIView {
             $0.height.equalTo(100)
         }
     }
-    private func setupAddPrayButton() {
-        addSubview(addSharingButton)
-        addSharingButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(8)
-            $0.height.equalTo(36)
-            $0.left.equalToSuperview().inset(17)
-        }
-    }
     private func setupPrayButton() {
         addSubview(prayButton)
         prayButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(8)
+            $0.bottom.equalToSuperview().inset(44)
             $0.height.equalTo(36)
-            $0.left.equalTo(addSharingButton.snp.right).offset(12)
+            $0.centerX.equalToSuperview()
         }
     }
-
-    private func setupSearchButton() {
-        addSubview(searchButton)
-        searchButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(8)
-            $0.height.equalTo(36)
-            $0.right.equalToSuperview().inset(20)
+    private func setupGroupNameLabel() {
+        addSubview(groupNameLabel)
+        groupNameLabel.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(12)
+            $0.left.equalToSuperview().inset(20)
         }
     }
 }
