@@ -18,8 +18,8 @@ class GroupActivityVC: UIViewController, VCType {
     var coordinator: GroupPrayVCDelegate?
     var groupCreateDate: Date!
     
-    let headerHeight: CGFloat = 140
-    let minHeaderHeight: CGFloat = 44
+    let headerHeight: CGFloat = 172
+    let minHeaderHeight: CGFloat = 40
     
     // MARK: - UI
     let newsButton = UIButton().then {
@@ -181,7 +181,7 @@ class GroupActivityVC: UIViewController, VCType {
     private func setupPrayTableView() {
         view.addSubview(prayTableView)
         prayTableView.snp.makeConstraints {
-            $0.top.equalTo(tabView.snp.bottom)
+            $0.top.equalTo(tabView.snp.bottom).offset(8)
             $0.bottom.left.right.equalToSuperview()
         }
         prayTableView.stickyHeader.view = headerView
@@ -193,14 +193,16 @@ class GroupActivityVC: UIViewController, VCType {
         prayTableView.tableFooterView = footer
     }
     
-    private func showSharingOptions() {
+    private func showAddOptions() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "새 기도", style: .default , handler: { [weak self] _ in
             guard let vm = self?.vm else { return }
             self?.coordinator?.didTapNewPrayButton(vm: vm)
         }))
-        alert.addAction(UIAlertAction(title: "새 묵상", style: .default , handler: { _ in
+        alert.addAction(UIAlertAction(title: "새 묵상", style: .default , handler: { [weak self] _ in
+            guard let vm = self?.vm else { return }
+            self?.coordinator?.didTapNewQTButton(vm: vm)
         }))
         
         alert.addAction(UIAlertAction(title: "한 줄 감사", style: .default , handler: { _ in
@@ -232,7 +234,7 @@ class GroupActivityVC: UIViewController, VCType {
 //        headerView.addSharingButton.rx.tap
         addButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.showSharingOptions()
+                self?.showAddOptions()
 //                self?.coordinator?.didTapNewPrayButton(vm: vm)
             }).disposed(by: disposeBag)
         
@@ -406,6 +408,7 @@ class GroupActivityVC: UIViewController, VCType {
 protocol GroupPrayVCDelegate: AnyObject {
     func didTapNewsButton()
     func didTapNewPrayButton(vm: GroupPrayVM)
+    func didTapNewQTButton(vm: GroupPrayVM)
     func didTapPrayButton(vm: GroupPrayVM)
     func didTapPray(vm: GroupPrayDetailVM)
 }

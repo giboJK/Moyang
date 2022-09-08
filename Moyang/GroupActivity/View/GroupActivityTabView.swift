@@ -98,7 +98,7 @@ extension GroupActivityTabView: UICollectionViewDataSource {
 class TabMenuCVCell: UICollectionViewCell {
     let menuLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 18, weight: .semibold)
-        $0.textColor = .sheep4
+        $0.textColor = .sheep4.withAlphaComponent(0.8)
     }
     let selectBar = UIView().then {
         $0.backgroundColor = .sheep2
@@ -155,6 +155,6 @@ class TabMenuCVCell: UICollectionViewCell {
     
     func hideIcon() {
         selectBar.isHidden = true
-        menuLabel.textColor = .sheep4
+        menuLabel.textColor = .sheep4.withAlphaComponent(0.8)
     }
 }

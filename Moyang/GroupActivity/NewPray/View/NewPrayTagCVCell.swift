@@ -11,7 +11,7 @@ import RxSwift
 import SnapKit
 import Then
 
-class NewPrayTagCollectionViewCell: UICollectionViewCell {
+class NewPrayTagCVCell: UICollectionViewCell {
     typealias VM = NewPrayVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?

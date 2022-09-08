@@ -70,7 +70,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.collectionViewLayout = layout
         $0.isScrollEnabled = true
         $0.backgroundColor = .clear
-        $0.register(NewPrayTagCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        $0.register(NewPrayTagCVCell.self, forCellWithReuseIdentifier: "cell")
     }
     let isSecretLabel = UILabel().then {
         $0.text = "나만 보기"
@@ -357,7 +357,7 @@ extension NewPrayVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? NewPrayTagCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? NewPrayTagCVCell else {
             return UICollectionViewCell()
         }
         cell.tagLabel.text = tagList[indexPath.row]

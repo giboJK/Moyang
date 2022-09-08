@@ -12,7 +12,7 @@ import Then
 import SnapKit
 
 class GroupPrayHeader: UIView {
-    let thisMonthTopicView = ThisMonthTopicView()
+    let prayTopicView = PrayTopicView()
     let prayButton = MoyangButton(.none).then {
         $0.layer.cornerRadius = 8
         $0.tintColor = .sheep1
@@ -20,7 +20,7 @@ class GroupPrayHeader: UIView {
         container.font = .systemFont(ofSize: 14, weight: .regular)
         var configuration = UIButton.Configuration.filled()
         configuration.buttonSize = .mini
-        configuration.attributedTitle = AttributedString("기도하기", attributes: container)
+        configuration.attributedTitle = AttributedString("바로 기도하기", attributes: container)
         configuration.baseBackgroundColor = .nightSky4
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
@@ -28,6 +28,12 @@ class GroupPrayHeader: UIView {
     let groupNameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 20, weight: .semibold)
         $0.textColor = .sheep2
+    }
+    let moreButton = MoyangButton(.none).then {
+        $0.layer.cornerRadius = 8
+        $0.tintColor = .sheep1
+        $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        $0.backgroundColor = .clear
     }
     
     init() {
@@ -41,25 +47,33 @@ class GroupPrayHeader: UIView {
     }
     
     private func setupUI() {
-        setupThisMonthTopicView()
+        setupPrayTopicView()
         setupPrayButton()
+        setupMoreButton()
         setupGroupNameLabel()
     }
     
-    private func setupThisMonthTopicView() {
-        addSubview(thisMonthTopicView)
-        thisMonthTopicView.snp.makeConstraints {
+    private func setupPrayTopicView() {
+        addSubview(prayTopicView)
+        prayTopicView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(24)
-            $0.height.equalTo(100)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(80)
         }
     }
     private func setupPrayButton() {
         addSubview(prayButton)
         prayButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(44)
+            $0.top.equalTo(prayTopicView.snp.bottom).offset(8)
             $0.height.equalTo(36)
             $0.centerX.equalToSuperview()
+        }
+    }
+    private func setupMoreButton() {
+        addSubview(moreButton)
+        moreButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(12)
+            $0.right.equalToSuperview().inset(20)
         }
     }
     private func setupGroupNameLabel() {
@@ -67,6 +81,7 @@ class GroupPrayHeader: UIView {
         groupNameLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(12)
             $0.left.equalToSuperview().inset(20)
+            $0.right.equalTo(moreButton.snp.left).offset(-12)
         }
     }
 }

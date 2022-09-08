@@ -38,6 +38,7 @@ class GroupActivityCoordinator: Coordinator {
 }
 
 extension GroupActivityCoordinator: GroupPrayVCDelegate {
+    
     func didTapNewsButton() {
         if let vc = assembler.resolver.resolve(GroupEventVC.self) {
             nav.pushViewController(vc, animated: true)
@@ -55,6 +56,14 @@ extension GroupActivityCoordinator: GroupPrayVCDelegate {
             Log.e("")
         }
     }
+    func didTapNewQTButton(vm: GroupPrayVM) {
+        if let vc = assembler.resolver.resolve(NewPrayVC.self, argument: vm.useCase) {
+            nav.present(vc, animated: true)
+        } else {
+            Log.e("")
+        }
+    }
+    
     
     func didTapPrayButton(vm: GroupPrayVM) {
         guard let groupID = UserData.shared.groupID else { Log.e("No group"); return }
