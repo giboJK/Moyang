@@ -17,6 +17,11 @@ class BibleSelectVC: UIViewController, VCType {
     var vm: VM?
     
     // MARK: - UI
+    let verseCountLabel = UILabel().then {
+        $0.text = "선택 없음"
+        $0.textColor = .sheep2
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+    }
     let selectedVersesCV: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -25,6 +30,7 @@ class BibleSelectVC: UIViewController, VCType {
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(BibleVerseCVCell.self, forCellWithReuseIdentifier: "cell")
         cv.backgroundColor = .clear
+        cv.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         return cv
     }()
     let bookTV = UITableView().then {
@@ -84,36 +90,26 @@ class BibleSelectVC: UIViewController, VCType {
     func setupUI() {
         view.backgroundColor = .nightSky1
         title = "성경 구절"
-        setupSelectedVersesCV()
         setupBookTV()
         setupChapterTV()
         setupVerseTV()
+        setupVerseCountLabel()
+        setupSelectedVersesCV()
         setupConfirmButton()
-    }
-    private func setupSelectedVersesCV() {
-        view.addSubview(selectedVersesCV)
-        selectedVersesCV.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(4)
-            $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(40)
-        }
-        selectedVersesCV.delegate = self
-        selectedVersesCV.dataSource = self
     }
     private func setupBookTV() {
         view.addSubview(bookTV)
         bookTV.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(52)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.left.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(72)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(152)
             $0.width.equalToSuperview().dividedBy(2)
         }
     }
     private func setupChapterTV() {
         view.addSubview(chapterTV)
         chapterTV.snp.makeConstraints {
-            $0.top.equalTo(bookTV)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(72)
+            $0.top.bottom.equalTo(bookTV)
             $0.left.equalTo(bookTV.snp.right)
             $0.width.equalToSuperview().dividedBy(4)
         }
@@ -126,8 +122,7 @@ class BibleSelectVC: UIViewController, VCType {
     private func setupVerseTV() {
         view.addSubview(verseTV)
         verseTV.snp.makeConstraints {
-            $0.top.equalTo(bookTV)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(72)
+            $0.top.bottom.equalTo(bookTV)
             $0.left.equalTo(chapterTV.snp.right)
             $0.width.equalToSuperview().dividedBy(4)
         }
@@ -136,6 +131,23 @@ class BibleSelectVC: UIViewController, VCType {
             $0.top.bottom.right.equalTo(chapterTV)
             $0.width.equalTo(1)
         }
+    }
+    private func setupVerseCountLabel() {
+        view.addSubview(verseCountLabel)
+        verseCountLabel.snp.makeConstraints {
+            $0.top.equalTo(bookTV.snp.bottom).offset(12)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide).inset(12)
+        }
+    }
+    private func setupSelectedVersesCV() {
+        view.addSubview(selectedVersesCV)
+        selectedVersesCV.snp.makeConstraints {
+            $0.top.equalTo(verseCountLabel.snp.bottom).offset(8)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(44)
+        }
+        selectedVersesCV.delegate = self
+        selectedVersesCV.dataSource = self
     }
     
     private func setupConfirmButton() {
@@ -188,6 +200,8 @@ class BibleSelectVC: UIViewController, VCType {
             .drive(onNext: { [weak self] list in
                 self?.verses = list.map { $0.content }
                 self?.selectedVersesCV.reloadData()
+                
+                self?.verseCountLabel.text = list.isEmpty ? "선택 없음" : "(\(list.count))구절 선택"
             }).disposed(by: disposeBag)
     }
 }
@@ -210,6 +224,7 @@ extension BibleSelectVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.verseLabel.text = verses[indexPath.row]
+        cell.indexPath = indexPath
         cell.vm = vm
         cell.bind()
         

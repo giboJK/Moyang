@@ -27,6 +27,7 @@ class GroupActivityTabView: UIView {
         cv.showsHorizontalScrollIndicator = false
         cv.allowsMultipleSelection = false
         cv.isMultipleTouchEnabled = false
+        cv.contentInset = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0)
         return cv
     }()
     
@@ -129,7 +130,7 @@ class TabMenuCVCell: UICollectionViewCell {
     private func setupMenuLabel() {
         contentView.addSubview(menuLabel)
         menuLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview().offset(6)
+            $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
     }

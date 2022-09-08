@@ -99,7 +99,7 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     private func setupAddVerseButton() {
         view.addSubview(addVerseButton)
         addVerseButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
             $0.left.equalToSuperview().inset(16)
         }
     }

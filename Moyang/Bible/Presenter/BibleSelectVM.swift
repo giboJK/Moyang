@@ -76,6 +76,12 @@ class BibleSelectVM: VMType {
         }
     }
     
+    private func deleteVerse(index: Int) {
+        var cur = selected.value
+        cur.remove(at: index)
+        selected.accept(cur)
+    }
+    
     private func checkNearByVerses() {
         
     }
@@ -112,6 +118,12 @@ extension BibleSelectVM {
                 self?.selectVerses(verseNo: indexPath.row)
             }).disposed(by: disposeBag)
         
+        input.deleteVerse
+            .drive(onNext: { [weak self] indexPath in
+                guard let indexPath = indexPath else { return}
+                self?.deleteVerse(index: indexPath.row)
+            }).disposed(by: disposeBag)
+        
         return Output(
             books: books.asDriver(),
             chapters: chapters.asDriver(),
@@ -143,9 +155,9 @@ extension BibleSelectVM {
             self.chapter = chapter
             self.verse = verse
             if let old = BibleInfo.Old.init(rawValue: bookNo) {
-                content = "\(old.short) \(chapter)장 \(verse)절"
+                content = "\(old.short) \(chapter + 1)장 \(verse + 1)절"
             } else if let new = BibleInfo.New.init(rawValue: bookNo) {
-                content = "\(new.short) \(chapter)장 \(verse)절"
+                content = "\(new.short) \(chapter + 1)장 \(verse + 1)절"
             } else {
                 content = ""
             }
