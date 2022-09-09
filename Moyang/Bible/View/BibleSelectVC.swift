@@ -198,7 +198,7 @@ class BibleSelectVC: UIViewController, VCType {
         
         output.selected
             .drive(onNext: { [weak self] list in
-                self?.verses = list.map { $0.content }
+                self?.verses = list
                 self?.selectedVersesCV.reloadData()
                 
                 self?.verseCountLabel.text = list.isEmpty ? "선택 없음" : "(\(list.count))구절 선택"

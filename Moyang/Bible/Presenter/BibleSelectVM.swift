@@ -15,10 +15,11 @@ class BibleSelectVM: VMType {
     let books = BehaviorRelay<[BibleItem]>(value: [])
     let chapters = BehaviorRelay<[BibleItem]>(value: [])
     let verses = BehaviorRelay<[BibleItem]>(value: [])
-    let selected = BehaviorRelay<[SelectedBibleVerse]>(value: [])
+    let selected = BehaviorRelay<[String]>(value: [])
     
     var selectedBookNo = 0
     var selectedChapterNo = 0
+    var selectedVerses = [BibleVerse]()
 
     init(useCase: PrayUseCase) {
         self.useCase = useCase
@@ -62,28 +63,103 @@ class BibleSelectVM: VMType {
     }
     
     private func selectVerses(verseNo: Int) {
-        checkNearByVerses()
-        var cur = selected.value
-        let new = SelectedBibleVerse(selectedBookNo, selectedChapterNo, verseNo)
+        let new = BibleVerse(selectedBookNo, selectedChapterNo, verseNo)
         
-        if cur.contains(where: { $0 == new }) {
+        if selectedVerses.contains(where: { $0 == new }) {
             Log.d("Has same")
             return
         } else {
-            Log.d("New verse")
-            cur.append(new)
-            selected.accept(cur)
+            selectedVerses.append(new)
+            generateSelectedString()
         }
     }
     
-    private func deleteVerse(index: Int) {
-        var cur = selected.value
-        cur.remove(at: index)
-        selected.accept(cur)
+    private func generateSelectedString() {
+        sortingVerses()
+        generateStrings()
+        Log.d(selectedVerses)
     }
     
-    private func checkNearByVerses() {
+    private func deleteVerse(index: Int) {
+        selectedVerses.remove(at: index)
+        generateSelectedString()
+    }
+    
+    private func sortingVerses() {
+        selectedVerses.sort { (lhs: BibleVerse, rhs: BibleVerse) -> Bool in
+            if lhs.bookNo > rhs.bookNo {
+                return false
+            }
+            if lhs.bookNo < rhs.bookNo {
+                return true
+            }
+            if lhs.chapter > rhs.chapter {
+                return false
+            }
+            if lhs.chapter < rhs.chapter {
+                return true
+            }
+            if lhs.verse > rhs.verse {
+                return false
+            }
+            return true
+        }
+    }
+    
+    private func generateStrings() {
+        if selectedVerses.count == 1 {
+            selected.accept(selectedVerses.map { $0.content })
+            return
+        }
+        var strList = [String]()
+        var str = ""
+        var verses = [Int]()
+        for i in 0 ..< selectedVerses.count - 1 {
+            let cur = selectedVerses[i]
+            let next = selectedVerses[i + 1]
+            if let old = BibleInfo.Old.init(rawValue: cur.bookNo) {
+                str = "\(old.short) \(cur.chapter + 1)장 "
+            } else if let new = BibleInfo.New.init(rawValue: cur.bookNo) {
+                str = "\(new.short) \(cur.chapter + 1)장 "
+            }
+            verses.append(cur.verse)
+            if !checkIsContinuousVerses(cur: cur, next: next) {
+                if verses.count > 1 {
+                    str += "\(verses.first! + 1)-\(verses.last! + 1)절"
+                } else {
+                    str += "\(cur.verse + 1)절"
+                }
+                strList.append(str)
+                str.removeAll()
+                verses.removeAll()
+            }
+        }
         
+        if !str.isEmpty {
+            if let last = selectedVerses.last {
+                verses.append(last.verse)
+                str += "\(verses.first! + 1)-\(verses.last! + 1)절"
+            }
+        } else {
+            if let last = selectedVerses.last {
+                if let old = BibleInfo.Old.init(rawValue: last.bookNo) {
+                    str = "\(old.short) \(last.chapter + 1)장 \(last.verse + 1)절"
+                } else if let new = BibleInfo.New.init(rawValue: last.bookNo) {
+                    str = "\(new.short) \(last.chapter + 1)장 \(last.verse + 1)절"
+                }
+            }
+        }
+        strList.append(str)
+        
+        selected.accept(strList)
+    }
+    
+    private func checkIsContinuousVerses(cur: BibleVerse, next: BibleVerse) -> Bool {
+        if (cur.bookNo == next.bookNo) &&
+            (cur.chapter == next.chapter) {
+            return (cur.verse + 1) == (next.verse)
+        }
+        return false
     }
 }
 
@@ -99,7 +175,7 @@ extension BibleSelectVM {
         let books: Driver<[BibleItem]>
         let chapters: Driver<[BibleItem]>
         let verses: Driver<[BibleItem]>
-        let selected: Driver<[SelectedBibleVerse]>
+        let selected: Driver<[String]>
     }
 
     func transform(input: Input) -> Output {
@@ -142,7 +218,7 @@ extension BibleSelectVM {
         }
     }
     
-    struct SelectedBibleVerse: Equatable {
+    struct BibleVerse: Equatable {
         let content: String
         let bookNo: Int
         let chapter: Int
@@ -163,7 +239,7 @@ extension BibleSelectVM {
             }
         }
         
-        static func == (lhs: SelectedBibleVerse, rhs: SelectedBibleVerse) -> Bool {
+        static func == (lhs: BibleVerse, rhs: BibleVerse) -> Bool {
             let isBookEqual = lhs.bookNo == rhs.bookNo
             let isChapterEqual = lhs.chapter == rhs.chapter
             let isVerseEqual = lhs.verse == rhs.verse
