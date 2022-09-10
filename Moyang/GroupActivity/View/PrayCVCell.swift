@@ -13,7 +13,7 @@ import RxSwift
 import RxGesture
 
 class PrayCVCell: UICollectionViewCell {
-    typealias VM = GroupPrayVM
+    typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     weak var vm: VM?
     

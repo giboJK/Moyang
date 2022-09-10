@@ -14,7 +14,7 @@ class AllGroupVM: VMType {
     let communityUseCase: CommunityMainUseCase
 
     let itemList = BehaviorRelay<[GroupInfoItem]>(value: [])
-    let groupPrayVM = BehaviorRelay<GroupPrayVM?>(value: nil)
+    let groupActivityVM = BehaviorRelay<GroupActivityVM?>(value: nil)
     
     private var groupInfoList = [GroupInfo]()
     
@@ -43,7 +43,6 @@ class AllGroupVM: VMType {
     }
     
     private func selectGroup(indexPath: IndexPath) {
-//        groupPrayVM.accept(GroupPrayVM(useCase: communityUseCase))
     }
     
 }
@@ -56,7 +55,7 @@ extension AllGroupVM {
 
     struct Output {
         let itemList: Driver<[GroupInfoItem]>
-        let groupPrayVM: Driver<GroupPrayVM?>
+        let groupActivityVM: Driver<GroupActivityVM?>
     }
 
     func transform(input: Input) -> Output {
@@ -66,7 +65,7 @@ extension AllGroupVM {
             }).disposed(by: disposeBag)
         
         return Output(itemList: itemList.asDriver(),
-                      groupPrayVM: groupPrayVM.asDriver())
+                      groupActivityVM: groupActivityVM.asDriver())
     }
 }
 

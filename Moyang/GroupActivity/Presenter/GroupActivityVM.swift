@@ -1,5 +1,5 @@
 //
-//  GroupPrayVM.swift
+//  GroupActivityVM.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/01.
@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 import Foundation
 
-class GroupPrayVM: VMType {
+class GroupActivityVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: PrayUseCase
     
@@ -217,7 +217,7 @@ class GroupPrayVM: VMType {
     }
 }
 
-extension GroupPrayVM {
+extension GroupActivityVM {
     struct Input {
         var selectMember: Driver<IndexPath> = .empty()
         
@@ -371,7 +371,7 @@ extension GroupPrayVM {
     }
 }
 
-extension GroupPrayVM {
+extension GroupActivityVM {
     struct MemberItem {
         let id: String
         let name: String

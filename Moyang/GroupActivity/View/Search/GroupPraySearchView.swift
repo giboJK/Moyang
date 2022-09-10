@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class GroupPraySearchView: UIView {
-    typealias VM = GroupPrayVM
+    typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     

@@ -10,7 +10,7 @@ import RxCocoa
 import AVFoundation
 
 class GroupPrayingVM: VMType {
-    typealias MemberItem = GroupPrayVM.MemberItem
+    typealias MemberItem = GroupActivityVM.MemberItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: PrayUseCase
     

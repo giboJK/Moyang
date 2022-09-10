@@ -37,7 +37,7 @@ class GroupActivityCoordinator: Coordinator {
     }
 }
 
-extension GroupActivityCoordinator: GroupPrayVCDelegate {
+extension GroupActivityCoordinator: GroupActivityVCDelegate {
     
     func didTapNewsButton() {
         if let vc = assembler.resolver.resolve(GroupEventVC.self) {
@@ -49,14 +49,14 @@ extension GroupActivityCoordinator: GroupPrayVCDelegate {
         }
     }
     
-    func didTapNewPrayButton(vm: GroupPrayVM) {
+    func didTapNewPrayButton(vm: GroupActivityVM) {
         if let vc = assembler.resolver.resolve(NewPrayVC.self, argument: vm.useCase) {
             nav.present(vc, animated: true)
         } else {
             Log.e("")
         }
     }
-    func didTapNewQTButton(vm: GroupPrayVM) {
+    func didTapNewQTButton(vm: GroupActivityVM) {
         if let vc = assembler.resolver.resolve(NewPrayVC.self, argument: vm.useCase) {
             nav.present(vc, animated: true)
         } else {
@@ -65,7 +65,7 @@ extension GroupActivityCoordinator: GroupPrayVCDelegate {
     }
     
     
-    func didTapPrayButton(vm: GroupPrayVM) {
+    func didTapPrayButton(vm: GroupActivityVM) {
         guard let groupID = UserData.shared.groupID else { Log.e("No group"); return }
         if let vc = assembler.resolver.resolve(GroupPrayingVC.self, arguments: vm.useCase, groupID) {
             nav.pushViewController(vc, animated: true)

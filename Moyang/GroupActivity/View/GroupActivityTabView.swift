@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class GroupActivityTabView: UIView {
-    typealias VM = GroupPrayVM
+    typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
@@ -31,7 +31,8 @@ class GroupActivityTabView: UIView {
         return cv
     }()
     
-    let tabMenus = ["기도", "말씀 묵상", "한 줄 감사", "말씀 하가"]
+//    let tabMenus = ["기도", "말씀 묵상", "한 줄 감사", "말씀 하가"]
+    let tabMenus = ["기도", "말씀 묵상", "한 줄 감사"]
     
     init() {
         super.init(frame: .zero)

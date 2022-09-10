@@ -19,7 +19,7 @@ class CommunityMainVM: VMType {
     let prayGoalValue = BehaviorRelay<Int>(value: 100)
     let prayProgressValue = BehaviorRelay<Int>(value: 0)
     
-    let groupPrayVM = BehaviorRelay<GroupPrayVM?>(value: nil)
+    let groupActivityVM = BehaviorRelay<GroupActivityVM?>(value: nil)
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
     let isEmptyGroup = BehaviorRelay<Bool>(value: true)
@@ -116,7 +116,7 @@ extension CommunityMainVM {
         let latestPrayDate: Driver<String>
         let cardPrayItemList: Driver<[GroupSummaryPrayItem]>
         
-        let groupPrayVM: Driver<GroupPrayVM?>
+        let groupActivityVM: Driver<GroupActivityVM?>
         let isEmptyGroup: Driver<Bool>
         
         let myPrayItem: Driver<GroupSummaryPrayItem?>
@@ -131,7 +131,7 @@ extension CommunityMainVM {
                       latestPrayDate: latestPrayDate.asDriver(),
                       cardPrayItemList: cardPrayItemList.asDriver(),
                       
-                      groupPrayVM: groupPrayVM.asDriver(),
+                      groupActivityVM: groupActivityVM.asDriver(),
                       isEmptyGroup: isEmptyGroup.asDriver(),
                       myPrayItem: myPrayItem.asDriver()
         )

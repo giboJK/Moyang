@@ -166,5 +166,5 @@ class GroupInfoVC: UIViewController, VCType {
 }
 
 protocol GroupInfoVCDelegate: AnyObject {
-    func didTapGroup(groupPrayVM: GroupPrayVM)
+    func didTapGroup(vm: GroupActivityVM)
 }

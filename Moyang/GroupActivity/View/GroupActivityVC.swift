@@ -12,10 +12,10 @@ import SnapKit
 import Then
 
 class GroupActivityVC: UIViewController, VCType {
-    typealias VM = GroupPrayVM
+    typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
-    var coordinator: GroupPrayVCDelegate?
+    var coordinator: GroupActivityVCDelegate?
     var groupCreateDate: Date!
     
     let headerHeight: CGFloat = 172
@@ -405,10 +405,10 @@ class GroupActivityVC: UIViewController, VCType {
     }
 }
 
-protocol GroupPrayVCDelegate: AnyObject {
+protocol GroupActivityVCDelegate: AnyObject {
     func didTapNewsButton()
-    func didTapNewPrayButton(vm: GroupPrayVM)
-    func didTapNewQTButton(vm: GroupPrayVM)
-    func didTapPrayButton(vm: GroupPrayVM)
+    func didTapNewPrayButton(vm: GroupActivityVM)
+    func didTapNewQTButton(vm: GroupActivityVM)
+    func didTapPrayButton(vm: GroupActivityVM)
     func didTapPray(vm: GroupPrayDetailVM)
 }

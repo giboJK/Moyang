@@ -93,14 +93,14 @@ class GroupSelectVC: UIViewController, VCType {
                     cell.nameLabel.text = item.groupName
                 }.disposed(by: disposeBag)
         
-        output.groupPrayVM
-            .drive(onNext: { [weak self] groupPrayVM in
-                guard let groupPrayVM = groupPrayVM else { return }
-                self?.coordinator?.didTapGroup(groupPrayVM: groupPrayVM)
+        output.groupActivityVM
+            .drive(onNext: { [weak self] vm in
+                guard let vm = vm else { return }
+                self?.coordinator?.didTapGroup(vm: vm)
             }).disposed(by: disposeBag)
     }
 }
 
 protocol GroupSelectVCDelegate: AnyObject {
-    func didTapGroup(groupPrayVM: GroupPrayVM)
+    func didTapGroup(vm: GroupActivityVM)
 }

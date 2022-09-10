@@ -35,15 +35,15 @@ class MainCoordinator: Coordinator {
 }
 
 extension MainCoordinator: AllGroupVCDelegate {
-    func didTapGroup(groupPrayVM: GroupPrayVM) {
+    func didTapGroup(vm: GroupActivityVM) {
         guard let groupPrayCoordinator = assembler.resolver.resolve(GroupActivityCoordinator.self) else {
             Log.e("Coordinator init failed")
             return
         }
-        if let vc = assembler.resolver.resolve(GroupActivityVC.self, argument: groupPrayVM) {
+        if let vc = assembler.resolver.resolve(GroupActivityVC.self, argument: vm) {
             nav.pushViewController(vc, animated: true)
             vc.coordinator = groupPrayCoordinator
-            vc.groupCreateDate = groupPrayVM.groupCreateDate.value ?? Date()
+            vc.groupCreateDate = vm.groupCreateDate.value ?? Date()
         }
     }
 }

@@ -18,7 +18,7 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
     func assemble(container: Container) {
         container.register(GroupActivityVC.self) { r in
             let vc = GroupActivityVC()
-            vc.vm = (r ~> GroupPrayVM.self)
+            vc.vm = (r ~> GroupActivityVM.self)
             vc.coordinator = r ~> (GroupActivityCoordinator.self)
             return vc
         }
@@ -34,8 +34,8 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - GroupPray
-        container.register(GroupPrayVM.self) { r in
-            GroupPrayVM(useCase: (r ~> PrayUseCase.self))
+        container.register(GroupActivityVM.self) { r in
+            GroupActivityVM(useCase: (r ~> PrayUseCase.self))
         }
         
         // MARK: - GroupNews
