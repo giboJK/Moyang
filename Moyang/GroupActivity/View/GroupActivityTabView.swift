@@ -16,7 +16,7 @@ class GroupActivityTabView: UIView {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
-    let prayCollectionView: UICollectionView = {
+    let menuCV: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
@@ -45,19 +45,19 @@ class GroupActivityTabView: UIView {
     
     private func setupUI() {
         backgroundColor = .nightSky1
-        addSubview(prayCollectionView)
-        prayCollectionView.snp.makeConstraints {
+        addSubview(menuCV)
+        menuCV.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        prayCollectionView.delegate = self
-        prayCollectionView.dataSource = self
+        menuCV.delegate = self
+        menuCV.dataSource = self
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
             self.selectCell()
         }
     }
     private func selectCell() {
-        prayCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
+        menuCV.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
     }
 }
 

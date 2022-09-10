@@ -5,7 +5,6 @@
 //  Created by 정김기보 on 2022/09/10.
 //
 
-
 import UIKit
 import SnapKit
 import Then
@@ -17,8 +16,10 @@ class GroupPrayView: UIView {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
-    let headerHeight: CGFloat = 172
+//    let headerHeight: CGFloat = 172
+    let headerHeight: CGFloat = 40
     let minHeaderHeight: CGFloat = 40
+    var moreButtonHandler: (() -> Void)?
     
     // MARK: - UI
     let searchBar = MoyangSearchBar().then {
@@ -85,7 +86,7 @@ class GroupPrayView: UIView {
     private func setupPraySearchView() {
         addSubview(praySearchView)
         praySearchView.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom).offset(8)
+            $0.top.equalTo(searchBar.snp.bottom).offset(12)
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
@@ -114,7 +115,48 @@ class GroupPrayView: UIView {
     }
     
     private func bindViews() {
+        headerView.moreButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.moreButtonHandler?()
+            }).disposed(by: disposeBag)
+        
+        headerView.searchButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.searchBar.isHidden = false
+                self?.prayTableView.isHidden = true
+                self?.searchBar.textField.becomeFirstResponder()
+            }).disposed(by: disposeBag)
+        
+        searchBar.textField.rx.controlEvent([.editingDidBegin])
+            .subscribe(onNext: { [weak self] _ in
+                self?.autoCompleteTableView.isHidden = false
+            }).disposed(by: disposeBag)
+        
+        searchBar.textField.rx.controlEvent([.editingDidEnd, .editingDidEndOnExit])
+            .subscribe(onNext: { [weak self] _ in
+                self?.autoCompleteTableView.isHidden = true
+            }).disposed(by: disposeBag)
+        
+        // MARK: - praySearchView.isHidden
+        searchBar.cancelButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.searchBar.isHidden = true
+                self?.praySearchView.isHidden = true
+                self?.prayTableView.isHidden = false
+            }).disposed(by: disposeBag)
+        
+        searchBar.textField.rx.controlEvent([.editingDidEndOnExit])
+            .subscribe(onNext: { [weak self] _ in
+                self?.praySearchView.isHidden = false
+            }).disposed(by: disposeBag)
+        
+        autoCompleteTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] _ in
+                self?.praySearchView.isHidden = false
+                self?.searchBar.textField.endEditing(true)
+            }).disposed(by: disposeBag)
     }
+    
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(setKeyword: searchBar.textField.rx.text.asDriver(),

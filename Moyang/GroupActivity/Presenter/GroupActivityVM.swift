@@ -37,6 +37,9 @@ class GroupActivityVM: VMType {
     
     let groupPrayDetailVM = BehaviorRelay<GroupPrayDetailVM?>(value: nil)
     
+    // QT
+    let bibleSelectVM = BehaviorRelay<BibleSelectVM?>(value: nil)
+    
     var curDisplayDate = Date().startOfWeek ?? Date()
     
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
@@ -152,8 +155,8 @@ class GroupActivityVM: VMType {
         allItem.isChecked = true
         list.append(allItem)
         if let index = list.firstIndex(where: { $0.id == UserData.shared.userInfo?.id }) {
-//            list.insert(list.remove(at: index), at: 0)
-            list.remove(at: index)
+            list.insert(list.remove(at: index), at: 0)
+//            list.remove(at: index)
         }
         memberList.accept(list)
     }
@@ -215,6 +218,10 @@ class GroupActivityVM: VMType {
     private func removeAutoCompleteList() {
         useCase.removeAutoCompleteList()
     }
+    
+    private func setBibleSelectVM() {
+        bibleSelectVM.accept(BibleSelectVM(useCase: useCase))
+    }
 }
 
 extension GroupActivityVM {
@@ -231,6 +238,8 @@ extension GroupActivityVM {
         var showPrayDetail: Driver<(String, IndexPath)?> = .empty()
         var showReactions: Driver<(String, Int)?> = .empty()
         var showReplys: Driver<(String, Int)?> = .empty()
+        
+        var showBibleSelect: Driver<Void> = .empty()
     }
     
     struct Output {
@@ -252,6 +261,8 @@ extension GroupActivityVM {
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
         let groupPrayDetailVM: Driver<GroupPrayDetailVM?>
+        
+        let bibleSelectVM: Driver<BibleSelectVM?>
         
         let addingNewPraySuccess: Driver<Void>
         let addingNewPrayFailure: Driver<Void>
@@ -345,6 +356,11 @@ extension GroupActivityVM {
                 }
             }).disposed(by: disposeBag)
         
+        input.showBibleSelect
+            .drive(onNext: { [weak self] _ in
+                self?.setBibleSelectVM()
+            }).disposed(by: disposeBag)
+        
         
         return Output(greeting: greeting.asDriver(),
                       
@@ -364,6 +380,8 @@ extension GroupActivityVM {
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayReplyDetailVM: prayReplyDetailVM.asDriver(),
                       groupPrayDetailVM: groupPrayDetailVM.asDriver(),
+                      
+                      bibleSelectVM: bibleSelectVM.asDriver(),
                       
                       addingNewPraySuccess: addingNewPraySuccess.asDriver(),
                       addingNewPrayFailure: addingNewPrayFailure.asDriver()

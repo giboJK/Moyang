@@ -62,10 +62,12 @@ class GroupPrayHeader: UIView {
     private func setupPrayTopicView() {
         addSubview(prayTopicView)
         prayTopicView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().inset(12)
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(80)
         }
+        // TODO: -
+        prayTopicView.isHidden = true
     }
     private func setupPrayButton() {
         addSubview(prayButton)
@@ -81,13 +83,15 @@ class GroupPrayHeader: UIView {
             $0.bottom.equalToSuperview().inset(12)
             $0.right.equalToSuperview().inset(20)
         }
+        // TODO: -
+        moreButton.isHidden = true
     }
     private func setupSearchButton() {
         addSubview(searchButton)
         searchButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(12)
             $0.size.equalTo(20)
-            $0.right.equalTo(moreButton.snp.left).offset(-12)
+            $0.right.equalToSuperview().inset(20)
         }
     }
     private func setupGroupNameLabel() {

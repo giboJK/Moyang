@@ -116,7 +116,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         prayTextView.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(220)
+            $0.height.equalTo(300)
         }
     }
     

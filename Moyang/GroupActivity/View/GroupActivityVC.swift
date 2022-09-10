@@ -35,6 +35,7 @@ class GroupActivityVC: UIViewController, VCType {
     }
     let tabView = GroupActivityTabView()
     let groupPrayView = GroupPrayView()
+    let groupQTView = GroupQTView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,7 @@ class GroupActivityVC: UIViewController, VCType {
         setupTabView()
         
         setupGroupPrayView()
+        setupGroupQTView()
     }
     private func setupNewsButton() {
         view.addSubview(newsButton)
@@ -106,6 +108,17 @@ class GroupActivityVC: UIViewController, VCType {
         }
         groupPrayView.vm = vm
         groupPrayView.bind()
+//        groupPrayView.moreButtonHandler = showAddOptions
+    }
+    private func setupGroupQTView() {
+        view.addSubview(groupQTView)
+        groupQTView.snp.makeConstraints {
+            $0.top.equalTo(tabView.snp.bottom)
+            $0.left.right.bottom.equalToSuperview()
+        }
+        groupQTView.isHidden = true
+        groupQTView.vm = vm
+        groupQTView.bind()
     }
     
     private func showAddOptions() {
@@ -149,6 +162,22 @@ class GroupActivityVC: UIViewController, VCType {
         addButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.showAddOptions()
+            }).disposed(by: disposeBag)
+        
+        tabView.menuCV.rx.itemSelected
+            .skip(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] index in
+                switch index.row {
+                case 0:
+                    self?.groupPrayView.isHidden = false
+                    self?.groupQTView.isHidden = true
+                case 1:
+                    self?.groupPrayView.isHidden = true
+                    self?.groupQTView.isHidden = false
+                default:
+                    self?.groupPrayView.isHidden = true
+                    self?.groupQTView.isHidden = true
+                }
             }).disposed(by: disposeBag)
     }
     private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
@@ -215,6 +244,17 @@ class GroupActivityVC: UIViewController, VCType {
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
+        output.bibleSelectVM
+            .drive(onNext: { [weak self] bibleSelectVM in
+                guard let bibleSelectVM = bibleSelectVM else { return }
+                self?.openBibleSelectVC(bibleSelectVM: bibleSelectVM)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func openBibleSelectVC(bibleSelectVM: BibleSelectVM) {
+        let vc = BibleSelectVC()
+        vc.vm = bibleSelectVM
+        present(vc, animated: true)
     }
 }
 
