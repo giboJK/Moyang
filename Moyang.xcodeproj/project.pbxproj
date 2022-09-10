@@ -688,17 +688,9 @@
 		241CFBB128CC83FE003D8EBD /* GroupPray */ = {
 			isa = PBXGroup;
 			children = (
-				241CFBB228CC923A003D8EBD /* View */,
-			);
-			path = GroupPray;
-			sourceTree = "<group>";
-		};
-		241CFBB228CC923A003D8EBD /* View */ = {
-			isa = PBXGroup;
-			children = (
 				241CFBB328CC9268003D8EBD /* GroupPrayView.swift */,
 			);
-			path = View;
+			path = GroupPray;
 			sourceTree = "<group>";
 		};
 		242D745A274267AA0053EF2A /* CommonView */ = {

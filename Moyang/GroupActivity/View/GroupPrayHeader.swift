@@ -35,6 +35,11 @@ class GroupPrayHeader: UIView {
         $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
         $0.backgroundColor = .clear
     }
+    let searchButton = UIButton().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
+        $0.setImage(UIImage(systemName: "magnifyingglass", withConfiguration: config), for: .normal)
+        $0.tintColor = .sheep1
+    }
     
     init() {
         super.init(frame: .zero)
@@ -50,6 +55,7 @@ class GroupPrayHeader: UIView {
         setupPrayTopicView()
         setupPrayButton()
         setupMoreButton()
+        setupSearchButton()
         setupGroupNameLabel()
     }
     
@@ -74,6 +80,14 @@ class GroupPrayHeader: UIView {
         moreButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(12)
             $0.right.equalToSuperview().inset(20)
+        }
+    }
+    private func setupSearchButton() {
+        addSubview(searchButton)
+        searchButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(12)
+            $0.size.equalTo(20)
+            $0.right.equalTo(moreButton.snp.left).offset(-12)
         }
     }
     private func setupGroupNameLabel() {
