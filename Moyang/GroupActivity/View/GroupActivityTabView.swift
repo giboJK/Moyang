@@ -32,7 +32,7 @@ class GroupActivityTabView: UIView {
     }()
     
 //    let tabMenus = ["기도", "말씀 묵상", "한 줄 감사", "말씀 하가"]
-    let tabMenus = ["기도", "말씀 묵상", "한 줄 감사"]
+    let tabMenus = ["기도", "한 줄 감사"]
     
     init() {
         super.init(frame: .zero)

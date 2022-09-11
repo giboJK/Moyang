@@ -73,6 +73,12 @@ class NewQTVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
     }
+    let isSecretLabel = UILabel().then {
+        $0.text = "나만 보기"
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.textColor = .sheep2
+    }
+    let isSecretCheckBox = CheckBox()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +102,8 @@ class NewQTVC: UIViewController, VCType {
         setupMyCharacterTextView()
         setupHowToLabel()
         setupHowToTextView()
+        setupIsSecretLabel()
+        setupIsSecretCheckBox()
     }
     private func setupNavBar() {
         view.addSubview(navBar)
@@ -174,6 +182,21 @@ class NewQTVC: UIViewController, VCType {
             $0.top.equalTo(howToLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(80)
+        }
+    }
+    private func setupIsSecretLabel() {
+        view.addSubview(isSecretLabel)
+        isSecretLabel.snp.makeConstraints {
+            $0.top.equalTo(howToTextView.snp.bottom).offset(12)
+            $0.left.equalToSuperview().inset(20)
+        }
+    }
+    private func setupIsSecretCheckBox() {
+        view.addSubview(isSecretCheckBox)
+        isSecretCheckBox.snp.makeConstraints {
+            $0.centerY.equalTo(isSecretLabel)
+            $0.left.equalTo(isSecretLabel.snp.right).offset(4)
+            $0.size.equalTo(18)
         }
     }
 

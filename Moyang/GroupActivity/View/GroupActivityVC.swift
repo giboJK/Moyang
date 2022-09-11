@@ -179,8 +179,8 @@ class GroupActivityVC: UIViewController, VCType {
             .skip(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] index in
                 self?.groupPrayView.isHidden = index.row != 0
-                self?.groupQTView.isHidden = index.row != 1
-                self?.groupThanksViiew.isHidden = index.row != 2
+//                self?.groupQTView.isHidden = index.row != 1
+                self?.groupThanksViiew.isHidden = index.row != 1
             }).disposed(by: disposeBag)
     }
     private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
