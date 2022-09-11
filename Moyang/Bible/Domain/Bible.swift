@@ -632,3 +632,32 @@ struct SelectedBibleBookInfo: Codable {
         case verses
     }
 }
+
+struct BibleVerse: Equatable {
+    let content: String
+    let bookNo: Int
+    let chapter: Int
+    let verse: Int
+    
+    init(_ bookNo: Int,
+         _ chapter: Int,
+         _ verse: Int) {
+        self.bookNo = bookNo
+        self.chapter = chapter
+        self.verse = verse
+        if let old = BibleInfo.Old.init(rawValue: bookNo) {
+            content = "\(old.short) \(chapter + 1)장 \(verse + 1)절"
+        } else if let new = BibleInfo.New.init(rawValue: bookNo) {
+            content = "\(new.short) \(chapter + 1)장 \(verse + 1)절"
+        } else {
+            content = ""
+        }
+    }
+    
+    static func == (lhs: BibleVerse, rhs: BibleVerse) -> Bool {
+        let isBookEqual = lhs.bookNo == rhs.bookNo
+        let isChapterEqual = lhs.chapter == rhs.chapter
+        let isVerseEqual = lhs.verse == rhs.verse
+        return (isBookEqual && isChapterEqual && isVerseEqual)
+    }
+}

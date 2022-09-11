@@ -17,7 +17,7 @@ class GroupThanksView: UIView {
     var vm: VM?
     
     let thanksLabel = UILabel().then {
-        $0.text = "감사한 것을 적어보세요"
+        $0.text = "오늘의 감사는 무엇인가요?"
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep2
     }

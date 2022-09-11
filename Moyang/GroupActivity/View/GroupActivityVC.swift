@@ -141,8 +141,7 @@ class GroupActivityVC: UIViewController, VCType {
             self?.coordinator?.didTapNewPrayButton(vm: vm)
         }))
         alert.addAction(UIAlertAction(title: "새 묵상", style: .default , handler: { [weak self] _ in
-            guard let vm = self?.vm else { return }
-            self?.coordinator?.didTapNewQTButton(vm: vm)
+            self?.coordinator?.didTapNewQTButton()
         }))
         
         alert.addAction(UIAlertAction(title: "한 줄 감사", style: .default , handler: { _ in
@@ -265,7 +264,7 @@ class GroupActivityVC: UIViewController, VCType {
 protocol GroupActivityVCDelegate: AnyObject {
     func didTapNewsButton()
     func didTapNewPrayButton(vm: GroupActivityVM)
-    func didTapNewQTButton(vm: GroupActivityVM)
+    func didTapNewQTButton()
     func didTapPrayButton(vm: GroupActivityVM)
     func didTapPray(vm: GroupPrayDetailVM)
 }

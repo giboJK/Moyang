@@ -76,6 +76,8 @@
 		242F92A12848FD140023324D /* NewPrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F92A02848FD140023324D /* NewPrayVC.swift */; };
 		242F92A3284904AF0023324D /* MoyangTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F92A2284904AF0023324D /* MoyangTextField.swift */; };
 		2455300428780B8E00E56889 /* ReplyTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2455300328780B8E00E56889 /* ReplyTVCell.swift */; };
+		246FEFED28CE1CBD00193C2F /* NewQTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246FEFEC28CE1CBD00193C2F /* NewQTVC.swift */; };
+		246FEFF028CE1CED00193C2F /* NewQTVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246FEFEF28CE1CED00193C2F /* NewQTVM.swift */; };
 		24755367277CA9AB001908A6 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24755366277CA9AB001908A6 /* UserData.swift */; };
 		248BEE6428CCD9670055C0B6 /* GroupThanksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE6328CCD9670055C0B6 /* GroupThanksView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
@@ -263,6 +265,8 @@
 		242F92A02848FD140023324D /* NewPrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayVC.swift; sourceTree = "<group>"; };
 		242F92A2284904AF0023324D /* MoyangTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangTextField.swift; sourceTree = "<group>"; };
 		2455300328780B8E00E56889 /* ReplyTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyTVCell.swift; sourceTree = "<group>"; };
+		246FEFEC28CE1CBD00193C2F /* NewQTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQTVC.swift; sourceTree = "<group>"; };
+		246FEFEF28CE1CED00193C2F /* NewQTVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQTVM.swift; sourceTree = "<group>"; };
 		24755366277CA9AB001908A6 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		248BEE6328CCD9670055C0B6 /* GroupThanksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupThanksView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -587,6 +591,7 @@
 		08EE004528C84E83000B02BD /* GroupQT */ = {
 			isa = PBXGroup;
 			children = (
+				246FEFEA28CE1CA900193C2F /* NewQT */,
 				08EE004628C84E8D000B02BD /* View */,
 			);
 			path = GroupQT;
@@ -750,6 +755,31 @@
 				24B6A2542726BEB00065112A /* GroupInfo.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		246FEFEA28CE1CA900193C2F /* NewQT */ = {
+			isa = PBXGroup;
+			children = (
+				246FEFEE28CE1CE300193C2F /* Presenter */,
+				246FEFEB28CE1CB300193C2F /* View */,
+			);
+			path = NewQT;
+			sourceTree = "<group>";
+		};
+		246FEFEB28CE1CB300193C2F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				246FEFEC28CE1CBD00193C2F /* NewQTVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		246FEFEE28CE1CE300193C2F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				246FEFEF28CE1CED00193C2F /* NewQTVM.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		248BEE6128CCD9370055C0B6 /* Thanks */ = {
@@ -1535,12 +1565,14 @@
 				08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */,
 				24E7547A28BAF30800E49EB2 /* GroupEventVC.swift in Sources */,
 				0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */,
+				246FEFED28CE1CBD00193C2F /* NewQTVC.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				24AACA7C283FC3DD00308AC3 /* MainCoordinator.swift in Sources */,
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
 				08AD959A287BEE00002D4F94 /* AuthUseCase.swift in Sources */,
 				08F66EF628BC240D0078B6AB /* PrayTopicView.swift in Sources */,
 				24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */,
+				246FEFF028CE1CED00193C2F /* NewQTVM.swift in Sources */,
 				24CFA8B82878894D00484C89 /* StickyHeaderView.swift in Sources */,
 				08EE004828C84E97000B02BD /* GroupQTView.swift in Sources */,
 				086CB32328130077003BF6F7 /* GroupIndividualPray.swift in Sources */,

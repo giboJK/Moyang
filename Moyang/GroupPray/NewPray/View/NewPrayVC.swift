@@ -149,7 +149,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         newPrayTextView.snp.makeConstraints {
             $0.top.equalTo(groupNameLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(220)
+            $0.height.equalTo(280)
         }
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
             $0.sizeToFit()

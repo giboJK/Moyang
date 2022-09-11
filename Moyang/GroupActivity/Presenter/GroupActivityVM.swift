@@ -218,10 +218,6 @@ class GroupActivityVM: VMType {
     private func removeAutoCompleteList() {
         useCase.removeAutoCompleteList()
     }
-    
-    private func setBibleSelectVM() {
-        bibleSelectVM.accept(BibleSelectVM(useCase: useCase))
-    }
 }
 
 extension GroupActivityVM {
@@ -238,8 +234,6 @@ extension GroupActivityVM {
         var showPrayDetail: Driver<(String, IndexPath)?> = .empty()
         var showReactions: Driver<(String, Int)?> = .empty()
         var showReplys: Driver<(String, Int)?> = .empty()
-        
-        var showBibleSelect: Driver<Void> = .empty()
     }
     
     struct Output {
@@ -261,6 +255,8 @@ extension GroupActivityVM {
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
         let groupPrayDetailVM: Driver<GroupPrayDetailVM?>
+        
+        // QT
         
         let bibleSelectVM: Driver<BibleSelectVM?>
         
@@ -355,12 +351,6 @@ extension GroupActivityVM {
                                                                     replys: prayList[item.1].replys))
                 }
             }).disposed(by: disposeBag)
-        
-        input.showBibleSelect
-            .drive(onNext: { [weak self] _ in
-                self?.setBibleSelectVM()
-            }).disposed(by: disposeBag)
-        
         
         return Output(greeting: greeting.asDriver(),
                       

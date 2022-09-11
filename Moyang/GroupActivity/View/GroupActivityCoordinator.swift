@@ -56,8 +56,8 @@ extension GroupActivityCoordinator: GroupActivityVCDelegate {
             Log.e("")
         }
     }
-    func didTapNewQTButton(vm: GroupActivityVM) {
-        if let vc = assembler.resolver.resolve(NewPrayVC.self, argument: vm.useCase) {
+    func didTapNewQTButton() {
+        if let vc = assembler.resolver.resolve(NewQTVC.self) {
             nav.present(vc, animated: true)
         } else {
             Log.e("")

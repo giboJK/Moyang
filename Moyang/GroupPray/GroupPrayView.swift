@@ -17,8 +17,8 @@ class GroupPrayView: UIView {
     var vm: VM?
     
 //    let headerHeight: CGFloat = 172
-    let headerHeight: CGFloat = 40
-    let minHeaderHeight: CGFloat = 40
+    let headerHeight: CGFloat = 44
+    let minHeaderHeight: CGFloat = 44
     var moreButtonHandler: (() -> Void)?
     
     // MARK: - UI
