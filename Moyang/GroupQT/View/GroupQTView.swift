@@ -19,20 +19,14 @@ class GroupQTView: UIView {
     // MARK: - UI
     let dateLabel = UILabel().then {
         $0.text = "오늘"
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
         $0.textColor = .sheep2
     }
-    let versesCV: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(BibleVerseCVCell.self, forCellWithReuseIdentifier: "cell")
-        cv.backgroundColor = .clear
-        cv.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-        return cv
-    }()
+    let verseLabel = UILabel().then {
+        $0.text = "오늘"
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.textColor = .sheep2
+    }
     let headerView = GroupPrayHeader()
     let qtTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -55,6 +49,31 @@ class GroupQTView: UIView {
     }
     
     private func setupUI() {
+        setupDateLabel()
+        setupVerseLabel()
+        setupQtTableView()
+    }
+    private func setupDateLabel() {
+        addSubview(dateLabel)
+        dateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(16)
+            $0.left.right.equalToSuperview().inset(16)
+        }
+        
+    }
+    private func setupVerseLabel() {
+        addSubview(verseLabel)
+        verseLabel.snp.makeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview().inset(16)
+        }
+    }
+    private func setupQtTableView() {
+        addSubview(qtTableView)
+        qtTableView.snp.makeConstraints {
+            $0.top.equalTo(verseLabel.snp.bottom).offset(12)
+            $0.left.right.bottom.equalToSuperview()
+        }
     }
     
     // MARK: - Binding
@@ -70,6 +89,14 @@ class GroupQTView: UIView {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input()
             
-        let _ = vm.transform(input: input)
+        let output = vm.transform(input: input)
+        
+        output.qtDate
+            .drive(dateLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.bibleVerses
+            .drive(verseLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 }

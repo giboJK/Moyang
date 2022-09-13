@@ -1,5 +1,5 @@
 //
-//  GroupThanksView.swift
+//  GroupDiaryView.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/09/10.
@@ -11,14 +11,14 @@ import Then
 import RxSwift
 import RxCocoa
 
-class GroupThanksView: UIView {
+class GroupDiaryView: UIView {
     typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
-    let thanksLabel = UILabel().then {
-        $0.text = "오늘의 감사는 무엇인가요?"
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
+    let titleLabel = UILabel().then {
+        $0.text = "지금 주님 안에서 무엇을 경험하나요?"
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
         $0.textColor = .sheep2
     }
     let thanksTextView = UITextView().then {
@@ -27,6 +27,21 @@ class GroupThanksView: UIView {
         $0.textContainerInset = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
+    }
+    let emojiBgView = UIView().then {
+        $0.backgroundColor = .sheep1
+    }
+    let sadLabel = UILabel().then {
+        $0.text = "😢"
+    }
+    let fearLabel = UILabel().then {
+        $0.text = "😨"
+    }
+    let relievedLabel = UILabel().then {
+        $0.text = "😌"
+    }
+    let smileLabel = UILabel().then {
+        $0.text = "😁"
     }
     // MARK: - UI
     init() {
@@ -43,8 +58,8 @@ class GroupThanksView: UIView {
         setupThanksTextView()
     }
     private func setupThanksLabel() {
-        addSubview(thanksLabel)
-        thanksLabel.snp.makeConstraints {
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
             $0.left.right.equalToSuperview().inset(20)
         }
@@ -52,7 +67,7 @@ class GroupThanksView: UIView {
     private func setupThanksTextView() {
         addSubview(thanksTextView)
         thanksTextView.snp.makeConstraints {
-            $0.top.equalTo(thanksLabel.snp.bottom).offset(8)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(80)
         }

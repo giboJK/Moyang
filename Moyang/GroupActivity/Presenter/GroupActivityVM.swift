@@ -39,6 +39,8 @@ class GroupActivityVM: VMType {
     
     // QT
     let bibleSelectVM = BehaviorRelay<BibleSelectVM?>(value: nil)
+    let qtDate = BehaviorRelay<String>(value: Date().toString("yyyy년 M월 d일"))
+    let bibleVerses = BehaviorRelay<String>(value: "")
     
     var curDisplayDate = Date().startOfWeek ?? Date()
     
@@ -50,6 +52,7 @@ class GroupActivityVM: VMType {
         bind()
         setupGreeting()
         fetchPrayAll()
+        setupQTData()
 //        if let start = Date().startOfWeek {
 //            fetchActivity(start.toString("yyyy-MM-dd hh:mm:ss Z"))
 //        }
@@ -161,10 +164,6 @@ class GroupActivityVM: VMType {
         memberList.accept(list)
     }
     
-    func changeOrder(_ value: GroupPrayOrder) {
-        order.accept(value.rawValue)
-    }
-    
     func selectDate(date: Date) {
         order.accept(date.toString("M월 d일"))
     }
@@ -218,8 +217,15 @@ class GroupActivityVM: VMType {
     private func removeAutoCompleteList() {
         useCase.removeAutoCompleteList()
     }
+    
+    // MARK: - QT
+    private func setupQTData() {
+        bibleVerses.accept("창 2:23-30")
+    }
 }
 
+
+// MARK: - Extension
 extension GroupActivityVM {
     struct Input {
         var selectMember: Driver<IndexPath> = .empty()
@@ -257,8 +263,11 @@ extension GroupActivityVM {
         let groupPrayDetailVM: Driver<GroupPrayDetailVM?>
         
         // QT
-        
         let bibleSelectVM: Driver<BibleSelectVM?>
+        let qtDate: Driver<String>
+        let bibleVerses: Driver<String>
+        
+        // Thanks
         
         let addingNewPraySuccess: Driver<Void>
         let addingNewPrayFailure: Driver<Void>
@@ -372,6 +381,8 @@ extension GroupActivityVM {
                       groupPrayDetailVM: groupPrayDetailVM.asDriver(),
                       
                       bibleSelectVM: bibleSelectVM.asDriver(),
+                      qtDate: qtDate.asDriver(),
+                      bibleVerses: bibleVerses.asDriver(),
                       
                       addingNewPraySuccess: addingNewPraySuccess.asDriver(),
                       addingNewPrayFailure: addingNewPrayFailure.asDriver()

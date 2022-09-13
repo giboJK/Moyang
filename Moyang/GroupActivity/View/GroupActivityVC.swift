@@ -36,7 +36,7 @@ class GroupActivityVC: UIViewController, VCType {
     let tabView = GroupActivityTabView()
     let groupPrayView = GroupPrayView()
     let groupQTView = GroupQTView()
-    let groupThanksViiew = GroupThanksView()
+    let groupDiaryViiew = GroupDiaryView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +67,7 @@ class GroupActivityVC: UIViewController, VCType {
         
         setupGroupPrayView()
         setupGroupQTView()
-        setupGroupThanksViiew()
+        setupGroupDiaryViiew()
     }
     private func setupNewsButton() {
         view.addSubview(newsButton)
@@ -122,15 +122,15 @@ class GroupActivityVC: UIViewController, VCType {
         groupQTView.vm = vm
         groupQTView.bind()
     }
-    private func setupGroupThanksViiew() {
-        view.addSubview(groupThanksViiew)
-        groupThanksViiew.snp.makeConstraints {
+    private func setupGroupDiaryViiew() {
+        view.addSubview(groupDiaryViiew)
+        groupDiaryViiew.snp.makeConstraints {
             $0.top.equalTo(tabView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
-        groupThanksViiew.isHidden = true
-        groupThanksViiew.vm = vm
-        groupThanksViiew.bind()
+        groupDiaryViiew.isHidden = true
+        groupDiaryViiew.vm = vm
+        groupDiaryViiew.bind()
     }
     
     private func showAddOptions() {
@@ -179,8 +179,8 @@ class GroupActivityVC: UIViewController, VCType {
             .skip(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] index in
                 self?.groupPrayView.isHidden = index.row != 0
-//                self?.groupQTView.isHidden = index.row != 1
-                self?.groupThanksViiew.isHidden = index.row != 1
+                self?.groupQTView.isHidden = index.row != 1
+                self?.groupDiaryViiew.isHidden = index.row != 2
             }).disposed(by: disposeBag)
     }
     private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
