@@ -17,7 +17,7 @@ class GroupDiaryView: UIView {
     var vm: VM?
     
     let titleLabel = UILabel().then {
-        $0.text = "지금 주님 안에서 무엇을 경험하나요?"
+        $0.text = "지금 주님과 어떻게 동행하고 있나요?"
         $0.font = .systemFont(ofSize: 17, weight: .regular)
         $0.textColor = .sheep2
     }

@@ -148,5 +148,5 @@ class ProfileVC: UIViewController, VCType {
 }
 
 protocol ProfileVCDelegate: AnyObject {
-
+    func didTapAlarmButton()
 }
