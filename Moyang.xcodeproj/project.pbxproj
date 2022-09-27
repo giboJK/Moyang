@@ -11,6 +11,11 @@
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
 		0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0865D70E289791AA007E1D7E /* GroupSelectVC.swift */; };
+		086ADDD628D197DA007A95F2 /* AlarmSetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */; };
+		086ADDD928D19849007A95F2 /* AlarmSetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDD828D19849007A95F2 /* AlarmSetVM.swift */; };
+		086ADDDB28D19861007A95F2 /* AlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDDA28D19861007A95F2 /* AlarmCoordinator.swift */; };
+		086ADDDE28D19873007A95F2 /* AlarmAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDDD28D19873007A95F2 /* AlarmAssembly.swift */; };
+		086ADDE128D198A6007A95F2 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDE028D198A6007A95F2 /* ProfileCoordinator.swift */; };
 		086CB32328130077003BF6F7 /* GroupIndividualPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086CB32228130077003BF6F7 /* GroupIndividualPray.swift */; };
 		0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880103827AEBB48002E49F0 /* CommunityMainVM.swift */; };
 		08AA085D288520E2008670E3 /* LogInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AA085C288520E2008670E3 /* LogInVM.swift */; };
@@ -200,6 +205,11 @@
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		0865D70E289791AA007E1D7E /* GroupSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectVC.swift; sourceTree = "<group>"; };
+		086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSetVC.swift; sourceTree = "<group>"; };
+		086ADDD828D19849007A95F2 /* AlarmSetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSetVM.swift; sourceTree = "<group>"; };
+		086ADDDA28D19861007A95F2 /* AlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinator.swift; sourceTree = "<group>"; };
+		086ADDDD28D19873007A95F2 /* AlarmAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAssembly.swift; sourceTree = "<group>"; };
+		086ADDE028D198A6007A95F2 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		086CB32228130077003BF6F7 /* GroupIndividualPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupIndividualPray.swift; sourceTree = "<group>"; };
 		0880103827AEBB48002E49F0 /* CommunityMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainVM.swift; sourceTree = "<group>"; };
 		08AA085C288520E2008670E3 /* LogInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVM.swift; sourceTree = "<group>"; };
@@ -407,6 +417,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		086ADDD328D197CA007A95F2 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				086ADDDD28D19873007A95F2 /* AlarmAssembly.swift */,
+				086ADDD728D19840007A95F2 /* Presenter */,
+				086ADDD428D197CF007A95F2 /* View */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
+		086ADDD428D197CF007A95F2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */,
+				086ADDDA28D19861007A95F2 /* AlarmCoordinator.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		086ADDD728D19840007A95F2 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				086ADDD828D19849007A95F2 /* AlarmSetVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		089E8A1927AF52A600640A39 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1036,6 +1073,7 @@
 				246BD7A327240A96005C4E0B /* Comm */,
 				08D0CEAF28A36A6100A15F3C /* Today */,
 				24F41C6A2897EBBE005B5E70 /* Profile */,
+				086ADDD328D197CA007A95F2 /* Alarm */,
 				08DE7CC528B4BE1D003639B0 /* Bible */,
 			);
 			path = Moyang;
@@ -1224,6 +1262,7 @@
 		24F41C6B2897EBC3005B5E70 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				086ADDE028D198A6007A95F2 /* ProfileCoordinator.swift */,
 				24F41C6C2897EBCC005B5E70 /* ProfileVC.swift */,
 			);
 			path = View;
@@ -1531,17 +1570,21 @@
 				24EFE40F287F10CD00549E07 /* KeychainSwift.swift in Sources */,
 				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
 				08D2FD95286EE24800ED8ECB /* PrayReactionDetailVC.swift in Sources */,
+				086ADDDE28D19873007A95F2 /* AlarmAssembly.swift in Sources */,
 				082371B727BA84860050420E /* DatePickerTextField.swift in Sources */,
 				24E0AB36283E751800F52505 /* Reachability.swift in Sources */,
 				24C8E9B9286B1F4500AEE46B /* PrayRepo.swift in Sources */,
 				24ECC31528B6620B00A758CF /* SearchPrayTVCell.swift in Sources */,
+				086ADDD628D197DA007A95F2 /* AlarmSetVC.swift in Sources */,
 				24DABDA72890FE6E00DEB6CC /* Calendar+.swift in Sources */,
 				24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */,
 				24FF077228BFAE7400F30ED0 /* GroupEvent.swift in Sources */,
+				086ADDD928D19849007A95F2 /* AlarmSetVM.swift in Sources */,
 				24E0AB2C283E73F800F52505 /* CommunityMainRepo.swift in Sources */,
 				2498F907287C4F60007EF510 /* IntroAssembly.swift in Sources */,
 				240946D3287073FE003AEDAD /* AddReplyAndChangeVM.swift in Sources */,
 				08F941FA289BA0E8003751F1 /* GroupPrayDetailVC.swift in Sources */,
+				086ADDDB28D19861007A95F2 /* AlarmCoordinator.swift in Sources */,
 				24CFA8BE28792D4800484C89 /* AllGroupVC.swift in Sources */,
 				24CD549F28771AF50081375B /* PrayReplyDetailVM.swift in Sources */,
 				08F941F4289B5423003751F1 /* PrayCVCell.swift in Sources */,
@@ -1562,6 +1605,7 @@
 				240946D028707379003AEDAD /* AddReplyAndChangeVC.swift in Sources */,
 				08D2FD97286EE27300ED8ECB /* PrayReactionDetailVM.swift in Sources */,
 				24E0AB21283D228A00F52505 /* UIView+.swift in Sources */,
+				086ADDE128D198A6007A95F2 /* ProfileCoordinator.swift in Sources */,
 				24E36115284B157A00C7EE26 /* NewPrayTagCVCell.swift in Sources */,
 				24E5D0F628BA118C00680101 /* SplashAssembly.swift in Sources */,
 				24126C8C285D7B5A00E8282B /* ReactionPopupView.swift in Sources */,
