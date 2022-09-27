@@ -31,10 +31,37 @@ class GroupActivityTabView: UIView {
         return cv
     }()
     
-//    let tabMenus = ["기도", "말씀 묵상", "한 줄 감사", "말씀 하가"]
-    let tabMenus = ["기도", "말씀 묵상", "한 줄 일기"]
+    enum TapMenu: Int, CaseIterable {
+        case pray = 0
+        case qt = 1
+        case thanks = 2
+        
+        var addActionTitle: String {
+            switch self {
+            case .pray:
+                return "새 기도"
+            case .qt:
+                return "새 묵상"
+            case .thanks:
+                return "새 감사"
+            }
+        }
+        
+        var tabTitle: String {
+            switch self {
+            case .pray:
+                return "기도제목"
+            case .qt:
+                return "말씀 묵상"
+            case .thanks:
+                return "한 줄 감사"
+            }
+        }
+    }
+    var tabMenus: [TapMenu]
     
     init() {
+        tabMenus = TapMenu.allCases
         super.init(frame: .zero)
         setupUI()
     }
@@ -63,8 +90,8 @@ class GroupActivityTabView: UIView {
 
 extension GroupActivityTabView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let buttonWidth = tabMenus[indexPath.row].width(withConstraintedHeight: 24,
-                                                    font: .systemFont(ofSize: 18, weight: .semibold))
+        let buttonWidth = tabMenus[indexPath.row].tabTitle.width(withConstraintedHeight: 24,
+                                                                 font: .systemFont(ofSize: 18, weight: .semibold))
         return CGSize(width: 24 + buttonWidth, height: 44)
     }
 }
@@ -78,7 +105,7 @@ extension GroupActivityTabView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? TabMenuCVCell else {
             return UICollectionViewCell()
         }
-        cell.menuLabel.text = tabMenus[indexPath.row]
+        cell.menuLabel.text = tabMenus[indexPath.row].tabTitle
         cell.isSelected = indexPath.row == 0
         
         return cell
@@ -107,7 +134,7 @@ class TabMenuCVCell: UICollectionViewCell {
         $0.isHidden = true
     }
     
-    override var isSelected: Bool{
+    override var isSelected: Bool {
         didSet {
             if isSelected {
                 showIcon()

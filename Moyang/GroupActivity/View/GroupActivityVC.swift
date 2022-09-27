@@ -36,7 +36,7 @@ class GroupActivityVC: UIViewController, VCType {
     let tabView = GroupActivityTabView()
     let groupPrayView = GroupPrayView()
     let groupQTView = GroupQTView()
-    let groupDiaryViiew = GroupDiaryView()
+    let myThanksViiew = MyDiaryView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +67,7 @@ class GroupActivityVC: UIViewController, VCType {
         
         setupGroupPrayView()
         setupGroupQTView()
-        setupGroupDiaryViiew()
+        setupMyDiaryViiew()
     }
     private func setupNewsButton() {
         view.addSubview(newsButton)
@@ -108,6 +108,7 @@ class GroupActivityVC: UIViewController, VCType {
             $0.top.equalTo(tabView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
+        groupPrayView.isHidden = !(tabView.tabMenus.first == .pray)
         groupPrayView.vm = vm
         groupPrayView.bind()
 //        groupPrayView.moreButtonHandler = showAddOptions
@@ -118,34 +119,36 @@ class GroupActivityVC: UIViewController, VCType {
             $0.top.equalTo(tabView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
-        groupQTView.isHidden = true
+        groupQTView.isHidden = !(tabView.tabMenus.first == .qt)
         groupQTView.vm = vm
         groupQTView.bind()
     }
-    private func setupGroupDiaryViiew() {
-        view.addSubview(groupDiaryViiew)
-        groupDiaryViiew.snp.makeConstraints {
+    private func setupMyDiaryViiew() {
+        view.addSubview(myThanksViiew)
+        myThanksViiew.snp.makeConstraints {
             $0.top.equalTo(tabView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
-        groupDiaryViiew.isHidden = true
-        groupDiaryViiew.vm = vm
-        groupDiaryViiew.bind()
+        myThanksViiew.isHidden = !(tabView.tabMenus.first == .thanks)
+        myThanksViiew.vm = vm
+        myThanksViiew.bind()
     }
     
     private func showAddOptions() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "새 기도", style: .default , handler: { [weak self] _ in
-            guard let vm = self?.vm else { return }
-            self?.coordinator?.didTapNewPrayButton(vm: vm)
-        }))
-        alert.addAction(UIAlertAction(title: "새 묵상", style: .default , handler: { [weak self] _ in
-            self?.coordinator?.didTapNewQTButton()
-        }))
-        
-        alert.addAction(UIAlertAction(title: "한 줄 감사", style: .default , handler: { _ in
-        }))
+        tabView.tabMenus.forEach { [weak self] menu in
+            alert.addAction(UIAlertAction(title: menu.addActionTitle, style: .default , handler: { [weak self] _ in
+                guard let vm = self?.vm else { return }
+                switch menu {
+                case .pray:
+                    self?.coordinator?.didTapNewPrayButton(vm: vm)
+                case .qt:
+                    self?.coordinator?.didTapNewPrayButton(vm: vm)
+                case .thanks:
+                    self?.coordinator?.didTapNewPrayButton(vm: vm)
+                }
+            }))
+        }
         
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { _ in
         }))
@@ -178,9 +181,9 @@ class GroupActivityVC: UIViewController, VCType {
         tabView.menuCV.rx.itemSelected
             .skip(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] index in
-                self?.groupPrayView.isHidden = index.row != 0
-                self?.groupQTView.isHidden = index.row != 1
-                self?.groupDiaryViiew.isHidden = index.row != 2
+                self?.groupPrayView.isHidden = index.row != GroupActivityTabView.TapMenu.pray.rawValue
+                self?.groupQTView.isHidden = index.row != GroupActivityTabView.TapMenu.qt.rawValue
+                self?.myThanksViiew.isHidden = index.row != GroupActivityTabView.TapMenu.thanks.rawValue
             }).disposed(by: disposeBag)
     }
     private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {

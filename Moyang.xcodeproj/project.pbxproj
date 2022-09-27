@@ -79,7 +79,7 @@
 		246FEFED28CE1CBD00193C2F /* NewQTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246FEFEC28CE1CBD00193C2F /* NewQTVC.swift */; };
 		246FEFF028CE1CED00193C2F /* NewQTVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246FEFEF28CE1CED00193C2F /* NewQTVM.swift */; };
 		24755367277CA9AB001908A6 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24755366277CA9AB001908A6 /* UserData.swift */; };
-		248BEE6428CCD9670055C0B6 /* GroupDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE6328CCD9670055C0B6 /* GroupDiaryView.swift */; };
+		248BEE6428CCD9670055C0B6 /* MyDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE6328CCD9670055C0B6 /* MyDiaryView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
 		2493DE6228467441001A9368 /* GroupActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493DE6128467441001A9368 /* GroupActivityVC.swift */; };
@@ -269,7 +269,7 @@
 		246FEFEC28CE1CBD00193C2F /* NewQTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQTVC.swift; sourceTree = "<group>"; };
 		246FEFEF28CE1CED00193C2F /* NewQTVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQTVM.swift; sourceTree = "<group>"; };
 		24755366277CA9AB001908A6 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
-		248BEE6328CCD9670055C0B6 /* GroupDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDiaryView.swift; sourceTree = "<group>"; };
+		248BEE6328CCD9670055C0B6 /* MyDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		2493DE6128467441001A9368 /* GroupActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupActivityVC.swift; sourceTree = "<group>"; };
@@ -788,18 +788,18 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		248BEE6128CCD9370055C0B6 /* GroupDiary */ = {
+		248BEE6128CCD9370055C0B6 /* MyDiary */ = {
 			isa = PBXGroup;
 			children = (
 				248BEE6228CCD9580055C0B6 /* View */,
 			);
-			path = GroupDiary;
+			path = MyDiary;
 			sourceTree = "<group>";
 		};
 		248BEE6228CCD9580055C0B6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				248BEE6328CCD9670055C0B6 /* GroupDiaryView.swift */,
+				248BEE6328CCD9670055C0B6 /* MyDiaryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1032,7 +1032,7 @@
 				2493DE602846742B001A9368 /* GroupActivity */,
 				241CFBB128CC83FE003D8EBD /* GroupPray */,
 				08EE004528C84E83000B02BD /* GroupQT */,
-				248BEE6128CCD9370055C0B6 /* GroupDiary */,
+				248BEE6128CCD9370055C0B6 /* MyDiary */,
 				246BD7A327240A96005C4E0B /* Comm */,
 				08D0CEAF28A36A6100A15F3C /* Today */,
 				24F41C6A2897EBBE005B5E70 /* Profile */,
@@ -1599,7 +1599,7 @@
 				24294C5F2861DD7A00458CA0 /* CheckBox.swift in Sources */,
 				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
 				24F41C6D2897EBCC005B5E70 /* ProfileVC.swift in Sources */,
-				248BEE6428CCD9670055C0B6 /* GroupDiaryView.swift in Sources */,
+				248BEE6428CCD9670055C0B6 /* MyDiaryView.swift in Sources */,
 				08EE004A28C84F8A000B02BD /* GroupActivityTabView.swift in Sources */,
 				24F7021328B4F967009A8414 /* BibleSelectVC.swift in Sources */,
 				08D0CEBA28A37EFF00A15F3C /* TodayTask.swift in Sources */,
