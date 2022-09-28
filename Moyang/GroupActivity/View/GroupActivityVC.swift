@@ -36,7 +36,7 @@ class GroupActivityVC: UIViewController, VCType {
     let tabView = GroupActivityTabView()
     let groupPrayView = GroupPrayView()
     let groupQTView = GroupQTView()
-    let myThanksViiew = MyDiaryView()
+    let myDiaryViiew = MyDiaryView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +67,7 @@ class GroupActivityVC: UIViewController, VCType {
         
         setupGroupPrayView()
         setupGroupQTView()
-        setupMyDiaryViiew()
+//        setupMyDiaryViiew()
     }
     private func setupNewsButton() {
         view.addSubview(newsButton)
@@ -124,14 +124,14 @@ class GroupActivityVC: UIViewController, VCType {
         groupQTView.bind()
     }
     private func setupMyDiaryViiew() {
-        view.addSubview(myThanksViiew)
-        myThanksViiew.snp.makeConstraints {
+        view.addSubview(myDiaryViiew)
+        myDiaryViiew.snp.makeConstraints {
             $0.top.equalTo(tabView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
 //        myThanksViiew.isHidden = !(tabView.tabMenus.first == .thanks)
-        myThanksViiew.vm = vm
-        myThanksViiew.bind()
+        myDiaryViiew.vm = vm
+        myDiaryViiew.bind()
     }
     
     private func showAddOptions() {

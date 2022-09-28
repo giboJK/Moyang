@@ -139,6 +139,11 @@ class ProfileVC: UIViewController, VCType {
                 UserData.shared.password = nil
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
+        
+        alarmButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapAlarmButton()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {

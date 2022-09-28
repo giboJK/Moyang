@@ -78,16 +78,23 @@ class AuthAssembly: Assembly, BaseAssembly {
             assembly.nav = self.nav
             return assembly
         }
+        container.register(ProfileAssembly.self) { _ in
+            let assembly = ProfileAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
         
         container.register(AuthCoordinator.self) { r in
             guard let nav = self.nav else { return AuthCoordinator() }
             let main = r ~> (MainAssembly.self)
             let today = r ~> (TodayAssembly.self)
-            let groupPray = r ~> (GroupActivityAssembly.self)
+            let activity = r ~> (GroupActivityAssembly.self)
+            let profile = r ~> (ProfileAssembly.self)
             return AuthCoordinator(nav: nav, assembler: Assembler([self,
                                                                    main,
                                                                    today,
-                                                                   groupPray]))
+                                                                   activity,
+                                                                   profile]))
         }
     }
 }

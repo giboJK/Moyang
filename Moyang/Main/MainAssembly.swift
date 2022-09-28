@@ -37,20 +37,6 @@ class MainAssembly: Assembly, BaseAssembly {
             AFNetworkService(sessionConfiguration: .default)
         }
         
-        // MARK: - Profile
-        // TODO: - ProfileAssembly
-        container.register(ProfileVC.self) { r in
-            let vc = ProfileVC()
-            
-            vc.vm = r ~> (ProfileVM.self)
-            
-            return vc
-        }
-        
-        container.register(ProfileVM.self) { _ in
-            ProfileVM()
-        }
-        
         // MARK: - Assembly
         container.register(TodayAssembly.self) { _ in
             let assembly = TodayAssembly()
@@ -63,12 +49,18 @@ class MainAssembly: Assembly, BaseAssembly {
             assembly.nav = self.nav
             return assembly
         }
+        container.register(ProfileAssembly.self) { _ in
+            let assembly = ProfileAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
         
         container.register(MainCoordinator.self) { r in
             guard let nav = self.nav else { return MainCoordinator() }
             let today = r ~> (TodayAssembly.self)
-            let pray = r ~> (GroupActivityAssembly.self)
-            let assembler = Assembler([self, today, pray])
+            let activity = r ~> (GroupActivityAssembly.self)
+            let profile = r ~> (ProfileAssembly.self)
+            let assembler = Assembler([self, today, activity, profile])
             let coordinator = MainCoordinator(nav: nav, assembler: assembler)
             return coordinator
         }
