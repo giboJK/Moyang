@@ -129,7 +129,7 @@ class GroupActivityVC: UIViewController, VCType {
             $0.top.equalTo(tabView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
-        myThanksViiew.isHidden = !(tabView.tabMenus.first == .thanks)
+//        myThanksViiew.isHidden = !(tabView.tabMenus.first == .thanks)
         myThanksViiew.vm = vm
         myThanksViiew.bind()
     }
@@ -144,8 +144,8 @@ class GroupActivityVC: UIViewController, VCType {
                     self?.coordinator?.didTapNewPrayButton(vm: vm)
                 case .qt:
                     self?.coordinator?.didTapNewPrayButton(vm: vm)
-                case .thanks:
-                    self?.coordinator?.didTapNewPrayButton(vm: vm)
+//                case .thanks:
+//                    self?.coordinator?.didTapNewPrayButton(vm: vm)
                 }
             }))
         }
@@ -183,7 +183,7 @@ class GroupActivityVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] index in
                 self?.groupPrayView.isHidden = index.row != GroupActivityTabView.TapMenu.pray.rawValue
                 self?.groupQTView.isHidden = index.row != GroupActivityTabView.TapMenu.qt.rawValue
-                self?.myThanksViiew.isHidden = index.row != GroupActivityTabView.TapMenu.thanks.rawValue
+//                self?.myThanksViiew.isHidden = index.row != GroupActivityTabView.TapMenu.thanks.rawValue
             }).disposed(by: disposeBag)
     }
     private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {

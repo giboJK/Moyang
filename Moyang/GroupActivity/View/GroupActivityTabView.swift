@@ -33,8 +33,8 @@ class GroupActivityTabView: UIView {
     
     enum TapMenu: Int, CaseIterable {
         case pray = 0
-        case qt = 1
-        case thanks = 2
+        case qt
+//        case thanks
         
         var addActionTitle: String {
             switch self {
@@ -42,8 +42,8 @@ class GroupActivityTabView: UIView {
                 return "새 기도"
             case .qt:
                 return "새 묵상"
-            case .thanks:
-                return "새 감사"
+//            case .thanks:
+//                return "새 감사"
             }
         }
         
@@ -53,8 +53,8 @@ class GroupActivityTabView: UIView {
                 return "기도제목"
             case .qt:
                 return "말씀 묵상"
-            case .thanks:
-                return "한 줄 감사"
+//            case .thanks:
+//                return "한 줄 감사"
             }
         }
     }
