@@ -130,6 +130,10 @@
 		24C8E9BB286B1F5200AEE46B /* PrayUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C8E9BA286B1F5200AEE46B /* PrayUseCase.swift */; };
 		24CD549D28771ABC0081375B /* PrayReplyDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD549C28771ABC0081375B /* PrayReplyDetailVC.swift */; };
 		24CD549F28771AF50081375B /* PrayReplyDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD549E28771AF50081375B /* PrayReplyDetailVM.swift */; };
+		24CDD53128E537BE0091A286 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CDD53028E537BE0091A286 /* Alarm.swift */; };
+		24CDD53328E537C50091A286 /* AlarmUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CDD53228E537C50091A286 /* AlarmUseCase.swift */; };
+		24CDD53528E537FB0091A286 /* AlarmRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CDD53428E537FB0091A286 /* AlarmRepo.swift */; };
+		24CDD53728E538C80091A286 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CDD53628E538C80091A286 /* ProfileController.swift */; };
 		24CFA8B82878894D00484C89 /* StickyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8B72878894D00484C89 /* StickyHeaderView.swift */; };
 		24CFA8BE28792D4800484C89 /* AllGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8BD28792D4800484C89 /* AllGroupVC.swift */; };
 		24CFA8C128792D6700484C89 /* AllGroupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8C028792D6700484C89 /* AllGroupVM.swift */; };
@@ -327,6 +331,10 @@
 		24C8E9BA286B1F5200AEE46B /* PrayUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayUseCase.swift; sourceTree = "<group>"; };
 		24CD549C28771ABC0081375B /* PrayReplyDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReplyDetailVC.swift; sourceTree = "<group>"; };
 		24CD549E28771AF50081375B /* PrayReplyDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReplyDetailVM.swift; sourceTree = "<group>"; };
+		24CDD53028E537BE0091A286 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+		24CDD53228E537C50091A286 /* AlarmUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmUseCase.swift; sourceTree = "<group>"; };
+		24CDD53428E537FB0091A286 /* AlarmRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmRepo.swift; sourceTree = "<group>"; };
+		24CDD53628E538C80091A286 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		24CFA8B72878894D00484C89 /* StickyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyHeaderView.swift; sourceTree = "<group>"; };
 		24CFA8BD28792D4800484C89 /* AllGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupVC.swift; sourceTree = "<group>"; };
 		24CFA8C028792D6700484C89 /* AllGroupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupVM.swift; sourceTree = "<group>"; };
@@ -422,6 +430,7 @@
 		086ADDD328D197CA007A95F2 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				24CDD52F28E537B40091A286 /* Domain */,
 				086ADDD728D19840007A95F2 /* Presenter */,
 				086ADDD428D197CF007A95F2 /* View */,
 			);
@@ -1002,6 +1011,16 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		24CDD52F28E537B40091A286 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				24CDD53028E537BE0091A286 /* Alarm.swift */,
+				24CDD53228E537C50091A286 /* AlarmUseCase.swift */,
+				24CDD53428E537FB0091A286 /* AlarmRepo.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		24CFA8BB28792D3A00484C89 /* AllGroup */ = {
 			isa = PBXGroup;
 			children = (
@@ -1248,6 +1267,7 @@
 				24E0AB2D283E744200F52505 /* GroupController.swift */,
 				08AD9584287BDFF1002D4F94 /* AuthController.swift */,
 				24F41C682897E9E9005B5E70 /* PrayController.swift */,
+				24CDD53628E538C80091A286 /* ProfileController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1646,6 +1666,7 @@
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
 				24294C5F2861DD7A00458CA0 /* CheckBox.swift in Sources */,
 				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
+				24CDD53528E537FB0091A286 /* AlarmRepo.swift in Sources */,
 				24F41C6D2897EBCC005B5E70 /* ProfileVC.swift in Sources */,
 				248BEE6428CCD9670055C0B6 /* MyDiaryView.swift in Sources */,
 				08EE004A28C84F8A000B02BD /* GroupActivityTabView.swift in Sources */,
@@ -1685,8 +1706,10 @@
 				2455300428780B8E00E56889 /* ReplyTVCell.swift in Sources */,
 				08CE42012780059A003352E0 /* FirestoreService.swift in Sources */,
 				24E0AB1F283D1FF900F52505 /* MoyangNavBar.swift in Sources */,
+				24CDD53328E537C50091A286 /* AlarmUseCase.swift in Sources */,
 				08AD958F287BE2D6002D4F94 /* AuthAssembly.swift in Sources */,
 				242D745C274267C80053EF2A /* MainCard.swift in Sources */,
+				24CDD53128E537BE0091A286 /* Alarm.swift in Sources */,
 				24C3379E28A200DA00AA042A /* PrayDetailView.swift in Sources */,
 				08ECAADC28A62B1300B546F1 /* TodayAssembly.swift in Sources */,
 				24ED982E28AE32E40086C043 /* ChangeAndAnswerVC.swift in Sources */,
@@ -1730,6 +1753,7 @@
 				242F92A3284904AF0023324D /* MoyangTextField.swift in Sources */,
 				24E0AB32283E74A900F52505 /* Request.swift in Sources */,
 				24E5D0F228B9FA4B00680101 /* SplashVM.swift in Sources */,
+				24CDD53728E538C80091A286 /* ProfileController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

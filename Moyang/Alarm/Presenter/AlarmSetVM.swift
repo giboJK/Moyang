@@ -11,10 +11,13 @@ import RxCocoa
 class AlarmSetVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     
-    private let prayTimeList = BehaviorRelay<[String]>(value: [])
-    private let qtTimeList = BehaviorRelay<[String]>(value: [])
+    let useCase: AlarmUseCase
+    
+    private let prayTimeList = BehaviorRelay<[AlarmItem]>(value: [])
+    private let qtTimeList = BehaviorRelay<[AlarmItem]>(value: [])
 
-    init() {
+    init(useCase: AlarmUseCase) {
+        self.useCase = useCase
     }
 
     deinit { Log.i(self) }
@@ -26,13 +29,27 @@ extension AlarmSetVM {
     }
 
     struct Output {
-        let prayTimeList: Driver<[String]>
-        let qtTimeList: Driver<[String]>
+        let prayTimeList: Driver<[AlarmItem]>
+        let qtTimeList: Driver<[AlarmItem]>
     }
 
     func transform(input: Input) -> Output {
         return Output(prayTimeList: prayTimeList.asDriver(),
                       qtTimeList: qtTimeList.asDriver()
         )
+    }
+    
+    struct AlarmItem {
+        let time: String
+        let desc: String
+        let isOn: Bool
+        let isEmpty: Bool
+        
+        init(time: String, desc: String, isOn: Bool, isEmpty: Bool) {
+            self.time = time
+            self.desc = desc
+            self.isOn = isOn
+            self.isEmpty = isEmpty
+        }
     }
 }

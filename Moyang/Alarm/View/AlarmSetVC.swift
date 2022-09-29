@@ -161,11 +161,29 @@ class AlarmSetVC: UIViewController, VCType {
         output.prayTimeList
             .drive(prayTabel.rx
                 .items(cellIdentifier: "cell", cellType: AlarmTVCell.self)) { (_, item, cell) in
+                    cell.noAlarmLabel.isHidden = !item.isEmpty
+                    cell.timeLabel.isHidden = item.isEmpty
+                    cell.ampmLabel.isHidden = item.isEmpty
+                    cell.descLabel.isHidden = item.isEmpty
+                    cell.alarmSwitch.isHidden = item.isEmpty
+                    
+                    cell.timeLabel.text = item.time
+                    cell.descLabel.text = item.desc
+                    cell.alarmSwitch.isOn = item.isOn
                 }.disposed(by: disposeBag)
         
         output.qtTimeList
             .drive(qtTabel.rx
                 .items(cellIdentifier: "cell", cellType: AlarmTVCell.self)) { (_, item, cell) in
+                    cell.noAlarmLabel.isHidden = !item.isEmpty
+                    cell.timeLabel.isHidden = item.isEmpty
+                    cell.ampmLabel.isHidden = item.isEmpty
+                    cell.descLabel.isHidden = item.isEmpty
+                    cell.alarmSwitch.isHidden = item.isEmpty
+                    
+                    cell.timeLabel.text = item.time
+                    cell.descLabel.text = item.desc
+                    cell.alarmSwitch.isOn = item.isOn
                 }.disposed(by: disposeBag)
     }
 }

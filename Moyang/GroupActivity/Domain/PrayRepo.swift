@@ -9,8 +9,6 @@ import Foundation
 
 protocol PrayRepo {
     
-    
-    
     // Add
     func addPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
                  completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?)

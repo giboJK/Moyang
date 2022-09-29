@@ -40,26 +40,16 @@ class ProfileAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        container.register(AlarmSetVM.self) { _ in
-            AlarmSetVM()
+        container.register(AlarmRepo.self) { r in
+            ProfileController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         
-        // MARK: - PrayUseCase
-        container.register(PrayRepo.self) { r in
-            PrayController(networkService: r ~> (NetworkServiceProtocol.self))
+        container.register(AlarmUseCase.self) { r in
+            AlarmUseCase(repo: r ~> (AlarmRepo.self))
         }
         
-        container.register(PrayUseCase.self) { r in
-            PrayUseCase(repo: r ~> (PrayRepo.self))
-        }
-        
-        // MARK: - GroupUseCase
-        container.register(GroupRepo.self) { r in
-            GroupController(networkService: r ~> (NetworkServiceProtocol.self))
-        }
-        
-        container.register(GroupUseCase.self) { r in
-            GroupUseCase(repo: r ~> (GroupRepo.self))
+        container.register(AlarmSetVM.self) { r in
+            AlarmSetVM(useCase: r ~> (AlarmUseCase.self))
         }
         
         // MARK: - Coordinator
@@ -70,4 +60,3 @@ class ProfileAssembly: Assembly, BaseAssembly {
         }
     }
 }
-
