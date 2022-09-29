@@ -57,6 +57,7 @@
 		08F4738928B5BAA70070CE2A /* BookSelectTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738828B5BAA70070CE2A /* BookSelectTVCell.swift */; };
 		08F4738C28B5BCDF0070CE2A /* BibleSelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */; };
 		08F4738E28B5F6090070CE2A /* AutoCompleteTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */; };
+		08F6243E28E50AB000165695 /* AlarmTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F6243D28E50AB000165695 /* AlarmTVCell.swift */; };
 		08F66EF628BC240D0078B6AB /* PrayTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EF528BC240D0078B6AB /* PrayTopicView.swift */; };
 		08F66EF928BD9D5F0078B6AB /* GroupEventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EF828BD9D5F0078B6AB /* GroupEventVM.swift */; };
 		08F66EFB28BDAB720078B6AB /* GroupNewsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EFA28BDAB720078B6AB /* GroupNewsTVCell.swift */; };
@@ -251,6 +252,7 @@
 		08F4738828B5BAA70070CE2A /* BookSelectTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSelectTVCell.swift; sourceTree = "<group>"; };
 		08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleSelectVM.swift; sourceTree = "<group>"; };
 		08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteTVCell.swift; sourceTree = "<group>"; };
+		08F6243D28E50AB000165695 /* AlarmTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTVCell.swift; sourceTree = "<group>"; };
 		08F66EF528BC240D0078B6AB /* PrayTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayTopicView.swift; sourceTree = "<group>"; };
 		08F66EF828BD9D5F0078B6AB /* GroupEventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEventVM.swift; sourceTree = "<group>"; };
 		08F66EFA28BDAB720078B6AB /* GroupNewsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNewsTVCell.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 			children = (
 				086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */,
 				086ADDDA28D19861007A95F2 /* AlarmCoordinator.swift */,
+				08F6243D28E50AB000165695 /* AlarmTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1610,6 +1613,7 @@
 				24E5D0F628BA118C00680101 /* SplashAssembly.swift in Sources */,
 				24126C8C285D7B5A00E8282B /* ReactionPopupView.swift in Sources */,
 				08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */,
+				08F6243E28E50AB000165695 /* AlarmTVCell.swift in Sources */,
 				24E7547A28BAF30800E49EB2 /* GroupEventVC.swift in Sources */,
 				0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */,
 				246FEFED28CE1CBD00193C2F /* NewQTVC.swift in Sources */,

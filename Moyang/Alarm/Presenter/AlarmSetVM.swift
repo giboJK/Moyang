@@ -10,6 +10,9 @@ import RxCocoa
 
 class AlarmSetVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
+    
+    private let prayTimeList = BehaviorRelay<[String]>(value: [])
+    private let qtTimeList = BehaviorRelay<[String]>(value: [])
 
     init() {
     }
@@ -23,10 +26,13 @@ extension AlarmSetVM {
     }
 
     struct Output {
-
+        let prayTimeList: Driver<[String]>
+        let qtTimeList: Driver<[String]>
     }
 
     func transform(input: Input) -> Output {
-        return Output()
+        return Output(prayTimeList: prayTimeList.asDriver(),
+                      qtTimeList: qtTimeList.asDriver()
+        )
     }
 }

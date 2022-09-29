@@ -122,6 +122,7 @@ class GroupPrayDetailVC: UIViewController, VCType {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
+    
     func setupUI() {
         title = "기도제목"
         view.backgroundColor = .nightSky1
