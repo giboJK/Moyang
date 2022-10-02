@@ -57,7 +57,6 @@
 		08F4738928B5BAA70070CE2A /* BookSelectTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738828B5BAA70070CE2A /* BookSelectTVCell.swift */; };
 		08F4738C28B5BCDF0070CE2A /* BibleSelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */; };
 		08F4738E28B5F6090070CE2A /* AutoCompleteTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */; };
-		08F6243E28E50AB000165695 /* AlarmTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F6243D28E50AB000165695 /* AlarmTVCell.swift */; };
 		08F66EF628BC240D0078B6AB /* PrayTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EF528BC240D0078B6AB /* PrayTopicView.swift */; };
 		08F66EF928BD9D5F0078B6AB /* GroupEventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EF828BD9D5F0078B6AB /* GroupEventVM.swift */; };
 		08F66EFB28BDAB720078B6AB /* GroupNewsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EFA28BDAB720078B6AB /* GroupNewsTVCell.swift */; };
@@ -85,6 +84,8 @@
 		246FEFED28CE1CBD00193C2F /* NewQTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246FEFEC28CE1CBD00193C2F /* NewQTVC.swift */; };
 		246FEFF028CE1CED00193C2F /* NewQTVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246FEFEF28CE1CED00193C2F /* NewQTVM.swift */; };
 		24755367277CA9AB001908A6 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24755366277CA9AB001908A6 /* UserData.swift */; };
+		24831FB428E93BD400DB36A1 /* AlarmTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24831FB328E93BD400DB36A1 /* AlarmTimeView.swift */; };
+		24831FB628E93E4000DB36A1 /* NewAlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24831FB528E93E4000DB36A1 /* NewAlarmVC.swift */; };
 		248BEE6428CCD9670055C0B6 /* MyDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE6328CCD9670055C0B6 /* MyDiaryView.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
@@ -97,6 +98,7 @@
 		2498F909287C514D007EF510 /* IntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498F908287C514D007EF510 /* IntroCoordinator.swift */; };
 		249FD1E62893A73800BDF995 /* GroupPrayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FD1E52893A73800BDF995 /* GroupPrayHeader.swift */; };
 		24A55F64279AFE7D007DDE02 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A55F63279AFE7D007DDE02 /* String+.swift */; };
+		24A603F528E9D414006DFD05 /* AlarmSelectDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A603F428E9D414006DFD05 /* AlarmSelectDayView.swift */; };
 		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
 		24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */; };
 		24AACA78283FB42A00308AC3 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA77283FB42A00308AC3 /* MainAssembly.swift */; };
@@ -256,7 +258,6 @@
 		08F4738828B5BAA70070CE2A /* BookSelectTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSelectTVCell.swift; sourceTree = "<group>"; };
 		08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleSelectVM.swift; sourceTree = "<group>"; };
 		08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteTVCell.swift; sourceTree = "<group>"; };
-		08F6243D28E50AB000165695 /* AlarmTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTVCell.swift; sourceTree = "<group>"; };
 		08F66EF528BC240D0078B6AB /* PrayTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayTopicView.swift; sourceTree = "<group>"; };
 		08F66EF828BD9D5F0078B6AB /* GroupEventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEventVM.swift; sourceTree = "<group>"; };
 		08F66EFA28BDAB720078B6AB /* GroupNewsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNewsTVCell.swift; sourceTree = "<group>"; };
@@ -285,6 +286,8 @@
 		246FEFEC28CE1CBD00193C2F /* NewQTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQTVC.swift; sourceTree = "<group>"; };
 		246FEFEF28CE1CED00193C2F /* NewQTVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQTVM.swift; sourceTree = "<group>"; };
 		24755366277CA9AB001908A6 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		24831FB328E93BD400DB36A1 /* AlarmTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTimeView.swift; sourceTree = "<group>"; };
+		24831FB528E93E4000DB36A1 /* NewAlarmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmVC.swift; sourceTree = "<group>"; };
 		248BEE6328CCD9670055C0B6 /* MyDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryView.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -297,6 +300,7 @@
 		2498F908287C514D007EF510 /* IntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinator.swift; sourceTree = "<group>"; };
 		249FD1E52893A73800BDF995 /* GroupPrayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayHeader.swift; sourceTree = "<group>"; };
 		24A55F63279AFE7D007DDE02 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		24A603F428E9D414006DFD05 /* AlarmSelectDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSelectDayView.swift; sourceTree = "<group>"; };
 		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
 		24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssembly.swift; sourceTree = "<group>"; };
 		24AACA77283FB42A00308AC3 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
@@ -433,6 +437,7 @@
 				24CDD52F28E537B40091A286 /* Domain */,
 				086ADDD728D19840007A95F2 /* Presenter */,
 				086ADDD428D197CF007A95F2 /* View */,
+				24A603F328E9D3D2006DFD05 /* NewAlarm */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -440,9 +445,9 @@
 		086ADDD428D197CF007A95F2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */,
 				086ADDDA28D19861007A95F2 /* AlarmCoordinator.swift */,
-				08F6243D28E50AB000165695 /* AlarmTVCell.swift */,
+				086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */,
+				24831FB328E93BD400DB36A1 /* AlarmTimeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -930,6 +935,15 @@
 				2498F904287C4E4A007EF510 /* IntroVM.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		24A603F328E9D3D2006DFD05 /* NewAlarm */ = {
+			isa = PBXGroup;
+			children = (
+				24831FB528E93E4000DB36A1 /* NewAlarmVC.swift */,
+				24A603F428E9D414006DFD05 /* AlarmSelectDayView.swift */,
+			);
+			path = NewAlarm;
 			sourceTree = "<group>";
 		};
 		24A6A4A9275A2BCB00D7DB25 /* App */ = {
@@ -1610,12 +1624,14 @@
 				24CFA8BE28792D4800484C89 /* AllGroupVC.swift in Sources */,
 				24CD549F28771AF50081375B /* PrayReplyDetailVM.swift in Sources */,
 				08F941F4289B5423003751F1 /* PrayCVCell.swift in Sources */,
+				24831FB428E93BD400DB36A1 /* AlarmTimeView.swift in Sources */,
 				24D0D3292723145F006FF67B /* Date+.swift in Sources */,
 				24ED983328AE3FA70086C043 /* ChangeAnswerTVCell.swift in Sources */,
 				24C877CF282FD76100F69AAD /* VCType.swift in Sources */,
 				24E4DC39284C2D1C002ECD83 /* GroupPrayingVM.swift in Sources */,
 				24F6B0C3289954740001B781 /* MemberItemTableViewCell.swift in Sources */,
 				24BB42622847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
+				24A603F528E9D414006DFD05 /* AlarmSelectDayView.swift in Sources */,
 				08F4738C28B5BCDF0070CE2A /* BibleSelectVM.swift in Sources */,
 				08AA085D288520E2008670E3 /* LogInVM.swift in Sources */,
 				24D0D32D272314F7006FF67B /* Log.swift in Sources */,
@@ -1633,7 +1649,6 @@
 				24E5D0F628BA118C00680101 /* SplashAssembly.swift in Sources */,
 				24126C8C285D7B5A00E8282B /* ReactionPopupView.swift in Sources */,
 				08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */,
-				08F6243E28E50AB000165695 /* AlarmTVCell.swift in Sources */,
 				24E7547A28BAF30800E49EB2 /* GroupEventVC.swift in Sources */,
 				0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */,
 				246FEFED28CE1CBD00193C2F /* NewQTVC.swift in Sources */,
@@ -1720,6 +1735,7 @@
 				24B6A2552726BEB00065112A /* GroupInfo.swift in Sources */,
 				24E0AB1D283D1ECF00F52505 /* GroupPrayingVC.swift in Sources */,
 				08DE7CC828B4BE32003639B0 /* Bible.swift in Sources */,
+				24831FB628E93E4000DB36A1 /* NewAlarmVC.swift in Sources */,
 				08AD958D287BE0A3002D4F94 /* SignUpVM.swift in Sources */,
 				08D4B76F28AF394A000BD7C6 /* ProfileVM.swift in Sources */,
 				24C877CD282FD6B400F69AAD /* MainVC.swift in Sources */,

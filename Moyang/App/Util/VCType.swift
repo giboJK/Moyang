@@ -66,7 +66,7 @@ protocol VCType {
 //    func bind() {
 //        bindVM()
 //    }
-//    private func bineViews() {
+//    private func bindViews() {
 //
 //    }
 //

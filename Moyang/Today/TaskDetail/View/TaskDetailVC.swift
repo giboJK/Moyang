@@ -98,11 +98,11 @@ class TaskDetailVC: UIViewController, VCType {
 
     // MARK: - Binding
     func bind() {
-        bineViews()
+        bindViews()
         bindVM()
     }
     
-    private func bineViews() {
+    private func bindViews() {
         navBar.backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)

@@ -78,10 +78,10 @@ class GroupQTView: UIView {
     
     // MARK: - Binding
     func bind() {
-        bineViews()
+        bindViews()
         bindVM()
     }
-    private func bineViews() {
+    private func bindViews() {
 
     }
 

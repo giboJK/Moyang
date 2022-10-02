@@ -8,10 +8,10 @@
 import Foundation
 
 protocol AlarmRepo {
-    func addAlarm(completion: ((Result<AddAlarmResponse, MoyangError>) -> Void)?)
-    func updateAlarm(completion: ((Result<UpdateAlarmResponse, MoyangError>) -> Void)?)
-    func fetchAlarms(completion: ((Result<FetchAlarmsResponse, MoyangError>) -> Void)?)
-    func deleteAlarm(completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    func addAlarm(userID: String, time: String, isOn: Bool, completion: ((Result<AddAlarmResponse, Error>) -> Void)?)
+    func updateAlarm(alarmID: String, time: String, isOn: Bool, completion: ((Result<UpdateAlarmResponse, Error>) -> Void)?)
+    func fetchAlarms(userID: String, completion: ((Result<FetchAlarmsResponse, Error>) -> Void)?)
+    func deleteAlarm(alarmID: String, completion: ((Result<BaseResponse, Error>) -> Void)?)
 }
 
 

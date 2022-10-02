@@ -15,6 +15,9 @@ class MyDiaryView: UIView {
     typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
+    let descLabel = UILabel().then {
+        $0.text = "지금 무엇을 사랑하고 감사하고 있나요?"
+    }
     
     // MARK: - UI
     init() {
@@ -31,10 +34,10 @@ class MyDiaryView: UIView {
     
     // MARK: - Binding
     func bind() {
-        bineViews()
+        bindViews()
         bindVM()
     }
-    private func bineViews() {
+    private func bindViews() {
 
     }
 

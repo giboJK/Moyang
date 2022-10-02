@@ -290,11 +290,11 @@ class GroupPrayDetailVC: UIViewController, VCType {
     
     // MARK: - Binding
     func bind() {
-        bineViews()
+        bindViews()
         bindVM()
     }
     
-    private func bineViews() {
+    private func bindViews() {
         moreButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }

@@ -128,7 +128,7 @@ class TodayVC: UIViewController, VCType {
     func bind() {
         bindVM()
     }
-    private func bineViews() {
+    private func bindViews() {
 
     }
 

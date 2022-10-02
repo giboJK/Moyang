@@ -164,7 +164,7 @@ class BibleSelectVC: UIViewController, VCType {
         bindVM()
     }
     
-    private func bineViews() {
+    private func bindViews() {
         
     }
     

@@ -10,62 +10,28 @@ import RxCocoa
 import RxSwift
 import SnapKit
 import Then
+import RxGesture
 
 class AlarmSetVC: UIViewController, VCType {
     typealias VM = AlarmSetVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: AlarmSetVCDelegate?
-
+    
+    
     // MARK: - UI
-    let scrollView = UIScrollView().then {
-        $0.showsVerticalScrollIndicator = false
-    }
-    let container = UIView().then {
-        $0.backgroundColor = .clear
-    }
+    let prayAlarmView = AlarmTimeView(title: "기도")
+    let qtAlarmView = AlarmTimeView(title: "말씀 묵상")
     
-    let prayLabel = UILabel().then {
-        $0.text = "기도"
-        $0.font = .systemFont(ofSize: 18, weight: .semibold)
-        $0.textColor = .sheep1
-    }
-    let prayAlarmAddButton = UIButton()
-    let prayTabel = UITableView().then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(AlarmTVCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .clear
-        $0.separatorStyle = .none
-        $0.estimatedRowHeight = 68
-        $0.showsVerticalScrollIndicator = false
-        $0.isScrollEnabled = false
-    }
-    
-    let qtLabel = UILabel().then {
-        $0.text = "말씀 묵상"
-        $0.font = .systemFont(ofSize: 18, weight: .semibold)
-        $0.textColor = .sheep1
-    }
-    let qtAlarmAddButton = UIButton()
-    let qtTabel = UITableView().then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(AlarmTVCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .clear
-        $0.separatorStyle = .none
-        $0.estimatedRowHeight = 68
-        $0.showsVerticalScrollIndicator = false
-        $0.isScrollEnabled = false
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         bind()
     }
-
+    
     deinit { Log.i(self) }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
@@ -79,115 +45,71 @@ class AlarmSetVC: UIViewController, VCType {
         title = "알람설정"
         view.backgroundColor = .nightSky1
         
-        setupScrollView()
-        setupPrayLabel()
-        setupPrayAlarmAddButton()
-        setupPrayTabel()
-        setupQtLabel()
-        setupQtAlarmAddButton()
-        setupQtTabel()
+        setupPrayAlarmView()
+        setupQtAlarmView()
     }
-    private func setupScrollView() {
-        view.addSubview(scrollView)
-        scrollView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        scrollView.addSubview(container)
-        container.snp.makeConstraints {
-            $0.edges.equalTo(scrollView.contentLayoutGuide)
-            $0.width.equalTo(scrollView.frameLayoutGuide)
-            $0.height.equalTo(scrollView.frameLayoutGuide).priority(250)
-        }
-    }
-    private func setupPrayLabel() {
-        scrollView.addSubview(prayLabel)
-        prayLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20)
-            $0.left.equalToSuperview().inset(24)
-        }
-    }
-    private func setupPrayAlarmAddButton() {
-        scrollView.addSubview(prayAlarmAddButton)
-        prayAlarmAddButton.snp.makeConstraints {
-            $0.centerY.equalTo(prayLabel)
-            $0.right.equalToSuperview().inset(24)
-            $0.size.equalTo(28)
-        }
-    }
-    private func setupPrayTabel() {
-        scrollView.addSubview(prayTabel)
-        prayTabel.snp.makeConstraints {
-            $0.top.equalTo(prayLabel.snp.bottom).offset(8)
+    private func setupPrayAlarmView() {
+        view.addSubview(prayAlarmView)
+        prayAlarmView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(28)
             $0.left.right.equalToSuperview()
+            $0.height.equalTo(120)
         }
     }
-    private func setupQtLabel() {
-        scrollView.addSubview(qtLabel)
-        qtLabel.snp.makeConstraints {
-            $0.top.equalTo(prayTabel.snp.bottom).offset(24)
-            $0.left.equalToSuperview().inset(24)
-        }
-    }
-    private func setupQtAlarmAddButton() {
-        scrollView.addSubview(qtAlarmAddButton)
-        qtAlarmAddButton.snp.makeConstraints {
-            $0.centerY.equalTo(qtLabel)
-            $0.right.equalToSuperview().inset(24)
-            $0.size.equalTo(28)
-        }
-    }
-    private func setupQtTabel() {
-        scrollView.addSubview(qtTabel)
-        qtTabel.snp.makeConstraints {
-            $0.top.equalTo(qtLabel.snp.bottom).offset(8)
+    
+    private func setupQtAlarmView() {
+        view.addSubview(qtAlarmView)
+        qtAlarmView.snp.makeConstraints {
+            $0.top.equalTo(prayAlarmView.snp.bottom).offset(32)
             $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.height.equalTo(120)
         }
+    }
+    
+    private func setupNewAlarm() {
+        guard let vm = vm else { return }
+        let vc = NewAlarmVC()
+        vc.vm = vm
+        
+        present(vc, animated: true)
     }
     
     // MARK: - Binding
     func bind() {
+        bindViews()
         bindVM()
     }
-    private func bineViews() {
-
+    private func bindViews() {
+        prayAlarmView.setupButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.setupNewAlarm()
+            }).disposed(by: disposeBag)
+        
+        qtAlarmView.setupButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.setupNewAlarm()
+            }).disposed(by: disposeBag)
     }
-
+    
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(setNewPray: prayAlarmView.setupButton.rx.tap.asDriver(),
+                             setNewQT: qtAlarmView.setupButton.rx.tap.asDriver()
+        )
         let output = vm.transform(input: input)
         
-        output.prayTimeList
-            .drive(prayTabel.rx
-                .items(cellIdentifier: "cell", cellType: AlarmTVCell.self)) { (_, item, cell) in
-                    cell.noAlarmLabel.isHidden = !item.isEmpty
-                    cell.timeLabel.isHidden = item.isEmpty
-                    cell.ampmLabel.isHidden = item.isEmpty
-                    cell.descLabel.isHidden = item.isEmpty
-                    cell.alarmSwitch.isHidden = item.isEmpty
-                    
-                    cell.timeLabel.text = item.time
-                    cell.descLabel.text = item.desc
-                    cell.alarmSwitch.isOn = item.isOn
-                }.disposed(by: disposeBag)
+        output.prayTime
+            .drive(onNext: { [weak self] item in
+                self?.prayAlarmView.setTime(data: item?.time, isOn: item?.isOn)
+            }).disposed(by: disposeBag)
         
-        output.qtTimeList
-            .drive(qtTabel.rx
-                .items(cellIdentifier: "cell", cellType: AlarmTVCell.self)) { (_, item, cell) in
-                    cell.noAlarmLabel.isHidden = !item.isEmpty
-                    cell.timeLabel.isHidden = item.isEmpty
-                    cell.ampmLabel.isHidden = item.isEmpty
-                    cell.descLabel.isHidden = item.isEmpty
-                    cell.alarmSwitch.isHidden = item.isEmpty
-                    
-                    cell.timeLabel.text = item.time
-                    cell.descLabel.text = item.desc
-                    cell.alarmSwitch.isOn = item.isOn
-                }.disposed(by: disposeBag)
+        output.qtTime
+            .drive(onNext: { [weak self] item in
+                self?.qtAlarmView.setTime(data: item?.time, isOn: item?.isOn)
+            }).disposed(by: disposeBag)
     }
 }
 
 protocol AlarmSetVCDelegate: AnyObject {
-
+    
 }

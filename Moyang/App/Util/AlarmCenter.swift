@@ -191,8 +191,9 @@ class ReminderCenter {
     }
 }
 
-
 enum AlarmType: String {
+    case pray = "PRAY"
+    case qt = "QT"
     case rookie = "Rookie"
     case junior = "Junior"
     case advanced = "Advanced"

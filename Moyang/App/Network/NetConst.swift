@@ -61,4 +61,12 @@ class NetConst {
         static let searchPray = "/pray/search_pray"
         static let searchTag = "/pray/search_tag"
     }
+    
+    enum AlarmAPI {
+        /// post
+        static let addAlarm = "/alarm/add_alarm"
+        static let updateAlarm = "/alarm/update_alarm"
+        static let fetchAlarms = "/alarm/fetch_alarm"
+        static let deleteAlarm = "/alarm/delete_alarm"
+    }
 }

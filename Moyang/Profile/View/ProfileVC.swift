@@ -77,7 +77,7 @@ class ProfileVC: UIViewController, VCType {
     // MARK: - Binding
     func bind() {
         bindVM()
-        bineViews()
+        bindViews()
     }
     private func setupNameLabel() {
         view.addSubview(nameLabel)
@@ -132,7 +132,7 @@ class ProfileVC: UIViewController, VCType {
         }
     }
     
-    private func bineViews() {
+    private func bindViews() {
         logoutButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 UserData.shared.email = nil
