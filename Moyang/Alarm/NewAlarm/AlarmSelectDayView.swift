@@ -18,7 +18,11 @@ class AlarmSelectDayView: UIView {
         $0.textColor = .sheep1
     }
     let chcekmarkImageView = UIButton().then {
-        $0.setImage(UIImage(systemName: "checkmark")?.withTintColor(.sheep2), for: .normal)
+        $0.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        $0.tintColor = .sheep1
+    }
+    let divider = UIView().then {
+        $0.backgroundColor = .sheep4
     }
     
     // MARK: - LifeCycle
@@ -33,22 +37,34 @@ class AlarmSelectDayView: UIView {
     }
     
     private func setupUI() {
+        backgroundColor = .nightSky2.withAlphaComponent(0.3)
         setupDayLabel()
         setupChcekmarkImageView()
+        setupDivider()
     }
     
     private func setupDayLabel() {
-        addSubview(setupDayLabel)
-        setupDayLabel.snp.makeConstraints {
+        addSubview(dayLabel)
+        dayLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalToSuperview().inset(24)
         }
     }
     private func setupChcekmarkImageView() {
-        addSubview(setupDayLabel)
-        setupDayLabel.snp.makeConstraints {
+        addSubview(chcekmarkImageView)
+        chcekmarkImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().inset(24)
+            $0.size.equalTo(28)
+        }
+    }
+    private func setupDivider() {
+        addSubview(divider)
+        divider.snp.makeConstraints {
+            $0.left.equalTo(dayLabel)
+            $0.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(0.5)
         }
     }
 }

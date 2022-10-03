@@ -10,6 +10,7 @@ import RxCocoa
 import RxSwift
 import SnapKit
 import Then
+import RxGesture
 
 class NewAlarmVC: UIViewController, VCType {
     typealias VM = AlarmSetVM
@@ -36,15 +37,15 @@ class NewAlarmVC: UIViewController, VCType {
     }()
     let optionView = UIView().then {
         $0.layer.cornerRadius = 12
-        $0.backgroundColor = .nightSky2.withAlphaComponent(0.8)
+        $0.layer.masksToBounds = true
     }
-    let sundayView = AlarmSelectDayView(day: "일")
-    let monView = AlarmSelectDayView(day: "월")
-    let tuesdayView = AlarmSelectDayView(day: "화")
-    let wednesdayView = AlarmSelectDayView(day: "수")
-    let thursdayView = AlarmSelectDayView(day: "목")
-    let fridayView = AlarmSelectDayView(day: "금")
-    let saturadayView = AlarmSelectDayView(day: "토")
+    let sundayView = AlarmSelectDayView(day: "일요일마다")
+    let mondayView = AlarmSelectDayView(day: "월요일마다")
+    let tuesdayView = AlarmSelectDayView(day: "화요일마다")
+    let wednesdayView = AlarmSelectDayView(day: "수요일마다")
+    let thursdayView = AlarmSelectDayView(day: "목요일마다")
+    let fridayView = AlarmSelectDayView(day: "금요일마다")
+    let saturadayView = AlarmSelectDayView(day: "토요일마다")
     
     
     override func viewDidLoad() {
@@ -94,11 +95,11 @@ class NewAlarmVC: UIViewController, VCType {
     private func setupOptionView() {
         view.addSubview(optionView)
         optionView.snp.makeConstraints {
-            $0.top.equalTo(timePicker.snp.bottom).offset(12)
+            $0.top.equalTo(timePicker.snp.bottom).offset(24)
             $0.left.right.equalToSuperview().inset(12)
         }
         setupSundayView()
-        setupMonView()
+        setupMondayView()
         setupTuesdayView()
         setupWednesdayView()
         setupThursdayView()
@@ -109,43 +110,59 @@ class NewAlarmVC: UIViewController, VCType {
         optionView.addSubview(sundayView)
         sundayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.height.equalTo(48)
         }
     }
-    private func setupMonView() {
-        optionView.addSubview(monView)
-        monView.snp.makeConstraints {
+    private func setupMondayView() {
+        optionView.addSubview(mondayView)
+        mondayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
+            $0.height.equalTo(48)
+            $0.top.equalTo(sundayView.snp.bottom)
         }
     }
     private func setupTuesdayView() {
         optionView.addSubview(tuesdayView)
         tuesdayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
+            $0.height.equalTo(48)
+            $0.top.equalTo(mondayView.snp.bottom)
         }
     }
     private func setupWednesdayView() {
         optionView.addSubview(wednesdayView)
         wednesdayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
+            $0.height.equalTo(48)
+            $0.top.equalTo(tuesdayView.snp.bottom)
         }
     }
     private func setupThursdayView() {
         optionView.addSubview(thursdayView)
         thursdayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
+            $0.height.equalTo(48)
+            $0.top.equalTo(wednesdayView.snp.bottom)
         }
     }
     private func setupFridayView() {
         optionView.addSubview(fridayView)
         fridayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
+            $0.height.equalTo(48)
+            $0.top.equalTo(thursdayView.snp.bottom)
         }
     }
     private func setupSaturadayView() {
         optionView.addSubview(saturadayView)
         saturadayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
+            $0.height.equalTo(48)
+            $0.top.equalTo(fridayView.snp.bottom)
+            $0.bottom.equalToSuperview()
         }
+        saturadayView.divider.isHidden = true
     }
     
 
@@ -159,12 +176,53 @@ class NewAlarmVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(save: saveButton.rx.tap.asDriver())
+        let sunGesture = sundayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let monGesture = mondayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let tueGesture = tuesdayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let wedGesture = wednesdayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let thuGesture = thursdayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let friGesture = fridayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let satGesture = saturadayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        
+        let input = VM.Input(save: saveButton.rx.tap.asDriver(),
+                             setTime: timePicker.rx.date.asDriver(),
+                             toggleSun: sunGesture,
+                             toggleMon: monGesture,
+                             toggleTue: tueGesture,
+                             toggleWed: wedGesture,
+                             toggleThu: thuGesture,
+                             toggleFri: friGesture,
+                             toggleSat: satGesture
+        )
         let output = vm.transform(input: input)
         
         output.newAlarmTitle
             .drive(titleLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        
+        output.isSun.map { !$0 }
+            .drive(sundayView.chcekmarkImageView.rx.isHidden)
+            .disposed(by: disposeBag)
+        output.isMon.map { !$0 }
+            .drive(mondayView.chcekmarkImageView.rx.isHidden)
+            .disposed(by: disposeBag)
+        output.isTue.map { !$0 }
+            .drive(tuesdayView.chcekmarkImageView.rx.isHidden)
+            .disposed(by: disposeBag)
+        output.isWed.map { !$0 }
+            .drive(wednesdayView.chcekmarkImageView.rx.isHidden)
+            .disposed(by: disposeBag)
+        output.isThu.map { !$0 }
+            .drive(thursdayView.chcekmarkImageView.rx.isHidden)
+            .disposed(by: disposeBag)
+        output.isFri.map { !$0 }
+            .drive(fridayView.chcekmarkImageView.rx.isHidden)
+            .disposed(by: disposeBag)
+        output.isSat.map { !$0 }
+            .drive(saturadayView.chcekmarkImageView.rx.isHidden)
+            .disposed(by: disposeBag)
+        
     }
 }
 

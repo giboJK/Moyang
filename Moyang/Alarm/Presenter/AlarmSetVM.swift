@@ -13,9 +13,19 @@ class AlarmSetVM: VMType {
     
     let useCase: AlarmUseCase
     
-    private let newAlarmTitle = BehaviorRelay<String>(value: "")
     private let prayTime = BehaviorRelay<AlarmItem?>(value: nil)
     private let qtTime = BehaviorRelay<AlarmItem?>(value: nil)
+    
+    // NewAlarm
+    private let newAlarmTitle = BehaviorRelay<String>(value: "")
+    private let isSun = BehaviorRelay<Bool>(value: false)
+    private let isMon = BehaviorRelay<Bool>(value: false)
+    private let isTue = BehaviorRelay<Bool>(value: false)
+    private let isWed = BehaviorRelay<Bool>(value: false)
+    private let isThu = BehaviorRelay<Bool>(value: false)
+    private let isFri = BehaviorRelay<Bool>(value: false)
+    private let isSat = BehaviorRelay<Bool>(value: false)
+    
 
     init(useCase: AlarmUseCase) {
         self.useCase = useCase
@@ -53,6 +63,10 @@ class AlarmSetVM: VMType {
     private func fetchAlarms() {
         useCase.fetchAlarms()
     }
+    
+    private func saveAlarm() {
+        useCase.addAlarm(time: "", isOn: true)
+    }
 }
 
 extension AlarmSetVM {
@@ -60,12 +74,28 @@ extension AlarmSetVM {
         var setNewPray: Driver<Void> = .empty()
         var setNewQT: Driver<Void> = .empty()
         var save: Driver<Void> = .empty()
+        var setTime: Driver<Date> = .empty()
+        var toggleSun: Driver<Void> = .empty()
+        var toggleMon: Driver<Void> = .empty()
+        var toggleTue: Driver<Void> = .empty()
+        var toggleWed: Driver<Void> = .empty()
+        var toggleThu: Driver<Void> = .empty()
+        var toggleFri: Driver<Void> = .empty()
+        var toggleSat: Driver<Void> = .empty()
     }
 
     struct Output {
         let prayTime: Driver<AlarmItem?>
         let qtTime: Driver<AlarmItem?>
+        
         let newAlarmTitle: Driver<String>
+        let isSun: Driver<Bool>
+        let isMon: Driver<Bool>
+        let isTue: Driver<Bool>
+        let isWed: Driver<Bool>
+        let isThu: Driver<Bool>
+        let isFri: Driver<Bool>
+        let isSat: Driver<Bool>
     }
 
     func transform(input: Input) -> Output {
@@ -79,9 +109,83 @@ extension AlarmSetVM {
                 self?.setType(type: .qt)
             }).disposed(by: disposeBag)
         
+        input.save
+            .drive(onNext: { [weak self] _ in
+                self?.saveAlarm()
+            }).disposed(by: disposeBag)
+        
+        input.setTime
+            .drive(onNext: { [weak self] date in
+                Log.e(date)
+            }).disposed(by: disposeBag)
+        
+        input.toggleSun
+            .drive(onNext: { [weak self] _  in
+                guard let self = self else { return }
+                var isChecked = self.isSun.value
+                isChecked.toggle()
+                self.isSun.accept(isChecked)
+            }).disposed(by: disposeBag)
+        
+        input.toggleMon
+            .drive(onNext: { [weak self] _  in
+                guard let self = self else { return }
+                var isChecked = self.isMon.value
+                isChecked.toggle()
+                self.isMon.accept(isChecked)
+            }).disposed(by: disposeBag)
+        
+        input.toggleTue
+            .drive(onNext: { [weak self] _  in
+                guard let self = self else { return }
+                var isChecked = self.isTue.value
+                isChecked.toggle()
+                self.isTue.accept(isChecked)
+            }).disposed(by: disposeBag)
+    
+        input.toggleWed
+            .drive(onNext: { [weak self] _  in
+                guard let self = self else { return }
+                var isChecked = self.isWed.value
+                isChecked.toggle()
+                self.isWed.accept(isChecked)
+            }).disposed(by: disposeBag)
+        
+        input.toggleThu
+            .drive(onNext: { [weak self] _  in
+                guard let self = self else { return }
+                var isChecked = self.isThu.value
+                isChecked.toggle()
+                self.isThu.accept(isChecked)
+            }).disposed(by: disposeBag)
+        
+        input.toggleFri
+            .drive(onNext: { [weak self] _  in
+                guard let self = self else { return }
+                var isChecked = self.isFri.value
+                isChecked.toggle()
+                self.isFri.accept(isChecked)
+            }).disposed(by: disposeBag)
+        
+        input.toggleSat
+            .drive(onNext: { [weak self] _  in
+                guard let self = self else { return }
+                var isChecked = self.isSat.value
+                isChecked.toggle()
+                self.isSat.accept(isChecked)
+            }).disposed(by: disposeBag)
+        
         return Output(prayTime: prayTime.asDriver(),
                       qtTime: qtTime.asDriver(),
-                      newAlarmTitle: newAlarmTitle.asDriver()
+                      
+                      newAlarmTitle: newAlarmTitle.asDriver(),
+                      isSun: isSun.asDriver(),
+                      isMon: isMon.asDriver(),
+                      isTue: isTue.asDriver(),
+                      isWed: isWed.asDriver(),
+                      isThu: isThu.asDriver(),
+                      isFri: isFri.asDriver(),
+                      isSat: isSat.asDriver()
         )
     }
     
