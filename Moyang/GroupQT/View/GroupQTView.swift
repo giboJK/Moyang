@@ -18,12 +18,12 @@ class GroupQTView: UIView {
     
     // MARK: - UI
     let dateLabel = UILabel().then {
-        $0.text = "오늘"
+        $0.text = "아직"
         $0.font = .systemFont(ofSize: 17, weight: .regular)
         $0.textColor = .sheep2
     }
     let verseLabel = UILabel().then {
-        $0.text = "오늘"
+        $0.text = "준비중이에요 :)"
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep2
     }
@@ -91,12 +91,12 @@ class GroupQTView: UIView {
             
         let output = vm.transform(input: input)
         
-        output.qtDate
-            .drive(dateLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.bibleVerses
-            .drive(verseLabel.rx.text)
-            .disposed(by: disposeBag)
+//        output.qtDate
+//            .drive(dateLabel.rx.text)
+//            .disposed(by: disposeBag)
+//
+//        output.bibleVerses
+//            .drive(verseLabel.rx.text)
+//            .disposed(by: disposeBag)
     }
 }

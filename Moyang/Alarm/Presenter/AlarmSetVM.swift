@@ -117,6 +117,57 @@ class AlarmSetVM: VMType {
         }
         useCase.deleteAlarm(alarmID: id)
     }
+    
+    private func setNewAlarm(type: AlarmType) {
+        if type == .pray {
+            newAlarmTitle.accept("기도알람 추가")
+        } else {
+            newAlarmTitle.accept("묵상알람 추가")
+        }
+        isEditing.accept(false)
+        alarmType = type
+        setupNewAlarm.accept(())
+    }
+    
+    private func editAlarm(type: AlarmType) {
+        if type == .pray {
+            newAlarmTitle.accept("기도알람 편집")
+            if let pray = prayTime.value {
+                isSun.accept(pray.isSun)
+                isMon.accept(pray.isMon)
+                isTue.accept(pray.isTue)
+                isWed.accept(pray.isWed)
+                isThu.accept(pray.isThu)
+                isFri.accept(pray.isFri)
+                isSat.accept(pray.isSat)
+            }
+        } else {
+            newAlarmTitle.accept("묵상알람 편집")
+            if let qt = qtTime.value {
+                isSun.accept(qt.isSun)
+                isMon.accept(qt.isMon)
+                isTue.accept(qt.isTue)
+                isWed.accept(qt.isWed)
+                isThu.accept(qt.isThu)
+                isFri.accept(qt.isFri)
+                isSat.accept(qt.isSat)
+            }
+        }
+        alarmType = type
+        isEditing.accept(true)
+        editAlarm.accept(())
+    }
+    
+    private func resetEditing() {
+        isEditing.accept(false)
+        isSun.accept(false)
+        isMon.accept(false)
+        isTue.accept(false)
+        isWed.accept(false)
+        isThu.accept(false)
+        isFri.accept(false)
+        isSat.accept(false)
+    }
 }
 
 extension AlarmSetVM {
@@ -163,54 +214,22 @@ extension AlarmSetVM {
     func transform(input: Input) -> Output {
         input.setNewPray
             .drive(onNext: { [weak self] _ in
-                self?.newAlarmTitle.accept("기도알람 추가")
-                self?.isEditing.accept(false)
-                self?.alarmType = .pray
-                self?.setupNewAlarm.accept(())
+                self?.setNewAlarm(type: .pray)
             }).disposed(by: disposeBag)
         
         input.setNewQT
             .drive(onNext: { [weak self] _ in
-                self?.newAlarmTitle.accept("묵상알람 추가")
-                self?.isEditing.accept(false)
-                self?.alarmType = .qt
-                self?.setupNewAlarm.accept(())
+                self?.setNewAlarm(type: .qt)
             }).disposed(by: disposeBag)
         
         input.editPray
             .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.newAlarmTitle.accept("기도알람 편집")
-                if let pray = self.prayTime.value {
-                    self.isSun.accept(pray.isSun)
-                    self.isMon.accept(pray.isMon)
-                    self.isTue.accept(pray.isTue)
-                    self.isWed.accept(pray.isWed)
-                    self.isThu.accept(pray.isThu)
-                    self.isFri.accept(pray.isFri)
-                    self.isSat.accept(pray.isSat)
-                }
-                self.alarmType = .pray
-                self.isEditing.accept(true)
-                self.editAlarm.accept(())
+                self?.editAlarm(type: .pray)
             }).disposed(by: disposeBag)
         
         input.editQT
             .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.newAlarmTitle.accept("묵상알람 편집")
-                if let qt = self.qtTime.value {
-                    self.isSun.accept(qt.isSun)
-                    self.isMon.accept(qt.isMon)
-                    self.isTue.accept(qt.isTue)
-                    self.isWed.accept(qt.isWed)
-                    self.isThu.accept(qt.isThu)
-                    self.isFri.accept(qt.isFri)
-                    self.isSat.accept(qt.isSat)
-                }
-                self.alarmType = .qt
-                self.isEditing.accept(true)
-                self.editAlarm.accept(())
+                self?.editAlarm(type: .qt)
             }).disposed(by: disposeBag)
         
         input.save
@@ -236,69 +255,48 @@ extension AlarmSetVM {
         input.toggleSun
             .drive(onNext: { [weak self] _  in
                 guard let self = self else { return }
-                var isChecked = self.isSun.value
-                isChecked.toggle()
-                self.isSun.accept(isChecked)
+                self.isSun.accept(!self.isSun.value)
             }).disposed(by: disposeBag)
         
         input.toggleMon
             .drive(onNext: { [weak self] _  in
                 guard let self = self else { return }
-                var isChecked = self.isMon.value
-                isChecked.toggle()
-                self.isMon.accept(isChecked)
+                self.isMon.accept(!self.isMon.value)
             }).disposed(by: disposeBag)
         
         input.toggleTue
             .drive(onNext: { [weak self] _  in
                 guard let self = self else { return }
-                var isChecked = self.isTue.value
-                isChecked.toggle()
-                self.isTue.accept(isChecked)
+                self.isTue.accept(!self.isTue.value)
             }).disposed(by: disposeBag)
     
         input.toggleWed
             .drive(onNext: { [weak self] _  in
                 guard let self = self else { return }
-                var isChecked = self.isWed.value
-                isChecked.toggle()
-                self.isWed.accept(isChecked)
+                self.isWed.accept(!self.isWed.value)
             }).disposed(by: disposeBag)
         
         input.toggleThu
             .drive(onNext: { [weak self] _  in
                 guard let self = self else { return }
-                var isChecked = self.isThu.value
-                isChecked.toggle()
-                self.isThu.accept(isChecked)
+                self.isThu.accept(!self.isThu.value)
             }).disposed(by: disposeBag)
         
         input.toggleFri
             .drive(onNext: { [weak self] _  in
                 guard let self = self else { return }
-                var isChecked = self.isFri.value
-                isChecked.toggle()
-                self.isFri.accept(isChecked)
+                self.isFri.accept(!self.isFri.value)
             }).disposed(by: disposeBag)
         
         input.toggleSat
             .drive(onNext: { [weak self] _  in
                 guard let self = self else { return }
-                var isChecked = self.isSat.value
-                isChecked.toggle()
-                self.isSat.accept(isChecked)
+                self.isSat.accept(!self.isSat.value)
             }).disposed(by: disposeBag)
         
         input.resetEditing
             .drive(onNext: { [weak self] _ in
-                self?.isEditing.accept(false)
-                self?.isSun.accept(false)
-                self?.isMon.accept(false)
-                self?.isTue.accept(false)
-                self?.isWed.accept(false)
-                self?.isThu.accept(false)
-                self?.isFri.accept(false)
-                self?.isSat.accept(false)
+                self?.resetEditing()
             }).disposed(by: disposeBag)
         
         return Output(prayTime: prayTime.asDriver(),

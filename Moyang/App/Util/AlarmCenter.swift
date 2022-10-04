@@ -8,186 +8,82 @@
 import Foundation
 import UserNotifications
 
-class ReminderCenter {
+class AlarmCenter {
     
-    static let shared = ReminderCenter()
+    static let shared = AlarmCenter()
     
     let identifier = "MOYANG_NOTIFICATION_SCAN"
     
     let title = "모여라 양들아"
-    let body = "기도할 시간이에요. 하나님과 대화를 나누어 볼까요?"
+    let bodyPray = "기도할 시간이에요."
+    let bodyQT = "묵상할 시간이에요."
     
-    let dateKey = "MOYANG_NOTI_DATE"
-    var date: Date {
-        get {
-            return (UserDefaults.standard.object(forKey: dateKey) as? Date) ?? Date(year: 2019, month: 1, day: 1, hour: 21, minute: 0)
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: dateKey)
-        }
-    }
+    let moyangPRAYNotiKey = "MOYANG_NOTI_PRAY"
+    let moyangQTNotiKey = "MOYANG_NOTI_QT"
     
-    func addNoti(components: DateComponents) {
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-        content.sound = .default
-        
-        let weekOfMonth = components.weekOfMonth!
-        let weekDay = components.weekday!
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
-        let request = UNNotificationRequest(identifier: "\(self.identifier)\(weekOfMonth)/\(weekDay)", content: content, trigger: trigger)
-        
-        let center = UNUserNotificationCenter.current()
-        center.add(request) { _ in
-        }
-    }
-    // 한 주 중 2일에 한 번 짝수날
-    func addNotiEven2days(components: DateComponents, weekOfMonth: Int) {
-        var dateComponents = components
-        dateComponents.weekOfMonth = weekOfMonth
-        
-        dateComponents.weekday = 2
-        addNoti(components: dateComponents)
-        
-        dateComponents.weekday = 4
-        addNoti(components: dateComponents)
-        
-        dateComponents.weekday = 6
-        addNoti(components: dateComponents)
-    }
-    
-    // 한 주 중 2일에 한 번 홀수날
-    func addNotiOdd2Days(components: DateComponents, weekOfMonth: Int) {
-        var dateComponents = components
-        dateComponents.weekOfMonth = weekOfMonth
-        
-        dateComponents.weekday = 1
-        addNoti(components: dateComponents)
-        
-        dateComponents.weekday = 3
-        addNoti(components: dateComponents)
-        
-        dateComponents.weekday = 5
-        addNoti(components: dateComponents)
-    }
-    
-    func addNoti3Days147(components: DateComponents, weekOfMonth: Int) {
-        var dateComponents = components
-        dateComponents.weekOfMonth = weekOfMonth
-        
-        dateComponents.weekday = 1
-        addNoti(components: dateComponents)
-        
-        dateComponents.weekday = 4
-        addNoti(components: dateComponents)
-    }
-    
-    func addNoti3Days36(components: DateComponents, weekOfMonth: Int) {
-        var dateComponents = components
-        dateComponents.weekOfMonth = weekOfMonth
-        
-        dateComponents.weekday = 3
-        addNoti(components: dateComponents)
-        
-        dateComponents.weekday = 6
-        addNoti(components: dateComponents)
-    }
-    
-    func addNoti3Days25(components: DateComponents, weekOfMonth: Int) {
-        var dateComponents = components
-        dateComponents.weekOfMonth = weekOfMonth
-        
-        dateComponents.weekday = 2
-        addNoti(components: dateComponents)
-        
-        dateComponents.weekday = 5
-        addNoti(components: dateComponents)
-    }
-    
-    func setNotification(type: AlarmType, time: String, ampm: String) {
-        var fixedTime = ""
+    func setNotification(type: AlarmType, time: String, day: String) {
         let timeComponents = time.components(separatedBy: ":")
-        var hourString = ""
-        let minString = timeComponents[1]
-        if ampm == "PM" {
-            if var hourInt = Int(timeComponents[0]) {
-                if hourInt != 12 {
-                    hourInt += 12
-                }
-                hourString = "\(hourInt)"
-            } else {
-                Log.e("Time Error")
-                return
-            }
-        } else {
-            if var hourInt = Int(timeComponents[0]) {
-                if hourInt == 12 {
-                    hourInt = 00
-                }
-                hourString = "\(hourInt)"
+        if timeComponents.count < 2 { Log.e("Time isn't set correctly"); return }
+        
+        let hour = timeComponents[0]
+        let min = timeComponents[1]
+        
+        var dateComponents = DateComponents()
+        dateComponents.hour = Int(hour)
+        dateComponents.minute = Int(min)
+        var dayInt = [Int]()
+        day.forEach { c in
+            if let intVal = c.wholeNumberValue {
+                dayInt.append(intVal + 1)
             }
         }
-        fixedTime = hourString + ":" + minString
-        setNotification(type: type, time: fixedTime)
-    }
-    func setNotification(type: AlarmType, time: String) {
-        removeNotification()
-        Log.d("setNotification - \(type.rawValue), \(time)")
-        DispatchQueue.main.async {
-            let timeComponents = time.components(separatedBy: ":")
-            if timeComponents.count < 2 { Log.e("Time isn't set correctly"); return }
-            
-            let weekOfMonthSet = [1, 2, 3, 4, 5, 6]
-            let timeHour = timeComponents[0]
-            let timeMinute = timeComponents[1]
-            
-            var dateComponents = DateComponents()
-            dateComponents.hour = Int(timeHour)
-            dateComponents.minute = Int(timeMinute)
+        for i in dayInt {
+            dateComponents.weekday = i
             
             let content = UNMutableNotificationContent()
-            content.title = self.title
-            content.body = self.body
+            content.title = title
+            var identifier = ""
+            if type == .pray {
+                content.body = bodyPray
+                identifier = moyangPRAYNotiKey + "\(i)"
+            } else if type == .qt {
+                content.body = bodyQT
+                identifier = moyangQTNotiKey + "\(i)"
+            }
             content.sound = .default
             
-            if type == .rookie {
-            } else if type == .junior {
-            } else if type == .advanced {
-                for i in weekOfMonthSet {
-                    dateComponents.weekOfMonth = i
-                    dateComponents.weekday = 1
-                    self.addNoti(components: dateComponents)
-                    
-                    dateComponents.weekday = 2
-                    self.addNoti(components: dateComponents)
-                    
-                    dateComponents.weekday = 3
-                    self.addNoti(components: dateComponents)
-                    
-                    dateComponents.weekday = 4
-                    self.addNoti(components: dateComponents)
-                    
-                    dateComponents.weekday = 5
-                    self.addNoti(components: dateComponents)
-                    
-                    dateComponents.weekday = 6
-                    self.addNoti(components: dateComponents)
-                    
-                    dateComponents.weekday = 7
-                    self.addNoti(components: dateComponents)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+            
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            let center = UNUserNotificationCenter.current()
+            center.add(request, withCompletionHandler: { (error) in
+                if error != nil {
+                    // Handle the error
                 }
-            }
+            })
         }
     }
     
-    func removeNotification() {
+    func removeAllNotification() {
         UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
             Log.d(requests)
         }
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
+    
+    func removeNotification(type: AlarmType) {
+        var ids = [String]()
+        if type == .pray {
+            for i in 1...7 {
+                ids.append(moyangPRAYNotiKey + "\(i)")
+            }
+        } else {
+            for i in 1...7 {
+                ids.append(moyangQTNotiKey + "\(i)")
+            }
+        }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ids)
     }
 }
 

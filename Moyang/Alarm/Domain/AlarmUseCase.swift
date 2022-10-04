@@ -22,6 +22,7 @@ class AlarmUseCase {
     // MARK: - Lifecycle
     init(repo: AlarmRepo) {
         self.repo = repo
+        AlarmCenter.shared.removeAllNotification()
     }
     
     func addAlarm(time: String, isOn: Bool, type: AlarmType, day: String) {
@@ -35,6 +36,7 @@ class AlarmUseCase {
                     alarms.insert(response.data, at: 0)
                     self.alarms.accept(alarms)
                     self.isSuccess.accept(())
+                    AlarmCenter.shared.setNotification(type: type, time: time, day: day)
                 } else {
                     self.error.accept(.writingFailed)
                     self.isFailure.accept(())
@@ -58,6 +60,10 @@ class AlarmUseCase {
                     alarms.insert(response.data, at: 0)
                     self.alarms.accept(alarms)
                     self.isSuccess.accept(())
+                    if let type = AlarmType(rawValue: response.data.type.uppercased()) {
+                        AlarmCenter.shared.removeNotification(type: type)
+                        AlarmCenter.shared.setNotification(type: type, time: time, day: day)
+                    }
                 } else {
                     self.error.accept(.writingFailed)
                     self.isFailure.accept(())
@@ -95,6 +101,10 @@ class AlarmUseCase {
             case .success(let response):
                 if response.code == 0 {
                     var alarms = self.alarms.value
+                    if let typeStr = alarms.first(where: { $0.id == alarmID })?.type,
+                       let type = AlarmType(rawValue: typeStr.uppercased()) {
+                        AlarmCenter.shared.removeNotification(type: type)
+                    }
                     alarms.removeAll { $0.id == alarmID }
                     self.alarms.accept(alarms)
                     self.isSuccess.accept(())
