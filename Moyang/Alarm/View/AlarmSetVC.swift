@@ -89,6 +89,8 @@ class AlarmSetVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] in
                 self?.setupNewAlarm()
             }).disposed(by: disposeBag)
+        
+        
     }
     
     private func bindVM() {

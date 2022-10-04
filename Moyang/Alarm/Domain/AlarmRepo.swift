@@ -54,6 +54,6 @@ class FetchAlarmsResponse: BaseResponse {
     }
     
     enum CodingKeys: String, CodingKey {
-        case list
+        case list = "alarms"
     }
 }

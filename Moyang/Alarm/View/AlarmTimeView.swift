@@ -26,7 +26,7 @@ class AlarmTimeView: UIView {
     }
     let ampmLabel = UILabel().then {
         $0.text = "오전"
-        $0.font = .systemFont(ofSize: 17, weight: .semibold)
+        $0.font = .systemFont(ofSize: 18, weight: .semibold)
         $0.textColor = .sheep1
     }
     let setupButton = UIButton().then {
@@ -34,6 +34,9 @@ class AlarmTimeView: UIView {
         $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         $0.backgroundColor = .nightSky2.withAlphaComponent(0.7)
         $0.layer.cornerRadius = 12
+    }
+    let alarmSwitch = UISwitch().then {
+        $0.isHidden = true
     }
     
     // MARK: - LifeCycle
@@ -50,6 +53,7 @@ class AlarmTimeView: UIView {
     private func setupUI() {
         setupTitleLabel()
         setupAlarmView()
+        setupAlarmSwitch()
     }
     
     private func setupTitleLabel() {
@@ -98,7 +102,7 @@ class AlarmTimeView: UIView {
     private func setupAmpmLabel() {
         alarmView.addSubview(ampmLabel)
         ampmLabel.snp.makeConstraints {
-            $0.bottom.equalTo(alarmLabel).inset(2)
+            $0.bottom.equalTo(alarmLabel).inset(6)
             $0.left.equalTo(alarmLabel.snp.right).offset(4)
         }
     }
@@ -110,20 +114,39 @@ class AlarmTimeView: UIView {
             $0.height.equalTo(36)
         }
     }
+    private func setupAlarmSwitch() {
+        alarmView.addSubview(alarmSwitch)
+        alarmSwitch.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview().inset(24)
+            $0.height.equalTo(36)
+            $0.width.equalTo(60)
+        }
+    }
     
     func setTime(data: String?, isOn: Bool?) {
-        if let data = data {
-            alarmLabel.text = data
+        if let data = data, let hour = data.split(separator: ":").first, let min = data.split(separator: ":").last,
+           let hourInt = Int(hour), let minInt = Int(min) {
+            
+            if hourInt >= 12 {
+                ampmLabel.text = "오후"
+            } else {
+                ampmLabel.text = "오전"
+            }
+            if hourInt > 12 {
+                alarmLabel.text = String(format: "%02d", hourInt - 12) + ":" + String(format: "%02d", minInt)
+            } else {
+                alarmLabel.text = data
+            }
             ampmLabel.isHidden = false
+            alarmSwitch.isHidden = false
+            alarmSwitch.isOn = isOn ?? false
+            setupButton.isHidden = true
         } else {
             alarmLabel.text = "알람 없음"
             ampmLabel.isHidden = true
-        }
-        
-        if let isOn = isOn {
-            
-        } else {
-            
+            alarmSwitch.isHidden = true
+            setupButton.isHidden = false
         }
     }
 }

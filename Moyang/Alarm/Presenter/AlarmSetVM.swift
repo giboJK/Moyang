@@ -58,11 +58,11 @@ class AlarmSetVM: VMType {
             .subscribe(onNext: { [weak self] list in
                 guard let self = self else { return }
                 if let pray = list.first(where: { $0.type == AlarmType.pray.rawValue.uppercased() }) {
-                    
+                    self.prayTime.accept(AlarmItem(time: pray.time, isOn: pray.isOn))
                 }
                 
                 if let qt = list.first(where: { $0.type == AlarmType.qt.rawValue.uppercased() }) {
-                    
+                    self.qtTime.accept(AlarmItem(time: qt.time, isOn: qt.isOn))
                 }
             }).disposed(by: disposeBag)
         
@@ -216,12 +216,10 @@ extension AlarmSetVM {
     struct AlarmItem {
         let time: String
         let isOn: Bool
-        let isEmpty: Bool
         
-        init(time: String, isOn: Bool, isEmpty: Bool) {
+        init(time: String, isOn: Bool) {
             self.time = time
             self.isOn = isOn
-            self.isEmpty = isEmpty
         }
     }
 }
