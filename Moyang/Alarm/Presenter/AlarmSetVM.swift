@@ -17,6 +17,10 @@ class AlarmSetVM: VMType {
     private let qtTime = BehaviorRelay<AlarmItem?>(value: nil)
     
     // NewAlarm
+    private let setupNewAlarm = BehaviorRelay<Void>(value: ())
+    private let editAlarm = BehaviorRelay<Void>(value: ())
+    private let isEditing = BehaviorRelay<Bool>(value: false)
+    
     private let newAlarmTitle = BehaviorRelay<String>(value: "")
     private let isSun = BehaviorRelay<Bool>(value: false)
     private let isMon = BehaviorRelay<Bool>(value: false)
@@ -29,8 +33,8 @@ class AlarmSetVM: VMType {
     private let addingSuccess = BehaviorRelay<Void>(value: ())
     private let addingFailure = BehaviorRelay<Void>(value: ())
     
-    var newAlarmTime = Date().toString("HH:mm")
-    var newAlarmType = AlarmType.pray
+    var alarmTime = Date().toString("HH:mm")
+    var alarmType = AlarmType.pray
     
 
     init(useCase: AlarmUseCase) {
@@ -41,28 +45,16 @@ class AlarmSetVM: VMType {
 
     deinit { Log.i(self) }
     
-    func setType(type: AlarmType) {
-        newAlarmType = type
-        switch type {
-        case .pray:
-            newAlarmTitle.accept("새 기도알람")
-        case .qt:
-            newAlarmTitle.accept("새 묵상알람")
-        default:
-            break
-        }
-    }
-    
     private func bind() {
         useCase.alarms
             .subscribe(onNext: { [weak self] list in
                 guard let self = self else { return }
                 if let pray = list.first(where: { $0.type == AlarmType.pray.rawValue.uppercased() }) {
-                    self.prayTime.accept(AlarmItem(time: pray.time, isOn: pray.isOn))
+                    self.prayTime.accept(AlarmItem(id: pray.id, time: pray.time, isOn: pray.isOn))
                 }
                 
                 if let qt = list.first(where: { $0.type == AlarmType.qt.rawValue.uppercased() }) {
-                    self.qtTime.accept(AlarmItem(time: qt.time, isOn: qt.isOn))
+                    self.qtTime.accept(AlarmItem(id: qt.id, time: qt.time, isOn: qt.isOn))
                 }
             }).disposed(by: disposeBag)
         
@@ -83,7 +75,11 @@ class AlarmSetVM: VMType {
     }
     
     private func saveAlarm() {
-        useCase.addAlarm(time: newAlarmTime, isOn: true, type: newAlarmType)
+        useCase.addAlarm(time: alarmTime, isOn: true, type: alarmType)
+    }
+    
+    private func deleteAlarm() {
+        
     }
 }
 
@@ -91,7 +87,11 @@ extension AlarmSetVM {
     struct Input {
         var setNewPray: Driver<Void> = .empty()
         var setNewQT: Driver<Void> = .empty()
+        var editPray: Driver<Void> = .empty()
+        var editQT: Driver<Void> = .empty()
+
         var save: Driver<Void> = .empty()
+        var delete: Driver<Void> = .empty()
         var setTime: Driver<Date> = .empty()
         var toggleSun: Driver<Void> = .empty()
         var toggleMon: Driver<Void> = .empty()
@@ -105,6 +105,10 @@ extension AlarmSetVM {
     struct Output {
         let prayTime: Driver<AlarmItem?>
         let qtTime: Driver<AlarmItem?>
+        
+        let setupNewAlarm: Driver<Void>
+        let editAlarm: Driver<Void>
+        let isEditing: Driver<Bool>
         
         let newAlarmTitle: Driver<String>
         let isSun: Driver<Bool>
@@ -122,12 +126,30 @@ extension AlarmSetVM {
     func transform(input: Input) -> Output {
         input.setNewPray
             .drive(onNext: { [weak self] _ in
-                self?.setType(type: .pray)
+                self?.newAlarmTitle.accept("기도알람 추가")
+                self?.isEditing.accept(false)
+                self?.setupNewAlarm.accept(())
             }).disposed(by: disposeBag)
         
         input.setNewQT
             .drive(onNext: { [weak self] _ in
-                self?.setType(type: .qt)
+                self?.newAlarmTitle.accept("묵상알람 추가")
+                self?.isEditing.accept(false)
+                self?.setupNewAlarm.accept(())
+            }).disposed(by: disposeBag)
+        
+        input.editPray
+            .drive(onNext: { [weak self] _ in
+                self?.newAlarmTitle.accept("기도알람 편집")
+                self?.isEditing.accept(true)
+                self?.editAlarm.accept(())
+            }).disposed(by: disposeBag)
+        
+        input.editQT
+            .drive(onNext: { [weak self] _ in
+                self?.newAlarmTitle.accept("묵상알람 편집")
+                self?.isEditing.accept(true)
+                self?.editAlarm.accept(())
             }).disposed(by: disposeBag)
         
         input.save
@@ -135,9 +157,14 @@ extension AlarmSetVM {
                 self?.saveAlarm()
             }).disposed(by: disposeBag)
         
+        input.delete
+            .drive(onNext: { [weak self] _ in
+                self?.deleteAlarm()
+            }).disposed(by: disposeBag)
+        
         input.setTime
             .drive(onNext: { [weak self] date in
-                self?.newAlarmTime = date.toString("HH:mm")
+                self?.alarmTime = date.toString("HH:mm")
             }).disposed(by: disposeBag)
         
         input.toggleSun
@@ -198,6 +225,9 @@ extension AlarmSetVM {
         
         return Output(prayTime: prayTime.asDriver(),
                       qtTime: qtTime.asDriver(),
+                      setupNewAlarm: setupNewAlarm.asDriver(),
+                      editAlarm: editAlarm.asDriver(),
+                      isEditing: isEditing.asDriver(),
                       
                       newAlarmTitle: newAlarmTitle.asDriver(),
                       isSun: isSun.asDriver(),
@@ -214,10 +244,12 @@ extension AlarmSetVM {
     }
     
     struct AlarmItem {
+        let id: String
         let time: String
         let isOn: Bool
         
-        init(time: String, isOn: Bool) {
+        init(id: String, time: String, isOn: Bool) {
+            self.id = id
             self.time = time
             self.isOn = isOn
         }

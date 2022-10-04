@@ -38,6 +38,7 @@ class AlarmTimeView: UIView {
     let alarmSwitch = UISwitch().then {
         $0.isHidden = true
     }
+    let tapBounds = UIView()
     
     // MARK: - LifeCycle
     init(title: String) {
@@ -54,6 +55,7 @@ class AlarmTimeView: UIView {
         setupTitleLabel()
         setupAlarmView()
         setupAlarmSwitch()
+        setupTapBounds()
     }
     
     private func setupTitleLabel() {
@@ -121,6 +123,14 @@ class AlarmTimeView: UIView {
             $0.right.equalToSuperview().inset(24)
             $0.height.equalTo(36)
             $0.width.equalTo(60)
+        }
+    }
+    
+    private func setupTapBounds() {
+        addSubview(tapBounds)
+        tapBounds.snp.makeConstraints {
+            $0.top.left.bottom.equalTo(alarmView)
+            $0.right.equalToSuperview().inset(88)
         }
     }
     

@@ -87,14 +87,14 @@ class NewAlarmVC: UIViewController, VCType {
     private func setupSaveButton() {
         view.addSubview(saveButton)
         saveButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(12)
+            $0.right.equalToSuperview().inset(20)
             $0.centerY.equalTo(titleLabel)
         }
     }
     private func setupDeleteButton() {
         view.addSubview(deleteButton)
         deleteButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(12)
+            $0.left.equalToSuperview().inset(20)
             $0.centerY.equalTo(titleLabel)
         }
     }
@@ -199,6 +199,7 @@ class NewAlarmVC: UIViewController, VCType {
         let satGesture = saturadayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         
         let input = VM.Input(save: saveButton.rx.tap.asDriver(),
+                             delete: deleteButton.rx.tap.asDriver(),
                              setTime: timePicker.rx.date.asDriver(),
                              toggleSun: sunGesture,
                              toggleMon: monGesture,
@@ -214,6 +215,9 @@ class NewAlarmVC: UIViewController, VCType {
             .drive(titleLabel.rx.text)
             .disposed(by: disposeBag)
         
+        output.isEditing.map { !$0 }
+            .drive(deleteButton.rx.isHidden)
+            .disposed(by: disposeBag)
         
         output.isSun.map { !$0 }
             .drive(sundayView.chcekmarkImageView.rx.isHidden)

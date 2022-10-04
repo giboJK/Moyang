@@ -74,29 +74,31 @@ class AlarmSetVC: UIViewController, VCType {
         present(vc, animated: true)
     }
     
+    private func editAlarm() {
+        guard let vm = vm else { return }
+        let vc = NewAlarmVC()
+        vc.vm = vm
+        
+        present(vc, animated: true)
+    }
+    
     // MARK: - Binding
     func bind() {
         bindViews()
         bindVM()
     }
+    
     private func bindViews() {
-        prayAlarmView.setupButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.setupNewAlarm()
-            }).disposed(by: disposeBag)
-        
-        qtAlarmView.setupButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.setupNewAlarm()
-            }).disposed(by: disposeBag)
-        
-        
     }
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
+        let editPray = prayAlarmView.tapBounds.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let editQT = qtAlarmView.tapBounds.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let input = VM.Input(setNewPray: prayAlarmView.setupButton.rx.tap.asDriver(),
-                             setNewQT: qtAlarmView.setupButton.rx.tap.asDriver()
+                             setNewQT: qtAlarmView.setupButton.rx.tap.asDriver(),
+                             editPray:editPray,
+                             editQT:editQT
         )
         let output = vm.transform(input: input)
         
@@ -108,6 +110,16 @@ class AlarmSetVC: UIViewController, VCType {
         output.qtTime
             .drive(onNext: { [weak self] item in
                 self?.qtAlarmView.setTime(data: item?.time, isOn: item?.isOn)
+            }).disposed(by: disposeBag)
+        
+        output.setupNewAlarm.skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.setupNewAlarm()
+            }).disposed(by: disposeBag)
+        
+        output.editAlarm.skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.editAlarm()
             }).disposed(by: disposeBag)
     }
 }
