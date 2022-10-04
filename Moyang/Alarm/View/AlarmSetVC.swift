@@ -60,7 +60,7 @@ class AlarmSetVC: UIViewController, VCType {
     private func setupQtAlarmView() {
         view.addSubview(qtAlarmView)
         qtAlarmView.snp.makeConstraints {
-            $0.top.equalTo(prayAlarmView.snp.bottom).offset(32)
+            $0.top.equalTo(prayAlarmView.snp.bottom).offset(40)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(120)
         }
@@ -104,12 +104,16 @@ class AlarmSetVC: UIViewController, VCType {
         
         output.prayTime
             .drive(onNext: { [weak self] item in
-                self?.prayAlarmView.setTime(data: item?.time, isOn: item?.isOn)
+                guard let item = item else { return }
+                self?.prayAlarmView.setTime(data: item.time, isOn: item.isOn, isSun: item.isSun, isMon: item.isMon,
+                                            isTue: item.isTue, isWed: item.isWed, isThu: item.isThu, isFri: item.isFri, isSat: item.isSat)
             }).disposed(by: disposeBag)
         
         output.qtTime
             .drive(onNext: { [weak self] item in
-                self?.qtAlarmView.setTime(data: item?.time, isOn: item?.isOn)
+                guard let item = item else { return }
+                self?.qtAlarmView.setTime(data: item.time, isOn: item.isOn, isSun: item.isSun, isMon: item.isMon,
+                                          isTue: item.isTue, isWed: item.isWed, isThu: item.isThu, isFri: item.isFri, isSat: item.isSat)
             }).disposed(by: disposeBag)
         
         output.setupNewAlarm.skip(1)

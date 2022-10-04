@@ -24,9 +24,9 @@ class AlarmUseCase {
         self.repo = repo
     }
     
-    func addAlarm(time: String, isOn: Bool, type: AlarmType) {
+    func addAlarm(time: String, isOn: Bool, type: AlarmType, day: String) {
         guard let userID = UserData.shared.userInfo?.id else { return }
-        repo.addAlarm(userID: userID, time: time, isOn: isOn, type: type.rawValue.uppercased()) { [weak self] result in
+        repo.addAlarm(userID: userID, time: time, isOn: isOn, type: type.rawValue.uppercased(), day: day) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -47,8 +47,8 @@ class AlarmUseCase {
         }
     }
     
-    func updateAlarm(alarmID: String, time: String, isOn: Bool) {
-        repo.updateAlarm(alarmID: alarmID, time: time, isOn: isOn) { [weak self] result in
+    func updateAlarm(alarmID: String, time: String, isOn: Bool, day: String) {
+        repo.updateAlarm(alarmID: alarmID, time: time, isOn: isOn, day: day) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):

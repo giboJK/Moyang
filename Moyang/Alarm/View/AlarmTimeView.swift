@@ -21,11 +21,16 @@ class AlarmTimeView: UIView {
     let alarmView = UIView()
     let alarmLabel = UILabel().then {
         $0.text = "00:00"
-        $0.font = .systemFont(ofSize: 40, weight: .semibold)
+        $0.font = .systemFont(ofSize: 38, weight: .semibold)
         $0.textColor = .sheep1
     }
     let ampmLabel = UILabel().then {
         $0.text = "오전"
+        $0.font = .systemFont(ofSize: 18, weight: .semibold)
+        $0.textColor = .sheep1
+    }
+    let dayLabel = UILabel().then {
+        $0.text = ""
         $0.font = .systemFont(ofSize: 18, weight: .semibold)
         $0.textColor = .sheep1
     }
@@ -92,12 +97,13 @@ class AlarmTimeView: UIView {
         }
         setupAlarmLabel()
         setupAmpmLabel()
+        setupDayLabel()
         setupSetupButton()
     }
     private func setupAlarmLabel() {
         alarmView.addSubview(alarmLabel)
         alarmLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(-8)
             $0.left.equalToSuperview().inset(24)
         }
     }
@@ -106,6 +112,13 @@ class AlarmTimeView: UIView {
         ampmLabel.snp.makeConstraints {
             $0.bottom.equalTo(alarmLabel).inset(6)
             $0.left.equalTo(alarmLabel.snp.right).offset(4)
+        }
+    }
+    private func setupDayLabel() {
+        alarmView.addSubview(dayLabel)
+        dayLabel.snp.makeConstraints {
+            $0.top.equalTo(alarmLabel.snp.bottom)
+            $0.left.equalTo(alarmLabel)
         }
     }
     private func setupSetupButton() {
@@ -134,8 +147,8 @@ class AlarmTimeView: UIView {
         }
     }
     
-    func setTime(data: String?, isOn: Bool?) {
-        if let data = data, let hour = data.split(separator: ":").first, let min = data.split(separator: ":").last,
+    func setTime(data: String, isOn: Bool, isSun: Bool, isMon: Bool, isTue: Bool, isWed: Bool, isThu: Bool, isFri: Bool, isSat: Bool) {
+        if let hour = data.split(separator: ":").first, let min = data.split(separator: ":").last,
            let hourInt = Int(hour), let minInt = Int(min) {
             
             if hourInt >= 12 {
@@ -150,8 +163,18 @@ class AlarmTimeView: UIView {
             }
             ampmLabel.isHidden = false
             alarmSwitch.isHidden = false
-            alarmSwitch.isOn = isOn ?? false
+            alarmSwitch.isOn = isOn
             setupButton.isHidden = true
+            
+            var dayString = ""
+            dayString += isSun ? "일 " : ""
+            dayString += isMon ? "월 " : ""
+            dayString += isTue ? "화 " : ""
+            dayString += isWed ? "수 " : ""
+            dayString += isThu ? "목 " : ""
+            dayString += isFri ? "금 " : ""
+            dayString += isSat ? "토 " : ""
+            dayLabel.text = dayString
         } else {
             alarmLabel.text = "알람 없음"
             ampmLabel.isHidden = true

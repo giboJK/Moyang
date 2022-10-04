@@ -50,11 +50,11 @@ class AlarmSetVM: VMType {
             .subscribe(onNext: { [weak self] list in
                 guard let self = self else { return }
                 if let pray = list.first(where: { $0.type == AlarmType.pray.rawValue.uppercased() }) {
-                    self.prayTime.accept(AlarmItem(id: pray.id, time: pray.time, isOn: pray.isOn))
+                    self.prayTime.accept(AlarmItem(id: pray.id, time: pray.time, isOn: pray.isOn, day: pray.day))
                 }
                 
                 if let qt = list.first(where: { $0.type == AlarmType.qt.rawValue.uppercased() }) {
-                    self.qtTime.accept(AlarmItem(id: qt.id, time: qt.time, isOn: qt.isOn))
+                    self.qtTime.accept(AlarmItem(id: qt.id, time: qt.time, isOn: qt.isOn, day: qt.day))
                 }
             }).disposed(by: disposeBag)
         
@@ -75,7 +75,28 @@ class AlarmSetVM: VMType {
     }
     
     private func saveAlarm() {
-        useCase.addAlarm(time: alarmTime, isOn: true, type: alarmType)
+        var day = ""
+        day += isSun.value ? "0" : ""
+        day += isMon.value ? "1" : ""
+        day += isTue.value ? "2" : ""
+        day += isWed.value ? "3" : ""
+        day += isThu.value ? "4" : ""
+        day += isFri.value ? "5" : ""
+        day += isSat.value ? "6" : ""
+        
+        useCase.addAlarm(time: alarmTime, isOn: true, type: alarmType, day: day)
+    }
+    private func updateAlarm() {
+        var day = ""
+        day += isSun.value ? "0" : ""
+        day += isMon.value ? "1" : ""
+        day += isTue.value ? "2" : ""
+        day += isWed.value ? "3" : ""
+        day += isThu.value ? "4" : ""
+        day += isFri.value ? "5" : ""
+        day += isSat.value ? "6" : ""
+        
+        useCase.addAlarm(time: alarmTime, isOn: true, type: alarmType, day: day)
     }
     
     private func deleteAlarm() {
@@ -154,7 +175,12 @@ extension AlarmSetVM {
         
         input.save
             .drive(onNext: { [weak self] _ in
-                self?.saveAlarm()
+                guard let self = self else { return }
+                if self.isEditing.value {
+                    self.updateAlarm()
+                } else {
+                    self.saveAlarm()
+                }
             }).disposed(by: disposeBag)
         
         input.delete
@@ -247,11 +273,25 @@ extension AlarmSetVM {
         let id: String
         let time: String
         let isOn: Bool
+        let isSun: Bool
+        let isMon: Bool
+        let isTue: Bool
+        let isWed: Bool
+        let isThu: Bool
+        let isFri: Bool
+        let isSat: Bool
         
-        init(id: String, time: String, isOn: Bool) {
+        init(id: String, time: String, isOn: Bool, day: String) {
             self.id = id
             self.time = time
             self.isOn = isOn
+            self.isSun = day.contains("0")
+            self.isMon = day.contains("1")
+            self.isTue = day.contains("2")
+            self.isWed = day.contains("3")
+            self.isThu = day.contains("4")
+            self.isFri = day.contains("5")
+            self.isSat = day.contains("6")
         }
     }
 }

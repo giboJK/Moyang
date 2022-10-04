@@ -17,14 +17,15 @@ class ProfileController {
 }
 
 extension ProfileController: AlarmRepo {
-    func addAlarm(userID: String, time: String, isOn: Bool, type: String, completion: ((Result<AddAlarmResponse, Error>) -> Void)?) {
+    func addAlarm(userID: String, time: String, isOn: Bool, type: String, day: String, completion: ((Result<AddAlarmResponse, Error>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.AlarmAPI.addAlarm)
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
                                                  parameters: ["user_id": userID,
                                                               "time": time,
                                                               "is_on": isOn,
-                                                              "type": type])
+                                                              "type": type,
+                                                              "day": day])
         
         networkService.requestAPI(request: request,
                                   type: AddAlarmResponse.self,
@@ -38,13 +39,14 @@ extension ProfileController: AlarmRepo {
         }
     }
     
-    func updateAlarm(alarmID: String, time: String, isOn: Bool, completion: ((Result<UpdateAlarmResponse, Error>) -> Void)?) {
+    func updateAlarm(alarmID: String, time: String, isOn: Bool, day: String, completion: ((Result<UpdateAlarmResponse, Error>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.AlarmAPI.updateAlarm)
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
                                                  parameters: ["alarm_id": alarmID,
                                                               "time": time,
-                                                              "is_on": isOn])
+                                                              "is_on": isOn,
+                                                              "day": day])
         
         networkService.requestAPI(request: request,
                                   type: UpdateAlarmResponse.self,
