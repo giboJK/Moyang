@@ -16,16 +16,17 @@ class AlarmUseCase {
     
     let error = BehaviorRelay<MoyangError?>(value: nil)
     let isNetworking = BehaviorRelay<Bool>(value: false)
-    
+    let addingSuccess = BehaviorRelay<Void>(value: ())
+    let addingFailure = BehaviorRelay<Void>(value: ())
     
     // MARK: - Lifecycle
     init(repo: AlarmRepo) {
         self.repo = repo
     }
     
-    func addAlarm(time: String, isOn: Bool) {
+    func addAlarm(time: String, isOn: Bool, type: AlarmType) {
         guard let userID = UserData.shared.userInfo?.id else { return }
-        repo.addAlarm(userID: userID, time: time, isOn: isOn) { [weak self] result in
+        repo.addAlarm(userID: userID, time: time, isOn: isOn, type: type.rawValue.uppercased()) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -33,12 +34,15 @@ class AlarmUseCase {
                     var alarms = self.alarms.value
                     alarms.insert(response.data, at: 0)
                     self.alarms.accept(alarms)
+                    self.addingSuccess.accept(())
                 } else {
                     self.error.accept(.writingFailed)
+                    self.addingFailure.accept(())
                 }
             case .failure(let error):
                 Log.e(error)
                 self.error.accept(.writingFailed)
+                self.addingFailure.accept(())
             }
         }
     }

@@ -28,6 +28,12 @@ class NewAlarmVC: UIViewController, VCType {
         $0.setTitleColor(.wilderness1, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
     }
+    let deleteButton = UIButton().then {
+        $0.setTitle("삭제", for: .normal)
+        $0.setTitleColor(.appleRed1, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.isHidden = true
+    }
     private let timePicker: UIDatePicker = {
         let datePicker = UIDatePicker(frame: .zero)
         datePicker.datePickerMode = .time
@@ -65,6 +71,7 @@ class NewAlarmVC: UIViewController, VCType {
         view.backgroundColor = .nightSky1
         setupTitleLabel()
         setupSaveButton()
+        setupDeleteButton()
         setupTimePicker()
         setupOptionView()
     }
@@ -84,18 +91,25 @@ class NewAlarmVC: UIViewController, VCType {
             $0.centerY.equalTo(titleLabel)
         }
     }
+    private func setupDeleteButton() {
+        view.addSubview(deleteButton)
+        deleteButton.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(12)
+            $0.centerY.equalTo(titleLabel)
+        }
+    }
     private func setupTimePicker() {
         view.addSubview(timePicker)
         timePicker.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(200)
+            $0.height.equalTo(180)
         }
     }
     private func setupOptionView() {
         view.addSubview(optionView)
         optionView.snp.makeConstraints {
-            $0.top.equalTo(timePicker.snp.bottom).offset(24)
+            $0.top.equalTo(timePicker.snp.bottom).offset(16)
             $0.left.right.equalToSuperview().inset(12)
         }
         setupSundayView()
@@ -111,14 +125,14 @@ class NewAlarmVC: UIViewController, VCType {
         sundayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalToSuperview()
-            $0.height.equalTo(48)
+            $0.height.equalTo(44)
         }
     }
     private func setupMondayView() {
         optionView.addSubview(mondayView)
         mondayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(48)
+            $0.height.equalTo(44)
             $0.top.equalTo(sundayView.snp.bottom)
         }
     }
@@ -126,7 +140,7 @@ class NewAlarmVC: UIViewController, VCType {
         optionView.addSubview(tuesdayView)
         tuesdayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(48)
+            $0.height.equalTo(44)
             $0.top.equalTo(mondayView.snp.bottom)
         }
     }
@@ -134,7 +148,7 @@ class NewAlarmVC: UIViewController, VCType {
         optionView.addSubview(wednesdayView)
         wednesdayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(48)
+            $0.height.equalTo(44)
             $0.top.equalTo(tuesdayView.snp.bottom)
         }
     }
@@ -142,7 +156,7 @@ class NewAlarmVC: UIViewController, VCType {
         optionView.addSubview(thursdayView)
         thursdayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(48)
+            $0.height.equalTo(44)
             $0.top.equalTo(wednesdayView.snp.bottom)
         }
     }
@@ -150,7 +164,7 @@ class NewAlarmVC: UIViewController, VCType {
         optionView.addSubview(fridayView)
         fridayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(48)
+            $0.height.equalTo(44)
             $0.top.equalTo(thursdayView.snp.bottom)
         }
     }
@@ -158,7 +172,7 @@ class NewAlarmVC: UIViewController, VCType {
         optionView.addSubview(saturadayView)
         saturadayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(48)
+            $0.height.equalTo(44)
             $0.top.equalTo(fridayView.snp.bottom)
             $0.bottom.equalToSuperview()
         }
@@ -223,6 +237,17 @@ class NewAlarmVC: UIViewController, VCType {
             .drive(saturadayView.chcekmarkImageView.rx.isHidden)
             .disposed(by: disposeBag)
         
+        output.addingSuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        output.addingFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
     }
 }
 

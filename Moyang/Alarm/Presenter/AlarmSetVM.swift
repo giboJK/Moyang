@@ -26,6 +26,12 @@ class AlarmSetVM: VMType {
     private let isFri = BehaviorRelay<Bool>(value: false)
     private let isSat = BehaviorRelay<Bool>(value: false)
     
+    private let addingSuccess = BehaviorRelay<Void>(value: ())
+    private let addingFailure = BehaviorRelay<Void>(value: ())
+    
+    var newAlarmTime = Date().toString("HH:mm")
+    var newAlarmType = AlarmType.pray
+    
 
     init(useCase: AlarmUseCase) {
         self.useCase = useCase
@@ -36,6 +42,7 @@ class AlarmSetVM: VMType {
     deinit { Log.i(self) }
     
     func setType(type: AlarmType) {
+        newAlarmType = type
         switch type {
         case .pray:
             newAlarmTitle.accept("새 기도알람")
@@ -58,6 +65,17 @@ class AlarmSetVM: VMType {
                     
                 }
             }).disposed(by: disposeBag)
+        
+        useCase.addingSuccess
+            .skip(1)
+            .bind(to: addingSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.addingFailure
+            .skip(1)
+            .bind(to: addingFailure)
+            .disposed(by: disposeBag)
+        
     }
     
     private func fetchAlarms() {
@@ -65,7 +83,7 @@ class AlarmSetVM: VMType {
     }
     
     private func saveAlarm() {
-        useCase.addAlarm(time: "", isOn: true)
+        useCase.addAlarm(time: newAlarmTime, isOn: true, type: newAlarmType)
     }
 }
 
@@ -96,6 +114,9 @@ extension AlarmSetVM {
         let isThu: Driver<Bool>
         let isFri: Driver<Bool>
         let isSat: Driver<Bool>
+        
+        let addingSuccess: Driver<Void>
+        let addingFailure: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
@@ -116,7 +137,7 @@ extension AlarmSetVM {
         
         input.setTime
             .drive(onNext: { [weak self] date in
-                Log.e(date)
+                self?.newAlarmTime = date.toString("HH:mm")
             }).disposed(by: disposeBag)
         
         input.toggleSun
@@ -185,19 +206,20 @@ extension AlarmSetVM {
                       isWed: isWed.asDriver(),
                       isThu: isThu.asDriver(),
                       isFri: isFri.asDriver(),
-                      isSat: isSat.asDriver()
+                      isSat: isSat.asDriver(),
+                      
+                      addingSuccess: addingSuccess.asDriver(),
+                      addingFailure: addingFailure.asDriver()
         )
     }
     
     struct AlarmItem {
         let time: String
-        let desc: String
         let isOn: Bool
         let isEmpty: Bool
         
-        init(time: String, desc: String, isOn: Bool, isEmpty: Bool) {
+        init(time: String, isOn: Bool, isEmpty: Bool) {
             self.time = time
-            self.desc = desc
             self.isOn = isOn
             self.isEmpty = isEmpty
         }

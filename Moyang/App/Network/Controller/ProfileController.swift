@@ -17,13 +17,14 @@ class ProfileController {
 }
 
 extension ProfileController: AlarmRepo {
-    func addAlarm(userID: String, time: String, isOn: Bool, completion: ((Result<AddAlarmResponse, Error>) -> Void)?) {
+    func addAlarm(userID: String, time: String, isOn: Bool, type: String, completion: ((Result<AddAlarmResponse, Error>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.AlarmAPI.addAlarm)
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
                                                  parameters: ["user_id": userID,
                                                               "time": time,
-                                                              "is_on": isOn])
+                                                              "is_on": isOn,
+                                                              "type": type])
         
         networkService.requestAPI(request: request,
                                   type: AddAlarmResponse.self,
