@@ -16,8 +16,8 @@ class AlarmUseCase {
     
     let error = BehaviorRelay<MoyangError?>(value: nil)
     let isNetworking = BehaviorRelay<Bool>(value: false)
-    let addingSuccess = BehaviorRelay<Void>(value: ())
-    let addingFailure = BehaviorRelay<Void>(value: ())
+    let isSuccess = BehaviorRelay<Void>(value: ())
+    let isFailure = BehaviorRelay<Void>(value: ())
     
     // MARK: - Lifecycle
     init(repo: AlarmRepo) {
@@ -34,15 +34,15 @@ class AlarmUseCase {
                     var alarms = self.alarms.value
                     alarms.insert(response.data, at: 0)
                     self.alarms.accept(alarms)
-                    self.addingSuccess.accept(())
+                    self.isSuccess.accept(())
                 } else {
                     self.error.accept(.writingFailed)
-                    self.addingFailure.accept(())
+                    self.isFailure.accept(())
                 }
             case .failure(let error):
                 Log.e(error)
                 self.error.accept(.writingFailed)
-                self.addingFailure.accept(())
+                self.isFailure.accept(())
             }
         }
     }
@@ -57,12 +57,15 @@ class AlarmUseCase {
                     alarms.removeAll { $0.id == response.data.id }
                     alarms.insert(response.data, at: 0)
                     self.alarms.accept(alarms)
+                    self.isSuccess.accept(())
                 } else {
                     self.error.accept(.writingFailed)
+                    self.isFailure.accept(())
                 }
             case .failure(let error):
                 Log.e(error)
                 self.error.accept(.writingFailed)
+                self.isFailure.accept(())
             }
         }
     }
@@ -94,12 +97,15 @@ class AlarmUseCase {
                     var alarms = self.alarms.value
                     alarms.removeAll { $0.id == alarmID }
                     self.alarms.accept(alarms)
+                    self.isSuccess.accept(())
                 } else {
                     self.error.accept(.writingFailed)
+                    self.isFailure.accept(())
                 }
             case .failure(let error):
                 Log.e(error)
                 self.error.accept(.writingFailed)
+                self.isFailure.accept(())
             }
         }
     }

@@ -51,19 +51,23 @@ class AlarmSetVM: VMType {
                 guard let self = self else { return }
                 if let pray = list.first(where: { $0.type == AlarmType.pray.rawValue.uppercased() }) {
                     self.prayTime.accept(AlarmItem(id: pray.id, time: pray.time, isOn: pray.isOn, day: pray.day))
+                } else {
+                    self.prayTime.accept(nil)
                 }
                 
                 if let qt = list.first(where: { $0.type == AlarmType.qt.rawValue.uppercased() }) {
                     self.qtTime.accept(AlarmItem(id: qt.id, time: qt.time, isOn: qt.isOn, day: qt.day))
+                } else {
+                    self.qtTime.accept(nil)
                 }
             }).disposed(by: disposeBag)
         
-        useCase.addingSuccess
+        useCase.isSuccess
             .skip(1)
             .bind(to: addingSuccess)
             .disposed(by: disposeBag)
         
-        useCase.addingFailure
+        useCase.isFailure
             .skip(1)
             .bind(to: addingFailure)
             .disposed(by: disposeBag)
@@ -95,12 +99,23 @@ class AlarmSetVM: VMType {
         day += isThu.value ? "4" : ""
         day += isFri.value ? "5" : ""
         day += isSat.value ? "6" : ""
-        
-        useCase.addAlarm(time: alarmTime, isOn: true, type: alarmType, day: day)
+        var id = ""
+        if alarmType == .pray {
+            id = prayTime.value?.id ?? ""
+        } else {
+            id = qtTime.value?.id ?? ""
+        }
+        useCase.updateAlarm(alarmID: id, time: alarmTime, isOn: true, day: day)
     }
     
     private func deleteAlarm() {
-        
+        var id = ""
+        if alarmType == .pray {
+            id = prayTime.value?.id ?? ""
+        } else {
+            id = qtTime.value?.id ?? ""
+        }
+        useCase.deleteAlarm(alarmID: id)
     }
 }
 
@@ -121,6 +136,7 @@ extension AlarmSetVM {
         var toggleThu: Driver<Void> = .empty()
         var toggleFri: Driver<Void> = .empty()
         var toggleSat: Driver<Void> = .empty()
+        var resetEditing: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -149,6 +165,7 @@ extension AlarmSetVM {
             .drive(onNext: { [weak self] _ in
                 self?.newAlarmTitle.accept("기도알람 추가")
                 self?.isEditing.accept(false)
+                self?.alarmType = .pray
                 self?.setupNewAlarm.accept(())
             }).disposed(by: disposeBag)
         
@@ -156,21 +173,44 @@ extension AlarmSetVM {
             .drive(onNext: { [weak self] _ in
                 self?.newAlarmTitle.accept("묵상알람 추가")
                 self?.isEditing.accept(false)
+                self?.alarmType = .qt
                 self?.setupNewAlarm.accept(())
             }).disposed(by: disposeBag)
         
         input.editPray
             .drive(onNext: { [weak self] _ in
-                self?.newAlarmTitle.accept("기도알람 편집")
-                self?.isEditing.accept(true)
-                self?.editAlarm.accept(())
+                guard let self = self else { return }
+                self.newAlarmTitle.accept("기도알람 편집")
+                if let pray = self.prayTime.value {
+                    self.isSun.accept(pray.isSun)
+                    self.isMon.accept(pray.isMon)
+                    self.isTue.accept(pray.isTue)
+                    self.isWed.accept(pray.isWed)
+                    self.isThu.accept(pray.isThu)
+                    self.isFri.accept(pray.isFri)
+                    self.isSat.accept(pray.isSat)
+                }
+                self.alarmType = .pray
+                self.isEditing.accept(true)
+                self.editAlarm.accept(())
             }).disposed(by: disposeBag)
         
         input.editQT
             .drive(onNext: { [weak self] _ in
-                self?.newAlarmTitle.accept("묵상알람 편집")
-                self?.isEditing.accept(true)
-                self?.editAlarm.accept(())
+                guard let self = self else { return }
+                self.newAlarmTitle.accept("묵상알람 편집")
+                if let qt = self.qtTime.value {
+                    self.isSun.accept(qt.isSun)
+                    self.isMon.accept(qt.isMon)
+                    self.isTue.accept(qt.isTue)
+                    self.isWed.accept(qt.isWed)
+                    self.isThu.accept(qt.isThu)
+                    self.isFri.accept(qt.isFri)
+                    self.isSat.accept(qt.isSat)
+                }
+                self.alarmType = .qt
+                self.isEditing.accept(true)
+                self.editAlarm.accept(())
             }).disposed(by: disposeBag)
         
         input.save
@@ -247,6 +287,18 @@ extension AlarmSetVM {
                 var isChecked = self.isSat.value
                 isChecked.toggle()
                 self.isSat.accept(isChecked)
+            }).disposed(by: disposeBag)
+        
+        input.resetEditing
+            .drive(onNext: { [weak self] _ in
+                self?.isEditing.accept(false)
+                self?.isSun.accept(false)
+                self?.isMon.accept(false)
+                self?.isTue.accept(false)
+                self?.isWed.accept(false)
+                self?.isThu.accept(false)
+                self?.isFri.accept(false)
+                self?.isSat.accept(false)
             }).disposed(by: disposeBag)
         
         return Output(prayTime: prayTime.asDriver(),

@@ -104,14 +104,20 @@ class AlarmSetVC: UIViewController, VCType {
         
         output.prayTime
             .drive(onNext: { [weak self] item in
-                guard let item = item else { return }
+                guard let item = item else {
+                    self?.prayAlarmView.resetTime()
+                    return
+                }
                 self?.prayAlarmView.setTime(data: item.time, isOn: item.isOn, isSun: item.isSun, isMon: item.isMon,
                                             isTue: item.isTue, isWed: item.isWed, isThu: item.isThu, isFri: item.isFri, isSat: item.isSat)
             }).disposed(by: disposeBag)
         
         output.qtTime
             .drive(onNext: { [weak self] item in
-                guard let item = item else { return }
+                guard let item = item else {
+                    self?.qtAlarmView.resetTime()
+                    return
+                }
                 self?.qtAlarmView.setTime(data: item.time, isOn: item.isOn, isSun: item.isSun, isMon: item.isMon,
                                           isTue: item.isTue, isWed: item.isWed, isThu: item.isThu, isFri: item.isFri, isSat: item.isSat)
             }).disposed(by: disposeBag)

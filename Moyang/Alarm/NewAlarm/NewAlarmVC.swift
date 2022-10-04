@@ -197,6 +197,7 @@ class NewAlarmVC: UIViewController, VCType {
         let thuGesture = thursdayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let friGesture = fridayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let satGesture = saturadayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let resetEditing = self.rx.viewDidDisappear.map { _ -> Void in () }.asDriver(onErrorJustReturn: ())
         
         let input = VM.Input(save: saveButton.rx.tap.asDriver(),
                              delete: deleteButton.rx.tap.asDriver(),
@@ -207,7 +208,8 @@ class NewAlarmVC: UIViewController, VCType {
                              toggleWed: wedGesture,
                              toggleThu: thuGesture,
                              toggleFri: friGesture,
-                             toggleSat: satGesture
+                             toggleSat: satGesture,
+                             resetEditing: resetEditing
         )
         let output = vm.transform(input: input)
         

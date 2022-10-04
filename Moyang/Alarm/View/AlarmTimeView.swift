@@ -174,12 +174,27 @@ class AlarmTimeView: UIView {
             dayString += isThu ? "목 " : ""
             dayString += isFri ? "금 " : ""
             dayString += isSat ? "토 " : ""
+            dayLabel.isHidden = false
             dayLabel.text = dayString
-        } else {
-            alarmLabel.text = "알람 없음"
-            ampmLabel.isHidden = true
-            alarmSwitch.isHidden = true
-            setupButton.isHidden = false
+            alarmLabel.snp.remakeConstraints {
+                $0.centerY.equalToSuperview().offset(-8)
+                $0.left.equalToSuperview().inset(24)
+            }
+            tapBounds.isUserInteractionEnabled = true
+        }
+    }
+    
+    func resetTime() {
+        alarmLabel.text = "알람 없음"
+        ampmLabel.isHidden = true
+        alarmSwitch.isHidden = true
+        setupButton.isHidden = false
+        dayLabel.isHidden = true
+        tapBounds.isUserInteractionEnabled = false
+        
+        alarmLabel.snp.remakeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().inset(24)
         }
     }
 }
