@@ -1,5 +1,5 @@
 //
-//  NoticeListVC.swift
+//  NoticeVC.swift
 //  Moyang
 //
 //  Created by kibo on 2022/10/05.
@@ -11,11 +11,11 @@ import RxSwift
 import SnapKit
 import Then
 
-class NoticeListVC: UIViewController, VCType {
+class NoticeVC: UIViewController, VCType {
     typealias VM = NoticeVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
-    var coordinator: NoticeListVCDelegate?
+    var coordinator: NoticeVCDelegate?
 
     // MARK: - UI
 
@@ -55,6 +55,6 @@ class NoticeListVC: UIViewController, VCType {
     }
 }
 
-protocol NoticeListVCDelegate: AnyObject {
+protocol NoticeVCDelegate: AnyObject {
 
 }

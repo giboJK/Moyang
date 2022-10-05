@@ -47,6 +47,11 @@
 		08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */; };
 		08DE7CC828B4BE32003639B0 /* Bible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DE7CC728B4BE32003639B0 /* Bible.swift */; };
 		08E992B428ED4FB800696EB6 /* NoticeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B328ED4FB800696EB6 /* NoticeListVC.swift */; };
+		08E992B628ED589700696EB6 /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B528ED589700696EB6 /* NoticeVC.swift */; };
+		08E992B928ED58C200696EB6 /* NoticeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B828ED58C200696EB6 /* NoticeVM.swift */; };
+		08E992BC28ED58F200696EB6 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992BB28ED58F200696EB6 /* Notice.swift */; };
+		08E992BE28ED590200696EB6 /* NoticeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992BD28ED590200696EB6 /* NoticeUseCase.swift */; };
+		08E992C028ED590900696EB6 /* NoticeRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992BF28ED590900696EB6 /* NoticeRepo.swift */; };
 		08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */; };
 		08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFC127FDD78A00BDCB14 /* NetConst.swift */; };
 		08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08ECAAD628A6281E00B546F1 /* TaskDetailVC.swift */; };
@@ -249,6 +254,11 @@
 		08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
 		08DE7CC728B4BE32003639B0 /* Bible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bible.swift; sourceTree = "<group>"; };
 		08E992B328ED4FB800696EB6 /* NoticeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListVC.swift; sourceTree = "<group>"; };
+		08E992B528ED589700696EB6 /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
+		08E992B828ED58C200696EB6 /* NoticeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVM.swift; sourceTree = "<group>"; };
+		08E992BB28ED58F200696EB6 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
+		08E992BD28ED590200696EB6 /* NoticeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeUseCase.swift; sourceTree = "<group>"; };
+		08E992BF28ED590900696EB6 /* NoticeRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRepo.swift; sourceTree = "<group>"; };
 		08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		08EBCFC127FDD78A00BDCB14 /* NetConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConst.swift; sourceTree = "<group>"; };
 		08ECAAD628A6281E00B546F1 /* TaskDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailVC.swift; sourceTree = "<group>"; };
@@ -623,6 +633,8 @@
 		08E992B128ED4FA700696EB6 /* Notice */ = {
 			isa = PBXGroup;
 			children = (
+				08E992BA28ED58E900696EB6 /* Domain */,
+				08E992B728ED58BB00696EB6 /* Presenter */,
 				08E992B228ED4FAF00696EB6 /* View */,
 			);
 			path = Notice;
@@ -632,8 +644,27 @@
 			isa = PBXGroup;
 			children = (
 				08E992B328ED4FB800696EB6 /* NoticeListVC.swift */,
+				08E992B528ED589700696EB6 /* NoticeVC.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		08E992B728ED58BB00696EB6 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				08E992B828ED58C200696EB6 /* NoticeVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		08E992BA28ED58E900696EB6 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				08E992BB28ED58F200696EB6 /* Notice.swift */,
+				08E992BD28ED590200696EB6 /* NoticeUseCase.swift */,
+				08E992BF28ED590900696EB6 /* NoticeRepo.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		08ECAAD428A627F200B546F1 /* TaskDetail */ = {
@@ -1113,7 +1144,6 @@
 		24D0D2F627230CA3006FF67B /* Moyang */ = {
 			isa = PBXGroup;
 			children = (
-				08E992B128ED4FA700696EB6 /* Notice */,
 				24B492D027989DAB005CAA5A /* Info.plist */,
 				24A6A4A9275A2BCB00D7DB25 /* App */,
 				24E5D0F028B9E6EB00680101 /* Splash */,
@@ -1127,6 +1157,7 @@
 				246BD7A327240A96005C4E0B /* Comm */,
 				08D0CEAF28A36A6100A15F3C /* Today */,
 				24F41C6A2897EBBE005B5E70 /* Profile */,
+				08E992B128ED4FA700696EB6 /* Notice */,
 				086ADDD328D197CA007A95F2 /* Alarm */,
 				08DE7CC528B4BE1D003639B0 /* Bible */,
 			);
@@ -1630,6 +1661,7 @@
 				24E0AB36283E751800F52505 /* Reachability.swift in Sources */,
 				24C8E9B9286B1F4500AEE46B /* PrayRepo.swift in Sources */,
 				24ECC31528B6620B00A758CF /* SearchPrayTVCell.swift in Sources */,
+				08E992C028ED590900696EB6 /* NoticeRepo.swift in Sources */,
 				086ADDD628D197DA007A95F2 /* AlarmSetVC.swift in Sources */,
 				24DABDA72890FE6E00DEB6CC /* Calendar+.swift in Sources */,
 				24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */,
@@ -1678,6 +1710,7 @@
 				08F66EF628BC240D0078B6AB /* PrayTopicView.swift in Sources */,
 				24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */,
 				246FEFF028CE1CED00193C2F /* NewQTVM.swift in Sources */,
+				08E992BC28ED58F200696EB6 /* Notice.swift in Sources */,
 				24CFA8B82878894D00484C89 /* StickyHeaderView.swift in Sources */,
 				08EE004828C84E97000B02BD /* GroupQTView.swift in Sources */,
 				086CB32328130077003BF6F7 /* GroupIndividualPray.swift in Sources */,
@@ -1715,10 +1748,12 @@
 				249FD1E62893A73800BDF995 /* GroupPrayHeader.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
 				24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */,
+				08E992B628ED589700696EB6 /* NoticeVC.swift in Sources */,
 				2498F8FE287C316D007EF510 /* TermsVC.swift in Sources */,
 				24C8E9BB286B1F5200AEE46B /* PrayUseCase.swift in Sources */,
 				24C52740284708570081AE25 /* GroupPrayTVCell.swift in Sources */,
 				08AD9585287BDFF1002D4F94 /* AuthController.swift in Sources */,
+				08E992B928ED58C200696EB6 /* NoticeVM.swift in Sources */,
 				24F4D386287B1DB500B1AC06 /* GroupInfoVC.swift in Sources */,
 				24C68AC0287D7C4800330178 /* SetUserInfoVC.swift in Sources */,
 				24E0AB38283E75AF00F52505 /* CommonUtils.swift in Sources */,
@@ -1778,6 +1813,7 @@
 				24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */,
 				08E992B428ED4FB800696EB6 /* NoticeListVC.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
+				08E992BE28ED590200696EB6 /* NoticeUseCase.swift in Sources */,
 				08F4738E28B5F6090070CE2A /* AutoCompleteTVCell.swift in Sources */,
 				08D0CEBC28A3845900A15F3C /* TaskListView.swift in Sources */,
 				24BD1E9F28CE978C00D8B550 /* GroupQTHeader.swift in Sources */,
