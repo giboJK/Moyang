@@ -38,6 +38,15 @@ class ProfileCoordinator: Coordinator {
 
 // MARK: - ProfileVCDelegate
 extension ProfileCoordinator: ProfileVCDelegate {
+    func didTapNoticeButton() {
+        if let vc = assembler.resolver.resolve(NoticeListVC.self) {
+            nav.pushViewController(vc, animated: true)
+            vc.coordinator = self
+        } else {
+            Log.e("error")
+        }
+    }
+    
     func didTapAlarmButton() {
         if let vc = assembler.resolver.resolve(AlarmSetVC.self) {
             nav.pushViewController(vc, animated: true)
@@ -46,6 +55,10 @@ extension ProfileCoordinator: ProfileVCDelegate {
             Log.e("error")
         }
     }
+}
+
+// MARK: - NoticeListVCDelegate
+extension ProfileCoordinator: NoticeListVCDelegate {
 }
 
 // MARK: - AlarmSetVCDelegate

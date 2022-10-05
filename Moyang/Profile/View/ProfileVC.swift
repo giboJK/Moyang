@@ -140,6 +140,11 @@ class ProfileVC: UIViewController, VCType {
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
+        noticeButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapNoticeButton()
+            }).disposed(by: disposeBag)
+        
         alarmButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.coordinator?.didTapAlarmButton()
@@ -153,5 +158,6 @@ class ProfileVC: UIViewController, VCType {
 }
 
 protocol ProfileVCDelegate: AnyObject {
+    func didTapNoticeButton()
     func didTapAlarmButton()
 }

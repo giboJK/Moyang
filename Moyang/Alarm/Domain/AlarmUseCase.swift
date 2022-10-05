@@ -22,7 +22,6 @@ class AlarmUseCase {
     // MARK: - Lifecycle
     init(repo: AlarmRepo) {
         self.repo = repo
-        AlarmCenter.shared.removeAllNotification()
     }
     
     func addAlarm(time: String, isOn: Bool, type: AlarmType, day: String) {

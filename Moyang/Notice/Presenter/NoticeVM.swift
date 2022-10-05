@@ -10,11 +10,18 @@ import RxCocoa
 
 class NoticeVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
+    let useCase: NoticeUseCase
 
-    init() {
+    init(useCase: NoticeUseCase) {
+        self.useCase = useCase
+        bind()
     }
 
     deinit { Log.i(self) }
+    
+    private func bind() {
+        
+    }
 }
 
 extension NoticeVM {

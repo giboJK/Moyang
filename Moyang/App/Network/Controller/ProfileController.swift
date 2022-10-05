@@ -16,6 +16,12 @@ class ProfileController {
     }
 }
 
+extension ProfileController: NoticeRepo {
+    func fetchNotices(completion: ((Result<FetchNoticesResponse, Error>) -> Void)?) {
+        
+    }
+}
+
 extension ProfileController: AlarmRepo {
     func addAlarm(userID: String, time: String, isOn: Bool, type: String, day: String, completion: ((Result<AddAlarmResponse, Error>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.AlarmAPI.addAlarm)
