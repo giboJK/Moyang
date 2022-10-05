@@ -97,8 +97,8 @@ class AlarmSetVC: UIViewController, VCType {
         let editQT = qtAlarmView.tapBounds.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let input = VM.Input(setNewPray: prayAlarmView.setupButton.rx.tap.asDriver(),
                              setNewQT: qtAlarmView.setupButton.rx.tap.asDriver(),
-                             editPray:editPray,
-                             editQT:editQT
+                             editPray: editPray,
+                             editQT: editQT
         )
         let output = vm.transform(input: input)
         

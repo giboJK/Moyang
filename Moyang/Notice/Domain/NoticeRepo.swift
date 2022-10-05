@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NoticeRepo {
-    func fetchNotices(completion: ((Result<FetchNoticesResponse, Error>) -> Void)?)
+    func fetchNotices(page: Int, row: Int, completion: ((Result<FetchNoticesResponse, Error>) -> Void)?)
 }
 
 class FetchNoticesResponse: BaseResponse {

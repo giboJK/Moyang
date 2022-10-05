@@ -17,8 +17,23 @@ class ProfileController {
 }
 
 extension ProfileController: NoticeRepo {
-    func fetchNotices(completion: ((Result<FetchNoticesResponse, Error>) -> Void)?) {
+    func fetchNotices(page: Int, row: Int, completion: ((Result<FetchNoticesResponse, Error>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.NoticeAPI.fetchNotices)
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: ["page": page,
+                                                              "row": row])
         
+        networkService.requestAPI(request: request,
+                                  type: FetchNoticesResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
     }
 }
 

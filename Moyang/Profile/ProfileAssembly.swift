@@ -33,7 +33,7 @@ class ProfileAssembly: Assembly, BaseAssembly {
             ProfileVM()
         }
         
-        // MARK: - Notice
+        // MARK: - NoticeList
         container.register(NoticeListVC.self) { r in
             let vc = NoticeListVC()
             vc.vm = r ~> (NoticeVM.self)
@@ -51,6 +51,12 @@ class ProfileAssembly: Assembly, BaseAssembly {
         container.register(NoticeVM.self) { r in
             NoticeVM(useCase: r ~> (NoticeUseCase.self))
         }
+        
+        // MARK: - Notice
+        container.register(NoticeVC.self) { _ in
+            NoticeVC()
+        }
+        
         
         // MARK: - AlarmSet
         container.register(AlarmSetVC.self) { r in

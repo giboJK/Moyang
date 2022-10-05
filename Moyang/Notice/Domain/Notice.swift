@@ -10,7 +10,7 @@ import Foundation
 struct Notice: Codable {
     let id: String
     let title: String
-    let content: Bool
+    let content: String
     let date: String
     
     
@@ -21,4 +21,3 @@ struct Notice: Codable {
         case date
     }
 }
-

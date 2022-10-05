@@ -59,6 +59,14 @@ extension ProfileCoordinator: ProfileVCDelegate {
 
 // MARK: - NoticeListVCDelegate
 extension ProfileCoordinator: NoticeListVCDelegate {
+    func showNotice(vm: NoticeVM) {
+        if let vc = assembler.resolver.resolve(NoticeVC.self) {
+            vc.vm = vm
+            nav.pushViewController(vc, animated: true)
+        } else {
+            Log.e("error")
+        }
+    }
 }
 
 // MARK: - AlarmSetVCDelegate

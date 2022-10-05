@@ -69,4 +69,9 @@ class NetConst {
         static let fetchAlarms = "/alarm/fetch_alarm"
         static let deleteAlarm = "/alarm/delete_alarm"
     }
+    
+    enum NoticeAPI {
+        /// post
+        static let fetchNotices = "/notice/fetch_notice"
+    }
 }

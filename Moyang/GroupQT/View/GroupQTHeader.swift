@@ -67,4 +67,3 @@ class GroupQTHeader: UIView {
         }
     }
 }
-

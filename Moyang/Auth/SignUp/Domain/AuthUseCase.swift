@@ -44,7 +44,7 @@ class AuthUseCase {
                 Log.d(response)
                 self?.versionInfo.accept(response)
             case .failure(let error):
-                Log.e("")
+                Log.e(error)
             }
         }
     }
