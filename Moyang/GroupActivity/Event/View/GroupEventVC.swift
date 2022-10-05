@@ -20,7 +20,7 @@ class GroupEventVC: UIViewController, VCType {
     // MARK: - UI
     let newsTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(GroupNewsTVCell.self, forCellReuseIdentifier: "cell")
+        $0.register(GroupEventTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 68
@@ -68,7 +68,7 @@ class GroupEventVC: UIViewController, VCType {
         
         output.news
             .drive(newsTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupNewsTVCell.self)) { (_, item, cell) in
+                .items(cellIdentifier: "cell", cellType: GroupEventTVCell.self)) { (_, item, cell) in
                     cell.nameLabel.text = item.userName
                     cell.dateLabel.text = item.date.isoToDateString("yyyy년 M월 d일 hh:mm")
                     cell.contentLabel.text = item.preview
@@ -76,6 +76,6 @@ class GroupEventVC: UIViewController, VCType {
     }
 }
 
-protocol GroupNewsVCDelegate: AnyObject {
+protocol GroupEventVCDelegate: AnyObject {
 
 }

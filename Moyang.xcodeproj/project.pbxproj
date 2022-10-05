@@ -52,6 +52,7 @@
 		08E992BC28ED58F200696EB6 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992BB28ED58F200696EB6 /* Notice.swift */; };
 		08E992BE28ED590200696EB6 /* NoticeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992BD28ED590200696EB6 /* NoticeUseCase.swift */; };
 		08E992C028ED590900696EB6 /* NoticeRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992BF28ED590900696EB6 /* NoticeRepo.swift */; };
+		08E992C228ED5EE400696EB6 /* NoiceTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992C128ED5EE400696EB6 /* NoiceTVCell.swift */; };
 		08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */; };
 		08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFC127FDD78A00BDCB14 /* NetConst.swift */; };
 		08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08ECAAD628A6281E00B546F1 /* TaskDetailVC.swift */; };
@@ -65,7 +66,7 @@
 		08F4738E28B5F6090070CE2A /* AutoCompleteTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */; };
 		08F66EF628BC240D0078B6AB /* PrayTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EF528BC240D0078B6AB /* PrayTopicView.swift */; };
 		08F66EF928BD9D5F0078B6AB /* GroupEventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EF828BD9D5F0078B6AB /* GroupEventVM.swift */; };
-		08F66EFB28BDAB720078B6AB /* GroupNewsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EFA28BDAB720078B6AB /* GroupNewsTVCell.swift */; };
+		08F66EFB28BDAB720078B6AB /* GroupEventTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F66EFA28BDAB720078B6AB /* GroupEventTVCell.swift */; };
 		08F6796928B6DF0E00B6F287 /* GroupPraySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F6796828B6DF0E00B6F287 /* GroupPraySearchView.swift */; };
 		08F941F4289B5423003751F1 /* PrayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F3289B5423003751F1 /* PrayCVCell.swift */; };
 		08F941FA289BA0E8003751F1 /* GroupPrayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */; };
@@ -259,6 +260,7 @@
 		08E992BB28ED58F200696EB6 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		08E992BD28ED590200696EB6 /* NoticeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeUseCase.swift; sourceTree = "<group>"; };
 		08E992BF28ED590900696EB6 /* NoticeRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRepo.swift; sourceTree = "<group>"; };
+		08E992C128ED5EE400696EB6 /* NoiceTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiceTVCell.swift; sourceTree = "<group>"; };
 		08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		08EBCFC127FDD78A00BDCB14 /* NetConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConst.swift; sourceTree = "<group>"; };
 		08ECAAD628A6281E00B546F1 /* TaskDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailVC.swift; sourceTree = "<group>"; };
@@ -272,7 +274,7 @@
 		08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteTVCell.swift; sourceTree = "<group>"; };
 		08F66EF528BC240D0078B6AB /* PrayTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayTopicView.swift; sourceTree = "<group>"; };
 		08F66EF828BD9D5F0078B6AB /* GroupEventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEventVM.swift; sourceTree = "<group>"; };
-		08F66EFA28BDAB720078B6AB /* GroupNewsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNewsTVCell.swift; sourceTree = "<group>"; };
+		08F66EFA28BDAB720078B6AB /* GroupEventTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEventTVCell.swift; sourceTree = "<group>"; };
 		08F6796828B6DF0E00B6F287 /* GroupPraySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPraySearchView.swift; sourceTree = "<group>"; };
 		08F941F3289B5423003751F1 /* PrayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayCVCell.swift; sourceTree = "<group>"; };
 		08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayDetailVC.swift; sourceTree = "<group>"; };
@@ -645,6 +647,7 @@
 			children = (
 				08E992B328ED4FB800696EB6 /* NoticeListVC.swift */,
 				08E992B528ED589700696EB6 /* NoticeVC.swift */,
+				08E992C128ED5EE400696EB6 /* NoiceTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1276,7 +1279,7 @@
 			isa = PBXGroup;
 			children = (
 				24E7547928BAF30800E49EB2 /* GroupEventVC.swift */,
-				08F66EFA28BDAB720078B6AB /* GroupNewsTVCell.swift */,
+				08F66EFA28BDAB720078B6AB /* GroupEventTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1762,7 +1765,7 @@
 				24CD549D28771ABC0081375B /* PrayReplyDetailVC.swift in Sources */,
 				08D82959278D25F0001E6B61 /* Font+.swift in Sources */,
 				242F929E2848E0FF0023324D /* GroupActivityAssembly.swift in Sources */,
-				08F66EFB28BDAB720078B6AB /* GroupNewsTVCell.swift in Sources */,
+				08F66EFB28BDAB720078B6AB /* GroupEventTVCell.swift in Sources */,
 				08F66EF928BD9D5F0078B6AB /* GroupEventVM.swift in Sources */,
 				24F41C692897E9EA005B5E70 /* PrayController.swift in Sources */,
 				08BBB8BB27F9257E0005663C /* PopOver+.swift in Sources */,
@@ -1796,6 +1799,7 @@
 				08AD9591287BE371002D4F94 /* AuthCoordinator.swift in Sources */,
 				08D82957278D2548001E6B61 /* MoyangButtonStyle.swift in Sources */,
 				24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */,
+				08E992C228ED5EE400696EB6 /* NoiceTVCell.swift in Sources */,
 				24126C8A285D68EC00E8282B /* PrayReactionView.swift in Sources */,
 				08D0CEBE28A3853600A15F3C /* TaskItemView.swift in Sources */,
 				24E36119284B812D00C7EE26 /* MoyangPopupView.swift in Sources */,

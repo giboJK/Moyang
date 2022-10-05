@@ -1,5 +1,5 @@
 //
-//  GroupNewsTVCell.swift
+//  GroupEventTVCell.swift
 //  Moyang
 //
 //  Created by kibo on 2022/08/30.
@@ -10,7 +10,7 @@ import Then
 import RxCocoa
 import RxSwift
 
-class GroupNewsTVCell: UITableViewCell {
+class GroupEventTVCell: UITableViewCell {
     // MARK: - UI
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
