@@ -55,6 +55,16 @@ extension ProfileCoordinator: ProfileVCDelegate {
             Log.e("error")
         }
     }
+    
+    func didTapLogoutButton() {
+        UserData.shared.email = nil
+        UserData.shared.password = nil
+        nav.popViewController(animated: true)
+        let vcList = nav.viewControllers
+        if !vcList.contains(where: { $0 is IntroVC }) {
+            NotificationCenter.default.post(name: NSNotification.Name("LOGOUT_SUCCESS"), object: nil, userInfo: nil)
+        }
+    }
 }
 
 // MARK: - NoticeListVCDelegate

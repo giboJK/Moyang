@@ -41,6 +41,8 @@ class SplashVM: VMType {
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTokenSuccess),
                                                name: NSNotification.Name("UPDATE_TOKEN_SUCCESS"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userLogout),
+                                               name: NSNotification.Name("LOGOUT_SUCCESS"), object: nil)
         // Token이 안 날라올 경우 3초뒤에 autoLogin시도
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
             self.moveToIntro()
@@ -114,6 +116,10 @@ class SplashVM: VMType {
         if hasTryAutoLogin {
             return
         }
+        isLoginFailure.accept(())
+    }
+    
+    @objc func userLogout() {
         isLoginFailure.accept(())
     }
 }

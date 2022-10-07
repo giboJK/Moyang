@@ -135,9 +135,7 @@ class ProfileVC: UIViewController, VCType {
     private func bindViews() {
         logoutButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                UserData.shared.email = nil
-                UserData.shared.password = nil
-                self?.navigationController?.popViewController(animated: true)
+                self?.coordinator?.didTapLogoutButton()
             }).disposed(by: disposeBag)
         
         noticeButton.rx.tap
@@ -160,4 +158,5 @@ class ProfileVC: UIViewController, VCType {
 protocol ProfileVCDelegate: AnyObject {
     func didTapNoticeButton()
     func didTapAlarmButton()
+    func didTapLogoutButton()
 }
