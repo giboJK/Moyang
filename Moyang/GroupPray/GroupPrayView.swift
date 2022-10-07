@@ -16,8 +16,8 @@ class GroupPrayView: UIView {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
-//    let headerHeight: CGFloat = 172
-    let headerHeight: CGFloat = 44
+    let headerHeight: CGFloat = 188
+//    let headerHeight: CGFloat = 44
     let minHeaderHeight: CGFloat = 44
     var moreButtonHandler: (() -> Void)?
     
@@ -167,7 +167,7 @@ class GroupPrayView: UIView {
             
         let output = vm.transform(input: input)
         
-        output.groupName
+        output.groupName.map { $0 + " 중보기도"}
             .drive(headerView.groupNameLabel.rx.text)
             .disposed(by: disposeBag)
         

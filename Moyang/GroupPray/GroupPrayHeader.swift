@@ -12,18 +12,26 @@ import Then
 import SnapKit
 
 class GroupPrayHeader: UIView {
-    let prayTopicView = PrayTopicView()
-    let prayButton = MoyangButton(.none).then {
-        $0.layer.cornerRadius = 8
-        $0.tintColor = .sheep1
-        var container = AttributeContainer()
-        container.font = .systemFont(ofSize: 14, weight: .regular)
-        var configuration = UIButton.Configuration.filled()
-        configuration.buttonSize = .mini
-        configuration.attributedTitle = AttributedString("바로 기도하기", attributes: container)
-        configuration.baseBackgroundColor = .nightSky4
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-        $0.configuration = configuration
+    let myPrayLabel = UILabel().then {
+        $0.text = "내 중보기도"
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.textColor = .sheep1
+    }
+    let prayContainer = UIView().then {
+        $0.backgroundColor = .wilderness1.withAlphaComponent(0.8)
+        $0.layer.cornerRadius = 12
+    }
+    let prayLabel = UILabel().then {
+        $0.text = "중보기도를 요청해보세요. :)"
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.textColor = .sheep2
+        $0.numberOfLines = 0
+    }
+    let prayDateLabel = UILabel().then {
+        $0.text = "yyyy. M. d"
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.textColor = .sheep2
+        $0.numberOfLines = 0
     }
     let groupNameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -52,36 +60,48 @@ class GroupPrayHeader: UIView {
     }
     
     private func setupUI() {
-        setupPrayTopicView()
-        setupPrayButton()
+        setupMyPrayLabel()
+        setupPrayContainer()
         setupMoreButton()
         setupSearchButton()
         setupGroupNameLabel()
     }
-    
-    private func setupPrayTopicView() {
-        addSubview(prayTopicView)
-        prayTopicView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12)
+    private func setupMyPrayLabel() {
+        addSubview(myPrayLabel)
+        myPrayLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(8)
             $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(80)
         }
-        // TODO: -
-        prayTopicView.isHidden = true
     }
-    private func setupPrayButton() {
-        addSubview(prayButton)
-        prayButton.snp.makeConstraints {
-            $0.top.equalTo(prayTopicView.snp.bottom).offset(8)
-            $0.height.equalTo(36)
-            $0.centerX.equalToSuperview()
+    private func setupPrayContainer() {
+        addSubview(prayContainer)
+        prayContainer.snp.makeConstraints {
+            $0.top.equalTo(myPrayLabel.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(84)
+        }
+        setupPrayLabel()
+        setupPrayDateLabel()
+    }
+    private func setupPrayLabel() {
+        prayContainer.addSubview(prayLabel)
+        prayLabel.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(8)
+            $0.centerY.equalToSuperview()
+        }
+    }
+    private func setupPrayDateLabel() {
+        prayContainer.addSubview(prayDateLabel)
+        prayDateLabel.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(8)
+            $0.bottom.equalToSuperview().inset(8)
         }
     }
     private func setupMoreButton() {
         addSubview(moreButton)
         moreButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(12)
-            $0.right.equalToSuperview().inset(20)
+            $0.right.equalToSuperview().inset(16)
         }
         // TODO: -
         moreButton.isHidden = true
