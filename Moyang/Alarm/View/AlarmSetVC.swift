@@ -98,7 +98,9 @@ class AlarmSetVC: UIViewController, VCType {
         let input = VM.Input(setNewPray: prayAlarmView.setupButton.rx.tap.asDriver(),
                              setNewQT: qtAlarmView.setupButton.rx.tap.asDriver(),
                              editPray: editPray,
-                             editQT: editQT
+                             editQT: editQT,
+                             togglePrayAlarm: prayAlarmView.alarmSwitch.rx.isOn.asDriver(),
+                             toggleQtAlarm: qtAlarmView.alarmSwitch.rx.isOn.asDriver()
         )
         let output = vm.transform(input: input)
         

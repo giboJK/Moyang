@@ -61,7 +61,9 @@ class AlarmUseCase {
                     self.isSuccess.accept(())
                     if let type = AlarmType(rawValue: response.data.type.uppercased()) {
                         AlarmCenter.shared.removeNotification(type: type)
-                        AlarmCenter.shared.setNotification(type: type, time: time, day: day)
+                        if isOn {
+                            AlarmCenter.shared.setNotification(type: type, time: time, day: day)
+                        }
                     }
                 } else {
                     self.error.accept(.writingFailed)

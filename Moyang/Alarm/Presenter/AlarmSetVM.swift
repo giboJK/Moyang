@@ -168,6 +168,36 @@ class AlarmSetVM: VMType {
         isFri.accept(false)
         isSat.accept(false)
     }
+    
+    private func togglePrayAlarm(isOn: Bool) {
+        guard let alarm = prayTime.value else { return }
+        let id = alarm.id
+        var day = ""
+        day += alarm.isSun ? "0" : ""
+        day += alarm.isMon ? "1" : ""
+        day += alarm.isTue ? "2" : ""
+        day += alarm.isWed ? "3" : ""
+        day += alarm.isThu ? "4" : ""
+        day += alarm.isFri ? "5" : ""
+        day += alarm.isSat ? "6" : ""
+        
+        useCase.updateAlarm(alarmID: id, time: alarm.time, isOn: isOn, day: day)
+    }
+    
+    private func toggleQtAlarm(isOn: Bool) {
+        guard let alarm = qtTime.value else { return }
+        let id = alarm.id
+        var day = ""
+        day += alarm.isSun ? "0" : ""
+        day += alarm.isMon ? "1" : ""
+        day += alarm.isTue ? "2" : ""
+        day += alarm.isWed ? "3" : ""
+        day += alarm.isThu ? "4" : ""
+        day += alarm.isFri ? "5" : ""
+        day += alarm.isSat ? "6" : ""
+        
+        useCase.updateAlarm(alarmID: id, time: alarm.time, isOn: isOn, day: day)
+    }
 }
 
 extension AlarmSetVM {
@@ -176,6 +206,9 @@ extension AlarmSetVM {
         var setNewQT: Driver<Void> = .empty()
         var editPray: Driver<Void> = .empty()
         var editQT: Driver<Void> = .empty()
+        
+        var togglePrayAlarm: Driver<Bool> = .empty()
+        var toggleQtAlarm: Driver<Bool> = .empty()
 
         var save: Driver<Void> = .empty()
         var delete: Driver<Void> = .empty()
@@ -245,6 +278,18 @@ extension AlarmSetVM {
         input.delete
             .drive(onNext: { [weak self] _ in
                 self?.deleteAlarm()
+            }).disposed(by: disposeBag)
+        
+        input.togglePrayAlarm
+            .skip(1)
+            .drive(onNext: { [weak self] isOn in
+                self?.togglePrayAlarm(isOn: isOn)
+            }).disposed(by: disposeBag)
+        
+        input.toggleQtAlarm
+            .skip(1)
+            .drive(onNext: { [weak self] isOn in
+                self?.toggleQtAlarm(isOn: isOn)
             }).disposed(by: disposeBag)
         
         input.setTime
