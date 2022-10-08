@@ -1,5 +1,5 @@
 //
-//  GroupPrayView.swift
+//  GroupMediatorPrayView.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/09/10.
@@ -11,12 +11,12 @@ import Then
 import RxSwift
 import RxCocoa
 
-class GroupPrayView: UIView {
+class GroupMediatorPrayView: UIView {
     typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
-    let headerHeight: CGFloat = 188
+    let headerHeight: CGFloat = 184
 //    let headerHeight: CGFloat = 44
     let minHeaderHeight: CGFloat = 44
     var moreButtonHandler: (() -> Void)?
@@ -167,7 +167,7 @@ class GroupPrayView: UIView {
             
         let output = vm.transform(input: input)
         
-        output.groupName.map { $0 + " 중보기도"}
+        output.groupName
             .drive(headerView.groupNameLabel.rx.text)
             .disposed(by: disposeBag)
         

@@ -69,7 +69,7 @@ class GroupPrayHeader: UIView {
     private func setupMyPrayLabel() {
         addSubview(myPrayLabel)
         myPrayLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
+            $0.top.equalToSuperview().inset(12)
             $0.left.right.equalToSuperview().inset(20)
         }
     }

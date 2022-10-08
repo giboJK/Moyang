@@ -34,7 +34,7 @@ class GroupActivityVC: UIViewController, VCType {
         $0.numberOfLines = 2
     }
     let tabView = GroupActivityTabView()
-    let groupPrayView = GroupPrayView()
+    let groupMediatorPrayView = GroupMediatorPrayView()
     let groupQTView = GroupQTView()
     let myDiaryViiew = MyDiaryView()
     
@@ -103,14 +103,14 @@ class GroupActivityVC: UIViewController, VCType {
     }
     
     private func setupGroupPrayView() {
-        view.addSubview(groupPrayView)
-        groupPrayView.snp.makeConstraints {
+        view.addSubview(groupMediatorPrayView)
+        groupMediatorPrayView.snp.makeConstraints {
             $0.top.equalTo(tabView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
-        groupPrayView.isHidden = !(tabView.tabMenus.first == .pray)
-        groupPrayView.vm = vm
-        groupPrayView.bind()
+        groupMediatorPrayView.isHidden = !(tabView.tabMenus.first == .mediatorPray)
+        groupMediatorPrayView.vm = vm
+        groupMediatorPrayView.bind()
 //        groupPrayView.moreButtonHandler = showAddOptions
     }
     private func setupGroupQTView() {
@@ -140,9 +140,11 @@ class GroupActivityVC: UIViewController, VCType {
             alert.addAction(UIAlertAction(title: menu.addActionTitle, style: .default , handler: { [weak self] _ in
                 guard let vm = self?.vm else { return }
                 switch menu {
-                case .pray:
+                case .mediatorPray:
                     self?.coordinator?.didTapNewPrayButton(vm: vm)
                 case .qt:
+                    self?.coordinator?.didTapNewPrayButton(vm: vm)
+                case .pray:
                     self?.coordinator?.didTapNewPrayButton(vm: vm)
 //                case .thanks:
 //                    self?.coordinator?.didTapNewPrayButton(vm: vm)
@@ -181,7 +183,7 @@ class GroupActivityVC: UIViewController, VCType {
         tabView.menuCV.rx.itemSelected
             .skip(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] index in
-                self?.groupPrayView.isHidden = index.row != GroupActivityTabView.TapMenu.pray.rawValue
+                self?.groupMediatorPrayView.isHidden = index.row != GroupActivityTabView.TapMenu.mediatorPray.rawValue
                 self?.groupQTView.isHidden = index.row != GroupActivityTabView.TapMenu.qt.rawValue
 //                self?.myThanksViiew.isHidden = index.row != GroupActivityTabView.TapMenu.thanks.rawValue
             }).disposed(by: disposeBag)
