@@ -74,7 +74,17 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             return NewPrayVM(useCase: (r ~> PrayUseCase.self))
         }
         
-        // MARK: = NewQTVC
+        // MARK: - NewNote
+        container.register(NewNoteVC.self) { r in
+            let vc = NewNoteVC()
+            vc.vm = r ~> (NewNoteVM.self)
+            return vc
+        }
+        container.register(NewNoteVM.self) { _ in
+            return NewNoteVM()
+        }
+        
+        // MARK: - NewQTVC
         container.register(NewQTVC.self) { r in
             let vc = NewQTVC()
             vc.vm = r ~> (NewQTVM.self)

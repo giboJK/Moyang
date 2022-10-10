@@ -17,14 +17,27 @@ class GroupPrayHeader: UIView {
         $0.font = .systemFont(ofSize: 17, weight: .regular)
         $0.textColor = .sheep1
     }
-    let prayContainer = UIView().then {
+    let emptyPrayContainer = UIView().then {
         $0.backgroundColor = .wilderness1.withAlphaComponent(0.8)
         $0.layer.cornerRadius = 12
     }
-    let prayLabel = UILabel().then {
+    let emptyPrayLabel = UILabel().then {
         $0.text = "중보기도를 요청해보세요. :)"
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep2
+        $0.textAlignment = .center
+        $0.numberOfLines = 0
+    }
+    let prayContainer = UIView().then {
+        $0.backgroundColor = .wilderness1.withAlphaComponent(0.8)
+        $0.layer.cornerRadius = 12
+        $0.isHidden = true
+    }
+    let prayLabel = UILabel().then {
+        $0.text = "중보기도 주제"
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.textColor = .sheep2
+        $0.textAlignment = .center
         $0.numberOfLines = 0
     }
     let prayDateLabel = UILabel().then {
@@ -61,6 +74,7 @@ class GroupPrayHeader: UIView {
     
     private func setupUI() {
         setupMyPrayLabel()
+        setupEmptyPrayContainer()
         setupPrayContainer()
         setupMoreButton()
         setupSearchButton()
@@ -71,6 +85,23 @@ class GroupPrayHeader: UIView {
         myPrayLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(12)
             $0.left.right.equalToSuperview().inset(20)
+        }
+    }
+    private func setupEmptyPrayContainer() {
+        addSubview(emptyPrayContainer)
+        emptyPrayContainer.snp.makeConstraints {
+            $0.top.equalTo(myPrayLabel.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(84)
+        }
+        setupEmptyPrayLabel()
+    }
+    
+    private func setupEmptyPrayLabel() {
+        emptyPrayContainer.addSubview(emptyPrayLabel)
+        emptyPrayLabel.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(8)
+            $0.centerY.equalToSuperview()
         }
     }
     private func setupPrayContainer() {

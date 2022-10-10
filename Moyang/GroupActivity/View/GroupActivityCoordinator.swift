@@ -38,6 +38,14 @@ class GroupActivityCoordinator: Coordinator {
 }
 
 extension GroupActivityCoordinator: GroupActivityVCDelegate {
+    func didTapNewNoteButton() {
+        if let vc = assembler.resolver.resolve(NewNoteVC.self) {
+            nav.pushViewController(vc, animated: true)
+        } else {
+            Log.e("")
+        }
+    }
+    
     
     func didTapNewsButton() {
         if let vc = assembler.resolver.resolve(GroupEventVC.self) {

@@ -1,39 +1,39 @@
 //
-//  NoticeUseCase.swift
+//  WorshipNoteUseCase.swift
 //  Moyang
 //
-//  Created by kibo on 2022/10/05.
+//  Created by 정김기보 on 2022/10/10.
 //
 
 import Foundation
 import RxSwift
 import RxCocoa
 
-class NoticeUseCase {
-    let repo: NoticeRepo
+class WorshipNoteUseCase {
+    let repo: WorshipRepo
     
-    let notices = BehaviorRelay<[Notice]>(value: [])
+    let notes = BehaviorRelay<[WorshipNote]>(value: [])
     var page: Int = 0
-    var row: Int = 5
+    var row: Int = 3
     
     var isNetworking = false
     // MARK: - Lifecycle
-    init(repo: NoticeRepo) {
+    init(repo: WorshipRepo) {
         self.repo = repo
     }
     
-    func fetchLotices() {
+    func fetchWorshipNotes() {
         if isNetworking { return }
         isNetworking = true
         page = 0
         row = 5
         
-        repo.fetchNotices(page: page, row: row) { [weak self] result in
+        repo.fetchNotes(page: page, row: row) { [weak self] result in
             guard let self = self else { return }
             self.isNetworking = false
             switch result {
             case .success(let response):
-                self.notices.accept(response.list)
+                self.notes.accept(response.list)
             case .failure(let error):
                 Log.e(error as Any)
             }
@@ -46,17 +46,25 @@ class NoticeUseCase {
         page = row
         row += 5
         
-        repo.fetchNotices(page: page, row: row) { [weak self] result in
+        repo.fetchNotes(page: page, row: row) { [weak self] result in
             guard let self = self else { return }
             self.isNetworking = false
             switch result {
             case .success(let response):
-                var list = self.notices.value
+                var list = self.notes.value
                 list.append(contentsOf: response.list)
-                self.notices.accept(list)
+                self.notes.accept(list)
             case .failure(let error):
                 Log.e(error as Any)
             }
         }
+    }
+    
+    func addNote(pastor: String, bible: String, title: String, content: String, tags: [String]) {
+        
+    }
+    
+    func updateNote(id: String, pastor: String, bible: String, title: String, content: String, tags: [String]) {
+        
     }
 }

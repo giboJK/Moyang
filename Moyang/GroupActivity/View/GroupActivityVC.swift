@@ -35,8 +35,8 @@ class GroupActivityVC: UIViewController, VCType {
     }
     let tabView = GroupActivityTabView()
     let groupMediatorPrayView = GroupMediatorPrayView()
-    let groupQTView = GroupQTView()
-    let myDiaryViiew = MyDiaryView()
+//    let groupQTView = GroupQTView()
+    let worshipNoteView = WorshipNoteView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,9 +65,9 @@ class GroupActivityVC: UIViewController, VCType {
         setupGreetingLabel()
         setupTabView()
         
-        setupGroupPrayView()
-        setupGroupQTView()
-//        setupMyDiaryViiew()
+        setupGroupMediatorPrayView()
+//        setupGroupQTView()
+        setupWorshipNoteView()
     }
     private func setupNewsButton() {
         view.addSubview(newsButton)
@@ -102,7 +102,7 @@ class GroupActivityVC: UIViewController, VCType {
         }
     }
     
-    private func setupGroupPrayView() {
+    private func setupGroupMediatorPrayView() {
         view.addSubview(groupMediatorPrayView)
         groupMediatorPrayView.snp.makeConstraints {
             $0.top.equalTo(tabView.snp.bottom)
@@ -113,25 +113,25 @@ class GroupActivityVC: UIViewController, VCType {
         groupMediatorPrayView.bind()
 //        groupPrayView.moreButtonHandler = showAddOptions
     }
-    private func setupGroupQTView() {
-        view.addSubview(groupQTView)
-        groupQTView.snp.makeConstraints {
+//    private func setupGroupQTView() {
+//        view.addSubview(groupQTView)
+//        groupQTView.snp.makeConstraints {
+//            $0.top.equalTo(tabView.snp.bottom)
+//            $0.left.right.bottom.equalToSuperview()
+//        }
+//        groupQTView.isHidden = !(tabView.tabMenus.first == .qt)
+//        groupQTView.vm = vm
+//        groupQTView.bind()
+//    }
+    private func setupWorshipNoteView() {
+        view.addSubview(worshipNoteView)
+        worshipNoteView.snp.makeConstraints {
             $0.top.equalTo(tabView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
-        groupQTView.isHidden = !(tabView.tabMenus.first == .qt)
-        groupQTView.vm = vm
-        groupQTView.bind()
-    }
-    private func setupMyDiaryViiew() {
-        view.addSubview(myDiaryViiew)
-        myDiaryViiew.snp.makeConstraints {
-            $0.top.equalTo(tabView.snp.bottom)
-            $0.left.right.bottom.equalToSuperview()
-        }
-//        myThanksViiew.isHidden = !(tabView.tabMenus.first == .thanks)
-        myDiaryViiew.vm = vm
-        myDiaryViiew.bind()
+        worshipNoteView.isHidden = !(tabView.tabMenus.first == .worshipNote)
+        worshipNoteView.vm = vm
+        worshipNoteView.bind()
     }
     
     private func showAddOptions() {
@@ -142,10 +142,12 @@ class GroupActivityVC: UIViewController, VCType {
                 switch menu {
                 case .mediatorPray:
                     self?.coordinator?.didTapNewPrayButton(vm: vm)
-                case .qt:
-                    self?.coordinator?.didTapNewPrayButton(vm: vm)
+//                case .qt:
+//                    self?.coordinator?.didTapNewPrayButton(vm: vm)
                 case .pray:
                     self?.coordinator?.didTapNewPrayButton(vm: vm)
+                case .worshipNote:
+                    self?.coordinator?.didTapNewNoteButton()
 //                case .thanks:
 //                    self?.coordinator?.didTapNewPrayButton(vm: vm)
                 }
@@ -184,8 +186,8 @@ class GroupActivityVC: UIViewController, VCType {
             .skip(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] index in
                 self?.groupMediatorPrayView.isHidden = index.row != GroupActivityTabView.TapMenu.mediatorPray.rawValue
-                self?.groupQTView.isHidden = index.row != GroupActivityTabView.TapMenu.qt.rawValue
-//                self?.myThanksViiew.isHidden = index.row != GroupActivityTabView.TapMenu.thanks.rawValue
+//                self?.groupQTView.isHidden = index.row != GroupActivityTabView.TapMenu.qt.rawValue
+                self?.worshipNoteView.isHidden = index.row != GroupActivityTabView.TapMenu.worshipNote.rawValue
             }).disposed(by: disposeBag)
     }
     private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
@@ -272,4 +274,15 @@ protocol GroupActivityVCDelegate: AnyObject {
     func didTapNewQTButton()
     func didTapPrayButton(vm: GroupActivityVM)
     func didTapPray(vm: GroupPrayDetailVM)
+    func didTapNewNoteButton()
+}
+
+extension GroupActivityVC: GroupMediatorPrayViewDelegate {
+    func addNewTopic() {
+        
+    }
+    
+    func showMediatorPrayDetail() {
+        
+    }
 }

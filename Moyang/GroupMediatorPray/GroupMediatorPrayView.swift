@@ -15,6 +15,7 @@ class GroupMediatorPrayView: UIView {
     typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
+    var delegate: GroupMediatorPrayViewDelegate?
     
     let headerHeight: CGFloat = 184
 //    let headerHeight: CGFloat = 44
@@ -70,8 +71,8 @@ class GroupMediatorPrayView: UIView {
     private func setupSearchBar() {
         addSubview(searchBar)
         searchBar.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.height.equalTo(40)
+            $0.top.equalToSuperview().inset(8)
+            $0.height.equalTo(36)
             $0.left.right.equalToSuperview().inset(20)
         }
     }
@@ -115,6 +116,17 @@ class GroupMediatorPrayView: UIView {
     }
     
     private func bindViews() {
+        bindHeaderView()
+        bindSearchBar()
+        
+        autoCompleteTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] _ in
+                self?.praySearchView.isHidden = false
+                self?.searchBar.textField.endEditing(true)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func bindHeaderView() {
         headerView.moreButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.moreButtonHandler?()
@@ -127,6 +139,14 @@ class GroupMediatorPrayView: UIView {
                 self?.searchBar.textField.becomeFirstResponder()
             }).disposed(by: disposeBag)
         
+//        headerView.prayContainer.rx.tapGesture().when(.ended)
+//            .subscribe(onNext: { [weak self] _ in
+//                self?.didTapPrayContainer()
+//            }).disposed(by: disposeBag)
+    }
+
+    
+    private func bindSearchBar() {
         searchBar.textField.rx.controlEvent([.editingDidBegin])
             .subscribe(onNext: { [weak self] _ in
                 self?.autoCompleteTableView.isHidden = false
@@ -148,12 +168,6 @@ class GroupMediatorPrayView: UIView {
         searchBar.textField.rx.controlEvent([.editingDidEndOnExit])
             .subscribe(onNext: { [weak self] _ in
                 self?.praySearchView.isHidden = false
-            }).disposed(by: disposeBag)
-        
-        autoCompleteTableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] _ in
-                self?.praySearchView.isHidden = false
-                self?.searchBar.textField.endEditing(true)
             }).disposed(by: disposeBag)
     }
     
@@ -187,4 +201,9 @@ class GroupMediatorPrayView: UIView {
                     cell.tagLabel.text = item
                 }.disposed(by: disposeBag)
     }
+}
+
+protocol GroupMediatorPrayViewDelegate: AnyObject {
+    func addNewTopic()
+    func showMediatorPrayDetail()
 }
