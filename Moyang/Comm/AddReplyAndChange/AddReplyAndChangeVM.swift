@@ -11,6 +11,7 @@ import RxCocoa
 class AddReplyAndChangeVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: PrayUseCase
+    let bibleUseCase: BibleUseCase
     let prayID: String
     let userID: String
     
@@ -32,8 +33,9 @@ class AddReplyAndChangeVM: VMType {
     
     var isMe = false
     
-    init(useCase: PrayUseCase, prayID: String, userID: String, isAnswer: Bool = false) {
+    init(useCase: PrayUseCase, bibleUseCase: BibleUseCase, prayID: String, userID: String, isAnswer: Bool = false) {
         self.useCase = useCase
+        self.bibleUseCase = bibleUseCase
         self.prayID = prayID
         self.userID = userID
         self.isAnswer = isAnswer
@@ -105,7 +107,7 @@ class AddReplyAndChangeVM: VMType {
     }
     
     private func setBibleSelectVM() {
-        bibleSelectVM.accept(BibleSelectVM(useCase: useCase))
+        bibleSelectVM.accept(BibleSelectVM(useCase: bibleUseCase))
     }
 }
 

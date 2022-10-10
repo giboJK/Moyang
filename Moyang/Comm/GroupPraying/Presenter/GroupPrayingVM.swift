@@ -13,6 +13,7 @@ class GroupPrayingVM: VMType {
     typealias MemberItem = GroupActivityVM.MemberItem
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: PrayUseCase
+    let bibleUseCase: BibleUseCase
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -37,8 +38,9 @@ class GroupPrayingVM: VMType {
     var groupID = ""
     var prayID = ""
     
-    init(useCase: PrayUseCase, groupID: String?, userID: String? = nil) {
+    init(useCase: PrayUseCase, bibleUseCase: BibleUseCase, groupID: String?, userID: String? = nil) {
         self.useCase = useCase
+        self.bibleUseCase = bibleUseCase
         self.groupID = groupID ?? ""
         if let userID = userID {
             self.userID = userID
@@ -223,6 +225,7 @@ extension GroupPrayingVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
+                                                                    bibleUseCase: self.bibleUseCase,
                                                                     prayID: self.prayID,
                                                                     userID: self.userID))
             }).disposed(by: disposeBag)
@@ -231,6 +234,7 @@ extension GroupPrayingVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
+                                                                    bibleUseCase: self.bibleUseCase,
                                                                     prayID: self.prayID,
                                                                     userID: self.userID))
             }).disposed(by: disposeBag)
@@ -239,6 +243,7 @@ extension GroupPrayingVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
+                                                                    bibleUseCase: self.bibleUseCase,
                                                                     prayID: self.prayID,
                                                                     userID: self.userID,
                                                                     isAnswer: true))

@@ -1,5 +1,5 @@
 //
-//  WorshipNoteUseCase.swift
+//  BibleUseCase.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/10/10.
@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class WorshipNoteUseCase {
+class BibleUseCase {
     let repo: WorshipNoteRepo
     
     let notes = BehaviorRelay<[WorshipNote]>(value: [])
@@ -68,3 +68,4 @@ class WorshipNoteUseCase {
         
     }
 }
+

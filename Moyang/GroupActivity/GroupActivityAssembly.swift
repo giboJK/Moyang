@@ -80,8 +80,14 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             vc.vm = r ~> (NewNoteVM.self)
             return vc
         }
-        container.register(NewNoteVM.self) { _ in
-            return NewNoteVM()
+        container.register(NewNoteVM.self) { r in
+            return NewNoteVM(useCase: (r ~> WorshipNoteUseCase.self), bibleUseCasa: (r ~> BibleUseCase.self))
+        }
+        container.register(WorshipNoteUseCase.self) { r in
+            return WorshipNoteUseCase(repo: (r ~> WorshipNoteRepo.self))
+        }
+        container.register(WorshipNoteRepo.self) { r in
+            NoteController(networkService: (r ~> NetworkServiceProtocol.self))
         }
         
         // MARK: - NewQTVC
@@ -109,11 +115,16 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        container.register(GroupPrayingVM.self) { (_, useCase: PrayUseCase, groupID: String, userID: String) in
-            return GroupPrayingVM(useCase: useCase, groupID: groupID, userID: userID)
+        container.register(GroupPrayingVM.self) { (_, useCase: PrayUseCase, bibleUseCase: BibleUseCase, groupID: String, userID: String) in
+            return GroupPrayingVM(useCase: useCase, bibleUseCase: bibleUseCase, groupID: groupID, userID: userID)
         }
-        container.register(GroupPrayingVM.self) { (_, useCase: PrayUseCase, groupID: String) in
-            return GroupPrayingVM(useCase: useCase, groupID: groupID)
+        container.register(GroupPrayingVM.self) { (_, useCase: PrayUseCase, bibleUseCase: BibleUseCase, groupID: String) in
+            return GroupPrayingVM(useCase: useCase, bibleUseCase: bibleUseCase, groupID: groupID)
+        }
+        
+        // MARK: - Bible
+        container.register(BibleUseCase.self) { r in
+            return BibleUseCase(repo: (r ~> WorshipNoteRepo.self))
         }
         
         // MARK: - PrayUseCase

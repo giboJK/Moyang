@@ -1,5 +1,5 @@
 //
-//  WorshipRepo.swift
+//  WorshipNoteRepo.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/10/10.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol WorshipRepo {
+protocol WorshipNoteRepo {
     func fetchNotes(page: Int, row: Int, completion: ((Result<FetchNotesResponse, Error>) -> Void)?)
     
     func addNote(pastor: String, bible: String, title: String, content: String, tags: [String],

@@ -10,7 +10,7 @@ import RxCocoa
 
 class BibleSelectVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: PrayUseCase
+    let useCase: BibleUseCase
     
     let books = BehaviorRelay<[BibleItem]>(value: [])
     let chapters = BehaviorRelay<[BibleItem]>(value: [])
@@ -21,7 +21,7 @@ class BibleSelectVM: VMType {
     var selectedChapterNo = 0
     var selectedVerses = [BibleVerse]()
 
-    init(useCase: PrayUseCase) {
+    init(useCase: BibleUseCase) {
         self.useCase = useCase
         setupAllBooks()
     }

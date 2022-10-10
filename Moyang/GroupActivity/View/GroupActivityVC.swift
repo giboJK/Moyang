@@ -253,18 +253,6 @@ class GroupActivityVC: UIViewController, VCType {
                 self.showTopToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
-        
-        output.bibleSelectVM
-            .drive(onNext: { [weak self] bibleSelectVM in
-                guard let bibleSelectVM = bibleSelectVM else { return }
-                self?.openBibleSelectVC(bibleSelectVM: bibleSelectVM)
-            }).disposed(by: disposeBag)
-    }
-    
-    private func openBibleSelectVC(bibleSelectVM: BibleSelectVM) {
-        let vc = BibleSelectVC()
-        vc.vm = bibleSelectVM
-        present(vc, animated: true)
     }
 }
 

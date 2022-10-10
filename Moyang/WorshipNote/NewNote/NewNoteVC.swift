@@ -31,7 +31,7 @@ class NewNoteVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 17, weight: .regular)
         $0.textColor = .nightSky1
     }
-    let bibleAddButton = UIButton()
+    let addBibleButton = UIButton()
     let bibleLabel = UILabel()
     let contentTextView = UITextView().then {
         $0.backgroundColor = .sheep1
@@ -88,8 +88,21 @@ class NewNoteVC: UIViewController, VCType {
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input(selectBible: addBibleButton.rx.tap.asDriver())
+        let output = vm.transform(input: input)
+        
+        output.bibleSelectVM
+            .drive(onNext: { [weak self] bibleSelectVM in
+                guard let bibleSelectVM = bibleSelectVM else { return }
+                self?.openBibleSelectVC(bibleSelectVM: bibleSelectVM)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func openBibleSelectVC(bibleSelectVM: BibleSelectVM) {
+        let vc = BibleSelectVC()
+        vc.vm = bibleSelectVM
+        present(vc, animated: true)
     }
 }
 

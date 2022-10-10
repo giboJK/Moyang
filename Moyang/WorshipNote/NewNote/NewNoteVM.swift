@@ -10,8 +10,15 @@ import RxCocoa
 
 class NewNoteVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-
-    init() {
+    
+    var useCase: WorshipNoteUseCase
+    var bibleUseCasa: BibleUseCase
+    
+    let bibleSelectVM = BehaviorRelay<BibleSelectVM?>(value: nil)
+    
+    init(useCase: WorshipNoteUseCase, bibleUseCasa: BibleUseCase) {
+        self.useCase = useCase
+        self.bibleUseCasa = bibleUseCasa
     }
 
     deinit { Log.i(self) }
@@ -19,14 +26,19 @@ class NewNoteVM: VMType {
 
 extension NewNoteVM {
     struct Input {
-
+        var selectBible: Driver<Void>
     }
 
     struct Output {
-
+        let bibleSelectVM: Driver<BibleSelectVM?>
     }
 
     func transform(input: Input) -> Output {
-        return Output()
+        input.selectBible.drive(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.bibleSelectVM.accept(BibleSelectVM(useCase: self.bibleUseCasa))
+        }).disposed(by: disposeBag)
+        
+        return Output(bibleSelectVM: bibleSelectVM.asDriver())
     }
 }

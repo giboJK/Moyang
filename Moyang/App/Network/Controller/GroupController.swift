@@ -5,13 +5,10 @@
 //  Created by 정김기보 on 2022/05/25.
 //
 
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 import Foundation
 
 class GroupController {
     let networkService: NetworkServiceProtocol
-    let fsShared = FSServiceImplShared()
     
     init(networkService: NetworkServiceProtocol) {
         self.networkService = networkService
