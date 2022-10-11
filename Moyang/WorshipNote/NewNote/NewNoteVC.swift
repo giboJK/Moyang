@@ -17,19 +17,16 @@ class NewNoteVC: UIViewController, VCType {
     var vm: VM?
     var coordinator: NewNoteVCDelegate?
     private var tagList = [String]()
-
+    
     // MARK: - UI
-    let saveButton = UIButton().then {
-        $0.setTitle("저장", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.sheep2, for: .normal)
-        $0.setTitleColor(.sheep4, for: .disabled)
-    }
-    let titleTextView = UITextView().then {
+    let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: NewNoteVC.self, action: #selector(saveTapped))
+    let titleTextField = UITextField().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 17, weight: .regular)
         $0.textColor = .nightSky1
+        $0.attributedPlaceholder = NSAttributedString(string: "설교 제목",
+                                                      attributes: [.foregroundColor: UIColor.sheep4])
     }
     let addBibleButton = UIButton()
     let bibleLabel = UILabel()
@@ -48,7 +45,7 @@ class NewNoteVC: UIViewController, VCType {
         $0.backgroundColor = .clear
         $0.register(NewPrayTagCVCell.self, forCellWithReuseIdentifier: "cell")
     }
-
+    
     let tagTextField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
         $0.backgroundColor = .sheep3
         $0.layer.cornerRadius = 8
@@ -57,16 +54,16 @@ class NewNoteVC: UIViewController, VCType {
         $0.textColor = .nightSky1
         $0.returnKeyType = .done
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         bind()
     }
-
+    
     deinit { Log.i(self) }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
@@ -77,10 +74,40 @@ class NewNoteVC: UIViewController, VCType {
     func setupUI() {
         title = "새 예배 노트"
         view.backgroundColor = .nightSky1
+        navigationItem.rightBarButtonItems = [saveButton]
+        setupTitleTextField()
+        setupAddBibleButton()
+        setupBibleLabel()
+    }
+    private func setupTitleTextField() {
+        view.addSubview(titleTextField)
+        titleTextField.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(12)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(28)
+        }
+    }
+    private func setupAddBibleButton() {
+        view.addSubview(addBibleButton)
+        addBibleButton.snp.makeConstraints {
+            $0.top.equalTo(titleTextField.snp.bottom).offset(8)
+            $0.left.equalToSuperview().inset(20)
+            $0.height.equalTo(28)
+        }
+    }
+    private func setupBibleLabel() {
+        view.addSubview(bibleLabel)
+        bibleLabel.snp.makeConstraints {
+            $0.top.equalTo(titleTextField.snp.bottom).offset(8)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(28)
+        }
+        
     }
 
     // MARK: - Binding
     func bind() {
+        bindViews()
         bindVM()
     }
     private func bindViews() {
@@ -89,7 +116,9 @@ class NewNoteVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(selectBible: addBibleButton.rx.tap.asDriver())
+        let input = VM.Input(save: saveButton.rx.tap.asDriver(),
+                             selectBible: addBibleButton.rx.tap.asDriver()
+        )
         let output = vm.transform(input: input)
         
         output.bibleSelectVM
@@ -103,6 +132,10 @@ class NewNoteVC: UIViewController, VCType {
         let vc = BibleSelectVC()
         vc.vm = bibleSelectVM
         present(vc, animated: true)
+    }
+    
+    @objc func saveTapped() {
+        
     }
 }
 

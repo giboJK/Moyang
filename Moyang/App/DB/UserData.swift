@@ -114,9 +114,62 @@ class UserData {
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedTags)
     }
     
+    // MARK: - WorshipNote
+    
+    var autoSavedNoteTitle: String? {
+        get {
+            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedNoteTitle)
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedNoteTitle)
+        }
+    }
+    
+    var autoSavedNoteBible: String? {
+        get {
+            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedNoteBible)
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedNoteBible)
+        }
+    }
+    
+    var autoSavedNotePastor: String? {
+        get {
+            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedNotePastor)
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedNotePastor)
+        }
+    }
+    
+    var autoSavedNoteContent: String? {
+        get {
+            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedNoteContent)
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedNoteContent)
+        }
+    }
+    
+    var autoSavedNoteTags: [String]? {
+        get {
+            return UserDefaults.standard.object(forKey: UserDefaultKey.autoSavedNoteTag) as? [String]
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedNoteTag)
+        }
+    }
 }
 
 class UserDefaultKey {
     static let autoSavedPray = "AUTO_SAVED_PRAY"
     static let autoSavedTags = "AUTO_SAVED_TAGS"
+    
+    // MARK: - WorshipNote
+    static let autoSavedNoteTitle = "AUTO_SAVED_NOTE_TITLE"
+    static let autoSavedNoteBible = "AUTO_SAVED_NOTE_BIBLE"
+    static let autoSavedNotePastor = "AUTO_SAVED_NOTE_PASTOR"
+    static let autoSavedNoteContent = "AUTO_SAVED_NOTE_CONTENT"
+    static let autoSavedNoteTag = "AUTO_SAVED_NOTE_Tag"
 }

@@ -26,6 +26,7 @@ class NewNoteVM: VMType {
 
 extension NewNoteVM {
     struct Input {
+        var save: Driver<Void>
         var selectBible: Driver<Void>
     }
 
@@ -34,6 +35,10 @@ extension NewNoteVM {
     }
 
     func transform(input: Input) -> Output {
+        input.save.drive(onNext: { [weak self] _ in
+            Log.d("")
+        }).disposed(by: disposeBag)
+        
         input.selectBible.drive(onNext: { [weak self] in
             guard let self = self else { return }
             self.bibleSelectVM.accept(BibleSelectVM(useCase: self.bibleUseCasa))
