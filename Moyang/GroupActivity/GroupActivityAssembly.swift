@@ -35,7 +35,7 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         
         // MARK: - GroupPray
         container.register(GroupActivityVM.self) { r in
-            GroupActivityVM(useCase: (r ~> PrayUseCase.self))
+            GroupActivityVM(useCase: (r ~> PrayUseCase.self), bibleUseCase: (r ~> BibleUseCase.self))
         }
         
         // MARK: - GroupNews

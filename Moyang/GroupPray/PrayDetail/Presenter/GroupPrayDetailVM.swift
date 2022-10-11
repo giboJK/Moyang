@@ -11,6 +11,7 @@ import RxCocoa
 class GroupPrayDetailVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: PrayUseCase
+    let bibleUseCase: BibleUseCase
     let userID: String
     let prayID: String
     var groupIndividualPray: GroupIndividualPray!
@@ -43,8 +44,9 @@ class GroupPrayDetailVM: VMType {
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
     let changeAndAnswerVM = BehaviorRelay<ChangeAndAnswerVM?>(value: nil)
     
-    init(useCase: PrayUseCase, userID: String, prayID: String) {
+    init(useCase: PrayUseCase, bibleUseCase: BibleUseCase, userID: String, prayID: String) {
         self.useCase = useCase
+        self.bibleUseCase = bibleUseCase
         self.userID = userID
         self.prayID = prayID
         
@@ -236,7 +238,7 @@ extension GroupPrayDetailVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
-                                                                    bibleUseCase: self.bibl
+                                                                    bibleUseCase: self.bibleUseCase,
                                                                     prayID: self.prayID,
                                                                     userID: self.userID))
             }).disposed(by: disposeBag)
@@ -244,13 +246,20 @@ extension GroupPrayDetailVM {
         input.addChange
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase, prayID: self.prayID, userID: self.userID))
+                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
+                                                                    bibleUseCase: self.bibleUseCase,
+                                                                    prayID: self.prayID,
+                                                                    userID: self.userID))
             }).disposed(by: disposeBag)
         
         input.addAnswer
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase, prayID: self.prayID, userID: self.userID, isAnswer: true))
+                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
+                                                                    bibleUseCase: self.bibleUseCase,
+                                                                    prayID: self.prayID,
+                                                                    userID: self.userID,
+                                                                    isAnswer: true))
             }).disposed(by: disposeBag)
         
         input.didTapPrayReaction

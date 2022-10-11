@@ -12,6 +12,7 @@ import Foundation
 class GroupActivityVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: PrayUseCase
+    let bibleUseCase: BibleUseCase
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -47,8 +48,10 @@ class GroupActivityVM: VMType {
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     
-    init(useCase: PrayUseCase) {
+    init(useCase: PrayUseCase, bibleUseCase: BibleUseCase) {
         self.useCase = useCase
+        self.bibleUseCase = bibleUseCase
+        
         bind()
         setupGreeting()
         fetchPrayAll()
@@ -91,7 +94,7 @@ class GroupActivityVM: VMType {
         useCase.fetchPraySuccess
             .subscribe(onNext: { [weak self] pray in
                 guard let self = self, let pray = pray else { return }
-                self.groupPrayDetailVM.accept(GroupPrayDetailVM(useCase: self.useCase,
+                self.groupPrayDetailVM.accept(GroupPrayDetailVM(useCase: self.useCase, bibleUseCase: self.bibleUseCase,
                                                                 userID: pray.userID, prayID: pray.prayID))
                 self.removeAutoCompleteList()
             }).disposed(by: disposeBag)
@@ -335,6 +338,7 @@ extension GroupActivityVM {
                 guard let item = item else { return }
                 if let prayList = self.memberPrayList.value[item.0] {
                     self.groupPrayDetailVM.accept(GroupPrayDetailVM(useCase: self.useCase,
+                                                                    bibleUseCase: self.bibleUseCase,
                                                                     userID: item.0,
                                                                     prayID: prayList[item.1.row].prayID))
                 }
