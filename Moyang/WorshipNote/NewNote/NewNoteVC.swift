@@ -28,8 +28,14 @@ class NewNoteVC: UIViewController, VCType {
         $0.attributedPlaceholder = NSAttributedString(string: "설교 제목",
                                                       attributes: [.foregroundColor: UIColor.sheep4])
     }
-    let addBibleButton = UIButton()
-    let bibleLabel = UILabel()
+    let addBibleButton = UIButton().then {
+        $0.setTitle("성경 구절+", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+    }
+    let bibleLabel = UILabel().then {
+        $0.textColor = .sheep2
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+    }
     let contentTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
@@ -78,14 +84,18 @@ class NewNoteVC: UIViewController, VCType {
         setupTitleTextField()
         setupAddBibleButton()
         setupBibleLabel()
+        setupContentTextView()
     }
     private func setupTitleTextField() {
         view.addSubview(titleTextField)
         titleTextField.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(12)
             $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(28)
+            $0.height.equalTo(36)
         }
+        let indentView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 20))
+        titleTextField.leftView = indentView
+        titleTextField.leftViewMode = .always
     }
     private func setupAddBibleButton() {
         view.addSubview(addBibleButton)
@@ -102,7 +112,14 @@ class NewNoteVC: UIViewController, VCType {
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(28)
         }
-        
+    }
+    private func setupContentTextView() {
+        view.addSubview(contentTextView)
+        contentTextView.snp.makeConstraints {
+            $0.top.equalTo(bibleLabel.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(88)
+        }
     }
 
     // MARK: - Binding

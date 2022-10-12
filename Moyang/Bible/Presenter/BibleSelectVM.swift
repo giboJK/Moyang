@@ -76,6 +76,7 @@ class BibleSelectVM: VMType {
     
     private func generateSelectedString() {
         sortingVerses()
+        
         generateStrings()
         Log.d(selectedVerses)
     }
@@ -92,7 +93,7 @@ class BibleSelectVM: VMType {
             }
             if lhs.bookNo < rhs.bookNo {
                 return true
-            }
+            } 
             if lhs.chapter > rhs.chapter {
                 return false
             }
@@ -107,6 +108,10 @@ class BibleSelectVM: VMType {
     }
     
     private func generateStrings() {
+        if selectedVerses.isEmpty {
+            selected.accept([])
+            return
+        }
         if selectedVerses.count == 1 {
             selected.accept(selectedVerses.map { $0.content })
             return
