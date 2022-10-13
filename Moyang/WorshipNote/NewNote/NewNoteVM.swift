@@ -27,7 +27,7 @@ class NewNoteVM: VMType {
         self.useCase = useCase
         self.bibleUseCasa = bibleUseCasa
     }
-
+    
     deinit { Log.i(self) }
     
     private func autoSave() {
@@ -35,6 +35,14 @@ class NewNoteVM: VMType {
         UserData.shared.autoSavedNotePastor = newPastor.value
         UserData.shared.autoSavedNoteContent = newContent.value
         UserData.shared.autoSavedNoteTags = tagList.value
+    }
+    
+    private func loadAutoSave() {
+        newTitle.accept(UserData.shared.autoSavedNoteTitle)
+        newPastor.accept(UserData.shared.autoSavedNotePastor)
+        newContent.accept(UserData.shared.autoSavedNoteContent)
+        
+        tagList.accept(UserData.shared.autoSavedNoteTags ?? [])
     }
     
     private func saveNote() {
@@ -58,7 +66,7 @@ extension NewNoteVM {
         
         var selectBible: Driver<Void> = .empty()
     }
-
+    
     struct Output {
         let newTitle: Driver<String?>
         let newPastor: Driver<String?>
@@ -68,26 +76,39 @@ extension NewNoteVM {
         
         let bibleSelectVM: Driver<BibleSelectVM?>
     }
-
+    
     func transform(input: Input) -> Output {
+        input.loadAutoNote
+            .drive(onNext: { [weak self] willBeAppeared in
+                if willBeAppeared {
+                    self?.loadAutoSave()
+                }
+            }).disposed(by: disposeBag)
+        
         input.save.drive(onNext: { [weak self] _ in
             self?.saveNote()
         }).disposed(by: disposeBag)
         
-        input.setTitle.drive(onNext: { [weak self] title in
-            self?.newTitle.accept(title)
-            UserData.shared.autoSavedNoteTitle = title
-        }).disposed(by: disposeBag)
+        input.setTitle
+            .skip(1)
+            .drive(onNext: { [weak self] title in
+                self?.newTitle.accept(title)
+                UserData.shared.autoSavedNoteTitle = title
+            }).disposed(by: disposeBag)
         
-        input.setPastor.drive(onNext: { [weak self] pastor in
-            self?.newPastor.accept(pastor)
-            UserData.shared.autoSavedNotePastor = pastor
-        }).disposed(by: disposeBag)
+        input.setPastor
+            .skip(1)
+            .drive(onNext: { [weak self] pastor in
+                self?.newPastor.accept(pastor)
+                UserData.shared.autoSavedNotePastor = pastor
+            }).disposed(by: disposeBag)
         
-        input.setContent.drive(onNext: { [weak self] content in
-            self?.newContent.accept(content)
-            UserData.shared.autoSavedNoteContent = content
-        }).disposed(by: disposeBag)
+        input.setContent
+            .skip(1)
+            .drive(onNext: { [weak self] content in
+                self?.newContent.accept(content)
+                UserData.shared.autoSavedNoteContent = content
+            }).disposed(by: disposeBag)
         
         input.setTag.drive(onNext: { [weak self] tag in
             self?.newTag.accept(tag)

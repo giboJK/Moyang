@@ -52,7 +52,7 @@ class NewNoteVC: UIViewController, VCType, UITextFieldDelegate {
     let contentTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .nightSky1
     }
     let tagTextField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
@@ -75,7 +75,6 @@ class NewNoteVC: UIViewController, VCType, UITextFieldDelegate {
         cv.showsHorizontalScrollIndicator = false
         cv.allowsMultipleSelection = false
         cv.isMultipleTouchEnabled = false
-        cv.contentInset = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0)
         return cv
     }()
     
@@ -244,15 +243,49 @@ class NewNoteVC: UIViewController, VCType, UITextFieldDelegate {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(save: saveButton.rx.tap.asDriver()
+        let input = VM.Input(loadAutoNote: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false),
+                             setTitle: titleTextField.rx.text.asDriver(),
+                             setPastor: pastorTextField.rx.text.asDriver(),
+                             setContent: contentTextView.rx.text.asDriver(),
+                             setTag: tagTextField.rx.text.asDriver(),
+                             
+                             addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
+                             
+                             save: saveButton.rx.tap.asDriver()
 //                             selectBible: addBibleButton.rx.tap.asDriver()
         )
         let output = vm.transform(input: input)
         
-        output.bibleSelectVM
-            .drive(onNext: { [weak self] bibleSelectVM in
-                guard let bibleSelectVM = bibleSelectVM else { return }
-                self?.openBibleSelectVC(bibleSelectVM: bibleSelectVM)
+//        output.bibleSelectVM
+//            .drive(onNext: { [weak self] bibleSelectVM in
+//                guard let bibleSelectVM = bibleSelectVM else { return }
+//                self?.openBibleSelectVC(bibleSelectVM: bibleSelectVM)
+//            }).disposed(by: disposeBag)
+        
+        output.newTitle
+            .distinctUntilChanged()
+            .drive(titleTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.newPastor
+            .distinctUntilChanged()
+            .drive(pastorTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.newContent
+            .distinctUntilChanged()
+            .drive(contentTextView.rx.text)
+            .disposed(by: disposeBag)
+        
+        
+        output.newTag
+            .drive(tagTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.tagList
+            .drive(onNext: { [weak self] list in
+                self?.tagList = list
+                self?.tagCollectionView.reloadData()
             }).disposed(by: disposeBag)
     }
     
