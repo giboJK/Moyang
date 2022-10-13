@@ -88,7 +88,6 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     
     deinit {
         Log.i(self)
-        vm?.clearNewTag()
     }
     
     func setupUI() {
@@ -192,7 +191,6 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([cancelButton, space], animated: false)
         tagTextField.inputAccessoryView = toolBar
-        
     }
     private func setupTagCollectionView() {
         view.addSubview(tagCollectionView)

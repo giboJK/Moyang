@@ -53,9 +53,7 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    deinit {
-        Log.i(self)
-    }
+    deinit { Log.i(self) }
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {

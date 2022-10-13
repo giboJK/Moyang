@@ -70,6 +70,7 @@
 		08F941F4289B5423003751F1 /* PrayCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F3289B5423003751F1 /* PrayCVCell.swift */; };
 		08F941FA289BA0E8003751F1 /* GroupPrayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */; };
 		08F941FD289BA110003751F1 /* GroupPrayDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F941FC289BA110003751F1 /* GroupPrayDetailVM.swift */; };
+		08FDCADE28F7BFCC00EDDA10 /* NewNoteTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FDCADD28F7BFCC00EDDA10 /* NewNoteTagCVCell.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		240946D028707379003AEDAD /* AddReplyAndChangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240946CF28707379003AEDAD /* AddReplyAndChangeVC.swift */; };
 		240946D3287073FE003AEDAD /* AddReplyAndChangeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240946D2287073FE003AEDAD /* AddReplyAndChangeVM.swift */; };
@@ -287,6 +288,7 @@
 		08F941F3289B5423003751F1 /* PrayCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayCVCell.swift; sourceTree = "<group>"; };
 		08F941F9289BA0E8003751F1 /* GroupPrayDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayDetailVC.swift; sourceTree = "<group>"; };
 		08F941FC289BA110003751F1 /* GroupPrayDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayDetailVM.swift; sourceTree = "<group>"; };
+		08FDCADD28F7BFCC00EDDA10 /* NewNoteTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteTagCVCell.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		240946CF28707379003AEDAD /* AddReplyAndChangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReplyAndChangeVC.swift; sourceTree = "<group>"; };
 		240946D2287073FE003AEDAD /* AddReplyAndChangeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReplyAndChangeVM.swift; sourceTree = "<group>"; };
@@ -888,6 +890,7 @@
 			children = (
 				24630ECE28F3C69A00567996 /* NewNoteVC.swift */,
 				24630ED728F3D19B00567996 /* NewNoteVM.swift */,
+				08FDCADD28F7BFCC00EDDA10 /* NewNoteTagCVCell.swift */,
 			);
 			path = NewNote;
 			sourceTree = "<group>";
@@ -1802,6 +1805,7 @@
 				08EE004A28C84F8A000B02BD /* GroupActivityTabView.swift in Sources */,
 				24F7021328B4F967009A8414 /* BibleSelectVC.swift in Sources */,
 				24513BA528F1BF51008386ED /* NewMediatorPrayVC.swift in Sources */,
+				08FDCADE28F7BFCC00EDDA10 /* NewNoteTagCVCell.swift in Sources */,
 				08D0CEBA28A37EFF00A15F3C /* TodayTask.swift in Sources */,
 				08D8295B278D3327001E6B61 /* Color+.swift in Sources */,
 				24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */,
