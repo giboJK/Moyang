@@ -23,7 +23,7 @@ protocol WorshipNoteRepo {
     
     func updateCategory(id: String, name: String, color: String, completion: ((Result<UpdateNoteResponse, Error>) -> Void)?)
     func deleteCategory(id: String, completion: ((Result<BaseResponse, Error>) -> Void)?)
-    func fetchCategoryList(page: Int, row: Int, completion: ((Result<FetchNotesResponse, Error>) -> Void)?)
+    func fetchCategoryList(userId: String, page: Int, row: Int, completion: ((Result<FetchCategoryListResponse, Error>) -> Void)?)
 }
 
 class AddNoteResponse: BaseResponse {
@@ -60,6 +60,21 @@ class FetchNotesResponse: BaseResponse {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         list = try container.decode([WorshipNote].self, forKey: .list)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case list = "data"
+    }
+}
+
+
+class FetchCategoryListResponse: BaseResponse {
+    let list: [NoteCategory]
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        list = try container.decode([NoteCategory].self, forKey: .list)
         try super.init(from: decoder)
     }
     

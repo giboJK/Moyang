@@ -53,7 +53,23 @@ extension NoteController: WorshipNoteRepo {
         
     }
     
-    func fetchCategoryList(page: Int, row: Int, completion: ((Result<FetchNotesResponse, Error>) -> Void)?) {
+    func fetchCategoryList(userId: String, page: Int, row: Int, completion: ((Result<FetchCategoryListResponse, Error>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.NoteAPI.fetchCategoryList)
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: ["user_id": userId,
+                                                              "page": page,
+                                                              "row": row])
         
+        networkService.requestAPI(request: request,
+                                  type: FetchCategoryListResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
     }
 }

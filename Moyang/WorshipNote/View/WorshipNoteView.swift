@@ -24,26 +24,15 @@ class WorshipNoteView: UIView {
         $0.isHidden = true
     }
     let headerView = WorshipNoteHeader()
-    let noteTableView = UITableView().then {
+    let categoryTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(WorshipNoteTVCell.self, forCellReuseIdentifier: "cell")
+        $0.register(CategoryTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .nightSky1
         $0.separatorStyle = .none
-        $0.estimatedRowHeight = 220
+        $0.rowHeight = 60
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true
-    }
-    let autoCompleteTableView = UITableView().then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(AutoCompleteTVCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .nightSky1
-        $0.separatorStyle = .none
-        $0.estimatedRowHeight = 48
-        $0.showsVerticalScrollIndicator = false
-        $0.bounces = true
-        $0.isScrollEnabled = true
-        $0.isHidden = true
     }
     let emptyNoteView = EmptyNoteView()
     
@@ -60,23 +49,22 @@ class WorshipNoteView: UIView {
     private func setupUI() {
         setupNoteTableView()
         setupSearchBar()
-        setupAutoCompleteTableView()
         setupEmptyNoteView()
     }
     
     private func setupNoteTableView() {
-        addSubview(noteTableView)
-        noteTableView.snp.makeConstraints {
+        addSubview(categoryTableView)
+        categoryTableView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.bottom.left.right.equalToSuperview()
         }
-        noteTableView.stickyHeader.view = headerView
-        noteTableView.stickyHeader.height = headerHeight
-        noteTableView.stickyHeader.minimumHeight = minHeaderHeight
+        categoryTableView.stickyHeader.view = headerView
+        categoryTableView.stickyHeader.height = headerHeight
+        categoryTableView.stickyHeader.minimumHeight = minHeaderHeight
         let footer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60)).then {
             $0.backgroundColor = .clear
         }
-        noteTableView.tableFooterView = footer
+        categoryTableView.tableFooterView = footer
     }
     private func setupSearchBar() {
         addSubview(searchBar)
@@ -84,14 +72,6 @@ class WorshipNoteView: UIView {
             $0.top.equalToSuperview().inset(8)
             $0.height.equalTo(36)
             $0.left.right.equalToSuperview().inset(20)
-        }
-    }
-    private func setupAutoCompleteTableView() {
-        addSubview(autoCompleteTableView)
-        autoCompleteTableView.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom).offset(8)
-            $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview()
         }
     }
     private func setupEmptyNoteView() {
@@ -114,9 +94,20 @@ class WorshipNoteView: UIView {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input(showBibleSelect: addVerseButton.rx.tap.asDriver())
-//
-//        let _ = vm.transform(input: input)
+        let input = VM.Input()
+        let output = vm.transform(input: input)
+        
+        output.categoryList.skip(1)
+            .drive(categoryTableView.rx
+                .items(cellIdentifier: "cell", cellType: CategoryTVCell.self)) { (_, item, cell) in
+                    cell.nameLabel.text = item.name
+                }.disposed(by: disposeBag)
+        
+        output.categoryList.map { $0.isEmpty }
+            .drive(onNext: { [weak self] isEmpty in
+                self?.categoryTableView.isHidden = isEmpty
+                self?.emptyNoteView.isHidden = !isEmpty
+            }).disposed(by: disposeBag)
     }
 }
 

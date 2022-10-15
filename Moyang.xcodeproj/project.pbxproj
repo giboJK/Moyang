@@ -202,6 +202,8 @@
 		24E7EC8C28FAEB21008E0E3F /* WorshipNoteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E7EC8B28FAEB21008E0E3F /* WorshipNoteVM.swift */; };
 		24E7EC8F28FAEBAB008E0E3F /* WorshipNoteAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E7EC8E28FAEBAB008E0E3F /* WorshipNoteAssembly.swift */; };
 		24E7EC9128FB068D008E0E3F /* BibleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E7EC9028FB068D008E0E3F /* BibleAssembly.swift */; };
+		24E7EC9328FB0F9D008E0E3F /* NoteCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E7EC9228FB0F9D008E0E3F /* NoteCategory.swift */; };
+		24E7EC9528FB15F9008E0E3F /* CategoryTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E7EC9428FB15F9008E0E3F /* CategoryTVCell.swift */; };
 		24E8F07E27DDD7280036C0F0 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E8F07D27DDD7280036C0F0 /* WebView.swift */; };
 		24ECC31528B6620B00A758CF /* SearchPrayTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ECC31428B6620B00A758CF /* SearchPrayTVCell.swift */; };
 		24ED982E28AE32E40086C043 /* ChangeAndAnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED982D28AE32E40086C043 /* ChangeAndAnswerVC.swift */; };
@@ -427,6 +429,8 @@
 		24E7EC8B28FAEB21008E0E3F /* WorshipNoteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorshipNoteVM.swift; sourceTree = "<group>"; };
 		24E7EC8E28FAEBAB008E0E3F /* WorshipNoteAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorshipNoteAssembly.swift; sourceTree = "<group>"; };
 		24E7EC9028FB068D008E0E3F /* BibleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleAssembly.swift; sourceTree = "<group>"; };
+		24E7EC9228FB0F9D008E0E3F /* NoteCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCategory.swift; sourceTree = "<group>"; };
+		24E7EC9428FB15F9008E0E3F /* CategoryTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTVCell.swift; sourceTree = "<group>"; };
 		24E8F07D27DDD7280036C0F0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		24ECC31428B6620B00A758CF /* SearchPrayTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPrayTVCell.swift; sourceTree = "<group>"; };
 		24ED982D28AE32E40086C043 /* ChangeAndAnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAndAnswerVC.swift; sourceTree = "<group>"; };
@@ -893,6 +897,7 @@
 				24630EC928F3A05400567996 /* WorshipNoteTVCell.swift */,
 				24630ECB28F3A69800567996 /* WorshipNoteHeader.swift */,
 				24B1FA5F28FA552A00C6D21C /* EmptyNoteView.swift */,
+				24E7EC9428FB15F9008E0E3F /* CategoryTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -913,6 +918,7 @@
 				24630ED128F3CD6600567996 /* WorshipNote.swift */,
 				24630ED328F3CDA700567996 /* WorshipNoteUseCase.swift */,
 				24630ED528F3CDF100567996 /* WorshipNoteRepo.swift */,
+				24E7EC9228FB0F9D008E0E3F /* NoteCategory.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1766,6 +1772,7 @@
 				24ED983328AE3FA70086C043 /* ChangeAnswerTVCell.swift in Sources */,
 				24C877CF282FD76100F69AAD /* VCType.swift in Sources */,
 				24E4DC39284C2D1C002ECD83 /* GroupPrayingVM.swift in Sources */,
+				24E7EC9528FB15F9008E0E3F /* CategoryTVCell.swift in Sources */,
 				24F6B0C3289954740001B781 /* MemberItemTableViewCell.swift in Sources */,
 				24BB42622847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				24A603F528E9D414006DFD05 /* AlarmSelectDayView.swift in Sources */,
@@ -1856,6 +1863,7 @@
 				08F66EF928BD9D5F0078B6AB /* GroupEventVM.swift in Sources */,
 				24F41C692897E9EA005B5E70 /* PrayController.swift in Sources */,
 				08BBB8BB27F9257E0005663C /* PopOver+.swift in Sources */,
+				24E7EC9328FB0F9D008E0E3F /* NoteCategory.swift in Sources */,
 				2498F909287C514D007EF510 /* IntroCoordinator.swift in Sources */,
 				24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */,
 				24630ED428F3CDA700567996 /* WorshipNoteUseCase.swift in Sources */,

@@ -13,7 +13,7 @@ import RxSwift
 import RxGesture
 
 class WorshipNoteTVCell: UITableViewCell {
-    typealias VM = GroupActivityVM
+    typealias VM = WorshipNoteVM
     var disposeBag: DisposeBag = DisposeBag()
     weak var vm: VM?
     var isBinded = false
@@ -165,7 +165,7 @@ class WorshipNoteTVCell: UITableViewCell {
                 let offset = self.tagCollectionView.contentOffset.y
                 let maxOffset = self.tagCollectionView.contentSize.height - self.tagCollectionView.frame.size.height
                 if maxOffset - offset <= 0 {
-                    self.vm?.fetchMorePrays(userID: self.userID)
+//                    self.vm?.fetchMorePrays(userID: self.userID)
                 }
             }).disposed(by: disposeBag)
     }
@@ -177,8 +177,8 @@ class WorshipNoteTVCell: UITableViewCell {
             if isBinded { return }
             isBinded = true
             let showPrayDetail = tagCollectionView.rx.itemSelected.map { (self.userID, $0) }.asDriver(onErrorJustReturn: nil)
-            let input = VM.Input(showPrayDetail: showPrayDetail)
-            let output = vm.transform(input: input)
+//            let input = VM.Input(showPrayDetail: showPrayDetail)
+//            let output = vm.transform(input: input)
 
 //            output.memberPrayList
 //                .map { $0[self.userID] ?? [] }
