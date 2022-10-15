@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class WorshipNoteView: UIView {
-    typealias VM = GroupActivityVM
+    typealias VM = WorshipNoteVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var delegate: WorshipNoteViewDelegate?

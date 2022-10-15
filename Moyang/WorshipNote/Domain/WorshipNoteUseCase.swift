@@ -28,7 +28,7 @@ class WorshipNoteUseCase {
         page = 0
         row = 5
         
-        repo.fetchNotes(page: page, row: row) { [weak self] result in
+        repo.fetchNoteList(page: page, row: row) { [weak self] result in
             guard let self = self else { return }
             self.isNetworking = false
             switch result {
@@ -46,7 +46,7 @@ class WorshipNoteUseCase {
         page = row
         row += 5
         
-        repo.fetchNotes(page: page, row: row) { [weak self] result in
+        repo.fetchNoteList(page: page, row: row) { [weak self] result in
             guard let self = self else { return }
             self.isNetworking = false
             switch result {

@@ -20,6 +20,7 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             let vc = GroupActivityVC()
             vc.vm = (r ~> GroupActivityVM.self)
             vc.coordinator = r ~> (GroupActivityCoordinator.self)
+            vc.worshipNoteView = r ~> (WorshipNoteView.self)
             return vc
         }
         
@@ -74,22 +75,6 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             return NewPrayVM(useCase: (r ~> PrayUseCase.self))
         }
         
-        // MARK: - NewNote
-        container.register(NewNoteVC.self) { r in
-            let vc = NewNoteVC()
-            vc.vm = r ~> (NewNoteVM.self)
-            return vc
-        }
-        container.register(NewNoteVM.self) { r in
-            return NewNoteVM(useCase: (r ~> WorshipNoteUseCase.self), bibleUseCasa: (r ~> BibleUseCase.self))
-        }
-        container.register(WorshipNoteUseCase.self) { r in
-            return WorshipNoteUseCase(repo: (r ~> WorshipNoteRepo.self))
-        }
-        container.register(WorshipNoteRepo.self) { r in
-            NoteController(networkService: (r ~> NetworkServiceProtocol.self))
-        }
-        
         // MARK: - NewQTVC
         container.register(NewQTVC.self) { r in
             let vc = NewQTVC()
@@ -122,10 +107,6 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             return GroupPrayingVM(useCase: useCase, bibleUseCase: bibleUseCase, groupID: groupID)
         }
         
-        // MARK: - Bible
-        container.register(BibleUseCase.self) { r in
-            return BibleUseCase(repo: (r ~> WorshipNoteRepo.self))
-        }
         
         // MARK: - PrayUseCase
         container.register(PrayRepo.self) { r in
@@ -145,10 +126,26 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             GroupUseCase(repo: r ~> (GroupRepo.self))
         }
         
+        // MARK: - Assembly
+        container.register(WorshipNoteAssembly.self) { _ in
+            let assembly = WorshipNoteAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
+        
+        
+        container.register(BibleAssembly.self) { _ in
+            let assembly = BibleAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
+        
         // MARK: - Coordinator
-        container.register(GroupActivityCoordinator.self) { _ in
+        container.register(GroupActivityCoordinator.self) { r in
             guard let nav = self.nav else { return GroupActivityCoordinator() }
-            let coordinator = GroupActivityCoordinator(nav: nav, assembler: Assembler([self]))
+            let note = r ~> (WorshipNoteAssembly.self)
+            let bible = r ~> (BibleAssembly.self)
+            let coordinator = GroupActivityCoordinator(nav: nav, assembler: Assembler([self, note, bible]))
             return coordinator
         }
     }

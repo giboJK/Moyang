@@ -199,6 +199,9 @@
 		24E72A6128C306120062751B /* BibleVerseCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E72A6028C306120062751B /* BibleVerseCVCell.swift */; };
 		24E7547A28BAF30800E49EB2 /* GroupEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E7547928BAF30800E49EB2 /* GroupEventVC.swift */; };
 		24E79EBF28A6619A00B34298 /* PrayingCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E79EBE28A6619A00B34298 /* PrayingCVCell.swift */; };
+		24E7EC8C28FAEB21008E0E3F /* WorshipNoteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E7EC8B28FAEB21008E0E3F /* WorshipNoteVM.swift */; };
+		24E7EC8F28FAEBAB008E0E3F /* WorshipNoteAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E7EC8E28FAEBAB008E0E3F /* WorshipNoteAssembly.swift */; };
+		24E7EC9128FB068D008E0E3F /* BibleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E7EC9028FB068D008E0E3F /* BibleAssembly.swift */; };
 		24E8F07E27DDD7280036C0F0 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E8F07D27DDD7280036C0F0 /* WebView.swift */; };
 		24ECC31528B6620B00A758CF /* SearchPrayTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ECC31428B6620B00A758CF /* SearchPrayTVCell.swift */; };
 		24ED982E28AE32E40086C043 /* ChangeAndAnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED982D28AE32E40086C043 /* ChangeAndAnswerVC.swift */; };
@@ -421,6 +424,9 @@
 		24E72A6028C306120062751B /* BibleVerseCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleVerseCVCell.swift; sourceTree = "<group>"; };
 		24E7547928BAF30800E49EB2 /* GroupEventVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEventVC.swift; sourceTree = "<group>"; };
 		24E79EBE28A6619A00B34298 /* PrayingCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayingCVCell.swift; sourceTree = "<group>"; };
+		24E7EC8B28FAEB21008E0E3F /* WorshipNoteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorshipNoteVM.swift; sourceTree = "<group>"; };
+		24E7EC8E28FAEBAB008E0E3F /* WorshipNoteAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorshipNoteAssembly.swift; sourceTree = "<group>"; };
+		24E7EC9028FB068D008E0E3F /* BibleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleAssembly.swift; sourceTree = "<group>"; };
 		24E8F07D27DDD7280036C0F0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		24ECC31428B6620B00A758CF /* SearchPrayTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPrayTVCell.swift; sourceTree = "<group>"; };
 		24ED982D28AE32E40086C043 /* ChangeAndAnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAndAnswerVC.swift; sourceTree = "<group>"; };
@@ -642,6 +648,7 @@
 				08DE7CC628B4BE29003639B0 /* Domain */,
 				08F4738A28B5BCD30070CE2A /* Presenter */,
 				24F7021128B4F95C009A8414 /* View */,
+				24E7EC9028FB068D008E0E3F /* BibleAssembly.swift */,
 			);
 			path = Bible;
 			sourceTree = "<group>";
@@ -870,8 +877,10 @@
 		24630EC528F39F4B00567996 /* WorshipNote */ = {
 			isa = PBXGroup;
 			children = (
+				24E7EC8E28FAEBAB008E0E3F /* WorshipNoteAssembly.swift */,
 				24630ED028F3CD5C00567996 /* Domain */,
 				24630ECD28F3C68D00567996 /* NewNote */,
+				24E7EC8A28FAEB17008E0E3F /* Presenter */,
 				24630EC628F39F5D00567996 /* View */,
 			);
 			path = WorshipNote;
@@ -1348,6 +1357,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		24E7EC8A28FAEB17008E0E3F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				24E7EC8B28FAEB21008E0E3F /* WorshipNoteVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		24ED982B28AE32BF0086C043 /* ChangeAndAnswer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1734,6 +1751,7 @@
 				24DABDA72890FE6E00DEB6CC /* Calendar+.swift in Sources */,
 				24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */,
 				24FF077228BFAE7400F30ED0 /* GroupEvent.swift in Sources */,
+				24E7EC8F28FAEBAB008E0E3F /* WorshipNoteAssembly.swift in Sources */,
 				086ADDD928D19849007A95F2 /* AlarmSetVM.swift in Sources */,
 				24E0AB2C283E73F800F52505 /* CommunityMainRepo.swift in Sources */,
 				2498F907287C4F60007EF510 /* IntroAssembly.swift in Sources */,
@@ -1886,8 +1904,10 @@
 				24BFD9ED28307B2200E105D3 /* MainVM.swift in Sources */,
 				24CFA8C128792D6700484C89 /* AllGroupVM.swift in Sources */,
 				24CFA8C428792F4600484C89 /* GroupRepo.swift in Sources */,
+				24E7EC9128FB068D008E0E3F /* BibleAssembly.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,
 				2498F905287C4E4A007EF510 /* IntroVM.swift in Sources */,
+				24E7EC8C28FAEB21008E0E3F /* WorshipNoteVM.swift in Sources */,
 				24E0AB2A283E73C300F52505 /* CommunityMainUseCase.swift in Sources */,
 				24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */,
 				08E992B428ED4FB800696EB6 /* NoticeListVC.swift in Sources */,

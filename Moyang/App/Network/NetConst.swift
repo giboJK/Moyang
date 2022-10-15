@@ -74,4 +74,17 @@ class NetConst {
         /// post
         static let fetchNotices = "/notice/fetch_notice"
     }
+    
+    enum NoteAPI {
+        static let addCategory = "/note/add_category"
+        static let updateCategory = "/note/update_category"
+        static let deleteCategory = "/note/delete_category"
+        static let fetchCategoryList = "/note/fetch_category_list"
+        
+        static let addNote = "/note/add_note"
+        static let updateNote = "/note/update_note"
+        static let deleteNote = "/note/delete_note"
+        static let fetchNote = "/note/fetch_note"
+        static let fetchNoteList = "/note/fetch_note_list"
+    }
 }

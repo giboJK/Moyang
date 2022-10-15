@@ -12,7 +12,6 @@ import SnapKit
 import Then
 
 
-
 class GroupActivityVC: UIViewController, VCType {
     typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
@@ -38,7 +37,7 @@ class GroupActivityVC: UIViewController, VCType {
     let tabView = GroupActivityTabView()
     let groupMediatorPrayView = GroupMediatorPrayView()
 //    let groupQTView = GroupQTView()
-    let worshipNoteView = WorshipNoteView()
+    var worshipNoteView: WorshipNoteView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,7 +133,6 @@ class GroupActivityVC: UIViewController, VCType {
         worshipNoteView.delegate = self
 
         worshipNoteView.isHidden = !(tabView.tabMenus.first == .worshipNote)
-        worshipNoteView.vm = vm
         worshipNoteView.bind()
     }
     
