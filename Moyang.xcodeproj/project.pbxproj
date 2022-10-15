@@ -122,6 +122,7 @@
 		24AACA7C283FC3DD00308AC3 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7B283FC3DD00308AC3 /* MainCoordinator.swift */; };
 		24AACA7E283FC40A00308AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7D283FC40A00308AC3 /* Coordinator.swift */; };
 		24AC737A27468BD7003B9B2F /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC737927468BD7003B9B2F /* Array+.swift */; };
+		24B1FA6028FA552A00C6D21C /* EmptyNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B1FA5F28FA552A00C6D21C /* EmptyNoteView.swift */; };
 		24B6A2552726BEB00065112A /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6A2542726BEB00065112A /* GroupInfo.swift */; };
 		24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6E31E275F81CE00AD2E53 /* MoyangError.swift */; };
 		24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B88EE727A2D6C600D5B001 /* LottieView.swift */; };
@@ -341,6 +342,7 @@
 		24AACA7B283FC3DD00308AC3 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		24AACA7D283FC40A00308AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		24AC737927468BD7003B9B2F /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
+		24B1FA5F28FA552A00C6D21C /* EmptyNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyNoteView.swift; sourceTree = "<group>"; };
 		24B492D027989DAB005CAA5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		24B6A2542726BEB00065112A /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
 		24B6E31E275F81CE00AD2E53 /* MoyangError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangError.swift; sourceTree = "<group>"; };
@@ -881,6 +883,7 @@
 				24630EC728F39F6B00567996 /* WorshipNoteView.swift */,
 				24630EC928F3A05400567996 /* WorshipNoteTVCell.swift */,
 				24630ECB28F3A69800567996 /* WorshipNoteHeader.swift */,
+				24B1FA5F28FA552A00C6D21C /* EmptyNoteView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1757,6 +1760,7 @@
 				24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */,
 				08D0CEB728A36B1D00A15F3C /* TodayCoordinator.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
+				24B1FA6028FA552A00C6D21C /* EmptyNoteView.swift in Sources */,
 				241AF7CF28E46BC10085515B /* ProfileAssembly.swift in Sources */,
 				240946D028707379003AEDAD /* AddReplyAndChangeVC.swift in Sources */,
 				08D2FD97286EE27300ED8ECB /* PrayReactionDetailVM.swift in Sources */,

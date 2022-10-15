@@ -44,6 +44,7 @@ class WorshipNoteView: UIView {
         $0.isScrollEnabled = true
         $0.isHidden = true
     }
+    let emptyNoteView = EmptyNoteView()
     
     // MARK: - UI
     init() {
@@ -59,6 +60,7 @@ class WorshipNoteView: UIView {
         setupNoteTableView()
         setupSearchBar()
         setupAutoCompleteTableView()
+        setupEmptyNoteView()
     }
     
     private func setupNoteTableView() {
@@ -91,7 +93,12 @@ class WorshipNoteView: UIView {
             $0.bottom.equalToSuperview()
         }
     }
-    
+    private func setupEmptyNoteView() {
+        addSubview(emptyNoteView)
+        emptyNoteView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
     // MARK: - Binding
     func bind() {
         bindViews()
@@ -108,4 +115,3 @@ class WorshipNoteView: UIView {
 //        let _ = vm.transform(input: input)
     }
 }
-
