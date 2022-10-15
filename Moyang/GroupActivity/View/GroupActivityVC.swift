@@ -11,6 +11,8 @@ import RxSwift
 import SnapKit
 import Then
 
+
+
 class GroupActivityVC: UIViewController, VCType {
     typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
@@ -129,6 +131,8 @@ class GroupActivityVC: UIViewController, VCType {
             $0.top.equalTo(tabView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
+        worshipNoteView.delegate = self
+
         worshipNoteView.isHidden = !(tabView.tabMenus.first == .worshipNote)
         worshipNoteView.vm = vm
         worshipNoteView.bind()
@@ -265,12 +269,22 @@ protocol GroupActivityVCDelegate: AnyObject {
     func didTapNewNoteButton()
 }
 
+// MARK: - GroupMediatorPrayViewDelegate
+
 extension GroupActivityVC: GroupMediatorPrayViewDelegate {
     func addNewTopic() {
         
     }
     
     func showMediatorPrayDetail() {
+        
+    }
+}
+
+// MARK: - WorshipNoteViewDelegate
+
+extension GroupActivityVC: WorshipNoteViewDelegate {
+    func didTapEmptyView() {
         
     }
 }

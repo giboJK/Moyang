@@ -17,6 +17,10 @@ class EmptyNoteView: UIView {
         $0.image = UIImage(systemName: "list.bullet.rectangle.portrait.fill")
         $0.tintColor = .sheep2
     }
+    let plusImageView = UIImageView().then {
+        $0.image = UIImage(systemName: "plus")
+        $0.tintColor = .sheep2
+    }
     let titleLabel = UILabel().then {
         $0.textColor = .sheep1
         $0.font = .systemFont(ofSize: 21, weight: .semibold)
@@ -44,19 +48,29 @@ class EmptyNoteView: UIView {
     }
     
     private func setupUI() {
+        backgroundColor = .nightSky1
         setupEmptyImageView()
+        setupPlusImageView()
         setupTitleLabel()
         setupDescLabel()
     }
- 
     
     private func setupEmptyImageView() {
         addSubview(emptyImageView)
         emptyImageView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+            $0.centerX.equalToSuperview().offset(-12)
             $0.centerY.equalToSuperview().multipliedBy(0.5)
             $0.size.equalTo(108)
         }
+    }
+    private func setupPlusImageView() {
+        addSubview(plusImageView)
+        plusImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview().multipliedBy(0.5)
+            $0.left.equalTo(emptyImageView.snp.right).offset(-4)
+            $0.size.equalTo(28)
+        }
+        
     }
     private func setupTitleLabel() {
         addSubview(titleLabel)

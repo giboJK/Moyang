@@ -15,6 +15,7 @@ class WorshipNoteView: UIView {
     typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
+    var delegate: WorshipNoteViewDelegate?
     
     let headerHeight: CGFloat = 44
     let minHeaderHeight: CGFloat = 44
@@ -105,7 +106,10 @@ class WorshipNoteView: UIView {
         bindVM()
     }
     private func bindViews() {
-
+        emptyNoteView.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.delegate?.didTapEmptyView()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
@@ -114,4 +118,8 @@ class WorshipNoteView: UIView {
 //
 //        let _ = vm.transform(input: input)
     }
+}
+
+protocol WorshipNoteViewDelegate: AnyObject {
+    func didTapEmptyView()
 }
