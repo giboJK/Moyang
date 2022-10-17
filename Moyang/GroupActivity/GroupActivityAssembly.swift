@@ -107,6 +107,18 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             return GroupPrayingVM(useCase: useCase, bibleUseCase: bibleUseCase, groupID: groupID)
         }
         
+        container.register(GroupPrayingVM.self) { (r, useCase: PrayUseCase, groupID: String, userID: String) in
+            return GroupPrayingVM(useCase: useCase, bibleUseCase: r ~> (BibleUseCase.self), groupID: groupID)
+        }
+        
+        container.register(BibleUseCase.self) { r in
+            return BibleUseCase(repo: (r ~> WorshipNoteRepo.self))
+        }
+        
+        container.register(WorshipNoteRepo.self) { r in
+            NoteController(networkService: (r ~> NetworkServiceProtocol.self))
+        }
+        
         
         // MARK: - PrayUseCase
         container.register(PrayRepo.self) { r in

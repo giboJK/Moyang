@@ -32,4 +32,3 @@ class BibleAssembly: Assembly, BaseAssembly {
         // MARK: - Coordinator
     }
 }
-
