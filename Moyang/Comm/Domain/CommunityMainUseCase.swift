@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 class CommunityMainUseCase {
-    typealias PrayList = [GroupIndividualPray]
+    typealias PrayList = [MyPray]
     let repo: CommunityMainRepo
     
     let groupInfo = BehaviorRelay<GroupInfo?>(value: nil)

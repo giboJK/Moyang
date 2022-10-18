@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PrayRepo {
+protocol MyPrayRepo {
     
     // Add
     func addPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
@@ -36,14 +36,14 @@ protocol PrayRepo {
     
     // Fetch
     func fetchPrayList(groupID: String, userID: String, isMe: Bool, order: String, page: Int, row: Int,
-                       completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
-    func fetchPray(prayID: String, completion: ((Result<GroupIndividualPray, MoyangError>) -> Void)?)
+                       completion: ((Result<[MyPray], MoyangError>) -> Void)?)
+    func fetchPray(prayID: String, completion: ((Result<MyPray, MoyangError>) -> Void)?)
     
     func fetchTagAutocomplete(tag: String, completion: ((Result<TagAutocompleteResponse, MoyangError>) -> Void)?)
     
     // 전체 인원 기도 가져올 때
     func fetchPrayAll(groupID: String, userID: String, order: String, page: Int, row: Int,
-                      completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?)
+                      completion: ((Result<[MyPray], MoyangError>) -> Void)?)
     
     func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupEventResponse, MoyangError>) -> Void)?)
     
@@ -59,11 +59,11 @@ protocol PrayRepo {
 
 // MARK: - Response
 class AddPrayResponse: BaseResponse {
-    let data: GroupIndividualPray
+    let data: MyPray
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        data = try container.decode(GroupIndividualPray.self, forKey: .data)
+        data = try container.decode(MyPray.self, forKey: .data)
         try super.init(from: decoder)
     }
     

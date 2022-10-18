@@ -316,7 +316,7 @@ class PrayCVCell: UICollectionViewCell {
         }
     }
     
-    func setupData(item: GroupIndividualPray) {
+    func setupData(item: MyPray) {
         updateLatestPrayLabelHeight()
         dateLabel.text = item.latestDate.isoToDateString() ?? ""
         latestPrayLabel.text = item.pray

@@ -17,8 +17,8 @@ class PrayController {
     }
 }
 
-extension PrayController: PrayRepo {
-    func fetchPray(prayID: String, completion: ((Result<GroupIndividualPray, MoyangError>) -> Void)?) {
+extension PrayController: MyPrayRepo {
+    func fetchPray(prayID: String, completion: ((Result<MyPray, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPray)
         let dict: [String: Any] = [
             "pray_id": prayID
@@ -27,7 +27,7 @@ extension PrayController: PrayRepo {
                                                  method: .post,
                                                  parameters: dict)
         networkService.requestAPI(request: request,
-                                  type: GroupIndividualPray.self,
+                                  type: MyPray.self,
                                   token: nil) { result in
             switch result {
             case .success(let response):
@@ -194,7 +194,7 @@ extension PrayController: PrayRepo {
     }
     
     func fetchPrayList(groupID: String, userID: String, isMe: Bool, order: String, page: Int, row: Int,
-                       completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?) {
+                       completion: ((Result<[MyPray], MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPrayList)
         let dict: [String: Any] = [
             "group_id": groupID,
@@ -208,7 +208,7 @@ extension PrayController: PrayRepo {
                                                  method: .post,
                                                  parameters: dict)
         networkService.requestAPI(request: request,
-                                  type: [GroupIndividualPray].self,
+                                  type: [MyPray].self,
                                   token: nil) { result in
             switch result {
             case .success(let response):
@@ -220,7 +220,7 @@ extension PrayController: PrayRepo {
     }
     
     func fetchPrayAll(groupID: String, userID: String, order: String, page: Int, row: Int,
-                      completion: ((Result<[GroupIndividualPray], MoyangError>) -> Void)?) {
+                      completion: ((Result<[MyPray], MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPrayAll)
         let dict: [String: Any] = [
             "group_id": groupID,
@@ -233,7 +233,7 @@ extension PrayController: PrayRepo {
                                                  method: .post,
                                                  parameters: dict)
         networkService.requestAPI(request: request,
-                                  type: [GroupIndividualPray].self,
+                                  type: [MyPray].self,
                                   token: nil) { result in
             switch result {
             case .success(let response):

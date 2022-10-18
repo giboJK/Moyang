@@ -1,12 +1,12 @@
 //
-//  GroupIndividualPray.swift
+//  MyPray.swift
 //  Moyang
 //
 //  Created by kibo on 2022/04/23.
 //
 
 // MARK: - GroupIndividualPray
-struct GroupIndividualPray: Codable {
+struct MyPray: Codable {
     let prayID: String
     let userID: String
     let userName: String

@@ -10,7 +10,7 @@ import RxCocoa
 
 class NewPrayVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: PrayUseCase
+    let useCase: MyPrayUseCase
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -23,7 +23,7 @@ class NewPrayVM: VMType {
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     
-    init(useCase: PrayUseCase) {
+    init(useCase: MyPrayUseCase) {
         self.useCase = useCase
         bind()
         setGroupName()

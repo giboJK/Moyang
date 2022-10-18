@@ -11,7 +11,6 @@ import RxSwift
 import SnapKit
 import Then
 
-
 class GroupActivityVC: UIViewController, VCType {
     typealias VM = GroupActivityVM
     var disposeBag: DisposeBag = DisposeBag()
@@ -37,6 +36,7 @@ class GroupActivityVC: UIViewController, VCType {
     let tabView = GroupActivityTabView()
     let groupMediatorPrayView = GroupMediatorPrayView()
 //    let groupQTView = GroupQTView()
+    var myPrayMainVC: MyPrayMainVC?
     var worshipNoteView: WorshipNoteView!
     
     override func viewDidLoad() {
@@ -67,7 +67,7 @@ class GroupActivityVC: UIViewController, VCType {
         setupTabView()
         
         setupGroupMediatorPrayView()
-//        setupGroupQTView()
+        setupMyPrayMainVC()
         setupWorshipNoteView()
     }
     private func setupNewsButton() {
@@ -114,16 +114,17 @@ class GroupActivityVC: UIViewController, VCType {
         groupMediatorPrayView.bind()
 //        groupPrayView.moreButtonHandler = showAddOptions
     }
-//    private func setupGroupQTView() {
-//        view.addSubview(groupQTView)
-//        groupQTView.snp.makeConstraints {
-//            $0.top.equalTo(tabView.snp.bottom)
-//            $0.left.right.bottom.equalToSuperview()
-//        }
-//        groupQTView.isHidden = !(tabView.tabMenus.first == .qt)
-//        groupQTView.vm = vm
-//        groupQTView.bind()
-//    }
+    private func setupMyPrayMainVC() {
+        guard let vc = myPrayMainVC else { Log.e("MyPrayMainVC is nil"); return }
+        view.addSubview(vc.view)
+        addChild(vc)
+        vc.didMove(toParent: self)
+        vc.view.snp.makeConstraints {
+            $0.top.equalTo(tabView.snp.bottom)
+            $0.left.bottom.right.equalToSuperview()
+        }
+        vc.view.isHidden = !(tabView.tabMenus.first == .pray)
+    }
     private func setupWorshipNoteView() {
         view.addSubview(worshipNoteView)
         worshipNoteView.snp.makeConstraints {
@@ -189,6 +190,7 @@ class GroupActivityVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] index in
                 self?.groupMediatorPrayView.isHidden = index.row != GroupActivityTabView.TapMenu.mediatorPray.rawValue
 //                self?.groupQTView.isHidden = index.row != GroupActivityTabView.TapMenu.qt.rawValue
+                self?.myPrayMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.pray.rawValue
                 self?.worshipNoteView.isHidden = index.row != GroupActivityTabView.TapMenu.worshipNote.rawValue
             }).disposed(by: disposeBag)
     }

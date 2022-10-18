@@ -29,7 +29,7 @@ class MainAssembly: Assembly, BaseAssembly {
             AFNetworkService(sessionConfiguration: .default)
         }
                 
-        container.register(PrayRepo.self) { r in
+        container.register(MyPrayRepo.self) { r in
             PrayController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         

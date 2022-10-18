@@ -11,7 +11,7 @@ import Foundation
 
 class GroupActivityVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: PrayUseCase
+    let useCase: MyPrayUseCase
     let bibleUseCase: BibleUseCase
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
@@ -27,7 +27,7 @@ class GroupActivityVM: VMType {
     let memberList = BehaviorRelay<[MemberItem]>(value: [])
     let displayDate = BehaviorRelay<String>(value: "")
     
-    let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
+    let memberPrayList = BehaviorRelay<[String: [MyPray]]>(value: [:])
     
     let keyword = BehaviorRelay<String?>(value: nil)
     let autoCompleteList = BehaviorRelay<[String]>(value: [])
@@ -48,7 +48,7 @@ class GroupActivityVM: VMType {
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     
-    init(useCase: PrayUseCase, bibleUseCase: BibleUseCase) {
+    init(useCase: MyPrayUseCase, bibleUseCase: BibleUseCase) {
         self.useCase = useCase
         self.bibleUseCase = bibleUseCase
         
@@ -257,7 +257,7 @@ extension GroupActivityVM {
         let memberList: Driver<[MemberItem]>
         let displayDate: Driver<String>
         
-        let memberPrayList: Driver<[String: [GroupIndividualPray]]>
+        let memberPrayList: Driver<[String: [MyPray]]>
         let autoCompleteList: Driver<[String]>
         let searchPrayItemList: Driver<[SearchPrayItem]>
         

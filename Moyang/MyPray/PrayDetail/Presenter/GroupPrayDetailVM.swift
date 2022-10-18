@@ -10,11 +10,11 @@ import RxCocoa
 
 class GroupPrayDetailVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: PrayUseCase
+    let useCase: MyPrayUseCase
     let bibleUseCase: BibleUseCase
     let userID: String
     let prayID: String
-    var groupIndividualPray: GroupIndividualPray!
+    var groupIndividualPray: MyPray!
     
     let isMyPray = BehaviorRelay<Bool>(value: false)
     let memberName = BehaviorRelay<String>(value: "내 기도")
@@ -44,7 +44,7 @@ class GroupPrayDetailVM: VMType {
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
     let changeAndAnswerVM = BehaviorRelay<ChangeAndAnswerVM?>(value: nil)
     
-    init(useCase: PrayUseCase, bibleUseCase: BibleUseCase, userID: String, prayID: String) {
+    init(useCase: MyPrayUseCase, bibleUseCase: BibleUseCase, userID: String, prayID: String) {
         self.useCase = useCase
         self.bibleUseCase = bibleUseCase
         self.userID = userID
@@ -105,7 +105,7 @@ class GroupPrayDetailVM: VMType {
         groupName.accept(UserData.shared.groupInfo?.groupName ?? "")
     }
     
-    private func setData(data: GroupIndividualPray) {
+    private func setData(data: MyPray) {
         self.groupIndividualPray = data
         date.accept(data.latestDate.isoToDateString() ?? "")
         pray.accept(data.pray)

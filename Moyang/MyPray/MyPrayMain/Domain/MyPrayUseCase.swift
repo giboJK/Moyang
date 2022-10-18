@@ -1,5 +1,5 @@
 //
-//  PrayUseCase.swift
+//  MyPrayUseCase.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/28.
@@ -9,11 +9,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class PrayUseCase {
-    let repo: PrayRepo
+class MyPrayUseCase {
+    let repo: MyPrayRepo
     
     // MARK: - GroupPray
-    let memberPrayList = BehaviorRelay<[String: [GroupIndividualPray]]>(value: [:])
+    let memberPrayList = BehaviorRelay<[String: [MyPray]]>(value: [:])
     
     let autoCompleteList = BehaviorRelay<[String]>(value: [])
     let searchedPrayList = BehaviorRelay<[SearchedPray]>(value: [])
@@ -25,7 +25,7 @@ class PrayUseCase {
     let addNewPrayFailure = BehaviorRelay<Void>(value: ())
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
     let updatePrayFailure = BehaviorRelay<Void>(value: ())
-    let fetchPraySuccess = BehaviorRelay<GroupIndividualPray?>(value: nil)
+    let fetchPraySuccess = BehaviorRelay<MyPray?>(value: nil)
     let fetchPrayFailure = BehaviorRelay<Void>(value: ())
     
     let plusPraySuccess = BehaviorRelay<Void>(value: ())
@@ -64,7 +64,7 @@ class PrayUseCase {
     private var userPrayFetchDate = [String: Set<String>]() // 유저별로 해당 날짜의 기도를 불러온 적이 있는지 저장하는 모델
     
     // MARK: - Lifecycle
-    init(repo: PrayRepo) {
+    init(repo: MyPrayRepo) {
         self.repo = repo
     }
     
@@ -87,7 +87,7 @@ class PrayUseCase {
                     self.userPrayFetchDate.updateValue(Set<String>(), forKey: item.userID) // 최초에는 저장 공간을 만들어두기만 한다. 하루에 여러 기도를 저장할 수 있으므로.
                 }
                 self.userIDNameDict.accept(userIDNameDict)
-                var prayDict = [String: [GroupIndividualPray]]()
+                var prayDict = [String: [MyPray]]()
                 userIDNameDict.keys.forEach { key in
                     prayDict.updateValue([], forKey: key)
                 }

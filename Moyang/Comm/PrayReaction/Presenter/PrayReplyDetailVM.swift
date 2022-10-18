@@ -11,7 +11,7 @@ import RxCocoa
 class PrayReplyDetailVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     private let replys: [PrayReply]
-    let useCase: PrayUseCase
+    let useCase: MyPrayUseCase
     let userID: String
     let prayID: String
     var indexToDelete: Int = -1
@@ -23,7 +23,7 @@ class PrayReplyDetailVM: VMType {
     let deleteReplySuccess = BehaviorRelay<Void>(value: ())
     let deleteReplyFailure = BehaviorRelay<Void>(value: ())
     
-    init(useCase: PrayUseCase, userID: String, prayID: String, replys: [PrayReply]) {
+    init(useCase: MyPrayUseCase, userID: String, prayID: String, replys: [PrayReply]) {
         self.useCase = useCase
         self.userID = userID
         self.prayID = prayID

@@ -11,11 +11,11 @@ import RxCocoa
 class GroupEventVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let groupUseCase: GroupUseCase
-    let prayUseCase: PrayUseCase
+    let prayUseCase: MyPrayUseCase
     
     let events = BehaviorRelay<[EventItem]>(value: [])
 
-    init(groupUseCase: GroupUseCase, prayUseCase: PrayUseCase) {
+    init(groupUseCase: GroupUseCase, prayUseCase: MyPrayUseCase) {
         self.groupUseCase = groupUseCase
         self.prayUseCase = prayUseCase
         if let date = Date().startOfWeek?.toString("yyyy-MM-dd hh:mm:ss Z") {

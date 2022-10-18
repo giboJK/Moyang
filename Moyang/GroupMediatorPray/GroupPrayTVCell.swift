@@ -56,7 +56,7 @@ class GroupPrayTVCell: UITableViewCell {
     
     var userID: String = ""
     var prayID: String = ""
-    var prayList = [GroupIndividualPray]()
+    var prayList = [MyPray]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

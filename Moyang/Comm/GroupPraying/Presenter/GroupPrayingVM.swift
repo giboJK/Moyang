@@ -12,7 +12,7 @@ import AVFoundation
 class GroupPrayingVM: VMType {
     typealias MemberItem = GroupActivityVM.MemberItem
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: PrayUseCase
+    let useCase: MyPrayUseCase
     let bibleUseCase: BibleUseCase
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
@@ -21,7 +21,7 @@ class GroupPrayingVM: VMType {
     let selectedMemberName = BehaviorRelay<String>(value: "")
     let songName = BehaviorRelay<String?>(value: nil)
     let isPlaying = BehaviorRelay<Bool>(value: false)
-    let prayList = BehaviorRelay<[GroupIndividualPray]>(value: [])
+    let prayList = BehaviorRelay<[MyPray]>(value: [])
     let isMe = BehaviorRelay<Bool>(value: false)
 
     var timer: Timer?
@@ -38,7 +38,7 @@ class GroupPrayingVM: VMType {
     var groupID = ""
     var prayID = ""
     
-    init(useCase: PrayUseCase, bibleUseCase: BibleUseCase, groupID: String?, userID: String? = nil) {
+    init(useCase: MyPrayUseCase, bibleUseCase: BibleUseCase, groupID: String?, userID: String? = nil) {
         self.useCase = useCase
         self.bibleUseCase = bibleUseCase
         self.groupID = groupID ?? ""
@@ -202,7 +202,7 @@ extension GroupPrayingVM {
         let selectedMemberName: Driver<String>
         let songName: Driver<String?>
         let isPlaying: Driver<Bool>
-        let prayList: Driver<[GroupIndividualPray]>
+        let prayList: Driver<[MyPray]>
         let isMe: Driver<Bool>
         let prayingTimeStr: Driver<String>
         let amenSuccess: Driver<Void>

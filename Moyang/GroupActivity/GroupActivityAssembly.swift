@@ -20,6 +20,13 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             let vc = GroupActivityVC()
             vc.vm = (r ~> GroupActivityVM.self)
             vc.coordinator = r ~> (GroupActivityCoordinator.self)
+            
+            // View controllers
+            
+            let myPrayMainVC = r ~> (MyPrayMainVC.self)
+            myPrayMainVC.coordinator = r ~> (MyPrayCoordinator.self)
+            vc.myPrayMainVC = myPrayMainVC
+            
             vc.worshipNoteView = r ~> (WorshipNoteView.self)
             return vc
         }
@@ -36,12 +43,12 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         
         // MARK: - GroupPray
         container.register(GroupActivityVM.self) { r in
-            GroupActivityVM(useCase: (r ~> PrayUseCase.self), bibleUseCase: (r ~> BibleUseCase.self))
+            GroupActivityVM(useCase: (r ~> MyPrayUseCase.self), bibleUseCase: (r ~> BibleUseCase.self))
         }
         
         // MARK: - GroupNews
         container.register(GroupEventVM.self) { r in
-            GroupEventVM(groupUseCase: r ~> (GroupUseCase.self), prayUseCase: r ~> (PrayUseCase.self))
+            GroupEventVM(groupUseCase: r ~> (GroupUseCase.self), prayUseCase: r ~> (MyPrayUseCase.self))
         }
         container.register(GroupEventVC.self) { r in
             let vc = GroupEventVC()
@@ -62,17 +69,17 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - NewPrayVC
-        container.register(NewPrayVC.self) { (r, useCase: PrayUseCase) in
+        container.register(NewPrayVC.self) { (r, useCase: MyPrayUseCase) in
             let vc = NewPrayVC()
             vc.vm = r ~> (NewPrayVM.self, argument: useCase)
             return vc
         }
-        container.register(NewPrayVM.self) { (_, useCase: PrayUseCase) in
+        container.register(NewPrayVM.self) { (_, useCase: MyPrayUseCase) in
             return NewPrayVM(useCase: useCase)
         }
         
         container.register(NewPrayVM.self) { r in
-            return NewPrayVM(useCase: (r ~> PrayUseCase.self))
+            return NewPrayVM(useCase: (r ~> MyPrayUseCase.self))
         }
         
         // MARK: - NewQTVC
@@ -86,7 +93,7 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - GroupPrayingVC
-        container.register(GroupPrayingVC.self) { (r, useCase: PrayUseCase, groupID: String, userID: String, prayID: String) in
+        container.register(GroupPrayingVC.self) { (r, useCase: MyPrayUseCase, groupID: String, userID: String, prayID: String) in
             let vc = GroupPrayingVC()
             let vm = r ~> (GroupPrayingVM.self, arguments: (useCase, groupID, userID))
             vm.prayID = prayID
@@ -94,20 +101,20 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        container.register(GroupPrayingVC.self) { (r, useCase: PrayUseCase, groupID: String) in
+        container.register(GroupPrayingVC.self) { (r, useCase: MyPrayUseCase, groupID: String) in
             let vc = GroupPrayingVC()
             vc.vm = r ~> (GroupPrayingVM.self, arguments: (useCase, groupID))
             return vc
         }
         
-        container.register(GroupPrayingVM.self) { (_, useCase: PrayUseCase, bibleUseCase: BibleUseCase, groupID: String, userID: String) in
+        container.register(GroupPrayingVM.self) { (_, useCase: MyPrayUseCase, bibleUseCase: BibleUseCase, groupID: String, userID: String) in
             return GroupPrayingVM(useCase: useCase, bibleUseCase: bibleUseCase, groupID: groupID, userID: userID)
         }
-        container.register(GroupPrayingVM.self) { (_, useCase: PrayUseCase, bibleUseCase: BibleUseCase, groupID: String) in
+        container.register(GroupPrayingVM.self) { (_, useCase: MyPrayUseCase, bibleUseCase: BibleUseCase, groupID: String) in
             return GroupPrayingVM(useCase: useCase, bibleUseCase: bibleUseCase, groupID: groupID)
         }
         
-        container.register(GroupPrayingVM.self) { (r, useCase: PrayUseCase, groupID: String, userID: String) in
+        container.register(GroupPrayingVM.self) { (r, useCase: MyPrayUseCase, groupID: String, userID: String) in
             return GroupPrayingVM(useCase: useCase, bibleUseCase: r ~> (BibleUseCase.self), groupID: groupID)
         }
         
@@ -121,12 +128,12 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         
         
         // MARK: - PrayUseCase
-        container.register(PrayRepo.self) { r in
+        container.register(MyPrayRepo.self) { r in
             PrayController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         
-        container.register(PrayUseCase.self) { r in
-            PrayUseCase(repo: r ~> (PrayRepo.self))
+        container.register(MyPrayUseCase.self) { r in
+            MyPrayUseCase(repo: r ~> (MyPrayRepo.self))
         }
         
         // MARK: - GroupUseCase
@@ -145,9 +152,14 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             return assembly
         }
         
-        
         container.register(BibleAssembly.self) { _ in
             let assembly = BibleAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
+        
+        container.register(MyPrayAssembly.self) { _ in
+            let assembly = MyPrayAssembly()
             assembly.nav = self.nav
             return assembly
         }
@@ -157,7 +169,8 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             guard let nav = self.nav else { return GroupActivityCoordinator() }
             let note = r ~> (WorshipNoteAssembly.self)
             let bible = r ~> (BibleAssembly.self)
-            let coordinator = GroupActivityCoordinator(nav: nav, assembler: Assembler([self, note, bible]))
+            let myPray = r ~> (MyPrayAssembly.self)
+            let coordinator = GroupActivityCoordinator(nav: nav, assembler: Assembler([self, note, bible, myPray]))
             return coordinator
         }
     }

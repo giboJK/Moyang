@@ -10,7 +10,7 @@ import RxCocoa
 
 class AddReplyAndChangeVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: PrayUseCase
+    let useCase: MyPrayUseCase
     let bibleUseCase: BibleUseCase
     let prayID: String
     let userID: String
@@ -33,7 +33,7 @@ class AddReplyAndChangeVM: VMType {
     
     var isMe = false
     
-    init(useCase: PrayUseCase, bibleUseCase: BibleUseCase, prayID: String, userID: String, isAnswer: Bool = false) {
+    init(useCase: MyPrayUseCase, bibleUseCase: BibleUseCase, prayID: String, userID: String, isAnswer: Bool = false) {
         self.useCase = useCase
         self.bibleUseCase = bibleUseCase
         self.prayID = prayID

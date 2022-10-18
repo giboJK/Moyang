@@ -10,14 +10,14 @@ import RxCocoa
 
 class ChangeAndAnswerVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: PrayUseCase
+    let useCase: MyPrayUseCase
     let userID: String
     let prayID: String
-    var groupIndividualPray: GroupIndividualPray!
+    var groupIndividualPray: MyPray!
     
     let itemList = BehaviorRelay<[TableItem]>(value: [])
 
-    init(useCase: PrayUseCase, userID: String, prayID: String) {
+    init(useCase: MyPrayUseCase, userID: String, prayID: String) {
         self.useCase = useCase
         self.userID = userID
         self.prayID = prayID
@@ -38,7 +38,7 @@ class ChangeAndAnswerVM: VMType {
                 }
             }).disposed(by: disposeBag)
     }
-    private func setData(data: GroupIndividualPray) {
+    private func setData(data: MyPray) {
         self.groupIndividualPray = data
         var items = [TableItem]()
         items.append(TableItem(type: .pray,
