@@ -21,14 +21,35 @@ class MyPrayAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - MyPrayMain
-        container.register(BibleUseCase.self) { r in
-            return BibleUseCase(repo: (r ~> WorshipNoteRepo.self))
+        
+        container.register(MyPrayMainVC.self) { r in
+            let vc = MyPrayMainVC()
+            vc.vm = (r ~> MyPrayMainVM.self)
+            vc.coordinator = r ~> (MyPrayCoordinator.self)
+            
+            // View controllers
+            
+            return vc
+        }
+        container.register(MyPrayMainVM.self) { r in
+            MyPrayMainVM(useCase: r ~> (MyPrayUseCase.self))
         }
         
-        container.register(WorshipNoteRepo.self) { r in
-            NoteController(networkService: (r ~> NetworkServiceProtocol.self))
+        
+        // MARK: - MyPray
+        container.register(MyPrayRepo.self) { r in
+            PrayController(networkService: r ~> (NetworkServiceProtocol.self))
+        }
+        
+        container.register(MyPrayUseCase.self) { r in
+            MyPrayUseCase(repo: r ~> (MyPrayRepo.self))
         }
         
         // MARK: - Coordinator
+        container.register(MyPrayCoordinator.self) { _ in
+            guard let nav = self.nav else { return MyPrayCoordinator() }
+            let coordinator = MyPrayCoordinator(nav: nav, assembler: Assembler([self]))
+            return coordinator
+        }
     }
 }

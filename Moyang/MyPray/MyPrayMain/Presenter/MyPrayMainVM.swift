@@ -10,11 +10,17 @@ import RxCocoa
 
 class MyPrayMainVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
+    let useCase: MyPrayUseCase
 
-    init() {
+    init(useCase: MyPrayUseCase) {
+        self.useCase = useCase
+        bind()
     }
 
     deinit { Log.i(self) }
+    
+    private func bind() {
+    }
 }
 
 extension MyPrayMainVM {

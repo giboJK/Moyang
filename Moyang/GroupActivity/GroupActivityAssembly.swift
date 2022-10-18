@@ -126,16 +126,6 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             NoteController(networkService: (r ~> NetworkServiceProtocol.self))
         }
         
-        
-        // MARK: - PrayUseCase
-        container.register(MyPrayRepo.self) { r in
-            PrayController(networkService: r ~> (NetworkServiceProtocol.self))
-        }
-        
-        container.register(MyPrayUseCase.self) { r in
-            MyPrayUseCase(repo: r ~> (MyPrayRepo.self))
-        }
-        
         // MARK: - GroupUseCase
         container.register(GroupRepo.self) { r in
             GroupController(networkService: r ~> (NetworkServiceProtocol.self))
@@ -169,8 +159,7 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             guard let nav = self.nav else { return GroupActivityCoordinator() }
             let note = r ~> (WorshipNoteAssembly.self)
             let bible = r ~> (BibleAssembly.self)
-            let myPray = r ~> (MyPrayAssembly.self)
-            let coordinator = GroupActivityCoordinator(nav: nav, assembler: Assembler([self, note, bible, myPray]))
+            let coordinator = GroupActivityCoordinator(nav: nav, assembler: Assembler([self, note, bible]))
             return coordinator
         }
     }
