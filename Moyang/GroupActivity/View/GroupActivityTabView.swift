@@ -60,7 +60,7 @@ class GroupActivityTabView: UIView {
 //            case .qt:
 //                return "말씀 묵상"
             case .pray:
-                return "기도"
+                return "내 기도"
             case .worshipNote:
                 return "예배노트"
 //            case .thanks:

@@ -34,9 +34,19 @@ class MyPrayMainVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
+        useCase.myPrayList
+            .subscribe(onNext: { [weak self] list in
+                guard let self = self else { return }
+                self.myPrayList.accept(list.map({ PrayItem(data: $0) }))
+            }).disposed(by: disposeBag)
     }
     
-    func fetchMorePrays(userID: String) {
+    private func fetchInitialData() {
+        fetchPrays()
+    }
+    
+    func fetchPrays() {
+        guard let userID = UserData.shared.userInfo?.id else { return }
         if let orderType = MyPrayOrder(rawValue: order.value) {
             useCase.fetchPrayList(userID: userID, order: orderType.parameter, page: myPrayList.value.count)
         }
@@ -66,11 +76,11 @@ extension MyPrayMainVM {
     }
 
     struct Output {
-
+        let myPrayList: Driver<[PrayItem]>
     }
 
     func transform(input: Input) -> Output {
-        return Output()
+        return Output(myPrayList: myPrayList.asDriver())
     }
 }
 

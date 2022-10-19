@@ -46,6 +46,7 @@
 		08D8295B278D3327001E6B61 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8295A278D3327001E6B61 /* Color+.swift */; };
 		08DB422027C9D4B9008EF6EB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */; };
 		08DE7CC828B4BE32003639B0 /* Bible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DE7CC728B4BE32003639B0 /* Bible.swift */; };
+		08E86B8028FFC1D500CA04E2 /* MyPrayTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E86B7F28FFC1D500CA04E2 /* MyPrayTVCell.swift */; };
 		08E992B428ED4FB800696EB6 /* NoticeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B328ED4FB800696EB6 /* NoticeListVC.swift */; };
 		08E992B628ED589700696EB6 /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B528ED589700696EB6 /* NoticeVC.swift */; };
 		08E992B928ED58C200696EB6 /* NoticeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B828ED58C200696EB6 /* NoticeVM.swift */; };
@@ -274,6 +275,7 @@
 		08D8295A278D3327001E6B61 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
 		08DE7CC728B4BE32003639B0 /* Bible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bible.swift; sourceTree = "<group>"; };
+		08E86B7F28FFC1D500CA04E2 /* MyPrayTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayTVCell.swift; sourceTree = "<group>"; };
 		08E992B328ED4FB800696EB6 /* NoticeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListVC.swift; sourceTree = "<group>"; };
 		08E992B528ED589700696EB6 /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
 		08E992B828ED58C200696EB6 /* NoticeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVM.swift; sourceTree = "<group>"; };
@@ -873,6 +875,7 @@
 			children = (
 				2447788128FEBDC800DD7499 /* MyPrayCoordinator.swift */,
 				2447788628FEBE4100DD7499 /* MyPrayMainVC.swift */,
+				08E86B7F28FFC1D500CA04E2 /* MyPrayTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1844,6 +1847,7 @@
 				24E7547A28BAF30800E49EB2 /* GroupEventVC.swift in Sources */,
 				0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */,
 				246FEFED28CE1CBD00193C2F /* NewQTVC.swift in Sources */,
+				08E86B8028FFC1D500CA04E2 /* MyPrayTVCell.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				24AACA7C283FC3DD00308AC3 /* MainCoordinator.swift in Sources */,
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,

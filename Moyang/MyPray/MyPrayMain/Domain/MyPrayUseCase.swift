@@ -13,8 +13,8 @@ class MyPrayUseCase {
     let repo: MyPrayRepo
     
     // MARK: - GroupPray
+    let myPrayList = BehaviorRelay<[MyPray]>(value: [])
     let memberPrayList = BehaviorRelay<[String: [MyPray]]>(value: [:])
-    
     let autoCompleteList = BehaviorRelay<[String]>(value: [])
     let searchedPrayList = BehaviorRelay<[SearchedPray]>(value: [])
     
@@ -69,44 +69,6 @@ class MyPrayUseCase {
     }
     
     // MARK: - Function
-    // 아래 함수가 먼저 실행이 되어야 함
-    func fetchPrayAll(order: String, row: Int = 2) {
-        guard let groupID = UserData.shared.groupID else { Log.e("No group ID"); return }
-        guard let userID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() {
-            return
-        }
-        repo.fetchPrayAll(groupID: groupID, userID: userID, order: order, page: 0, row: row) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                // 만약에 기도를 하나도 등록하지 않은 유저가 있을 경우 생성되지 않음
-                var userIDNameDict = [String: String]()
-                response.forEach { item in
-                    userIDNameDict.updateValue(item.userName, forKey: item.userID)
-                    self.userPrayFetchDate.updateValue(Set<String>(), forKey: item.userID) // 최초에는 저장 공간을 만들어두기만 한다. 하루에 여러 기도를 저장할 수 있으므로.
-                }
-                self.userIDNameDict.accept(userIDNameDict)
-                var prayDict = [String: [MyPray]]()
-                userIDNameDict.keys.forEach { key in
-                    prayDict.updateValue([], forKey: key)
-                }
-                
-                response.forEach { item in
-                    if var list = prayDict[item.userID] {
-                        if !item.prayID.isEmpty {
-                            list.append(item)
-                            prayDict.updateValue(list, forKey: item.userID)
-                        }
-                    }
-                }
-                self.memberPrayList.accept(prayDict)
-            case .failure(let error):
-                Log.e(error)
-            }
-            self.resetIsNetworking()
-        }
-    }
     func addPray(pray: String, tags: [String], isSecret: Bool) {
         guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
@@ -121,12 +83,9 @@ class MyPrayUseCase {
             case .success(let response):
                 if response.code == 0 {
                     self.addNewPraySuccess.accept(())
-                    var dict = self.memberPrayList.value
-                    if var curList = dict[myID] {
-                        curList.insert(response.data, at: 0)
-                        dict.updateValue(curList, forKey: myID)
-                        self.memberPrayList.accept(dict)
-                    }
+                    var curList = self.myPrayList.value
+                    curList.insert(response.data, at: 0)
+                    self.myPrayList.accept(curList)
                 } else {
                     self.addNewPrayFailure.accept(())
                 }
@@ -174,14 +133,9 @@ class MyPrayUseCase {
             guard let self = self else { return }
             switch result {
             case .success(let list):
-                var dict = self.memberPrayList.value
-                if var curList = dict[userID] {
-                    curList.append(contentsOf: list)
-                    dict.updateValue(curList, forKey: userID)
-                } else {
-                    dict.updateValue(list, forKey: userID)
-                }
-                self.memberPrayList.accept(dict)
+                var curList = self.myPrayList.value
+                curList.append(contentsOf: list)
+                self.myPrayList.accept(curList)
             case .failure(let error):
                 Log.e(error)
             }
@@ -198,12 +152,9 @@ class MyPrayUseCase {
             case .success(let response):
                 if response.code == 0 {
                     self.deletePraySuccess.accept(())
-                    var dict = self.memberPrayList.value
-                    if var curList = dict[myID] {
-                        curList.removeAll { $0.prayID == prayID }
-                        dict.updateValue(curList, forKey: myID)
-                        self.memberPrayList.accept(dict)
-                    }
+                    var curList = self.myPrayList.value
+                    curList.removeAll { $0.prayID == prayID }
+                    self.myPrayList.accept(curList)
                 } else {
                     self.deletePrayFailure.accept(())
                 }
@@ -441,25 +392,6 @@ class MyPrayUseCase {
                             }
                         }
                     }
-                    
-//                    response.data.amenList.forEach { item in
-//                        if let dateString = item.date.isoToDateString("yyyy-MM-dd") {
-//                            if var set = amenDict[dateString] {
-//                                set.insert(item.userID)
-//                                amenDict.updateValue(set, forKey: dateString)
-//                            }
-//                        }
-//                    }
-//                    self.hasAmenDict.accept(amenDict)
-//                    
-//                    response.data.prayList.forEach { item in
-//                        if let dateString = item.date.isoToDateString("yyyy-MM-dd") {
-//                            if var set = prayDict[dateString] {
-//                                set.insert(item.userID)
-//                                prayDict.updateValue(set, forKey: dateString)
-//                            }
-//                        }
-//                    }
                     self.hasPrayDict.accept(prayDict)
                 } else {
                     Log.e("")

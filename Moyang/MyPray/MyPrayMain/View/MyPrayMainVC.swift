@@ -27,7 +27,7 @@ class MyPrayMainVC: UIViewController, VCType {
     }
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(GroupPrayTVCell.self, forCellReuseIdentifier: "cell")
+        $0.register(MyPrayTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .nightSky1
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 220
@@ -114,13 +114,34 @@ class MyPrayMainVC: UIViewController, VCType {
     func bind() {
         bindVM()
     }
+    
     private func bindViews() {
+        prayTableView.rx.contentOffset
+            .skip(.seconds(2), scheduler: MainScheduler.asyncInstance)
+            .throttle(.milliseconds(400), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] offset in
+                guard let self = self else { return }
+                
+                let offset = self.prayTableView.contentOffset.y
+                let maxOffset = self.prayTableView.contentSize.height - self.prayTableView.frame.size.height
+                if maxOffset - offset <= 0 {
+                    self.vm?.fetchPrays()
+                }
+            }).disposed(by: disposeBag)
 
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input()
+        let output = vm.transform(input: input)
+        
+        output.myPrayList
+            .drive(prayTableView.rx
+                .items(cellIdentifier: "cell", cellType: MyPrayTVCell.self)) { (_, item, cell) in
+                    cell.contentLabel.text = item.pray
+                    cell.tags = item.tags
+                }.disposed(by: disposeBag)
     }
 }
 
