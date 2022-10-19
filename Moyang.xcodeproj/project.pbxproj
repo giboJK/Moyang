@@ -221,6 +221,7 @@
 		24F41C6D2897EBCC005B5E70 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F41C6C2897EBCC005B5E70 /* ProfileVC.swift */; };
 		24F4D386287B1DB500B1AC06 /* GroupInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4D385287B1DB500B1AC06 /* GroupInfoVC.swift */; };
 		24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */; };
+		24F4FA4F29003EBB00FE94FF /* MyPrayTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4FA4E29003EBB00FE94FF /* MyPrayTableHeader.swift */; };
 		24F6B0C3289954740001B781 /* MemberItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F6B0C2289954740001B781 /* MemberItemTableViewCell.swift */; };
 		24F7021328B4F967009A8414 /* BibleSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7021228B4F967009A8414 /* BibleSelectVC.swift */; };
 		24FF077228BFAE7400F30ED0 /* GroupEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF077128BFAE7400F30ED0 /* GroupEvent.swift */; };
@@ -453,6 +454,7 @@
 		24F41C6C2897EBCC005B5E70 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		24F4D385287B1DB500B1AC06 /* GroupInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoVC.swift; sourceTree = "<group>"; };
 		24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoVM.swift; sourceTree = "<group>"; };
+		24F4FA4E29003EBB00FE94FF /* MyPrayTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayTableHeader.swift; sourceTree = "<group>"; };
 		24F6B0C2289954740001B781 /* MemberItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberItemTableViewCell.swift; sourceTree = "<group>"; };
 		24F7021228B4F967009A8414 /* BibleSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleSelectVC.swift; sourceTree = "<group>"; };
 		24FAEF0D27E2153800B2DA81 /* praysong.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = praysong.m4a; sourceTree = "<group>"; };
@@ -876,6 +878,7 @@
 				2447788128FEBDC800DD7499 /* MyPrayCoordinator.swift */,
 				2447788628FEBE4100DD7499 /* MyPrayMainVC.swift */,
 				08E86B7F28FFC1D500CA04E2 /* MyPrayTVCell.swift */,
+				24F4FA4E29003EBB00FE94FF /* MyPrayTableHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1821,6 +1824,7 @@
 				24C877CF282FD76100F69AAD /* VCType.swift in Sources */,
 				24E4DC39284C2D1C002ECD83 /* GroupPrayingVM.swift in Sources */,
 				24E7EC9528FB15F9008E0E3F /* CategoryTVCell.swift in Sources */,
+				24F4FA4F29003EBB00FE94FF /* MyPrayTableHeader.swift in Sources */,
 				24F6B0C3289954740001B781 /* MemberItemTableViewCell.swift in Sources */,
 				24BB42622847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				24A603F528E9D414006DFD05 /* AlarmSelectDayView.swift in Sources */,

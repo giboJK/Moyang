@@ -24,23 +24,24 @@ class MyPrayTVCell: UITableViewCell {
         $0.isUserInteractionEnabled = false
     }
     let contentLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 16, weight: .semibold)
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep2
         $0.isUserInteractionEnabled = false
-        $0.numberOfLines = 0
+        $0.numberOfLines = 2
     }
-    let prayCollectionView: UICollectionView = {
+    let tagCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 8
+        layout.minimumLineSpacing = 4
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(PrayCVCell.self, forCellWithReuseIdentifier: "cell")
+        cv.register(PrayTagCVCell.self, forCellWithReuseIdentifier: "cell")
         cv.backgroundColor = .clear
         return cv
     }()
     let divider = UIView().then {
-        $0.backgroundColor = .sheep3.withAlphaComponent(0.7)
+        $0.backgroundColor = .sheep3.withAlphaComponent(0.5)
     }
     
     var tags = [String]()
@@ -68,36 +69,45 @@ class MyPrayTVCell: UITableViewCell {
     // MARK: - UI
     private func setupUI() {
         contentView.backgroundColor = .nightSky1
-        setupNameLabel()
-        setupPrayCollectionView()
+        setupTitleLabel()
+        setupTagCollectionView()
         setupDivider()
     }
-    private func setupNameLabel() {
+    private func setupTitleLabel() {
         contentView.addSubview(contentLabel)
         contentLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
-            $0.left.right.equalToSuperview().inset(12)
+            $0.left.right.equalToSuperview().inset(20)
         }
     }
-    private func setupPrayCollectionView() {
-        contentView.addSubview(prayCollectionView)
-        prayCollectionView.snp.makeConstraints {
-            $0.top.equalTo(contentLabel.snp.bottom)
-            $0.left.right.bottom.equalToSuperview()
-            $0.height.equalTo(200)
+    private func setupTagCollectionView() {
+        contentView.addSubview(tagCollectionView)
+        tagCollectionView.snp.makeConstraints {
+            $0.top.equalTo(contentLabel.snp.bottom).offset(12)
+            $0.left.right.bottom.equalToSuperview().inset(20)
+            $0.height.equalTo(28)
         }
-        prayCollectionView.delegate = self
-        prayCollectionView.dataSource = self
+        tagCollectionView.delegate = self
+        tagCollectionView.dataSource = self
     }
-    
     
     private func setupDivider() {
         contentView.addSubview(divider)
         divider.snp.makeConstraints {
             $0.bottom.equalToSuperview()
-            $0.left.equalToSuperview().inset(12)
+            $0.left.equalToSuperview().inset(20)
             $0.right.equalToSuperview()
-            $0.height.equalTo(0.3)
+            $0.height.equalTo(0.5)
+        }
+    }
+    
+    func updateUI() {
+        tagCollectionView.snp.updateConstraints {
+            if tags.isEmpty {
+                $0.height.equalTo(0)
+            } else {
+                $0.height.equalTo(28)
+            }
         }
     }
     

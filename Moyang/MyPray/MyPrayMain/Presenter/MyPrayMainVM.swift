@@ -29,6 +29,7 @@ class MyPrayMainVM: VMType {
     init(useCase: MyPrayUseCase) {
         self.useCase = useCase
         bind()
+        fetchInitialData()
     }
 
     deinit { Log.i(self) }

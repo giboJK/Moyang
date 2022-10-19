@@ -122,7 +122,7 @@ class MyPrayUseCase {
         }
     }
     
-    func fetchPrayList(userID: String, order: String, page: Int, row: Int = 2) {
+    func fetchPrayList(userID: String, order: String, page: Int, row: Int = 7) {
         guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() {

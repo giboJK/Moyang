@@ -17,11 +17,10 @@ class MyPrayMainVC: UIViewController, VCType {
     var vm: VM?
     var coordinator: MyPrayMainVCDelegate?
     
-    let headerHeight: CGFloat = 184
-//    let headerHeight: CGFloat = 44
+    let headerHeight: CGFloat = 44
     let minHeaderHeight: CGFloat = 44
     // MARK: - UI
-    let headerView = GroupPrayHeader()
+    let headerView = MyPrayTableHeader()
     let searchBar = MoyangSearchBar().then {
         $0.isHidden = true
     }
@@ -30,7 +29,7 @@ class MyPrayMainVC: UIViewController, VCType {
         $0.register(MyPrayTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .nightSky1
         $0.separatorStyle = .none
-        $0.estimatedRowHeight = 220
+        $0.estimatedRowHeight = 60
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true
@@ -112,6 +111,7 @@ class MyPrayMainVC: UIViewController, VCType {
 
     // MARK: - Binding
     func bind() {
+        bindViews()
         bindVM()
     }
     
@@ -140,7 +140,10 @@ class MyPrayMainVC: UIViewController, VCType {
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: MyPrayTVCell.self)) { (_, item, cell) in
                     cell.contentLabel.text = item.pray
+                    cell.contentLabel.lineBreakMode = .byTruncatingTail
                     cell.tags = item.tags
+                    cell.updateUI()
+                    cell.tagCollectionView.reloadData()
                 }.disposed(by: disposeBag)
     }
 }
