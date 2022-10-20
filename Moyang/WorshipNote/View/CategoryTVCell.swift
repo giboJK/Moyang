@@ -13,12 +13,10 @@ import RxSwift
 import RxGesture
 
 class CategoryTVCell: UITableViewCell {
-    typealias VM = WorshipNoteVM
-    var disposeBag: DisposeBag = DisposeBag()
-    weak var vm: VM?
-    var isBinded = false
-    
     // MARK: - UI
+    let folderImageView = UIImageView(image: UIImage(systemName: "folder")).then {
+        $0.tintColor = .sheep2
+    }
     let nameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 17, weight: .semibold)
         $0.textColor = .sheep2
@@ -27,7 +25,6 @@ class CategoryTVCell: UITableViewCell {
     let divider = UIView().then {
         $0.backgroundColor = .sheep3.withAlphaComponent(0.7)
     }
-    
     // MARK: - Life cycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,7 +33,6 @@ class CategoryTVCell: UITableViewCell {
         selectedBackgroundView = backgroundView
         
         setupUI()
-        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -50,15 +46,24 @@ class CategoryTVCell: UITableViewCell {
     // MARK: - UI
     private func setupUI() {
         contentView.backgroundColor = .nightSky1
+        setupFolderImageView()
         setupNameLabel()
         setupDivider()
     }
-    
+    private func setupFolderImageView() {
+        contentView.addSubview(folderImageView)
+        folderImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().inset(20)
+            $0.size.equalTo(20)
+        }
+    }
     private func setupNameLabel() {
         contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(24)
+            $0.left.equalTo(folderImageView.snp.right).offset(8)
+            $0.right.equalToSuperview().inset(20)
         }
     }
     
@@ -67,14 +72,8 @@ class CategoryTVCell: UITableViewCell {
         divider.snp.makeConstraints {
             $0.bottom.equalToSuperview()
             $0.height.equalTo(1)
-            $0.left.equalToSuperview().inset(24)
+            $0.left.equalTo(nameLabel)
             $0.right.equalToSuperview()
-        }
-    }
-    
-    func bind() {
-        if let vm = vm {
-            if isBinded { return }
         }
     }
 }
