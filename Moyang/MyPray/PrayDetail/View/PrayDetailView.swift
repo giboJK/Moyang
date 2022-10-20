@@ -12,7 +12,7 @@ import SnapKit
 import Then
 
 class PrayDetailView: UIView, UITextFieldDelegate {
-    typealias VM = GroupPrayDetailVM
+    typealias VM = MyPrayDetailVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     let groupNameLabel = UILabel().then {

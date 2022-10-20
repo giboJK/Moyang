@@ -1,5 +1,5 @@
 //
-//  GroupPrayDetailVC.swift
+//  MyPrayDetailVC.swift
 //  Moyang
 //
 //  Created by kibo on 2022/08/04.
@@ -12,8 +12,8 @@ import SnapKit
 import Then
 import RxGesture
 
-class GroupPrayDetailVC: UIViewController, VCType {
-    typealias VM = GroupPrayDetailVM
+class MyPrayDetailVC: UIViewController, VCType {
+    typealias VM = MyPrayDetailVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupPrayDetailVCDelegate?
@@ -432,10 +432,10 @@ class GroupPrayDetailVC: UIViewController, VCType {
 }
 
 protocol GroupPrayDetailVCDelegate: AnyObject {
-    func didTapPrayButton(vm: GroupPrayDetailVM)
+    func didTapPrayButton(vm: MyPrayDetailVM)
 }
 
-extension GroupPrayDetailVC: ReactionPopupViewDelegate {
+extension MyPrayDetailVC: ReactionPopupViewDelegate {
     func didTapEmoji(type: PrayReactionType) {
         vm?.addReaction(type: type)
     }

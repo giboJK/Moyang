@@ -265,7 +265,7 @@ protocol GroupActivityVCDelegate: AnyObject {
     func didTapNewPrayButton(vm: GroupActivityVM)
     func didTapNewQTButton()
     func didTapPrayButton(vm: GroupActivityVM)
-    func didTapPray(vm: GroupPrayDetailVM)
+    func didTapPray(vm: MyPrayDetailVM)
     func didTapNewNoteButton()
 }
 

@@ -1,5 +1,5 @@
 //
-//  GroupPrayDetailVM.swift
+//  MyPrayDetailVM.swift
 //  Moyang
 //
 //  Created by kibo on 2022/08/04.
@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-class GroupPrayDetailVM: VMType {
+class MyPrayDetailVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: MyPrayUseCase
     let bibleUseCase: BibleUseCase
@@ -141,7 +141,7 @@ class GroupPrayDetailVM: VMType {
     }
 }
 
-extension GroupPrayDetailVM {
+extension MyPrayDetailVM {
     struct Input {
         var setPray: Driver<String?> = .empty()
         var updatePray: Driver<Void> = .empty()

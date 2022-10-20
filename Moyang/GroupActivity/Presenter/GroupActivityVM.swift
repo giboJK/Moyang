@@ -36,7 +36,7 @@ class GroupActivityVM: VMType {
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
     
-    let groupPrayDetailVM = BehaviorRelay<GroupPrayDetailVM?>(value: nil)
+    let groupPrayDetailVM = BehaviorRelay<MyPrayDetailVM?>(value: nil)
     
     // QT
     let bibleSelectVM = BehaviorRelay<BibleSelectVM?>(value: nil)
@@ -90,7 +90,7 @@ class GroupActivityVM: VMType {
         useCase.fetchPraySuccess
             .subscribe(onNext: { [weak self] pray in
                 guard let self = self, let pray = pray else { return }
-                self.groupPrayDetailVM.accept(GroupPrayDetailVM(useCase: self.useCase, bibleUseCase: self.bibleUseCase,
+                self.groupPrayDetailVM.accept(MyPrayDetailVM(useCase: self.useCase, bibleUseCase: self.bibleUseCase,
                                                                 userID: pray.userID, prayID: pray.prayID))
                 self.removeAutoCompleteList()
             }).disposed(by: disposeBag)
@@ -250,7 +250,7 @@ extension GroupActivityVM {
         
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
-        let groupPrayDetailVM: Driver<GroupPrayDetailVM?>
+        let groupPrayDetailVM: Driver<MyPrayDetailVM?>
         
         // QT
         let bibleSelectVM: Driver<BibleSelectVM?>
@@ -322,7 +322,7 @@ extension GroupActivityVM {
                 guard let self = self else { return }
                 guard let item = item else { return }
                 if let prayList = self.memberPrayList.value[item.0] {
-                    self.groupPrayDetailVM.accept(GroupPrayDetailVM(useCase: self.useCase,
+                    self.groupPrayDetailVM.accept(MyPrayDetailVM(useCase: self.useCase,
                                                                     bibleUseCase: self.bibleUseCase,
                                                                     userID: item.0,
                                                                     prayID: prayList[item.1.row].prayID))

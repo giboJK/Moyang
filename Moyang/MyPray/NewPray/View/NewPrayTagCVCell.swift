@@ -15,7 +15,7 @@ class NewPrayTagCVCell: UICollectionViewCell {
     typealias VM = NewPrayVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
-    var detailVM: GroupPrayDetailVM?
+    var detailVM: MyPrayDetailVM?
     
     let tagLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14, weight: .regular)
@@ -72,7 +72,7 @@ class NewPrayTagCVCell: UICollectionViewCell {
             if isBinded { return }
             isBinded = true
             
-            let input = GroupPrayDetailVM.Input(deleteTag: deleteButton.rx.tap
+            let input = MyPrayDetailVM.Input(deleteTag: deleteButton.rx.tap
                 .map { self.indexPath }.asDriver(onErrorJustReturn: nil))
             _ = vm.transform(input: input)
         }
