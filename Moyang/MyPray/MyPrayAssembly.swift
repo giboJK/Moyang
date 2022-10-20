@@ -32,7 +32,7 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         container.register(MyPrayMainVM.self) { r in
-            MyPrayMainVM(useCase: r ~> (MyPrayUseCase.self))
+            MyPrayMainVM(useCase: r ~> (MyPrayUseCase.self), bibleUseCase: r ~> (BibleUseCase.self))
         }
         
         // MARK: - NewPrayVC
@@ -46,6 +46,13 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             return NewPrayVM(useCase: (r ~> MyPrayUseCase.self))
         }
         
+        // MARK: - MyPrayDetailVC
+        container.register(MyPrayDetailVC.self) { _ in
+            let vc = MyPrayDetailVC()
+            return vc
+        }
+        
+        
         // MARK: - MyPrayRepo
         container.register(MyPrayRepo.self) { r in
             PrayController(networkService: r ~> (NetworkServiceProtocol.self))
@@ -54,6 +61,15 @@ class MyPrayAssembly: Assembly, BaseAssembly {
         container.register(MyPrayUseCase.self) { r in
             MyPrayUseCase(repo: r ~> (MyPrayRepo.self))
         }
+        // MARK: - BibleUseCase
+        container.register(BibleUseCase.self) { r in
+            return BibleUseCase(repo: (r ~> WorshipNoteRepo.self))
+        }
+        
+        container.register(WorshipNoteRepo.self) { r in
+            NoteController(networkService: (r ~> NetworkServiceProtocol.self))
+        }
+        
         
         // MARK: - Coordinator
         container.register(MyPrayCoordinator.self) { _ in

@@ -30,6 +30,13 @@ class MyPrayTVCell: UITableViewCell {
         $0.isUserInteractionEnabled = false
         $0.numberOfLines = 0
     }
+    let dayLabel = UILabel().then {
+        $0.text = "yyyy. M. d."
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.textColor = .sheep2
+        $0.isUserInteractionEnabled = false
+        $0.numberOfLines = 0
+    }
     let contentLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep2
@@ -78,6 +85,7 @@ class MyPrayTVCell: UITableViewCell {
         contentView.backgroundColor = .nightSky1
         setupContentLabel()
         setupDateLabel()
+        setupDayLabel()
         setupTagCollectionView()
         setupDivider()
     }
@@ -95,6 +103,13 @@ class MyPrayTVCell: UITableViewCell {
         dateLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalToSuperview().inset(20)
+        }
+    }
+    private func setupDayLabel() {
+        contentView.addSubview(dayLabel)
+        dayLabel.snp.makeConstraints {
+            $0.centerX.equalTo(dateLabel)
+            $0.top.equalTo(dateLabel.snp.bottom).offset(2)
         }
     }
     private func setupTagCollectionView() {

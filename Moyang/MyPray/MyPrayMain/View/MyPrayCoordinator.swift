@@ -38,4 +38,20 @@ extension MyPrayCoordinator: MyPrayMainVCDelegate {
             Log.e("")
         }
     }
+    
+    func didTapPray(vm: MyPrayDetailVM) {
+        if let vc = assembler.resolver.resolve(MyPrayDetailVC.self) {
+            vc.vm = vm
+            vc.coordinator = self
+            nav.pushViewController(vc, animated: true)
+        } else {
+            Log.e("")
+        }
+    }
+}
+
+extension MyPrayCoordinator: MyPrayDetailVCDelegate {
+    func didTapPrayButton(vm: MyPrayDetailVM) {
+        
+    }
 }

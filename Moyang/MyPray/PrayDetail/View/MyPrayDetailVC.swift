@@ -16,7 +16,7 @@ class MyPrayDetailVC: UIViewController, VCType {
     typealias VM = MyPrayDetailVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
-    var coordinator: GroupPrayDetailVCDelegate?
+    var coordinator: MyPrayDetailVCDelegate?
 
     // MARK: - UI
     let updateButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
@@ -111,12 +111,11 @@ class MyPrayDetailVC: UIViewController, VCType {
     // 기도하기 화면 후 복귀 시 필요
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.isNavigationBarHidden = false
     }
 
     deinit {
         Log.i(self)
-        vm?.deinitVMs()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -431,7 +430,7 @@ class MyPrayDetailVC: UIViewController, VCType {
     }
 }
 
-protocol GroupPrayDetailVCDelegate: AnyObject {
+protocol MyPrayDetailVCDelegate: AnyObject {
     func didTapPrayButton(vm: MyPrayDetailVM)
 }
 

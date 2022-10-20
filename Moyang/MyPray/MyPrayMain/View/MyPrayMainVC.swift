@@ -137,22 +137,30 @@ class MyPrayMainVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(selectPray: prayTableView.rx.itemSelected.asDriver())
         let output = vm.transform(input: input)
         
         output.myPrayList
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: MyPrayTVCell.self)) { (_, item, cell) in
                     cell.dateLabel.text = item.latestDate.isoToDateString("yyyy. M. d.")
+                    cell.dayLabel.text = item.latestDate.isoToDate()?.weekDayString()
                     cell.contentLabel.text = item.pray
                     cell.contentLabel.lineBreakMode = .byTruncatingTail
                     cell.tags = item.tags
                     cell.updateUI()
                     cell.tagCollectionView.reloadData()
                 }.disposed(by: disposeBag)
+        
+        output.detailVM
+            .drive(onNext: { [weak self] detailVM in
+                guard let detailVM = detailVM else { return }
+                self?.coordinator?.didTapPray(vm: detailVM)
+            }).disposed(by: disposeBag)
     }
 }
 
 protocol MyPrayMainVCDelegate: AnyObject {
     func didTapNewPray()
+    func didTapPray(vm: MyPrayDetailVM)
 }

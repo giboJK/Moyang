@@ -91,7 +91,7 @@ class GroupActivityVM: VMType {
             .subscribe(onNext: { [weak self] pray in
                 guard let self = self, let pray = pray else { return }
                 self.groupPrayDetailVM.accept(MyPrayDetailVM(useCase: self.useCase, bibleUseCase: self.bibleUseCase,
-                                                                userID: pray.userID, prayID: pray.prayID))
+                                                             prayID: pray.prayID))
                 self.removeAutoCompleteList()
             }).disposed(by: disposeBag)
         
@@ -324,7 +324,6 @@ extension GroupActivityVM {
                 if let prayList = self.memberPrayList.value[item.0] {
                     self.groupPrayDetailVM.accept(MyPrayDetailVM(useCase: self.useCase,
                                                                     bibleUseCase: self.bibleUseCase,
-                                                                    userID: item.0,
                                                                     prayID: prayList[item.1.row].prayID))
                 }
             }).disposed(by: disposeBag)

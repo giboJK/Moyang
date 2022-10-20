@@ -12,7 +12,6 @@ class MyPrayDetailVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: MyPrayUseCase
     let bibleUseCase: BibleUseCase
-    let userID: String
     let prayID: String
     var groupIndividualPray: MyPray!
     
@@ -44,10 +43,9 @@ class MyPrayDetailVM: VMType {
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
     let changeAndAnswerVM = BehaviorRelay<ChangeAndAnswerVM?>(value: nil)
     
-    init(useCase: MyPrayUseCase, bibleUseCase: BibleUseCase, userID: String, prayID: String) {
+    init(useCase: MyPrayUseCase, bibleUseCase: BibleUseCase, prayID: String) {
         self.useCase = useCase
         self.bibleUseCase = bibleUseCase
-        self.userID = userID
         self.prayID = prayID
         
         bind()
@@ -65,13 +63,11 @@ class MyPrayDetailVM: VMType {
     }
         
     private func bind() {
-        useCase.memberPrayList
-            .subscribe(onNext: { [weak self] dict in
+        useCase.myPrayList
+            .subscribe(onNext: { [weak self] list in
                 guard let self = self else { return }
-                if let list = dict[self.userID] {
-                    if let pray = list.first(where: { $0.prayID == self.prayID }) {
-                        self.setData(data: pray)
-                    }
+                if let pray = list.first(where: { $0.prayID == self.prayID }) {
+                    self.setData(data: pray)
                 }
             }).disposed(by: disposeBag)
         
@@ -99,9 +95,6 @@ class MyPrayDetailVM: VMType {
             .bind(to: isFailure)
             .disposed(by: disposeBag)
         
-        if userID == UserData.shared.userInfo?.id {
-            isMyPray.accept(true)
-        }
         groupName.accept(UserData.shared.groupInfo?.groupName ?? "")
     }
     
@@ -116,15 +109,11 @@ class MyPrayDetailVM: VMType {
         answers.accept(data.answers)
         replys.accept(data.replys)
         
-        if userID == UserData.shared.userInfo?.id {
-            memberName.accept("내 기도")
-        } else {
-            memberName.accept(data.userName)
-        }
+        memberName.accept("내 기도")
     }
     
     private func setChangeAndAnswerVM() {
-        changeAndAnswerVM.accept(ChangeAndAnswerVM(useCase: useCase, userID: userID, prayID: prayID))
+//        changeAndAnswerVM.accept(ChangeAndAnswerVM(useCase: useCase, userID: userID, prayID: prayID))
     }
     
     private func updatePray() {
@@ -137,7 +126,7 @@ class MyPrayDetailVM: VMType {
     }
     
     func addReaction(type: PrayReactionType) {
-        useCase.addReaction(userID: userID, prayID: prayID, type: type.rawValue)
+//        useCase.addReaction(userID: userID, prayID: prayID, type: type.rawValue)
     }
 }
 
@@ -237,29 +226,29 @@ extension MyPrayDetailVM {
         input.addPrayPlus
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
-                                                                    bibleUseCase: self.bibleUseCase,
-                                                                    prayID: self.prayID,
-                                                                    userID: self.userID))
+//                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
+//                                                                    bibleUseCase: self.bibleUseCase,
+//                                                                    prayID: self.prayID,
+//                                                                    userID: self.userID))
             }).disposed(by: disposeBag)
         
         input.addChange
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
-                                                                    bibleUseCase: self.bibleUseCase,
-                                                                    prayID: self.prayID,
-                                                                    userID: self.userID))
+//                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
+//                                                                    bibleUseCase: self.bibleUseCase,
+//                                                                    prayID: self.prayID,
+//                                                                    userID: self.userID))
             }).disposed(by: disposeBag)
         
         input.addAnswer
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
-                                                                    bibleUseCase: self.bibleUseCase,
-                                                                    prayID: self.prayID,
-                                                                    userID: self.userID,
-                                                                    isAnswer: true))
+//                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
+//                                                                    bibleUseCase: self.bibleUseCase,
+//                                                                    prayID: self.prayID,
+//                                                                    userID: self.userID,
+//                                                                    isAnswer: true))
             }).disposed(by: disposeBag)
         
         input.didTapPrayReaction

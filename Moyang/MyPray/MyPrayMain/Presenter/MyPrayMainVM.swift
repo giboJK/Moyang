@@ -11,12 +11,9 @@ import RxCocoa
 class MyPrayMainVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: MyPrayUseCase
+    let bibleUseCase: BibleUseCase
     
     // MARK: - Networking Event
-    let isNetworking = BehaviorRelay<Bool>(value: false)
-    let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
-    let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
-    
     // MARK: - Searching
     let keyword = BehaviorRelay<String?>(value: nil)
     let autoCompleteList = BehaviorRelay<[String]>(value: [])
@@ -26,8 +23,12 @@ class MyPrayMainVM: VMType {
     let order = BehaviorRelay<String>(value: MyPrayOrder.latest.rawValue)
     let myPrayList = BehaviorRelay<[PrayItem]>(value: [])
     
-    init(useCase: MyPrayUseCase) {
+    // MARK: - PrayDetail
+    let detailVM = BehaviorRelay<MyPrayDetailVM?>(value: nil)
+    
+    init(useCase: MyPrayUseCase, bibleUseCase: BibleUseCase) {
         self.useCase = useCase
+        self.bibleUseCase = bibleUseCase
         bind()
         fetchInitialData()
     }
@@ -73,15 +74,27 @@ class MyPrayMainVM: VMType {
 
 extension MyPrayMainVM {
     struct Input {
-
+        var selectPray: Driver<IndexPath> = .empty()
     }
 
     struct Output {
         let myPrayList: Driver<[PrayItem]>
+        let detailVM: Driver<MyPrayDetailVM?>
     }
 
     func transform(input: Input) -> Output {
-        return Output(myPrayList: myPrayList.asDriver())
+        input.selectPray
+            .drive(onNext: { [weak self] index in
+                guard let self = self else { return }
+                let prayItem = self.myPrayList.value[index.row]
+                let detailVM = MyPrayDetailVM(useCase: self.useCase,
+                                              bibleUseCase: self.bibleUseCase,
+                                              prayID: prayItem.prayID)
+                self.detailVM.accept(detailVM)
+            }).disposed(by: disposeBag)
+        
+        return Output(myPrayList: myPrayList.asDriver(),
+                      detailVM: detailVM.asDriver())
     }
 }
 
