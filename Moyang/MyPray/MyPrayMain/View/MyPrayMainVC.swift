@@ -129,6 +129,10 @@ class MyPrayMainVC: UIViewController, VCType {
                 }
             }).disposed(by: disposeBag)
 
+        headerView.newButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapNewPray()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
@@ -150,5 +154,5 @@ class MyPrayMainVC: UIViewController, VCType {
 }
 
 protocol MyPrayMainVCDelegate: AnyObject {
-
+    func didTapNewPray()
 }

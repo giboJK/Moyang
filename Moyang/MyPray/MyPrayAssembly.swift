@@ -35,8 +35,18 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             MyPrayMainVM(useCase: r ~> (MyPrayUseCase.self))
         }
         
+        // MARK: - NewPrayVC
+        container.register(NewPrayVC.self) { r in
+            let vc = NewPrayVC()
+            vc.vm = r ~> (NewPrayVM.self)
+            return vc
+        }
         
-        // MARK: - MyPray
+        container.register(NewPrayVM.self) { r in
+            return NewPrayVM(useCase: (r ~> MyPrayUseCase.self))
+        }
+        
+        // MARK: - MyPrayRepo
         container.register(MyPrayRepo.self) { r in
             PrayController(networkService: r ~> (NetworkServiceProtocol.self))
         }

@@ -31,5 +31,11 @@ class MyPrayCoordinator: Coordinator {
 }
 
 extension MyPrayCoordinator: MyPrayMainVCDelegate {
-    
+    func didTapNewPray() {
+        if let vc = assembler.resolver.resolve(NewPrayVC.self) {
+            nav.pushViewController(vc, animated: true)
+        } else {
+            Log.e("")
+        }
+    }
 }

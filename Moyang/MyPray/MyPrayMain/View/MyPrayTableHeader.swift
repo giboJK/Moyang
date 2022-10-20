@@ -13,7 +13,7 @@ import Then
 import SnapKit
 
 class MyPrayTableHeader: UIView {
-    let newMemoButton = UIButton().then {
+    let newButton = UIButton().then {
         let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
         $0.setImage(UIImage(systemName: "square.and.pencil", withConfiguration: config), for: .normal)
         $0.tintColor = .sheep1
@@ -35,12 +35,12 @@ class MyPrayTableHeader: UIView {
     }
     
     private func setupUI() {
-        setupNewMemoButton()
+        setupNewButton()
         setupSearchButton()
     }
-    private func setupNewMemoButton() {
-        addSubview(newMemoButton)
-        newMemoButton.snp.makeConstraints {
+    private func setupNewButton() {
+        addSubview(newButton)
+        newButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(12)
             $0.size.equalTo(24)
             $0.right.equalToSuperview().inset(20)
@@ -51,7 +51,7 @@ class MyPrayTableHeader: UIView {
         searchButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(12)
             $0.size.equalTo(20)
-            $0.right.equalTo(newMemoButton.snp.left).offset(-20)
+            $0.right.equalTo(newButton.snp.left).offset(-20)
         }
     }
 }

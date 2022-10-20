@@ -18,22 +18,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     private var tagList = [String]()
     
     // MARK: - UI
-    let navBar = MoyangNavBar(.dark).then {
-        $0.closeButton.isHidden = true
-        $0.backButton.isHidden = true
-        $0.title = "새 기도"
-    }
-    let cancelButton = UIButton().then {
-        $0.setTitle("취소", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.appleRed1, for: .normal)
-    }
-    let saveButton = UIButton().then {
-        $0.setTitle("저장", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.setTitleColor(.sheep2, for: .normal)
-        $0.setTitleColor(.sheep4, for: .disabled)
-    }
+    let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: NewNoteVC.self, action: #selector(saveTapped))
     let groupNameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .sheep2
@@ -90,9 +75,15 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         Log.i(self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     func setupUI() {
+        title = "새 기도"
         view.backgroundColor = .nightSky1
-        setupNavBar()
+        navigationItem.rightBarButtonItems = [saveButton]
         setupGroupNameLabel()
         setupGroupChangeButton()
         setupNewPrayTextView()
@@ -102,36 +93,10 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         setupIsSecretLabel()
         setupIsSecretCheckBox()
     }
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(44)
-        }
-        setupCancelButton()
-        setupSaveButton()
-    }
-    private func setupCancelButton() {
-        navBar.addSubview(cancelButton)
-        cancelButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
-        }
-    }
-    private func setupSaveButton() {
-        navBar.addSubview(saveButton)
-        saveButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
-        }
-    }
     private func setupGroupNameLabel() {
         view.addSubview(groupNameLabel)
         groupNameLabel.snp.makeConstraints {
-            $0.top.equalTo(navBar.snp.bottom).offset(4)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
             $0.left.equalToSuperview().inset(16)
             $0.right.equalToSuperview().inset(80)
         }
@@ -229,6 +194,9 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             }
         }
     }
+    @objc func saveTapped() {
+        
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         tagTextField.resignFirstResponder()
@@ -249,11 +217,6 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     private func bindViews() {
-        cancelButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
-            }).disposed(by: disposeBag)
-        
         tagTextField.rx.controlEvent(.editingDidEnd)
             .delay(.milliseconds(50), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
