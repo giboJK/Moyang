@@ -139,6 +139,7 @@ class MyPrayMainVC: UIViewController, VCType {
         output.myPrayList
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: MyPrayTVCell.self)) { (_, item, cell) in
+                    cell.dateLabel.text = item.latestDate.isoToDateString("yyyy. M. d.")
                     cell.contentLabel.text = item.pray
                     cell.contentLabel.lineBreakMode = .byTruncatingTail
                     cell.tags = item.tags

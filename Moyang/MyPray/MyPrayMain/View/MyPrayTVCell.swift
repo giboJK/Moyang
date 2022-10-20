@@ -23,6 +23,13 @@ class MyPrayTVCell: UITableViewCell {
         $0.layer.masksToBounds = true
         $0.isUserInteractionEnabled = false
     }
+    let dateLabel = UILabel().then {
+        $0.text = "yyyy. M. d."
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.textColor = .sheep2
+        $0.isUserInteractionEnabled = false
+        $0.numberOfLines = 0
+    }
     let contentLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep2
@@ -69,22 +76,34 @@ class MyPrayTVCell: UITableViewCell {
     // MARK: - UI
     private func setupUI() {
         contentView.backgroundColor = .nightSky1
-        setupTitleLabel()
+        setupContentLabel()
+        setupDateLabel()
         setupTagCollectionView()
         setupDivider()
     }
-    private func setupTitleLabel() {
+    
+    private func setupContentLabel() {
         contentView.addSubview(contentLabel)
         contentLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
-            $0.left.right.equalToSuperview().inset(20)
+            $0.left.equalToSuperview().inset(112)
+            $0.right.equalToSuperview().inset(20)
+        }
+    }
+    private func setupDateLabel() {
+        contentView.addSubview(dateLabel)
+        dateLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().inset(20)
         }
     }
     private func setupTagCollectionView() {
         contentView.addSubview(tagCollectionView)
         tagCollectionView.snp.makeConstraints {
             $0.top.equalTo(contentLabel.snp.bottom).offset(12)
-            $0.left.right.bottom.equalToSuperview().inset(20)
+            $0.left.equalTo(contentLabel)
+            $0.right.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(12)
             $0.height.equalTo(28)
         }
         tagCollectionView.delegate = self
@@ -95,7 +114,7 @@ class MyPrayTVCell: UITableViewCell {
         contentView.addSubview(divider)
         divider.snp.makeConstraints {
             $0.bottom.equalToSuperview()
-            $0.left.equalToSuperview().inset(20)
+            $0.left.equalTo(contentLabel)
             $0.right.equalToSuperview()
             $0.height.equalTo(0.5)
         }
