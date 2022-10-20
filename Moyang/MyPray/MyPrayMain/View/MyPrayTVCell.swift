@@ -101,7 +101,7 @@ class MyPrayTVCell: UITableViewCell {
     private func setupDateLabel() {
         contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(-8)
             $0.left.equalToSuperview().inset(20)
         }
     }

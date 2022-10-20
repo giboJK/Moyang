@@ -13,6 +13,12 @@ import Then
 import SnapKit
 
 class MyPrayTableHeader: UIView {
+    let prayButton = UIButton().then {
+        $0.setTitle("기도하기", for: .normal)
+        $0.layer.cornerRadius = 8
+        $0.backgroundColor = .nightSky3
+        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+    }
     let newButton = UIButton().then {
         let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
         $0.setImage(UIImage(systemName: "square.and.pencil", withConfiguration: config), for: .normal)
@@ -35,8 +41,19 @@ class MyPrayTableHeader: UIView {
     }
     
     private func setupUI() {
+        setupPrayButton()
         setupNewButton()
         setupSearchButton()
+    }
+    
+    private func setupPrayButton() {
+        addSubview(prayButton)
+        prayButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(12)
+            $0.width.equalTo(72)
+            $0.height.equalTo(26)
+            $0.left.equalToSuperview().inset(20)
+        }
     }
     private func setupNewButton() {
         addSubview(newButton)
