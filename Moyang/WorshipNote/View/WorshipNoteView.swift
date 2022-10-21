@@ -29,7 +29,7 @@ class WorshipNoteView: UIView {
         $0.register(CategoryTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .nightSky1
         $0.separatorStyle = .none
-        $0.rowHeight = 60
+        $0.rowHeight = 76
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true

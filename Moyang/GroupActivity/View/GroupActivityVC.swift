@@ -35,8 +35,8 @@ class GroupActivityVC: UIViewController, VCType {
     }
     let tabView = GroupActivityTabView()
     let groupMediatorPrayView = GroupMediatorPrayView()
-//    let groupQTView = GroupQTView()
     var myPrayMainVC: MyPrayMainVC?
+    var noteMainVC: NoteMainVC?
     var worshipNoteView: WorshipNoteView!
     
     override func viewDidLoad() {

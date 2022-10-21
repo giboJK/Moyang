@@ -22,6 +22,21 @@ class CategoryTVCell: UITableViewCell {
         $0.textColor = .sheep2
         $0.isUserInteractionEnabled = false
     }
+    let countLabel = UILabel().then {
+        $0.text = "0"
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.textColor = .sheep3
+        $0.isUserInteractionEnabled = false
+    }
+    let latestDateLabel = UILabel().then {
+        $0.text = "1일전 추가됨"
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.textColor = .sheep4.withAlphaComponent(0.8)
+        $0.isUserInteractionEnabled = false
+    }
+    let forwardImageView = UIImageView(image: UIImage(systemName: "chevron.forward")).then {
+        $0.tintColor = .sheep2
+    }
     let divider = UIView().then {
         $0.backgroundColor = .sheep3.withAlphaComponent(0.7)
     }
@@ -48,6 +63,9 @@ class CategoryTVCell: UITableViewCell {
         contentView.backgroundColor = .nightSky1
         setupFolderImageView()
         setupNameLabel()
+        setupForwardImageView()
+        setupCountLabel()
+        setupLatestDateLabel()
         setupDivider()
     }
     private func setupFolderImageView() {
@@ -66,7 +84,29 @@ class CategoryTVCell: UITableViewCell {
             $0.right.equalToSuperview().inset(20)
         }
     }
-    
+    private func setupForwardImageView() {
+        contentView.addSubview(forwardImageView)
+        forwardImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview().inset(20)
+            $0.height.equalTo(20)
+            $0.width.equalTo(12)
+        }
+    }
+    private func setupCountLabel() {
+        contentView.addSubview(countLabel)
+        countLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalTo(forwardImageView.snp.left).offset(-8)
+        }
+    }
+    private func setupLatestDateLabel() {
+        contentView.addSubview(latestDateLabel)
+        latestDateLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
+            $0.left.equalTo(nameLabel)
+        }
+    }
     private func setupDivider() {
         contentView.addSubview(divider)
         divider.snp.makeConstraints {
