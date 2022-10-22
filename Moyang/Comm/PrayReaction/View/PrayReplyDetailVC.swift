@@ -22,14 +22,14 @@ class PrayReplyDetailVC: UIViewController, VCType {
         $0.setTitle("날짜순", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         $0.layer.cornerRadius = 8
-        $0.layer.borderColor = .nightSky4
+        $0.layer.borderColor = .nightSky3
         $0.layer.borderWidth = 1.0
     }
     let nameSortButton = UIButton().then {
         $0.setTitle("이름순", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         $0.layer.cornerRadius = 8
-        $0.layer.borderColor = .nightSky4
+        $0.layer.borderColor = .nightSky3
         $0.layer.borderWidth = 1.0
     }
     let replyTableView = UITableView().then {
@@ -133,14 +133,14 @@ class PrayReplyDetailVC: UIViewController, VCType {
                 guard let self = self else { return }
                 if isDateSorted {
                     self.dateSortButton.setTitleColor(.sheep1, for: .normal)
-                    self.nameSortButton.setTitleColor(.nightSky4, for: .normal)
-                    self.dateSortButton.backgroundColor = .nightSky4
+                    self.nameSortButton.setTitleColor(.nightSky3, for: .normal)
+                    self.dateSortButton.backgroundColor = .nightSky3
                     self.nameSortButton.backgroundColor = .sheep1
                 } else {
-                    self.dateSortButton.setTitleColor(.nightSky4, for: .normal)
+                    self.dateSortButton.setTitleColor(.nightSky3, for: .normal)
                     self.nameSortButton.setTitleColor(.sheep1, for: .normal)
                     self.dateSortButton.backgroundColor = .sheep1
-                    self.nameSortButton.backgroundColor = .nightSky4
+                    self.nameSortButton.backgroundColor = .nightSky3
                 }
             }).disposed(by: disposeBag)
         

@@ -41,7 +41,7 @@ class PrayingTagCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        contentView.backgroundColor = .nightSky4
+        contentView.backgroundColor = .nightSky3
         contentView.layer.cornerRadius = 8
         contentView.layer.masksToBounds = true
         setupTagLabel()

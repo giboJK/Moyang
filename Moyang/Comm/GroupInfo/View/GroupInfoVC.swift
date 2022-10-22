@@ -41,7 +41,7 @@ class GroupInfoVC: UIViewController, VCType {
         $0.textColor = .nightSky1
     }
     let divider = UIView().then {
-        $0.backgroundColor = .sheep5
+        $0.backgroundColor = .sheep4
     }
     let memberTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false

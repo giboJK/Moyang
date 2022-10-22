@@ -13,9 +13,11 @@ class MoyangButton: UIButton {
     enum MoyangButtonStyle {
         case primary
         case secondary
+        case night
         case warning
         case cancel
         case ghost
+        case ghostNight
         case none
     }
     
@@ -60,7 +62,7 @@ class MoyangButton: UIButton {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-//        fatalError("init(coder:) has not been implemented")
+        
     }
     
     // MARK: - setupUI
@@ -70,12 +72,16 @@ class MoyangButton: UIButton {
             setupPrimaryButton()
         case .secondary:
             setupSecondaryButton()
+        case .night:
+            setupNightButton()
         case .warning:
             setupWarningButton()
         case .cancel:
             setupCancelButton()
         case .ghost:
             setupGhostButton()
+        case .ghostNight:
+            setupGhostNightButton()
         case .none:
             break
         }
@@ -91,7 +97,7 @@ class MoyangButton: UIButton {
         setTitleColor(.nightSky1, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
         setTitleColor(.sheep3, for: .highlighted)
-        backgroundColor = (isEnabled && !isHighlighted) ? .sheep2 : .sheep5
+        backgroundColor = (isEnabled && !isHighlighted) ? .sheep2 : .sheep4
         
     }
     
@@ -101,7 +107,16 @@ class MoyangButton: UIButton {
         setTitleColor(.sheep1, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
         setTitleColor(.sheep3, for: .highlighted)
-        backgroundColor = (isEnabled && !isHighlighted) ? .nightSky3 : .sheep5
+        backgroundColor = (isEnabled && !isHighlighted) ? .nightSky3 : .sheep4
+    }
+    
+    private func setupNightButton() {
+        layer.cornerRadius = 14
+        layer.masksToBounds = true
+        setTitleColor(.nightSky1, for: .normal)
+        setTitleColor(.sheep2, for: .disabled)
+        setTitleColor(.nightSky1, for: .highlighted)
+        backgroundColor = (isEnabled && !isHighlighted) ? .sheep2 : .sheep4
     }
     
     private func setupWarningButton() {
@@ -119,13 +134,20 @@ class MoyangButton: UIButton {
         setTitleColor(.sheep1, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
         setTitleColor(.sheep3, for: .highlighted)
-        backgroundColor = (isEnabled && !isHighlighted) ? .sheep4 : .sheep5
+        backgroundColor = (isEnabled && !isHighlighted) ? .sheep4 : .sheep4
     }
     
     private func setupGhostButton() {
         setTitleColor(.sheep2, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
         setTitleColor(.sheep1, for: .highlighted)
+        backgroundColor = .clear
+    }
+    
+    private func setupGhostNightButton() {
+        setTitleColor(.nightSky1, for: .normal)
+        setTitleColor(.sheep4, for: .disabled)
+        setTitleColor(.nightSky2, for: .highlighted)
         backgroundColor = .clear
     }
 }

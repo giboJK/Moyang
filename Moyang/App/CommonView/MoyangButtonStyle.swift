@@ -42,7 +42,7 @@ struct MoyangButtonStyle: ButtonStyle {
             return configuration.label
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(isEnabled ? Color.nightSky2 : Color.sheep5)
+                .background(isEnabled ? Color.nightSky2 : Color.sheep4)
                 .foregroundColor(isEnabled ? .sheep1 : .sheep3)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
@@ -50,7 +50,7 @@ struct MoyangButtonStyle: ButtonStyle {
             return configuration.label
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(isEnabled ? Color.nightSky1 : Color.sheep5)
+                .background(isEnabled ? Color.nightSky1 : Color.sheep4)
                 .foregroundColor(isEnabled ? .sheep1 : Color.sheep3)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
@@ -58,7 +58,7 @@ struct MoyangButtonStyle: ButtonStyle {
             return configuration.label
                 .font(secondaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(isEnabled ? Color.nightSky3 : Color.sheep5)
+                .background(isEnabled ? Color.nightSky3 : Color.sheep4)
                 .foregroundColor(isEnabled ? .sheep1 : .sheep3)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)

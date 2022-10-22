@@ -20,7 +20,7 @@ class IntroVC: UIViewController, VCType {
     // MARK: - UI
     let titleLabel = UILabel().then {
         $0.text = "Moyang"
-        $0.font = .systemFont(ofSize: 36, weight: .heavy)
+        $0.font = .t01
         $0.textColor = .sheep2
     }
     let signUpButton = MoyangButton(.primary).then {
@@ -39,6 +39,7 @@ class IntroVC: UIViewController, VCType {
 
         setupUI()
         bind()
+        Log.d(titleLabel.font)
     }
     
     override func viewWillAppear(_ animated: Bool) {

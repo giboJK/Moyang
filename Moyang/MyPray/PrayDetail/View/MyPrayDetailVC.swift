@@ -28,7 +28,7 @@ class MyPrayDetailVC: UIViewController, VCType {
         var configuration = UIButton.Configuration.filled()
         configuration.buttonSize = .mini
         configuration.attributedTitle = AttributedString("기도하기", attributes: container)
-        configuration.baseBackgroundColor = .nightSky4
+        configuration.baseBackgroundColor = .nightSky3
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
     }
@@ -48,7 +48,7 @@ class MyPrayDetailVC: UIViewController, VCType {
         configuration.attributedTitle = AttributedString("기도 더하기", attributes: container)
         configuration.image = UIImage(systemName: "plus")
         configuration.imagePadding = 4
-        configuration.baseBackgroundColor = .nightSky4
+        configuration.baseBackgroundColor = .nightSky3
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
     }
@@ -63,7 +63,7 @@ class MyPrayDetailVC: UIViewController, VCType {
         configuration.attributedTitle = AttributedString("변화", attributes: container)
         configuration.image = UIImage(systemName: "plus")
         configuration.imagePadding = 4
-        configuration.baseBackgroundColor = .nightSky4
+        configuration.baseBackgroundColor = .nightSky3
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
     }
@@ -77,7 +77,7 @@ class MyPrayDetailVC: UIViewController, VCType {
         configuration.attributedTitle = AttributedString("응답", attributes: container)
         configuration.image = UIImage(systemName: "plus")
         configuration.imagePadding = 4
-        configuration.baseBackgroundColor = .nightSky4
+        configuration.baseBackgroundColor = .nightSky3
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
     }
