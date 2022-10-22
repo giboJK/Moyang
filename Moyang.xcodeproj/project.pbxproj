@@ -80,6 +80,7 @@
 		24126C8C285D7B5A00E8282B /* ReactionPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24126C8B285D7B5A00E8282B /* ReactionPopupView.swift */; };
 		2416F8F12903DE8800152101 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2416F8F02903DE8800152101 /* Fonts.swift */; };
 		2416F8F32903DEEB00152101 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2416F8F22903DEEB00152101 /* UIFont+.swift */; };
+		2416F8F529043AA900152101 /* MoyangLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2416F8F429043AA900152101 /* MoyangLabel.swift */; };
 		241AF7CF28E46BC10085515B /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241AF7CE28E46BC10085515B /* ProfileAssembly.swift */; };
 		241CFBB428CC9268003D8EBD /* GroupMediatorPrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241CFBB328CC9268003D8EBD /* GroupMediatorPrayView.swift */; };
 		24294C5F2861DD7A00458CA0 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24294C5E2861DD7A00458CA0 /* CheckBox.swift */; };
@@ -313,6 +314,7 @@
 		24126C8B285D7B5A00E8282B /* ReactionPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPopupView.swift; sourceTree = "<group>"; };
 		2416F8F02903DE8800152101 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		2416F8F22903DEEB00152101 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		2416F8F429043AA900152101 /* MoyangLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangLabel.swift; sourceTree = "<group>"; };
 		241AF7CE28E46BC10085515B /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		241CFBB328CC9268003D8EBD /* GroupMediatorPrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMediatorPrayView.swift; sourceTree = "<group>"; };
 		24294C5E2861DD7A00458CA0 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
@@ -855,6 +857,7 @@
 				24294C5E2861DD7A00458CA0 /* CheckBox.swift */,
 				24CFA8B72878894D00484C89 /* StickyHeaderView.swift */,
 				08D134D128B488A8008707F3 /* MoyangSearchBar.swift */,
+				2416F8F429043AA900152101 /* MoyangLabel.swift */,
 			);
 			path = CommonView;
 			sourceTree = "<group>";
@@ -1904,6 +1907,7 @@
 				08D0CEBA28A37EFF00A15F3C /* TodayTask.swift in Sources */,
 				08D8295B278D3327001E6B61 /* Color+.swift in Sources */,
 				24B88EE827A2D6C600D5B001 /* LottieView.swift in Sources */,
+				2416F8F529043AA900152101 /* MoyangLabel.swift in Sources */,
 				08AD958A287BE063002D4F94 /* SignUpVC.swift in Sources */,
 				24AACA78283FB42A00308AC3 /* MainAssembly.swift in Sources */,
 				242F92A12848FD140023324D /* NewPrayVC.swift in Sources */,

@@ -18,19 +18,19 @@ class SplashVC: UIViewController, VCType {
     var coordinator: SplashVCDelegate?
 
     // MARK: - UI
-    let firstLabel = UILabel().then {
+    let firstLabel = MoyangLabel().then {
         $0.textColor = .sheep2
-        $0.font = .systemFont(ofSize: 33, weight: .semibold)
+        $0.font = .t01
         $0.textAlignment = .left
     }
-    let secondLabel = UILabel().then {
+    let secondLabel = MoyangLabel().then {
         $0.textColor = .sheep2
-        $0.font = .systemFont(ofSize: 19, weight: .regular)
+        $0.font = .headline
         $0.textAlignment = .left
     }
-    let thirdLabel = UILabel().then {
+    let thirdLabel = MoyangLabel().then {
         $0.textColor = .sheep2
-        $0.font = .systemFont(ofSize: 22, weight: .semibold)
+        $0.font = .t04
         $0.textAlignment = .left
     }
     let requiredPopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .secondary).then {
