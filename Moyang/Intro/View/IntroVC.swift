@@ -29,9 +29,6 @@ class IntroVC: UIViewController, VCType {
     let loginButton = MoyangButton(.ghost).then {
         $0.setTitle("로그인", for: .normal)
     }
-    let pastorLoginButton = MoyangButton(.ghost).then {
-        $0.setTitle("목회자 로그인", for: .normal)
-    }
     let versionLabel = UILabel().then {
         $0.textColor = .sheep3
         $0.font = .systemFont(ofSize: 14, weight: .regular)
@@ -58,7 +55,6 @@ class IntroVC: UIViewController, VCType {
     func setupUI() {
         view.backgroundColor = .nightSky1
         setupTitleLabel()
-        setupPastorLoginButton()
         setupLoginButton()
         setupSignUpButton()
         setupVersionLabel()
@@ -70,20 +66,12 @@ class IntroVC: UIViewController, VCType {
             $0.centerY.equalToSuperview().multipliedBy(0.5)
         }
     }
-    private func setupPastorLoginButton() {
-        view.addSubview(pastorLoginButton)
-        pastorLoginButton.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(32)
-            $0.height.equalTo(48)
-            $0.bottom.equalToSuperview().inset(76)
-        }
-    }
     private func setupLoginButton() {
         view.addSubview(loginButton)
         loginButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(32)
             $0.height.equalTo(48)
-            $0.bottom.equalTo(pastorLoginButton.snp.top).offset(-16)
+            $0.bottom.equalToSuperview().inset(76)
         }
     }
     private func setupSignUpButton() {

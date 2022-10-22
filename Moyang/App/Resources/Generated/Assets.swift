@@ -27,7 +27,6 @@ public enum Asset {
       public static let nightSky1 = ColorAsset(name: "NightSky1")
       public static let sheep1 = ColorAsset(name: "Sheep1")
       public static let wilderness1 = ColorAsset(name: "Wilderness1")
-      public static let ydGreen1 = ColorAsset(name: "YDGreen1")
     }
     public enum Secondary {
       public static let appleRed2 = ColorAsset(name: "AppleRed2")
@@ -39,7 +38,6 @@ public enum Asset {
       public static let sheep4 = ColorAsset(name: "Sheep4")
       public static let sheep5 = ColorAsset(name: "Sheep5")
       public static let wilderness2 = ColorAsset(name: "Wilderness2")
-      public static let ydGreen2 = ColorAsset(name: "YDGreen2")
     }
   }
   public enum Images {

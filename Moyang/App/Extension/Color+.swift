@@ -22,8 +22,5 @@ extension Color {
     static var wilderness1: Color { Color(Asset.Colors.Primary.wilderness1.color) }
     static var wilderness2: Color { Color(Asset.Colors.Secondary.wilderness2.color) }
     
-    static var ydGreen1: Color { Color(Asset.Colors.Primary.ydGreen1.color) }
-    static var ydGreen2: Color { Color(Asset.Colors.Secondary.ydGreen2.color) }
-    
     static var appleRed1: Color { Color(Asset.Colors.Primary.appleRed1.color) }
 }

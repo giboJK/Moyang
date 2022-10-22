@@ -22,14 +22,6 @@ class SignUpVC: UIViewController, VCType {
     let signInConfig = GIDConfiguration.init(clientID: NetConst.googleClientID)
     
     // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
-        $0.closeButton.isHidden = true
-    }
-    let titleLabel = UILabel().then {
-        $0.text = "회원가입"
-        $0.font = .systemFont(ofSize: 32, weight: .bold)
-        $0.textColor = .nightSky1
-    }
     let appleSigninButton = ASAuthorizationAppleIDButton(type: .signUp, style: .black) .then {
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 14
@@ -48,7 +40,7 @@ class SignUpVC: UIViewController, VCType {
     let logInButton = MoyangButton(style: .none).then {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 15, weight: .regular),
-            .foregroundColor: UIColor.nightSky4,
+            .foregroundColor: UIColor.sheep3,
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         
@@ -58,7 +50,7 @@ class SignUpVC: UIViewController, VCType {
         )
         $0.setAttributedTitle(attributeString, for: .normal)
     }
-    let emailExistPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .primary, secondButtonStyle: .ghost).then {
+    let emailExistPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .primary, secondButtonStyle: .secondary).then {
         $0.title = "이미 가입된 이메일"
         $0.desc = "다른 계정을 사용하거나 다른 로그인 방식으로 로그인해주세요"
         $0.firstButton.setTitle("로그인하기", for: .normal)
@@ -78,33 +70,17 @@ class SignUpVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
-        view.backgroundColor = .sheep2
-        setupNavBar()
-        setupTitleLabel()
+        view.backgroundColor = .nightSky1
+        title = "회원가입"
         setupAppleLoginButton()
         setupGoogleLoginButton()
         setupLogInButton()
-    }
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(UIApplication.statusBarHeight + 44)
-        }
-    }
-    private func setupTitleLabel() {
-        view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(32)
-            $0.top.equalTo(navBar.snp.bottom).offset(32)
-        }
     }
     private func setupAppleLoginButton() {
         view.addSubview(appleSigninButton)
         appleSigninButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchDown)
         appleSigninButton.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(32)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(30)
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(50)
         }
@@ -161,11 +137,6 @@ class SignUpVC: UIViewController, VCType {
     }
     
     private func bindViews() {
-        navBar.backButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
-        
         emailExistPopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup(completion: {

@@ -21,7 +21,7 @@ class MemberItemTableViewCell: UITableViewCell {
     }
     let checkedView = UIImageView(image: UIImage(systemName: "checkmark")).then {
         $0.isHidden = true
-        $0.tintColor = .ydGreen1
+        $0.tintColor = .nightSky3
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

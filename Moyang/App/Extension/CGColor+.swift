@@ -22,9 +22,6 @@ extension CGColor {
     @nonobjc class var wilderness1: CGColor { Asset.Colors.Primary.wilderness1.color.cgColor }
     @nonobjc class var wilderness2: CGColor { Asset.Colors.Secondary.wilderness2.color.cgColor }
     
-    @nonobjc class var ydGreen1: CGColor { Asset.Colors.Primary.ydGreen1.color.cgColor }
-    @nonobjc class var ydGreen2: CGColor { Asset.Colors.Secondary.ydGreen2.color.cgColor }
-    
     @nonobjc class var appleRed1: CGColor { Asset.Colors.Primary.appleRed1.color.cgColor }
     @nonobjc class var appleRed2: CGColor { Asset.Colors.Secondary.appleRed2.color.cgColor }
 }

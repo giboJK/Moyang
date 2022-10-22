@@ -103,7 +103,7 @@ class ChangeAnswerTVCell: UITableViewCell {
         switch self.type {
         case .pray:
             typeLabel.text = "기도"
-            bgView.backgroundColor = .ydGreen1
+            bgView.backgroundColor = .nightSky2
         case .change:
             typeLabel.text = "변화"
             bgView.backgroundColor = .nightSky3

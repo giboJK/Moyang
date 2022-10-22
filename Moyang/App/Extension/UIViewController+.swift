@@ -73,7 +73,7 @@ extension UIViewController {
                                              width: UIScreen.main.bounds.width,
                                              height: UIApplication.statusBarHeight + 44))
         if type == .success {
-            toastView.backgroundColor = .ydGreen1
+            toastView.backgroundColor = .nightSky3
         } else {
             toastView.backgroundColor = .appleRed1
         }

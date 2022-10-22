@@ -48,7 +48,7 @@ class ReplyTVCell: UITableViewCell {
     let saveButton = MoyangButton(.none).then {
         $0.setTitle("저장", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.setTitleColor(.ydGreen1, for: .normal)
+        $0.setTitleColor(.nightSky3, for: .normal)
         $0.isHidden = true
     }
     let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {

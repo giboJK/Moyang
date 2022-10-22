@@ -42,7 +42,7 @@ struct MoyangButtonStyle: ButtonStyle {
             return configuration.label
                 .font(primaryFont)
                 .frame(width: width, height: height, alignment: .center)
-                .background(isEnabled ? Color.ydGreen1 : Color.sheep5)
+                .background(isEnabled ? Color.nightSky2 : Color.sheep5)
                 .foregroundColor(isEnabled ? .sheep1 : .sheep3)
                 .cornerRadius(12)
                 .opacity(configuration.isPressed ? 0.7 : 1.0)
