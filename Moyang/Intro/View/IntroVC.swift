@@ -18,7 +18,7 @@ class IntroVC: UIViewController, VCType {
     var coordinator: IntroVCDelegate?
 
     // MARK: - UI
-    let titleLabel = UILabel().then {
+    let titleLabel = MoyangLabel().then {
         $0.text = "Moyang"
         $0.font = .t01
         $0.textColor = .sheep2
@@ -29,7 +29,7 @@ class IntroVC: UIViewController, VCType {
     let loginButton = MoyangButton(.ghost).then {
         $0.setTitle("로그인", for: .normal)
     }
-    let versionLabel = UILabel().then {
+    let versionLabel = MoyangLabel().then {
         $0.textColor = .sheep3
         $0.font = .systemFont(ofSize: 14, weight: .regular)
     }
