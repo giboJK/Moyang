@@ -39,7 +39,6 @@ class IntroVC: UIViewController, VCType {
 
         setupUI()
         bind()
-        Log.d(titleLabel.font)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,7 +69,7 @@ class IntroVC: UIViewController, VCType {
     private func setupLoginButton() {
         view.addSubview(loginButton)
         loginButton.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(32)
+            $0.left.right.equalToSuperview().inset(24)
             $0.height.equalTo(48)
             $0.bottom.equalToSuperview().inset(76)
         }
@@ -78,7 +77,7 @@ class IntroVC: UIViewController, VCType {
     private func setupSignUpButton() {
         view.addSubview(signUpButton)
         signUpButton.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(32)
+            $0.left.right.equalToSuperview().inset(24)
             $0.height.equalTo(48)
             $0.bottom.equalTo(loginButton.snp.top).offset(-16)
         }

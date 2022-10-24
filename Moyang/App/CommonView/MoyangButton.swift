@@ -11,13 +11,14 @@ import RxSwift
 
 class MoyangButton: UIButton {
     enum MoyangButtonStyle {
-        case primary
-        case secondary
-        case night
-        case warning
-        case cancel
-        case ghost
-        case ghostNight
+        case sheepPrimary
+        case sheepSecondary
+        case sheepGhost
+        
+        case nightPrimary
+        case nightSecondary
+        case nightGhost
+        
         case none
     }
     
@@ -67,22 +68,22 @@ class MoyangButton: UIButton {
     
     // MARK: - setupUI
     private func setupUI() {
+        layer.masksToBounds = true
+        layer.cornerRadius = 8
         switch style {
-        case .primary:
-            setupPrimaryButton()
-        case .secondary:
-            setupSecondaryButton()
-        case .night:
-            setupNightButton()
-        case .warning:
-            setupWarningButton()
-        case .cancel:
-            setupCancelButton()
-        case .ghost:
-            setupGhostButton()
-        case .ghostNight:
-            setupGhostNightButton()
-        case .none:
+        case sheepPrimary:
+            
+        case sheepSecondary:
+            
+        case sheepGhost:
+            
+        case nightPrimary:
+            
+        case nightSecondary:
+            
+        case nightGhost:
+            
+        case none:
             break
         }
         
@@ -92,8 +93,6 @@ class MoyangButton: UIButton {
     }
     
     private func setupPrimaryButton() {
-        layer.cornerRadius = 14
-        layer.masksToBounds = true
         setTitleColor(.nightSky1, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
         setTitleColor(.sheep3, for: .highlighted)
