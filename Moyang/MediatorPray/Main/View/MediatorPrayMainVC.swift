@@ -12,16 +12,12 @@ import SnapKit
 import Then
 
 class MediatorPrayMainVC: UIViewController, VCType {
-    typealias VM = DummyVM
+    typealias VM = MediatorPrayMainVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: MediatorPrayMainVCDelegate?
 
     // MARK: - UI
-    let navBar = MoyangNavBar(.light).then {
-        $0.closeButton.isHidden = true
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,15 +31,7 @@ class MediatorPrayMainVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
-        setupNavBar()
-    }
-    private func setupNavBar() {
-        view.addSubview(navBar)
-        navBar.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(UIApplication.statusBarHeight + 44)
-        }
+        view.backgroundColor = .red
     }
 
     // MARK: - Binding

@@ -22,6 +22,9 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             vc.coordinator = r ~> (GroupActivityCoordinator.self)
             
             // View controllers
+            let mediatorPrayMainVC = r ~> (MediatorPrayMainVC.self)
+            mediatorPrayMainVC.coordinator = r ~> (MediatorPrayCoordinator.self)
+            vc.mediatorPrayMainVC = mediatorPrayMainVC
             
             let myPrayMainVC = r ~> (MyPrayMainVC.self)
             myPrayMainVC.coordinator = r ~> (MyPrayCoordinator.self)
@@ -79,30 +82,11 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - Assembly
-        container.register(WorshipNoteAssembly.self) { _ in
-            let assembly = WorshipNoteAssembly()
-            assembly.nav = self.nav
-            return assembly
-        }
-        
-        container.register(BibleAssembly.self) { _ in
-            let assembly = BibleAssembly()
-            assembly.nav = self.nav
-            return assembly
-        }
-        
-        container.register(MyPrayAssembly.self) { _ in
-            let assembly = MyPrayAssembly()
-            assembly.nav = self.nav
-            return assembly
-        }
         
         // MARK: - Coordinator
         container.register(GroupActivityCoordinator.self) { r in
             guard let nav = self.nav else { return GroupActivityCoordinator() }
-            let note = r ~> (WorshipNoteAssembly.self)
-            let bible = r ~> (BibleAssembly.self)
-            let coordinator = GroupActivityCoordinator(nav: nav, assembler: Assembler([self, note, bible]))
+            let coordinator = GroupActivityCoordinator(nav: nav, assembler: Assembler([self]))
             return coordinator
         }
     }

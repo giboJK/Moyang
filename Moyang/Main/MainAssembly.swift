@@ -69,6 +69,11 @@ class MainAssembly: Assembly, BaseAssembly {
             assembly.nav = self.nav
             return assembly
         }
+        container.register(MediatorPrayAssembly.self) { _ in
+            let assembly = MediatorPrayAssembly()
+            assembly.nav = self.nav
+            return assembly
+        }
         
         container.register(MainCoordinator.self) { r in
             guard let nav = self.nav else { return MainCoordinator() }
@@ -78,7 +83,8 @@ class MainAssembly: Assembly, BaseAssembly {
             let note = r ~> (WorshipNoteAssembly.self)
             let bible = r ~> (BibleAssembly.self)
             let myPray = r ~> (MyPrayAssembly.self)
-            let assembler = Assembler([self, today, activity, profile, note, bible, myPray])
+            let mediatorPray = r ~> (MediatorPrayAssembly.self)
+            let assembler = Assembler([self, today, activity, profile, note, bible, myPray, mediatorPray])
             let coordinator = MainCoordinator(nav: nav, assembler: assembler)
             return coordinator
         }

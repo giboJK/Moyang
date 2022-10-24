@@ -91,6 +91,15 @@ class GroupActivityVC: UIViewController, VCType {
     }
     
     private func setupMediatorPrayMainVC() {
+        guard let vc = mediatorPrayMainVC else { Log.e("MediatorPrayMainVC is nil"); return }
+        view.addSubview(vc.view)
+        addChild(vc)
+        vc.didMove(toParent: self)
+        vc.view.snp.makeConstraints {
+            $0.top.equalTo(tabView.snp.bottom)
+            $0.left.bottom.right.equalToSuperview()
+        }
+        vc.view.isHidden = !(tabView.tabMenus.first == .mediatorPray)
     }
     private func setupMyPrayMainVC() {
         guard let vc = myPrayMainVC else { Log.e("MyPrayMainVC is nil"); return }
@@ -131,7 +140,6 @@ class GroupActivityVC: UIViewController, VCType {
             .skip(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] index in
                 self?.mediatorPrayMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.mediatorPray.rawValue
-//                self?.groupQTView.isHidden = index.row != GroupActivityTabView.TapMenu.qt.rawValue
                 self?.myPrayMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.pray.rawValue
                 self?.noteMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.worshipNote.rawValue
             }).disposed(by: disposeBag)
