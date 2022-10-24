@@ -1,8 +1,8 @@
 //
-//  NewMediatorPrayVC.swift
+//  MediatorPrayMainVC.swift
 //  Moyang
 //
-//  Created by 정김기보 on 2022/10/08.
+//  Created by kibo on 2022/10/24.
 //
 
 import UIKit
@@ -11,11 +11,11 @@ import RxSwift
 import SnapKit
 import Then
 
-class NewMediatorPrayVC: UIViewController, VCType {
+class MediatorPrayMainVC: UIViewController, VCType {
     typealias VM = DummyVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
-    var coordinator: NewMediatorPrayVCDelegate?
+    var coordinator: MediatorPrayMainVCDelegate?
 
     // MARK: - UI
     let navBar = MoyangNavBar(.light).then {
@@ -60,6 +60,6 @@ class NewMediatorPrayVC: UIViewController, VCType {
     }
 }
 
-protocol NewMediatorPrayVCDelegate: AnyObject {
+protocol MediatorPrayMainVCDelegate: AnyObject {
 
 }

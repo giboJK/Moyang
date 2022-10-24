@@ -51,22 +51,9 @@ class WorshipNoteTVCell: UITableViewCell {
         $0.isUserInteractionEnabled = false
         $0.numberOfLines = 0
     }
-    let tagCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(PrayCVCell.self, forCellWithReuseIdentifier: "cell")
-        cv.backgroundColor = .clear
-        return cv
-    }()
     let divider = UIView().then {
         $0.backgroundColor = .sheep3.withAlphaComponent(0.7)
     }
-    
-    var userID: String = ""
-    var tagList = [String]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -94,7 +81,6 @@ class WorshipNoteTVCell: UITableViewCell {
         setupDateLabel()
         setupTitleLabel()
         setupContentLabel()
-        setupTagCollectionView()
         setupDivider()
     }
     private func setupPastorLabel() {
@@ -134,16 +120,6 @@ class WorshipNoteTVCell: UITableViewCell {
             $0.left.right.equalToSuperview().inset(12)
         }
     }
-    private func setupTagCollectionView() {
-        contentView.addSubview(tagCollectionView)
-        tagCollectionView.snp.makeConstraints {
-            $0.top.equalTo(contentLabel.snp.bottom)
-            $0.left.right.bottom.equalToSuperview()
-            $0.height.equalTo(40)
-        }
-        tagCollectionView.delegate = self
-        tagCollectionView.dataSource = self
-    }
     
     private func setupDivider() {
         contentView.addSubview(divider)
@@ -156,55 +132,8 @@ class WorshipNoteTVCell: UITableViewCell {
     }
     
     private func bindViews() {
-        tagCollectionView.rx.contentOffset
-            .skip(.seconds(2), scheduler: MainScheduler.asyncInstance)
-            .throttle(.milliseconds(400), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] offset in
-                guard let self = self else { return }
-                
-                let offset = self.tagCollectionView.contentOffset.y
-                let maxOffset = self.tagCollectionView.contentSize.height - self.tagCollectionView.frame.size.height
-                if maxOffset - offset <= 0 {
-//                    self.vm?.fetchMorePrays(userID: self.userID)
-                }
-            }).disposed(by: disposeBag)
     }
     
     func bind() {
-        if let vm = vm {
-            tagCollectionView.reloadData()
-            
-            if isBinded { return }
-            isBinded = true
-            let showPrayDetail = tagCollectionView.rx.itemSelected.map { (self.userID, $0) }.asDriver(onErrorJustReturn: nil)
-//            let input = VM.Input(showPrayDetail: showPrayDetail)
-//            let output = vm.transform(input: input)
-
-//            output.memberPrayList
-//                .map { $0[self.userID] ?? [] }
-//                .drive(onNext: { [weak self] list in
-//                    self?.prayCollectionView.reloadData()
-//                }).disposed(by: disposeBag)
-        }
-    }
-}
-
-extension WorshipNoteTVCell: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width * 0.8, height: 200)
-    }
-}
-
-extension WorshipNoteTVCell: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tagList.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: "cell",
-                                                                for: indexPath) as? PrayCVCell else { return UICollectionViewCell() }
-        cell.row = indexPath.row
-//        cell.setupData(item: tagList[indexPath.row])
-        return cell
     }
 }

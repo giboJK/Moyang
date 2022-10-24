@@ -30,7 +30,8 @@ class GroupActivityVC: UIViewController, VCType {
         $0.numberOfLines = 2
     }
     let tabView = GroupActivityTabView()
-    let groupMediatorPrayView = GroupMediatorPrayView()
+    
+    var mediatorPrayMainVC: MediatorPrayMainVC?
     var myPrayMainVC: MyPrayMainVC?
     var noteMainVC: NoteMainVC?
     
@@ -60,7 +61,7 @@ class GroupActivityVC: UIViewController, VCType {
         setupGreetingLabel()
         setupTabView()
         
-        setupGroupMediatorPrayView()
+        setupMediatorPrayMainVC()
         setupMyPrayMainVC()
         setupNoteMainVC()
     }
@@ -89,16 +90,7 @@ class GroupActivityVC: UIViewController, VCType {
         }
     }
     
-    private func setupGroupMediatorPrayView() {
-        view.addSubview(groupMediatorPrayView)
-        groupMediatorPrayView.snp.makeConstraints {
-            $0.top.equalTo(tabView.snp.bottom)
-            $0.left.right.bottom.equalToSuperview()
-        }
-        groupMediatorPrayView.isHidden = !(tabView.tabMenus.first == .mediatorPray)
-        groupMediatorPrayView.vm = vm
-        groupMediatorPrayView.bind()
-//        groupPrayView.moreButtonHandler = showAddOptions
+    private func setupMediatorPrayMainVC() {
     }
     private func setupMyPrayMainVC() {
         guard let vc = myPrayMainVC else { Log.e("MyPrayMainVC is nil"); return }
@@ -138,7 +130,7 @@ class GroupActivityVC: UIViewController, VCType {
         tabView.menuCV.rx.itemSelected
             .skip(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] index in
-                self?.groupMediatorPrayView.isHidden = index.row != GroupActivityTabView.TapMenu.mediatorPray.rawValue
+                self?.mediatorPrayMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.mediatorPray.rawValue
 //                self?.groupQTView.isHidden = index.row != GroupActivityTabView.TapMenu.qt.rawValue
                 self?.myPrayMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.pray.rawValue
                 self?.noteMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.worshipNote.rawValue
@@ -198,16 +190,4 @@ class GroupActivityVC: UIViewController, VCType {
 
 protocol GroupActivityVCDelegate: AnyObject {
     func didTapNewsButton()
-}
-
-// MARK: - GroupMediatorPrayViewDelegate
-
-extension GroupActivityVC: GroupMediatorPrayViewDelegate {
-    func addNewTopic() {
-        
-    }
-    
-    func showMediatorPrayDetail() {
-        
-    }
 }
