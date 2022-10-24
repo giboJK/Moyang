@@ -38,15 +38,6 @@ class GroupActivityCoordinator: Coordinator {
 }
 
 extension GroupActivityCoordinator: GroupActivityVCDelegate {
-    func didTapNewNoteButton() {
-        if let vc = assembler.resolver.resolve(NewNoteVC.self) {
-            nav.pushViewController(vc, animated: true)
-        } else {
-            Log.e("")
-        }
-    }
-    
-    
     func didTapNewsButton() {
         if let vc = assembler.resolver.resolve(GroupEventVC.self) {
             nav.pushViewController(vc, animated: true)
@@ -55,40 +46,6 @@ extension GroupActivityCoordinator: GroupActivityVCDelegate {
         } else {
             Log.e("")
         }
-    }
-    
-    func didTapNewPrayButton(vm: GroupActivityVM) {
-        if let vc = assembler.resolver.resolve(NewPrayVC.self, argument: vm.useCase) {
-            nav.present(vc, animated: true)
-        } else {
-            Log.e("")
-        }
-    }
-    func didTapNewQTButton() {
-        if let vc = assembler.resolver.resolve(NewQTVC.self) {
-            nav.present(vc, animated: true)
-        } else {
-            Log.e("")
-        }
-    }
-    
-    
-    func didTapPrayButton(vm: GroupActivityVM) {
-        guard let groupID = UserData.shared.groupID else { Log.e("No group"); return }
-        if let vc = assembler.resolver.resolve(GroupPrayingVC.self, arguments: vm.useCase, groupID) {
-            nav.pushViewController(vc, animated: true)
-        } else {
-            Log.e("")
-        }
-    }
-    
-    func didTapPray(vm: MyPrayDetailVM) {
-        let vc = MyPrayDetailVC()
-        vc.vm = vm
-        vc.coordinator = self
-        nav.pushViewController(vc, animated: true)
-        nav.isNavigationBarHidden = false
-        nav.navigationBar.backItem?.title = ""
     }
 }
 

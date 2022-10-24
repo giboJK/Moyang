@@ -138,34 +138,6 @@ class GroupActivityVC: UIViewController, VCType {
     }
     
     private func showAddOptions() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        tabView.tabMenus.forEach { [weak self] menu in
-            alert.addAction(UIAlertAction(title: menu.addActionTitle, style: .default , handler: { [weak self] _ in
-                guard let vm = self?.vm else { return }
-                switch menu {
-                case .mediatorPray:
-                    self?.coordinator?.didTapNewPrayButton(vm: vm)
-//                case .qt:
-//                    self?.coordinator?.didTapNewPrayButton(vm: vm)
-                case .pray:
-                    self?.coordinator?.didTapNewPrayButton(vm: vm)
-                case .worshipNote:
-                    self?.coordinator?.didTapNewNoteButton()
-//                case .thanks:
-//                    self?.coordinator?.didTapNewPrayButton(vm: vm)
-                }
-            }))
-        }
-        
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { _ in
-        }))
-
-//        uncomment for iPad Support
-        alert.popoverPresentationController?.sourceView = self.view
-
-        self.present(alert, animated: true, completion: {
-            print("completion block")
-        })
     }
     
     // MARK: - Binding
@@ -227,46 +199,27 @@ class GroupActivityVC: UIViewController, VCType {
             .drive(greetingLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output.groupPrayDetailVM
-            .drive(onNext: { [weak self] groupPrayDetailVM in
-                guard let groupPrayDetailVM = groupPrayDetailVM else { return }
-                self?.coordinator?.didTapPray(vm: groupPrayDetailVM)
-            }).disposed(by: disposeBag)
-        output.prayReactionDetailVM
-            .drive(onNext: { [weak self] prayReactionDetailVM in
-                guard let prayReactionDetailVM = prayReactionDetailVM else { return }
-                self?.showReactionView(prayReactionDetailVM: prayReactionDetailVM)
-            }).disposed(by: disposeBag)
-        
-        output.prayReplyDetailVM
-            .drive(onNext: { [weak self] prayReplyDetailVM in
-                guard let prayReplyDetailVM = prayReplyDetailVM else { return }
-                self?.showReplyView(prayReplyDetailVM: prayReplyDetailVM)
-            }).disposed(by: disposeBag)
-        
-        output.addingNewPraySuccess.skip(1)
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.showTopToast(type: .success, message: "기도 추가 완료", disposeBag: self.disposeBag)
-                self.dismiss(animated: true)
-            }).disposed(by: disposeBag)
-        
-        output.addingNewPrayFailure.skip(1)
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.showTopToast(type: .failure, message: "기도 추가 중 문제가 발생하였습니다.", disposeBag: self.disposeBag)
-                self.dismiss(animated: true)
-            }).disposed(by: disposeBag)
+//        output.groupPrayDetailVM
+//            .drive(onNext: { [weak self] groupPrayDetailVM in
+//                guard let groupPrayDetailVM = groupPrayDetailVM else { return }
+//                self?.coordinator?.didTapPray(vm: groupPrayDetailVM)
+//            }).disposed(by: disposeBag)
+//        output.prayReactionDetailVM
+//            .drive(onNext: { [weak self] prayReactionDetailVM in
+//                guard let prayReactionDetailVM = prayReactionDetailVM else { return }
+//                self?.showReactionView(prayReactionDetailVM: prayReactionDetailVM)
+//            }).disposed(by: disposeBag)
+//
+//        output.prayReplyDetailVM
+//            .drive(onNext: { [weak self] prayReplyDetailVM in
+//                guard let prayReplyDetailVM = prayReplyDetailVM else { return }
+//                self?.showReplyView(prayReplyDetailVM: prayReplyDetailVM)
+//            }).disposed(by: disposeBag)
     }
 }
 
 protocol GroupActivityVCDelegate: AnyObject {
     func didTapNewsButton()
-    func didTapNewPrayButton(vm: GroupActivityVM)
-    func didTapNewQTButton()
-    func didTapPrayButton(vm: GroupActivityVM)
-    func didTapPray(vm: MyPrayDetailVM)
-    func didTapNewNoteButton()
 }
 
 // MARK: - GroupMediatorPrayViewDelegate

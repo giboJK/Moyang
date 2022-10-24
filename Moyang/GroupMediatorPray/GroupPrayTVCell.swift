@@ -124,18 +124,6 @@ class GroupPrayTVCell: UITableViewCell {
     }
     
     private func bindViews() {
-        prayCollectionView.rx.contentOffset
-            .skip(.seconds(2), scheduler: MainScheduler.asyncInstance)
-            .throttle(.milliseconds(400), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] offset in
-                guard let self = self else { return }
-                
-                let offset = self.prayCollectionView.contentOffset.y
-                let maxOffset = self.prayCollectionView.contentSize.height - self.prayCollectionView.frame.size.height
-                if maxOffset - offset <= 0 {
-                    self.vm?.fetchMorePrays(userID: self.userID)
-                }
-            }).disposed(by: disposeBag)
     }
     
     func bind() {
@@ -175,12 +163,6 @@ class GroupPrayTVCell: UITableViewCell {
             let input = VM.Input(showPrayDetail: showPrayDetail)
             let output = vm.transform(input: input)
 
-            output.memberPrayList
-                .map { $0[self.userID] ?? [] }
-                .drive(onNext: { [weak self] list in
-                    self?.prayList = list
-                    self?.prayCollectionView.reloadData()
-                }).disposed(by: disposeBag)
         }
     }
 }

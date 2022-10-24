@@ -20,6 +20,13 @@ class WorshipNoteAssembly: Assembly, BaseAssembly {
             AFNetworkService(sessionConfiguration: .default)
         }
         
+        // MARK: - NoteMainVC
+        container.register(NoteMainVC.self) { r in
+            let vc = NoteMainVC()
+            vc.vm = r ~> (WorshipNoteVM.self)
+            return vc
+        }
+
         // MARK: - WorshipNote
         container.register(WorshipNoteView.self) { r in
             let v = WorshipNoteView()

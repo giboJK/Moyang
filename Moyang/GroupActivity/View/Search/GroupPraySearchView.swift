@@ -60,27 +60,27 @@ class GroupPraySearchView: UIView {
     }
     
     func bind() {
-        guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(selectSearched: searchPrayTableView.rx.itemSelected.asDriver())
-        let output = vm.transform(input: input)
-        
-        output.searchPrayItemList.map { $0.isEmpty }
-            .drive(searchPrayTableView.rx.isHidden)
-            .disposed(by: disposeBag)
-
-        output.searchPrayItemList.map { $0.isEmpty }.map { !$0 }
-            .drive(noResultLabel.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        output.searchPrayItemList
-            .drive(searchPrayTableView.rx
-                .items(cellIdentifier: "cell", cellType: SearchPrayTVCell.self)) { (_, item, cell) in
-                    cell.nameLabel.text = item.name
-                    cell.dateLabel.text = item.date.isoToDateString("yyyy년 M월 d일")
-                    cell.prayLabel.text = item.pray
-                    cell.prayLabel.lineBreakMode = .byTruncatingTail
-                    cell.tags = item.tags
-                    cell.tagCollectionView.reloadData()
-                }.disposed(by: disposeBag)
+//        guard let vm = vm else { Log.e("vm is nil"); return }
+//        let input = VM.Input(selectSearched: searchPrayTableView.rx.itemSelected.asDriver())
+//        let output = vm.transform(input: input)
+//
+//        output.searchPrayItemList.map { $0.isEmpty }
+//            .drive(searchPrayTableView.rx.isHidden)
+//            .disposed(by: disposeBag)
+//
+//        output.searchPrayItemList.map { $0.isEmpty }.map { !$0 }
+//            .drive(noResultLabel.rx.isHidden)
+//            .disposed(by: disposeBag)
+//
+//        output.searchPrayItemList
+//            .drive(searchPrayTableView.rx
+//                .items(cellIdentifier: "cell", cellType: SearchPrayTVCell.self)) { (_, item, cell) in
+//                    cell.nameLabel.text = item.name
+//                    cell.dateLabel.text = item.date.isoToDateString("yyyy년 M월 d일")
+//                    cell.prayLabel.text = item.pray
+//                    cell.prayLabel.lineBreakMode = .byTruncatingTail
+//                    cell.tags = item.tags
+//                    cell.tagCollectionView.reloadData()
+//                }.disposed(by: disposeBag)
     }
 }

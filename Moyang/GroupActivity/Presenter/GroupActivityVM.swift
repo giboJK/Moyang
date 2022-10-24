@@ -11,8 +11,6 @@ import Foundation
 
 class GroupActivityVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    let useCase: MyPrayUseCase
-    let bibleUseCase: BibleUseCase
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -46,9 +44,7 @@ class GroupActivityVM: VMType {
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     
-    init(useCase: MyPrayUseCase, bibleUseCase: BibleUseCase) {
-        self.useCase = useCase
-        self.bibleUseCase = bibleUseCase
+    init() {
         
         bind()
         setupGreeting()
@@ -64,50 +60,6 @@ class GroupActivityVM: VMType {
         if let groupInfo = UserData.shared.groupInfo {
             groupName.accept(groupInfo.groupName)
         } else { Log.e("") }
-        
-        useCase.isNetworking
-            .bind(to: isNetworking)
-            .disposed(by: disposeBag)
-        
-        useCase.userIDNameDict
-            .subscribe(onNext: { [weak self] dict in
-                self?.setMemberList(dict: dict)
-            }).disposed(by: disposeBag)
-        
-        useCase.memberPrayList
-            .bind(to: memberPrayList)
-            .disposed(by: disposeBag)
-        
-        useCase.autoCompleteList
-            .bind(to: autoCompleteList)
-            .disposed(by: disposeBag)
-        
-        useCase.searchedPrayList
-            .map { $0.map { SearchPrayItem(data: $0) } }
-            .bind(to: searchPrayItemList)
-            .disposed(by: disposeBag)
-        
-        useCase.fetchPraySuccess
-            .subscribe(onNext: { [weak self] pray in
-                guard let self = self, let pray = pray else { return }
-                self.groupPrayDetailVM.accept(MyPrayDetailVM(useCase: self.useCase, bibleUseCase: self.bibleUseCase,
-                                                             prayID: pray.prayID))
-                self.removeAutoCompleteList()
-            }).disposed(by: disposeBag)
-        
-        useCase.fetchPrayFailure
-            .subscribe(onNext: { [weak self] _ in
-                self?.removeAutoCompleteList()
-            }).disposed(by: disposeBag)
-        
-        // network result event
-        useCase.addNewPraySuccess
-            .bind(to: addingNewPraySuccess)
-            .disposed(by: disposeBag)
-        
-        useCase.addNewPrayFailure
-            .bind(to: addingNewPrayFailure)
-            .disposed(by: disposeBag)
     }
     
     private func setupGreeting() {
@@ -141,7 +93,7 @@ class GroupActivityVM: VMType {
     
     private func fetchActivity(_ dateString: String) {
         guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
-        useCase.fetchGroupAcitvity(groupID: groupInfo.id, isWeek: self.isWeek.value, date: dateString)
+//        useCase.fetchGroupAcitvity(groupID: groupInfo.id, isWeek: self.isWeek.value, date: dateString)
     }
     
     private func setMemberList(dict: [String: String]) {
@@ -188,30 +140,6 @@ class GroupActivityVM: VMType {
         }
         fetchActivity(curDisplayDate.toString("yyyy-MM-dd hh:mm:ss Z"))
     }
-    
-    func fetchMorePrays(userID: String) {
-        if let orderType = GroupPrayOrder(rawValue: order.value),
-           let list = memberPrayList.value[userID] {
-            useCase.fetchPrayList(userID: userID, order: orderType.parameter, page: list.count)
-        }
-    }
-    
-    private func fetchAutocomplete(keyword: String) {
-        useCase.fetchAutocompleteList(keyword: keyword)
-    }
-    private func searchWithKeyword(keyword: String) {
-        guard let groupID = UserData.shared.groupID else {
-            Log.e(""); return
-        }
-        useCase.searchWithKeyword(keyword: keyword, groupID: groupID)
-    }
-    private func fetchPray(prayID: String, userID: String) {
-        useCase.fetchPray(prayID: prayID, userID: userID)
-    }
-    
-    private func removeAutoCompleteList() {
-        useCase.removeAutoCompleteList()
-    }
 }
 
 
@@ -219,13 +147,6 @@ class GroupActivityVM: VMType {
 extension GroupActivityVM {
     struct Input {
         var selectMember: Driver<IndexPath> = .empty()
-        
-        var setKeyword: Driver<String?> = .empty()
-        var clearKeyword: Driver<Void> = .empty()
-        var searchKeyword: Driver<Void> = .empty()
-        var fetchAutocomplete: Driver<Void> = .empty()
-        var selectAutocomplete: Driver<IndexPath> = .empty()
-        var selectSearched: Driver<IndexPath> = .empty()
         
         var showPrayDetail: Driver<(String, IndexPath)?> = .empty()
         var showReactions: Driver<(String, Int)?> = .empty()
@@ -237,28 +158,6 @@ extension GroupActivityVM {
         
         let groupName: Driver<String>
         let groupCreateDate: Driver<Date?>
-        let isWeek: Driver<Bool>
-        
-        let order: Driver<String>
-        let selectedMember: Driver<String>
-        let memberList: Driver<[MemberItem]>
-        let displayDate: Driver<String>
-        
-        let memberPrayList: Driver<[String: [MyPray]]>
-        let autoCompleteList: Driver<[String]>
-        let searchPrayItemList: Driver<[SearchPrayItem]>
-        
-        let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
-        let prayReplyDetailVM: Driver<PrayReplyDetailVM?>
-        let groupPrayDetailVM: Driver<MyPrayDetailVM?>
-        
-        // QT
-        let bibleSelectVM: Driver<BibleSelectVM?>
-        
-        // Thanks
-        
-        let addingNewPraySuccess: Driver<Void>
-        let addingNewPrayFailure: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -274,104 +173,47 @@ extension GroupActivityVM {
                 self.memberList.accept(curList)
             }).disposed(by: disposeBag)
         
-        input.setKeyword
-            .drive(keyword)
-            .disposed(by: disposeBag)
-        
-        input.clearKeyword
-            .drive(onNext: { [weak self] _ in
-                self?.removeAutoCompleteList()
-            }).disposed(by: disposeBag)
-        
-        input.searchKeyword
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                guard let keyword = self.keyword.value else { return }
-                self.searchWithKeyword(keyword: keyword)
-            }).disposed(by: disposeBag)
-        
-        input.fetchAutocomplete
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                if let keyword = self.keyword.value {
-                    if keyword.count < 2 {
-                        self.removeAutoCompleteList()
-                        return
-                    }
-                    self.fetchAutocomplete(keyword: keyword)
-                }
-            }).disposed(by: disposeBag)
-        
-        input.selectAutocomplete
-            .drive(onNext: { [weak self] index in
-                guard let self = self else { return }
-                let keyword = self.autoCompleteList.value[index.row]
-                self.searchWithKeyword(keyword: keyword)
-            }).disposed(by: disposeBag)
-        
-        input.selectSearched
-            .drive(onNext: { [weak self] index in
-                guard let self = self else { return }
-                let id = self.searchPrayItemList.value[index.row].id
-                let userID = self.searchPrayItemList.value[index.row].userID
-                self.fetchPray(prayID: id, userID: userID)
-            }).disposed(by: disposeBag)
-        
-        input.showPrayDetail
-            .drive(onNext: { [weak self] item in
-                guard let self = self else { return }
-                guard let item = item else { return }
-                if let prayList = self.memberPrayList.value[item.0] {
-                    self.groupPrayDetailVM.accept(MyPrayDetailVM(useCase: self.useCase,
-                                                                    bibleUseCase: self.bibleUseCase,
-                                                                    prayID: prayList[item.1.row].prayID))
-                }
-            }).disposed(by: disposeBag)
-        
-        input.showReactions
-            .drive(onNext: { [weak self] item in
-                guard let self = self else { return }
-                guard let item = item else { return }
-                if let prayList = self.memberPrayList.value[item.0] {
-                    self.prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: prayList[item.1].reactions))
-                }
-            }).disposed(by: disposeBag)
-        
-        input.showReplys
-            .drive(onNext: { [weak self] item in
-                guard let self = self else { return }
-                guard let item = item else { return }
-                if let prayList = self.memberPrayList.value[item.0] {
-                    self.prayReplyDetailVM.accept(PrayReplyDetailVM(useCase: self.useCase,
-                                                                    userID: prayList[item.1].userID,
-                                                                    prayID: prayList[item.1].prayID,
-                                                                    replys: prayList[item.1].replys))
-                }
-            }).disposed(by: disposeBag)
+//        input.showPrayDetail
+//            .drive(onNext: { [weak self] item in
+//                guard let self = self else { return }
+//                guard let item = item else { return }
+//                if let prayList = self.memberPrayList.value[item.0] {
+//                    self.groupPrayDetailVM.accept(MyPrayDetailVM(useCase: self.useCase,
+//                                                                    bibleUseCase: self.bibleUseCase,
+//                                                                    prayID: prayList[item.1.row].prayID))
+//                }
+//            }).disposed(by: disposeBag)
+//
+//        input.showReactions
+//            .drive(onNext: { [weak self] item in
+//                guard let self = self else { return }
+//                guard let item = item else { return }
+//                if let prayList = self.memberPrayList.value[item.0] {
+//                    self.prayReactionDetailVM.accept(PrayReactionDetailVM(reactions: prayList[item.1].reactions))
+//                }
+//            }).disposed(by: disposeBag)
+//
+//        input.showReplys
+//            .drive(onNext: { [weak self] item in
+//                guard let self = self else { return }
+//                guard let item = item else { return }
+//                if let prayList = self.memberPrayList.value[item.0] {
+//                    self.prayReplyDetailVM.accept(PrayReplyDetailVM(useCase: self.useCase,
+//                                                                    userID: prayList[item.1].userID,
+//                                                                    prayID: prayList[item.1].prayID,
+//                                                                    replys: prayList[item.1].replys))
+//                }
+//            }).disposed(by: disposeBag)
         
         return Output(greeting: greeting.asDriver(),
                       
                       groupName: groupName.asDriver(),
-                      groupCreateDate: groupCreateDate.asDriver(),
-                      isWeek: isWeek.asDriver(),
+                      groupCreateDate: groupCreateDate.asDriver()
                       
-                      order: order.asDriver(),
-                      selectedMember: selectedMember.asDriver(),
-                      memberList: memberList.asDriver(),
-                      displayDate: displayDate.asDriver(),
-                      
-                      memberPrayList: memberPrayList.asDriver(),
-                      autoCompleteList: autoCompleteList.asDriver(),
-                      searchPrayItemList: searchPrayItemList.asDriver(),
-                      
-                      prayReactionDetailVM: prayReactionDetailVM.asDriver(),
-                      prayReplyDetailVM: prayReplyDetailVM.asDriver(),
-                      groupPrayDetailVM: groupPrayDetailVM.asDriver(),
-                      
-                      bibleSelectVM: bibleSelectVM.asDriver(),
-                      
-                      addingNewPraySuccess: addingNewPraySuccess.asDriver(),
-                      addingNewPrayFailure: addingNewPrayFailure.asDriver()
+//                      prayReactionDetailVM: prayReactionDetailVM.asDriver(),
+//                      prayReplyDetailVM: prayReplyDetailVM.asDriver(),
+//                      groupPrayDetailVM: groupPrayDetailVM.asDriver(),
+//
         )
     }
 }

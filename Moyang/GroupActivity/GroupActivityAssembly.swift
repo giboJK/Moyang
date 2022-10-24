@@ -27,6 +27,9 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             myPrayMainVC.coordinator = r ~> (MyPrayCoordinator.self)
             vc.myPrayMainVC = myPrayMainVC
             
+            let noteMainVC = r ~> (NoteMainVC.self)
+            vc.noteMainVC = noteMainVC
+            
             vc.worshipNoteView = r ~> (WorshipNoteView.self)
             return vc
         }
@@ -43,7 +46,7 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         
         // MARK: - GroupPray
         container.register(GroupActivityVM.self) { r in
-            GroupActivityVM(useCase: (r ~> MyPrayUseCase.self), bibleUseCase: (r ~> BibleUseCase.self))
+            GroupActivityVM()
         }
         
         // MARK: - GroupNews
@@ -56,7 +59,6 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        
         // MARK: - GroupInfo
         container.register(GroupInfoVM.self) { _ in
             GroupInfoVM()
@@ -66,64 +68,6 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             let vc = GroupInfoVC()
             vc.vm = r ~> (GroupInfoVM.self)
             return vc
-        }
-        
-        // MARK: - NewPrayVC
-        container.register(NewPrayVC.self) { (r, useCase: MyPrayUseCase) in
-            let vc = NewPrayVC()
-            vc.vm = r ~> (NewPrayVM.self, argument: useCase)
-            return vc
-        }
-        container.register(NewPrayVM.self) { (_, useCase: MyPrayUseCase) in
-            return NewPrayVM(useCase: useCase)
-        }
-        
-        container.register(NewPrayVM.self) { r in
-            return NewPrayVM(useCase: (r ~> MyPrayUseCase.self))
-        }
-        
-        // MARK: - NewQTVC
-        container.register(NewQTVC.self) { r in
-            let vc = NewQTVC()
-            vc.vm = r ~> (NewQTVM.self)
-            return vc
-        }
-        container.register(NewQTVM.self) { _ in
-            return NewQTVM()
-        }
-        
-        // MARK: - GroupPrayingVC
-        container.register(GroupPrayingVC.self) { (r, useCase: MyPrayUseCase, groupID: String, userID: String, prayID: String) in
-            let vc = GroupPrayingVC()
-            let vm = r ~> (GroupPrayingVM.self, arguments: (useCase, groupID, userID))
-            vm.prayID = prayID
-            vc.vm = vm
-            return vc
-        }
-        
-        container.register(GroupPrayingVC.self) { (r, useCase: MyPrayUseCase, groupID: String) in
-            let vc = GroupPrayingVC()
-            vc.vm = r ~> (GroupPrayingVM.self, arguments: (useCase, groupID))
-            return vc
-        }
-        
-        container.register(GroupPrayingVM.self) { (_, useCase: MyPrayUseCase, bibleUseCase: BibleUseCase, groupID: String, userID: String) in
-            return GroupPrayingVM(useCase: useCase, bibleUseCase: bibleUseCase, groupID: groupID, userID: userID)
-        }
-        container.register(GroupPrayingVM.self) { (_, useCase: MyPrayUseCase, bibleUseCase: BibleUseCase, groupID: String) in
-            return GroupPrayingVM(useCase: useCase, bibleUseCase: bibleUseCase, groupID: groupID)
-        }
-        
-        container.register(GroupPrayingVM.self) { (r, useCase: MyPrayUseCase, groupID: String, userID: String) in
-            return GroupPrayingVM(useCase: useCase, bibleUseCase: r ~> (BibleUseCase.self), groupID: groupID)
-        }
-        
-        container.register(BibleUseCase.self) { r in
-            return BibleUseCase(repo: (r ~> WorshipNoteRepo.self))
-        }
-        
-        container.register(WorshipNoteRepo.self) { r in
-            NoteController(networkService: (r ~> NetworkServiceProtocol.self))
         }
         
         // MARK: - GroupUseCase

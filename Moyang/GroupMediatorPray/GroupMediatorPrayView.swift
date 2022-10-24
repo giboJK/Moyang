@@ -173,33 +173,13 @@ class GroupMediatorPrayView: UIView {
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setKeyword: searchBar.textField.rx.text.asDriver(),
-                             clearKeyword: searchBar.clearButton.rx.tap.asDriver(),
-                             searchKeyword: searchBar.textField.rx.controlEvent([.editingDidEndOnExit]).asDriver(),
-                             fetchAutocomplete: searchBar.textField.rx.controlEvent([.editingChanged]).asDriver(),
-                             selectAutocomplete: autoCompleteTableView.rx.itemSelected.asDriver())
+        let input = VM.Input()
             
         let output = vm.transform(input: input)
         
         output.groupName
             .drive(headerView.groupNameLabel.rx.text)
             .disposed(by: disposeBag)
-        
-        output.memberList
-            .map({ $0.filter { !$0.id.isEmpty } })
-            .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: GroupPrayTVCell.self)) { [weak self] (_, item, cell) in
-                    cell.userID = item.id
-                    cell.nameLabel.text = item.isMe ? "내 기도" : item.name
-                    cell.vm = self?.vm
-                    cell.bind()
-                }.disposed(by: disposeBag)
-        
-        output.autoCompleteList
-            .drive(autoCompleteTableView.rx
-                .items(cellIdentifier: "cell", cellType: AutoCompleteTVCell.self)) { (_, item, cell) in
-                    cell.tagLabel.text = item
-                }.disposed(by: disposeBag)
     }
 }
 
