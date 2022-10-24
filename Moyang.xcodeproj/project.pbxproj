@@ -60,7 +60,6 @@
 		08ECAADA28A6284F00B546F1 /* TaskDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08ECAAD928A6284F00B546F1 /* TaskDetailVM.swift */; };
 		08ECAADC28A62B1300B546F1 /* TodayAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08ECAADB28A62B1300B546F1 /* TodayAssembly.swift */; };
 		08EE004428C5B478000B02BD /* AppVersionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EE004328C5B478000B02BD /* AppVersionInfo.swift */; };
-		08EE004828C84E97000B02BD /* GroupQTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EE004728C84E97000B02BD /* GroupQTView.swift */; };
 		08EE004A28C84F8A000B02BD /* GroupActivityTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EE004928C84F8A000B02BD /* GroupActivityTabView.swift */; };
 		08F082D5290625C00042319B /* WorshipNoteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F082D4290625C00042319B /* WorshipNoteCoordinator.swift */; };
 		08F4738928B5BAA70070CE2A /* BookSelectTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738828B5BAA70070CE2A /* BookSelectTVCell.swift */; };
@@ -108,8 +107,6 @@
 		24630ED828F3D19B00567996 /* NewNoteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24630ED728F3D19B00567996 /* NewNoteVM.swift */; };
 		24630EDA28F40C8F00567996 /* BibleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24630ED928F40C8F00567996 /* BibleUseCase.swift */; };
 		24630EDC28F436FD00567996 /* NoteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24630EDB28F436FD00567996 /* NoteController.swift */; };
-		246FEFED28CE1CBD00193C2F /* NewQTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246FEFEC28CE1CBD00193C2F /* NewQTVC.swift */; };
-		246FEFF028CE1CED00193C2F /* NewQTVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246FEFEF28CE1CED00193C2F /* NewQTVM.swift */; };
 		24755367277CA9AB001908A6 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24755366277CA9AB001908A6 /* UserData.swift */; };
 		24831FB428E93BD400DB36A1 /* AlarmTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24831FB328E93BD400DB36A1 /* AlarmTimeView.swift */; };
 		24831FB628E93E4000DB36A1 /* NewAlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24831FB528E93E4000DB36A1 /* NewAlarmVC.swift */; };
@@ -142,7 +139,6 @@
 		24BB426028471F6700E86CCD /* PrayTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */; };
 		24BB42622847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB42612847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */; };
-		24BD1E9F28CE978C00D8B550 /* GroupQTHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BD1E9E28CE978C00D8B550 /* GroupQTHeader.swift */; };
 		24BFD9ED28307B2200E105D3 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BFD9EC28307B2200E105D3 /* MainVM.swift */; };
 		24C3379E28A200DA00AA042A /* PrayDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C3379D28A200DA00AA042A /* PrayDetailView.swift */; };
 		24C52740284708570081AE25 /* GroupPrayTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C5273F284708570081AE25 /* GroupPrayTVCell.swift */; };
@@ -294,7 +290,6 @@
 		08ECAAD928A6284F00B546F1 /* TaskDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailVM.swift; sourceTree = "<group>"; };
 		08ECAADB28A62B1300B546F1 /* TodayAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayAssembly.swift; sourceTree = "<group>"; };
 		08EE004328C5B478000B02BD /* AppVersionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionInfo.swift; sourceTree = "<group>"; };
-		08EE004728C84E97000B02BD /* GroupQTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQTView.swift; sourceTree = "<group>"; };
 		08EE004928C84F8A000B02BD /* GroupActivityTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupActivityTabView.swift; sourceTree = "<group>"; };
 		08F082D4290625C00042319B /* WorshipNoteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorshipNoteCoordinator.swift; sourceTree = "<group>"; };
 		08F4738828B5BAA70070CE2A /* BookSelectTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSelectTVCell.swift; sourceTree = "<group>"; };
@@ -343,8 +338,6 @@
 		24630ED728F3D19B00567996 /* NewNoteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteVM.swift; sourceTree = "<group>"; };
 		24630ED928F40C8F00567996 /* BibleUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleUseCase.swift; sourceTree = "<group>"; };
 		24630EDB28F436FD00567996 /* NoteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteController.swift; sourceTree = "<group>"; };
-		246FEFEC28CE1CBD00193C2F /* NewQTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQTVC.swift; sourceTree = "<group>"; };
-		246FEFEF28CE1CED00193C2F /* NewQTVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQTVM.swift; sourceTree = "<group>"; };
 		24755366277CA9AB001908A6 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		24831FB328E93BD400DB36A1 /* AlarmTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTimeView.swift; sourceTree = "<group>"; };
 		24831FB528E93E4000DB36A1 /* NewAlarmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmVC.swift; sourceTree = "<group>"; };
@@ -378,7 +371,6 @@
 		24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayTagCVCell.swift; sourceTree = "<group>"; };
 		24BB42612847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
-		24BD1E9E28CE978C00D8B550 /* GroupQTHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQTHeader.swift; sourceTree = "<group>"; };
 		24BFD9EC28307B2200E105D3 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
 		24C3379D28A200DA00AA042A /* PrayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayDetailView.swift; sourceTree = "<group>"; };
 		24C5273F284708570081AE25 /* GroupPrayTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayTVCell.swift; sourceTree = "<group>"; };
@@ -748,24 +740,6 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		08EE004528C84E83000B02BD /* GroupQT */ = {
-			isa = PBXGroup;
-			children = (
-				246FEFEA28CE1CA900193C2F /* NewQT */,
-				08EE004628C84E8D000B02BD /* View */,
-			);
-			path = GroupQT;
-			sourceTree = "<group>";
-		};
-		08EE004628C84E8D000B02BD /* View */ = {
-			isa = PBXGroup;
-			children = (
-				08EE004728C84E97000B02BD /* GroupQTView.swift */,
-				24BD1E9E28CE978C00D8B550 /* GroupQTHeader.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		08F4738A28B5BCD30070CE2A /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1024,31 +998,6 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		246FEFEA28CE1CA900193C2F /* NewQT */ = {
-			isa = PBXGroup;
-			children = (
-				246FEFEE28CE1CE300193C2F /* Presenter */,
-				246FEFEB28CE1CB300193C2F /* View */,
-			);
-			path = NewQT;
-			sourceTree = "<group>";
-		};
-		246FEFEB28CE1CB300193C2F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				246FEFEC28CE1CBD00193C2F /* NewQTVC.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		246FEFEE28CE1CE300193C2F /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				246FEFEF28CE1CED00193C2F /* NewQTVM.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
 		248FEC0E2723A07D00321E5E /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -1072,7 +1021,6 @@
 			isa = PBXGroup;
 			children = (
 				242F929D2848E0FF0023324D /* GroupActivityAssembly.swift */,
-				24C8E9B6286B1F1C00AEE46B /* Domain */,
 				2493DE64284674D5001A9368 /* Presenter */,
 				2493DE632846746A001A9368 /* View */,
 				24E7547728BAF2EA00E49EB2 /* Event */,
@@ -1208,13 +1156,6 @@
 			path = Charts;
 			sourceTree = "<group>";
 		};
-		24C8E9B6286B1F1C00AEE46B /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
 		24CDD52F28E537B40091A286 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1294,7 +1235,6 @@
 				2493DE602846742B001A9368 /* GroupActivity */,
 				24513BA128F1BF0C008386ED /* GroupMediatorPray */,
 				241CFBB128CC83FE003D8EBD /* MyPray */,
-				08EE004528C84E83000B02BD /* GroupQT */,
 				24630EC528F39F4B00567996 /* WorshipNote */,
 				246BD7A327240A96005C4E0B /* Comm */,
 				08D0CEAF28A36A6100A15F3C /* Today */,
@@ -1863,7 +1803,6 @@
 				08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */,
 				24E7547A28BAF30800E49EB2 /* GroupEventVC.swift in Sources */,
 				0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */,
-				246FEFED28CE1CBD00193C2F /* NewQTVC.swift in Sources */,
 				08E86B8028FFC1D500CA04E2 /* MyPrayTVCell.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				24AACA7C283FC3DD00308AC3 /* MainCoordinator.swift in Sources */,
@@ -1871,10 +1810,8 @@
 				08AD959A287BEE00002D4F94 /* AuthUseCase.swift in Sources */,
 				24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */,
 				24630ED228F3CD6600567996 /* WorshipNote.swift in Sources */,
-				246FEFF028CE1CED00193C2F /* NewQTVM.swift in Sources */,
 				08E992BC28ED58F200696EB6 /* Notice.swift in Sources */,
 				24CFA8B82878894D00484C89 /* StickyHeaderView.swift in Sources */,
-				08EE004828C84E97000B02BD /* GroupQTView.swift in Sources */,
 				086CB32328130077003BF6F7 /* MyPray.swift in Sources */,
 				24630EDC28F436FD00567996 /* NoteController.swift in Sources */,
 				2498F902287C3733007EF510 /* IntroVC.swift in Sources */,
@@ -1996,7 +1933,6 @@
 				08E992BE28ED590200696EB6 /* NoticeUseCase.swift in Sources */,
 				08F4738E28B5F6090070CE2A /* AutoCompleteTVCell.swift in Sources */,
 				08D0CEBC28A3845900A15F3C /* TaskListView.swift in Sources */,
-				24BD1E9F28CE978C00D8B550 /* GroupQTHeader.swift in Sources */,
 				08D2F6F828B3483D00D95840 /* GroupActivity.swift in Sources */,
 				24CFA8C62879300800484C89 /* GroupUseCase.swift in Sources */,
 				241CFBB428CC9268003D8EBD /* GroupMediatorPrayView.swift in Sources */,
