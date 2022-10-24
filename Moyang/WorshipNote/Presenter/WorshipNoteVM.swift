@@ -12,7 +12,7 @@ class WorshipNoteVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     var useCase: WorshipNoteUseCase
     
-    let categoryList = BehaviorRelay<[NoteCategoryItem]>(value: [])
+    let folderList = BehaviorRelay<[NoteCategoryItem]>(value: [])
     
     init(useCase: WorshipNoteUseCase) {
         self.useCase = useCase
@@ -26,7 +26,7 @@ class WorshipNoteVM: VMType {
         useCase.categoryList
             .map { list -> [NoteCategoryItem] in
                 return list.map { NoteCategoryItem(data: $0) }
-            }.bind(to: categoryList)
+            }.bind(to: folderList)
             .disposed(by: disposeBag)
     }
     
@@ -37,15 +37,15 @@ class WorshipNoteVM: VMType {
 
 extension WorshipNoteVM {
     struct Input {
-
+        var selelctFolder: Driver<IndexPath> = .empty()
     }
 
     struct Output {
-        let categoryList: Driver<[NoteCategoryItem]>
+        let folderList: Driver<[NoteCategoryItem]>
     }
 
     func transform(input: Input) -> Output {
-        return Output(categoryList: categoryList.asDriver())
+        return Output(folderList: folderList.asDriver())
     }
     
     struct NoteCategoryItem {

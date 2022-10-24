@@ -25,7 +25,7 @@ class NoteMainVC: UIViewController, VCType {
         $0.isHidden = true
     }
     let headerView = WorshipNoteHeader()
-    let categoryTableView = UITableView().then {
+    let folderTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(CategoryTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .nightSky1
@@ -51,24 +51,24 @@ class NoteMainVC: UIViewController, VCType {
     }
     
     func setupUI() {
-        setupNoteTableView()
+        setupFolderTableView()
         setupSearchBar()
         setupEmptyNoteView()
     }
     
-    private func setupNoteTableView() {
-        view.addSubview(categoryTableView)
-        categoryTableView.snp.makeConstraints {
+    private func setupFolderTableView() {
+        view.addSubview(folderTableView)
+        folderTableView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.bottom.left.right.equalToSuperview()
         }
-        categoryTableView.stickyHeader.view = headerView
-        categoryTableView.stickyHeader.height = headerHeight
-        categoryTableView.stickyHeader.minimumHeight = minHeaderHeight
+        folderTableView.stickyHeader.view = headerView
+        folderTableView.stickyHeader.height = headerHeight
+        folderTableView.stickyHeader.minimumHeight = minHeaderHeight
         let footer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60)).then {
             $0.backgroundColor = .clear
         }
-        categoryTableView.tableFooterView = footer
+        folderTableView.tableFooterView = footer
     }
     private func setupSearchBar() {
         view.addSubview(searchBar)
@@ -99,18 +99,18 @@ class NoteMainVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(selelctFolder: folderTableView.rx.itemSelected.asDriver())
         let output = vm.transform(input: input)
         
-        output.categoryList.skip(1)
-            .drive(categoryTableView.rx
+        output.folderList.skip(1)
+            .drive(folderTableView.rx
                 .items(cellIdentifier: "cell", cellType: CategoryTVCell.self)) { (_, item, cell) in
                     cell.nameLabel.text = item.name
                 }.disposed(by: disposeBag)
         
-        output.categoryList.map { $0.isEmpty }
+        output.folderList.map { $0.isEmpty }
             .drive(onNext: { [weak self] isEmpty in
-                self?.categoryTableView.isHidden = isEmpty
+                self?.folderTableView.isHidden = isEmpty
                 self?.emptyNoteView.isHidden = !isEmpty
             }).disposed(by: disposeBag)
     }
