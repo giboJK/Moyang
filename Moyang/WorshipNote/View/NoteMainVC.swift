@@ -51,8 +51,39 @@ class NoteMainVC: UIViewController, VCType {
     }
     
     func setupUI() {
+        setupNoteTableView()
+        setupSearchBar()
+        setupEmptyNoteView()
     }
-
+    
+    private func setupNoteTableView() {
+        view.addSubview(categoryTableView)
+        categoryTableView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.bottom.left.right.equalToSuperview()
+        }
+        categoryTableView.stickyHeader.view = headerView
+        categoryTableView.stickyHeader.height = headerHeight
+        categoryTableView.stickyHeader.minimumHeight = minHeaderHeight
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60)).then {
+            $0.backgroundColor = .clear
+        }
+        categoryTableView.tableFooterView = footer
+    }
+    private func setupSearchBar() {
+        view.addSubview(searchBar)
+        searchBar.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(8)
+            $0.height.equalTo(36)
+            $0.left.right.equalToSuperview().inset(20)
+        }
+    }
+    private func setupEmptyNoteView() {
+        view.addSubview(emptyNoteView)
+        emptyNoteView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
     // MARK: - Binding
     func bind() {
         bindViews()

@@ -24,10 +24,6 @@ class GroupActivityVC: UIViewController, VCType {
         $0.setImage(UIImage(systemName: "bell", withConfiguration: config), for: .normal)
         $0.tintColor = .sheep1
     }
-    let addButton = UIButton().then {
-        $0.setImage(Asset.Images.Pray.addItem.image.withTintColor(.sheep1), for: .normal)
-        $0.tintColor = .sheep1
-    }
     let greetingLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 22, weight: .semibold)
         $0.textColor = .sheep2
@@ -37,7 +33,6 @@ class GroupActivityVC: UIViewController, VCType {
     let groupMediatorPrayView = GroupMediatorPrayView()
     var myPrayMainVC: MyPrayMainVC?
     var noteMainVC: NoteMainVC?
-    var worshipNoteView: WorshipNoteView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,13 +57,12 @@ class GroupActivityVC: UIViewController, VCType {
         view.backgroundColor = .nightSky1
         
         setupNewsButton()
-        setupAddButton()
         setupGreetingLabel()
         setupTabView()
         
         setupGroupMediatorPrayView()
         setupMyPrayMainVC()
-        setupWorshipNoteView()
+        setupNoteMainVC()
     }
     private func setupNewsButton() {
         view.addSubview(newsButton)
@@ -78,20 +72,12 @@ class GroupActivityVC: UIViewController, VCType {
             $0.size.equalTo(24)
         }
     }
-    private func setupAddButton() {
-        view.addSubview(addButton)
-        addButton.snp.makeConstraints {
-            $0.right.equalTo(newsButton.snp.left).offset(-16)
-            $0.top.equalTo(newsButton)
-            $0.size.equalTo(24)
-        }
-    }
     private func setupGreetingLabel() {
         view.addSubview(greetingLabel)
         greetingLabel.snp.makeConstraints {
             $0.top.equalTo(newsButton)
             $0.left.equalToSuperview().inset(17)
-            $0.right.equalTo(addButton.snp.left).offset(-8)
+            $0.right.equalTo(newsButton.snp.left).offset(-8)
         }
     }
     private func setupTabView() {
@@ -125,19 +111,16 @@ class GroupActivityVC: UIViewController, VCType {
         }
         vc.view.isHidden = !(tabView.tabMenus.first == .pray)
     }
-    private func setupWorshipNoteView() {
-        view.addSubview(worshipNoteView)
-        worshipNoteView.snp.makeConstraints {
+    private func setupNoteMainVC() {
+        guard let vc = noteMainVC else { Log.e("NoteMainVC is nil"); return }
+        view.addSubview(vc.view)
+        addChild(vc)
+        vc.didMove(toParent: self)
+        vc.view.snp.makeConstraints {
             $0.top.equalTo(tabView.snp.bottom)
-            $0.left.right.bottom.equalToSuperview()
+            $0.left.bottom.right.equalToSuperview()
         }
-        worshipNoteView.delegate = self
-
-        worshipNoteView.isHidden = !(tabView.tabMenus.first == .worshipNote)
-        worshipNoteView.bind()
-    }
-    
-    private func showAddOptions() {
+        vc.view.isHidden = !(tabView.tabMenus.first == .worshipNote)
     }
     
     // MARK: - Binding
@@ -152,18 +135,13 @@ class GroupActivityVC: UIViewController, VCType {
                 self?.coordinator?.didTapNewsButton()
             }).disposed(by: disposeBag)
         
-        addButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.showAddOptions()
-            }).disposed(by: disposeBag)
-        
         tabView.menuCV.rx.itemSelected
             .skip(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] index in
                 self?.groupMediatorPrayView.isHidden = index.row != GroupActivityTabView.TapMenu.mediatorPray.rawValue
 //                self?.groupQTView.isHidden = index.row != GroupActivityTabView.TapMenu.qt.rawValue
                 self?.myPrayMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.pray.rawValue
-                self?.worshipNoteView.isHidden = index.row != GroupActivityTabView.TapMenu.worshipNote.rawValue
+                self?.noteMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.worshipNote.rawValue
             }).disposed(by: disposeBag)
     }
     private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
@@ -230,14 +208,6 @@ extension GroupActivityVC: GroupMediatorPrayViewDelegate {
     }
     
     func showMediatorPrayDetail() {
-        
-    }
-}
-
-// MARK: - WorshipNoteViewDelegate
-
-extension GroupActivityVC: WorshipNoteViewDelegate {
-    func didTapEmptyView() {
         
     }
 }

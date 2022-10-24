@@ -62,6 +62,7 @@
 		08EE004428C5B478000B02BD /* AppVersionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EE004328C5B478000B02BD /* AppVersionInfo.swift */; };
 		08EE004828C84E97000B02BD /* GroupQTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EE004728C84E97000B02BD /* GroupQTView.swift */; };
 		08EE004A28C84F8A000B02BD /* GroupActivityTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EE004928C84F8A000B02BD /* GroupActivityTabView.swift */; };
+		08F082D5290625C00042319B /* WorshipNoteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F082D4290625C00042319B /* WorshipNoteCoordinator.swift */; };
 		08F4738928B5BAA70070CE2A /* BookSelectTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738828B5BAA70070CE2A /* BookSelectTVCell.swift */; };
 		08F4738C28B5BCDF0070CE2A /* BibleSelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */; };
 		08F4738E28B5F6090070CE2A /* AutoCompleteTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */; };
@@ -98,7 +99,6 @@
 		2447788B28FEBEA500DD7499 /* MyPrayMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2447788A28FEBEA500DD7499 /* MyPrayMainVM.swift */; };
 		24513BA528F1BF51008386ED /* NewMediatorPrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24513BA428F1BF51008386ED /* NewMediatorPrayVC.swift */; };
 		2455300428780B8E00E56889 /* ReplyTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2455300328780B8E00E56889 /* ReplyTVCell.swift */; };
-		24630EC828F39F6B00567996 /* WorshipNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24630EC728F39F6B00567996 /* WorshipNoteView.swift */; };
 		24630ECA28F3A05400567996 /* WorshipNoteTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24630EC928F3A05400567996 /* WorshipNoteTVCell.swift */; };
 		24630ECC28F3A69800567996 /* WorshipNoteHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24630ECB28F3A69800567996 /* WorshipNoteHeader.swift */; };
 		24630ECF28F3C69A00567996 /* NewNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24630ECE28F3C69A00567996 /* NewNoteVC.swift */; };
@@ -296,6 +296,7 @@
 		08EE004328C5B478000B02BD /* AppVersionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionInfo.swift; sourceTree = "<group>"; };
 		08EE004728C84E97000B02BD /* GroupQTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupQTView.swift; sourceTree = "<group>"; };
 		08EE004928C84F8A000B02BD /* GroupActivityTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupActivityTabView.swift; sourceTree = "<group>"; };
+		08F082D4290625C00042319B /* WorshipNoteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorshipNoteCoordinator.swift; sourceTree = "<group>"; };
 		08F4738828B5BAA70070CE2A /* BookSelectTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSelectTVCell.swift; sourceTree = "<group>"; };
 		08F4738B28B5BCDF0070CE2A /* BibleSelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleSelectVM.swift; sourceTree = "<group>"; };
 		08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteTVCell.swift; sourceTree = "<group>"; };
@@ -333,7 +334,6 @@
 		2447788A28FEBEA500DD7499 /* MyPrayMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayMainVM.swift; sourceTree = "<group>"; };
 		24513BA428F1BF51008386ED /* NewMediatorPrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMediatorPrayVC.swift; sourceTree = "<group>"; };
 		2455300328780B8E00E56889 /* ReplyTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyTVCell.swift; sourceTree = "<group>"; };
-		24630EC728F39F6B00567996 /* WorshipNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorshipNoteView.swift; sourceTree = "<group>"; };
 		24630EC928F3A05400567996 /* WorshipNoteTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorshipNoteTVCell.swift; sourceTree = "<group>"; };
 		24630ECB28F3A69800567996 /* WorshipNoteHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorshipNoteHeader.swift; sourceTree = "<group>"; };
 		24630ECE28F3C69A00567996 /* NewNoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteVC.swift; sourceTree = "<group>"; };
@@ -954,12 +954,12 @@
 		24630EC628F39F5D00567996 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				24630EC728F39F6B00567996 /* WorshipNoteView.swift */,
 				24630EC928F3A05400567996 /* WorshipNoteTVCell.swift */,
 				24630ECB28F3A69800567996 /* WorshipNoteHeader.swift */,
 				24B1FA5F28FA552A00C6D21C /* EmptyNoteView.swift */,
 				24E7EC9428FB15F9008E0E3F /* CategoryTVCell.swift */,
 				2409170629016A7900905A38 /* NoteMainVC.swift */,
+				08F082D4290625C00042319B /* WorshipNoteCoordinator.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1808,6 +1808,7 @@
 				24E5D0EF28B9E6C300680101 /* SplashVC.swift in Sources */,
 				24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */,
 				24EFE40F287F10CD00549E07 /* KeychainSwift.swift in Sources */,
+				08F082D5290625C00042319B /* WorshipNoteCoordinator.swift in Sources */,
 				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
 				08D2FD95286EE24800ED8ECB /* PrayReactionDetailVC.swift in Sources */,
 				082371B727BA84860050420E /* DatePickerTextField.swift in Sources */,
@@ -1977,7 +1978,6 @@
 				24755367277CA9AB001908A6 /* UserData.swift in Sources */,
 				084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */,
 				24C877D1282FD77500F69AAD /* VMType.swift in Sources */,
-				24630EC828F39F6B00567996 /* WorshipNoteView.swift in Sources */,
 				08AD9598287BEB52002D4F94 /* BaseResponse.swift in Sources */,
 				2447788728FEBE4100DD7499 /* MyPrayMainVC.swift in Sources */,
 				08EE004428C5B478000B02BD /* AppVersionInfo.swift in Sources */,

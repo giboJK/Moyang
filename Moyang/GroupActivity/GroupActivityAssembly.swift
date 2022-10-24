@@ -28,9 +28,8 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             vc.myPrayMainVC = myPrayMainVC
             
             let noteMainVC = r ~> (NoteMainVC.self)
+            noteMainVC.coordinator = r ~> (WorshipNoteCoordinator.self)
             vc.noteMainVC = noteMainVC
-            
-            vc.worshipNoteView = r ~> (WorshipNoteView.self)
             return vc
         }
         

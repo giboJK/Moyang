@@ -26,13 +26,6 @@ class WorshipNoteAssembly: Assembly, BaseAssembly {
             vc.vm = r ~> (WorshipNoteVM.self)
             return vc
         }
-
-        // MARK: - WorshipNote
-        container.register(WorshipNoteView.self) { r in
-            let v = WorshipNoteView()
-            v.vm = r ~> (WorshipNoteVM.self)
-            return v
-        }
         
         container.register(WorshipNoteVM.self) { r in
             WorshipNoteVM(useCase: (r ~> WorshipNoteUseCase.self))
@@ -63,5 +56,10 @@ class WorshipNoteAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - Coordinator
+        container.register(WorshipNoteCoordinator.self) { _ in
+            guard let nav = self.nav else { return WorshipNoteCoordinator() }
+            let coordinator = WorshipNoteCoordinator(nav: nav, assembler: Assembler([self]))
+            return coordinator
+        }
     }
 }
