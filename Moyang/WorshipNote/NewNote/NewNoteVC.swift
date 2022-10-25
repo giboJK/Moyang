@@ -43,16 +43,7 @@ class NewNoteVC: UIViewController, VCType, UITextFieldDelegate {
         $0.textColor = .sheep1
         $0.font = .systemFont(ofSize: 15, weight: .regular)
     }
-    let groupTextField = UITextField().then {
-        $0.text = "기본 그룹"
-        $0.backgroundColor = .sheep1
-        $0.layer.cornerRadius = 8
-        $0.layer.borderColor = .sheep3
-        $0.font = .systemFont(ofSize: 17, weight: .regular)
-        $0.textColor = .nightSky1
-        $0.attributedPlaceholder = NSAttributedString(string: "그룹 선택",
-                                                      attributes: [.foregroundColor: UIColor.sheep4])
-    }
+    let groupTextField = MoyangTextField(.sheep, "그룹 선택")
     let groupPicker = UIPickerView().then {
         $0.backgroundColor = .sheep1
     }
@@ -99,14 +90,7 @@ class NewNoteVC: UIViewController, VCType, UITextFieldDelegate {
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .nightSky1
     }
-    let tagTextField = MoyangTextField(.none, padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
-        $0.backgroundColor = .sheep1
-        $0.layer.cornerRadius = 8
-        $0.layer.borderColor = .sheep3
-        $0.layer.borderWidth = 1.5
-        $0.attributedPlaceholder = NSAttributedString(string: "#태그 추가",
-                                                      attributes: [.foregroundColor: UIColor.sheep4])
-        $0.textColor = .nightSky1
+    let tagTextField = MoyangTextField(.none, "#태그 추가").then {
         $0.returnKeyType = .done
     }
     

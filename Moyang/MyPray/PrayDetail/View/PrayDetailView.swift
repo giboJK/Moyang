@@ -30,12 +30,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
     }
-    let tagTextField = MoyangTextField(.none, padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
-        $0.backgroundColor = .sheep3
-        $0.layer.cornerRadius = 8
-        $0.attributedPlaceholder = NSAttributedString(string: "#태그 선택",
-                                                      attributes: [.foregroundColor: UIColor.sheep4])
-        $0.textColor = .nightSky1
+    let tagTextField = MoyangTextField(.none, "#태그 선택").then {
         $0.returnKeyType = .done
     }
     let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {

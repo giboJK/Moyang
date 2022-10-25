@@ -40,10 +40,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.textColor = .sheep4
         $0.numberOfLines = 0
     }
-    let tagTextField = MoyangTextField(.night, padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
-        $0.attributedPlaceholder = NSAttributedString(string: "#태그 추가",
-                                                      attributes: [.foregroundColor: UIColor.sheep4])
-        $0.textColor = .nightSky1
+    let tagTextField = MoyangTextField(.sheep, "#태그 추가").then {
         $0.returnKeyType = .done
     }
     let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
@@ -67,6 +64,10 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         
         setupUI()
         bind()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     deinit {
@@ -76,6 +77,23 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if newPrayTextView.isFirstResponder {
+            return
+        }
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+        self.view.layoutIfNeeded()
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
+        self.view.layoutIfNeeded()
     }
     
     func setupUI() {

@@ -10,13 +10,12 @@ import UIKit
 class MoyangTextField: UITextField {
     enum MoyangTextFieldStyle {
         case sheep
-        case night
         case none
     }
     
     var padding = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-    private var style: MoyangTextFieldStyle = .none
-
+    private var style: MoyangTextFieldStyle = .sheep
+    
     
     override var isEnabled: Bool {
         didSet {
@@ -24,11 +23,18 @@ class MoyangTextField: UITextField {
         }
     }
     
-    init(_ style: MoyangTextFieldStyle, padding: UIEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)) {
+    init(_ style: MoyangTextFieldStyle = .sheep,
+         _ placeholder: String? = nil,
+         padding: UIEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)) {
         super.init(frame: .zero)
         self.style = style
         self.padding = padding
-    
+        self.placeholder = placeholder
+        if let placeholder = placeholder {
+            attributedPlaceholder = NSAttributedString(string: placeholder,
+                                                       attributes: [.foregroundColor: UIColor.sheep3])
+        }
+        
         setupUI()
         addTarget(self, action: #selector(editingBeginBorder), for: .editingDidBegin)
         addTarget(self, action: #selector(editingEndBorder), for: .editingDidEnd)
@@ -36,14 +42,19 @@ class MoyangTextField: UITextField {
     }
     
     private func setupUI() {
+        font = .b01
+        textColor = .nightSky1
         layer.cornerRadius = 8
         layer.borderWidth = 1
         layer.masksToBounds = true
         switch style {
         case .sheep:
-            backgroundColor = isEnabled ? .sheep3 : .sheep4
-        case .night:
-            backgroundColor = isEnabled ? .nightSky2 : .sheep4
+            backgroundColor = isEnabled ? .sheep1 : .sheep3
+            if let placeholder = placeholder {
+                let color: UIColor = isEnabled ? .sheep3 : .sheep4
+                attributedPlaceholder = NSAttributedString(string: placeholder,
+                                                           attributes: [.foregroundColor: color])
+            }
         case .none:
             break
         }
@@ -52,9 +63,7 @@ class MoyangTextField: UITextField {
     @objc func editingBeginBorder() {
         switch style {
         case .sheep:
-            layer.borderColor = .nightSky4
-        case .night:
-            layer.borderColor = .appleRed1
+            layer.borderColor = .nightSky3
         case .none:
             break
         }
@@ -63,9 +72,7 @@ class MoyangTextField: UITextField {
     @objc func editingEndBorder() {
         switch style {
         case .sheep:
-            layer.borderColor = .nightSky4
-        case .night:
-            layer.borderColor = .appleRed1
+            layer.borderColor = .sheep4
         case .none:
             break
         }

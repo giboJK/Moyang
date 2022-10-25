@@ -101,8 +101,10 @@ class MoyangButton: UIButton {
     private func setupSheepPrimary() {
         setTitleColor(.nightSky1, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
-        setTitleColor(.nightSky4, for: .highlighted)
-        backgroundColor = isEnabled ? .sheep1 : .sheep3
+        setTitleColor(.nightSky3, for: .highlighted)
+        setBackgroundColor(color: .sheep1, forState: .normal)
+        setBackgroundColor(color: .sheep3, forState: .disabled)
+        setBackgroundColor(color: .sheep2, forState: .highlighted)
     }
     
     private func setupSheepSecondary() {
