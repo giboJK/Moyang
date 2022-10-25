@@ -99,8 +99,8 @@ extension AuthCoordinator: LogInVCDelegate {
     }
     
     func loginSuccess() {
-        if let vc = assembler.resolver.resolve(MainVC.self) {
-            nav.pushViewController(vc, animated: true)
+        if let coordinator = assembler.resolver.resolve(MainCoordinator.self) {
+            coordinator.start(false, completion: nil)
             
             var vcList = self.nav.viewControllers
             vcList.removeAll(where: { $0 is LogInVC })

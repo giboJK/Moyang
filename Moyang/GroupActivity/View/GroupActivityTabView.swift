@@ -32,10 +32,10 @@ class GroupActivityTabView: UIView {
     }()
     
     enum TapMenu: Int, CaseIterable {
-        case mediatorPray = 0
 //        case qt
         case pray
         case worshipNote
+        case mediatorPray
 //        case thanks
         
         var addActionTitle: String {

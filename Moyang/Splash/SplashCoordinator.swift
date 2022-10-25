@@ -48,6 +48,7 @@ extension SplashCoordinator: SplashVCDelegate {
             Log.e("init failed")
         }
     }
+    
     func loginFailure() {
         if let coordinator = assembler.resolver.resolve(IntroCoordinator.self) {
             coordinator.start(false, completion: nil)
