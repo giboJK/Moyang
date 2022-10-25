@@ -25,7 +25,7 @@ class TermsVC: UIViewController, VCType {
     let agreeButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("동의", for: .normal)
     }
-    let disagreeButton = MoyangButton(.sheepPrimary).then {
+    let disagreeButton = MoyangButton(.sheepGhost).then {
         $0.setTitle("거절", for: .normal)
     }
 
@@ -63,7 +63,7 @@ class TermsVC: UIViewController, VCType {
         agreeButton.snp.makeConstraints {
             $0.height.equalTo(48)
             $0.bottom.equalToSuperview().inset(32)
-            $0.right.equalToSuperview().inset(28)
+            $0.right.equalToSuperview().inset(24)
             $0.width.equalToSuperview().dividedBy(2).inset(20)
         }
     }
@@ -72,7 +72,7 @@ class TermsVC: UIViewController, VCType {
         disagreeButton.snp.makeConstraints {
             $0.height.equalTo(48)
             $0.bottom.equalToSuperview().inset(32)
-            $0.left.equalToSuperview().inset(28)
+            $0.left.equalToSuperview().inset(24)
             $0.width.equalToSuperview().dividedBy(2).inset(20)
         }
     }

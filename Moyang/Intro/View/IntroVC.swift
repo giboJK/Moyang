@@ -31,7 +31,7 @@ class IntroVC: UIViewController, VCType {
     }
     let versionLabel = MoyangLabel().then {
         $0.textColor = .sheep3
-        $0.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.font = .c01
     }
 
     override func viewDidLoad() {
