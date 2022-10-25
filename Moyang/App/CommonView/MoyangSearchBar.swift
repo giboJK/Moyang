@@ -18,7 +18,7 @@ class MoyangSearchBar: UIView {
         $0.tintColor = .sheep2
         $0.image = UIImage(systemName: "magnifyingglass")?.withTintColor(.nightSky2)
     }
-    let textField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
+    let textField = MoyangTextField(.none, padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
         $0.backgroundColor = .sheep3
         $0.layer.cornerRadius = 8
         $0.attributedPlaceholder = NSAttributedString(string: "#태그 검색",

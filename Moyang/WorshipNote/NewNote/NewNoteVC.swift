@@ -99,7 +99,7 @@ class NewNoteVC: UIViewController, VCType, UITextFieldDelegate {
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .nightSky1
     }
-    let tagTextField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
+    let tagTextField = MoyangTextField(.none, padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.layer.borderColor = .sheep3

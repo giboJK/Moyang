@@ -40,9 +40,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.textColor = .sheep4
         $0.numberOfLines = 0
     }
-    let tagTextField = MoyangTextField(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
-        $0.backgroundColor = .sheep3
-        $0.layer.cornerRadius = 8
+    let tagTextField = MoyangTextField(.night, padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)).then {
         $0.attributedPlaceholder = NSAttributedString(string: "#태그 추가",
                                                       attributes: [.foregroundColor: UIColor.sheep4])
         $0.textColor = .nightSky1
