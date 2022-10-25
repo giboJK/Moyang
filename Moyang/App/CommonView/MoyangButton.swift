@@ -72,6 +72,7 @@ class MoyangButton: UIButton {
     private func setupUI() {
         layer.masksToBounds = true
         layer.cornerRadius = 10
+        titleLabel?.font = .b01
         switch style {
         case .sheepPrimary:
             setupSheepPrimary()

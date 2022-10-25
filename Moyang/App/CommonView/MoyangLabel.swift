@@ -77,9 +77,14 @@ class MoyangLabel: UILabel {
             self.letterSpacing = 0.44 * widthRatio
         case Fonts.Title.headline:
             self.letterSpacing = 0.36 * widthRatio
-            
+        case Fonts.Body.b01, Fonts.Body.b02:
+            self.letterSpacing = 0.80 * widthRatio
+        case Fonts.Body.b03, Fonts.Body.b04, Fonts.Body.b05:
+            self.letterSpacing = 0.78 * widthRatio
+        case Fonts.Caption.c01, Fonts.Caption.c02, Fonts.Caption.c03, Fonts.Caption.c04:
+            self.letterSpacing = 0.59 * widthRatio
         default:
-            self.letterSpacing = widthRatio
+            break
         }
         self.textAlignment = textAlignment
         self.textColor = textColor
