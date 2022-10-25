@@ -19,6 +19,8 @@ class MoyangButton: UIButton {
         case nightSecondary
         case nightGhost
         
+        case warning
+        case cancel
         case none
     }
     
@@ -69,21 +71,25 @@ class MoyangButton: UIButton {
     // MARK: - setupUI
     private func setupUI() {
         layer.masksToBounds = true
-        layer.cornerRadius = 8
+        layer.cornerRadius = 10
         switch style {
-        case sheepPrimary:
-            
-        case sheepSecondary:
-            
-        case sheepGhost:
-            
-        case nightPrimary:
-            
-        case nightSecondary:
-            
-        case nightGhost:
-            
-        case none:
+        case .sheepPrimary:
+            setupSheepPrimary()
+        case .sheepSecondary:
+            setupSheepSecondary()
+        case .sheepGhost:
+            setupSheepGhost()
+        case .nightPrimary:
+            setupNightPrimary()
+        case .nightSecondary:
+            setupNightSecondary()
+        case .nightGhost:
+            setupNightGhost()
+        case .warning:
+            setupWarning()
+        case .cancel:
+            setupCancel()
+        case .none:
             break
         }
         
@@ -91,63 +97,70 @@ class MoyangButton: UIButton {
             self.layoutIfNeeded()
         }
     }
-    
-    private func setupPrimaryButton() {
+    // MARK: - Sheep
+    private func setupSheepPrimary() {
         setTitleColor(.nightSky1, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
+        setTitleColor(.nightSky4, for: .highlighted)
+        backgroundColor = isEnabled ? .sheep1 : .sheep3
+    }
+    
+    private func setupSheepSecondary() {
+        setTitleColor(.nightSky2, for: .normal)
+        setTitleColor(.sheep4, for: .disabled)
+        setTitleColor(.nightSky4, for: .highlighted)
+        backgroundColor = isEnabled ? .sheep2 : .sheep3
+    }
+    
+    private func setupSheepGhost() {
+        setTitleColor(.sheep1, for: .normal)
+        setTitleColor(.sheep4, for: .disabled)
         setTitleColor(.sheep3, for: .highlighted)
-        backgroundColor = (isEnabled && !isHighlighted) ? .sheep2 : .sheep4
+        backgroundColor = isEnabled ? .nightSky1 : .nightSky1
         
     }
-    
-    private func setupSecondaryButton() {
-        layer.cornerRadius = 14
-        layer.masksToBounds = true
+    // MARK: - Night
+    private func setupNightPrimary() {
         setTitleColor(.sheep1, for: .normal)
-        setTitleColor(.sheep4, for: .disabled)
-        setTitleColor(.sheep3, for: .highlighted)
-        backgroundColor = (isEnabled && !isHighlighted) ? .nightSky3 : .sheep4
-    }
-    
-    private func setupNightButton() {
-        layer.cornerRadius = 14
-        layer.masksToBounds = true
-        setTitleColor(.nightSky1, for: .normal)
-        setTitleColor(.sheep2, for: .disabled)
-        setTitleColor(.nightSky1, for: .highlighted)
-        backgroundColor = (isEnabled && !isHighlighted) ? .sheep2 : .sheep4
-    }
-    
-    private func setupWarningButton() {
-        layer.cornerRadius = 14
-        layer.masksToBounds = true
-        setTitleColor(.sheep1, for: .normal)
-        setTitleColor(.sheep4, for: .disabled)
-        setTitleColor(.sheep3, for: .highlighted)
-        backgroundColor = (isEnabled && !isHighlighted) ? .appleRed2 : .appleRed1
-    }
-    
-    private func setupCancelButton() {
-        layer.cornerRadius = 14
-        layer.masksToBounds = true
-        setTitleColor(.sheep1, for: .normal)
-        setTitleColor(.sheep4, for: .disabled)
-        setTitleColor(.sheep3, for: .highlighted)
-        backgroundColor = (isEnabled && !isHighlighted) ? .sheep4 : .sheep4
-    }
-    
-    private func setupGhostButton() {
-        setTitleColor(.sheep2, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
         setTitleColor(.sheep1, for: .highlighted)
-        backgroundColor = .clear
+        setBackgroundColor(color: .nightSky1, forState: .normal)
+        setBackgroundColor(color: .nightSky2, forState: .highlighted)
+        setBackgroundColor(color: .sheep3, forState: .disabled)
     }
     
-    private func setupGhostNightButton() {
+    private func setupNightSecondary() {
+        setTitleColor(.sheep2, for: .normal)
+        setTitleColor(.sheep4, for: .disabled)
+        setTitleColor(.sheep2, for: .highlighted)
+        setBackgroundColor(color: .nightSky3, forState: .normal)
+        setBackgroundColor(color: .nightSky4, forState: .highlighted)
+        setBackgroundColor(color: .sheep3, forState: .disabled)
+    }
+    
+    private func setupNightGhost() {
         setTitleColor(.nightSky1, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
-        setTitleColor(.nightSky2, for: .highlighted)
-        backgroundColor = .clear
+        setTitleColor(.nightSky3, for: .highlighted)
+        backgroundColor = .sheep1
+    }
+    // MARK: - ETC
+    private func setupWarning() {
+        setTitleColor(.sheep1, for: .normal)
+        setTitleColor(.sheep4, for: .disabled)
+        setTitleColor(.sheep3, for: .highlighted)
+        setBackgroundColor(color: .appleRed2, forState: .normal)
+        setBackgroundColor(color: .appleRed1, forState: .highlighted)
+        setBackgroundColor(color: .sheep3, forState: .disabled)
+    }
+    
+    private func setupCancel() {
+        setTitleColor(.sheep1, for: .normal)
+        setTitleColor(.sheep4, for: .disabled)
+        setTitleColor(.sheep3, for: .highlighted)
+        setBackgroundColor(color: .sheep3, forState: .normal)
+        setBackgroundColor(color: .sheep4, forState: .highlighted)
+        setBackgroundColor(color: .sheep3, forState: .disabled)
     }
 }
 
@@ -170,5 +183,19 @@ extension Reactive where Base: MoyangButton {
                 base.isChecked = value
             }
         )
+    }
+}
+
+extension UIButton {
+    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
+        self.clipsToBounds = true  // add this to maintain corner radius
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(color.cgColor)
+            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.setBackgroundImage(colorImage, for: forState)
+        }
     }
 }

@@ -58,8 +58,8 @@ class MoyangPopupView: UIView {
     var rightMargin: CGFloat = 20
     
     required init(style: PopupStyle,
-                  firstButtonStyle: MoyangButton.MoyangButtonStyle = .primary,
-                  secondButtonStyle: MoyangButton.MoyangButtonStyle = .secondary) {
+                  firstButtonStyle: MoyangButton.MoyangButtonStyle = .sheepPrimary,
+                  secondButtonStyle: MoyangButton.MoyangButtonStyle = .sheepSecondary) {
         self.style = style
         self.firstButton = MoyangButton(style: firstButtonStyle)
         self.secondButton = MoyangButton(style: secondButtonStyle)

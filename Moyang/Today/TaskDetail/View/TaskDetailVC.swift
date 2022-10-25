@@ -30,10 +30,10 @@ class TaskDetailVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .sheep1
     }
-    let prayButton = MoyangButton(.secondary).then {
+    let prayButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("기도하기", for: .normal)
     }
-    let doneButton = MoyangButton(.secondary).then {
+    let doneButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("완료", for: .normal)
     }
 

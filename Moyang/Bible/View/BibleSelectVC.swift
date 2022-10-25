@@ -70,7 +70,7 @@ class BibleSelectVC: UIViewController, VCType {
         $0.backgroundColor = .sheep4.withAlphaComponent(0.6)
     }
     
-    let confirmButton = MoyangButton(.primary).then {
+    let confirmButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("완료", for: .normal)
     }
     var verses = [String]()

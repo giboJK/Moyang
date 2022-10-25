@@ -23,10 +23,10 @@ class IntroVC: UIViewController, VCType {
         $0.font = .t01
         $0.textColor = .sheep2
     }
-    let signUpButton = MoyangButton(.primary).then {
+    let signUpButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("회원가입", for: .normal)
     }
-    let loginButton = MoyangButton(.ghost).then {
+    let loginButton = MoyangButton(.sheepGhost).then {
         $0.setTitle("로그인", for: .normal)
     }
     let versionLabel = MoyangLabel().then {

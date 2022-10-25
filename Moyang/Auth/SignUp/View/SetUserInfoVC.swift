@@ -58,7 +58,7 @@ class SetUserInfoVC: UIViewController, VCType {
         datePicker.maximumDate = Date().daysAgo(365 * 10)
         return datePicker
     }()
-    let confirmButton = MoyangButton(.primary).then {
+    let confirmButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("확인", for: .normal)
     }
     let closeConfirmPopup = MoyangPopupView(style: .twoButton).then {

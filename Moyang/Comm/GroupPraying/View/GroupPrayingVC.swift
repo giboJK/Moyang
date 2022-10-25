@@ -110,7 +110,7 @@ class GroupPrayingVC: UIViewController, VCType {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textAlignment = .center
     }
-    let amenButton = MoyangButton(.primary).then {
+    let amenButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("예수님의 이름으로 기도드립니다.", for: .normal)
     }
     let reactionPopupView = UIView()

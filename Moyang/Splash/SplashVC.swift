@@ -33,11 +33,11 @@ class SplashVC: UIViewController, VCType {
         $0.font = .t04
         $0.textAlignment = .left
     }
-    let requiredPopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .secondary).then {
+    let requiredPopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
         $0.desc = "최신 버전의 앱을 설치하셔야 서비스를 이용하실 수 있습니다."
         $0.firstButton.setTitle("업데이트 하기", for: .normal)
     }
-    let recommendedPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .secondary, secondButtonStyle: .ghost).then {
+    let recommendedPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .sheepPrimary, secondButtonStyle: .nightPrimary).then {
         $0.desc = "최신 버전의 앱으로 업데이트를 권장합니다. 최신 버전으로 앱을 업데이트 해주세요."
         $0.firstButton.setTitle("업데이트 하기", for: .normal)
         $0.secondButton.setTitle("확인", for: .normal)

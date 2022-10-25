@@ -51,8 +51,8 @@ class SignUpVC: UIViewController, VCType {
         $0.setAttributedTitle(attributeString, for: .normal)
     }
     let emailExistPopup = MoyangPopupView(style: .twoButton,
-                                          firstButtonStyle: .night,
-                                          secondButtonStyle: .ghostNight).then {
+                                          firstButtonStyle: .nightPrimary,
+                                          secondButtonStyle: .nightGhost).then {
         $0.title = "이미 가입된 이메일"
         $0.desc = "다른 계정을 사용하거나 다른 로그인 방식으로 로그인해주세요"
         $0.firstButton.setTitle("로그인하기", for: .normal)

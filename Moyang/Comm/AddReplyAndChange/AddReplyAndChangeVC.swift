@@ -18,7 +18,7 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
     private var tagList = [String]()
 
     // MARK: - UI
-    let saveButton = MoyangButton(.primary).then {
+    let saveButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("저장", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
     }

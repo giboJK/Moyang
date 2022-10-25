@@ -42,7 +42,7 @@ class PrayReplyDetailVC: UIViewController, VCType {
         $0.bounces = true
         $0.isScrollEnabled = true
     }
-    let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .ghost).then {
+    let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .sheepGhost).then {
         $0.desc = "정말로 삭제하시겠어요? 삭제된 내용은 복구할 수 없습니다."
         $0.firstButton.setTitle("삭제", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)

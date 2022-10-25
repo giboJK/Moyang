@@ -22,10 +22,10 @@ class TermsVC: UIViewController, VCType {
     let webView = WKWebView().then {
         $0.backgroundColor = .sheep4
     }
-    let agreeButton = MoyangButton(.primary).then {
+    let agreeButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("동의", for: .normal)
     }
-    let disagreeButton = MoyangButton(.ghost).then {
+    let disagreeButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("거절", for: .normal)
     }
 
