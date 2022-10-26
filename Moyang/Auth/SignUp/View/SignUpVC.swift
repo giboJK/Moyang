@@ -22,9 +22,9 @@ class SignUpVC: UIViewController, VCType {
     let signInConfig = GIDConfiguration.init(clientID: NetConst.googleClientID)
     
     // MARK: - UI
-    let appleSigninButton = ASAuthorizationAppleIDButton(type: .signUp, style: .black) .then {
+    let appleSigninButton = ASAuthorizationAppleIDButton(type: .signUp, style: .white) .then {
         $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 14
+        $0.layer.cornerRadius = 10
     }
     let googleSignupButton = MoyangButton(style: .none).then {
         $0.setTitle(" Google 가입", for: .normal)
@@ -32,14 +32,10 @@ class SignUpVC: UIViewController, VCType {
         $0.setTitleColor(.nightSky1, for: .normal)
         $0.backgroundColor = .sheep1
         $0.setImage(Asset.Images.Signup.google.image, for: .normal)
-        $0.layer.borderColor = .nightSky1
-        $0.layer.borderWidth = 0.5
-        $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 14
     }
     let logInButton = MoyangButton(style: .none).then {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 15, weight: .regular),
+            .font: UIFont.b02,
             .foregroundColor: UIColor.sheep3,
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
@@ -82,9 +78,9 @@ class SignUpVC: UIViewController, VCType {
         view.addSubview(appleSigninButton)
         appleSigninButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchDown)
         appleSigninButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(30)
-            $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(50)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(32)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.height.equalTo(48)
         }
     }
     private func setupGoogleLoginButton() {
@@ -93,13 +89,13 @@ class SignUpVC: UIViewController, VCType {
         googleSignupButton.snp.makeConstraints {
             $0.top.equalTo(appleSigninButton.snp.bottom).offset(24)
             $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(50)
+            $0.height.equalTo(48)
         }
     }
     private func setupLogInButton() {
         view.addSubview(logInButton)
         logInButton.snp.makeConstraints {
-            $0.top.equalTo(googleSignupButton.snp.bottom).offset(20)
+            $0.top.equalTo(googleSignupButton.snp.bottom).offset(24)
             $0.left.right.equalToSuperview().inset(20)
         }
     }

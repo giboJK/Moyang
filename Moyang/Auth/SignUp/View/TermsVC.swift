@@ -62,7 +62,7 @@ class TermsVC: UIViewController, VCType {
         view.addSubview(agreeButton)
         agreeButton.snp.makeConstraints {
             $0.height.equalTo(48)
-            $0.bottom.equalToSuperview().inset(32)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.right.equalToSuperview().inset(24)
             $0.width.equalToSuperview().dividedBy(2).inset(20)
         }
@@ -71,7 +71,7 @@ class TermsVC: UIViewController, VCType {
         view.addSubview(disagreeButton)
         disagreeButton.snp.makeConstraints {
             $0.height.equalTo(48)
-            $0.bottom.equalToSuperview().inset(32)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.left.equalToSuperview().inset(24)
             $0.width.equalToSuperview().dividedBy(2).inset(20)
         }
