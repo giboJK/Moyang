@@ -1,8 +1,8 @@
 //
-//  EmptyNoteView.swift
+//  EmptyMyPrayView.swift
 //  Moyang
 //
-//  Created by 정김기보 on 2022/10/15.
+//  Created by kibo on 2022/10/28.
 //
 
 import UIKit
@@ -11,10 +11,10 @@ import Then
 import RxSwift
 import RxCocoa
 
-class EmptyNoteView: UIView {
+class EmptyMyPrayView: UIView {
     
     let emptyImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "list.bullet.rectangle.portrait.fill")
+        $0.image = UIImage(systemName: "pencil")
         $0.tintColor = .sheep2
     }
     let plusImageView = UIImageView().then {
@@ -26,7 +26,7 @@ class EmptyNoteView: UIView {
         $0.font = .b01
         $0.textAlignment = .center
         $0.lineBreakMode = .byWordWrapping
-        $0.text = "하나님께서 주신 말씀을 기록하고 기억해 보세요"
+        $0.text = "주님과 대화하고 평안을 누리세요"
         $0.numberOfLines = 0
     }
     
@@ -61,7 +61,7 @@ class EmptyNoteView: UIView {
         plusImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview().multipliedBy(0.5)
             $0.left.equalTo(emptyImageView.snp.right).offset(-4)
-            $0.size.equalTo(24)
+            $0.size.equalTo(28)
         }
         
     }
@@ -74,3 +74,4 @@ class EmptyNoteView: UIView {
         }
     }
 }
+

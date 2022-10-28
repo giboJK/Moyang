@@ -54,6 +54,8 @@
 		08E992BE28ED590200696EB6 /* NoticeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992BD28ED590200696EB6 /* NoticeUseCase.swift */; };
 		08E992C028ED590900696EB6 /* NoticeRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992BF28ED590900696EB6 /* NoticeRepo.swift */; };
 		08E992C228ED5EE400696EB6 /* NoticeTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992C128ED5EE400696EB6 /* NoticeTVCell.swift */; };
+		08EB9867290B4B8B00C4C6B3 /* EmptyMyPrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB9866290B4B8B00C4C6B3 /* EmptyMyPrayView.swift */; };
+		08EB9869290B508800C4C6B3 /* EmptyGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB9868290B508800C4C6B3 /* EmptyGroupView.swift */; };
 		08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */; };
 		08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBCFC127FDD78A00BDCB14 /* NetConst.swift */; };
 		08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08ECAAD628A6281E00B546F1 /* TaskDetailVC.swift */; };
@@ -283,6 +285,8 @@
 		08E992BD28ED590200696EB6 /* NoticeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeUseCase.swift; sourceTree = "<group>"; };
 		08E992BF28ED590900696EB6 /* NoticeRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRepo.swift; sourceTree = "<group>"; };
 		08E992C128ED5EE400696EB6 /* NoticeTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTVCell.swift; sourceTree = "<group>"; };
+		08EB9866290B4B8B00C4C6B3 /* EmptyMyPrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyMyPrayView.swift; sourceTree = "<group>"; };
+		08EB9868290B508800C4C6B3 /* EmptyGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyGroupView.swift; sourceTree = "<group>"; };
 		08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		08EBCFC127FDD78A00BDCB14 /* NetConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConst.swift; sourceTree = "<group>"; };
 		08ECAAD628A6281E00B546F1 /* TaskDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailVC.swift; sourceTree = "<group>"; };
@@ -751,6 +755,7 @@
 			isa = PBXGroup;
 			children = (
 				08F082D6290663D80042319B /* MediatorPrayMainVC.swift */,
+				08EB9868290B508800C4C6B3 /* EmptyGroupView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -885,6 +890,7 @@
 				2447788628FEBE4100DD7499 /* MyPrayMainVC.swift */,
 				08F4738D28B5F6090070CE2A /* AutoCompleteTVCell.swift */,
 				08E86B7F28FFC1D500CA04E2 /* MyPrayTVCell.swift */,
+				08EB9866290B4B8B00C4C6B3 /* EmptyMyPrayView.swift */,
 				24F4FA4E29003EBB00FE94FF /* MyPrayTableHeader.swift */,
 			);
 			path = View;
@@ -1798,6 +1804,7 @@
 				24B1FA6028FA552A00C6D21C /* EmptyNoteView.swift in Sources */,
 				241AF7CF28E46BC10085515B /* ProfileAssembly.swift in Sources */,
 				240946D028707379003AEDAD /* AddReplyAndChangeVC.swift in Sources */,
+				08EB9869290B508800C4C6B3 /* EmptyGroupView.swift in Sources */,
 				08D2FD97286EE27300ED8ECB /* PrayReactionDetailVM.swift in Sources */,
 				2447788B28FEBEA500DD7499 /* MyPrayMainVM.swift in Sources */,
 				24E0AB21283D228A00F52505 /* UIView+.swift in Sources */,
@@ -1815,6 +1822,7 @@
 				08AD959A287BEE00002D4F94 /* AuthUseCase.swift in Sources */,
 				24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */,
 				24630ED228F3CD6600567996 /* WorshipNote.swift in Sources */,
+				08EB9867290B4B8B00C4C6B3 /* EmptyMyPrayView.swift in Sources */,
 				08E992BC28ED58F200696EB6 /* Notice.swift in Sources */,
 				24CFA8B82878894D00484C89 /* StickyHeaderView.swift in Sources */,
 				086CB32328130077003BF6F7 /* MyPray.swift in Sources */,

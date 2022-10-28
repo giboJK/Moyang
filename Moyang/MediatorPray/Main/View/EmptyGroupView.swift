@@ -1,8 +1,8 @@
 //
-//  EmptyNoteView.swift
+//  EmptyGroupView.swift
 //  Moyang
 //
-//  Created by 정김기보 on 2022/10/15.
+//  Created by kibo on 2022/10/28.
 //
 
 import UIKit
@@ -11,10 +11,10 @@ import Then
 import RxSwift
 import RxCocoa
 
-class EmptyNoteView: UIView {
+class EmptyGroupView: UIView {
     
     let emptyImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "list.bullet.rectangle.portrait.fill")
+        $0.image = UIImage(systemName: "person.3")
         $0.tintColor = .sheep2
     }
     let plusImageView = UIImageView().then {
@@ -26,7 +26,7 @@ class EmptyNoteView: UIView {
         $0.font = .b01
         $0.textAlignment = .center
         $0.lineBreakMode = .byWordWrapping
-        $0.text = "하나님께서 주신 말씀을 기록하고 기억해 보세요"
+        $0.text = "공동체에서 더 큰 은혜를 누리세요"
         $0.numberOfLines = 0
     }
     
@@ -53,7 +53,8 @@ class EmptyNoteView: UIView {
         emptyImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview().offset(-12)
             $0.centerY.equalToSuperview().multipliedBy(0.5)
-            $0.size.equalTo(68)
+            $0.width.equalTo(132)
+            $0.height.equalTo(68)
         }
     }
     private func setupPlusImageView() {
@@ -74,3 +75,4 @@ class EmptyNoteView: UIView {
         }
     }
 }
+

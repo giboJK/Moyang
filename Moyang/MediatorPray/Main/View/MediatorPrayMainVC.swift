@@ -18,6 +18,8 @@ class MediatorPrayMainVC: UIViewController, VCType {
     var coordinator: MediatorPrayMainVCDelegate?
 
     // MARK: - UI
+    let emptyGroupView = EmptyGroupView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,7 +33,14 @@ class MediatorPrayMainVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
-        view.backgroundColor = .red
+        setupEmptyGroupView()
+    }
+    
+    private func setupEmptyGroupView() {
+        view.addSubview(emptyGroupView)
+        emptyGroupView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 
     // MARK: - Binding
@@ -43,8 +52,14 @@ class MediatorPrayMainVC: UIViewController, VCType {
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input()
+        let output = vm.transform(input: input)
+        
+        output.groupList
+            .map { !$0.isEmpty }
+            .drive(emptyGroupView.rx.isHidden)
+            .disposed(by: disposeBag)
     }
 }
 

@@ -48,6 +48,7 @@ class MyPrayMainVC: UIViewController, VCType {
     let praySearchView = GroupPraySearchView().then {
         $0.isHidden = true
     }
+    let emptyMyPrayView = EmptyMyPrayView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,7 @@ class MyPrayMainVC: UIViewController, VCType {
         setupSearchBar()
         setupPraySearchView()
         setupAutoCompleteTableView()
+        setupEmptyMyPrayView()
     }
     private func setupSearchBar() {
         view.addSubview(searchBar)
@@ -107,6 +109,12 @@ class MyPrayMainVC: UIViewController, VCType {
             $0.backgroundColor = .clear
         }
         prayTableView.tableFooterView = footer
+    }
+    private func setupEmptyMyPrayView() {
+        view.addSubview(emptyMyPrayView)
+        emptyMyPrayView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 
     // MARK: - Binding
@@ -151,6 +159,11 @@ class MyPrayMainVC: UIViewController, VCType {
                     cell.updateUI()
                     cell.tagCollectionView.reloadData()
                 }.disposed(by: disposeBag)
+        
+        output.myPrayList
+            .map { !$0.isEmpty }
+            .drive(emptyMyPrayView.rx.isHidden)
+            .disposed(by: disposeBag)
         
         output.detailVM
             .drive(onNext: { [weak self] detailVM in

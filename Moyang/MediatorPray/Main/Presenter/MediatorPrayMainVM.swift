@@ -11,6 +11,7 @@ import RxCocoa
 class MediatorPrayMainVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
 
+    private let groupList = BehaviorRelay<[String]>(value: [])
     init() {
     }
 
@@ -23,10 +24,10 @@ extension MediatorPrayMainVM {
     }
 
     struct Output {
-
+        let groupList: Driver<[String]>
     }
 
     func transform(input: Input) -> Output {
-        return Output()
+        return Output(groupList: groupList.asDriver())
     }
 }
