@@ -34,7 +34,7 @@ class GroupActivityTabView: UIView {
     enum TapMenu: Int, CaseIterable {
 //        case qt
         case pray
-        case worshipNote
+//        case worshipNote
         case mediatorPray
 //        case thanks
         
@@ -46,8 +46,8 @@ class GroupActivityTabView: UIView {
 //                return "새 묵상"
             case .pray:
                 return "새 기도"
-            case .worshipNote:
-                return "새 예배노트"
+//            case .worshipNote:
+//                return "새 예배노트"
 //            case .thanks:
 //                return "새 감사"
             }
@@ -61,8 +61,8 @@ class GroupActivityTabView: UIView {
 //                return "말씀 묵상"
             case .pray:
                 return "내 기도"
-            case .worshipNote:
-                return "예배노트"
+//            case .worshipNote:
+//                return "예배노트"
 //            case .thanks:
 //                return "한 줄 감사"
             }

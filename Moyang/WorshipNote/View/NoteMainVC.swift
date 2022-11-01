@@ -35,7 +35,6 @@ class NoteMainVC: UIViewController, VCType {
         $0.bounces = true
         $0.isScrollEnabled = true
     }
-    let emptyNoteView = EmptyNoteView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +52,6 @@ class NoteMainVC: UIViewController, VCType {
     func setupUI() {
         setupFolderTableView()
         setupSearchBar()
-        setupEmptyNoteView()
     }
     
     private func setupFolderTableView() {
@@ -78,12 +76,6 @@ class NoteMainVC: UIViewController, VCType {
             $0.left.right.equalToSuperview().inset(20)
         }
     }
-    private func setupEmptyNoteView() {
-        view.addSubview(emptyNoteView)
-        emptyNoteView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
     // MARK: - Binding
     func bind() {
         bindViews()
@@ -91,10 +83,6 @@ class NoteMainVC: UIViewController, VCType {
     }
     
     private func bindViews() {
-        emptyNoteView.rx.tapGesture().when(.ended)
-            .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.didTapEmptyView()
-            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
@@ -111,7 +99,6 @@ class NoteMainVC: UIViewController, VCType {
         output.folderList.map { $0.isEmpty }
             .drive(onNext: { [weak self] isEmpty in
                 self?.folderTableView.isHidden = isEmpty
-                self?.emptyNoteView.isHidden = !isEmpty
             }).disposed(by: disposeBag)
     }
 }
