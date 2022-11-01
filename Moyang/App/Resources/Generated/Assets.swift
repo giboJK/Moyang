@@ -25,6 +25,7 @@ public enum Asset {
     public enum Primary {
       public static let appleRed1 = ColorAsset(name: "AppleRed1")
       public static let nightSky1 = ColorAsset(name: "NightSky1")
+      public static let oasis1 = ColorAsset(name: "Oasis1")
       public static let sheep1 = ColorAsset(name: "Sheep1")
       public static let wilderness1 = ColorAsset(name: "Wilderness1")
     }

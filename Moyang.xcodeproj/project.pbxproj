@@ -85,7 +85,6 @@
 		2416F8F32903DEEB00152101 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2416F8F22903DEEB00152101 /* UIFont+.swift */; };
 		2416F8F529043AA900152101 /* MoyangLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2416F8F429043AA900152101 /* MoyangLabel.swift */; };
 		241AF7CF28E46BC10085515B /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241AF7CE28E46BC10085515B /* ProfileAssembly.swift */; };
-		24294C5F2861DD7A00458CA0 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24294C5E2861DD7A00458CA0 /* CheckBox.swift */; };
 		242D745C274267C80053EF2A /* MainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D745B274267C80053EF2A /* MainCard.swift */; };
 		242D745F274282F00053EF2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 242D7461274282F00053EF2A /* Localizable.strings */; };
 		242D7464274283710053EF2A /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D7463274283710053EF2A /* Strings.swift */; };
@@ -137,7 +136,6 @@
 		24B9BF6D275AEB7B0056E694 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B9BF6C275AEB7B0056E694 /* UIColor+.swift */; };
 		24BB426028471F6700E86CCD /* PrayTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */; };
 		24BB42622847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB42612847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift */; };
-		24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */; };
 		24BFD9ED28307B2200E105D3 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BFD9EC28307B2200E105D3 /* MainVM.swift */; };
 		24C3379E28A200DA00AA042A /* PrayDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C3379D28A200DA00AA042A /* PrayDetailView.swift */; };
 		24C68AC0287D7C4800330178 /* SetUserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C68ABF287D7C4800330178 /* SetUserInfoVC.swift */; };
@@ -196,7 +194,6 @@
 		24E5D0F228B9FA4B00680101 /* SplashVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E5D0F128B9FA4B00680101 /* SplashVM.swift */; };
 		24E5D0F428B9FEDA00680101 /* SplashCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E5D0F328B9FEDA00680101 /* SplashCoordinator.swift */; };
 		24E5D0F628BA118C00680101 /* SplashAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E5D0F528BA118C00680101 /* SplashAssembly.swift */; };
-		24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E60723278EF19E00D5A7F2 /* IndicatorView.swift */; };
 		24E6455D2850E08A00CF10AD /* MoyangButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E6455C2850E08A00CF10AD /* MoyangButton.swift */; };
 		24E72A6128C306120062751B /* BibleVerseCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E72A6028C306120062751B /* BibleVerseCVCell.swift */; };
 		24E7547A28BAF30800E49EB2 /* GroupEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E7547928BAF30800E49EB2 /* GroupEventVC.swift */; };
@@ -311,7 +308,6 @@
 		2416F8F22903DEEB00152101 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		2416F8F429043AA900152101 /* MoyangLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangLabel.swift; sourceTree = "<group>"; };
 		241AF7CE28E46BC10085515B /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
-		24294C5E2861DD7A00458CA0 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		242D745B274267C80053EF2A /* MainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCard.swift; sourceTree = "<group>"; };
 		242D7460274282F00053EF2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		242D7462274282F30053EF2A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -365,7 +361,6 @@
 		24B9BF6C275AEB7B0056E694 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayTagCVCell.swift; sourceTree = "<group>"; };
 		24BB42612847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		24BFD9EC28307B2200E105D3 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
 		24C3379D28A200DA00AA042A /* PrayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayDetailView.swift; sourceTree = "<group>"; };
 		24C68ABF287D7C4800330178 /* SetUserInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUserInfoVC.swift; sourceTree = "<group>"; };
@@ -425,7 +420,6 @@
 		24E5D0F128B9FA4B00680101 /* SplashVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVM.swift; sourceTree = "<group>"; };
 		24E5D0F328B9FEDA00680101 /* SplashCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashCoordinator.swift; sourceTree = "<group>"; };
 		24E5D0F528BA118C00680101 /* SplashAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashAssembly.swift; sourceTree = "<group>"; };
-		24E60723278EF19E00D5A7F2 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		24E6455C2850E08A00CF10AD /* MoyangButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButton.swift; sourceTree = "<group>"; };
 		24E72A6028C306120062751B /* BibleVerseCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleVerseCVCell.swift; sourceTree = "<group>"; };
 		24E7547928BAF30800E49EB2 /* GroupEventVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEventVC.swift; sourceTree = "<group>"; };
@@ -837,18 +831,15 @@
 				242D745B274267C80053EF2A /* MainCard.swift */,
 				24E36118284B812D00C7EE26 /* MoyangPopupView.swift */,
 				08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */,
-				24E60723278EF19E00D5A7F2 /* IndicatorView.swift */,
 				24BB42612847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift */,
 				24B88EE727A2D6C600D5B001 /* LottieView.swift */,
 				082371B627BA84860050420E /* DatePickerTextField.swift */,
 				24E6455C2850E08A00CF10AD /* MoyangButton.swift */,
-				24BD0C5127BE93FA00786EA1 /* NavigationLazyView.swift */,
 				08DB421F27C9D4B9008EF6EB /* PickerTextField.swift */,
 				24E8F07D27DDD7280036C0F0 /* WebView.swift */,
 				08EBCFBF27FDD6C200BDCB14 /* GoogleSignInButton.swift */,
 				24E0AB1E283D1FF900F52505 /* MoyangNavBar.swift */,
 				242F92A2284904AF0023324D /* MoyangTextField.swift */,
-				24294C5E2861DD7A00458CA0 /* CheckBox.swift */,
 				24CFA8B72878894D00484C89 /* StickyHeaderView.swift */,
 				08D134D128B488A8008707F3 /* MoyangSearchBar.swift */,
 				2416F8F429043AA900152101 /* MoyangLabel.swift */,
@@ -1798,7 +1789,6 @@
 				24E7547A28BAF30800E49EB2 /* GroupEventVC.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				24AACA7C283FC3DD00308AC3 /* MainCoordinator.swift in Sources */,
-				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,
 				08AD959A287BEE00002D4F94 /* AuthUseCase.swift in Sources */,
 				24D96AE8281AD2CA00445B22 /* AlarmCenter.swift in Sources */,
 				24630ED228F3CD6600567996 /* WorshipNote.swift in Sources */,
@@ -1827,7 +1817,6 @@
 				24F41C662897E467005B5E70 /* NewPrayVM.swift in Sources */,
 				24E8F07E27DDD7280036C0F0 /* WebView.swift in Sources */,
 				24D0D32F27231511006FF67B /* Publishers+.swift in Sources */,
-				24294C5F2861DD7A00458CA0 /* CheckBox.swift in Sources */,
 				24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */,
 				24CDD53528E537FB0091A286 /* AlarmRepo.swift in Sources */,
 				24F41C6D2897EBCC005B5E70 /* ProfileVC.swift in Sources */,
@@ -1920,7 +1909,6 @@
 				2498F905287C4E4A007EF510 /* IntroVM.swift in Sources */,
 				24E7EC8C28FAEB21008E0E3F /* WorshipNoteVM.swift in Sources */,
 				24E0AB2A283E73C300F52505 /* CommunityMainUseCase.swift in Sources */,
-				24BD0C5227BE93FA00786EA1 /* NavigationLazyView.swift in Sources */,
 				08E992B428ED4FB800696EB6 /* NoticeListVC.swift in Sources */,
 				24630ED828F3D19B00567996 /* NewNoteVM.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,

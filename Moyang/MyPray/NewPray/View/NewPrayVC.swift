@@ -18,8 +18,27 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     private var tagList = [String]()
     
     // MARK: - UI
-    let guideLabel = MoyangLabel()
-    let newPrayTextView = UITextView().then {
+    let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
+        $0.sizeToFit()
+        $0.clipsToBounds = true
+        $0.barTintColor = .sheep3
+    }
+    let guideLabel = MoyangLabel().then {
+        $0.textColor = .sheep1
+        $0.font = .t04
+    }
+    let titleLabel = MoyangLabel()
+    let titleTextField = MoyangTextField(.ghost, "제목").then {
+        $0.returnKeyType = .done
+        $0.enablesReturnKeyAutomatically = true
+    }
+    let titleExampleLabel = MoyangLabel().then {
+        $0.text = "ex) 진로, 두려움, 감사, OO를 위한 기도"
+        $0.textColor = .sheep3
+        $0.font = .b03
+    }
+    
+    let contentTextView = UITextView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 8
         $0.font = .systemFont(ofSize: 15, weight: .regular)
@@ -54,15 +73,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if newPrayTextView.isFirstResponder {
-            return
-        }
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-        self.view.layoutIfNeeded()
+        
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -71,26 +82,49 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     func setupUI() {
-        title = "새 기도"
         view.backgroundColor = .nightSky1
-        setupNewPrayTextView()
+        setupToolbar()
+        setupGuideLabel()
+        setupTitleLabel()
+        setupTitleTextField()
+        setupContentTextView()
         setupCancelButton()
         setupSaveButton()
     }
-    private func setupNewPrayTextView() {
-        view.addSubview(newPrayTextView)
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
-            $0.sizeToFit()
-            $0.clipsToBounds = true
-            $0.barTintColor = .sheep3
-        }
+    private func setupToolbar() {
         let doneButton = UIBarButtonItem(title: "완료",
                                          style: .done,
                                          target: self,
                                          action: #selector(didTapDoneButton))
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([space, doneButton], animated: false)
-        newPrayTextView.inputAccessoryView = toolBar
+        contentTextView.inputAccessoryView = toolBar
+    }
+    private func setupGuideLabel() {
+        view.addSubview(guideLabel)
+        guideLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.left.equalTo(view.safeAreaLayoutGuide).inset(24)
+        }
+    }
+    private func setupTitleLabel() {
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(112)
+            $0.left.equalToSuperview().inset(24)
+        }
+    }
+    private func setupTitleTextField() {
+        view.addSubview(titleTextField)
+        titleTextField.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+            $0.left.right.equalToSuperview().inset(24 - 8)
+        }
+    }
+    
+    private func setupContentTextView() {
+        view.addSubview(contentTextView)
+        contentTextView.inputAccessoryView = toolBar
     }
     
     private func setupCancelButton() {
@@ -135,7 +169,10 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setPray: newPrayTextView.rx.text.asDriver(),
+        let input = VM.Input(setTitle: titleTextField.rx.text.asDriver(),
+                             startTitleEditing: titleTextField.rx.controlEvent(.editingDidBegin).asDriver(),
+                             endTitleEditing: titleTextField.rx.controlEvent(.editingDidEnd).asDriver(),
+                             setContent: contentTextView.rx.text.asDriver(),
                              saveNewPray: saveButton.rx.tap.asDriver(),
                              loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false))
         
@@ -145,15 +182,13 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(guideLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output.newPray
-            .map { $0?.isEmpty ?? true }
-            .map { !$0 }
+        output.isSaveEnabled
             .drive(saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        output.newPray
+        output.content
             .distinctUntilChanged()
-            .drive(newPrayTextView.rx.text)
+            .drive(contentTextView.rx.text)
             .disposed(by: disposeBag)
     }
 }

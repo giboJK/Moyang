@@ -24,4 +24,6 @@ extension Color {
     static var appleRed1: Color { Color(Asset.Colors.Primary.appleRed1.color) }
     static var appleRed2: Color { Color(Asset.Colors.Secondary.appleRed2.color) }
     static var appleRed3: Color { Color(Asset.Colors.Secondary.appleRed3.color) }
+    
+    static var oasis1: Color { Color(Asset.Colors.Primary.oasis1.color) }
 }

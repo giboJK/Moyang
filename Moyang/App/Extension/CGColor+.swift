@@ -24,4 +24,6 @@ extension CGColor {
     @nonobjc class var appleRed1: CGColor { Asset.Colors.Primary.appleRed1.color.cgColor }
     @nonobjc class var appleRed2: CGColor { Asset.Colors.Secondary.appleRed2.color.cgColor }
     @nonobjc class var appleRed3: CGColor { Asset.Colors.Secondary.appleRed3.color.cgColor }
+    
+    @nonobjc class var oasis1: CGColor { Asset.Colors.Primary.oasis1.color.cgColor }
 }

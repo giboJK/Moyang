@@ -10,12 +10,16 @@ import UIKit
 class MoyangTextField: UITextField {
     enum MoyangTextFieldStyle {
         case sheep
+        case ghost
         case none
     }
     
     var padding = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     private var style: MoyangTextFieldStyle = .sheep
     
+    private let underLine = UIView().then {
+        $0.backgroundColor = .nightSky3
+    }
     
     override var isEnabled: Bool {
         didSet {
@@ -30,6 +34,7 @@ class MoyangTextField: UITextField {
         self.style = style
         self.padding = padding
         self.placeholder = placeholder
+        font = .b01
         if let placeholder = placeholder {
             attributedPlaceholder = NSAttributedString(string: placeholder,
                                                        attributes: [.foregroundColor: UIColor.sheep3])
@@ -42,21 +47,32 @@ class MoyangTextField: UITextField {
     }
     
     private func setupUI() {
-        font = .b01
-        textColor = .nightSky1
-        layer.cornerRadius = 8
-        layer.borderWidth = 1
-        layer.masksToBounds = true
         switch style {
         case .sheep:
+            textColor = .nightSky1
+            layer.cornerRadius = 8
+            layer.masksToBounds = true
+            layer.borderWidth = 1
             backgroundColor = isEnabled ? .sheep1 : .sheep3
             if let placeholder = placeholder {
                 let color: UIColor = isEnabled ? .sheep3 : .sheep4
                 attributedPlaceholder = NSAttributedString(string: placeholder,
                                                            attributes: [.foregroundColor: color])
             }
+        case .ghost:
+            textColor = .sheep1
+            layer.borderWidth = 0
+            setupUnderLine()
         case .none:
             break
+        }
+    }
+    private func setupUnderLine() {
+        addSubview(underLine)
+        underLine.snp.makeConstraints {
+            $0.height.equalTo(1)
+            $0.left.right.equalToSuperview().inset(8)
+            $0.bottom.equalToSuperview()
         }
     }
     
@@ -64,6 +80,8 @@ class MoyangTextField: UITextField {
         switch style {
         case .sheep:
             layer.borderColor = .nightSky3
+        case .ghost:
+            underLine.backgroundColor = .oasis1
         case .none:
             break
         }
@@ -73,6 +91,8 @@ class MoyangTextField: UITextField {
         switch style {
         case .sheep:
             layer.borderColor = .sheep4
+        case .ghost:
+            underLine.backgroundColor = .nightSky3
         case .none:
             break
         }
