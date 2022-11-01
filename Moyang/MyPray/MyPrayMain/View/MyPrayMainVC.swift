@@ -18,6 +18,14 @@ class MyPrayMainVC: UIViewController, VCType {
     var coordinator: MyPrayMainVCDelegate?
     
     // MARK: - UI
+    let scrollView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    let container = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    let myPraySummaryView = MyPraySummaryView()
+    let myPrayHabitView = MyPrayHabitView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +41,39 @@ class MyPrayMainVC: UIViewController, VCType {
     }
     func setupUI() {
         view.backgroundColor = .nightSky1
+        setupScrollView()
+        setupMyPraySummaryView()
+        setupMyPrayHabitView()
+    }
+    private func setupScrollView() {
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.left.equalTo(view.safeAreaLayoutGuide)
+            $0.right.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        scrollView.addSubview(container)
+        container.snp.makeConstraints {
+            $0.edges.equalTo(scrollView.contentLayoutGuide)
+            $0.width.equalTo(scrollView.frameLayoutGuide)
+            $0.height.equalTo(scrollView.frameLayoutGuide).priority(250)
+        }
+    }
+    private func setupMyPraySummaryView() {
+        container.addSubview(myPraySummaryView)
+        myPraySummaryView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(24)
+            $0.left.right.equalToSuperview().inset(24)
+        }
+    }
+    private func setupMyPrayHabitView() {
+        container.addSubview(myPrayHabitView)
+        myPrayHabitView.snp.makeConstraints {
+            $0.top.equalTo(myPraySummaryView.snp.bottom).offset(48)
+            $0.bottom.equalToSuperview().inset(12)
+            $0.left.right.equalToSuperview().inset(24)
+        }
     }
 
     // MARK: - Binding
