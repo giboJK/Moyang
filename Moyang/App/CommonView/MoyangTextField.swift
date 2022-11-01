@@ -23,7 +23,7 @@ class MoyangTextField: UITextField {
     
     override var isEnabled: Bool {
         didSet {
-            self.setupUI()
+            self.updateUI()
         }
     }
     
@@ -53,12 +53,6 @@ class MoyangTextField: UITextField {
             layer.cornerRadius = 8
             layer.masksToBounds = true
             layer.borderWidth = 1
-            backgroundColor = isEnabled ? .sheep1 : .sheep3
-            if let placeholder = placeholder {
-                let color: UIColor = isEnabled ? .sheep3 : .sheep4
-                attributedPlaceholder = NSAttributedString(string: placeholder,
-                                                           attributes: [.foregroundColor: color])
-            }
         case .ghost:
             textColor = .sheep1
             layer.borderWidth = 0
@@ -73,6 +67,22 @@ class MoyangTextField: UITextField {
             $0.height.equalTo(1)
             $0.left.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview()
+        }
+    }
+    
+    private func updateUI() {
+        switch style {
+        case .sheep:
+            backgroundColor = isEnabled ? .sheep1 : .sheep3
+            if let placeholder = placeholder {
+                let color: UIColor = isEnabled ? .sheep3 : .sheep4
+                attributedPlaceholder = NSAttributedString(string: placeholder,
+                                                           attributes: [.foregroundColor: color])
+            }
+        case .ghost:
+            break
+        case .none:
+            break
         }
     }
     

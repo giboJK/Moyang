@@ -31,6 +31,9 @@
 		08CEB5EC2910A52D00D38045 /* MyPraySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5EB2910A52D00D38045 /* MyPraySummaryView.swift */; };
 		08CEB5EE2910C8FA00D38045 /* MyPrayHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5ED2910C8FA00D38045 /* MyPrayHabitView.swift */; };
 		08CEB5F02910E2CB00D38045 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5EF2910E2CB00D38045 /* GroupListView.swift */; };
+		08CEB5F22911D17800D38045 /* NewPrayTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5F12911D17800D38045 /* NewPrayTextField.swift */; };
+		08CEB5F42911D67200D38045 /* NewPrayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5F32911D67200D38045 /* NewPrayTextView.swift */; };
+		08CEB5F62911D84D00D38045 /* MoyangTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5F52911D84D00D38045 /* MoyangTextView.swift */; };
 		08D0CEB228A36ADE00A15F3C /* TodayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CEB128A36ADE00A15F3C /* TodayVC.swift */; };
 		08D0CEB528A36AFE00A15F3C /* TodayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CEB428A36AFE00A15F3C /* TodayVM.swift */; };
 		08D0CEB728A36B1D00A15F3C /* TodayCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CEB628A36B1D00A15F3C /* TodayCoordinator.swift */; };
@@ -254,6 +257,9 @@
 		08CEB5EB2910A52D00D38045 /* MyPraySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPraySummaryView.swift; sourceTree = "<group>"; };
 		08CEB5ED2910C8FA00D38045 /* MyPrayHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayHabitView.swift; sourceTree = "<group>"; };
 		08CEB5EF2910E2CB00D38045 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
+		08CEB5F12911D17800D38045 /* NewPrayTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayTextField.swift; sourceTree = "<group>"; };
+		08CEB5F32911D67200D38045 /* NewPrayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayTextView.swift; sourceTree = "<group>"; };
+		08CEB5F52911D84D00D38045 /* MoyangTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangTextView.swift; sourceTree = "<group>"; };
 		08D0CEB128A36ADE00A15F3C /* TodayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayVC.swift; sourceTree = "<group>"; };
 		08D0CEB428A36AFE00A15F3C /* TodayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayVM.swift; sourceTree = "<group>"; };
 		08D0CEB628A36B1D00A15F3C /* TodayCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCoordinator.swift; sourceTree = "<group>"; };
@@ -843,6 +849,7 @@
 				24CFA8B72878894D00484C89 /* StickyHeaderView.swift */,
 				08D134D128B488A8008707F3 /* MoyangSearchBar.swift */,
 				2416F8F429043AA900152101 /* MoyangLabel.swift */,
+				08CEB5F52911D84D00D38045 /* MoyangTextView.swift */,
 			);
 			path = CommonView;
 			sourceTree = "<group>";
@@ -1392,6 +1399,8 @@
 			isa = PBXGroup;
 			children = (
 				242F92A02848FD140023324D /* NewPrayVC.swift */,
+				08CEB5F12911D17800D38045 /* NewPrayTextField.swift */,
+				08CEB5F32911D67200D38045 /* NewPrayTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1746,6 +1755,7 @@
 				08E992C028ED590900696EB6 /* NoticeRepo.swift in Sources */,
 				08F082E0290667B00042319B /* MediatorPrayCoordinator.swift in Sources */,
 				086ADDD628D197DA007A95F2 /* AlarmSetVC.swift in Sources */,
+				08CEB5F62911D84D00D38045 /* MoyangTextView.swift in Sources */,
 				24DABDA72890FE6E00DEB6CC /* Calendar+.swift in Sources */,
 				24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */,
 				24FF077228BFAE7400F30ED0 /* GroupEvent.swift in Sources */,
@@ -1772,6 +1782,7 @@
 				08AA085D288520E2008670E3 /* LogInVM.swift in Sources */,
 				24D0D32D272314F7006FF67B /* Log.swift in Sources */,
 				24630ED628F3CDF100567996 /* WorshipNoteRepo.swift in Sources */,
+				08CEB5F42911D67200D38045 /* NewPrayTextView.swift in Sources */,
 				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
 				08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */,
 				24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */,
@@ -1912,6 +1923,7 @@
 				08E992B428ED4FB800696EB6 /* NoticeListVC.swift in Sources */,
 				24630ED828F3D19B00567996 /* NewNoteVM.swift in Sources */,
 				24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */,
+				08CEB5F22911D17800D38045 /* NewPrayTextField.swift in Sources */,
 				08E992BE28ED590200696EB6 /* NoticeUseCase.swift in Sources */,
 				08D0CEBC28A3845900A15F3C /* TaskListView.swift in Sources */,
 				08D2F6F828B3483D00D95840 /* GroupActivity.swift in Sources */,

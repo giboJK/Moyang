@@ -17,16 +17,16 @@ internal enum Fonts {
         internal static let headline = UIFont.systemRelativeFont(ofSize: 18, weight: .heavy)
     }
     internal enum Body {
-        internal static let b01 = UIFont.systemRelativeFont(ofSize: 16, weight: .heavy)
+        internal static let b01 = UIFont.systemRelativeFont(ofSize: 16, weight: .bold)
         internal static let b02 = UIFont.systemRelativeFont(ofSize: 16, weight: .medium)
-        internal static let b03 = UIFont.systemRelativeFont(ofSize: 14, weight: .heavy)
+        internal static let b03 = UIFont.systemRelativeFont(ofSize: 14, weight: .semibold)
         internal static let b04 = UIFont.systemRelativeFont(ofSize: 14, weight: .medium)
         internal static let b05 = UIFont.systemRelativeFont(ofSize: 14, weight: .regular)
     }
     internal enum Caption {
-        internal static let c01 = UIFont.systemRelativeFont(ofSize: 12, weight: .heavy)
+        internal static let c01 = UIFont.systemRelativeFont(ofSize: 12, weight: .bold)
         internal static let c02 = UIFont.systemRelativeFont(ofSize: 12, weight: .medium)
-        internal static let c03 = UIFont.systemRelativeFont(ofSize: 10, weight: .heavy)
+        internal static let c03 = UIFont.systemRelativeFont(ofSize: 10, weight: .bold)
         internal static let c04 = UIFont.systemRelativeFont(ofSize: 10, weight: .medium)
     }
 }

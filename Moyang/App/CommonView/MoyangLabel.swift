@@ -78,11 +78,11 @@ class MoyangLabel: UILabel {
         case Fonts.Title.headline:
             self.letterSpacing = 0.36 * widthRatio
         case Fonts.Body.b01, Fonts.Body.b02:
-            self.letterSpacing = 0.80 * widthRatio
+            self.letterSpacing = 0.08 * widthRatio
         case Fonts.Body.b03, Fonts.Body.b04, Fonts.Body.b05:
-            self.letterSpacing = 0.78 * widthRatio
+            self.letterSpacing = -0.08 * widthRatio
         case Fonts.Caption.c01, Fonts.Caption.c02, Fonts.Caption.c03, Fonts.Caption.c04:
-            self.letterSpacing = 0.59 * widthRatio
+            self.letterSpacing = 0.09 * widthRatio
         default:
             break
         }
