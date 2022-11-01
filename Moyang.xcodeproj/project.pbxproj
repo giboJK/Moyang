@@ -31,6 +31,7 @@
 		08CE42012780059A003352E0 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE42002780059A003352E0 /* FirestoreService.swift */; };
 		08CEB5EC2910A52D00D38045 /* MyPraySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5EB2910A52D00D38045 /* MyPraySummaryView.swift */; };
 		08CEB5EE2910C8FA00D38045 /* MyPrayHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5ED2910C8FA00D38045 /* MyPrayHabitView.swift */; };
+		08CEB5F02910E2CB00D38045 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5EF2910E2CB00D38045 /* GroupListView.swift */; };
 		08D0CEB228A36ADE00A15F3C /* TodayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CEB128A36ADE00A15F3C /* TodayVC.swift */; };
 		08D0CEB528A36AFE00A15F3C /* TodayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CEB428A36AFE00A15F3C /* TodayVM.swift */; };
 		08D0CEB728A36B1D00A15F3C /* TodayCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CEB628A36B1D00A15F3C /* TodayCoordinator.swift */; };
@@ -258,6 +259,7 @@
 		08CE42002780059A003352E0 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		08CEB5EB2910A52D00D38045 /* MyPraySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPraySummaryView.swift; sourceTree = "<group>"; };
 		08CEB5ED2910C8FA00D38045 /* MyPrayHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayHabitView.swift; sourceTree = "<group>"; };
+		08CEB5EF2910E2CB00D38045 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
 		08D0CEB128A36ADE00A15F3C /* TodayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayVC.swift; sourceTree = "<group>"; };
 		08D0CEB428A36AFE00A15F3C /* TodayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayVM.swift; sourceTree = "<group>"; };
 		08D0CEB628A36B1D00A15F3C /* TodayCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCoordinator.swift; sourceTree = "<group>"; };
@@ -747,6 +749,7 @@
 			isa = PBXGroup;
 			children = (
 				08F082D6290663D80042319B /* MediatorPrayMainVC.swift */,
+				08CEB5EF2910E2CB00D38045 /* GroupListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1751,6 +1754,7 @@
 				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
 				08D2FD95286EE24800ED8ECB /* PrayReactionDetailVC.swift in Sources */,
 				082371B727BA84860050420E /* DatePickerTextField.swift in Sources */,
+				08CEB5F02910E2CB00D38045 /* GroupListView.swift in Sources */,
 				24E0AB36283E751800F52505 /* Reachability.swift in Sources */,
 				24C8E9B9286B1F4500AEE46B /* MyPrayRepo.swift in Sources */,
 				24ECC31528B6620B00A758CF /* SearchPrayTVCell.swift in Sources */,

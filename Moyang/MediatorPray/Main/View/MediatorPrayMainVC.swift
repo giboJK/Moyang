@@ -18,6 +18,16 @@ class MediatorPrayMainVC: UIViewController, VCType {
     var coordinator: MediatorPrayMainVCDelegate?
 
     // MARK: - UI
+    let scrollView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+    }
+    let container = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    
+    let groupListView = GroupListView()
+    
+    let newGroupView = NewGroupView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +42,42 @@ class MediatorPrayMainVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
+        view.backgroundColor = .nightSky1
+        setupScrollView()
+        setupGroupListView()
+        setupNewGroupView()
+    }
+    private func setupScrollView() {
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.left.equalTo(view.safeAreaLayoutGuide)
+            $0.right.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        scrollView.addSubview(container)
+        container.snp.makeConstraints {
+            $0.edges.equalTo(scrollView.contentLayoutGuide)
+            $0.width.equalTo(scrollView.frameLayoutGuide)
+            $0.height.equalTo(scrollView.frameLayoutGuide).priority(250)
+        }
+    }
+    
+    private func setupGroupListView() {
+        container.addSubview(groupListView)
+        groupListView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(24)
+        }
+    }
+    
+    private func setupNewGroupView() {
+        container.addSubview(newGroupView)
+        newGroupView.snp.makeConstraints {
+            $0.top.equalTo(groupListView.snp.bottom).offset(24)
+            $0.left.right.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(12)
+        }
     }
     
 
@@ -48,6 +94,22 @@ class MediatorPrayMainVC: UIViewController, VCType {
         let input = VM.Input()
         let output = vm.transform(input: input)
     }
+}
+
+class NewGroupView: UIView {
+    init() {
+        super.init(frame: .zero)
+        backgroundColor = .nightSky1
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    private func setupUI() {
+    }
+    
 }
 
 protocol MediatorPrayMainVCDelegate: AnyObject {
