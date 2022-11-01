@@ -10,7 +10,6 @@
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
-		0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0865D70E289791AA007E1D7E /* GroupSelectVC.swift */; };
 		086ADDD628D197DA007A95F2 /* AlarmSetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */; };
 		086ADDD928D19849007A95F2 /* AlarmSetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDD828D19849007A95F2 /* AlarmSetVM.swift */; };
 		086ADDDB28D19861007A95F2 /* AlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDDA28D19861007A95F2 /* AlarmCoordinator.swift */; };
@@ -190,7 +189,6 @@
 		24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB33283E74B900F52505 /* NetworkImpl.swift */; };
 		24E0AB36283E751800F52505 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB35283E751800F52505 /* Reachability.swift */; };
 		24E0AB38283E75AF00F52505 /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB37283E75AF00F52505 /* CommonUtils.swift */; };
-		24E36115284B157A00C7EE26 /* NewPrayTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E36114284B157A00C7EE26 /* NewPrayTagCVCell.swift */; };
 		24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E36116284B806C00C7EE26 /* UIViewController+.swift */; };
 		24E36119284B812D00C7EE26 /* MoyangPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E36118284B812D00C7EE26 /* MoyangPopupView.swift */; };
 		24E4DC39284C2D1C002ECD83 /* GroupPrayingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4DC38284C2D1C002ECD83 /* GroupPrayingVM.swift */; };
@@ -238,7 +236,6 @@
 /* Begin PBXFileReference section */
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
-		0865D70E289791AA007E1D7E /* GroupSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectVC.swift; sourceTree = "<group>"; };
 		086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSetVC.swift; sourceTree = "<group>"; };
 		086ADDD828D19849007A95F2 /* AlarmSetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSetVM.swift; sourceTree = "<group>"; };
 		086ADDDA28D19861007A95F2 /* AlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinator.swift; sourceTree = "<group>"; };
@@ -421,7 +418,6 @@
 		24E0AB33283E74B900F52505 /* NetworkImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImpl.swift; sourceTree = "<group>"; };
 		24E0AB35283E751800F52505 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		24E0AB37283E75AF00F52505 /* CommonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
-		24E36114284B157A00C7EE26 /* NewPrayTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayTagCVCell.swift; sourceTree = "<group>"; };
 		24E36116284B806C00C7EE26 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		24E36118284B812D00C7EE26 /* MoyangPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangPopupView.swift; sourceTree = "<group>"; };
 		24E4DC38284C2D1C002ECD83 /* GroupPrayingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayingVM.swift; sourceTree = "<group>"; };
@@ -1405,8 +1401,6 @@
 			isa = PBXGroup;
 			children = (
 				242F92A02848FD140023324D /* NewPrayVC.swift */,
-				24E36114284B157A00C7EE26 /* NewPrayTagCVCell.swift */,
-				0865D70E289791AA007E1D7E /* GroupSelectVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1798,12 +1792,10 @@
 				2447788B28FEBEA500DD7499 /* MyPrayMainVM.swift in Sources */,
 				24E0AB21283D228A00F52505 /* UIView+.swift in Sources */,
 				086ADDE128D198A6007A95F2 /* ProfileCoordinator.swift in Sources */,
-				24E36115284B157A00C7EE26 /* NewPrayTagCVCell.swift in Sources */,
 				24E5D0F628BA118C00680101 /* SplashAssembly.swift in Sources */,
 				24126C8C285D7B5A00E8282B /* ReactionPopupView.swift in Sources */,
 				08ECAAD728A6281E00B546F1 /* TaskDetailVC.swift in Sources */,
 				24E7547A28BAF30800E49EB2 /* GroupEventVC.swift in Sources */,
-				0865D70F289791AA007E1D7E /* GroupSelectVC.swift in Sources */,
 				24D0D33127231520006FF67B /* View+.swift in Sources */,
 				24AACA7C283FC3DD00308AC3 /* MainCoordinator.swift in Sources */,
 				24E60724278EF19E00D5A7F2 /* IndicatorView.swift in Sources */,

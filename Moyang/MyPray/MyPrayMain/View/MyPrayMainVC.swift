@@ -83,6 +83,10 @@ class MyPrayMainVC: UIViewController, VCType {
     }
     
     private func bindViews() {
+        myPraySummaryView.addNewPrayView.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapNewPray()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {

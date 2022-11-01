@@ -15,6 +15,7 @@ class PrayDetailView: UIView, UITextFieldDelegate {
     typealias VM = MyPrayDetailVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
+    
     let groupNameLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .nightSky1
@@ -30,24 +31,6 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = .nightSky1
     }
-    let tagTextField = MoyangTextField(.none, "#태그 선택").then {
-        $0.returnKeyType = .done
-    }
-    let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
-        let layout = LeftAlignedCollectionViewFlowLayout()
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 8
-        $0.collectionViewLayout = layout
-        $0.isScrollEnabled = true
-        $0.backgroundColor = .clear
-        $0.register(NewPrayTagCVCell.self, forCellWithReuseIdentifier: "cell")
-    }
-    let isSecretLabel = UILabel().then {
-        $0.text = "나만 보기"
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .sheep2
-    }
-    let isSecretCheckBox = CheckBox()
     let reactionView = UIStackView().then {
         $0.backgroundColor = .sheep1
         $0.layer.cornerRadius = 14
@@ -66,8 +49,6 @@ class PrayDetailView: UIView, UITextFieldDelegate {
     }
     
     // MARK: - Property
-    private var tagList = [String]()
-    var isMyPray = false
     
     init() {
         super.init(frame: .zero)
@@ -86,10 +67,6 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         setupPrayTextField()
         setupReactionView()
         setupReplyView()
-        setupTagTextField()
-        setupTagCollectionView()
-        setupIsSecretLabel()
-        setupIsSecretCheckBox()
     }
     private func setupGroupNameLabel() {
         addSubview(groupNameLabel)
@@ -154,79 +131,13 @@ class PrayDetailView: UIView, UITextFieldDelegate {
             $0.right.equalTo(prayTextView).offset(-replyView.frame.width-16)
         }
     }
-    private func setupTagTextField() {
-        addSubview(tagTextField)
-        tagTextField.snp.makeConstraints {
-            $0.top.equalTo(prayTextView.snp.bottom).offset(48)
-            $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(36)
-        }
-        tagTextField.delegate = self
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
-            $0.sizeToFit()
-            $0.clipsToBounds = true
-            $0.barTintColor = .sheep3
-        }
-        let cancelButton = UIBarButtonItem(title: "취소",
-                                           style: .plain,
-                                         target: self,
-                                         action: #selector(didTapCancelButton))
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([cancelButton, space], animated: false)
-        tagTextField.inputAccessoryView = toolBar
-    }
-    private func setupTagCollectionView() {
-        addSubview(tagCollectionView)
-        tagCollectionView.snp.makeConstraints {
-            $0.top.equalTo(tagTextField.snp.bottom).offset(12)
-            $0.left.equalToSuperview().inset(16)
-            if isMyPray {
-                $0.right.equalToSuperview().inset(16)
-            } else {
-                $0.right.equalTo(reactionView.snp.left).offset(-16)
-            }
-            $0.height.equalTo(32)
-        }
-        tagCollectionView.dataSource = self
-        tagCollectionView.delegate = self
-    }
-    
-    private func setupIsSecretLabel() {
-        addSubview(isSecretLabel)
-        isSecretLabel.snp.makeConstraints {
-            $0.top.equalTo(tagCollectionView.snp.bottom).offset(12)
-            $0.left.equalToSuperview().inset(20)
-        }
-    }
-    private func setupIsSecretCheckBox() {
-        addSubview(isSecretCheckBox)
-        isSecretCheckBox.snp.makeConstraints {
-            $0.centerY.equalTo(isSecretLabel)
-            $0.left.equalTo(isSecretLabel.snp.right).offset(4)
-            $0.size.equalTo(18)
-            $0.bottom.equalToSuperview()
-        }
-    }
-    private func increaseTagCollectionViewHeight(count: Int) {
-        let currentHeight = tagCollectionView.bounds.height
-        tagCollectionView.snp.updateConstraints {
-            $0.height.equalTo(currentHeight + 8 + 32)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
-            if self.tagCollectionView.visibleCells.count < count {
-                self.increaseTagCollectionViewHeight(count: count)
-            }
-        }
-    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        tagTextField.resignFirstResponder()
         return true
     }
     @objc func didTapDoneButton() {
         endEditing(true)
     }
     @objc func didTapCancelButton() {
-        tagTextField.text?.removeAll()
         endEditing(true)
     }
     func setupReactionView(reactions: [PrayReaction]) {
@@ -291,33 +202,16 @@ class PrayDetailView: UIView, UITextFieldDelegate {
     
     func bind() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setPray: prayTextView.rx.text.asDriver(),
-                             setTag: tagTextField.rx.text.asDriver(),
-                             addTag: tagTextField.rx.controlEvent(.editingDidEnd).asDriver(),
-                             toggleIsSecret: isSecretCheckBox.rx.tap.asDriver())
+        let input = VM.Input(setPray: prayTextView.rx.text.asDriver())
         let output = vm.transform(input: input)
         
         output.isMyPray
             .drive(onNext: { [weak self] isMyPray in
                 guard let self = self else { return }
-                self.tagTextField.isHidden = !isMyPray
-                self.isSecretLabel.isHidden = !isMyPray
-                self.isSecretCheckBox.isHidden = !isMyPray
                 self.prayTextView.isEditable = isMyPray
                 self.prayTextView.textDragInteraction?.isEnabled = !isMyPray
                 if isMyPray {
                     self.setupToolbar()
-                }
-                self.tagCollectionView.snp.remakeConstraints {
-                    $0.left.equalToSuperview().inset(16)
-                    $0.height.equalTo(32)
-                    if isMyPray {
-                        $0.right.equalToSuperview().inset(16)
-                        $0.top.equalTo(self.tagTextField.snp.bottom).offset(12)
-                    } else {
-                        $0.right.equalTo(self.reactionView.snp.left).offset(-16)
-                        $0.top.equalTo(self.prayTextView.snp.bottom).offset(12)
-                    }
                 }
             }).disposed(by: disposeBag)
         
@@ -331,61 +225,10 @@ class PrayDetailView: UIView, UITextFieldDelegate {
             .distinctUntilChanged()
             .drive(prayTextView.rx.text)
             .disposed(by: disposeBag)
-        output.newTag
-            .drive(tagTextField.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.tagList
-            .map { $0.count >= 5 }
-            .drive(onNext: { [weak self] isFullTag in
-                self?.tagTextField.backgroundColor = isFullTag ? .sheep3 : .sheep1
-                self?.tagTextField.isEnabled = !isFullTag
-            }).disposed(by: disposeBag)
-        
-        output.tagList
-            .drive(onNext: { [weak self] list in
-                self?.tagList = list
-                self?.tagCollectionView.reloadData()
-            }).disposed(by: disposeBag)
-        
-        output.tagList
-            .delay(.milliseconds(100))
-            .drive(onNext: { [weak self] list in
-                guard let self = self else { return }
-                if self.tagCollectionView.visibleCells.count < list.count {
-                    self.increaseTagCollectionViewHeight(count: list.count)
-                } else {
-                    if !self.tagCollectionView.visibleCells.isEmpty {
-                        var maxY: CGFloat = 0
-                        self.tagCollectionView.visibleCells.forEach { cell in
-                            maxY = max(cell.frame.maxY, maxY)
-                        }
-                        let currentHeight = self.tagCollectionView.bounds.height
-                        if currentHeight - maxY > 8 {
-                            self.tagCollectionView.snp.updateConstraints {
-                                $0.height.equalTo(currentHeight - 8 - 32)
-                            }
-                        }
-                    } else {
-                        self.tagCollectionView.snp.updateConstraints {
-                            $0.height.equalTo(0)
-                        }
-                    }
-                }
-            }).disposed(by: disposeBag)
-        output.isSecret
-            .drive(isSecretCheckBox.rx.isChecked)
-            .disposed(by: disposeBag)
-        
         output.reactions
             .drive(onNext: { [weak self] reactions in
                 if reactions.isEmpty { self?.reactionView.isHidden = true; return }
                 self?.setupReactionView(reactions: reactions)
-            }).disposed(by: disposeBag)
-        
-        output.isMyPray
-            .drive(onNext: { [weak self] isMyPray in
-                self?.isMyPray = isMyPray
             }).disposed(by: disposeBag)
         
         output.replys
@@ -393,35 +236,5 @@ class PrayDetailView: UIView, UITextFieldDelegate {
             .drive(onNext: { [weak self] replys in
                 self?.setupReplyView(replys: replys)
             }).disposed(by: disposeBag)
-    }
-}
-
-extension PrayDetailView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let buttonWidth = tagList[indexPath.row].width(withConstraintedHeight: 16,
-                                                       font: .systemFont(ofSize: 14, weight: .regular))
-        if isMyPray {
-            return CGSize(width: 20 + 24 + buttonWidth, height: 32)
-        }
-        return CGSize(width: 20 + buttonWidth, height: 32)
-    }
-}
-
-extension PrayDetailView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tagList.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? NewPrayTagCVCell else {
-            return UICollectionViewCell()
-        }
-        cell.tagLabel.text = tagList[indexPath.row]
-        cell.detailVM = vm
-        cell.indexPath = indexPath
-        cell.bind()
-        cell.deleteButton.isHidden = !isMyPray
-        
-        return cell
     }
 }

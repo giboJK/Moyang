@@ -19,7 +19,7 @@ class MyPrayDetailVC: UIViewController, VCType {
     var coordinator: MyPrayDetailVCDelegate?
 
     // MARK: - UI
-    let updateButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
+    let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
     let prayButton = MoyangButton(.none).then {
         $0.layer.cornerRadius = 8
         $0.tintColor = .sheep1
@@ -136,7 +136,8 @@ class MyPrayDetailVC: UIViewController, VCType {
         setupReactionView()
     }
     private func setupUpdateButton() {
-        navigationItem.rightBarButtonItem = updateButton
+        navigationItem.rightBarButtonItem = saveButton
+//        navigationItem.rightBarButtonItems = [saveButton]
     }
     private func setupPrayButton() {
         view.addSubview(prayButton)
@@ -332,7 +333,7 @@ class MyPrayDetailVC: UIViewController, VCType {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let tapReactionView = prayDetailView.reactionView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let replys = prayDetailView.replyView.rx.tapGesture().when(.ended).map { _ in () }
-        let input = VM.Input(updatePray: updateButton.rx.tap.asDriver(),
+        let input = VM.Input(updatePray: saveButton.rx.tap.asDriver(),
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver(),
                              addPrayPlus: prayPlusButton.rx.tap.asDriver(),
                              addChange: addChangeButton.rx.tap.asDriver(),
@@ -346,8 +347,8 @@ class MyPrayDetailVC: UIViewController, VCType {
             .drive(onNext: { [weak self] isMyPray in
                 guard let self = self else { return }
                 self.isMyPray = isMyPray
-                self.updateButton.isEnabled = isMyPray
-                self.updateButton.title = isMyPray ? "저장" : ""
+                self.saveButton.isEnabled = isMyPray
+                self.saveButton.title = isMyPray ? "저장" : ""
                 self.moreButton.isHidden = !isMyPray
                 self.prayPlusButton.isHidden = isMyPray
                 self.addChangeButton.isHidden = !isMyPray

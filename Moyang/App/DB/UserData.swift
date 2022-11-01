@@ -100,15 +100,6 @@ class UserData {
         }
     }
     
-    var autoSavedTags: [String]? {
-        get {
-            return UserDefaults.standard.object(forKey: UserDefaultKey.autoSavedTags) as? [String]
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedTags)
-        }
-    }
-    
     func clearAutoSave() {
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedPray)
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedTags)
