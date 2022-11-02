@@ -14,16 +14,18 @@ class MoyangTextView: UITextView {
         
     override var isEditable: Bool {
         didSet {
-            self.setupUI()
+            self.updateUI()
         }
     }
     
-    init(_ placeholder: String? = nil) {
+    init(_ placeholder: String? = nil, padding: UIEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)) {
         super.init(frame: .zero, textContainer: nil)
-        font = .b01
+        font = .b02
         textColor = .sheep1
+        textContainerInset = padding
         
         setupUI()
+        
 //        addTarget(self, action: #selector(editingBeginBorder), for: .editingDidBegin)
 //        addTarget(self, action: #selector(editingEndBorder), for: .editingDidEnd)
 //        addTarget(self, action: #selector(editingEndBorder), for: .editingDidEndOnExit)
@@ -42,6 +44,14 @@ class MoyangTextView: UITextView {
             $0.height.equalTo(1)
             $0.left.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview()
+        }
+    }
+    
+    private func updateUI() {
+        if isEditable {
+            textColor = .sheep1
+        } else {
+            textColor = .sheep4
         }
     }
     

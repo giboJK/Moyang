@@ -69,7 +69,7 @@ class ProfileVC: UIViewController, VCType {
         view.backgroundColor = .nightSky1
         setupNameLabel()
         setupNoticeButton()
-        setupAlarmButton()
+//        setupAlarmButton()
         setupLogoutButton()
         setupDeleteButton()
         setupVersionLabel()
@@ -107,7 +107,7 @@ class ProfileVC: UIViewController, VCType {
     private func setupLogoutButton() {
         view.addSubview(logoutButton)
         logoutButton.snp.makeConstraints {
-            $0.top.equalTo(alarmButton.snp.bottom)
+            $0.top.equalTo(noticeButton.snp.bottom)
             $0.left.equalToSuperview().inset(24)
             $0.right.equalToSuperview()
             $0.height.equalTo(52)

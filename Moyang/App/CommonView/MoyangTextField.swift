@@ -34,7 +34,7 @@ class MoyangTextField: UITextField {
         self.style = style
         self.padding = padding
         self.placeholder = placeholder
-        font = .b01
+        font = .b02
         if let placeholder = placeholder {
             attributedPlaceholder = NSAttributedString(string: placeholder,
                                                        attributes: [.foregroundColor: UIColor.sheep3])
