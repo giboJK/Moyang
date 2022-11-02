@@ -49,6 +49,9 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.secondButton.setTitle("취소", for: .normal)
     }
     
+    // MARKL - Variables
+    var groupList = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,7 +92,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         doneButton = UIBarButtonItem(title: "완료",
                                      style: .done,
                                      target: self,
-                                     action: #selector(didTapDoneButton))
+                                     action: nil)
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([space, doneButton], animated: false)
     }
@@ -145,12 +148,6 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
     }
-    @objc func didTapDoneButton() {
-        view.endEditing(true)
-    }
-    @objc func didTapCancelButton() {
-        view.endEditing(true)
-    }
     
     // MARK: - Animation
     var isShowContent = false
@@ -162,6 +159,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             $0.top.equalTo(contentTextView.snp.bottom).offset(36)
         }
         isShowContent = true
+        contentTextView.textView.becomeFirstResponder()
         
         UIView.animate(withDuration: 0.3) {
             self.view.updateConstraints()
@@ -175,6 +173,7 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(201)
         }
         isShowGroup = true
+        groupView.textField.becomeFirstResponder()
         
         UIView.animate(withDuration: 0.3) {
             self.view.updateConstraints()
@@ -190,6 +189,14 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     private func bindViews() {
+        doneButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                if self.contentTextView.textView.isFirstResponder {
+                    self.contentTextView.textView.resignFirstResponder()
+                }
+            }).disposed(by: disposeBag)
+        
         cancelButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
@@ -247,5 +254,12 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .distinctUntilChanged()
             .drive(contentTextView.placeholder.rx.isHidden)
             .disposed(by: disposeBag)
+        
+        output.group.map { $0?.isEmpty ?? true}
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isEmpty in
+                if isEmpty { return }
+                self?.groupView.label.isHidden = isEmpty
+            }).disposed(by: disposeBag)
     }
 }

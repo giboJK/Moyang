@@ -26,7 +26,6 @@ class NewPrayVM: VMType {
     let content = BehaviorRelay<String?>(value: nil)
     let group = BehaviorRelay<String?>(value: nil)
 
-    
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     
