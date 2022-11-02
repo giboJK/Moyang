@@ -91,18 +91,27 @@ class UserData {
         }
     }
     
-    var autoSavedPray: String? {
+    var autoSavedPrayTitle: String? {
         get {
-            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedPray)
+            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedPrayTitle)
         }
         set(v) {
-            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedPray)
+            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedPrayTitle)
+        }
+    }
+    
+    var autoSavedPrayContent: String? {
+        get {
+            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedPrayContent)
+        }
+        set(v) {
+            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedPrayContent)
         }
     }
     
     func clearAutoSave() {
-        UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedPray)
-        UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedTags)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedPrayTitle)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedPrayContent)
     }
     
     // MARK: - WorshipNote
@@ -154,8 +163,8 @@ class UserData {
 }
 
 class UserDefaultKey {
-    static let autoSavedPray = "AUTO_SAVED_PRAY"
-    static let autoSavedTags = "AUTO_SAVED_TAGS"
+    static let autoSavedPrayTitle = "AUTO_SAVED_PRAY_TITLE"
+    static let autoSavedPrayContent = "AUTO_SAVED_PRAY_CONTENT"
     
     // MARK: - WorshipNote
     static let autoSavedNoteTitle = "AUTO_SAVED_NOTE_TITLE"

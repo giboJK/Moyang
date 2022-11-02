@@ -16,12 +16,11 @@ class NewPrayVM: VMType {
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
     let guide = BehaviorRelay<String>(value: "")
-    let isTitleStep = BehaviorRelay<Bool>(value: true)
-    let isContentStep = BehaviorRelay<Bool>(value: false)
-    let isGroupStep = BehaviorRelay<Bool>(value: false)
-    let isPrayStep = BehaviorRelay<Bool>(value: false)
     let isSaveEnabled = BehaviorRelay<Bool>(value: false)
     
+    let setTitleFinish = BehaviorRelay<Void>(value: ())
+    let setContentFinish = BehaviorRelay<Void>(value: ())
+    let setGroupFinish = BehaviorRelay<Void>(value: ())
     
     let title = BehaviorRelay<String?>(value: nil)
     let content = BehaviorRelay<String?>(value: nil)
@@ -34,7 +33,7 @@ class NewPrayVM: VMType {
     init(useCase: MyPrayUseCase) {
         self.useCase = useCase
         bind()
-        setupData()
+        setupInitialData()
     }
 
     deinit { Log.i(self) }
@@ -59,17 +58,20 @@ class NewPrayVM: VMType {
             .disposed(by: disposeBag)
     }
     
-    private func setupData() {
+    private func setupInitialData() {
         guide.accept(NewPrayStep.title.guide)
     }
     
     private func autoSave() {
-        UserData.shared.autoSavedPray = content.value
+        UserData.shared.autoSavedPrayContent = content.value
     }
     
     private func loadAutoSave() {
-        if let autoSavedPray = UserData.shared.autoSavedPray {
-            content.accept(autoSavedPray)
+        if let title = UserData.shared.autoSavedPrayTitle {
+            self.title.accept(title)
+        }
+        if let content = UserData.shared.autoSavedPrayContent {
+            self.content.accept(content)
         }
     }
     
@@ -78,17 +80,21 @@ class NewPrayVM: VMType {
     }
     
     private func addNewPray() {
-        guard let pray = content.value else { Log.e(""); return }
-//        useCase.addPray(pray: pray, tags: tagList.value, isSecret: isSecret.value)
     }
     
     private func changeCurrentStep(_ step: NewPrayStep) {
         currentStep = step
-        isTitleStep.accept(step == .title)
-        isContentStep.accept(step == .content)
-        isGroupStep.accept(step == .group)
-        isPrayStep.accept(step == .pray)
         guide.accept(step.guide)
+        switch step {
+        case .title:
+            break
+        case .content:
+            setTitleFinish.accept(())
+        case .group:
+            setContentFinish.accept(())
+        case .pray:
+            setGroupFinish.accept(())
+        }
     }
 }
 
@@ -97,56 +103,79 @@ extension NewPrayVM {
         let setTitle: Driver<String?>
         let startTitleEditing: Driver<Void>
         let endTitleEditing: Driver<Void>
-        var setContent: Driver<String?> = .empty()
         
-        var saveNewPray: Driver<Void> = .empty()
+        var setContent: Driver<String?>
+        let startContentEditing: Driver<Void>
+        let endContentEditing: Driver<Void>
         
-        var loadAutoPray: Driver<Bool> = .empty()
+        
+
+        var saveNewPray: Driver<Void>
+        
+        var loadAutoPray: Driver<Bool>
     }
 
     struct Output {
         let guide: Driver<String>
-        let isTitleStep: Driver<Bool>
-        let isContentStep: Driver<Bool>
-        let isGroupStep: Driver<Bool>
-        let isPrayStep: Driver<Bool>
         let isSaveEnabled: Driver<Bool>
+        
+        // MRK: - User Events
+        let setTitleFinish: Driver<Void>
+        let setContentFinish: Driver<Void>
+        let setGroupFinish: Driver<Void>
         
         // MARK: - Data
         let title: Driver<String?>
         let content: Driver<String?>
         let group: Driver<String?>
         
-        // MARK: - Event
+        // MARK: - Network Events
         let addingNewPraySuccess: Driver<Void>
         let addingNewPrayFailure: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
+        // MARK: - Title
         input.setTitle
             .drive(title)
             .disposed(by: disposeBag)
+        
+        input.setTitle.skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.autoSave()
+            }).disposed(by: disposeBag)
+        
         input.startTitleEditing
             .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.changeCurrentStep(.title)
+                self?.changeCurrentStep(.title)
             }).disposed(by: disposeBag)
 
         input.endTitleEditing
             .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.changeCurrentStep(.content)
+                self?.changeCurrentStep(.content)
             }).disposed(by: disposeBag)
         
+        // MARK: - Content
         input.setContent
             .drive(content)
             .disposed(by: disposeBag)
         
-        input.setContent
-            .skip(1)
+        input.setContent.skip(1)
             .drive(onNext: { [weak self] _ in
                 self?.autoSave()
             }).disposed(by: disposeBag)
+        
+        input.startContentEditing
+            .drive(onNext: { [weak self] _ in
+                self?.changeCurrentStep(.content)
+            }).disposed(by: disposeBag)
+        
+        input.endContentEditing
+            .drive(onNext: { [weak self] _ in
+                self?.changeCurrentStep(.group)
+            }).disposed(by: disposeBag)
+        
+        
         
         input.saveNewPray
             .drive(onNext: { [weak self] _ in
@@ -161,11 +190,11 @@ extension NewPrayVM {
             }).disposed(by: disposeBag)
         
         return Output(guide: guide.asDriver(),
-                      isTitleStep: isTitleStep.asDriver(),
-                      isContentStep: isContentStep.asDriver(),
-                      isGroupStep: isGroupStep.asDriver(),
-                      isPrayStep: isPrayStep.asDriver(),
                       isSaveEnabled: isSaveEnabled.asDriver(),
+                      
+                      setTitleFinish: setTitleFinish.asDriver(),
+                      setContentFinish: setContentFinish.asDriver(),
+                      setGroupFinish: setGroupFinish.asDriver(),
                       
                       title: title.asDriver(),
                       content: content.asDriver(),

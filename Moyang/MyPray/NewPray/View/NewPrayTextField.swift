@@ -17,7 +17,7 @@ class NewPrayTextField: UIView {
         $0.font = .c02
         $0.isHidden = true
     }
-    let textField = MoyangTextField(.ghost, "제목").then {
+    let textField = MoyangTextField(.ghost, "").then {
         $0.returnKeyType = .done
         $0.enablesReturnKeyAutomatically = true
     }
@@ -30,6 +30,7 @@ class NewPrayTextField: UIView {
         super.init(frame: .zero)
         backgroundColor = .clear
         label.text = title
+        textField.placeholder = title
         exampleLabel.text = example
         setupUI()
     }

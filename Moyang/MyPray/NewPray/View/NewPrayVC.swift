@@ -22,18 +22,17 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         $0.clipsToBounds = true
         $0.barTintColor = .sheep3
     }
+    
+    var doneButton = UIBarButtonItem()
     let guideLabel = MoyangLabel().then {
         $0.textColor = .sheep1
         $0.font = .t04
     }
-    let newPrayTitleView = NewPrayTextField("제목", "ex) 진로, 두려움, 감사, OO를 위한 기도")
-    let contentTextView = UITextView().then {
-        $0.backgroundColor = .sheep1
-        $0.layer.cornerRadius = 8
-        $0.font = .systemFont(ofSize: 15, weight: .regular)
-        $0.textColor = .nightSky1
+    let titleTextView = NewPrayTextField("제목", "ex) 진로, 두려움, 감사, OO를 위한 기도")
+    let contentTextView = NewPrayTextView("내용", "내용").then {
+        $0.isHidden = true
     }
-    let groupPrayTitleView = NewPrayTextField("공동체", "").then {
+    let groupView = NewPrayTextField("공동체", "").then {
         $0.isHidden = true
     }
     let saveButton = MoyangButton(.sheepPrimary).then {
@@ -41,6 +40,13 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     }
     let cancelButton = MoyangButton(.sheepGhost).then {
         $0.setTitle("취소", for: .normal)
+    }
+    let loadAskingPopup = MoyangPopupView(style: .twoButton,
+                                          firstButtonStyle: .sheepPrimary,
+                                          secondButtonStyle: .sheepGhost).then {
+        $0.desc = "작성 중인 기도를 불러오시겠어요"
+        $0.firstButton.setTitle("불러오기", for: .normal)
+        $0.secondButton.setTitle("취소", for: .normal)
     }
     
     override func viewDidLoad() {
@@ -73,20 +79,19 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         view.backgroundColor = .nightSky1
         setupToolbar()
         setupGuideLabel()
-        setupGroupPrayTitleView()
+        setupGroupView()
         setupContentTextView()
-        setupNewPrayTitleView()
+        setupTitleTextView()
         setupCancelButton()
         setupSaveButton()
     }
     private func setupToolbar() {
-        let doneButton = UIBarButtonItem(title: "완료",
-                                         style: .done,
-                                         target: self,
-                                         action: #selector(didTapDoneButton))
+        doneButton = UIBarButtonItem(title: "완료",
+                                     style: .done,
+                                     target: self,
+                                     action: #selector(didTapDoneButton))
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([space, doneButton], animated: false)
-        contentTextView.inputAccessoryView = toolBar
     }
     private func setupGuideLabel() {
         view.addSubview(guideLabel)
@@ -95,25 +100,30 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             $0.left.equalTo(view.safeAreaLayoutGuide).inset(24)
         }
     }
-    private func setupGroupPrayTitleView() {
-        view.addSubview(groupPrayTitleView)
-        groupPrayTitleView.snp.makeConstraints {
+    private func setupGroupView() {
+        view.addSubview(groupView)
+        groupView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(112)
             $0.left.right.equalToSuperview().inset(16)
         }
     }
-    private func setupNewPrayTitleView() {
-        view.addSubview(newPrayTitleView)
-        newPrayTitleView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(112)
-            $0.left.right.equalToSuperview().inset(16)
-        }
-    }
-    
     private func setupContentTextView() {
         view.addSubview(contentTextView)
-        contentTextView.inputAccessoryView = toolBar
+        contentTextView.textView.inputAccessoryView = toolBar
+        contentTextView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(112)
+            $0.left.right.equalToSuperview().inset(16)
+        }
     }
+    private func setupTitleTextView() {
+        view.addSubview(titleTextView)
+        titleTextView.snp.makeConstraints {
+            $0.top.equalTo(contentTextView.snp.bottom).offset(-56)
+            $0.left.right.equalToSuperview().inset(16)
+        }
+        titleTextView.textField.becomeFirstResponder()
+    }
+    
     
     private func setupCancelButton() {
         view.addSubview(cancelButton)
@@ -143,11 +153,33 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     // MARK: - Animation
+    var isShowContent = false
+    var isShowGroup = false
     private func showContentView() {
+        if isShowContent { return }
+        contentTextView.isHidden = false
+        titleTextView.snp.updateConstraints {
+            $0.top.equalTo(contentTextView.snp.bottom).offset(36)
+        }
+        isShowContent = true
         
+        UIView.animate(withDuration: 0.3) {
+            self.view.updateConstraints()
+            self.view.layoutIfNeeded()
+        }
     }
-    private func moveDownTitleView() {
+    private func showGroupView() {
+        if isShowGroup { return }
+        groupView.isHidden = false
+        contentTextView.snp.updateConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(201)
+        }
+        isShowGroup = true
         
+        UIView.animate(withDuration: 0.3) {
+            self.view.updateConstraints()
+            self.view.layoutIfNeeded()
+        }
     }
     
     
@@ -166,10 +198,12 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setTitle: newPrayTitleView.textField.rx.text.asDriver(),
-                             startTitleEditing: newPrayTitleView.textField.rx.controlEvent(.editingDidBegin).asDriver(),
-                             endTitleEditing: newPrayTitleView.textField.rx.controlEvent(.editingDidEnd).asDriver(),
-                             setContent: contentTextView.rx.text.asDriver(),
+        let input = VM.Input(setTitle: titleTextView.textField.rx.text.asDriver(),
+                             startTitleEditing: titleTextView.textField.rx.controlEvent(.editingDidBegin).asDriver(),
+                             endTitleEditing: titleTextView.textField.rx.controlEvent(.editingDidEnd).asDriver(),
+                             setContent: contentTextView.textView.rx.text.asDriver(),
+                             startContentEditing: contentTextView.textView.rx.didBeginEditing.asDriver(),
+                             endContentEditing: doneButton.rx.tap.asDriver(),
                              saveNewPray: saveButton.rx.tap.asDriver(),
                              loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false))
         
@@ -179,26 +213,39 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .drive(guideLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output.isContentStep
-            .distinctUntilChanged()
-            .drive(onNext: { [weak self] isConstentStep in
-                if isConstentStep {
-                    self?.moveDownTitleView()
-                    self?.showContentView()
-                }
-            }).disposed(by: disposeBag)
-        
         output.isSaveEnabled
             .drive(saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        output.title.map { $0?.isEmpty ?? true}
-            .drive(newPrayTitleView.label.rx.isHidden)
-            .disposed(by: disposeBag)
+        output.setTitleFinish
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.showContentView()
+            }).disposed(by: disposeBag)
         
-        output.content
+        output.setContentFinish
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.showGroupView()
+            }).disposed(by: disposeBag)
+        
+        output.title.map { $0?.isEmpty ?? true}
             .distinctUntilChanged()
-            .drive(contentTextView.rx.text)
+            .drive(onNext: { [weak self] isEmpty in
+                if isEmpty { return }
+                self?.titleTextView.label.isHidden = isEmpty
+            }).disposed(by: disposeBag)
+        
+        output.content.map { $0?.isEmpty ?? true}
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isEmpty in
+                if isEmpty { return }
+                self?.contentTextView.label.isHidden = isEmpty
+            }).disposed(by: disposeBag)
+        
+        output.content.map { $0?.isEmpty ?? true }.map { !$0 }
+            .distinctUntilChanged()
+            .drive(contentTextView.placeholder.rx.isHidden)
             .disposed(by: disposeBag)
     }
 }
