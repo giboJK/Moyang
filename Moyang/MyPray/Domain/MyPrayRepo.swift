@@ -41,6 +41,8 @@ protocol MyPrayRepo {
     
     func fetchTagAutocomplete(tag: String, completion: ((Result<TagAutocompleteResponse, MoyangError>) -> Void)?)
     
+    func fetchMyGroupList(userID: String, completion: ((Result<MyGroupListResponse, MoyangError>) -> Void)?)
+    
     // 전체 인원 기도 가져올 때
     func fetchPrayAll(groupID: String, userID: String, order: String, page: Int, row: Int,
                       completion: ((Result<[MyPray], MoyangError>) -> Void)?)
@@ -163,5 +165,29 @@ class PraySearchResponse: BaseResponse {
     
     enum CodingKeys: String, CodingKey {
         case prays
+    }
+}
+
+class MyGroupListResponse: BaseResponse {
+    let groups: [MyGroup]
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        groups = try container.decode([MyGroup].self, forKey: .groups)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case groups
+    }
+}
+
+struct MyGroup: Codable {
+    let id: String
+    let name: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
     }
 }

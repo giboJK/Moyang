@@ -57,6 +57,7 @@ class NetConst {
         static let fetchPrayList = "/pray/fetch_pray_list"
         static let fetchPrayAll = "/pray/fetch_pray_all"
         static let fetchPray = "/pray/fetch_pray"
+        static let fetchMyGroupList = "/group/fetch_my_group_list"
         
         static let searchPray = "/pray/search_pray"
         static let searchTag = "/pray/search_tag"

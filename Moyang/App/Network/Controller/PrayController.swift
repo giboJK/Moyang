@@ -18,6 +18,26 @@ class PrayController {
 }
 
 extension PrayController: MyPrayRepo {
+    func fetchMyGroupList(userID: String, completion: ((Result<MyGroupListResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchMyGroupList)
+        let dict: [String: Any] = [
+            "user_id": userID
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: MyGroupListResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
     func fetchPray(prayID: String, completion: ((Result<MyPray, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPray)
         let dict: [String: Any] = [

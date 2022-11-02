@@ -18,6 +18,8 @@ class MyPrayUseCase {
     let autoCompleteList = BehaviorRelay<[String]>(value: [])
     let searchedPrayList = BehaviorRelay<[SearchedPray]>(value: [])
     
+    let myGroupList = BehaviorRelay<[MyGroup]>(value: [])
+    
     let hasAmenDict = BehaviorRelay<[String: Set<String>]>(value: [:])
     let hasPrayDict = BehaviorRelay<[String: Set<String>]>(value: [:])
     // MARK: - Event
@@ -400,6 +402,21 @@ class MyPrayUseCase {
                 Log.e(error)
             }
             self.resetIsNetworking()
+        }
+    }
+    
+    func fetchMyGroupList() {
+        guard let userID = UserData.shared.userInfo?.id else {
+            Log.e("No userID??")
+            return
+        }
+        repo.fetchMyGroupList(userID: userID) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.myGroupList.accept(response.groups)
+            case .failure(let error):
+                Log.e(error)
+            }
         }
     }
     

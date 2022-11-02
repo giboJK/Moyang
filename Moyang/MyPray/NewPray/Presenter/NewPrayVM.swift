@@ -33,6 +33,7 @@ class NewPrayVM: VMType {
         self.useCase = useCase
         bind()
         setupInitialData()
+        fetchMyGroupList()
     }
 
     deinit { Log.i(self) }
@@ -55,6 +56,15 @@ class NewPrayVM: VMType {
         useCase.addNewPrayFailure
             .bind(to: addingNewPrayFailure)
             .disposed(by: disposeBag)
+        
+        // MARK: - Data
+        useCase.myGroupList
+            .subscribe(onNext: { [weak self] list in
+            }).disposed(by: disposeBag)
+    }
+    
+    private func fetchMyGroupList() {
+        useCase.fetchMyGroupList()
     }
     
     private func setupInitialData() {
