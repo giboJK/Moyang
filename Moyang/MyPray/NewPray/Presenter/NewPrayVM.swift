@@ -25,6 +25,7 @@ class NewPrayVM: VMType {
     let title = BehaviorRelay<String?>(value: nil)
     let content = BehaviorRelay<String?>(value: nil)
     let group = BehaviorRelay<String?>(value: nil)
+    let groupList = BehaviorRelay<[String]>(value: [])
 
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
@@ -128,7 +129,7 @@ extension NewPrayVM {
         let guide: Driver<String>
         let isSaveEnabled: Driver<Bool>
         
-        // MRK: - User Events
+        // MARK: - User Events
         let setTitleFinish: Driver<Void>
         let setContentFinish: Driver<Void>
         let setGroupFinish: Driver<Void>
@@ -137,6 +138,7 @@ extension NewPrayVM {
         let title: Driver<String?>
         let content: Driver<String?>
         let group: Driver<String?>
+        let groupList: Driver<[String]>
         
         // MARK: - Network Events
         let addingNewPraySuccess: Driver<Void>
@@ -208,6 +210,7 @@ extension NewPrayVM {
                       title: title.asDriver(),
                       content: content.asDriver(),
                       group: group.asDriver(),
+                      groupList: groupList.asDriver(),
                       
                       addingNewPraySuccess: addingNewPraySuccess.asDriver(),
                       addingNewPrayFailure: addingNewPrayFailure.asDriver()
