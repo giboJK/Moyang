@@ -25,7 +25,7 @@ class NewPrayVM: VMType {
     let title = BehaviorRelay<String?>(value: nil)
     let content = BehaviorRelay<String?>(value: nil)
     let group = BehaviorRelay<String?>(value: nil)
-    let groupList = BehaviorRelay<[String]>(value: [])
+    let groupList = BehaviorRelay<[GroupInfo]>(value: [])
 
     let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
@@ -61,6 +61,20 @@ class NewPrayVM: VMType {
         // MARK: - Data
         useCase.myGroupList
             .subscribe(onNext: { [weak self] list in
+                var groupList = list.map { GroupInfo(data: $0) }
+                groupList.append(GroupInfo(id: "", name: "주님과 기도할게요 :)"))
+                self?.groupList.accept(groupList)
+            }).disposed(by: disposeBag)
+        
+        Observable.combineLatest(title, content, group)
+            .subscribe(onNext: { [weak self] (title, content, group) in
+                var isSaveDisable = title?.isEmpty ?? true
+                isSaveDisable = isSaveDisable || content?.isEmpty ?? true
+                isSaveDisable = isSaveDisable || group?.isEmpty ?? true
+                self?.isSaveEnabled.accept(!isSaveDisable)
+                if !isSaveDisable {
+                    self?.changeCurrentStep(.save)
+                }
             }).disposed(by: disposeBag)
     }
     
@@ -93,6 +107,9 @@ class NewPrayVM: VMType {
     }
     
     private func changeCurrentStep(_ step: NewPrayStep) {
+        if currentStep == step {
+            return
+        }
         currentStep = step
         guide.accept(step.guide)
         switch step {
@@ -102,6 +119,8 @@ class NewPrayVM: VMType {
             setTitleFinish.accept(())
         case .group:
             setContentFinish.accept(())
+        case .save:
+            break
         case .pray:
             setGroupFinish.accept(())
         }
@@ -111,15 +130,13 @@ class NewPrayVM: VMType {
 extension NewPrayVM {
     struct Input {
         let setTitle: Driver<String?>
-        let startTitleEditing: Driver<Void>
         let endTitleEditing: Driver<Void>
         
-        var setContent: Driver<String?>
-        let startContentEditing: Driver<Void>
+        let setContent: Driver<String?>
         let endContentEditing: Driver<Void>
         
+        let setGroup: Driver<String?>
         
-
         var saveNewPray: Driver<Void>
         
         var loadAutoPray: Driver<Bool>
@@ -138,7 +155,7 @@ extension NewPrayVM {
         let title: Driver<String?>
         let content: Driver<String?>
         let group: Driver<String?>
-        let groupList: Driver<[String]>
+        let groupList: Driver<[GroupInfo]>
         
         // MARK: - Network Events
         let addingNewPraySuccess: Driver<Void>
@@ -154,11 +171,6 @@ extension NewPrayVM {
         input.setTitle.skip(1)
             .drive(onNext: { [weak self] _ in
                 self?.autoSave()
-            }).disposed(by: disposeBag)
-        
-        input.startTitleEditing
-            .drive(onNext: { [weak self] _ in
-                self?.changeCurrentStep(.title)
             }).disposed(by: disposeBag)
 
         input.endTitleEditing
@@ -176,17 +188,14 @@ extension NewPrayVM {
                 self?.autoSave()
             }).disposed(by: disposeBag)
         
-        input.startContentEditing
-            .drive(onNext: { [weak self] _ in
-                self?.changeCurrentStep(.content)
-            }).disposed(by: disposeBag)
-        
         input.endContentEditing
             .drive(onNext: { [weak self] _ in
                 self?.changeCurrentStep(.group)
             }).disposed(by: disposeBag)
         
-        
+        input.setGroup
+            .drive(group)
+            .disposed(by: disposeBag)
         
         input.saveNewPray
             .drive(onNext: { [weak self] _ in
@@ -217,10 +226,26 @@ extension NewPrayVM {
         )
     }
     
+    struct GroupInfo {
+        let id: String
+        let name: String
+        
+        init(data: MyGroup) {
+            id = data.id
+            name = data.name
+        }
+        
+        init(id: String, name: String) {
+            self.id = id
+            self.name = name
+        }
+    }
+    
     private enum NewPrayStep {
         case title
         case content
         case group
+        case save
         case pray
         
         var guide: String {
@@ -230,9 +255,11 @@ extension NewPrayVM {
             case .content:
                 return "내용을 적어주세요"
             case .group:
-                return "기도를 공유할래요?"
+                return "공유할래요?"
+            case .save:
+                return "기도를 저장할까요?"
             case .pray:
-                return "지금 바로 기도할래요?"
+                return "지금 바로 기도 할 수 있어요"
             }
         }
     }

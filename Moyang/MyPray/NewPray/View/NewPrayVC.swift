@@ -11,19 +11,24 @@ import RxSwift
 import SnapKit
 import Then
 
-class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
+class NewPrayVC: UIViewController, VCType {
     typealias VM = NewPrayVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
     // MARK: - UI
-    let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
+    let contentToolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
         $0.sizeToFit()
         $0.clipsToBounds = true
-        $0.barTintColor = .sheep3
+        $0.barTintColor = .sheep2
     }
-    
-    var doneButton = UIBarButtonItem()
+    let groupToolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
+        $0.sizeToFit()
+        $0.clipsToBounds = true
+        $0.barTintColor = .sheep2
+    }
+    var contentDoneButton = UIBarButtonItem()
+    var groupDoneButton = UIBarButtonItem()
     let guideLabel = MoyangLabel().then {
         $0.textColor = .sheep1
         $0.font = .t04
@@ -32,9 +37,10 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     let contentTextView = NewPrayTextView("내용", "내용").then {
         $0.isHidden = true
     }
-    let groupView = NewPrayTextField("공동체", "").then {
+    let groupTextView = NewPrayTextField("공동체", "").then {
         $0.isHidden = true
     }
+    let groupPicker = UIPickerView()
     let saveButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("저장하기", for: .normal)
     }
@@ -82,19 +88,26 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
         view.backgroundColor = .nightSky1
         setupToolbar()
         setupGuideLabel()
-        setupGroupView()
+        setupGroupTextView()
         setupContentTextView()
         setupTitleTextView()
         setupCancelButton()
         setupSaveButton()
     }
     private func setupToolbar() {
-        doneButton = UIBarButtonItem(title: "완료",
+        contentDoneButton = UIBarButtonItem(title: "완료",
                                      style: .done,
                                      target: self,
                                      action: nil)
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([space, doneButton], animated: false)
+        let contentSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        contentToolBar.setItems([contentSpace, contentDoneButton], animated: false)
+        
+        groupDoneButton = UIBarButtonItem(title: "완료",
+                                          style: .done,
+                                          target: self,
+                                          action: nil)
+        let groupSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        groupToolBar.setItems([groupSpace, groupDoneButton], animated: false)
     }
     private func setupGuideLabel() {
         view.addSubview(guideLabel)
@@ -103,16 +116,21 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             $0.left.equalTo(view.safeAreaLayoutGuide).inset(24)
         }
     }
-    private func setupGroupView() {
-        view.addSubview(groupView)
-        groupView.snp.makeConstraints {
+    private func setupGroupTextView() {
+        view.addSubview(groupTextView)
+        groupTextView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(112)
             $0.left.right.equalToSuperview().inset(16)
         }
+        
+        groupPicker.dataSource = self
+        groupPicker.delegate = self
+        groupTextView.textField.inputAccessoryView = groupToolBar
+        groupTextView.textField.inputView = groupPicker
     }
     private func setupContentTextView() {
         view.addSubview(contentTextView)
-        contentTextView.textView.inputAccessoryView = toolBar
+        contentTextView.textView.inputAccessoryView = contentToolBar
         contentTextView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(112)
             $0.left.right.equalToSuperview().inset(16)
@@ -168,12 +186,12 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     }
     private func showGroupView() {
         if isShowGroup { return }
-        groupView.isHidden = false
+        groupTextView.isHidden = false
         contentTextView.snp.updateConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(201)
         }
         isShowGroup = true
-        groupView.textField.becomeFirstResponder()
+        groupTextView.textField.becomeFirstResponder()
         
         UIView.animate(withDuration: 0.3) {
             self.view.updateConstraints()
@@ -189,12 +207,17 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     }
     
     private func bindViews() {
-        doneButton.rx.tap
+        contentDoneButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                if self.contentTextView.textView.isFirstResponder {
-                    self.contentTextView.textView.resignFirstResponder()
-                }
+                self.contentTextView.textView.resignFirstResponder()
+            }).disposed(by: disposeBag)
+        
+        groupDoneButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.groupTextView.textField.resignFirstResponder()
+                self.groupTextView.textField.text = self.groupList[self.groupPicker.selectedRow(inComponent: 0)]
             }).disposed(by: disposeBag)
         
         cancelButton.rx.tap
@@ -206,11 +229,10 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(setTitle: titleTextView.textField.rx.text.asDriver(),
-                             startTitleEditing: titleTextView.textField.rx.controlEvent(.editingDidBegin).asDriver(),
                              endTitleEditing: titleTextView.textField.rx.controlEvent(.editingDidEnd).asDriver(),
                              setContent: contentTextView.textView.rx.text.asDriver(),
-                             startContentEditing: contentTextView.textView.rx.didBeginEditing.asDriver(),
-                             endContentEditing: doneButton.rx.tap.asDriver(),
+                             endContentEditing: contentDoneButton.rx.tap.asDriver(),
+                             setGroup: groupTextView.textField.rx.text.asDriver(),
                              saveNewPray: saveButton.rx.tap.asDriver(),
                              loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false))
         
@@ -259,7 +281,31 @@ class NewPrayVC: UIViewController, VCType, UITextFieldDelegate {
             .distinctUntilChanged()
             .drive(onNext: { [weak self] isEmpty in
                 if isEmpty { return }
-                self?.groupView.label.isHidden = isEmpty
+                self?.groupTextView.label.isHidden = isEmpty
             }).disposed(by: disposeBag)
+        
+        output.groupList.map { list in list.map { $0.name }}
+            .drive(onNext: { [weak self] list in
+                self?.groupList = list
+                self?.groupPicker.reloadAllComponents()
+            }).disposed(by: disposeBag)
+    }
+}
+
+extension NewPrayVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return groupList.count
+    }
+    
+    func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return groupList[row]
+    }
+
+    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        groupTextView.textField.text = groupList[row]
     }
 }
