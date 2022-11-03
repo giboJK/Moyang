@@ -13,11 +13,10 @@ class NewPrayVM: VMType {
     let useCase: MyPrayUseCase
     private var currentStep = NewPrayStep.title
     
-    let isNetworking = BehaviorRelay<Bool>(value: false)
-    
     let guide = BehaviorRelay<String>(value: "")
     let isSaveEnabled = BehaviorRelay<Bool>(value: false)
     
+    let askingAuto = BehaviorRelay<Void>(value: ())
     let setTitleFinish = BehaviorRelay<Void>(value: ())
     let setContentFinish = BehaviorRelay<Void>(value: ())
     let setGroupFinish = BehaviorRelay<Void>(value: ())
@@ -26,8 +25,8 @@ class NewPrayVM: VMType {
     let content = BehaviorRelay<String?>(value: nil)
     let group = BehaviorRelay<String?>(value: nil)
     let groupList = BehaviorRelay<[GroupInfo]>(value: [])
-
-    let addingNewPraySuccess = BehaviorRelay<Void>(value: ())
+    
+    let isNetworking = BehaviorRelay<Bool>(value: false)
     let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
     
     init(useCase: MyPrayUseCase) {
@@ -45,13 +44,10 @@ class NewPrayVM: VMType {
             .disposed(by: disposeBag)
         
         useCase.addNewPraySuccess
-            .bind(to: addingNewPraySuccess)
-            .disposed(by: disposeBag)
-        
-        useCase.addNewPraySuccess
             .skip(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
                 self?.clearAutoSave()
+                self?.changeCurrentStep(.pray)
             }).disposed(by: disposeBag)
         
         useCase.addNewPrayFailure
@@ -61,9 +57,7 @@ class NewPrayVM: VMType {
         // MARK: - Data
         useCase.myGroupList
             .subscribe(onNext: { [weak self] list in
-                var groupList = list.map { GroupInfo(data: $0) }
-                groupList.append(GroupInfo(id: "", name: "주님과 기도할게요 :)"))
-                self?.groupList.accept(groupList)
+                self?.groupList.accept(list.map { GroupInfo(data: $0) })
             }).disposed(by: disposeBag)
         
         Observable.combineLatest(title, content, group)
@@ -87,15 +81,19 @@ class NewPrayVM: VMType {
     }
     
     private func autoSave() {
-        UserData.shared.autoSavedPrayContent = content.value
+        if let title = title.value {
+            UserData.shared.autoSavedPrayTitle = title.isEmpty ? nil : title
+        }
+        if let content = content.value {
+            UserData.shared.autoSavedPrayContent = content.isEmpty ? nil : content
+        }
     }
     
     private func loadAutoSave() {
-        if let title = UserData.shared.autoSavedPrayTitle {
-            self.title.accept(title)
-        }
-        if let content = UserData.shared.autoSavedPrayContent {
-            self.content.accept(content)
+        Log.d(UserData.shared.autoSavedPrayTitle)
+        Log.d(UserData.shared.autoSavedPrayContent)
+        if UserData.shared.autoSavedPrayTitle != nil || UserData.shared.autoSavedPrayContent != nil {
+            askingAuto.accept(())
         }
     }
     
@@ -103,7 +101,37 @@ class NewPrayVM: VMType {
         UserData.shared.clearAutoSave()
     }
     
+    private func restoreAutoSave() {
+        if let content = UserData.shared.autoSavedPrayContent {
+            self.content.accept(content)
+            if let title = UserData.shared.autoSavedPrayTitle {
+                self.title.accept(title)
+                changeCurrentStep(.content)
+                changeCurrentStep(.group)
+            }
+        } else {
+            if let title = UserData.shared.autoSavedPrayTitle {
+                self.title.accept(title)
+                changeCurrentStep(.content)
+            }
+        }
+    }
+    
     private func addNewPray() {
+        guard let title = title.value, let content = content.value else {
+            Log.e("No data")
+            addingNewPrayFailure.accept(())
+            return
+        }
+        useCase.addPray(title: title, content: content)
+        
+        if let groupName = group.value {
+            sharePray()
+        }
+    }
+    
+    private func sharePray() {
+        
     }
     
     private func changeCurrentStep(_ step: NewPrayStep) {
@@ -122,7 +150,7 @@ class NewPrayVM: VMType {
         case .save:
             break
         case .pray:
-            setGroupFinish.accept(())
+            break
         }
     }
 }
@@ -136,10 +164,12 @@ extension NewPrayVM {
         let endContentEditing: Driver<Void>
         
         let setGroup: Driver<String?>
+        let clearGroup: Driver<Void>
         
-        var saveNewPray: Driver<Void>
+        let saveNewPray: Driver<Void>
         
-        var loadAutoPray: Driver<Bool>
+        let loadAutoPray: Driver<Bool>
+        let restoreAuto: Driver<Void>
     }
 
     struct Output {
@@ -147,6 +177,7 @@ extension NewPrayVM {
         let isSaveEnabled: Driver<Bool>
         
         // MARK: - User Events
+        let askingAuto: Driver<Void>
         let setTitleFinish: Driver<Void>
         let setContentFinish: Driver<Void>
         let setGroupFinish: Driver<Void>
@@ -158,7 +189,7 @@ extension NewPrayVM {
         let groupList: Driver<[GroupInfo]>
         
         // MARK: - Network Events
-        let addingNewPraySuccess: Driver<Void>
+        let isNetworking: Driver<Bool>
         let addingNewPrayFailure: Driver<Void>
     }
 
@@ -197,6 +228,10 @@ extension NewPrayVM {
             .drive(group)
             .disposed(by: disposeBag)
         
+        input.clearGroup.map { nil }
+            .drive(group)
+            .disposed(by: disposeBag)
+        
         input.saveNewPray
             .drive(onNext: { [weak self] _ in
                 self?.addNewPray()
@@ -209,9 +244,15 @@ extension NewPrayVM {
                 }
             }).disposed(by: disposeBag)
         
+        input.restoreAuto
+            .drive(onNext: { [weak self] _ in
+                self?.restoreAutoSave()
+            }).disposed(by: disposeBag)
+        
         return Output(guide: guide.asDriver(),
                       isSaveEnabled: isSaveEnabled.asDriver(),
                       
+                      askingAuto: askingAuto.asDriver(),
                       setTitleFinish: setTitleFinish.asDriver(),
                       setContentFinish: setContentFinish.asDriver(),
                       setGroupFinish: setGroupFinish.asDriver(),
@@ -221,7 +262,7 @@ extension NewPrayVM {
                       group: group.asDriver(),
                       groupList: groupList.asDriver(),
                       
-                      addingNewPraySuccess: addingNewPraySuccess.asDriver(),
+                      isNetworking: isNetworking.asDriver(),
                       addingNewPrayFailure: addingNewPrayFailure.asDriver()
         )
     }

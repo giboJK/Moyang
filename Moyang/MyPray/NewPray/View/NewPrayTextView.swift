@@ -13,14 +13,14 @@ import Then
 
 class NewPrayTextView: UIView {
     let label = MoyangLabel().then {
-        $0.textColor = .sheep3
+        $0.textColor = .sheep2
         $0.font = .c02
         $0.isHidden = true
     }
     let textView = MoyangTextView()
     let placeholder = MoyangLabel().then {
         $0.font = .b02
-        $0.textColor = .sheep3
+        $0.textColor = .nightSky5
     }
     let underLine = UIView().then {
         $0.backgroundColor = .nightSky3

@@ -12,6 +12,7 @@ extension CGColor {
     @nonobjc class var nightSky2: CGColor { Asset.Colors.Secondary.nightSky2.color.cgColor }
     @nonobjc class var nightSky3: CGColor { Asset.Colors.Secondary.nightSky3.color.cgColor }
     @nonobjc class var nightSky4: CGColor { Asset.Colors.Secondary.nightSky4.color.cgColor }
+    @nonobjc class var nightSky5: CGColor { Asset.Colors.Secondary.nightSky5.color.cgColor }
     
     @nonobjc class var sheep1: CGColor { Asset.Colors.Primary.sheep1.color.cgColor }
     @nonobjc class var sheep2: CGColor { Asset.Colors.Secondary.sheep2.color.cgColor }

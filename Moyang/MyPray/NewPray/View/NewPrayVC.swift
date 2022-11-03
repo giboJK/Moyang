@@ -29,6 +29,7 @@ class NewPrayVC: UIViewController, VCType {
     }
     var contentDoneButton = UIBarButtonItem()
     var groupDoneButton = UIBarButtonItem()
+    var groupCancelButton = UIBarButtonItem()
     let guideLabel = MoyangLabel().then {
         $0.textColor = .sheep1
         $0.font = .t04
@@ -37,8 +38,12 @@ class NewPrayVC: UIViewController, VCType {
     let contentTextView = NewPrayTextView("내용", "내용").then {
         $0.isHidden = true
     }
-    let groupTextView = NewPrayTextField("공동체", "").then {
+    let groupTextView = NewPrayTextField("공동체", "", "성령님과 기도할게요 :)").then {
         $0.isHidden = true
+    }
+    let groupClearButton = MoyangButton(.none).then {
+        $0.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        $0.tintColor = .sheep2
     }
     let groupPicker = UIPickerView()
     let saveButton = MoyangButton(.sheepPrimary).then {
@@ -48,11 +53,14 @@ class NewPrayVC: UIViewController, VCType {
         $0.setTitle("취소", for: .normal)
     }
     let loadAskingPopup = MoyangPopupView(style: .twoButton,
-                                          firstButtonStyle: .sheepPrimary,
-                                          secondButtonStyle: .sheepGhost).then {
+                                          firstButtonStyle: .nightPrimary,
+                                          secondButtonStyle: .nightGhost).then {
         $0.desc = "작성 중인 기도를 불러오시겠어요"
         $0.firstButton.setTitle("불러오기", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
+    }
+    let indicator = UIActivityIndicatorView(style: .large).then {
+        $0.hidesWhenStopped = true
     }
     
     // MARKL - Variables
@@ -93,21 +101,17 @@ class NewPrayVC: UIViewController, VCType {
         setupTitleTextView()
         setupCancelButton()
         setupSaveButton()
+        setupIndicator()
     }
     private func setupToolbar() {
-        contentDoneButton = UIBarButtonItem(title: "완료",
-                                     style: .done,
-                                     target: self,
-                                     action: nil)
+        contentDoneButton = UIBarButtonItem(title: "완료", style: .done, target: self, action: nil)
         let contentSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         contentToolBar.setItems([contentSpace, contentDoneButton], animated: false)
         
-        groupDoneButton = UIBarButtonItem(title: "완료",
-                                          style: .done,
-                                          target: self,
-                                          action: nil)
+        groupDoneButton = UIBarButtonItem(title: "완료", style: .done, target: self, action: nil)
+        groupCancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: nil)
         let groupSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        groupToolBar.setItems([groupSpace, groupDoneButton], animated: false)
+        groupToolBar.setItems([groupCancelButton, groupSpace, groupDoneButton], animated: false)
     }
     private func setupGuideLabel() {
         view.addSubview(guideLabel)
@@ -122,6 +126,7 @@ class NewPrayVC: UIViewController, VCType {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(112)
             $0.left.right.equalToSuperview().inset(16)
         }
+        setupGroupClearButton()
         
         groupPicker.dataSource = self
         groupPicker.delegate = self
@@ -142,7 +147,12 @@ class NewPrayVC: UIViewController, VCType {
             $0.top.equalTo(contentTextView.snp.bottom).offset(-56)
             $0.left.right.equalToSuperview().inset(16)
         }
-        titleTextView.textField.becomeFirstResponder()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+            if !self.loadAskingPopup.isHidden {
+                return
+            }
+            self.titleTextView.textField.becomeFirstResponder()
+        }
     }
     
     
@@ -160,6 +170,22 @@ class NewPrayVC: UIViewController, VCType {
             $0.height.equalTo(48)
             $0.bottom.equalTo(cancelButton.snp.top).offset(-16)
             $0.left.right.equalToSuperview().inset(24)
+        }
+    }
+    private func setupGroupClearButton() {
+        groupTextView.addSubview(groupClearButton)
+        groupClearButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview().inset(8)
+            $0.size.equalTo(28)
+        }
+    }
+    
+    private func setupIndicator() {
+        view.addSubview(indicator)
+        indicator.snp.makeConstraints {
+            $0.size.equalTo(60)
+            $0.center.equalToSuperview()
         }
     }
     
@@ -184,6 +210,7 @@ class NewPrayVC: UIViewController, VCType {
             self.view.layoutIfNeeded()
         }
     }
+    
     private func showGroupView() {
         if isShowGroup { return }
         groupTextView.isHidden = false
@@ -207,6 +234,11 @@ class NewPrayVC: UIViewController, VCType {
     }
     
     private func bindViews() {
+        view.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+            }).disposed(by: disposeBag)
+        
         contentDoneButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -218,45 +250,65 @@ class NewPrayVC: UIViewController, VCType {
                 guard let self = self else { return }
                 self.groupTextView.textField.resignFirstResponder()
                 self.groupTextView.textField.text = self.groupList[self.groupPicker.selectedRow(inComponent: 0)]
+                self.groupTextView.textField.sendActions(for: .valueChanged)
             }).disposed(by: disposeBag)
+        
+        groupCancelButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.groupTextView.textField.resignFirstResponder()
+            }).disposed(by: disposeBag)
+        
+        groupClearButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.groupTextView.textField.text = nil
+            }).disposed(by: disposeBag)
+        
+        groupTextView.textField.rx.text.map { $0?.isEmpty ?? true }
+            .bind(to: groupClearButton.rx.isHidden)
+            .disposed(by: disposeBag)
         
         cancelButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
+        
+        bindPopup()
     }
     
+    
+    func bindPopup() {
+        loadAskingPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        loadAskingPopup.secondButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+                self?.titleTextView.textField.becomeFirstResponder()
+            }).disposed(by: disposeBag)
+    }
+    
+    // MARK: - Bind VM
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input(setTitle: titleTextView.textField.rx.text.asDriver(),
-                             endTitleEditing: titleTextView.textField.rx.controlEvent(.editingDidEnd).asDriver(),
+                             endTitleEditing: titleTextView.textField.rx.controlEvent(.editingDidEndOnExit).asDriver(),
                              setContent: contentTextView.textView.rx.text.asDriver(),
                              endContentEditing: contentDoneButton.rx.tap.asDriver(),
                              setGroup: groupTextView.textField.rx.text.asDriver(),
+                             clearGroup: groupClearButton.rx.tap.asDriver(),
                              saveNewPray: saveButton.rx.tap.asDriver(),
-                             loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false))
+                             loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false),
+                             restoreAuto: loadAskingPopup.firstButton.rx.tap.asDriver())
         
         let output = vm.transform(input: input)
         
+        // UI
         output.guide
             .drive(guideLabel.rx.text)
             .disposed(by: disposeBag)
-        
-        output.isSaveEnabled
-            .drive(saveButton.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
-        output.setTitleFinish
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.showContentView()
-            }).disposed(by: disposeBag)
-        
-        output.setContentFinish
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.showGroupView()
-            }).disposed(by: disposeBag)
         
         output.title.map { $0?.isEmpty ?? true}
             .distinctUntilChanged()
@@ -284,11 +336,60 @@ class NewPrayVC: UIViewController, VCType {
                 self?.groupTextView.label.isHidden = isEmpty
             }).disposed(by: disposeBag)
         
+        // MARK: State
+        output.isSaveEnabled
+            .drive(saveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.isNetworking
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isNetworking in
+                if isNetworking {
+                    self?.indicator.startAnimating()
+                } else {
+                    self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
+        
+        // MARK: - Event
+        output.askingAuto.skip(1)
+            .delay(.microseconds(350))
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.loadAskingPopup)
+            }).disposed(by: disposeBag)
+        
+        output.setTitleFinish
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.showContentView()
+            }).disposed(by: disposeBag)
+        
+        output.setContentFinish
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.showGroupView()
+            }).disposed(by: disposeBag)
+        
+        
+        // MARK: - Data
         output.groupList.map { list in list.map { $0.name }}
             .drive(onNext: { [weak self] list in
                 self?.groupList = list
                 self?.groupPicker.reloadAllComponents()
             }).disposed(by: disposeBag)
+        
+        output.title
+            .skip(1)
+            .distinctUntilChanged()
+            .drive(titleTextView.textField.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.content
+            .skip(1)
+            .distinctUntilChanged()
+            .drive(contentTextView.textView.rx.text)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -303,9 +404,5 @@ extension NewPrayVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return groupList[row]
-    }
-
-    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        groupTextView.textField.text = groupList[row]
     }
 }

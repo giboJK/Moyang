@@ -13,7 +13,7 @@ import Then
 
 class NewPrayTextField: UIView {
     let label = MoyangLabel().then {
-        $0.textColor = .sheep3
+        $0.textColor = .sheep2
         $0.font = .c02
         $0.isHidden = true
     }
@@ -26,11 +26,15 @@ class NewPrayTextField: UIView {
         $0.font = .b04
     }
     
-    init(_ title: String, _ example: String) {
+    init(_ title: String, _ example: String, _ placeholder: String? = nil) {
         super.init(frame: .zero)
         backgroundColor = .clear
         label.text = title
-        textField.placeholder = title
+        if let placeholder = placeholder {
+            textField.placeholder = placeholder
+        } else {
+            textField.placeholder = title
+        }
         exampleLabel.text = example
         setupUI()
     }
