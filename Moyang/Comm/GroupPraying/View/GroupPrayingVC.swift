@@ -134,7 +134,6 @@ class GroupPrayingVC: UIViewController, VCType {
     
     deinit {
         Log.i(self)
-        vm?.finishPray()
         closePopup()
     }
     
