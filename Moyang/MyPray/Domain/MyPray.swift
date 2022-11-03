@@ -9,32 +9,16 @@
 struct MyPray: Codable {
     let prayID: String
     let userID: String
-    let userName: String
-    let groupID: String
-    var pray: String
-    var tags: [String]
-    var changes: [PrayChange]
-    var reactions: [PrayReaction]
-    var replys: [PrayReply]
-    var isSecret: Bool
-    var isAnswered: Bool
-    var answers: [PrayAnswer]
+    var title: String
+    var content: String
     var latestDate: String
     let createDate: String
     
     enum CodingKeys: String, CodingKey {
         case prayID = "pray_id"
         case userID = "user_id"
-        case userName = "user_name"
-        case groupID = "group_id"
-        case pray = "content"
-        case tags
-        case changes
-        case reactions
-        case replys = "replys"
-        case isSecret = "is_secret"
-        case isAnswered = "is_answered"
-        case answers = "answers"
+        case title = "title"
+        case content = "content"
         case latestDate = "latest_date"
         case createDate = "create_date"
     }

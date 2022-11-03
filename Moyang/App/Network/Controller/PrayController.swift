@@ -18,6 +18,29 @@ class PrayController {
 }
 
 extension PrayController: MyPrayRepo {
+    func addPray(userID: String, title: String, content: String, completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.addPray)
+        let dict: [String: Any] = [
+            "user_id": userID,
+            "title": title,
+            "content": content
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: AddPrayResponse.self,
+                                  token: nil,
+                                  encoding: JSONEncoding.default) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
     func fetchMyGroupList(userID: String, completion: ((Result<MyGroupListResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchMyGroupList)
         let dict: [String: Any] = [
@@ -153,33 +176,6 @@ extension PrayController: MyPrayRepo {
         networkService.requestAPI(request: request,
                                   type: BaseResponse.self,
                                   token: nil) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    
-    func addPray(userID: String, groupID: String, content: String, tags: [String], isSecret: Bool,
-                 completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.addPray)
-        let dict: [String: Any] = [
-            "group_id": groupID,
-            "user_id": userID,
-            "content": content,
-            "tags": tags,
-            "is_secret": isSecret
-        ]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: AddPrayResponse.self,
-                                  token: nil,
-                                  encoding: JSONEncoding.default) { result in
             switch result {
             case .success(let response):
                 completion?(.success(response))

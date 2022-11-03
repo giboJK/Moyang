@@ -353,15 +353,7 @@ class GroupPrayingVC: UIViewController, VCType {
         output.prayList
             .drive(prayCollectionView.rx
                 .items(cellIdentifier: "cell", cellType: PrayingCVCell.self)) { (_, item, cell) in
-                    cell.dateLabel.text = item.latestDate.isoToDateString()
-                    cell.prayTextView.text = item.pray
-                    cell.tags = item.tags
-                    cell.tagCollectionView.reloadData()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                        cell.updateTagCollectionViewHeight()
-                    }
-                    cell.noTagLabel.isHidden = !item.tags.isEmpty
-                    cell.layer.backgroundColor = UIColor.clear.cgColor
+                    //
                 }.disposed(by: disposeBag)
         
         output.isMe

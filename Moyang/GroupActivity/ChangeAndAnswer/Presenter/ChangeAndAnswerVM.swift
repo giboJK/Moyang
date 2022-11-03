@@ -39,20 +39,6 @@ class ChangeAndAnswerVM: VMType {
             }).disposed(by: disposeBag)
     }
     private func setData(data: MyPray) {
-        self.groupIndividualPray = data
-        var items = [TableItem]()
-        items.append(TableItem(type: .pray,
-                               date: data.createDate,
-                               content: data.pray))
-        for change in data.changes {
-            items.append(TableItem(type: .change, date: change.date, content: change.content))
-        }
-        for answer in data.answers {
-            items.append(TableItem(type: .answer, date: answer.date, content: answer.answer))
-        }
-        items.sort { $0.date < $1.date }
-        
-        itemList.accept(items)
     }
 }
 

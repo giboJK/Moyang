@@ -102,30 +102,16 @@ extension MyPrayMainVM {
     struct PrayItem {
         let prayID: String
         let userID: String
-        let userName: String
-        var groupID: String
-        var pray: String
-        var tags: [String]
-        var changes: [PrayChange]
-        var reactions: [PrayReaction]
-        var replys: [PrayReply]
-        var isAnswered: Bool
-        var answers: [PrayAnswer]
+        let title: String
+        let content: String
         var latestDate: String
         let createDate: String
         
         init(data: MyPray) {
             self.prayID = data.prayID
             self.userID = data.userID
-            self.userName = data.userName
-            self.groupID = data.groupID
-            self.pray = data.pray
-            self.tags = data.tags
-            self.changes = data.changes
-            self.reactions = data.reactions
-            self.replys = data.replys
-            self.isAnswered = data.isAnswered
-            self.answers = data.answers
+            self.title = data.title
+            self.content = data.content
             self.latestDate = data.latestDate
             self.createDate = data.createDate
         }

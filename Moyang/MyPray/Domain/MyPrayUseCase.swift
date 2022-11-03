@@ -71,15 +71,12 @@ class MyPrayUseCase {
     }
     
     // MARK: - Function
-    func addPray(pray: String, tags: [String], isSecret: Bool) {
-        guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
+    func addPray(title: String, content: String) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() { return }
         repo.addPray(userID: myID,
-                     groupID: groupID,
-                     content: pray,
-                     tags: tags,
-                     isSecret: isSecret) { [weak self] result in
+                     title: title,
+                     content: content) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -146,7 +143,6 @@ class MyPrayUseCase {
     }
     
     func deletePray(prayID: String) {
-        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() { return }
         repo.deletePray(prayID: prayID) { [weak self] result in
             guard let self = self else { return }
@@ -168,173 +164,20 @@ class MyPrayUseCase {
         }
     }
     func updateReply(replyID: String, reply: String, userID: String, prayID: String) {
-        repo.updateReply(replyID: replyID, reply: reply) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                if response.code == 0 {
-                    self.updateReplySuccess.accept(())
-                    var dict = self.memberPrayList.value
-                    if var curList = dict[userID] {
-                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
-                            if let replyIndex = curList[index].replys.firstIndex(where: { $0.id == replyID}) {
-                                curList[index].replys[replyIndex].reply = reply
-                            }
-                        }
-                        dict.updateValue(curList, forKey: userID)
-                        self.memberPrayList.accept(dict)
-                    }
-                } else {
-                    self.updateReplyFailure.accept(())
-                }
-            case .failure(let error):
-                Log.e(error)
-                self.updateReplyFailure.accept(())
-            }
-        }
     }
     func deleteReply(replyID: String, userID: String, prayID: String) {
-        if checkAndSetIsNetworking() { return }
-        repo.deleteReply(replyID: replyID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                if response.code == 0 {
-                    self.deleteReplySuccess.accept(())
-                    var dict = self.memberPrayList.value
-                    if var curList = dict[userID] {
-                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
-                            curList[index].replys.removeAll { $0.id == replyID }
-                        }
-                        dict.updateValue(curList, forKey: userID)
-                        self.memberPrayList.accept(dict)
-                    }
-                } else {
-                    self.deleteReplyFailure.accept(())
-                }
-            case .failure(let error):
-                Log.e(error)
-                self.deleteReplyFailure.accept(())
-            }
-            self.resetIsNetworking()
-        }
     }
     
     func addReaction(userID: String, prayID: String, type: Int) {
-        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() { return }
-        repo.addReaction(userID: myID, prayID: prayID, type: type) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                if response.code == 0 {
-                    self.isSuccess.accept(())
-                    var dict = self.memberPrayList.value
-                    if var curList = dict[userID] {
-                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
-                            curList[index].reactions.removeAll { $0.userID == myID }
-                            curList[index].reactions.append(response.data)
-                            dict.updateValue(curList, forKey: userID)
-                            self.memberPrayList.accept(dict)
-                        }
-                    }
-                } else {
-                    Log.e("")
-                    self.isFailure.accept(())
-                }
-            case .failure(let error):
-                Log.e(error)
-                self.isFailure.accept(())
-            }
-            self.resetIsNetworking()
-        }
     }
     
     func addAnswer(prayID: String, answer: String) {
-        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() { return }
-        repo.addAnswer(userID: myID, prayID: prayID, answer: answer) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                if response.code == 0 {
-                    self.addAnswerSuccess.accept(())
-                    var dict = self.memberPrayList.value
-                    if var curList = dict[myID] {
-                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
-                            curList[index].answers.append(response.data)
-                            dict.updateValue(curList, forKey: myID)
-                            self.memberPrayList.accept(dict)
-                        }
-                    }
-                } else {
-                    Log.e("")
-                    self.addAnswerFailure.accept(())
-                }
-            case .failure(let error):
-                Log.e(error)
-                self.addAnswerFailure.accept(())
-            }
-            self.resetIsNetworking()
-        }
     }
     
     func addReply(userID: String, prayID: String, reply: String) {
-        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() { return }
-        repo.addReply(userID: myID, prayID: prayID, reply: reply) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                if response.code == 0 {
-                    self.addReplySuccess.accept(())
-                    var dict = self.memberPrayList.value
-                    if var curList = dict[userID] {
-                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
-                            curList[index].replys.append(response.data)
-                            dict.updateValue(curList, forKey: userID)
-                            self.memberPrayList.accept(dict)
-                        }
-                    }
-                } else {
-                    Log.e("")
-                    self.addReplyFailure.accept(())
-                }
-            case .failure(let error):
-                Log.e(error)
-                self.addReplyFailure.accept(())
-            }
-            self.resetIsNetworking()
-        }
     }
     
     func addChange(prayID: String, content: String) {
-        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() { return }
-        repo.addChange(prayID: prayID, content: content) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                if response.code == 0 {
-                    self.addChangeSuccess.accept(())
-                    var dict = self.memberPrayList.value
-                    if var curList = dict[myID] {
-                        if let index = curList.firstIndex(where: { $0.prayID == prayID }) {
-                            curList[index].changes.append(response.data)
-                            dict.updateValue(curList, forKey: myID)
-                            self.memberPrayList.accept(dict)
-                        }
-                    }
-                } else {
-                    Log.e("")
-                    self.addChangeFailure.accept(())
-                }
-            case .failure(let error):
-                Log.e(error)
-                self.addChangeFailure.accept(())
-            }
-            self.resetIsNetworking()
-        }
     }
     
     func addAmen(groupID: String, time: Int) {
@@ -506,15 +349,5 @@ class MyPrayUseCase {
     }
     
     private func updatePray(userID: String, prayID: String, pray: String, tags: [String], isSecret: Bool) {
-        if var list = memberPrayList.value[userID] {
-            if let index = list.firstIndex(where: { $0.prayID == prayID }) {
-                list[index].pray = pray
-                list[index].tags = tags
-                list[index].isSecret = isSecret
-                var dict = memberPrayList.value
-                dict.updateValue(list, forKey: userID)
-                memberPrayList.accept(dict)
-            }
-        }
     }
 }

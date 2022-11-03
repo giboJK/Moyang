@@ -101,13 +101,13 @@ class MyPrayDetailVM: VMType {
     private func setData(data: MyPray) {
         self.groupIndividualPray = data
         date.accept(data.latestDate.isoToDateString() ?? "")
-        pray.accept(data.pray)
-        tagList.accept(data.tags)
-        isSecret.accept(data.isSecret)
-        reactions.accept(data.reactions)
-        changes.accept(data.changes)
-        answers.accept(data.answers)
-        replys.accept(data.replys)
+//        pray.accept(data.pray)
+//        tagList.accept(data.tags)
+//        isSecret.accept(data.isSecret)
+//        reactions.accept(data.reactions)
+//        changes.accept(data.changes)
+//        answers.accept(data.answers)
+//        replys.accept(data.replys)
         
         memberName.accept("내 기도")
     }
@@ -258,11 +258,11 @@ extension MyPrayDetailVM {
             }).disposed(by: disposeBag)
         input.showReplys
             .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.prayReplyDetailVM.accept(PrayReplyDetailVM(useCase: self.useCase,
-                                                                userID: self.groupIndividualPray.userID,
-                                                                prayID: self.groupIndividualPray.prayID,
-                                                                replys: self.groupIndividualPray.replys))
+//                guard let self = self else { return }
+//                self.prayReplyDetailVM.accept(PrayReplyDetailVM(useCase: self.useCase,
+//                                                                userID: self.groupIndividualPray.userID,
+//                                                                prayID: self.groupIndividualPray.prayID,
+//                                                                replys: self.groupIndividualPray.replys))
             }).disposed(by: disposeBag)
         
 //        input.showChanges
