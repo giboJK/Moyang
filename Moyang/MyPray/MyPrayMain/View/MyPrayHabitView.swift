@@ -12,6 +12,10 @@ import Then
 import SnapKit
 
 class MyPrayHabitView: UIView {
+    typealias VM = MyPrayMainVC.VM
+    var disposeBag: DisposeBag?
+    var vm: VM?
+    
     let myHabitLabel = MoyangLabel().then {
         $0.text = "내 기도 습관"
         $0.textColor = .sheep1
@@ -49,6 +53,13 @@ class MyPrayHabitView: UIView {
         }
     }
     
+    func bind() {
+        guard let vm = vm, let disposeBag = disposeBag else { Log.e("vm is nil"); return }
+        let selectPray = myPrayAlarmView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let input = VM.Input()
+        let output = vm.transform(input: input)
+        
+    }
 }
 
 class MyPrayAlarmView: UIView {

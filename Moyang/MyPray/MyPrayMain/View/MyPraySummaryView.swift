@@ -12,12 +12,21 @@ import Then
 import SnapKit
 
 class MyPraySummaryView: UIView {
+    typealias VM = MyPrayMainVC.VM
+    var disposeBag: DisposeBag?
+    var vm: VM?
     
     // MARK: - UI
     
-    let myLatestPrayView = MyLatestPrayView()
+    let myLatestPrayView = MyLatestPrayView().then {
+        $0.isUserInteractionEnabled = false
+        $0.alpha = 0
+    }
     
-    let showAllView = ShowAllView()
+    let showAllView = ShowAllView().then {
+        $0.isUserInteractionEnabled = false
+        $0.alpha = 0
+    }
     
     let addNewPrayView = AddNewPrayView()
     
@@ -32,15 +41,17 @@ class MyPraySummaryView: UIView {
     }
     
     private func setupUI() {
-        setupMyLatestPrayView()
-        setupShowAllView()
         setupAddNewPrayView()
+        setupShowAllView()
+        setupMyLatestPrayView()
     }
-    private func setupMyLatestPrayView() {
-        addSubview(myLatestPrayView)
-        myLatestPrayView.snp.makeConstraints {
+    
+    private func setupAddNewPrayView() {
+        addSubview(addNewPrayView)
+        addNewPrayView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
     
@@ -48,16 +59,55 @@ class MyPraySummaryView: UIView {
         addSubview(showAllView)
         showAllView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.top.equalTo(myLatestPrayView.snp.bottom).offset(24)
+            $0.bottom.equalTo(addNewPrayView.snp.top).offset(-28)
         }
     }
-    private func setupAddNewPrayView() {
-        addSubview(addNewPrayView)
-        addNewPrayView.snp.makeConstraints {
-            $0.top.equalTo(showAllView.snp.bottom).offset(28)
+    
+    private func setupMyLatestPrayView() {
+        addSubview(myLatestPrayView)
+        myLatestPrayView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalTo(showAllView.snp.top).offset(-20)
         }
+    }
+    
+    private func showLatestPrayViewAndShowAllView() {
+        myLatestPrayView.alpha = 1.0
+        myLatestPrayView.isUserInteractionEnabled = true
+        showAllView.alpha = 1.0
+        showAllView.isUserInteractionEnabled = true
+        
+        addNewPrayView.snp.updateConstraints {
+            $0.top.equalToSuperview().inset(myLatestPrayView.frame.height + showAllView.frame.height + 28 + 20)
+        }
+        
+        UIView.animate(withDuration: 2.4) {
+            self.myLatestPrayView.updateConstraints()
+            self.myLatestPrayView.layoutIfNeeded()
+            self.updateConstraints()
+            self.layoutIfNeeded()
+        }
+    }
+    
+    func bind() {
+        guard let vm = vm, let disposeBag = disposeBag else { Log.e("vm is nil"); return }
+        let selectPray = myLatestPrayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let input = VM.Input(selectPray: selectPray)
+        let output = vm.transform(input: input)
+        
+        output.summary
+            .drive(onNext: { [weak self] summary in
+                guard let summary = summary else { return }
+                if summary.prayID != nil {
+                    self?.showLatestPrayViewAndShowAllView()
+                    self?.myLatestPrayView.dateLabel.text = summary.latestDate?
+                        .isoToDateString("yyyy. MM. dd.")
+                    self?.myLatestPrayView.titleLabel.text = summary.title
+                    self?.myLatestPrayView.contentLabel.text = summary.content
+                    self?.myLatestPrayView.contentLabel.lineBreakMode = .byTruncatingTail
+                }
+                self?.showAllView.descLabel.text = summary.countDesc
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -68,7 +118,10 @@ class MyLatestPrayView: UIView {
     }
     let dateLabel = MoyangLabel()
     let titleLabel = MoyangLabel()
-    let contentLabel = MoyangLabel()
+    let contentLabel = MoyangLabel().then {
+        $0.numberOfLines = 3
+        $0.lineBreakStrategy = .hangulWordPriority
+    }
     let latestPrayDateLabel = MoyangLabel()
     let prayButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("기도하기", for: .normal)
@@ -114,14 +167,14 @@ class MyLatestPrayView: UIView {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(56)
-            $0.left.equalToSuperview().inset(16)
+            $0.left.right.equalToSuperview().inset(16)
         }
     }
     private func setupcontentLabel() {
         addSubview(contentLabel)
         contentLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(88)
-            $0.left.equalToSuperview().inset(16)
+            $0.left.right.equalToSuperview().inset(16)
         }
     }
     private func setuplatestPrayDateLabel() {

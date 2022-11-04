@@ -71,6 +71,9 @@ class MyPrayMainVC: UIViewController, VCType {
             $0.top.equalToSuperview().inset(24)
             $0.left.right.equalToSuperview().inset(24)
         }
+        myPraySummaryView.vm = vm
+        myPraySummaryView.disposeBag = disposeBag
+        myPraySummaryView.bind()
     }
     private func setupMyPrayHabitView() {
         container.addSubview(myPrayHabitView)
@@ -79,6 +82,9 @@ class MyPrayMainVC: UIViewController, VCType {
             $0.bottom.equalToSuperview().inset(12)
             $0.left.right.equalToSuperview().inset(24)
         }
+        myPrayHabitView.vm = vm
+        myPrayHabitView.disposeBag = disposeBag
+        myPrayHabitView.bind()
     }
     
     private func setupIndicator() {
@@ -104,8 +110,7 @@ class MyPrayMainVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let selectPray = myPraySummaryView.myLatestPrayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
-        let input = VM.Input(selectPray: selectPray)
+        let input = VM.Input()
         let output = vm.transform(input: input)
         
         output.isNetworking

@@ -8,9 +8,9 @@
 import Foundation
 
 struct MyPraySummary: Codable {
-    let pray: MyPray
-    let alarm: PrayAlarm
-    let prayCount: Int
+    let pray: MyPray?
+    let alarm: PrayAlarm?
+    let prayCount: Int?
     
     enum CodingKeys: String, CodingKey {
         case pray

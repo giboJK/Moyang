@@ -52,7 +52,7 @@ class MyPrayMainVM: VMType {
 
 extension MyPrayMainVM {
     struct Input {
-        let selectPray: Driver<Void>
+        var selectPray: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -71,24 +71,29 @@ extension MyPrayMainVM {
 
 extension MyPrayMainVM {
     struct PraySummary {
-        let prayID: String
-        let title: String
-        let content: String
-        var latestDate: String
-        let createDate: String
-        let alarmID: String
-        let alarmTime: String
-        let isOn: Bool
+        let prayID: String?
+        let title: String?
+        let content: String?
+        var latestDate: String?
+        let createDate: String?
+        let alarmID: String?
+        let alarmTime: String?
+        let isOn: Bool?
+        let countDesc: String?
         
         init(data: MyPraySummary) {
-            self.prayID = data.pray.prayID
-            self.title = data.pray.title
-            self.content = data.pray.content
-            self.latestDate = data.pray.latestDate
-            self.createDate = data.pray.createDate
-            self.alarmID = data.alarm.id
-            self.alarmTime = data.alarm.time
-            self.isOn = data.alarm.isOn
+            self.prayID = data.pray?.prayID
+            self.title = data.pray?.title
+            self.content = data.pray?.content
+            self.latestDate = data.pray?.latestDate
+            self.createDate = data.pray?.createDate
+            self.alarmID = data.alarm?.id
+            self.alarmTime = data.alarm?.time
+            self.isOn = data.alarm?.isOn
+            
+            let monthString = Date().toString("M월엔")
+            let countString = " \((data.prayCount ?? 0))개의 기도가 있어요."
+            self.countDesc = monthString + countString
         }
     }
 }
