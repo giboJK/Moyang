@@ -38,7 +38,7 @@ protocol MyPrayRepo {
                        completion: ((Result<[MyPray], MoyangError>) -> Void)?)
     func fetchPray(prayID: String, completion: ((Result<MyPray, MoyangError>) -> Void)?)
     
-    func fetchTagAutocomplete(tag: String, completion: ((Result<TagAutocompleteResponse, MoyangError>) -> Void)?)
+    func fetchSummary(userID: String, completion: ((Result<PraySummaryResponse, MoyangError>) -> Void)?)
     
     func fetchMyGroupList(userID: String, completion: ((Result<MyGroupListResponse, MoyangError>) -> Void)?)
     
@@ -59,6 +59,20 @@ protocol MyPrayRepo {
 }
 
 // MARK: - Response
+class PraySummaryResponse: BaseResponse {
+    let data: MyPraySummary
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        data = try container.decode(MyPraySummary.self, forKey: .data)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}
+
 class AddPrayResponse: BaseResponse {
     let data: MyPray
     

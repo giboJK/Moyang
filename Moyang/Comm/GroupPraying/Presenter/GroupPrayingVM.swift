@@ -69,14 +69,6 @@ class GroupPrayingVM: VMType {
                 self?.setMemberList(dict: dict)
             }).disposed(by: disposeBag)
         
-        useCase.memberPrayList
-            .subscribe(onNext: { [weak self] dict in
-                guard let self = self else { return }
-                if let list = dict[self.userID] {
-                    self.prayList.accept(list)
-                }
-            }).disposed(by: disposeBag)
-        
         useCase.songName
             .map { ($0 ?? "") + "                    " }
             .bind(to: songName)

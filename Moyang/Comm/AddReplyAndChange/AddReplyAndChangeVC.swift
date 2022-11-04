@@ -168,18 +168,6 @@ class AddReplyAndChangeVC: UIViewController, VCType, UITextFieldDelegate {
             .map { !$0 }
             .drive(saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
-        
-        output.plusPraySuccess
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
-            }).disposed(by: disposeBag)
-
-        output.plusPrayFailure
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.dismiss(animated: true)
-            }).disposed(by: disposeBag)
 
         output.addChangeSuccess
             .skip(1)

@@ -91,7 +91,7 @@ class MyLatestPrayView: UIView {
         setuptitleLabel()
         setupcontentLabel()
         setuplatestPrayDateLabel()
-        setupprayButton()
+        setupPrayButton()
         
     }
     private func setupForwardImageView() {
@@ -132,7 +132,7 @@ class MyLatestPrayView: UIView {
             $0.bottom.equalToSuperview().inset(20)
         }
     }
-    private func setupprayButton() {
+    private func setupPrayButton() {
         addSubview(prayButton)
         prayButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(148)

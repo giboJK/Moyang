@@ -34,9 +34,6 @@ class MyPrayDetailVM: VMType {
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
-    // 기타 이벤트
-    let isSuccess = BehaviorRelay<Void>(value: ())
-    let isFailure = BehaviorRelay<Void>(value: ())
     
     let prayPlusAndChangeVM = BehaviorRelay<AddReplyAndChangeVM?>(value: nil)
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
@@ -85,14 +82,6 @@ class MyPrayDetailVM: VMType {
         
         useCase.deletePrayFailure
             .bind(to: deletePrayFailure)
-            .disposed(by: disposeBag)
-        
-        useCase.isSuccess
-            .bind(to: isSuccess)
-            .disposed(by: disposeBag)
-        
-        useCase.isFailure
-            .bind(to: isFailure)
             .disposed(by: disposeBag)
         
         groupName.accept(UserData.shared.groupInfo?.groupName ?? "")
@@ -166,9 +155,6 @@ extension MyPrayDetailVM {
         
         let deletePraySuccess: Driver<Void>
         let deletePrayFailure: Driver<Void>
-        
-        let isSuccess: Driver<Void>
-        let isFailure: Driver<Void>
         
         let prayReactionDetailVM: Driver<PrayReactionDetailVM?>
         let prayPlusAndChangeVM: Driver<AddReplyAndChangeVM?>
@@ -292,8 +278,6 @@ extension MyPrayDetailVM {
                       updatePrayFailure: updatePrayFailure.asDriver(),
                       deletePraySuccess: deletePraySuccess.asDriver(),
                       deletePrayFailure: deletePrayFailure.asDriver(),
-                      isSuccess: isSuccess.asDriver(),
-                      isFailure: isFailure.asDriver(),
                       
                       prayReactionDetailVM: prayReactionDetailVM.asDriver(),
                       prayPlusAndChangeVM: prayPlusAndChangeVM.asDriver(),

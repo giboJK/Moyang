@@ -36,13 +36,6 @@ class PrayReplyDetailVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-        useCase.deleteReplySuccess
-            .bind(to: deleteReplySuccess)
-            .disposed(by: disposeBag)
-        
-        useCase.deleteReplyFailure
-            .bind(to: deleteReplyFailure)
-            .disposed(by: disposeBag)
     }
     
     private func setData() {
@@ -63,13 +56,9 @@ class PrayReplyDetailVM: VMType {
     }
     
     private func deleteReply() {
-        let replyID = itemList.value[indexToDelete].id
-        useCase.deleteReply(replyID: replyID, userID: userID, prayID: prayID)
     }
     
     func updateReply(index: Int, reply: String) {
-        let replyID = itemList.value[index].id
-        useCase.updateReply(replyID: replyID, reply: reply, userID: userID, prayID: prayID)
     }
 }
 

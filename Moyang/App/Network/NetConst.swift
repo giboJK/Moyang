@@ -60,7 +60,7 @@ class NetConst {
         static let fetchMyGroupList = "/group/fetch_my_group_list"
         
         static let searchPray = "/pray/search_pray"
-        static let searchTag = "/pray/search_tag"
+        static let fetchPraySummary = "/pray/fetch_summary"
     }
     
     enum AlarmAPI {

@@ -387,12 +387,6 @@ class MyPrayDetailVC: UIViewController, VCType {
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
-        output.isSuccess
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.hidePrayReactionPopupView()
-            }).disposed(by: disposeBag)
-        
         output.prayReactionDetailVM
             .drive(onNext: { [weak self] prayReactionDetailVM in
                 guard let prayReactionDetailVM = prayReactionDetailVM else { return }

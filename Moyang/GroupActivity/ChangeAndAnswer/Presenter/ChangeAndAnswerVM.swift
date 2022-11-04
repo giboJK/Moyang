@@ -28,15 +28,6 @@ class ChangeAndAnswerVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-        useCase.memberPrayList
-            .subscribe(onNext: { [weak self] dict in
-                guard let self = self else { return }
-                if let list = dict[self.userID] {
-                    if let pray = list.first(where: { $0.prayID == self.prayID }) {
-                        self.setData(data: pray)
-                    }
-                }
-            }).disposed(by: disposeBag)
     }
     private func setData(data: MyPray) {
     }

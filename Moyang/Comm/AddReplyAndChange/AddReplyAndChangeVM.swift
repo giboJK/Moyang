@@ -20,8 +20,6 @@ class AddReplyAndChangeVM: VMType {
     
     let content = BehaviorRelay<String?>(value: nil)
     
-    let plusPraySuccess = BehaviorRelay<Void>(value: ())
-    let plusPrayFailure = BehaviorRelay<Void>(value: ())
     let addChangeSuccess = BehaviorRelay<Void>(value: ())
     let addChangeFailure = BehaviorRelay<Void>(value: ())
     let addReplySuccess = BehaviorRelay<Void>(value: ())
@@ -46,28 +44,12 @@ class AddReplyAndChangeVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-        useCase.plusPraySuccess
-            .bind(to: plusPraySuccess)
-            .disposed(by: disposeBag)
-        
-        useCase.plusPrayFailure
-            .bind(to: plusPrayFailure)
-            .disposed(by: disposeBag)
-        
         useCase.addChangeSuccess
             .bind(to: addChangeSuccess)
             .disposed(by: disposeBag)
         
         useCase.addChangeFailure
             .bind(to: addChangeFailure)
-            .disposed(by: disposeBag)
-        
-        useCase.addReplySuccess
-            .bind(to: addReplySuccess)
-            .disposed(by: disposeBag)
-        
-        useCase.addReplyFailure
-            .bind(to: addReplyFailure)
             .disposed(by: disposeBag)
         
         useCase.addAnswerSuccess
@@ -93,7 +75,6 @@ class AddReplyAndChangeVM: VMType {
     
     private func addReply() {
         guard let content = content.value else { Log.e("No content"); return }
-        useCase.addReply(userID: userID, prayID: prayID, reply: content)
     }
     
     private func addChange() {
@@ -121,8 +102,6 @@ extension AddReplyAndChangeVM {
     struct Output {
         let title: Driver<String>
         let content: Driver<String?>
-        let plusPraySuccess: Driver<Void>
-        let plusPrayFailure: Driver<Void>
         let addChangeSuccess: Driver<Void>
         let addChangeFailure: Driver<Void>
         let addReplySuccess: Driver<Void>
@@ -159,8 +138,6 @@ extension AddReplyAndChangeVM {
         
         return Output(title: title.asDriver(),
                       content: content.asDriver(),
-                      plusPraySuccess: plusPraySuccess.asDriver(),
-                      plusPrayFailure: plusPrayFailure.asDriver(),
                       addChangeSuccess: addChangeSuccess.asDriver(),
                       addChangeFailure: addChangeFailure.asDriver(),
                       addReplySuccess: addReplySuccess.asDriver(),

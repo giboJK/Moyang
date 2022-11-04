@@ -91,7 +91,8 @@ class MyPrayMainVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let selectPray = myPraySummaryView.myLatestPrayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
+        let input = VM.Input(selectPray: selectPray)
         let output = vm.transform(input: input)
     }
 }

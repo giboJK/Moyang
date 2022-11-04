@@ -18,6 +18,25 @@ class PrayController {
 }
 
 extension PrayController: MyPrayRepo {
+    func fetchSummary(userID: String, completion: ((Result<PraySummaryResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPraySummary)
+        let dict: [String: Any] = ["user_id": userID]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: PraySummaryResponse.self,
+                                  token: nil,
+                                  encoding: JSONEncoding.default) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+        
+    }
     func addPray(userID: String, title: String, content: String, completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.addPray)
         let dict: [String: Any] = [
@@ -71,26 +90,6 @@ extension PrayController: MyPrayRepo {
                                                  parameters: dict)
         networkService.requestAPI(request: request,
                                   type: MyPray.self,
-                                  token: nil) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func fetchTagAutocomplete(tag: String, completion: ((Result<TagAutocompleteResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.searchTag)
-        let dict: [String: Any] = [
-            "tag": tag
-        ]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: TagAutocompleteResponse.self,
                                   token: nil) { result in
             switch result {
             case .success(let response):
