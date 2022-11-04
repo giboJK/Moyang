@@ -52,6 +52,24 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         
+        // MARK: - AlarmSet
+        container.register(AlarmSetVC.self) { r in
+            let vc = AlarmSetVC()
+            vc.vm = r ~> (AlarmSetVM.self)
+            return vc
+        }
+        
+        container.register(AlarmRepo.self) { r in
+            ProfileController(networkService: r ~> (NetworkServiceProtocol.self))
+        }
+        
+        container.register(AlarmUseCase.self) { r in
+            AlarmUseCase(repo: r ~> (AlarmRepo.self))
+        }
+        
+        container.register(AlarmSetVM.self) { r in
+            AlarmSetVM(useCase: r ~> (AlarmUseCase.self))
+        }
         
         // MARK: - MyPrayRepo
         container.register(MyPrayRepo.self) { r in

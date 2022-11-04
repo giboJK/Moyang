@@ -671,6 +671,13 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		08E910DD291560D4001EE62F /* PrayList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PrayList;
+			sourceTree = "<group>";
+		};
 		08E992B128ED4FA700696EB6 /* Notice */ = {
 			isa = PBXGroup;
 			children = (
@@ -823,11 +830,12 @@
 		241CFBB128CC83FE003D8EBD /* MyPray */ = {
 			isa = PBXGroup;
 			children = (
-				2447788828FEBE9600DD7499 /* Domain */,
-				2447788328FEBDD300DD7499 /* MyPrayAssembly.swift */,
 				2447788128FEBDC800DD7499 /* MyPrayCoordinator.swift */,
+				2447788328FEBDD300DD7499 /* MyPrayAssembly.swift */,
+				2447788828FEBE9600DD7499 /* Domain */,
 				2447788028FEB9F200DD7499 /* MyPrayMain */,
 				08F941F7289BA0CE003751F1 /* PrayDetail */,
+				08E910DD291560D4001EE62F /* PrayList */,
 				242F929F2848FD090023324D /* NewPray */,
 			);
 			path = MyPray;

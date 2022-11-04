@@ -28,6 +28,7 @@ class AlarmSetVC: UIViewController, VCType {
         
         setupUI()
         bind()
+        
     }
     
     deinit { Log.i(self) }

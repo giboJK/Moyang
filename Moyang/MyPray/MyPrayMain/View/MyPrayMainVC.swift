@@ -128,5 +128,7 @@ class MyPrayMainVC: UIViewController, VCType {
 
 protocol MyPrayMainVCDelegate: AnyObject {
     func didTapNewPray()
+    func didTapPrayList()
     func didTapPray(vm: MyPrayDetailVM)
+    func didTapSetAlarm()
 }

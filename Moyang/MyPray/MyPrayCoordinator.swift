@@ -39,6 +39,10 @@ extension MyPrayCoordinator: MyPrayMainVCDelegate {
         }
     }
     
+    func didTapPrayList() {
+        
+    }
+    
     func didTapPray(vm: MyPrayDetailVM) {
         if let vc = assembler.resolver.resolve(MyPrayDetailVC.self) {
             vc.vm = vm
@@ -48,10 +52,24 @@ extension MyPrayCoordinator: MyPrayMainVCDelegate {
             Log.e("")
         }
     }
+    
+    func didTapSetAlarm() {
+        if let vc = assembler.resolver.resolve(AlarmSetVC.self) {
+            nav.pushViewController(vc, animated: true)
+            vc.coordinator = self
+        } else {
+            Log.e("error")
+        }
+    }
 }
 
+// MARK: - MyPrayDetailVCDelegate
 extension MyPrayCoordinator: MyPrayDetailVCDelegate {
     func didTapPrayButton(vm: MyPrayDetailVM) {
         
     }
+}
+
+// MARK: - AlarmSetVCDelegate
+extension MyPrayCoordinator: AlarmSetVCDelegate {
 }
