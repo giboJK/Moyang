@@ -27,7 +27,7 @@ class NewPrayVM: VMType {
     let groupList = BehaviorRelay<[GroupInfo]>(value: [])
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
-    let addingNewPrayFailure = BehaviorRelay<Void>(value: ())
+    let addPrayFailure = BehaviorRelay<Void>(value: ())
     
     init(useCase: MyPrayUseCase) {
         self.useCase = useCase
@@ -43,15 +43,15 @@ class NewPrayVM: VMType {
             .bind(to: isNetworking)
             .disposed(by: disposeBag)
         
-        useCase.addNewPraySuccess
+        useCase.addPraySuccess
             .skip(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
                 self?.clearAutoSave()
                 self?.changeCurrentStep(.pray)
             }).disposed(by: disposeBag)
         
-        useCase.addNewPrayFailure
-            .bind(to: addingNewPrayFailure)
+        useCase.addPrayFailure
+            .bind(to: addPrayFailure)
             .disposed(by: disposeBag)
         
         // MARK: - Data
@@ -120,7 +120,7 @@ class NewPrayVM: VMType {
     private func addNewPray() {
         guard let title = title.value, let content = content.value else {
             Log.e("No data")
-            addingNewPrayFailure.accept(())
+            addPrayFailure.accept(())
             return
         }
         useCase.addPray(title: title, content: content)
@@ -263,7 +263,7 @@ extension NewPrayVM {
                       groupList: groupList.asDriver(),
                       
                       isNetworking: isNetworking.asDriver(),
-                      addingNewPrayFailure: addingNewPrayFailure.asDriver()
+                      addingNewPrayFailure: addPrayFailure.asDriver()
         )
     }
     

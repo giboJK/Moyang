@@ -64,11 +64,6 @@ class GroupPrayingVM: VMType {
             .bind(to: isNetworking)
             .disposed(by: disposeBag)
         
-        useCase.userIDNameDict
-            .subscribe(onNext: { [weak self] dict in
-                self?.setMemberList(dict: dict)
-            }).disposed(by: disposeBag)
-        
         useCase.songName
             .map { ($0 ?? "") + "                    " }
             .bind(to: songName)

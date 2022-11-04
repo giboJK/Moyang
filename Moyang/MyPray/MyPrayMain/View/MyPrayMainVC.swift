@@ -27,6 +27,10 @@ class MyPrayMainVC: UIViewController, VCType {
     let myPraySummaryView = MyPraySummaryView()
     let myPrayHabitView = MyPrayHabitView()
 
+    let indicator = UIActivityIndicatorView(style: .large).then {
+        $0.hidesWhenStopped = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,6 +48,7 @@ class MyPrayMainVC: UIViewController, VCType {
         setupScrollView()
         setupMyPraySummaryView()
         setupMyPrayHabitView()
+        setupIndicator()
     }
     private func setupScrollView() {
         view.addSubview(scrollView)
@@ -75,6 +80,14 @@ class MyPrayMainVC: UIViewController, VCType {
             $0.left.right.equalToSuperview().inset(24)
         }
     }
+    
+    private func setupIndicator() {
+        view.addSubview(indicator)
+        indicator.snp.makeConstraints {
+            $0.size.equalTo(60)
+            $0.center.equalToSuperview()
+        }
+    }
 
     // MARK: - Binding
     func bind() {
@@ -94,6 +107,17 @@ class MyPrayMainVC: UIViewController, VCType {
         let selectPray = myPraySummaryView.myLatestPrayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
         let input = VM.Input(selectPray: selectPray)
         let output = vm.transform(input: input)
+        
+        output.isNetworking
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isNetworking in
+                if isNetworking {
+                    self?.indicator.startAnimating()
+                } else {
+                    self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
+        
     }
 }
 

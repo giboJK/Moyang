@@ -13,21 +13,40 @@ class MyPrayMainVM: VMType {
     let useCase: MyPrayUseCase
     let bibleUseCase: BibleUseCase
     
-    // MARK: - Networking Event
+    // MARK: - Events
+    let isNetworking = BehaviorRelay<Bool>(value: false)
     
+    // MARK: - UI
+    let summary = BehaviorRelay<PraySummary?>(value: nil)
     
-    // MARK: - PrayDetail
+    // MARK: - VM
     let detailVM = BehaviorRelay<MyPrayDetailVM?>(value: nil)
     
     init(useCase: MyPrayUseCase, bibleUseCase: BibleUseCase) {
         self.useCase = useCase
         self.bibleUseCase = bibleUseCase
         bind()
+        fetchSumamry()
     }
 
     deinit { Log.i(self) }
     
     private func bind() {
+        useCase.isNetworking
+            .bind(to: isNetworking)
+            .disposed(by: disposeBag)
+        
+        useCase.myPraySummary
+            .bind(onNext: { [weak self] data in
+                guard let data = data else { return }
+                self?.summary.accept(PraySummary(data: data))
+            }).disposed(by: disposeBag)
+    }
+    
+    private func fetchSumamry() {
+        if let date = Date().startOfMonth?.toString("yyyy-MM-dd hh:mm:ss Z") {
+            useCase.fetchSummary(date: date)
+        }
     }
 }
 
@@ -37,49 +56,39 @@ extension MyPrayMainVM {
     }
 
     struct Output {
+        let isNetworking: Driver<Bool>
+        let summary: Driver<PraySummary?>
         let detailVM: Driver<MyPrayDetailVM?>
     }
 
     func transform(input: Input) -> Output {
         
-        return Output(detailVM: detailVM.asDriver())
+        return Output(isNetworking: isNetworking.asDriver(),
+                      summary: summary.asDriver(),
+                      detailVM: detailVM.asDriver())
     }
 }
 
 extension MyPrayMainVM {
-    struct PrayItem {
+    struct PraySummary {
         let prayID: String
-        let userID: String
         let title: String
         let content: String
         var latestDate: String
         let createDate: String
+        let alarmID: String
+        let alarmTime: String
+        let isOn: Bool
         
-        init(data: MyPray) {
-            self.prayID = data.prayID
-            self.userID = data.userID
-            self.title = data.title
-            self.content = data.content
-            self.latestDate = data.latestDate
-            self.createDate = data.createDate
-        }
-    }
-    
-    struct SearchPrayItem {
-        let id: String
-        let userID: String
-        let name: String
-        let date: String
-        let pray: String
-        let tags: [String]
-        
-        init(data: SearchedPray) {
-            self.id = data.prayID
-            self.userID = data.userID
-            self.name = data.userName
-            self.date = data.latestDate
-            self.pray = data.pray
-            self.tags = data.tags
+        init(data: MyPraySummary) {
+            self.prayID = data.pray.prayID
+            self.title = data.pray.title
+            self.content = data.pray.content
+            self.latestDate = data.pray.latestDate
+            self.createDate = data.pray.createDate
+            self.alarmID = data.alarm.id
+            self.alarmTime = data.alarm.time
+            self.isOn = data.alarm.isOn
         }
     }
 }

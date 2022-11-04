@@ -18,9 +18,9 @@ class PrayController {
 }
 
 extension PrayController: MyPrayRepo {
-    func fetchSummary(userID: String, completion: ((Result<PraySummaryResponse, MoyangError>) -> Void)?) {
+    func fetchSummary(userID: String, date: String, completion: ((Result<PraySummaryResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPraySummary)
-        let dict: [String: Any] = ["user_id": userID]
+        let dict: [String: Any] = ["user_id": userID, "date": date]
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
                                                  parameters: dict)

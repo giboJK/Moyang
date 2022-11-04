@@ -12,17 +12,19 @@ import RxCocoa
 class MyPrayUseCase {
     let repo: MyPrayRepo
     
-    // MARK: - GroupPray
+    // MARK: - MyPray
+    let myPraySummary = BehaviorRelay<MyPraySummary?>(value: nil)
     let myPrayList = BehaviorRelay<[MyPray]>(value: [])
-    
     let myGroupList = BehaviorRelay<[MyGroup]>(value: [])
     
-    
     // MARK: - Event
-    let addNewPraySuccess = BehaviorRelay<Void>(value: ())
-    let addNewPrayFailure = BehaviorRelay<Void>(value: ())
+    let addPraySuccess = BehaviorRelay<Void>(value: ())
+    let addPrayFailure = BehaviorRelay<Void>(value: ())
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
     let updatePrayFailure = BehaviorRelay<Void>(value: ())
+    let deletePraySuccess = BehaviorRelay<Void>(value: ())
+    let deletePrayFailure = BehaviorRelay<Void>(value: ())
+    
     let fetchPraySuccess = BehaviorRelay<MyPray?>(value: nil)
     let fetchPrayFailure = BehaviorRelay<Void>(value: ())
     
@@ -31,9 +33,6 @@ class MyPrayUseCase {
     
     let addAnswerSuccess = BehaviorRelay<Void>(value: ())
     let addAnswerFailure = BehaviorRelay<Void>(value: ())
-    
-    let deletePraySuccess = BehaviorRelay<Void>(value: ())
-    let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
     // MARK: - GroupPraying
     let songName = BehaviorRelay<String?>(value: nil)
@@ -45,15 +44,33 @@ class MyPrayUseCase {
     // MARK: - Default events
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
-    let userIDNameDict = BehaviorRelay<[String: String]>(value: [:])
-    private var userPrayFetchDate = [String: Set<String>]() // 유저별로 해당 날짜의 기도를 불러온 적이 있는지 저장하는 모델
     
     // MARK: - Lifecycle
     init(repo: MyPrayRepo) {
         self.repo = repo
     }
     
-    // MARK: - Function
+    
+    // MARK: - Functions
+    func fetchSummary(date: String) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() { return }
+        repo.fetchSummary(userID: myID, date: date) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.myPraySummary.accept(response.data)
+                } else {
+                    Log.e(response.errorMessage ?? "")
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+            self.resetIsNetworking()
+        }
+    }
+    
     func addPray(title: String, content: String) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() { return }
@@ -64,16 +81,16 @@ class MyPrayUseCase {
             switch result {
             case .success(let response):
                 if response.code == 0 {
-                    self.addNewPraySuccess.accept(())
+                    self.addPraySuccess.accept(())
                     var curList = self.myPrayList.value
                     curList.insert(response.data, at: 0)
                     self.myPrayList.accept(curList)
                 } else {
-                    self.addNewPrayFailure.accept(())
+                    self.addPrayFailure.accept(())
                 }
             case .failure(let error):
                 Log.e(error)
-                self.addNewPrayFailure.accept(())
+                self.addPrayFailure.accept(())
             }
             self.resetIsNetworking()
         }
@@ -98,7 +115,7 @@ class MyPrayUseCase {
                 }
             case .failure(let error):
                 Log.e(error)
-                self?.addNewPrayFailure.accept(())
+                self?.addPrayFailure.accept(())
             }
             self?.resetIsNetworking()
         }

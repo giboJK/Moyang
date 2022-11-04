@@ -38,7 +38,7 @@ protocol MyPrayRepo {
                        completion: ((Result<[MyPray], MoyangError>) -> Void)?)
     func fetchPray(prayID: String, completion: ((Result<MyPray, MoyangError>) -> Void)?)
     
-    func fetchSummary(userID: String, completion: ((Result<PraySummaryResponse, MoyangError>) -> Void)?)
+    func fetchSummary(userID: String, date: String, completion: ((Result<PraySummaryResponse, MoyangError>) -> Void)?)
     
     func fetchMyGroupList(userID: String, completion: ((Result<MyGroupListResponse, MoyangError>) -> Void)?)
     
