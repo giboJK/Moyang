@@ -19,12 +19,12 @@ class MyPraySummaryView: UIView {
     // MARK: - UI
     
     let myLatestPrayView = MyLatestPrayView().then {
-        $0.isUserInteractionEnabled = false
+        $0.isHidden = true
         $0.alpha = 0
     }
     
     let showAllView = ShowAllView().then {
-        $0.isUserInteractionEnabled = false
+        $0.isHidden = false
         $0.alpha = 0
     }
     
@@ -72,18 +72,15 @@ class MyPraySummaryView: UIView {
     }
     
     private func showLatestPrayViewAndShowAllView() {
-        myLatestPrayView.alpha = 1.0
-        myLatestPrayView.isUserInteractionEnabled = true
-        showAllView.alpha = 1.0
-        showAllView.isUserInteractionEnabled = true
-        
         addNewPrayView.snp.updateConstraints {
             $0.top.equalToSuperview().inset(myLatestPrayView.frame.height + showAllView.frame.height + 28 + 20)
         }
         
-        UIView.animate(withDuration: 2.4) {
-            self.myLatestPrayView.updateConstraints()
-            self.myLatestPrayView.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5) {
+            self.myLatestPrayView.alpha = 1.0
+            self.myLatestPrayView.isHidden = false
+            self.showAllView.alpha = 1.0
+            self.showAllView.isHidden = false
             self.updateConstraints()
             self.layoutIfNeeded()
         }
