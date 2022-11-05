@@ -44,8 +44,7 @@ class NetConst {
         static let addReply = "/pray/add_reply"
         static let addChange = "/pray/add_change"
         static let addAnswer = "/pray/add_answer"
-        static let addReaction = "/pray/add_pray_reaction"
-        static let addAmen = "/pray/add_amen_record"
+        static let addPrayGroupInfo = "/pray/add_praygroup"
         /// post
         static let updatePray = "/pray/update_pray"
         static let updateReply = "/pray/update_reply"
@@ -55,12 +54,18 @@ class NetConst {
         
         /// post
         static let fetchPrayList = "/pray/fetch_pray_list"
-        static let fetchPrayAll = "/pray/fetch_pray_all"
         static let fetchPray = "/pray/fetch_pray"
         static let fetchMyGroupList = "/group/fetch_my_group_list"
         
-        static let searchPray = "/pray/search_pray"
         static let fetchPraySummary = "/pray/fetch_summary"
+        
+        // MARK: - Praying
+        static let addAmen = "/pray/add_amen_record"
+    }
+    
+    enum MediatorAPI {
+        static let addReaction = "/pray/add_pray_reaction"
+        
     }
     
     enum AlarmAPI {

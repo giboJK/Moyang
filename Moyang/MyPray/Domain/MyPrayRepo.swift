@@ -9,22 +9,24 @@ import Foundation
 
 protocol MyPrayRepo {
     
-    // Add
+    // MARK: - Add
     func addPray(userID: String, title: String, content: String, completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?)
     
     func addAnswer(userID: String, prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?)
     
     func addChange(prayID: String, content: String, completion: ((Result<AddPrayChangeResponse, MoyangError>) -> Void)?)
     
+    func addPrayGroupInfo(groupID: String, prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
-    // Update
+    
+    // MARK: - Update
     func updatePray(prayID: String, title: String, content: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
-    // Delete
+    // MARK: - Delete
     func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
     
-    // Fetch
+    // MARK: - Fetch
     func fetchPray(prayID: String, completion: ((Result<MyPray, MoyangError>) -> Void)?)
     
     func fetchPrayList(userID: String, page: Int, row: Int, completion: ((Result<[MyPray], MoyangError>) -> Void)?)
@@ -33,7 +35,7 @@ protocol MyPrayRepo {
     
     func fetchMyGroupList(userID: String, completion: ((Result<MyGroupListResponse, MoyangError>) -> Void)?)
     
-    // Download
+    // MARK: - Download
     func downloadSong(fileName: String, path: String, fileExt: String,
                       completion: ((Result<URL, MoyangError>) -> Void)?)
     
