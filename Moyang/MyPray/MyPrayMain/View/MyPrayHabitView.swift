@@ -55,7 +55,8 @@ class MyPrayHabitView: UIView {
     
     func bind() {
         guard let vm = vm, let disposeBag = disposeBag else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(toggleAlarm: myPrayAlarmView.alarmSwitch.rx.isOn
+            .skip(.seconds(1), scheduler: MainScheduler.asyncInstance).asDriver(onErrorJustReturn: false))
         let output = vm.transform(input: input)
         
         output.summary
@@ -86,6 +87,12 @@ class MyPrayHabitView: UIView {
                                              isFri: isFri,
                                              isSat: isSat)
             }).disposed(by: disposeBag)
+        
+        // MARK: - Views
+        myPrayAlarmView.alarmSwitch.rx.isOn
+            .subscribe(onNext: { [weak self] isOn in
+                self?.myPrayAlarmView.changeTextColor(isOn: isOn)
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -104,7 +111,7 @@ class MyPrayAlarmView: UIView {
     }
     let dayLabel = UILabel().then {
         $0.font = .b03
-        $0.textColor = .nightSky3
+        $0.textColor = .nightSky2
         $0.isHidden = true
     }
     let alarmSwitch = UISwitch().then {
@@ -194,7 +201,6 @@ class MyPrayAlarmView: UIView {
     func setTime(data: String, isOn: Bool, isSun: Bool, isMon: Bool, isTue: Bool, isWed: Bool, isThu: Bool, isFri: Bool, isSat: Bool) {
         if let hour = data.split(separator: ":").first, let min = data.split(separator: ":").last,
            let hourInt = Int(hour), let minInt = Int(min) {
-            
             if hourInt > 12 {
                 var timeStr = "오후 "
                 timeStr += String(format: "%02d", hourInt - 12) + ":" + String(format: "%02d", minInt)
@@ -204,6 +210,10 @@ class MyPrayAlarmView: UIView {
                 timeStr += data
                 alarmTimeLabel.text = timeStr
             }
+            alarmTimeLabel.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(37)
+            }
+            
             alarmSwitch.isHidden = false
             alarmSwitch.isOn = isOn
             
@@ -217,9 +227,13 @@ class MyPrayAlarmView: UIView {
             dayString += isSat ? "토 " : ""
             dayLabel.isHidden = false
             dayLabel.text = dayString
-            alarmTimeLabel.snp.updateConstraints {
-                $0.bottom.equalToSuperview().inset(37)
-            }
+            
+            changeTextColor(isOn: isOn)
         }
+    }
+    
+    func changeTextColor(isOn: Bool) {
+        alarmTimeLabel.textColor = isOn ? .nightSky1 : .sheep4
+        dayLabel.textColor = isOn ? .nightSky2 : .sheep4
     }
 }

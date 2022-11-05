@@ -14,7 +14,7 @@ import RxCocoa
 class AlarmSelectDayView: UIView {
     // MARK: - UI
     let dayLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 17, weight: .semibold)
+        $0.font = .b01
         $0.textColor = .sheep1
     }
     let chcekmarkImageView = UIButton().then {

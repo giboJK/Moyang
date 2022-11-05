@@ -11,7 +11,7 @@ import RxCocoa
 class MyPrayMainVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: MyPrayUseCase
-    let bibleUseCase: BibleUseCase
+    let alarmUseCase: AlarmUseCase
     
     // MARK: - Events
     let isNetworking = BehaviorRelay<Bool>(value: false)
@@ -22,9 +22,9 @@ class MyPrayMainVM: VMType {
     // MARK: - VM
     let detailVM = BehaviorRelay<MyPrayDetailVM?>(value: nil)
     
-    init(useCase: MyPrayUseCase, bibleUseCase: BibleUseCase) {
+    init(useCase: MyPrayUseCase, alarmUseCase: AlarmUseCase) {
         self.useCase = useCase
-        self.bibleUseCase = bibleUseCase
+        self.alarmUseCase = alarmUseCase
         bind()
         fetchSumamry()
         
@@ -51,11 +51,19 @@ class MyPrayMainVM: VMType {
             useCase.fetchSummary(date: date)
         }
     }
+    
+    func toggleAlarm(isOn: Bool) {
+        guard let summary = summary.value else { return }
+        if let id = summary.alarmID, let time = summary.alarmTime, let day = summary.day {
+            alarmUseCase.updateAlarm(alarmID: id, time: time, isOn: isOn, day: day)
+        }
+    }
 }
 
 extension MyPrayMainVM {
     struct Input {
         var selectPray: Driver<Void> = .empty()
+        var toggleAlarm: Driver<Bool> = .empty()
     }
 
     struct Output {
@@ -65,6 +73,11 @@ extension MyPrayMainVM {
     }
 
     func transform(input: Input) -> Output {
+        
+        input.toggleAlarm
+            .drive(onNext: { [weak self] isOn in
+                self?.toggleAlarm(isOn: isOn)
+            }).disposed(by: disposeBag)
         
         return Output(isNetworking: isNetworking.asDriver(),
                       summary: summary.asDriver(),

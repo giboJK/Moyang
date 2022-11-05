@@ -21,17 +21,17 @@ class NewAlarmVC: UIViewController, VCType {
     // MARK: - UI
     let titleLabel = UILabel().then {
         $0.textColor = .sheep1
-        $0.font = .systemFont(ofSize: 18, weight: .regular)
+        $0.font = .headline
     }
     let saveButton = UIButton().then {
         $0.setTitle("저장", for: .normal)
         $0.setTitleColor(.wilderness1, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.titleLabel?.font = .b01
     }
     let deleteButton = UIButton().then {
         $0.setTitle("삭제", for: .normal)
         $0.setTitleColor(.appleRed1, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.titleLabel?.font = .b01
         $0.isHidden = true
     }
     private let timePicker: UIDatePicker = {
@@ -212,6 +212,12 @@ class NewAlarmVC: UIViewController, VCType {
                              resetEditing: resetEditing
         )
         let output = vm.transform(input: input)
+        
+        output.prayTime
+            .drive(onNext: { [weak self] alarmTime in
+                guard let self = self, let alarmTime = alarmTime else { return }
+                self.timePicker.setDate(from: alarmTime.time, format: "HH:mm")
+            }).disposed(by: disposeBag)
         
         output.newAlarmTitle
             .drive(titleLabel.rx.text)

@@ -21,4 +21,17 @@ struct Alarm: Codable {
         case type
         case day
     }
+    
+    init(id: String,
+         time: String,
+         isOn: Bool,
+         type: String,
+         day: String
+    ) {
+        self.id = id
+        self.time = time
+        self.isOn = isOn
+        self.type = type
+        self.day = day
+    }
 }

@@ -20,6 +20,7 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             AFNetworkService(sessionConfiguration: .default)
         }
         
+        
         // MARK: - MyPrayMain
         
         container.register(MyPrayMainVC.self) { r in
@@ -27,13 +28,12 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             vc.vm = (r ~> MyPrayMainVM.self)
             vc.coordinator = r ~> (MyPrayCoordinator.self)
             
-            // View controllers
-            
             return vc
         }
         container.register(MyPrayMainVM.self) { r in
-            MyPrayMainVM(useCase: r ~> (MyPrayUseCase.self), bibleUseCase: r ~> (BibleUseCase.self))
+            MyPrayMainVM(useCase: r ~> (MyPrayUseCase.self), alarmUseCase: r ~> (AlarmUseCase.self))
         }
+        
         
         // MARK: - NewPrayVC
         container.register(NewPrayVC.self) { r in
@@ -46,11 +46,13 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             return NewPrayVM(useCase: (r ~> MyPrayUseCase.self))
         }
         
+        
         // MARK: - MyPrayDetailVC
         container.register(MyPrayDetailVC.self) { _ in
             let vc = MyPrayDetailVC()
             return vc
         }
+        
         
         // MARK: - NewAlarmVC
         container.register(NewAlarmVC.self) { r in
@@ -71,6 +73,7 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             AlarmSetVM(useCase: r ~> (AlarmUseCase.self))
         }
         
+        
         // MARK: - MyPrayRepo
         container.register(MyPrayRepo.self) { r in
             PrayController(networkService: r ~> (NetworkServiceProtocol.self))
@@ -78,14 +81,6 @@ class MyPrayAssembly: Assembly, BaseAssembly {
         
         container.register(MyPrayUseCase.self) { r in
             MyPrayUseCase(repo: r ~> (MyPrayRepo.self))
-        }
-        // MARK: - BibleUseCase
-        container.register(BibleUseCase.self) { r in
-            return BibleUseCase(repo: (r ~> WorshipNoteRepo.self))
-        }
-        
-        container.register(WorshipNoteRepo.self) { r in
-            NoteController(networkService: (r ~> NetworkServiceProtocol.self))
         }
         
         
