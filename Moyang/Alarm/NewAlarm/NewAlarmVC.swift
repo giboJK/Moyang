@@ -217,6 +217,7 @@ class NewAlarmVC: UIViewController, VCType {
             .drive(onNext: { [weak self] alarmTime in
                 guard let self = self, let alarmTime = alarmTime else { return }
                 self.timePicker.setDate(from: alarmTime.time, format: "HH:mm")
+                self.timePicker.sendActions(for: .editingDidEnd)
             }).disposed(by: disposeBag)
         
         output.newAlarmTitle
