@@ -52,9 +52,9 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        // MARK: - AlarmSet
-        container.register(AlarmSetVC.self) { r in
-            let vc = AlarmSetVC()
+        // MARK: - NewAlarmVC
+        container.register(NewAlarmVC.self) { r in
+            let vc = NewAlarmVC()
             vc.vm = r ~> (AlarmSetVM.self)
             return vc
         }

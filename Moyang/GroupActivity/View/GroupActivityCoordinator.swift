@@ -26,14 +26,14 @@ class GroupActivityCoordinator: Coordinator {
     }
     
     func start(_ animated: Bool, completion: (() -> Void)?) {
-        guard let groupInfo = UserData.shared.groupInfo else { Log.e("No group"); return }
-        if let vc = assembler.resolver.resolve(GroupActivityVC.self) {
-            nav.pushViewController(vc, animated: true)
-            vc.coordinator = self
-            vc.groupCreateDate = groupInfo.createDate.isoToDate()
-        } else {
-            Log.e("error")
-        }
+//        guard let groupInfo = UserData.shared.groupInfo else { Log.e("No group"); return }
+//        if let vc = assembler.resolver.resolve(GroupActivityVC.self) {
+//            nav.pushViewController(vc, animated: true)
+//            vc.coordinator = self
+//            vc.groupCreateDate = groupInfo.createDate.isoToDate()
+//        } else {
+//            Log.e("error")
+//        }
     }
 }
 
@@ -51,13 +51,6 @@ extension GroupActivityCoordinator: GroupActivityVCDelegate {
 
 extension GroupActivityCoordinator: MyPrayDetailVCDelegate {
     func didTapPrayButton(vm: MyPrayDetailVM) {
-        guard let groupID = UserData.shared.groupID else { Log.e("No group"); return }
-        if let vc = assembler.resolver.resolve(GroupPrayingVC.self,
-                                               arguments: vm.useCase, groupID, vm.prayID) {
-            nav.pushViewController(vc, animated: true)
-        } else {
-            Log.e("")
-        }
     }
 }
 

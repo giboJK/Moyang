@@ -54,9 +54,8 @@ extension MyPrayCoordinator: MyPrayMainVCDelegate {
     }
     
     func didTapSetAlarm() {
-        if let vc = assembler.resolver.resolve(AlarmSetVC.self) {
-            nav.pushViewController(vc, animated: true)
-            vc.coordinator = self
+        if let vc = assembler.resolver.resolve(NewAlarmVC.self) {
+            nav.topViewController?.present(vc, animated: true)
         } else {
             Log.e("error")
         }

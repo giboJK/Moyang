@@ -27,6 +27,9 @@ class MyPrayMainVM: VMType {
         self.bibleUseCase = bibleUseCase
         bind()
         fetchSumamry()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(fetchSumamry),
+                                               name: NSNotification.Name.ReloadPrayMainSummary, object: nil)
     }
 
     deinit { Log.i(self) }
@@ -43,7 +46,7 @@ class MyPrayMainVM: VMType {
             }).disposed(by: disposeBag)
     }
     
-    private func fetchSumamry() {
+    @objc func fetchSumamry() {
         if let date = Date().startOfMonth?.toString("yyyy-MM-dd hh:mm:ss Z") {
             useCase.fetchSummary(date: date)
         }
@@ -71,15 +74,20 @@ extension MyPrayMainVM {
 
 extension MyPrayMainVM {
     struct PraySummary {
+        // Pray
         let prayID: String?
         let title: String?
         let content: String?
         var latestDate: String?
         let createDate: String?
+        
+        let countDesc: String?
+        
+        // PrayAlarm
         let alarmID: String?
         let alarmTime: String?
         let isOn: Bool?
-        let countDesc: String?
+        let day: String?
         
         init(data: MyPraySummary) {
             self.prayID = data.pray?.prayID
@@ -87,13 +95,15 @@ extension MyPrayMainVM {
             self.content = data.pray?.content
             self.latestDate = data.pray?.latestDate
             self.createDate = data.pray?.createDate
-            self.alarmID = data.alarm?.id
-            self.alarmTime = data.alarm?.time
-            self.isOn = data.alarm?.isOn
             
             let monthString = Date().toString("M월엔")
             let countString = " \((data.prayCount ?? 0))개의 기도가 있어요."
             self.countDesc = monthString + countString
+            
+            self.alarmID = data.alarm?.id
+            self.alarmTime = data.alarm?.time
+            self.isOn = data.alarm?.isOn
+            self.day = data.alarm?.day
         }
     }
 }

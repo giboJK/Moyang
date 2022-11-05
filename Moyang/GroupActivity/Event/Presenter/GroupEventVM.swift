@@ -44,7 +44,7 @@ class GroupEventVM: VMType {
     
     // 1주씩
     private func fetchNews(date: String) {
-        groupUseCase.fetchEvents(date: date)
+//        groupUseCase.fetchEvents(date: date)
     }
     
     func fetchMoreNews() {

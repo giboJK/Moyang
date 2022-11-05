@@ -83,8 +83,6 @@ class MyPrayDetailVM: VMType {
         useCase.deletePrayFailure
             .bind(to: deletePrayFailure)
             .disposed(by: disposeBag)
-        
-        groupName.accept(UserData.shared.groupInfo?.groupName ?? "")
     }
     
     private func setData(data: MyPray) {

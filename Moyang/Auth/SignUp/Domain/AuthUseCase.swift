@@ -111,8 +111,6 @@ class AuthUseCase {
                 UserData.shared.email = email
                 UserData.shared.password = credential
                 UserData.shared.userInfo = user
-                UserData.shared.groupID = user.groupList.first?.id
-                UserData.shared.groupInfo = user.groupList.first
                 self?.isLoginSuccess.accept(())
             case .failure(let error):
                 Log.e(error)

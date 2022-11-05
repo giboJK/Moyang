@@ -57,9 +57,6 @@ class GroupActivityVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-        if let groupInfo = UserData.shared.groupInfo {
-            groupName.accept(groupInfo.groupName)
-        } else { Log.e("") }
     }
     
     private func setupGreeting() {
@@ -92,7 +89,6 @@ class GroupActivityVM: VMType {
     }
     
     private func fetchActivity(_ dateString: String) {
-        guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
     }
     
     private func setMemberList(dict: [String: String]) {

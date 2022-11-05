@@ -21,7 +21,7 @@ class AlarmSetVM: VMType {
     private let editAlarm = BehaviorRelay<Void>(value: ())
     private let isEditing = BehaviorRelay<Bool>(value: false)
     
-    private let newAlarmTitle = BehaviorRelay<String>(value: "")
+    private let newAlarmTitle = BehaviorRelay<String>(value: "기도알람")
     private let isSun = BehaviorRelay<Bool>(value: false)
     private let isMon = BehaviorRelay<Bool>(value: false)
     private let isTue = BehaviorRelay<Bool>(value: false)
@@ -66,6 +66,13 @@ class AlarmSetVM: VMType {
             .skip(1)
             .bind(to: addingSuccess)
             .disposed(by: disposeBag)
+        
+        useCase.isSuccess
+            .skip(1)
+            .subscribe(onNext: { _ in
+                NotificationCenter.default.post(name: NSNotification.Name.ReloadPrayMainSummary,
+                                                object: nil, userInfo: nil)
+            }).disposed(by: disposeBag)
         
         useCase.isFailure
             .skip(1)

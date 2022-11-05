@@ -22,8 +22,7 @@ class GroupUseCase {
     
     // MARK: - Function
     
-    func fetchEvents(date: String) {
-        guard let groupID = UserData.shared.groupID else { Log.e("No group"); return }
+    func fetchEvents(groupID: String, date: String) {
         repo.fetchGroupEvent(groupID: groupID, isWeek: true, date: date) { [weak self] result in
             guard let self = self else { return }
             switch result {

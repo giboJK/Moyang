@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
+		0808E5082916569C00E7AB79 /* NSNotification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0808E5072916569C00E7AB79 /* NSNotification+.swift */; };
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
 		086ADDD628D197DA007A95F2 /* AlarmSetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */; };
@@ -235,6 +236,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0808E5072916569C00E7AB79 /* NSNotification+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+.swift"; sourceTree = "<group>"; };
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSetVC.swift; sourceTree = "<group>"; };
@@ -1296,6 +1298,7 @@
 				24DABDA62890FE6E00DEB6CC /* Calendar+.swift */,
 				24DABDA8289180D200DEB6CC /* Int+.swift */,
 				2416F8F22903DEEB00152101 /* UIFont+.swift */,
+				0808E5072916569C00E7AB79 /* NSNotification+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1857,6 +1860,7 @@
 				24DABDA9289180D200DEB6CC /* Int+.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
 				08D5D8B62914D2F200A0CD95 /* MyPraySummary.swift in Sources */,
+				0808E5082916569C00E7AB79 /* NSNotification+.swift in Sources */,
 				24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */,
 				08E992B628ED589700696EB6 /* NoticeVC.swift in Sources */,
 				2498F8FE287C316D007EF510 /* TermsVC.swift in Sources */,

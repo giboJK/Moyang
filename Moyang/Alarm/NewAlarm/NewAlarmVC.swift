@@ -101,7 +101,7 @@ class NewAlarmVC: UIViewController, VCType {
     private func setupTimePicker() {
         view.addSubview(timePicker)
         timePicker.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(180)
         }
