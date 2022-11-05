@@ -76,14 +76,14 @@ class GroupPrayingVM: VMType {
                 self?.isPlaying.accept(true)
             }).disposed(by: disposeBag)
         
-        useCase.amenSuccess
-            .skip(1)
-            .subscribe(onNext: { [weak self] _ in
-                self?.amenSuccess.accept(())
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2500)) {
-                    self?.finishPray()
-                }
-            }).disposed(by: disposeBag)
+//        useCase.amenSuccess
+//            .skip(1)
+//            .subscribe(onNext: { [weak self] _ in
+//                self?.amenSuccess.accept(())
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2500)) {
+//                    self?.finishPray()
+//                }
+//            }).disposed(by: disposeBag)
     }
     
     private func setMemberList(dict: [String: String]) {
@@ -146,7 +146,7 @@ class GroupPrayingVM: VMType {
     }
     
     private func amen() {
-        useCase.addAmen(groupID: groupID, time: prayingTime)
+//        useCase.addAmen(groupID: groupID, time: prayingTime)
     }
     
     private func createTimer() {

@@ -107,7 +107,7 @@ class MyPrayDetailVM: VMType {
     
     private func updatePray() {
         guard let pray = self.pray.value else { return }
-        useCase.updatePray(prayID: prayID, pray: pray, tags: tagList.value, isSecret: isSecret.value)
+//        useCase.updatePray(prayID: prayID, pray: pray)
     }
     
     private func deletePray() {

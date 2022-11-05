@@ -38,9 +38,6 @@ class MyPrayUseCase {
     let songName = BehaviorRelay<String?>(value: nil)
     let songURL = BehaviorRelay<URL?>(value: nil)
     
-    let amenSuccess = BehaviorRelay<Void>(value: ())
-    let amenFailure = BehaviorRelay<Void>(value: ())
-    
     // MARK: - Default events
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -96,20 +93,13 @@ class MyPrayUseCase {
         }
     }
     
-    func updatePray(prayID: String, pray: String, tags: [String], isSecret: Bool) {
+    func updatePray(prayID: String, title: String, content: String) {
         if checkAndSetIsNetworking() { return }
-        guard let myID = UserData.shared.userInfo?.id else {
-            updatePrayFailure.accept(()); return
-        }
-        repo.updatePray(prayID: prayID,
-                        pray: pray,
-                        tags: tags,
-                        isSecret: isSecret) { [weak self] result in
+        repo.updatePray(prayID: prayID, title: title, content: content) { [weak self] result in
             switch result {
             case .success(let response):
                 if response.code == 0 {
                     self?.updatePraySuccess.accept(())
-                    self?.updatePray(userID: myID, prayID: prayID, pray: pray, tags: tags, isSecret: isSecret)
                 } else {
                     self?.updatePrayFailure.accept(())
                 }
@@ -121,14 +111,13 @@ class MyPrayUseCase {
         }
     }
     
-    func fetchPrayList(userID: String, order: String, page: Int, row: Int = 7) {
-        guard let groupID = UserData.shared.groupInfo?.id else { Log.e("No group ID"); return }
+    func fetchPrayList(userID: String, page: Int, row: Int = 7) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() {
             return
         }
         let isMe = userID == myID
-        repo.fetchPrayList(groupID: groupID, userID: userID, isMe: isMe, order: order, page: page, row: row) { [weak self] result in
+        repo.fetchPrayList(userID: userID, page: page, row: row) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let list):
@@ -141,7 +130,6 @@ class MyPrayUseCase {
             self.resetIsNetworking()
         }
     }
-    
     func deletePray(prayID: String) {
         if checkAndSetIsNetworking() { return }
         repo.deletePray(prayID: prayID) { [weak self] result in
@@ -170,30 +158,6 @@ class MyPrayUseCase {
     func addChange(prayID: String, content: String) {
     }
     
-    func addAmen(groupID: String, time: Int) {
-        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() { return }
-        repo.addAmen(userID: myID, groupID: groupID, time: time) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                if response.code == 0 {
-                    self.amenSuccess.accept(())
-                } else {
-                    Log.e("")
-                    self.amenFailure.accept(())
-                }
-            case .failure(let error):
-                Log.e(error)
-                self.amenFailure.accept(())
-            }
-            self.resetIsNetworking()
-        }
-    }
-    
-    func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String) {
-    }
-    
     func fetchMyGroupList() {
         guard let userID = UserData.shared.userInfo?.id else {
             Log.e("No userID??")
@@ -211,6 +175,8 @@ class MyPrayUseCase {
     
     func fetchPray(prayID: String, userID: String) {
     }
+    
+    
     // MARK: - Firestore
     func loadSong() {
         downloadSong()
@@ -246,6 +212,4 @@ class MyPrayUseCase {
         }
     }
     
-    private func updatePray(userID: String, prayID: String, pray: String, tags: [String], isSecret: Bool) {
-    }
 }

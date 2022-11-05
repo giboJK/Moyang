@@ -18,25 +18,9 @@ class PrayController {
 }
 
 extension PrayController: MyPrayRepo {
-    func fetchSummary(userID: String, date: String, completion: ((Result<PraySummaryResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPraySummary)
-        let dict: [String: Any] = ["user_id": userID, "date": date]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: PraySummaryResponse.self,
-                                  token: nil,
-                                  encoding: JSONEncoding.default) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-        
-    }
+    
+    // MARK: - Add
+    
     func addPray(userID: String, title: String, content: String, completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.addPray)
         let dict: [String: Any] = [
@@ -60,16 +44,17 @@ extension PrayController: MyPrayRepo {
         }
     }
     
-    func fetchMyGroupList(userID: String, completion: ((Result<MyGroupListResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchMyGroupList)
-        let dict: [String: Any] = [
-            "user_id": userID
-        ]
+    
+    func addAnswer(userID: String, prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.addAnswer)
+        let dict: [String: Any] = ["user_id": userID,
+                                   "pray_id": prayID,
+                                   "answer": answer]
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
                                                  parameters: dict)
         networkService.requestAPI(request: request,
-                                  type: MyGroupListResponse.self,
+                                  type: AddPrayAnswerResponse.self,
                                   token: nil) { result in
             switch result {
             case .success(let response):
@@ -80,6 +65,71 @@ extension PrayController: MyPrayRepo {
         }
     }
     
+    func addChange(prayID: String, content: String, completion: ((Result<AddPrayChangeResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.addChange)
+        let dict: [String: Any] = ["pray_id": prayID,
+                                   "content": content]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: AddPrayChangeResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
+    // MARK: - Update
+    
+    func updatePray(prayID: String, title: String, content: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.updatePray)
+        let dict: [String: Any] = [
+            "pray_id": prayID,
+            "title": title,
+            "content": content
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil,
+                                  encoding: JSONEncoding.default) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
+    // MARK: - Delete
+    
+    func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.deletePray)
+        let dict: [String: Any] = ["pray_id": prayID]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
+    // MARK: - Fetch
     func fetchPray(prayID: String, completion: ((Result<MyPray, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPray)
         let dict: [String: Any] = [
@@ -100,17 +150,18 @@ extension PrayController: MyPrayRepo {
         }
     }
     
-    func searchPrays(tag: String, groupID: String, completion: ((Result<PraySearchResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.searchPray)
+    func fetchPrayList(userID: String, page: Int, row: Int, completion: ((Result<[MyPray], MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPrayList)
         let dict: [String: Any] = [
-            "tag": tag,
-            "group_id": groupID
+            "user_id": userID,
+            "page": page,
+            "row": row
         ]
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
                                                  parameters: dict)
         networkService.requestAPI(request: request,
-                                  type: PraySearchResponse.self,
+                                  type: [MyPray].self,
                                   token: nil) { result in
             switch result {
             case .success(let response):
@@ -119,7 +170,45 @@ extension PrayController: MyPrayRepo {
                 completion?(.failure(.other(error)))
             }
         }
+    }
+    
+    func fetchSummary(userID: String, date: String, completion: ((Result<PraySummaryResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPraySummary)
+        let dict: [String: Any] = ["user_id": userID, "date": date]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: PraySummaryResponse.self,
+                                  token: nil,
+                                  encoding: JSONEncoding.default) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
         
+    }
+    func fetchMyGroupList(userID: String, completion: ((Result<MyGroupListResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchMyGroupList)
+        let dict: [String: Any] = [
+            "user_id": userID
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: MyGroupListResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
     }
     
     func fetchGroupAcitvity(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupEventResponse, MoyangError>) -> Void)?) {
@@ -134,96 +223,6 @@ extension PrayController: MyPrayRepo {
                                                  parameters: dict)
         networkService.requestAPI(request: request,
                                   type: GroupEventResponse.self,
-                                  token: nil) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func updateReply(replyID: String, reply: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.updateReply)
-        let dict: [String: Any] = [
-            "reply_id": replyID,
-            "reply": reply
-        ]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: BaseResponse.self,
-                                  token: nil,
-                                  encoding: JSONEncoding.default) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func deleteReply(replyID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.deleteReply)
-        let dict: [String: Any] = ["reply_id": replyID]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: BaseResponse.self,
-                                  token: nil) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func updatePray(prayID: String, pray: String, tags: [String], isSecret: Bool, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.updatePray)
-        let dict: [String: Any] = [
-            "pray_id": prayID,
-            "content": pray,
-            "tags": tags,
-            "is_secret": isSecret
-        ]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: BaseResponse.self,
-                                  token: nil,
-                                  encoding: JSONEncoding.default) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func fetchPrayList(groupID: String, userID: String, isMe: Bool, order: String, page: Int, row: Int,
-                       completion: ((Result<[MyPray], MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPrayList)
-        let dict: [String: Any] = [
-            "group_id": groupID,
-            "user_id": userID,
-            "is_me": isMe,
-            "order": order,
-            "page": page,
-            "row": row
-        ]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: [MyPray].self,
                                   token: nil) { result in
             switch result {
             case .success(let response):
@@ -249,103 +248,6 @@ extension PrayController: MyPrayRepo {
                                                  parameters: dict)
         networkService.requestAPI(request: request,
                                   type: [MyPray].self,
-                                  token: nil) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.deletePray)
-        let dict: [String: Any] = ["pray_id": prayID]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: BaseResponse.self,
-                                  token: nil) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func addReaction(userID: String, prayID: String, type: Int, completion: ((Result<AddPrayReactionResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.addReaction)
-        let dict: [String: Any] = ["user_id": userID,
-                                   "pray_id": prayID,
-                                   "type": type]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: AddPrayReactionResponse.self,
-                                  token: nil) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func addAnswer(userID: String, prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.addAnswer)
-        let dict: [String: Any] = ["user_id": userID,
-                                   "pray_id": prayID,
-                                   "answer": answer]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: AddPrayAnswerResponse.self,
-                                  token: nil) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func addReply(userID: String, prayID: String, reply: String, completion: ((Result<AddPrayReplyResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.addReply)
-        let dict: [String: Any] = ["user_id": userID,
-                                   "pray_id": prayID,
-                                   "content": reply]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: AddPrayReplyResponse.self,
-                                  token: nil) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func addChange(prayID: String, content: String, completion: ((Result<AddPrayChangeResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.addChange)
-        let dict: [String: Any] = ["pray_id": prayID,
-                                   "content": content]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: AddPrayChangeResponse.self,
                                   token: nil) { result in
             switch result {
             case .success(let response):

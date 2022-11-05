@@ -93,7 +93,6 @@ class GroupActivityVM: VMType {
     
     private func fetchActivity(_ dateString: String) {
         guard let groupInfo = UserData.shared.groupInfo else { Log.e(""); return }
-//        useCase.fetchGroupAcitvity(groupID: groupInfo.id, isWeek: self.isWeek.value, date: dateString)
     }
     
     private func setMemberList(dict: [String: String]) {

@@ -21,8 +21,6 @@ class GroupUseCase {
     }
     
     // MARK: - Function
-    func fetchGroupList() {
-    }
     
     func fetchEvents(date: String) {
         guard let groupID = UserData.shared.groupID else { Log.e("No group"); return }

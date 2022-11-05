@@ -15,19 +15,7 @@ class CommunityMainUseCase {
     
     let groupInfo = BehaviorRelay<GroupInfo?>(value: nil)
     
-    let amenSuccess = BehaviorRelay<Void>(value: ())
-    let reactionSuccess = BehaviorRelay<Void>(value: ())
-    
-    let songName = BehaviorRelay<String?>(value: nil)
-    let songURL = BehaviorRelay<URL?>(value: nil)
-    
     let isNetworking = BehaviorRelay<Bool>(value: false)
-    
-    let editingPraySuccess = BehaviorRelay<Void>(value: ())
-    let editingPrayFailure = BehaviorRelay<Void>(value: ())
-    
-    let groupSummary = BehaviorRelay<GroupSummary?>(value: nil)
-    let error = BehaviorRelay<MoyangError?>(value: nil)
     
     // MARK: - Lifecycle
     init(repo: CommunityMainRepo) {
@@ -40,19 +28,6 @@ class CommunityMainUseCase {
             Log.e("No user")
             return
         }
-        
-        repo.fetchGroupSummary(myInfo: myInfo) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                self.groupSummary.accept(data)
-            case .failure(let error):
-                Log.e(error)
-                self.error.accept(.other(error))
-            }
-        }
-    }
-    func fetchGroupInfo() {
     }
     
     func addReply(memberAuth: String,

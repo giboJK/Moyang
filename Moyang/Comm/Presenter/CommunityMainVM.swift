@@ -40,19 +40,6 @@ class CommunityMainVM: VMType {
         useCase.isNetworking
             .bind(to: isNetworking)
             .disposed(by: disposeBag)
-        
-        useCase.groupSummary
-            .subscribe(onNext: { [weak self] data in
-                guard let data = data else { return }
-                guard let self = self else { return }
-                Log.d(data)
-                UserData.shared.groupID = data.groupID
-                UserData.shared.groupInfo = data.groupInfo
-                self.isEmptyGroup.accept(false)
-                self.groupName.accept(data.groupInfo.groupName)
-                self.setPrayData(data: data.prays)
-                self.setAmenData(data: data.amens)
-            }).disposed(by: disposeBag)
     }
     
     private func fetchGroupSummary() {

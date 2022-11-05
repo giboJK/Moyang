@@ -11,18 +11,15 @@ import RxCocoa
 class AllGroupVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: GroupUseCase
-    let communityUseCase: CommunityMainUseCase
 
     let itemList = BehaviorRelay<[GroupInfoItem]>(value: [])
     let groupActivityVM = BehaviorRelay<GroupActivityVM?>(value: nil)
     
     private var groupInfoList = [GroupInfo]()
     
-    init(useCase: GroupUseCase, communityUseCase: CommunityMainUseCase) {
+    init(useCase: GroupUseCase) {
         self.useCase = useCase
-        self.communityUseCase = communityUseCase
         bind()
-        fetchGroupList()
     }
 
     deinit { Log.i(self) }
@@ -37,14 +34,6 @@ class AllGroupVM: VMType {
                 self?.groupInfoList = list
             }).disposed(by: disposeBag)
     }
-    
-    private func fetchGroupList() {
-        useCase.fetchGroupList()
-    }
-    
-    private func selectGroup(indexPath: IndexPath) {
-    }
-    
 }
 
 extension AllGroupVM {
@@ -59,11 +48,6 @@ extension AllGroupVM {
     }
 
     func transform(input: Input) -> Output {
-        input.selectGroup
-            .drive(onNext: { [weak self] indexPath in
-                self?.selectGroup(indexPath: indexPath)
-            }).disposed(by: disposeBag)
-        
         return Output(itemList: itemList.asDriver(),
                       groupActivityVM: groupActivityVM.asDriver())
     }

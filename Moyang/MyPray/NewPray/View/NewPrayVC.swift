@@ -63,7 +63,6 @@ class NewPrayVC: UIViewController, VCType {
         $0.hidesWhenStopped = true
     }
     
-    // MARKL - Variables
     var groupList = [String]()
     
     override func viewDidLoad() {

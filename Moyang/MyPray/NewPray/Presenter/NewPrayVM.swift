@@ -57,6 +57,8 @@ class NewPrayVM: VMType {
         // MARK: - Data
         useCase.myGroupList
             .subscribe(onNext: { [weak self] list in
+                var groupList = list.map { GroupInfo(data: $0) }
+                groupList.append(GroupInfo(id: "-1", name: "성령님과 기도할게요 :)"))
                 self?.groupList.accept(list.map { GroupInfo(data: $0) })
             }).disposed(by: disposeBag)
         
@@ -125,13 +127,12 @@ class NewPrayVM: VMType {
         }
         useCase.addPray(title: title, content: content)
         
-        if let groupName = group.value {
+        if let groupID = groupList.value.first(where: { $0.name == group.value}) {
             sharePray()
         }
     }
     
     private func sharePray() {
-        
     }
     
     private func changeCurrentStep(_ step: NewPrayStep) {
