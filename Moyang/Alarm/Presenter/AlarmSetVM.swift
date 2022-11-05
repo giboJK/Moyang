@@ -51,6 +51,7 @@ class AlarmSetVM: VMType {
                 guard let self = self else { return }
                 if let pray = list.first(where: { $0.type == AlarmType.pray.rawValue.uppercased() }) {
                     self.prayTime.accept(AlarmItem(id: pray.id, time: pray.time, isOn: pray.isOn, day: pray.day))
+                    self.editAlarm(type: .pray)
                 } else {
                     self.prayTime.accept(nil)
                 }

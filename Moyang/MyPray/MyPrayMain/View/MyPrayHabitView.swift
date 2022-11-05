@@ -71,7 +71,10 @@ class MyPrayHabitView: UIView {
                       let isThu = summary.day?.contains("4"),
                       let isFri = summary.day?.contains("5"),
                       let isSat = summary.day?.contains("6")
-                else { return }
+                else {
+                    self.myPrayAlarmView.resetData()
+                    return
+                }
                 
                 self.myPrayAlarmView.setTime(data: alarmTime,
                                              isOn: isOn,
@@ -174,6 +177,18 @@ class MyPrayAlarmView: UIView {
             $0.top.equalToSuperview().inset(59)
             $0.right.equalToSuperview().inset(16)
         }
+    }
+    
+    func resetData() {
+        alarmSwitch.isOn = false
+        alarmSwitch.isHidden = true
+        dayLabel.text = ""
+        dayLabel.isHidden = true
+        alarmTimeLabel.text = "규칙적인 기도를 해보세요"
+        alarmTimeLabel.snp.updateConstraints {
+            $0.bottom.equalToSuperview().inset(20)
+        }
+        
     }
     
     func setTime(data: String, isOn: Bool, isSun: Bool, isMon: Bool, isTue: Bool, isWed: Bool, isThu: Bool, isFri: Bool, isSat: Bool) {
