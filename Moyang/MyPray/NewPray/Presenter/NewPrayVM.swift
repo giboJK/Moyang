@@ -92,8 +92,6 @@ class NewPrayVM: VMType {
     }
     
     private func loadAutoSave() {
-        Log.d(UserData.shared.autoSavedPrayTitle)
-        Log.d(UserData.shared.autoSavedPrayContent)
         if UserData.shared.autoSavedPrayTitle != nil || UserData.shared.autoSavedPrayContent != nil {
             askingAuto.accept(())
         }
@@ -133,6 +131,7 @@ class NewPrayVM: VMType {
     }
     
     private func sharePray() {
+        useCase.addPrayGroupInfo(groupID: <#T##String#>, prayID: <#T##String#>)
     }
     
     private func changeCurrentStep(_ step: NewPrayStep) {

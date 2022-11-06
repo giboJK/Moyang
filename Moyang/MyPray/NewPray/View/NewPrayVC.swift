@@ -62,6 +62,13 @@ class NewPrayVC: UIViewController, VCType {
     let indicator = UIActivityIndicatorView(style: .large).then {
         $0.hidesWhenStopped = true
     }
+    let prayContainer = UIView()
+    let prayButton = MoyangButton(.sheepPrimary).then {
+        $0.setTitle("기도하기", for: .normal)
+    }
+    let laterButton = MoyangButton(.sheepSecondary).then {
+        $0.setTitle("다음에 할게요", for: .normal)
+    }
     
     var groupList = [String]()
     
@@ -100,6 +107,7 @@ class NewPrayVC: UIViewController, VCType {
         setupTitleTextView()
         setupCancelButton()
         setupSaveButton()
+        setupPrayContainer()
         setupIndicator()
     }
     private func setupToolbar() {
@@ -177,6 +185,26 @@ class NewPrayVC: UIViewController, VCType {
             $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().inset(8)
             $0.size.equalTo(28)
+        }
+    }
+    private func setupPrayContainer() {
+        view.addSubview(prayContainer)
+        prayContainer.snp.makeConstraints {
+            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        prayContainer.addSubview(laterButton)
+        laterButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(48)
+        }
+        prayContainer.addSubview(prayButton)
+        prayButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(24)
+            $0.height.equalTo(48)
+            $0.top.equalToSuperview()
+            $0.bottom.equalTo(laterButton.snp.top).offset(-16)
         }
     }
     

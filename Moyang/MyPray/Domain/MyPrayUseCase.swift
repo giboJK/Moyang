@@ -47,26 +47,8 @@ class MyPrayUseCase {
         self.repo = repo
     }
     
-    
     // MARK: - Functions
-    func fetchSummary(date: String) {
-        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() { return }
-        repo.fetchSummary(userID: myID, date: date) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                if response.code == 0 {
-                    self.myPraySummary.accept(response.data)
-                } else {
-                    Log.e(response.errorMessage ?? "")
-                }
-            case .failure(let error):
-                Log.e(error)
-            }
-            self.resetIsNetworking()
-        }
-    }
+    // MARK: - Add
     
     func addPray(title: String, content: String) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
@@ -93,6 +75,74 @@ class MyPrayUseCase {
         }
     }
     
+    func addAnswer(prayID: String, answer: String) {
+    }
+    
+    func addChange(prayID: String, content: String) {
+    }
+    
+    func addPrayGroupInfo(groupID: String, prayID: String) {
+        
+    }
+    
+    // MARK: - Fetch
+    func fetchSummary(date: String) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
+        if checkAndSetIsNetworking() { return }
+        repo.fetchSummary(userID: myID, date: date) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.myPraySummary.accept(response.data)
+                } else {
+                    Log.e(response.errorMessage ?? "")
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+            self.resetIsNetworking()
+        }
+    }
+    
+    func fetchPrayList(userID: String, page: Int, row: Int = 7) {
+        if checkAndSetIsNetworking() {
+            return
+        }
+        repo.fetchPrayList(userID: userID, page: page, row: row) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let list):
+                var curList = self.myPrayList.value
+                curList.append(contentsOf: list)
+                self.myPrayList.accept(curList)
+            case .failure(let error):
+                Log.e(error)
+            }
+            self.resetIsNetworking()
+        }
+    }
+    
+    func fetchMyGroupList() {
+        guard let userID = UserData.shared.userInfo?.id else {
+            Log.e("No userID??")
+            return
+        }
+        repo.fetchMyGroupList(userID: userID) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.myGroupList.accept(response.groups)
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
+    }
+    
+    func fetchPray(prayID: String, userID: String) {
+    }
+    
+    
+    // MARK: - Update
     func updatePray(prayID: String, title: String, content: String) {
         if checkAndSetIsNetworking() { return }
         repo.updatePray(prayID: prayID, title: title, content: content) { [weak self] result in
@@ -111,25 +161,7 @@ class MyPrayUseCase {
         }
     }
     
-    func fetchPrayList(userID: String, page: Int, row: Int = 7) {
-        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
-        if checkAndSetIsNetworking() {
-            return
-        }
-        let isMe = userID == myID
-        repo.fetchPrayList(userID: userID, page: page, row: row) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let list):
-                var curList = self.myPrayList.value
-                curList.append(contentsOf: list)
-                self.myPrayList.accept(curList)
-            case .failure(let error):
-                Log.e(error)
-            }
-            self.resetIsNetworking()
-        }
-    }
+    // MARK: - Delete
     func deletePray(prayID: String) {
         if checkAndSetIsNetworking() { return }
         repo.deletePray(prayID: prayID) { [weak self] result in
@@ -150,30 +182,6 @@ class MyPrayUseCase {
             }
             self.resetIsNetworking()
         }
-    }
-    
-    func addAnswer(prayID: String, answer: String) {
-    }
-    
-    func addChange(prayID: String, content: String) {
-    }
-    
-    func fetchMyGroupList() {
-        guard let userID = UserData.shared.userInfo?.id else {
-            Log.e("No userID??")
-            return
-        }
-        repo.fetchMyGroupList(userID: userID) { [weak self] result in
-            switch result {
-            case .success(let response):
-                self?.myGroupList.accept(response.groups)
-            case .failure(let error):
-                Log.e(error)
-            }
-        }
-    }
-    
-    func fetchPray(prayID: String, userID: String) {
     }
     
     
