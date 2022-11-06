@@ -132,6 +132,11 @@ class MyPrayMainVC: UIViewController, VCType {
                 }
             }).disposed(by: disposeBag)
         
+        output.detailVM
+            .drive(onNext: { [weak self] detailVM in
+                guard let detailVM = detailVM else { return }
+                self?.coordinator?.didTapPray(vm: detailVM)
+            }).disposed(by: disposeBag)
     }
 }
 

@@ -64,7 +64,7 @@ extension MyPrayCoordinator: MyPrayMainVCDelegate {
 
 // MARK: - MyPrayDetailVCDelegate
 extension MyPrayCoordinator: MyPrayDetailVCDelegate {
-    func didTapPrayButton(vm: MyPrayDetailVM) {
+    func didTapPrayButton(vm: GroupPrayingVM) {
         
     }
 }

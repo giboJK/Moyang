@@ -52,6 +52,12 @@ class MyPrayMainVM: VMType {
         }
     }
     
+    func generateDetailVM() {
+        if let summary = summary.value, let prayID = summary.prayID {
+            detailVM.accept(MyPrayDetailVM(useCase: useCase, prayID: prayID))
+        }
+    }
+    
     func toggleAlarm(isOn: Bool) {
         guard let summary = summary.value else { return }
         if let id = summary.alarmID, let time = summary.alarmTime, let day = summary.day {
@@ -73,6 +79,10 @@ extension MyPrayMainVM {
     }
 
     func transform(input: Input) -> Output {
+        input.selectPray
+            .drive(onNext: { [weak self] _ in
+                self?.generateDetailVM()
+            }).disposed(by: disposeBag)
         
         input.toggleAlarm
             .drive(onNext: { [weak self] isOn in

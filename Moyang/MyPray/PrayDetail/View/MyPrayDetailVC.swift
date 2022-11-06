@@ -32,26 +32,6 @@ class MyPrayDetailVC: UIViewController, VCType {
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
     }
-    let moreButton = MoyangButton(.none).then {
-        $0.layer.cornerRadius = 8
-        $0.tintColor = .sheep1
-        $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
-        $0.backgroundColor = .clear
-    }
-    let prayPlusButton = MoyangButton(.none).then {
-        $0.layer.cornerRadius = 8
-        $0.tintColor = .sheep1
-        var container = AttributeContainer()
-        container.font = .systemFont(ofSize: 14, weight: .regular)
-        var configuration = UIButton.Configuration.filled()
-        configuration.buttonSize = .mini
-        configuration.attributedTitle = AttributedString("기도 더하기", attributes: container)
-        configuration.image = UIImage(systemName: "plus")
-        configuration.imagePadding = 4
-        configuration.baseBackgroundColor = .nightSky3
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-        $0.configuration = configuration
-    }
     let prayDetailView = PrayDetailView()
     let addChangeButton = MoyangButton(.none).then {
         $0.layer.cornerRadius = 8
@@ -91,15 +71,6 @@ class MyPrayDetailVC: UIViewController, VCType {
         $0.firstButton.setTitle("삭제", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
     }
-    let reactionBgView = UIView().then {
-        $0.isHidden = true
-    }
-    let reactionPopupView = ReactionPopupView().then {
-        $0.isHidden = true
-    }
-    let reactionPopupViewHeight: CGFloat = 36 + 8 + 40
-    var isPopupAnimating = false
-    var isMyPray = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,9 +85,7 @@ class MyPrayDetailVC: UIViewController, VCType {
         navigationController?.isNavigationBarHidden = false
     }
 
-    deinit {
-        Log.i(self)
-    }
+    deinit { Log.i(self) }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
@@ -127,13 +96,10 @@ class MyPrayDetailVC: UIViewController, VCType {
         view.backgroundColor = .nightSky1
         setupUpdateButton()
         setupPrayButton()
-        setupPrayPlusButton()
         setupAddChangeButton()
         setupAddAnswerButton()
-        setupMoreButton()
         setupPrayDetailView()
         setupPrayChangeAndAnswerLabel()
-        setupReactionView()
     }
     private func setupUpdateButton() {
         navigationItem.rightBarButtonItem = saveButton
@@ -145,14 +111,6 @@ class MyPrayDetailVC: UIViewController, VCType {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
             $0.height.equalTo(36)
             $0.left.equalToSuperview().inset(17)
-        }
-    }
-    private func setupPrayPlusButton() {
-        view.addSubview(prayPlusButton)
-        prayPlusButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
-            $0.height.equalTo(36)
-            $0.left.equalTo(prayButton.snp.right).offset(12)
         }
     }
     private func setupAddChangeButton() {
@@ -171,14 +129,6 @@ class MyPrayDetailVC: UIViewController, VCType {
             $0.left.equalTo(addChangeButton.snp.right).offset(12)
         }
     }
-    private func setupMoreButton() {
-        view.addSubview(moreButton)
-        moreButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
-            $0.height.equalTo(36)
-            $0.right.equalToSuperview().inset(16)
-        }
-    }
     private func setupPrayDetailView() {
         view.addSubview(prayDetailView)
         prayDetailView.snp.makeConstraints {
@@ -195,97 +145,11 @@ class MyPrayDetailVC: UIViewController, VCType {
             $0.left.equalToSuperview().inset(20)
         }
     }
-    private func setupReactionView() {
-        view.addSubview(reactionBgView)
-        reactionBgView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        view.addSubview(reactionPopupView)
-        reactionPopupView.snp.makeConstraints {
-            $0.width.equalTo(0)
-            $0.height.equalTo(0)
-            $0.right.equalTo(prayDetailView).inset(16)
-            $0.top.equalTo(prayDetailView).inset(280)
-        }
-        reactionPopupView.delegate = self
-    }
-    func showPrayReactionPopupView() {
-        if isMyPray || isPopupAnimating {
-            return
-        }
-        isPopupAnimating = true
-        reactionBgView.isHidden = false
-        reactionPopupView.isHidden = false
-        reactionPopupView.snp.updateConstraints {
-            $0.width.equalTo(156)
-            $0.height.equalTo(reactionPopupViewHeight)
-        }
-        UIView.animate(withDuration: 0.15) {
-            self.view.updateConstraints()
-            self.view.layoutIfNeeded()
-            self.isPopupAnimating = false
-        }
-    }
-    func hidePrayReactionPopupView() {
-        isPopupAnimating = false
-        reactionBgView.isHidden = true
-        reactionPopupView.isHidden = true
-        reactionPopupView.snp.updateConstraints {
-            $0.width.equalTo(0)
-            $0.height.equalTo(0)
-        }
-    }
-    
-    private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
-        let vc = PrayReactionDetailVC()
-        vc.vm = prayReactionDetailVM
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .pageSheet
-
-        if let sheet = nav.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-        }
-        present(nav, animated: true, completion: nil)
-    }
-    
-    private func showReplyView(prayReplyDetailVM: PrayReplyDetailVM) {
-        let vc = PrayReplyDetailVC()
-        vc.vm = prayReplyDetailVM
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .pageSheet
-
-        if let sheet = nav.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-        }
-        present(nav, animated: true, completion: nil)
-    }
     
     private func showChangeAndAnswerVC(changeAndAnswerVM: ChangeAndAnswerVM) {
         let vc = ChangeAndAnswerVC()
         vc.vm = changeAndAnswerVM
         navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    private func showMoreOptions() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-//        alert.addAction(UIAlertAction(title: "그룹 변경", style: .default , handler: { _ in
-//        }))
-
-        alert.addAction(UIAlertAction(title: "삭제", style: .destructive , handler: { [weak self] _ in
-            guard let self = self else { return }
-            self.displayPopup(popup: self.deleteConfirmPopup)
-        }))
-        
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { _ in
-        }))
-
-//        uncomment for iPad Support
-        alert.popoverPresentationController?.sourceView = self.view
-
-        self.present(alert, animated: true, completion: {
-            print("completion block")
-        })
     }
     
     // MARK: - Binding
@@ -295,13 +159,6 @@ class MyPrayDetailVC: UIViewController, VCType {
     }
     
     private func bindViews() {
-        moreButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.showMoreOptions()
-//                self.displayPopup(popup: self.deleteConfirmPopup)
-            }).disposed(by: disposeBag)
-        
         deleteConfirmPopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
@@ -312,48 +169,20 @@ class MyPrayDetailVC: UIViewController, VCType {
                 self?.closePopup()
             }).disposed(by: disposeBag)
         
-        prayDetailView.rx.longPressGesture().when(.began)
-            .subscribe(onNext: { [weak self] _ in
-                self?.showPrayReactionPopupView()
-            }).disposed(by: disposeBag)
-        
-        reactionBgView.rx.tapGesture().when(.ended)
-            .subscribe(onNext: { [weak self] _ in
-                self?.hidePrayReactionPopupView()
-            }).disposed(by: disposeBag)
-        
         prayButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                guard let vm = self?.vm else { return }
-                self?.coordinator?.didTapPrayButton(vm: vm)
             }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let tapReactionView = prayDetailView.reactionView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
-        let replys = prayDetailView.replyView.rx.tapGesture().when(.ended).map { _ in () }
+        
         let input = VM.Input(updatePray: saveButton.rx.tap.asDriver(),
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver(),
-                             addPrayPlus: prayPlusButton.rx.tap.asDriver(),
                              addChange: addChangeButton.rx.tap.asDriver(),
-                             addAnswer: addAnswerButton.rx.tap.asDriver(),
-                             didTapPrayReaction: tapReactionView,
-                             showReplys: replys.asDriver(onErrorJustReturn: ())
+                             addAnswer: addAnswerButton.rx.tap.asDriver()
         )
         let output = vm.transform(input: input)
-        
-        output.isMyPray
-            .drive(onNext: { [weak self] isMyPray in
-                guard let self = self else { return }
-                self.isMyPray = isMyPray
-                self.saveButton.isEnabled = isMyPray
-                self.saveButton.title = isMyPray ? "저장" : ""
-                self.moreButton.isHidden = !isMyPray
-                self.prayPlusButton.isHidden = isMyPray
-                self.addChangeButton.isHidden = !isMyPray
-                self.addAnswerButton.isHidden = !isMyPray
-            }).disposed(by: disposeBag)
         
         output.memberName
             .drive(onNext: { [weak self] name in
@@ -386,55 +215,9 @@ class MyPrayDetailVC: UIViewController, VCType {
             .drive(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
-        
-        output.prayReactionDetailVM
-            .drive(onNext: { [weak self] prayReactionDetailVM in
-                guard let prayReactionDetailVM = prayReactionDetailVM else { return }
-                self?.showReactionView(prayReactionDetailVM: prayReactionDetailVM)
-            }).disposed(by: disposeBag)
-        
-        output.prayPlusAndChangeVM
-            .drive(onNext: { [weak self] prayPlusAndChangeVM in
-                guard let prayPlusAndChangeVM = prayPlusAndChangeVM else { return }
-                self?.showPrayPlusAndChangeVC(prayPlusAndChangeVM: prayPlusAndChangeVM)
-            }).disposed(by: disposeBag)
-        
-        output.prayReplyDetailVM
-            .drive(onNext: { [weak self] prayReplyDetailVM in
-                guard let prayReplyDetailVM = prayReplyDetailVM else { return }
-                self?.showReplyView(prayReplyDetailVM: prayReplyDetailVM)
-            }).disposed(by: disposeBag)
-        
-        output.changeAndAnswerVM
-            .drive(onNext: { [weak self] changeAndAnswerVM in
-                guard let changeAndAnswerVM = changeAndAnswerVM else { return }
-                self?.showChangeAndAnswerVC(changeAndAnswerVM: changeAndAnswerVM)
-            }).disposed(by: disposeBag)
-    }
-    
-    private func showPrayPlusAndChangeVC(prayPlusAndChangeVM: AddReplyAndChangeVM) {
-        let vc = AddReplyAndChangeVC()
-        vc.vm = prayPlusAndChangeVM
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .pageSheet
-
-        if let sheet = nav.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-        }
-        present(nav, animated: true, completion: nil)
     }
 }
 
 protocol MyPrayDetailVCDelegate: AnyObject {
-    func didTapPrayButton(vm: MyPrayDetailVM)
-}
-
-extension MyPrayDetailVC: ReactionPopupViewDelegate {
-    func didTapEmoji(type: PrayReactionType) {
-        vm?.addReaction(type: type)
-    }
-    
-    func didTapCopy() {
-        
-    }
+    func didTapPrayButton(vm: GroupPrayingVM)
 }

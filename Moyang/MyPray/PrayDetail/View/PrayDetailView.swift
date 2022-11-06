@@ -205,16 +205,6 @@ class PrayDetailView: UIView, UITextFieldDelegate {
         let input = VM.Input(setPray: prayTextView.rx.text.asDriver())
         let output = vm.transform(input: input)
         
-        output.isMyPray
-            .drive(onNext: { [weak self] isMyPray in
-                guard let self = self else { return }
-                self.prayTextView.isEditable = isMyPray
-                self.prayTextView.textDragInteraction?.isEnabled = !isMyPray
-                if isMyPray {
-                    self.setupToolbar()
-                }
-            }).disposed(by: disposeBag)
-        
         output.groupName
             .drive(groupNameLabel.rx.text)
             .disposed(by: disposeBag)
@@ -225,16 +215,5 @@ class PrayDetailView: UIView, UITextFieldDelegate {
             .distinctUntilChanged()
             .drive(prayTextView.rx.text)
             .disposed(by: disposeBag)
-        output.reactions
-            .drive(onNext: { [weak self] reactions in
-                if reactions.isEmpty { self?.reactionView.isHidden = true; return }
-                self?.setupReactionView(reactions: reactions)
-            }).disposed(by: disposeBag)
-        
-        output.replys
-            .delay(.milliseconds(100))
-            .drive(onNext: { [weak self] replys in
-                self?.setupReplyView(replys: replys)
-            }).disposed(by: disposeBag)
     }
 }

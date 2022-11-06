@@ -29,7 +29,6 @@ class GroupActivityVM: VMType {
     
     let keyword = BehaviorRelay<String?>(value: nil)
     let autoCompleteList = BehaviorRelay<[String]>(value: [])
-    let searchPrayItemList = BehaviorRelay<[SearchPrayItem]>(value: [])
     
     let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
     let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
@@ -225,24 +224,6 @@ extension GroupActivityVM {
             self.name = name
             self.isMe = isMe
             isChecked = false
-        }
-    }
-    
-    struct SearchPrayItem {
-        let id: String
-        let userID: String
-        let name: String
-        let date: String
-        let pray: String
-        let tags: [String]
-        
-        init(data: SearchedPray) {
-            self.id = data.prayID
-            self.userID = data.userID
-            self.name = data.userName
-            self.date = data.latestDate
-            self.pray = data.pray
-            self.tags = data.tags
         }
     }
 }

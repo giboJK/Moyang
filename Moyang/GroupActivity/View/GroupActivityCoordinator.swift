@@ -49,11 +49,6 @@ extension GroupActivityCoordinator: GroupActivityVCDelegate {
     }
 }
 
-extension GroupActivityCoordinator: MyPrayDetailVCDelegate {
-    func didTapPrayButton(vm: MyPrayDetailVM) {
-    }
-}
-
 extension GroupActivityCoordinator: GroupPrayingVCDelegate {
     
 }
