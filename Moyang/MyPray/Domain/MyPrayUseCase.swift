@@ -50,20 +50,21 @@ class MyPrayUseCase {
     // MARK: - Functions
     // MARK: - Add
     
-    func addPray(title: String, content: String) {
+    func addPray(title: String, content: String, groupID: String) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() { return }
         repo.addPray(userID: myID,
                      title: title,
-                     content: content) { [weak self] result in
+                     content: content,
+                     groupID: groupID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
                 if response.code == 0 {
-                    self.addPraySuccess.accept(())
                     var curList = self.myPrayList.value
                     curList.insert(response.data, at: 0)
                     self.myPrayList.accept(curList)
+                    self.addPraySuccess.accept(())
                 } else {
                     self.addPrayFailure.accept(())
                 }

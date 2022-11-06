@@ -27,6 +27,7 @@ class NewPrayVM: VMType {
     let groupList = BehaviorRelay<[GroupInfo]>(value: [])
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
+    let addPraySuccess = BehaviorRelay<Void>(value: ())
     let addPrayFailure = BehaviorRelay<Void>(value: ())
     
     init(useCase: MyPrayUseCase) {
@@ -58,8 +59,8 @@ class NewPrayVM: VMType {
         useCase.myGroupList
             .subscribe(onNext: { [weak self] list in
                 var groupList = list.map { GroupInfo(data: $0) }
-                groupList.append(GroupInfo(id: "-1", name: "성령님과 기도할게요 :)"))
-                self?.groupList.accept(list.map { GroupInfo(data: $0) })
+                groupList.append(GroupInfo(id: "", name: "성령님과 기도할게요 :)"))
+                self?.groupList.accept(groupList)
             }).disposed(by: disposeBag)
         
         Observable.combineLatest(title, content, group)
@@ -123,15 +124,12 @@ class NewPrayVM: VMType {
             addPrayFailure.accept(())
             return
         }
-        useCase.addPray(title: title, content: content)
         
-        if let groupID = groupList.value.first(where: { $0.name == group.value}) {
-            sharePray()
+        if let group = groupList.value.first(where: { $0.name == group.value}) {
+            useCase.addPray(title: title, content: content, groupID: group.id)
+        } else {
+            useCase.addPray(title: title, content: content, groupID: "")
         }
-    }
-    
-    private func sharePray() {
-        useCase.addPrayGroupInfo(groupID: <#T##String#>, prayID: <#T##String#>)
     }
     
     private func changeCurrentStep(_ step: NewPrayStep) {
@@ -150,7 +148,7 @@ class NewPrayVM: VMType {
         case .save:
             break
         case .pray:
-            break
+            addPraySuccess.accept(())
         }
     }
 }

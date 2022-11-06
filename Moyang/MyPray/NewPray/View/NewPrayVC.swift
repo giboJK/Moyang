@@ -62,7 +62,7 @@ class NewPrayVC: UIViewController, VCType {
     let indicator = UIActivityIndicatorView(style: .large).then {
         $0.hidesWhenStopped = true
     }
-    let prayContainer = UIView()
+    let prayContainer = UIView().then { $0.isHidden = true }
     let prayButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("기도하기", for: .normal)
     }

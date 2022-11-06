@@ -10,7 +10,7 @@ import Foundation
 protocol MyPrayRepo {
     
     // MARK: - Add
-    func addPray(userID: String, title: String, content: String, completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?)
+    func addPray(userID: String, title: String, content: String, groupID: String, completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?)
     
     func addAnswer(userID: String, prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?)
     

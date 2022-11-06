@@ -21,9 +21,10 @@ extension PrayController: MyPrayRepo {
     
     // MARK: - Add
     
-    func addPray(userID: String, title: String, content: String, completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?) {
+    func addPray(userID: String, title: String, content: String, groupID: String, completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.addPray)
         let dict: [String: Any] = [
+            "group_id": groupID,
             "user_id": userID,
             "title": title,
             "content": content
