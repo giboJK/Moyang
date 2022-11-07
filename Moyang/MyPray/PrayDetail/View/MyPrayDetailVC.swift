@@ -20,17 +20,8 @@ class MyPrayDetailVC: UIViewController, VCType {
 
     // MARK: - UI
     let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
-    let prayButton = MoyangButton(.none).then {
-        $0.layer.cornerRadius = 8
-        $0.tintColor = .sheep1
-        var container = AttributeContainer()
-        container.font = .systemFont(ofSize: 14, weight: .regular)
-        var configuration = UIButton.Configuration.filled()
-        configuration.buttonSize = .mini
-        configuration.attributedTitle = AttributedString("기도하기", attributes: container)
-        configuration.baseBackgroundColor = .nightSky3
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-        $0.configuration = configuration
+    let prayButton = MoyangButton(.sheepPrimary).then {
+        $0.setTitle("기도하기", for: .normal)
     }
     let prayDetailView = PrayDetailView()
     let addChangeButton = MoyangButton(.none).then {
@@ -46,25 +37,6 @@ class MyPrayDetailVC: UIViewController, VCType {
         configuration.baseBackgroundColor = .nightSky3
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         $0.configuration = configuration
-    }
-    let addAnswerButton = MoyangButton(.none).then {
-        $0.layer.cornerRadius = 8
-        $0.tintColor = .sheep1
-        var container = AttributeContainer()
-        container.font = .systemFont(ofSize: 14, weight: .regular)
-        var configuration = UIButton.Configuration.filled()
-        configuration.buttonSize = .mini
-        configuration.attributedTitle = AttributedString("응답", attributes: container)
-        configuration.image = UIImage(systemName: "plus")
-        configuration.imagePadding = 4
-        configuration.baseBackgroundColor = .nightSky3
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-        $0.configuration = configuration
-    }
-    let prayChangeAndAnswerLabel = UILabel().then {
-        $0.text = "기도 변화 / 응답"
-        $0.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.textColor = .sheep2
     }
     let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .sheepGhost).then {
         $0.desc = "정말로 삭제하시겠어요? 삭제한 기도는 복구할 수 없습니다."
@@ -92,14 +64,11 @@ class MyPrayDetailVC: UIViewController, VCType {
     }
     
     func setupUI() {
-        title = "기도제목"
+        title = "기도"
         view.backgroundColor = .nightSky1
         setupUpdateButton()
         setupPrayButton()
-        setupAddChangeButton()
-        setupAddAnswerButton()
         setupPrayDetailView()
-        setupPrayChangeAndAnswerLabel()
     }
     private func setupUpdateButton() {
         navigationItem.rightBarButtonItem = saveButton
@@ -121,14 +90,6 @@ class MyPrayDetailVC: UIViewController, VCType {
             $0.left.equalTo(prayButton.snp.right).offset(12)
         }
     }
-    private func setupAddAnswerButton() {
-        view.addSubview(addAnswerButton)
-        addAnswerButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
-            $0.height.equalTo(36)
-            $0.left.equalTo(addChangeButton.snp.right).offset(12)
-        }
-    }
     private func setupPrayDetailView() {
         view.addSubview(prayDetailView)
         prayDetailView.snp.makeConstraints {
@@ -137,19 +98,6 @@ class MyPrayDetailVC: UIViewController, VCType {
         }
         prayDetailView.vm = vm
         prayDetailView.bind()
-    }
-    private func setupPrayChangeAndAnswerLabel() {
-        view.addSubview(prayChangeAndAnswerLabel)
-        prayChangeAndAnswerLabel.snp.makeConstraints {
-            $0.top.equalTo(prayDetailView.snp.bottom).offset(16)
-            $0.left.equalToSuperview().inset(20)
-        }
-    }
-    
-    private func showChangeAndAnswerVC(changeAndAnswerVM: ChangeAndAnswerVM) {
-        let vc = ChangeAndAnswerVC()
-        vc.vm = changeAndAnswerVM
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - Binding
@@ -178,16 +126,10 @@ class MyPrayDetailVC: UIViewController, VCType {
         guard let vm = vm else { Log.e("vm is nil"); return }
         
         let input = VM.Input(updatePray: saveButton.rx.tap.asDriver(),
-                             deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver(),
-                             addChange: addChangeButton.rx.tap.asDriver(),
-                             addAnswer: addAnswerButton.rx.tap.asDriver()
+                             deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver()
         )
         let output = vm.transform(input: input)
         
-        output.memberName
-            .drive(onNext: { [weak self] name in
-                self?.title = name
-            }).disposed(by: disposeBag)
         output.updatePraySuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in

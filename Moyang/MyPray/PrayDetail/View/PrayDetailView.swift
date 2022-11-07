@@ -202,18 +202,11 @@ class PrayDetailView: UIView, UITextFieldDelegate {
     
     func bind() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setPray: prayTextView.rx.text.asDriver())
+        let input = VM.Input(setTitle: prayTextView.rx.text.asDriver())
         let output = vm.transform(input: input)
         
         output.groupName
             .drive(groupNameLabel.rx.text)
-            .disposed(by: disposeBag)
-        output.date
-            .drive(dateLabel.rx.text)
-            .disposed(by: disposeBag)
-        output.pray
-            .distinctUntilChanged()
-            .drive(prayTextView.rx.text)
             .disposed(by: disposeBag)
     }
 }
