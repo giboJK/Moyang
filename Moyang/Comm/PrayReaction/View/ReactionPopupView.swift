@@ -51,9 +51,6 @@ class ReactionPopupView: UIView {
         $0.textColor = .nightSky2
         $0.isUserInteractionEnabled = false
     }
-    let copyImageView = UIImageView(image: Asset.Images.Pray.copy.image.withTintColor(.nightSky2)).then {
-        $0.isUserInteractionEnabled = false
-    }
     
     required init() {
         super.init(frame: .zero)
@@ -125,36 +122,6 @@ class ReactionPopupView: UIView {
             $0.left.right.bottom.equalToSuperview()
             $0.top.equalTo(buttonContainer.snp.bottom).offset(8)
         }
-        setupCopyView()
-    }
-    private func setupCopyView() {
-        actionContainer.addSubview(copyView)
-        copyView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(40)
-        }
-        let bottomBorder = UIView().then {
-            $0.backgroundColor = .sheep2
-        }
-        copyView.addSubview(bottomBorder)
-        bottomBorder.snp.makeConstraints {
-            $0.left.right.bottom.equalToSuperview()
-            $0.height.equalTo(0.5)
-        }
-        
-        copyView.addSubview(copyLabel)
-        copyLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.left.equalToSuperview().inset(12)
-        }
-        copyView.addSubview(copyImageView)
-        copyImageView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.right.equalToSuperview().inset(12)
-            $0.size.equalTo(20)
-        }
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapCopyView))
-        copyView.addGestureRecognizer(tapGesture)
     }
 
     func setMyReaction(reaction: Int) {

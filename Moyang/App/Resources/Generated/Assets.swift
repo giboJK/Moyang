@@ -44,18 +44,14 @@ public enum Asset {
   }
   public enum Images {
     public static let accentColor = ColorAsset(name: "AccentColor")
-    public enum Cell {
-      public static let sortDown = ImageAsset(name: "sortDown")
-    }
     public enum Common {
       public static let checkEmpty = ImageAsset(name: "checkEmpty")
       public static let checkFill = ImageAsset(name: "checkFill")
     }
     public enum Pray {
-      public static let addItem = ImageAsset(name: "addItem")
-      public static let changeRecord = ImageAsset(name: "change_record")
+      public static let bubbleL = ImageAsset(name: "bubbleL")
+      public static let bubbleR = ImageAsset(name: "bubbleR")
       public static let comment = ImageAsset(name: "comment")
-      public static let copy = ImageAsset(name: "copy")
     }
     public enum Profile {
       public static let logout = ImageAsset(name: "logout")

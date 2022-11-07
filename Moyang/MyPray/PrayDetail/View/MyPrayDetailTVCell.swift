@@ -13,7 +13,8 @@ import RxCocoa
 import RxSwift
 
 class MyPrayDetailTVCell: UITableViewCell {
-    
+    let bubbleRImageView = UIImageView(image: Asset.Images.Pray.bubbleR.image)
+    let bubbleLImageView = UIImageView(image: Asset.Images.Pray.bubbleL.image)
     let contentLabel = MoyangLabel().then {
         $0.textColor = .sheep1
         $0.font = .b02

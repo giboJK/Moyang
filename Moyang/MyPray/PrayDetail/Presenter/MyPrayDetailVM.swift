@@ -49,43 +49,43 @@ class MyPrayDetailVM: VMType {
     private func testData() {
         var list = [PrayItem]()
         
-        list.append(PrayItem(id: "", content: "1111111111111111", type: ""))
-        list.append(PrayItem(id: "", content: "2222222222222222", type: ""))
-        list.append(PrayItem(id: "", content: "3333333333333333", type: ""))
-        list.append(PrayItem(id: "", content: "4444444444444444", type: ""))
-        list.append(PrayItem(id: "", content: "5555555555555555", type: ""))
-        list.append(PrayItem(id: "", content: "6666666666666666", type: ""))
-        list.append(PrayItem(id: "", content: "7777777777777777", type: ""))
-        list.append(PrayItem(id: "", content: "8888888888888888", type: ""))
-        list.append(PrayItem(id: "", content: "9999999999999999", type: ""))
-        list.append(PrayItem(id: "", content: "1111111111111111", type: ""))
-        list.append(PrayItem(id: "", content: "2222222222222222", type: ""))
-        list.append(PrayItem(id: "", content: "3333333333333333", type: ""))
-        list.append(PrayItem(id: "", content: "4444444444444444", type: ""))
-        list.append(PrayItem(id: "", content: "5555555555555555", type: ""))
-        list.append(PrayItem(id: "", content: "6666666666666666", type: ""))
-        list.append(PrayItem(id: "", content: "7777777777777777", type: ""))
-        list.append(PrayItem(id: "", content: "8888888888888888", type: ""))
-        list.append(PrayItem(id: "", content: "9999999999999999", type: ""))
-        list.append(PrayItem(id: "", content: "1111111111111111", type: ""))
-        list.append(PrayItem(id: "", content: "2222222222222222", type: ""))
-        list.append(PrayItem(id: "", content: "3333333333333333", type: ""))
-        list.append(PrayItem(id: "", content: "4444444444444444", type: ""))
-        list.append(PrayItem(id: "", content: "5555555555555555", type: ""))
-        list.append(PrayItem(id: "", content: "6666666666666666", type: ""))
-        list.append(PrayItem(id: "", content: "7777777777777777", type: ""))
-        list.append(PrayItem(id: "", content: "8888888888888888", type: ""))
-        list.append(PrayItem(id: "", content: "9999999999999999", type: ""))
-        list.append(PrayItem(id: "", content: "1111111111111111", type: ""))
-        list.append(PrayItem(id: "", content: "2222222222222222", type: ""))
-        list.append(PrayItem(id: "", content: "3333333333333333", type: ""))
-        list.append(PrayItem(id: "", content: "4444444444444444", type: ""))
-        list.append(PrayItem(id: "", content: "5555555555555555", type: ""))
-        list.append(PrayItem(id: "", content: "6666666666666666", type: ""))
-        list.append(PrayItem(id: "", content: "7777777777777777", type: ""))
-        list.append(PrayItem(id: "", content: "8888888888888888", type: ""))
-        list.append(PrayItem(id: "", content: "9999999999999999", type: ""))
-        list.append(PrayItem(id: "", content: "0000000000000000", type: ""))
+        list.append(PrayItem(id: "", content: "1111111111111111", isMe: true))
+        list.append(PrayItem(id: "", content: "2222222222222222", isMe: false))
+        list.append(PrayItem(id: "", content: "3333333333333333", isMe: true))
+        list.append(PrayItem(id: "", content: "4444444444444444", isMe: false))
+        list.append(PrayItem(id: "", content: "5555555555555555", isMe: true))
+        list.append(PrayItem(id: "", content: "6666666666666666", isMe: false))
+        list.append(PrayItem(id: "", content: "7777777777777777", isMe: true))
+        list.append(PrayItem(id: "", content: "8888888888888888", isMe: false))
+        list.append(PrayItem(id: "", content: "9999999999999999", isMe: true))
+        list.append(PrayItem(id: "", content: "1111111111111111", isMe: true))
+        list.append(PrayItem(id: "", content: "2222222222222222", isMe: true))
+        list.append(PrayItem(id: "", content: "3333333333333333", isMe: true))
+        list.append(PrayItem(id: "", content: "4444444444444444", isMe: true))
+        list.append(PrayItem(id: "", content: "5555555555555555", isMe: false))
+        list.append(PrayItem(id: "", content: "6666666666666666", isMe: false))
+        list.append(PrayItem(id: "", content: "7777777777777777", isMe: false))
+        list.append(PrayItem(id: "", content: "8888888888888888", isMe: false))
+        list.append(PrayItem(id: "", content: "9999999999999999", isMe: false))
+        list.append(PrayItem(id: "", content: "1111111111111111", isMe: false))
+        list.append(PrayItem(id: "", content: "2222222222222222", isMe: false))
+        list.append(PrayItem(id: "", content: "3333333333333333", isMe: false))
+        list.append(PrayItem(id: "", content: "4444444444444444", isMe: false))
+        list.append(PrayItem(id: "", content: "5555555555555555", isMe: false))
+        list.append(PrayItem(id: "", content: "6666666666666666", isMe: false))
+        list.append(PrayItem(id: "", content: "7777777777777777", isMe: true))
+        list.append(PrayItem(id: "", content: "8888888888888888", isMe: true))
+        list.append(PrayItem(id: "", content: "9999999999999999", isMe: true))
+        list.append(PrayItem(id: "", content: "1111111111111111", isMe: true))
+        list.append(PrayItem(id: "", content: "2222222222222222", isMe: true))
+        list.append(PrayItem(id: "", content: "3333333333333333", isMe: true))
+        list.append(PrayItem(id: "", content: "4444444444444444", isMe: true))
+        list.append(PrayItem(id: "", content: "5555555555555555", isMe: true))
+        list.append(PrayItem(id: "", content: "6666666666666666", isMe: true))
+        list.append(PrayItem(id: "", content: "7777777777777777", isMe: true))
+        list.append(PrayItem(id: "", content: "8888888888888888", isMe: true))
+        list.append(PrayItem(id: "", content: "9999999999999999", isMe: false))
+        list.append(PrayItem(id: "", content: "0000000000000000", isMe: false))
         prayItemList.accept(list)
     }
         
@@ -198,12 +198,12 @@ extension MyPrayDetailVM {
     struct PrayItem {
         let id: String
         let content: String
-        let type: String
+        let isMe: Bool
         
-        init(id: String, content: String, type: String) {
+        init(id: String, content: String, isMe: Bool) {
             self.id = id
             self.content = content
-            self.type = type
+            self.isMe = isMe
         }
     }
 }
