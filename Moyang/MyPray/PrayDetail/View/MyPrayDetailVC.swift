@@ -12,32 +12,31 @@ import SnapKit
 import Then
 import RxGesture
 
-class MyPrayDetailVC: UIViewController, VCType {
+class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRecognizerDelegate {
     typealias VM = MyPrayDetailVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: MyPrayDetailVCDelegate?
 
+    // MARK: - Property
+    let headerHeight: CGFloat = 12 + 36 + 196
+    let minHeaderHeight: CGFloat = 12 + 36 + 12
+    
     // MARK: - UI
     let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
-    let prayButton = MoyangButton(.sheepPrimary).then {
-        $0.setTitle("기도하기", for: .normal)
+    let headerView = PrayDetailHeader()
+    let prayTableView = UITableView().then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.register(MyPrayDetailTVCell.self, forCellReuseIdentifier: "cell")
+        $0.backgroundColor = .clear
+        $0.separatorStyle = .none
+        $0.estimatedRowHeight = 128
+        $0.showsVerticalScrollIndicator = false
+        $0.bounces = true
+        $0.isScrollEnabled = true
     }
-    let prayDetailView = PrayDetailView()
-    let addChangeButton = MoyangButton(.none).then {
-        $0.layer.cornerRadius = 8
-        $0.tintColor = .sheep1
-        var container = AttributeContainer()
-        container.font = .systemFont(ofSize: 14, weight: .regular)
-        var configuration = UIButton.Configuration.filled()
-        configuration.buttonSize = .mini
-        configuration.attributedTitle = AttributedString("변화", attributes: container)
-        configuration.image = UIImage(systemName: "plus")
-        configuration.imagePadding = 4
-        configuration.baseBackgroundColor = .nightSky3
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-        $0.configuration = configuration
-    }
+    let bottomView = MyPrayBottomView()
+    
     let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .sheepGhost).then {
         $0.desc = "정말로 삭제하시겠어요? 삭제한 기도는 복구할 수 없습니다."
         $0.firstButton.setTitle("삭제", for: .normal)
@@ -66,38 +65,45 @@ class MyPrayDetailVC: UIViewController, VCType {
     func setupUI() {
         title = "기도"
         view.backgroundColor = .nightSky1
-        setupUpdateButton()
-        setupPrayButton()
-        setupPrayDetailView()
+        setupSaveButton()
+        setupPrayTableView()
+        setupHeader()
+        setupBottomView()
     }
-    private func setupUpdateButton() {
+    private func setupSaveButton() {
         navigationItem.rightBarButtonItem = saveButton
 //        navigationItem.rightBarButtonItems = [saveButton]
     }
-    private func setupPrayButton() {
-        view.addSubview(prayButton)
-        prayButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
-            $0.height.equalTo(36)
-            $0.left.equalToSuperview().inset(17)
+    private func setupPrayTableView() {
+        view.addSubview(prayTableView)
+        prayTableView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.bottom.equalToSuperview().inset(48 + UIApplication.bottomInset)
         }
-    }
-    private func setupAddChangeButton() {
-        view.addSubview(addChangeButton)
-        addChangeButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(8)
-            $0.height.equalTo(36)
-            $0.left.equalTo(prayButton.snp.right).offset(12)
+        prayTableView.contentInset.top = headerHeight
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 12)).then {
+            $0.backgroundColor = .clear
         }
+        prayTableView.tableFooterView = footer
+        prayTableView.delegate = self
+        prayTableView.setContentOffset(CGPoint(x: 0, y: -headerHeight), animated: false)
     }
-    private func setupPrayDetailView() {
-        view.addSubview(prayDetailView)
-        prayDetailView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(52)
+    private func setupHeader() {
+        view.addSubview(headerView)
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(0)
             $0.left.right.equalToSuperview()
+            $0.height.equalTo(headerHeight)
         }
-        prayDetailView.vm = vm
-        prayDetailView.bind()
+    }
+    
+    private func setupBottomView() {
+        view.addSubview(bottomView)
+        bottomView.snp.makeConstraints {
+            $0.left.right.bottom.equalToSuperview()
+            $0.height.equalTo(48 + UIApplication.bottomInset)
+        }
     }
     
     // MARK: - Binding
@@ -117,8 +123,21 @@ class MyPrayDetailVC: UIViewController, VCType {
                 self?.closePopup()
             }).disposed(by: disposeBag)
         
-        prayButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
+        prayTableView.rx.contentOffset
+            .skip(.milliseconds(500), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] contentOffset in
+                guard let self = self else { return }
+                if contentOffset.y < -self.headerHeight {
+                    self.headerView.snp.updateConstraints {
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide).inset(abs(self.headerHeight+contentOffset.y))
+                    }
+                } else {
+                    let headerMaxInset = self.headerHeight - self.minHeaderHeight
+                    let headerInset = min(headerMaxInset, self.headerHeight + contentOffset.y)
+                    self.headerView.snp.updateConstraints {
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide).inset(-headerInset)
+                    }
+                }
             }).disposed(by: disposeBag)
     }
 
@@ -155,8 +174,15 @@ class MyPrayDetailVC: UIViewController, VCType {
         output.deletePrayFailure
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
+                guard let self = self else { return }
+                self.showTopToast(type: .failure, message: "알 수 없는 문제가 발생하였습니다.", disposeBag: self.disposeBag)
             }).disposed(by: disposeBag)
+        
+        output.prayItemList
+            .drive(prayTableView.rx
+                .items(cellIdentifier: "cell", cellType: MyPrayDetailTVCell.self)) { (_, item, cell) in
+                    cell.contentLabel.text = item.content
+                }.disposed(by: disposeBag)
     }
 }
 

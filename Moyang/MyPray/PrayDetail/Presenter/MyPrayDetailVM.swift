@@ -20,6 +20,7 @@ class MyPrayDetailVM: VMType {
     let groupName = BehaviorRelay<String>(value: "")
     let title = BehaviorRelay<String?>(value: nil)
     
+    let prayItemList = BehaviorRelay<[PrayItem]>(value: [])
     
     // MARK: - Events
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
@@ -37,10 +38,54 @@ class MyPrayDetailVM: VMType {
         self.prayID = prayID
         
         bind()
+        testData()
     }
     
     deinit { Log.i(self) }
     
+    
+    private func testData() {
+        var list = [PrayItem]()
+        
+        list.append(PrayItem(id: "", content: "1111111111111111", type: ""))
+        list.append(PrayItem(id: "", content: "2222222222222222", type: ""))
+        list.append(PrayItem(id: "", content: "3333333333333333", type: ""))
+        list.append(PrayItem(id: "", content: "4444444444444444", type: ""))
+        list.append(PrayItem(id: "", content: "5555555555555555", type: ""))
+        list.append(PrayItem(id: "", content: "6666666666666666", type: ""))
+        list.append(PrayItem(id: "", content: "7777777777777777", type: ""))
+        list.append(PrayItem(id: "", content: "8888888888888888", type: ""))
+        list.append(PrayItem(id: "", content: "9999999999999999", type: ""))
+        list.append(PrayItem(id: "", content: "1111111111111111", type: ""))
+        list.append(PrayItem(id: "", content: "2222222222222222", type: ""))
+        list.append(PrayItem(id: "", content: "3333333333333333", type: ""))
+        list.append(PrayItem(id: "", content: "4444444444444444", type: ""))
+        list.append(PrayItem(id: "", content: "5555555555555555", type: ""))
+        list.append(PrayItem(id: "", content: "6666666666666666", type: ""))
+        list.append(PrayItem(id: "", content: "7777777777777777", type: ""))
+        list.append(PrayItem(id: "", content: "8888888888888888", type: ""))
+        list.append(PrayItem(id: "", content: "9999999999999999", type: ""))
+        list.append(PrayItem(id: "", content: "1111111111111111", type: ""))
+        list.append(PrayItem(id: "", content: "2222222222222222", type: ""))
+        list.append(PrayItem(id: "", content: "3333333333333333", type: ""))
+        list.append(PrayItem(id: "", content: "4444444444444444", type: ""))
+        list.append(PrayItem(id: "", content: "5555555555555555", type: ""))
+        list.append(PrayItem(id: "", content: "6666666666666666", type: ""))
+        list.append(PrayItem(id: "", content: "7777777777777777", type: ""))
+        list.append(PrayItem(id: "", content: "8888888888888888", type: ""))
+        list.append(PrayItem(id: "", content: "9999999999999999", type: ""))
+        list.append(PrayItem(id: "", content: "1111111111111111", type: ""))
+        list.append(PrayItem(id: "", content: "2222222222222222", type: ""))
+        list.append(PrayItem(id: "", content: "3333333333333333", type: ""))
+        list.append(PrayItem(id: "", content: "4444444444444444", type: ""))
+        list.append(PrayItem(id: "", content: "5555555555555555", type: ""))
+        list.append(PrayItem(id: "", content: "6666666666666666", type: ""))
+        list.append(PrayItem(id: "", content: "7777777777777777", type: ""))
+        list.append(PrayItem(id: "", content: "8888888888888888", type: ""))
+        list.append(PrayItem(id: "", content: "9999999999999999", type: ""))
+        list.append(PrayItem(id: "", content: "0000000000000000", type: ""))
+        prayItemList.accept(list)
+    }
         
     private func bind() {
         useCase.myPrayList
@@ -97,6 +142,8 @@ extension MyPrayDetailVM {
         let groupName: Driver<String>
         let title: Driver<String?>
         
+        let prayItemList: Driver<[PrayItem]>
+        
         let updatePraySuccess: Driver<Void>
         let updatePrayFailure: Driver<Void>
         
@@ -126,6 +173,7 @@ extension MyPrayDetailVM {
             groupName: groupName.asDriver(),
             title: title.asDriver(),
             
+            prayItemList: prayItemList.asDriver(),
             
             updatePraySuccess: updatePraySuccess.asDriver(),
             updatePrayFailure: updatePrayFailure.asDriver(),
@@ -134,5 +182,20 @@ extension MyPrayDetailVM {
             
             changeAndAnswerVM: changeAndAnswerVM.asDriver()
         )
+    }
+}
+
+
+extension MyPrayDetailVM {
+    struct PrayItem {
+        let id: String
+        let content: String
+        let type: String
+        
+        init(id: String, content: String, type: String) {
+            self.id = id
+            self.content = content
+            self.type = type
+        }
     }
 }
