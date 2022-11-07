@@ -17,13 +17,15 @@ class PrayDetailHeader: UIView {
         $0.textColor = .sheep3
         $0.font = .b03
     }
-    let titleTextField = MoyangTextField(.sheep)
+    let titleTextField = MoyangTextField(.sheep, "제목").then {
+        $0.returnKeyType = .done
+    }
     let mediatorLabel = MoyangLabel().then {
         $0.text = "중보기도"
         $0.textColor = .sheep3
         $0.font = .b03
     }
-    let mediatorTextField = MoyangTextField(.sheep)
+    let mediatorTextField = MoyangTextField(.sheep, "공동체")
     let recordButton = MoyangButton(.sheepPrimary).then {
         $0.setTitle("기록하기", for: .normal)
     }

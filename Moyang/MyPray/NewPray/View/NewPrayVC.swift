@@ -16,6 +16,9 @@ class NewPrayVC: UIViewController, VCType {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
+    // MARK: - Property
+    var groupList = [String]()
+    
     // MARK: - UI
     let contentToolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
         $0.sizeToFit()
@@ -69,8 +72,6 @@ class NewPrayVC: UIViewController, VCType {
     let laterButton = MoyangButton(.sheepSecondary).then {
         $0.setTitle("다음에 할게요", for: .normal)
     }
-    
-    var groupList = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

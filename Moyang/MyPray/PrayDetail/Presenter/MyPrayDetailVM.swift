@@ -22,13 +22,15 @@ class MyPrayDetailVM: VMType {
     
     let prayItemList = BehaviorRelay<[PrayItem]>(value: [])
     
+    // MARK: - State
+    let isSaveEnabled = BehaviorRelay<Bool>(value: false)
+    
     // MARK: - Events
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
     let updatePrayFailure = BehaviorRelay<Void>(value: ())
     
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
-    
     
     // MARK: - VM
     let changeAndAnswerVM = BehaviorRelay<ChangeAndAnswerVM?>(value: nil)
@@ -139,17 +141,22 @@ extension MyPrayDetailVM {
     }
 
     struct Output {
+        // MARK: - Data
         let groupName: Driver<String>
         let title: Driver<String?>
-        
         let prayItemList: Driver<[PrayItem]>
         
+        // MARK: - State
+        let isSaveEnabled: Driver<Bool>
+        
+        // MARK: - Events
         let updatePraySuccess: Driver<Void>
         let updatePrayFailure: Driver<Void>
         
         let deletePraySuccess: Driver<Void>
         let deletePrayFailure: Driver<Void>
         
+        // MARK: - VM
         let changeAndAnswerVM: Driver<ChangeAndAnswerVM?>
     }
 
@@ -172,8 +179,9 @@ extension MyPrayDetailVM {
         return Output(
             groupName: groupName.asDriver(),
             title: title.asDriver(),
-            
             prayItemList: prayItemList.asDriver(),
+            
+            isSaveEnabled: isSaveEnabled.asDriver(),
             
             updatePraySuccess: updatePraySuccess.asDriver(),
             updatePrayFailure: updatePrayFailure.asDriver(),

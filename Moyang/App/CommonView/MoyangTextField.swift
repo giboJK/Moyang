@@ -49,10 +49,12 @@ class MoyangTextField: UITextField {
     private func setupUI() {
         switch style {
         case .sheep:
+            backgroundColor = .sheep1
             textColor = .nightSky1
             layer.cornerRadius = 8
             layer.masksToBounds = true
             layer.borderWidth = 1
+            layer.borderColor = .sheep4
         case .ghost:
             textColor = .sheep1
             layer.borderWidth = 0
@@ -89,7 +91,7 @@ class MoyangTextField: UITextField {
     @objc func editingBeginBorder() {
         switch style {
         case .sheep:
-            layer.borderColor = .nightSky3
+            layer.borderColor = .oasis1
         case .ghost:
             underLine.backgroundColor = .oasis1
         case .none:

@@ -21,6 +21,7 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
     // MARK: - Property
     let headerHeight: CGFloat = 12 + 36 + 196
     let minHeaderHeight: CGFloat = 12 + 36 + 12
+    var groupList = [String]()
     
     // MARK: - UI
     let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
@@ -36,6 +37,13 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         $0.isScrollEnabled = true
     }
     let bottomView = MyPrayBottomView()
+    
+    let groupToolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
+        $0.sizeToFit()
+        $0.clipsToBounds = true
+        $0.barTintColor = .sheep2
+    }
+    let groupPicker = UIPickerView()
     
     let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .sheepGhost).then {
         $0.desc = "정말로 삭제하시겠어요? 삭제한 기도는 복구할 수 없습니다."
@@ -148,6 +156,10 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver()
         )
         let output = vm.transform(input: input)
+        
+        output.isSaveEnabled
+            .drive(saveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
         
         output.updatePraySuccess
             .skip(1)
