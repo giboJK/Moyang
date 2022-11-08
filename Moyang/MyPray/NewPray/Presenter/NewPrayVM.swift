@@ -13,20 +13,23 @@ class NewPrayVM: VMType {
     let useCase: MyPrayUseCase
     private var currentStep = NewPrayStep.title
     
+    // MARK: - State
+    let isNetworking = BehaviorRelay<Bool>(value: false)
+    
+    // MARK: - Data
     let guide = BehaviorRelay<String>(value: "")
     let isSaveEnabled = BehaviorRelay<Bool>(value: false)
-    
-    let askingAuto = BehaviorRelay<Void>(value: ())
-    let setTitleFinish = BehaviorRelay<Void>(value: ())
-    let setContentFinish = BehaviorRelay<Void>(value: ())
-    let setGroupFinish = BehaviorRelay<Void>(value: ())
     
     let title = BehaviorRelay<String?>(value: nil)
     let content = BehaviorRelay<String?>(value: nil)
     let group = BehaviorRelay<String?>(value: nil)
     let groupList = BehaviorRelay<[GroupInfo]>(value: [])
     
-    let isNetworking = BehaviorRelay<Bool>(value: false)
+    // MARK: - Events
+    let askingAuto = BehaviorRelay<Void>(value: ())
+    let setTitleFinish = BehaviorRelay<Void>(value: ())
+    let setContentFinish = BehaviorRelay<Void>(value: ())
+    
     let addPraySuccess = BehaviorRelay<Void>(value: ())
     let addPrayFailure = BehaviorRelay<Void>(value: ())
     
@@ -172,13 +175,6 @@ extension NewPrayVM {
 
     struct Output {
         let guide: Driver<String>
-        let isSaveEnabled: Driver<Bool>
-        
-        // MARK: - User Events
-        let askingAuto: Driver<Void>
-        let setTitleFinish: Driver<Void>
-        let setContentFinish: Driver<Void>
-        let setGroupFinish: Driver<Void>
         
         // MARK: - Data
         let title: Driver<String?>
@@ -186,8 +182,15 @@ extension NewPrayVM {
         let group: Driver<String?>
         let groupList: Driver<[GroupInfo]>
         
-        // MARK: - Network Events
+        // MARK: - State
         let isNetworking: Driver<Bool>
+        let isSaveEnabled: Driver<Bool>
+        
+        // MARK: - User Events
+        let askingAuto: Driver<Void>
+        let setTitleFinish: Driver<Void>
+        let setContentFinish: Driver<Void>
+        let addPraySuccess: Driver<Void>
         let addingNewPrayFailure: Driver<Void>
     }
 
@@ -248,12 +251,6 @@ extension NewPrayVM {
             }).disposed(by: disposeBag)
         
         return Output(guide: guide.asDriver(),
-                      isSaveEnabled: isSaveEnabled.asDriver(),
-                      
-                      askingAuto: askingAuto.asDriver(),
-                      setTitleFinish: setTitleFinish.asDriver(),
-                      setContentFinish: setContentFinish.asDriver(),
-                      setGroupFinish: setGroupFinish.asDriver(),
                       
                       title: title.asDriver(),
                       content: content.asDriver(),
@@ -261,6 +258,12 @@ extension NewPrayVM {
                       groupList: groupList.asDriver(),
                       
                       isNetworking: isNetworking.asDriver(),
+                      isSaveEnabled: isSaveEnabled.asDriver(),
+                      
+                      askingAuto: askingAuto.asDriver(),
+                      setTitleFinish: setTitleFinish.asDriver(),
+                      setContentFinish: setContentFinish.asDriver(),
+                      addPraySuccess: addPraySuccess.asDriver(),
                       addingNewPrayFailure: addPrayFailure.asDriver()
         )
     }

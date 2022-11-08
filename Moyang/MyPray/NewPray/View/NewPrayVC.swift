@@ -15,6 +15,7 @@ class NewPrayVC: UIViewController, VCType {
     typealias VM = NewPrayVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
+    var coordinator: NewPrayVCDelegate?
     
     // MARK: - Property
     var groupList = [String]()
@@ -301,6 +302,16 @@ class NewPrayVC: UIViewController, VCType {
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
+        prayButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapPray()
+            }).disposed(by: disposeBag)
+        
+        laterButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
+        
         bindPopup()
     }
     
@@ -399,6 +410,13 @@ class NewPrayVC: UIViewController, VCType {
                 self?.showGroupView()
             }).disposed(by: disposeBag)
         
+        output.addPraySuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.prayContainer.isHidden = false
+                self?.saveButton.isHidden = true
+                self?.cancelButton.isHidden = true
+            }).disposed(by: disposeBag)
         
         // MARK: - Data
         output.groupList.map { list in list.map { $0.name }}
@@ -433,4 +451,8 @@ extension NewPrayVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return groupList[row]
     }
+}
+
+protocol NewPrayVCDelegate: AnyObject {
+    func didTapPray()
 }
