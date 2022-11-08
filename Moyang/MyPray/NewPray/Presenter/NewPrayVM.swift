@@ -33,6 +33,9 @@ class NewPrayVM: VMType {
     let addPraySuccess = BehaviorRelay<Void>(value: ())
     let addPrayFailure = BehaviorRelay<Void>(value: ())
     
+    // MARK: - VM
+    let prayingVM = BehaviorRelay<MyPrayPrayingVM?>(value: nil)
+    
     init(useCase: MyPrayUseCase) {
         self.useCase = useCase
         bind()
@@ -156,6 +159,10 @@ class NewPrayVM: VMType {
             addPraySuccess.accept(())
         }
     }
+    
+    private func createPrayingVM() {
+        prayingVM.accept(MyPrayPrayingVM.init(useCase: useCase))
+    }
 }
 
 extension NewPrayVM {
@@ -173,6 +180,8 @@ extension NewPrayVM {
         
         let loadAutoPray: Driver<Bool>
         let restoreAuto: Driver<Void>
+        
+        let startpraying: Driver<Void>
     }
 
     struct Output {
@@ -194,6 +203,9 @@ extension NewPrayVM {
         let setContentFinish: Driver<Void>
         let addPraySuccess: Driver<Void>
         let addingNewPrayFailure: Driver<Void>
+        
+        // MARK: - VM
+        let prayingVM: Driver<MyPrayPrayingVM?>
     }
 
     func transform(input: Input) -> Output {
@@ -252,6 +264,11 @@ extension NewPrayVM {
                 self?.restoreAutoSave()
             }).disposed(by: disposeBag)
         
+        input.startpraying
+            .drive(onNext: { [weak self] _ in
+                self?.createPrayingVM()
+            }).disposed(by: disposeBag)
+        
         return Output(guide: guide.asDriver(),
                       
                       title: title.asDriver(),
@@ -266,7 +283,8 @@ extension NewPrayVM {
                       setTitleFinish: setTitleFinish.asDriver(),
                       setContentFinish: setContentFinish.asDriver(),
                       addPraySuccess: addPraySuccess.asDriver(),
-                      addingNewPrayFailure: addPrayFailure.asDriver()
+                      addingNewPrayFailure: addPrayFailure.asDriver(),
+                      prayingVM: prayingVM.asDriver()
         )
     }
     

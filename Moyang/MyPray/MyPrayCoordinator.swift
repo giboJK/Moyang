@@ -77,7 +77,16 @@ extension MyPrayCoordinator: AlarmSetVCDelegate {
 
 // MARK: - NewPrayVCDelegate
 extension MyPrayCoordinator: NewPrayVCDelegate {
-    func didTapPray() {
-        
+    func didTapPray(vm: MyPrayPrayingVM) {
+        if let vc = assembler.resolver.resolve(MyPrayPrayingVC.self) {
+            vc.vm = vm
+            nav.pushViewController(vc, animated: true)
+            
+            var vcList = self.nav.viewControllers
+            vcList.removeAll(where: { $0 is NewPrayVC })
+            self.nav.viewControllers = vcList
+        } else {
+            Log.e("error")
+        }
     }
 }

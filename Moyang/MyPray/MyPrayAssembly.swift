@@ -59,6 +59,11 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         
+        // MARK: - MyPrayPrayingVC
+        container.register(MyPrayPrayingVC.self) { _ in
+            MyPrayPrayingVC()
+        }
+        
         
         // MARK: - NewAlarmVC
         container.register(NewAlarmVC.self) { r in

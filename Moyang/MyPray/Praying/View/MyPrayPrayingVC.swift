@@ -35,6 +35,7 @@ class MyPrayPrayingVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
+        title = "기도"
         view.backgroundColor = .nightSky1
     }
 

@@ -302,11 +302,6 @@ class NewPrayVC: UIViewController, VCType {
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
-        prayButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.didTapPray()
-            }).disposed(by: disposeBag)
-        
         laterButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
@@ -340,7 +335,8 @@ class NewPrayVC: UIViewController, VCType {
                              clearGroup: groupClearButton.rx.tap.asDriver(),
                              saveNewPray: saveButton.rx.tap.asDriver(),
                              loadAutoPray: self.rx.viewWillAppear.asDriver(onErrorJustReturn: false),
-                             restoreAuto: loadAskingPopup.firstButton.rx.tap.asDriver())
+                             restoreAuto: loadAskingPopup.firstButton.rx.tap.asDriver(),
+                             startpraying: prayButton.rx.tap.asDriver())
         
         let output = vm.transform(input: input)
         
@@ -430,17 +426,22 @@ class NewPrayVC: UIViewController, VCType {
                 self?.groupPicker.reloadAllComponents()
             }).disposed(by: disposeBag)
         
-        output.title
-            .skip(1)
+        output.title.skip(1)
             .distinctUntilChanged()
             .drive(titleTextView.textField.rx.text)
             .disposed(by: disposeBag)
         
-        output.content
-            .skip(1)
+        output.content.skip(1)
             .distinctUntilChanged()
             .drive(contentTextView.textView.rx.text)
             .disposed(by: disposeBag)
+        
+        // MARK: - VM
+        output.prayingVM
+            .drive(onNext: { [weak self] prayingVM in
+                guard let self = self, let prayingVM = prayingVM else { return }
+                self.coordinator?.didTapPray(vm: prayingVM)
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -459,5 +460,5 @@ extension NewPrayVC: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 protocol NewPrayVCDelegate: AnyObject {
-    func didTapPray()
+    func didTapPray(vm: MyPrayPrayingVM)
 }

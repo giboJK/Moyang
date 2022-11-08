@@ -60,6 +60,7 @@
 		08E4905C2918DE0000735823 /* MyPrayListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E4905B2918DE0000735823 /* MyPrayListVM.swift */; };
 		08E9281E291A0223009D67AE /* MyPrayPrayingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9281D291A0223009D67AE /* MyPrayPrayingVC.swift */; };
 		08E92821291A031B009D67AE /* MyPrayPrayingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E92820291A031B009D67AE /* MyPrayPrayingVM.swift */; };
+		08E92823291A2D28009D67AE /* MyPrayDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E92822291A2D28009D67AE /* MyPrayDetail.swift */; };
 		08E992B428ED4FB800696EB6 /* NoticeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B328ED4FB800696EB6 /* NoticeListVC.swift */; };
 		08E992B628ED589700696EB6 /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B528ED589700696EB6 /* NoticeVC.swift */; };
 		08E992B928ED58C200696EB6 /* NoticeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B828ED58C200696EB6 /* NoticeVM.swift */; };
@@ -295,6 +296,7 @@
 		08E4905B2918DE0000735823 /* MyPrayListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayListVM.swift; sourceTree = "<group>"; };
 		08E9281D291A0223009D67AE /* MyPrayPrayingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayPrayingVC.swift; sourceTree = "<group>"; };
 		08E92820291A031B009D67AE /* MyPrayPrayingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayPrayingVM.swift; sourceTree = "<group>"; };
+		08E92822291A2D28009D67AE /* MyPrayDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayDetail.swift; sourceTree = "<group>"; };
 		08E992B328ED4FB800696EB6 /* NoticeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListVC.swift; sourceTree = "<group>"; };
 		08E992B528ED589700696EB6 /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
 		08E992B828ED58C200696EB6 /* NoticeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVM.swift; sourceTree = "<group>"; };
@@ -961,6 +963,7 @@
 				24C8E9B8286B1F4500AEE46B /* MyPrayRepo.swift */,
 				086CB32228130077003BF6F7 /* MyPray.swift */,
 				08D5D8B52914D2F200A0CD95 /* MyPraySummary.swift */,
+				08E92822291A2D28009D67AE /* MyPrayDetail.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1857,6 +1860,7 @@
 				08AA085D288520E2008670E3 /* LogInVM.swift in Sources */,
 				24D0D32D272314F7006FF67B /* Log.swift in Sources */,
 				24630ED628F3CDF100567996 /* WorshipNoteRepo.swift in Sources */,
+				08E92823291A2D28009D67AE /* MyPrayDetail.swift in Sources */,
 				08CEB5F42911D67200D38045 /* NewPrayTextView.swift in Sources */,
 				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
 				08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */,
