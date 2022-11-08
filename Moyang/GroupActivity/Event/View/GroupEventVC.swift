@@ -15,7 +15,7 @@ class GroupEventVC: UIViewController, VCType {
     typealias VM = GroupEventVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
-    var coordinator: VCDelegate?
+    var coordinator: GroupEventVCDelegate?
     
     // MARK: - UI
     let newsTableView = UITableView().then {

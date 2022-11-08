@@ -121,6 +121,12 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
     }
     
     private func bindViews() {
+        bottomView.deleteContainer.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.deleteConfirmPopup)
+            }).disposed(by: disposeBag)
+        
         deleteConfirmPopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()

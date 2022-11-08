@@ -15,7 +15,6 @@ class PrayReplyDetailVC: UIViewController, VCType {
     typealias VM = PrayReplyDetailVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
-    var coordinator: VCDelegate?
 
     // MARK: - UI
     let dateSortButton = UIButton().then {
@@ -163,8 +162,4 @@ class PrayReplyDetailVC: UIViewController, VCType {
                 self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
     }
-}
-
-protocol VCDelegate: AnyObject {
-
 }
