@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 
 class MyPrayUseCase {
-    static var shared: MyPrayUseCase?
     let repo: MyPrayRepo
     
     // MARK: - MyPray
