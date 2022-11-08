@@ -86,6 +86,12 @@ class MyPraySummaryView: UIView {
         }
     }
     
+    private func hideLatestPrayViewAndShowAllView() {
+        addNewPrayView.snp.updateConstraints {
+            $0.top.equalToSuperview()
+        }
+    }
+    
     func bind() {
         guard let vm = vm, let disposeBag = disposeBag else { Log.e("vm is nil"); return }
         let selectPray = myLatestPrayView.rx.tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ())
@@ -97,11 +103,15 @@ class MyPraySummaryView: UIView {
                 guard let summary = summary else { return }
                 if summary.prayID != nil {
                     self?.showLatestPrayViewAndShowAllView()
-                    self?.myLatestPrayView.dateLabel.text = summary.latestDate?
-                        .isoToDateString("yyyy. MM. dd.")
+                    self?.myLatestPrayView.dateLabel.text = summary.latestDate?.isoToDateString("yyyy. MM. dd.")
                     self?.myLatestPrayView.titleLabel.text = summary.title
                     self?.myLatestPrayView.contentLabel.text = summary.content
                     self?.myLatestPrayView.contentLabel.lineBreakMode = .byTruncatingTail
+                } else {
+                    self?.hideLatestPrayViewAndShowAllView()
+                    self?.myLatestPrayView.dateLabel.text = nil
+                    self?.myLatestPrayView.titleLabel.text = nil
+                    self?.myLatestPrayView.contentLabel.text = nil
                 }
                 self?.showAllView.descLabel.text = summary.countDesc
             }).disposed(by: disposeBag)

@@ -89,8 +89,12 @@ class MyPrayDetailVM: VMType {
             .disposed(by: disposeBag)
         
         useCase.deletePraySuccess
-            .bind(to: deletePraySuccess)
-            .disposed(by: disposeBag)
+            .skip(1)
+            .subscribe(onNext: { [weak self] list in
+                self?.deletePraySuccess.accept(())
+                NotificationCenter.default.post(name: NSNotification.Name.ReloadPrayMainSummary,
+                                                object: nil, userInfo: nil)
+            }).disposed(by: disposeBag)
         
         useCase.deletePrayFailure
             .bind(to: deletePrayFailure)

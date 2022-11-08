@@ -57,6 +57,7 @@ class MyPrayUseCase {
                      title: title,
                      content: content,
                      groupID: groupID) { [weak self] result in
+            self?.resetIsNetworking()
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -72,7 +73,6 @@ class MyPrayUseCase {
                 Log.e(error)
                 self.addPrayFailure.accept(())
             }
-            self.resetIsNetworking()
         }
     }
     
@@ -91,6 +91,7 @@ class MyPrayUseCase {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() { return }
         repo.fetchSummary(userID: myID, date: date) { [weak self] result in
+            self?.resetIsNetworking()
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -102,7 +103,6 @@ class MyPrayUseCase {
             case .failure(let error):
                 Log.e(error)
             }
-            self.resetIsNetworking()
         }
     }
     
@@ -111,6 +111,7 @@ class MyPrayUseCase {
             return
         }
         repo.fetchPrayList(userID: userID, page: page, row: row) { [weak self] result in
+            self?.resetIsNetworking()
             guard let self = self else { return }
             switch result {
             case .success(let list):
@@ -120,7 +121,6 @@ class MyPrayUseCase {
             case .failure(let error):
                 Log.e(error)
             }
-            self.resetIsNetworking()
         }
     }
     
@@ -147,6 +147,7 @@ class MyPrayUseCase {
     func updatePray(prayID: String, title: String, content: String) {
         if checkAndSetIsNetworking() { return }
         repo.updatePray(prayID: prayID, title: title, content: content) { [weak self] result in
+            self?.resetIsNetworking()
             switch result {
             case .success(let response):
                 if response.code == 0 {
@@ -158,7 +159,6 @@ class MyPrayUseCase {
                 Log.e(error)
                 self?.addPrayFailure.accept(())
             }
-            self?.resetIsNetworking()
         }
     }
     
@@ -167,6 +167,7 @@ class MyPrayUseCase {
         if checkAndSetIsNetworking() { return }
         repo.deletePray(prayID: prayID) { [weak self] result in
             guard let self = self else { return }
+            self.resetIsNetworking()
             switch result {
             case .success(let response):
                 if response.code == 0 {
@@ -181,7 +182,6 @@ class MyPrayUseCase {
                 Log.e(error)
                 self.deletePrayFailure.accept(())
             }
-            self.resetIsNetworking()
         }
     }
     
@@ -220,5 +220,4 @@ class MyPrayUseCase {
             self.isNetworking.accept(false)
         }
     }
-    
 }

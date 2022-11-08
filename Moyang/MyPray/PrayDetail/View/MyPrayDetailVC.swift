@@ -50,6 +50,10 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         $0.firstButton.setTitle("삭제", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
     }
+    let deleteFailurePopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
+        $0.desc = "삭제에 실패하였습니다. 잠시 후 다시 시도해주세요/"
+        $0.firstButton.setTitle("확인", for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,6 +141,11 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
                 self?.closePopup()
             }).disposed(by: disposeBag)
         
+        deleteFailurePopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
         prayTableView.rx.contentOffset
             .skip(.milliseconds(500), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] contentOffset in
@@ -193,7 +202,7 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.showTopToast(type: .failure, message: "알 수 없는 문제가 발생하였습니다.", disposeBag: self.disposeBag)
+                self.displayPopup(popup: self.deleteFailurePopup)
             }).disposed(by: disposeBag)
         
         output.prayItemList
