@@ -41,6 +41,7 @@ class MyPrayHabitView: UIView {
         addSubview(myHabitLabel)
         myHabitLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
+            $0.height.equalTo(21)
             $0.left.equalToSuperview()
         }
     }
@@ -160,6 +161,7 @@ class MyPrayAlarmView: UIView {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
+            $0.height.equalTo(19)
             $0.left.equalToSuperview().inset(16)
         }
     }
@@ -168,6 +170,7 @@ class MyPrayAlarmView: UIView {
         alarmTimeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(52)
             $0.left.equalToSuperview().inset(16)
+            $0.height.equalTo(21)
             $0.bottom.equalToSuperview().inset(20)
         }
     }

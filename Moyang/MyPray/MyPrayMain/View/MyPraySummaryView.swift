@@ -19,12 +19,10 @@ class MyPraySummaryView: UIView {
     // MARK: - UI
     
     let myLatestPrayView = MyLatestPrayView().then {
-        $0.isHidden = true
         $0.alpha = 0
     }
     
     let showAllView = ShowAllView().then {
-        $0.isHidden = false
         $0.alpha = 0
     }
     
@@ -78,17 +76,22 @@ class MyPraySummaryView: UIView {
         
         UIView.animate(withDuration: 0.5) {
             self.myLatestPrayView.alpha = 1.0
-            self.myLatestPrayView.isHidden = false
             self.showAllView.alpha = 1.0
-            self.showAllView.isHidden = false
             self.updateConstraints()
             self.layoutIfNeeded()
         }
     }
     
     private func hideLatestPrayViewAndShowAllView() {
+        Log.d("")
         addNewPrayView.snp.updateConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().inset(0)
+        }
+        UIView.animate(withDuration: 0.5) {
+            self.myLatestPrayView.alpha = 0
+            self.showAllView.alpha = 0
+            self.updateConstraints()
+            self.layoutIfNeeded()
         }
     }
     
@@ -109,9 +112,9 @@ class MyPraySummaryView: UIView {
                     self?.myLatestPrayView.contentLabel.lineBreakMode = .byTruncatingTail
                 } else {
                     self?.hideLatestPrayViewAndShowAllView()
-                    self?.myLatestPrayView.dateLabel.text = nil
-                    self?.myLatestPrayView.titleLabel.text = nil
-                    self?.myLatestPrayView.contentLabel.text = nil
+                    self?.myLatestPrayView.dateLabel.text = ""
+                    self?.myLatestPrayView.titleLabel.text = ""
+                    self?.myLatestPrayView.contentLabel.text = ""
                 }
                 self?.showAllView.descLabel.text = summary.countDesc
             }).disposed(by: disposeBag)
@@ -293,6 +296,7 @@ class AddNewPrayView: UIView {
         addSubview(descLabel)
         descLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
+            $0.height.equalTo(17)
             $0.left.equalToSuperview().inset(16)
         }
     }
@@ -302,6 +306,7 @@ class AddNewPrayView: UIView {
             $0.top.equalToSuperview().inset(72)
             $0.left.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(20)
+            $0.height.equalTo(21)
         }
     }
 }

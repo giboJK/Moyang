@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 class MyPrayUseCase {
+    static var shared: MyPrayUseCase?
     let repo: MyPrayRepo
     
     // MARK: - MyPray
@@ -166,8 +167,8 @@ class MyPrayUseCase {
     func deletePray(prayID: String) {
         if checkAndSetIsNetworking() { return }
         repo.deletePray(prayID: prayID) { [weak self] result in
+            self?.resetIsNetworking()
             guard let self = self else { return }
-            self.resetIsNetworking()
             switch result {
             case .success(let response):
                 if response.code == 0 {
@@ -216,8 +217,6 @@ class MyPrayUseCase {
     }
     
     private func resetIsNetworking() {
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) {
-            self.isNetworking.accept(false)
-        }
+        self.isNetworking.accept(false)
     }
 }

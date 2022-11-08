@@ -56,7 +56,7 @@ class MyPrayDetailVM: VMType {
         list.append(PrayItem(id: "", content: "5555555555555555", date: "22.08.18. 수", isMe: true))
         list.append(PrayItem(id: "", content: "6666666666666666,6666666666666666,6666666666666666,6666666666666666", date: "22.08.18. 수", isMe: false))
         list.append(PrayItem(id: "", content: "7777777777777777", date: "22.08.18. 수", isMe: true))
-        list.append(PrayItem(id: "", content: "8888888888888888,8888888888888888,8888888888888888,8888888888888888,8888888888888888,8888888888888888,8888888888888888", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "8888888888888888,8888888888888888,8888888888888888,8888888888888888", date: "22.08.18. 수", isMe: false))
         list.append(PrayItem(id: "", content: "9999999999999999", date: "22.08.18. 수", isMe: true))
         list.append(PrayItem(id: "", content: "1111111111111111", date: "22.08.18. 수", isMe: true))
         list.append(PrayItem(id: "", content: "2222222222222222", date: "22.08.18. 수", isMe: true))
@@ -90,7 +90,7 @@ class MyPrayDetailVM: VMType {
         
         useCase.deletePraySuccess
             .skip(1)
-            .subscribe(onNext: { [weak self] list in
+            .subscribe(onNext: { [weak self] _ in
                 self?.deletePraySuccess.accept(())
                 NotificationCenter.default.post(name: NSNotification.Name.ReloadPrayMainSummary,
                                                 object: nil, userInfo: nil)

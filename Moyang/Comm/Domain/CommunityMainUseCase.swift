@@ -24,10 +24,6 @@ class CommunityMainUseCase {
     
     // MARK: - Function
     func fetchGroupSummary() {
-        guard let myInfo = UserData.shared.userInfo else {
-            Log.e("No user")
-            return
-        }
     }
     
     func addReply(memberAuth: String,
@@ -46,9 +42,7 @@ class CommunityMainUseCase {
     }
     
     private func resetIsNetworking() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-            self.isNetworking.accept(false)
-        }
+        self.isNetworking.accept(false)
     }
     
     func amen(time: Int, groupID: String) {

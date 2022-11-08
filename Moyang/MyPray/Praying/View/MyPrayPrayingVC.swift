@@ -34,6 +34,12 @@ class MyPrayPrayingVC: UIViewController, VCType {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     func setupUI() {
         title = "기도"
         view.backgroundColor = .nightSky1
