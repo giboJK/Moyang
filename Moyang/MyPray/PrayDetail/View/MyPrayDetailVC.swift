@@ -31,7 +31,7 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         $0.register(MyPrayDetailTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
-        $0.estimatedRowHeight = 128
+        $0.estimatedRowHeight = 60
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true
@@ -194,6 +194,8 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: MyPrayDetailTVCell.self)) { (_, item, cell) in
                     cell.contentLabel.text = item.content
+                    cell.dateLabel.text = item.date
+                    cell.updateUI(isMe: item.isMe)
                 }.disposed(by: disposeBag)
     }
 }

@@ -49,43 +49,43 @@ class MyPrayDetailVM: VMType {
     private func testData() {
         var list = [PrayItem]()
         
-        list.append(PrayItem(id: "", content: "1111111111111111", isMe: true))
-        list.append(PrayItem(id: "", content: "2222222222222222", isMe: false))
-        list.append(PrayItem(id: "", content: "3333333333333333", isMe: true))
-        list.append(PrayItem(id: "", content: "4444444444444444", isMe: false))
-        list.append(PrayItem(id: "", content: "5555555555555555", isMe: true))
-        list.append(PrayItem(id: "", content: "6666666666666666", isMe: false))
-        list.append(PrayItem(id: "", content: "7777777777777777", isMe: true))
-        list.append(PrayItem(id: "", content: "8888888888888888", isMe: false))
-        list.append(PrayItem(id: "", content: "9999999999999999", isMe: true))
-        list.append(PrayItem(id: "", content: "1111111111111111", isMe: true))
-        list.append(PrayItem(id: "", content: "2222222222222222", isMe: true))
-        list.append(PrayItem(id: "", content: "3333333333333333", isMe: true))
-        list.append(PrayItem(id: "", content: "4444444444444444", isMe: true))
-        list.append(PrayItem(id: "", content: "5555555555555555", isMe: false))
-        list.append(PrayItem(id: "", content: "6666666666666666", isMe: false))
-        list.append(PrayItem(id: "", content: "7777777777777777", isMe: false))
-        list.append(PrayItem(id: "", content: "8888888888888888", isMe: false))
-        list.append(PrayItem(id: "", content: "9999999999999999", isMe: false))
-        list.append(PrayItem(id: "", content: "1111111111111111", isMe: false))
-        list.append(PrayItem(id: "", content: "2222222222222222", isMe: false))
-        list.append(PrayItem(id: "", content: "3333333333333333", isMe: false))
-        list.append(PrayItem(id: "", content: "4444444444444444", isMe: false))
-        list.append(PrayItem(id: "", content: "5555555555555555", isMe: false))
-        list.append(PrayItem(id: "", content: "6666666666666666", isMe: false))
-        list.append(PrayItem(id: "", content: "7777777777777777", isMe: true))
-        list.append(PrayItem(id: "", content: "8888888888888888", isMe: true))
-        list.append(PrayItem(id: "", content: "9999999999999999", isMe: true))
-        list.append(PrayItem(id: "", content: "1111111111111111", isMe: true))
-        list.append(PrayItem(id: "", content: "2222222222222222", isMe: true))
-        list.append(PrayItem(id: "", content: "3333333333333333", isMe: true))
-        list.append(PrayItem(id: "", content: "4444444444444444", isMe: true))
-        list.append(PrayItem(id: "", content: "5555555555555555", isMe: true))
-        list.append(PrayItem(id: "", content: "6666666666666666", isMe: true))
-        list.append(PrayItem(id: "", content: "7777777777777777", isMe: true))
-        list.append(PrayItem(id: "", content: "8888888888888888", isMe: true))
-        list.append(PrayItem(id: "", content: "9999999999999999", isMe: false))
-        list.append(PrayItem(id: "", content: "0000000000000000", isMe: false))
+        list.append(PrayItem(id: "", content: "1111111111111111,1111111111111111", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "2222222222222222", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "3333333333333333,3333333333333333,3333333333333333,3333333333333333,3333333333333333", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "4444444444444444", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "5555555555555555", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "6666666666666666,6666666666666666,6666666666666666,6666666666666666", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "7777777777777777", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "8888888888888888,8888888888888888,8888888888888888,8888888888888888,8888888888888888,8888888888888888,8888888888888888", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "9999999999999999", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "1111111111111111", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "2222222222222222", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "3333333333333333", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "4444444444444444,4444444444444444", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "5555555555555555", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "6666666666666666", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "7777777777777777", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "8888888888888888", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "9999999999999999", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "1111111111111111", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "2222222222222222", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "3333333333333333", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "4444444444444444", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "5555555555555555", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "6666666666666666", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "7777777777777777", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "8888888888888888", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "9999999999999999", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "1111111111111111", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "2222222222222222", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "3333333333333333", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "4444444444444444", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "5555555555555555", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "6666666666666666", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "7777777777777777", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "8888888888888888", date: "22.08.18. 수", isMe: true))
+        list.append(PrayItem(id: "", content: "9999999999999999", date: "22.08.18. 수", isMe: false))
+        list.append(PrayItem(id: "", content: "0000000000000000", date: "22.08.18. 수", isMe: false))
         prayItemList.accept(list)
     }
         
@@ -198,11 +198,13 @@ extension MyPrayDetailVM {
     struct PrayItem {
         let id: String
         let content: String
+        let date: String
         let isMe: Bool
         
-        init(id: String, content: String, isMe: Bool) {
+        init(id: String, content: String, date: String, isMe: Bool) {
             self.id = id
             self.content = content
+            self.date = date
             self.isMe = isMe
         }
     }
