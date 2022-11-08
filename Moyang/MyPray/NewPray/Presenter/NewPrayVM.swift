@@ -52,6 +52,8 @@ class NewPrayVM: VMType {
             .subscribe(onNext: { [weak self] _ in
                 self?.clearAutoSave()
                 self?.changeCurrentStep(.pray)
+                NotificationCenter.default.post(name: NSNotification.Name.ReloadPrayMainSummary,
+                                                object: nil, userInfo: nil)
             }).disposed(by: disposeBag)
         
         useCase.addPrayFailure

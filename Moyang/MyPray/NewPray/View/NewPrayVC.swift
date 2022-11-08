@@ -416,6 +416,11 @@ class NewPrayVC: UIViewController, VCType {
                 self?.prayContainer.isHidden = false
                 self?.saveButton.isHidden = true
                 self?.cancelButton.isHidden = true
+                self?.groupClearButton.isHidden = true
+                self?.groupClearButton.isUserInteractionEnabled = false
+                self?.groupTextView.isUserInteractionEnabled = false
+                self?.titleTextView.isUserInteractionEnabled = false
+                self?.contentTextView.isUserInteractionEnabled = false
             }).disposed(by: disposeBag)
         
         // MARK: - Data
