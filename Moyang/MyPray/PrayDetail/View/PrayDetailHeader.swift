@@ -21,7 +21,7 @@ class PrayDetailHeader: UIView {
         $0.returnKeyType = .done
     }
     let mediatorLabel = MoyangLabel().then {
-        $0.text = "중보기도"
+        $0.text = "중보기도 요청"
         $0.textColor = .sheep3
         $0.font = .b03
     }

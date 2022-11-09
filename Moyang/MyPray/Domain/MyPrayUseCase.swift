@@ -16,6 +16,7 @@ class MyPrayUseCase {
     let myPraySummary = BehaviorRelay<MyPraySummary?>(value: nil)
     let myPrayList = BehaviorRelay<[MyPray]>(value: [])
     let myGroupList = BehaviorRelay<[MyGroup]>(value: [])
+    let prayDetail = BehaviorRelay<PrayDetail?>(value: nil)
     
     // MARK: - Event
     let addPraySuccess = BehaviorRelay<Void>(value: ())
@@ -25,31 +26,26 @@ class MyPrayUseCase {
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
-    let fetchPraySuccess = BehaviorRelay<MyPray?>(value: nil)
-    let fetchPrayFailure = BehaviorRelay<Void>(value: ())
-    
     let addChangeSuccess = BehaviorRelay<Void>(value: ())
     let addChangeFailure = BehaviorRelay<Void>(value: ())
     
     let addAnswerSuccess = BehaviorRelay<Void>(value: ())
     let addAnswerFailure = BehaviorRelay<Void>(value: ())
     
+    // MARK: - State
+    let isNetworking = BehaviorRelay<Bool>(value: false)
+    
     // MARK: - GroupPraying
     let songName = BehaviorRelay<String?>(value: nil)
     let songURL = BehaviorRelay<URL?>(value: nil)
     
-    // MARK: - Default events
-    let isNetworking = BehaviorRelay<Bool>(value: false)
     
     
-    // MARK: - Lifecycle
     init(repo: MyPrayRepo) {
         self.repo = repo
     }
     
-    // MARK: - Functions
     // MARK: - Add
-    
     func addPray(title: String, content: String, groupID: String) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() { return }
@@ -139,7 +135,21 @@ class MyPrayUseCase {
         }
     }
     
-    func fetchPray(prayID: String, userID: String) {
+    func fetchPrayDetail(prayID: String) {
+        checkAndSetIsNetworking()
+        repo.fetchPrayDetail(prayID: prayID) { [weak self] result in
+            self?.resetIsNetworking()
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self?.prayDetail.accept(response.data)
+                } else {
+                    Log.e("")
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
     }
     
     
@@ -185,6 +195,14 @@ class MyPrayUseCase {
         }
     }
     
+    func deletePray() {
+        if let prayID = prayDetail.value?.prayID {
+            deletePray(prayID: prayID)
+        } else {
+            deletePrayFailure.accept(())
+        }
+    }
+    
     
     // MARK: - Firestore
     func loadSong() {
@@ -193,6 +211,14 @@ class MyPrayUseCase {
     
     
     // MARK: - Local function
+    func setPrayDeatail(groupID: String?, groupName: String?) {
+        if let myPray = self.myPrayList.value.first {
+            prayDetail.accept(PrayDetail(myPray: myPray, groupID: groupID, groupName: groupName))
+        } else {
+            Log.e("")
+        }
+    }
+    
     private func downloadSong(fileName: String = "Road to God", fileExt: String = "mp3") {
         repo.downloadSong(fileName: fileName, path: "music/", fileExt: "mp3") { [weak self] result in
             switch result {

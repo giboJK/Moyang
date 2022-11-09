@@ -71,6 +71,12 @@ class NewPrayVM: VMType {
                 self?.groupList.accept(groupList)
             }).disposed(by: disposeBag)
         
+        useCase.prayDetail
+            .subscribe(onNext: { [weak self] data in
+                guard data != nil else { return }
+                self?.createPrayingVM()
+            }).disposed(by: disposeBag)
+        
         Observable.combineLatest(title, content, group)
             .subscribe(onNext: { [weak self] (title, content, group) in
                 var isSaveDisable = title?.isEmpty ?? true
@@ -162,6 +168,14 @@ class NewPrayVM: VMType {
     
     private func createPrayingVM() {
         prayingVM.accept(MyPrayPrayingVM.init(useCase: useCase))
+    }
+    
+    private func setPrayDetail() {
+        if let group = groupList.value.first(where: { $0.name == group.value}) {
+            useCase.setPrayDeatail(groupID: group.id, groupName: group.name)
+        } else {
+            useCase.setPrayDeatail(groupID: nil, groupName: nil)
+        }
     }
 }
 
@@ -266,7 +280,7 @@ extension NewPrayVM {
         
         input.startpraying
             .drive(onNext: { [weak self] _ in
-                self?.createPrayingVM()
+                self?.setPrayDetail()
             }).disposed(by: disposeBag)
         
         return Output(guide: guide.asDriver(),

@@ -205,7 +205,7 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
                 self.displayPopup(popup: self.deleteFailurePopup)
             }).disposed(by: disposeBag)
         
-        output.prayItemList
+        output.contentItemList
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: MyPrayDetailTVCell.self)) { (_, item, cell) in
                     cell.contentLabel.text = item.content

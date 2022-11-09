@@ -11,11 +11,6 @@ class UserData {
     static let shared = UserData()
     var userInfo: UserInfo?
     
-    func resetUserData() {
-        userName = nil
-        password = nil
-    }
-    
     var isNotFirstLaunch: Bool {
         get {
             return UserDefaults.standard.bool(forKey: "IS_NOT_FIRST_LAUNCH")
@@ -31,15 +26,6 @@ class UserData {
         }
         set(v) {
             UserDefaults.standard.set(v, forKey: "FCM_TOKEN")
-        }
-    }
-    
-    var userName: String? {
-        get {
-            return UserDefaults.standard.string(forKey: "USER_NAME")
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: "USER_NAME")
         }
     }
     

@@ -150,8 +150,8 @@ extension PrayController: MyPrayRepo {
     }
     
     // MARK: - Fetch
-    func fetchPray(prayID: String, completion: ((Result<MyPray, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPray)
+    func fetchPrayDetail(prayID: String, completion: ((Result<PrayDetailResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchPrayDetail)
         let dict: [String: Any] = [
             "pray_id": prayID
         ]
@@ -159,7 +159,7 @@ extension PrayController: MyPrayRepo {
                                                  method: .post,
                                                  parameters: dict)
         networkService.requestAPI(request: request,
-                                  type: MyPray.self,
+                                  type: PrayDetailResponse.self,
                                   token: nil) { result in
             switch result {
             case .success(let response):

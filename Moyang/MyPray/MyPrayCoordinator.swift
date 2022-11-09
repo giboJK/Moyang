@@ -41,7 +41,12 @@ extension MyPrayCoordinator: MyPrayMainVCDelegate {
     }
     
     func didTapPrayList() {
-        
+        if let vc = assembler.resolver.resolve(MyPrayListVC.self) {
+            vc.coordinator = self
+            nav.pushViewController(vc, animated: true)
+        } else {
+            Log.e("")
+        }
     }
     
     func didTapPray(vm: MyPrayDetailVM) {
@@ -69,6 +74,12 @@ extension MyPrayCoordinator: MyPrayDetailVCDelegate {
         
     }
 }
+
+// MARK: - MyPrayListVCDelegate
+extension MyPrayCoordinator: MyPrayListVCDelegate {
+    
+}
+
 
 // MARK: - AlarmSetVCDelegate
 extension MyPrayCoordinator: AlarmSetVCDelegate {

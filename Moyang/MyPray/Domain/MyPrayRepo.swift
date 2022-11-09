@@ -27,7 +27,7 @@ protocol MyPrayRepo {
     
     
     // MARK: - Fetch
-    func fetchPray(prayID: String, completion: ((Result<MyPray, MoyangError>) -> Void)?)
+    func fetchPrayDetail(prayID: String, completion: ((Result<PrayDetailResponse, MoyangError>) -> Void)?)
     
     func fetchPrayList(userID: String, page: Int, row: Int, completion: ((Result<[MyPray], MoyangError>) -> Void)?)
     
@@ -48,6 +48,20 @@ class PraySummaryResponse: BaseResponse {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         data = try container.decode(MyPraySummary.self, forKey: .data)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}
+
+class PrayDetailResponse: BaseResponse {
+    let data: PrayDetail
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        data = try container.decode(PrayDetail.self, forKey: .data)
         try super.init(from: decoder)
     }
     

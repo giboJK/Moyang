@@ -53,11 +53,18 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         
+        
         // MARK: - MyPrayListVC
-        container.register(MyPrayListVC.self) { _ in
+        container.register(MyPrayListVC.self) { r in
             let vc = MyPrayListVC()
+            vc.vm = r ~> (MyPrayListVM.self)
             return vc
         }
+        
+        container.register(MyPrayListVM.self) { r in
+            return MyPrayListVM(useCase: (r ~> MyPrayUseCase.self))
+        }
+        
         
         // MARK: - MyPrayPrayingVC
         container.register(MyPrayPrayingVC.self) { _ in

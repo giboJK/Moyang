@@ -44,6 +44,12 @@ class MyPrayMainVM: VMType {
                 guard let data = data else { return }
                 self?.summary.accept(PraySummary(data: data))
             }).disposed(by: disposeBag)
+        
+        useCase.prayDetail
+            .bind(onNext: { [weak self] data in
+                guard data != nil else { return }
+                self?.createDetailVM()
+            }).disposed(by: disposeBag)
     }
     
     @objc func fetchSumamry() {
@@ -52,13 +58,17 @@ class MyPrayMainVM: VMType {
         }
     }
     
-    func generateDetailVM() {
-        if let summary = summary.value, let prayID = summary.prayID {
-            detailVM.accept(MyPrayDetailVM(useCase: useCase, prayID: prayID))
+    private func fetchPrayDetail() {
+        if let prayID = summary.value?.prayID {
+            useCase.fetchPrayDetail(prayID: prayID)
         }
     }
     
-    func toggleAlarm(isOn: Bool) {
+    private func createDetailVM() {
+        detailVM.accept(MyPrayDetailVM(useCase: useCase))
+    }
+    
+    private func toggleAlarm(isOn: Bool) {
         guard let summary = summary.value else { return }
         if let id = summary.alarmID, let time = summary.alarmTime, let day = summary.day {
             alarmUseCase.updateAlarm(alarmID: id, time: time, isOn: isOn, day: day)
@@ -81,7 +91,7 @@ extension MyPrayMainVM {
     func transform(input: Input) -> Output {
         input.selectPray
             .drive(onNext: { [weak self] _ in
-                self?.generateDetailVM()
+                self?.fetchPrayDetail()
             }).disposed(by: disposeBag)
         
         input.toggleAlarm
