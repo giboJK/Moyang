@@ -73,10 +73,10 @@ class MyPrayDetailTVCell: UITableViewCell {
         contentView.addSubview(dateLabel)
     }
     
-    func updateUI(isMe: Bool) {
-        updateContentLabelUI(isMe: isMe)
-        updateBubbleImageView(isMe: isMe)
-        updateDateLabel(isMe: isMe)
+    func updateUI(type: MyPrayDetailVM.ContentItemType) {
+        updateContentLabelUI(isMe: type == .startPray)
+        updateBubbleImageView(isMe: type == .startPray)
+        updateDateLabel(isMe: type == .startPray)
     }
     
     private func updateContentLabelUI(isMe: Bool) {

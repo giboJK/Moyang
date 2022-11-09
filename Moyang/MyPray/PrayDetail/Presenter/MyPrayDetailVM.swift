@@ -16,8 +16,9 @@ class MyPrayDetailVM: VMType {
     var myPray: MyPray!
     
     // MARK: - Data
-    let groupName = BehaviorRelay<String>(value: "")
+    let groupName = BehaviorRelay<String?>(value: "")
     let title = BehaviorRelay<String?>(value: nil)
+    let groupList = BehaviorRelay<[GroupInfo]>(value: [])
     // Content, Anser, Change
     let contentItemList = BehaviorRelay<[ContentItem]>(value: [])
     
@@ -31,6 +32,8 @@ class MyPrayDetailVM: VMType {
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
+    let isNetworking = BehaviorRelay<Bool>(value: false)
+    
     // MARK: - VM
     let changeAndAnswerVM = BehaviorRelay<ChangeAndAnswerVM?>(value: nil)
     
@@ -38,40 +41,26 @@ class MyPrayDetailVM: VMType {
         self.useCase = useCase
         
         bind()
-//        testData()
+        fetchMyGroupList()
     }
     
     deinit { Log.i(self) }
     
-    
-    private func testData() {
-        var list = [ContentItem]()
-        
-        list.append(ContentItem(id: "", content: "1111111111111111,1111111111111111", date: "22.8.18. 수", isMe: true))
-        list.append(ContentItem(id: "", content: "2222222222222222", date: "22.8.18. 수", isMe: false))
-        list.append(ContentItem(id: "", content: "3333333333333333,3333333333333333,3333333333333333", date: "22.08.18. 수", isMe: true))
-        list.append(ContentItem(id: "", content: "4444444444444444", date: "22.8.18. 수", isMe: false))
-        list.append(ContentItem(id: "", content: "5555555555555555", date: "22.8.18. 수", isMe: true))
-        list.append(ContentItem(id: "", content: "6666666666666666,6666666666666666,6666666666666666,6666666666666666", date: "22.08.18. 수", isMe: false))
-        list.append(ContentItem(id: "", content: "7777777777777777", date: "22.8.18. 수", isMe: true))
-        list.append(ContentItem(id: "", content: "8888888888888888,8888888888888888,8888888888888888,8888888888888888", date: "22.08.18. 수", isMe: false))
-        list.append(ContentItem(id: "", content: "9999999999999999", date: "22.8.18. 수", isMe: true))
-        list.append(ContentItem(id: "", content: "1111111111111111", date: "22.8.18. 수", isMe: true))
-        list.append(ContentItem(id: "", content: "2222222222222222", date: "22.8.18. 수", isMe: true))
-        list.append(ContentItem(id: "", content: "3333333333333333", date: "22.8.18. 수", isMe: true))
-        list.append(ContentItem(id: "", content: "4444444444444444,4444444444444444", date: "22.8.18. 수", isMe: true))
-        list.append(ContentItem(id: "", content: "5555555555555555", date: "22.8.18. 수", isMe: false))
-        list.append(ContentItem(id: "", content: "0000000000000000", date: "22.8.18. 수", isMe: false))
-        contentItemList.accept(list)
-    }
-        
     private func bind() {
+        // MARK: - Data
         useCase.prayDetail
             .subscribe(onNext: { [weak self] data in
                 guard let self = self, let data = data else { return }
                 self.setData(data: data)
             }).disposed(by: disposeBag)
         
+        useCase.myGroupList
+            .subscribe(onNext: { [weak self] list in
+                var groupList = list.map { GroupInfo(data: $0) }
+                self?.groupList.accept(groupList)
+            }).disposed(by: disposeBag)
+        
+        // MARK: - Events
         useCase.updatePraySuccess
             .bind(to: updatePraySuccess)
             .disposed(by: disposeBag)
@@ -91,11 +80,35 @@ class MyPrayDetailVM: VMType {
         useCase.deletePrayFailure
             .bind(to: deletePrayFailure)
             .disposed(by: disposeBag)
+        
+        useCase.isNetworking
+            .bind(to: isNetworking)
+            .disposed(by: disposeBag)
+    }
+    
+    private func fetchMyGroupList() {
+        useCase.fetchMyGroupList()
     }
     
     private func setData(data: PrayDetail) {
         title.accept(data.title)
-        groupName.accept(data.groupName ?? "")
+        groupName.accept(data.groupName)
+        
+        var itemList = [ContentItem]()
+        itemList.append(ContentItem(id: data.prayID, content: data.content, date: data.createDate, name: data.userName))
+        for change in data.changes {
+            itemList.append(ContentItem(change: change, name: data.userName))
+        }
+        for answer in data.answers {
+            itemList.append(ContentItem(answer: answer, name: data.userName))
+        }
+        for reply in data.replys {
+            itemList.append(ContentItem(reply: reply))
+        }
+        
+        itemList.sort { $0.date < $1.date }
+        
+        contentItemList.accept(itemList)
     }
     
     private func setChangeAndAnswerVM() {
@@ -117,13 +130,16 @@ extension MyPrayDetailVM {
         var setTitle: Driver<String?> = .empty()
         var updatePray: Driver<Void> = .empty()
         var deletePray: Driver<Void> = .empty()
+        var startPray: Driver<Void> = .empty()
+        var addRecord: Driver<Void> = .empty()
     }
 
     struct Output {
         // MARK: - Data
-        let groupName: Driver<String>
+        let groupName: Driver<String?>
         let title: Driver<String?>
         let contentItemList: Driver<[ContentItem]>
+        let groupList: Driver<[GroupInfo]>
         
         // MARK: - State
         let isSaveEnabled: Driver<Bool>
@@ -134,6 +150,8 @@ extension MyPrayDetailVM {
         
         let deletePraySuccess: Driver<Void>
         let deletePrayFailure: Driver<Void>
+        
+        let isNetworking: Driver<Bool>
         
         // MARK: - VM
         let changeAndAnswerVM: Driver<ChangeAndAnswerVM?>
@@ -159,6 +177,7 @@ extension MyPrayDetailVM {
             groupName: groupName.asDriver(),
             title: title.asDriver(),
             contentItemList: contentItemList.asDriver(),
+            groupList: groupList.asDriver(),
             
             isSaveEnabled: isSaveEnabled.asDriver(),
             
@@ -166,6 +185,8 @@ extension MyPrayDetailVM {
             updatePrayFailure: updatePrayFailure.asDriver(),
             deletePraySuccess: deletePraySuccess.asDriver(),
             deletePrayFailure: deletePrayFailure.asDriver(),
+            
+            isNetworking: isNetworking.asDriver(),
             
             changeAndAnswerVM: changeAndAnswerVM.asDriver()
         )
@@ -178,13 +199,61 @@ extension MyPrayDetailVM {
         let id: String
         let content: String
         let date: String
-        let isMe: Bool
+        let name: String
+        let type: ContentItemType
         
-        init(id: String, content: String, date: String, isMe: Bool) {
+        init(id: String, content: String, date: String, name: String) {
             self.id = id
             self.content = content
             self.date = date
-            self.isMe = isMe
+            self.name = name
+            type = .startPray
+        }
+        
+        init(change: PrayChange, name: String) {
+            id = change.id
+            content = change.content
+            date = change.date
+            self.name = name
+            type = .change
+        }
+        
+        init(answer: PrayAnswer, name: String) {
+            id = answer.id
+            content = answer.answer
+            date = answer.date
+            self.name = name
+            type = .answer
+        }
+        
+        init(reply: PrayReply) {
+            id = reply.id
+            content = reply.reply
+            date = reply.createDate
+            name = reply.name
+            type = .reply
+        }
+    }
+    
+    enum ContentItemType {
+        case startPray
+        case change
+        case answer
+        case reply
+    }
+    
+    struct GroupInfo {
+        let id: String
+        let name: String
+        
+        init(data: MyGroup) {
+            id = data.id
+            name = data.name
+        }
+        
+        init(id: String, name: String) {
+            self.id = id
+            self.name = name
         }
     }
 }

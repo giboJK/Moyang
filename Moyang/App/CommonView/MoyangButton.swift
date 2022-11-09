@@ -151,9 +151,8 @@ class MoyangButton: UIButton {
     private func setupWarning() {
         setTitleColor(.sheep1, for: .normal)
         setTitleColor(.sheep4, for: .disabled)
-        setTitleColor(.sheep3, for: .highlighted)
+        setTitleColor(.sheep4, for: .highlighted)
         setBackgroundColor(color: .appleRed1, forState: .normal)
-        setBackgroundColor(color: .appleRed2, forState: .highlighted)
         setBackgroundColor(color: .sheep3, forState: .disabled)
     }
     

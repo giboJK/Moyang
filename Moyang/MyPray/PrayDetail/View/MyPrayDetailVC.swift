@@ -38,13 +38,6 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
     }
     let bottomView = MyPrayBottomView()
     
-    let groupToolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
-        $0.sizeToFit()
-        $0.clipsToBounds = true
-        $0.barTintColor = .sheep2
-    }
-    let groupPicker = UIPickerView()
-    
     let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .sheepGhost).then {
         $0.desc = "정말로 삭제하시겠어요? 삭제한 기도는 복구할 수 없습니다."
         $0.firstButton.setTitle("삭제", for: .normal)
@@ -53,6 +46,10 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
     let deleteFailurePopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
         $0.desc = "삭제에 실패하였습니다. 잠시 후 다시 시도해주세요/"
         $0.firstButton.setTitle("확인", for: .normal)
+    }
+    
+    let indicator = UIActivityIndicatorView(style: .large).then {
+        $0.hidesWhenStopped = true
     }
     
     override func viewDidLoad() {
@@ -108,6 +105,10 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
             $0.left.right.equalToSuperview()
             $0.height.equalTo(headerHeight)
         }
+        headerView.vm = vm
+        headerView.disposeBag = disposeBag
+        headerView.bind()
+        headerView.bindViews()
     }
     
     private func setupBottomView() {
@@ -162,6 +163,11 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
                     }
                 }
             }).disposed(by: disposeBag)
+        
+        view.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
@@ -210,7 +216,7 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
                 .items(cellIdentifier: "cell", cellType: MyPrayDetailTVCell.self)) { (_, item, cell) in
                     cell.contentLabel.text = item.content
                     cell.dateLabel.text = item.date
-                    cell.updateUI(isMe: item.isMe)
+                    cell.updateUI(type: item.type)
                 }.disposed(by: disposeBag)
     }
 }
