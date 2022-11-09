@@ -22,6 +22,10 @@ class MyPrayListVC: UIViewController, VCType {
     var sections = [String]()
     var itemList = [[VM.PrayListItem]]()
     
+    let indicator = UIActivityIndicatorView(style: .large).then {
+        $0.hidesWhenStopped = true
+    }
+    
     
     // MARK: - UI
     let prayTableView = UITableView().then {
@@ -58,6 +62,7 @@ class MyPrayListVC: UIViewController, VCType {
         title = "기도목록"
         view.backgroundColor = .nightSky1
         setupPrayTableView()
+        setupIndicator()
     }
     
     private func setupPrayTableView() {
@@ -76,6 +81,13 @@ class MyPrayListVC: UIViewController, VCType {
         prayTableView.dataSource = self
         prayTableView.delegate = self
     }
+    private func setupIndicator() {
+        view.addSubview(indicator)
+        indicator.snp.makeConstraints {
+            $0.size.equalTo(60)
+            $0.center.equalToSuperview()
+        }
+    }
 
     // MARK: - Binding
     func bind() {
@@ -89,8 +101,18 @@ class MyPrayListVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(selectItem: prayTableView.rx.itemSelected.asDriver())
         let output = vm.transform(input: input)
+        
+        output.isNetworking
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isNetworking in
+                if isNetworking {
+                    self?.indicator.startAnimating()
+                } else {
+                    self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
         
         output.itemList
             .drive(onNext: { [weak self] dataSource in
@@ -99,6 +121,11 @@ class MyPrayListVC: UIViewController, VCType {
                 self?.prayTableView.reloadData()
             }).disposed(by: disposeBag)
         
+        output.detailVM
+            .drive(onNext: { [weak self] detailVM in
+                guard let detailVM = detailVM else { return }
+                self?.coordinator?.didTapPray(vm: detailVM)
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -133,5 +160,5 @@ extension MyPrayListVC: UITableViewDataSource, UITableViewDelegate {
 }
 
 protocol MyPrayListVCDelegate: AnyObject {
-
+    func didTapPray(vm: MyPrayDetailVM)
 }

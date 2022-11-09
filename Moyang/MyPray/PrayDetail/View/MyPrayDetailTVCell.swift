@@ -80,8 +80,9 @@ class MyPrayDetailTVCell: UITableViewCell {
     }
     
     private func updateContentLabelUI(isMe: Bool) {
-        guard let textWidth = contentLabel.text?.width(withConstraintedHeight: 19, font: .b02) else { return }
-        let width = min(textWidth * 1.02, UIScreen.main.bounds.width * 0.62)
+        guard let textWidth = contentLabel.text?.longestLine
+            .width(withConstraintedHeight: 19, font: .b02) else { return }
+        let width = min(textWidth * 1.02, UIScreen.main.bounds.width * 0.65)
         contentLabel.snp.remakeConstraints {
             if isMe {
                 $0.right.equalToSuperview().inset(24 + 4)
@@ -117,5 +118,16 @@ class MyPrayDetailTVCell: UITableViewCell {
             bubbleLImageView.image = Asset.Images.Pray.bubbleL.image.resizableImage(withCapInsets: inset,
                                                                                     resizingMode: .stretch)
         }
+    }
+}
+
+extension String {
+    var lineList: [String] {
+        return Array(Set(components(separatedBy: .punctuationCharacters).joined(separator: "").components(separatedBy: "\n"))).filter {$0.count > 0}
+    }
+    var longestLine: String {
+        if let max = self.lineList.max(by: {$1.count > $0.count}) {
+            return max
+        } else {return ""}
     }
 }

@@ -215,7 +215,7 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: MyPrayDetailTVCell.self)) { (_, item, cell) in
                     cell.contentLabel.text = item.content
-                    cell.dateLabel.text = item.date
+                    cell.dateLabel.text = item.date.isoToDateString("yyyy.M.d.")
                     cell.updateUI(type: item.type)
                 }.disposed(by: disposeBag)
     }

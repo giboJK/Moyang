@@ -54,27 +54,53 @@ class MyPrayListVM: VMType {
                 itemList.append(curList)
                 
                 self.itemList.accept((sections, itemList))
-                
             }).disposed(by: disposeBag)
+        
+        useCase.prayDetail
+            .bind(onNext: { [weak self] data in
+                guard data != nil else { return }
+                self?.createDetailVM()
+            }).disposed(by: disposeBag)
+        
+        useCase.isNetworking
+            .bind(to: isNetworking)
+            .disposed(by: disposeBag)
     }
     
     private func fetchList() {
         guard let userID = UserData.shared.userInfo?.id else { Log.e(""); return }
         useCase.fetchPrayList(userID: userID, page: 0)
     }
+    private func fetchPrayDetail(index: IndexPath) {
+        let prayID = itemList.value.1[index.section][index.row].prayID
+        useCase.fetchPrayDetail(prayID: prayID)
+    }
+    
+    private func createDetailVM() {
+        detailVM.accept(MyPrayDetailVM(useCase: useCase))
+    }
 }
 
 extension MyPrayListVM {
     struct Input {
-
+        let selectItem: Driver<IndexPath>
     }
 
     struct Output {
+        let isNetworking: Driver<Bool>
         let itemList: Driver<([String], [[PrayListItem]])>
+        let detailVM: Driver<MyPrayDetailVM?>
     }
 
     func transform(input: Input) -> Output {
-        return Output(itemList: itemList.asDriver())
+        input.selectItem
+            .drive(onNext: { [weak self] index in
+                self?.fetchPrayDetail(index: index)
+            }).disposed(by: disposeBag)
+        return Output(isNetworking: isNetworking.asDriver(),
+                      itemList: itemList.asDriver(),
+                      detailVM: detailVM.asDriver()
+        )
     }
 }
 
