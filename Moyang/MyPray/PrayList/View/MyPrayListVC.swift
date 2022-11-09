@@ -12,11 +12,17 @@ import SnapKit
 import Then
 
 class MyPrayListVC: UIViewController, VCType {
+    
     typealias VM = MyPrayListVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: MyPrayListVCDelegate?
 
+    // MARK: - Property
+    var sections = [String]()
+    var itemList = [[VM.PrayListItem]]()
+    
+    
     // MARK: - UI
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +73,8 @@ class MyPrayListVC: UIViewController, VCType {
             $0.backgroundColor = .clear
         }
         prayTableView.tableFooterView = footer
+        prayTableView.dataSource = self
+        prayTableView.delegate = self
     }
 
     // MARK: - Binding
@@ -84,14 +92,43 @@ class MyPrayListVC: UIViewController, VCType {
         let input = VM.Input()
         let output = vm.transform(input: input)
         
-//        output.itemList
-//            .drive(prayTableView.rx
-//                .items(cellIdentifier: "cell", cellType: MyPrayListTVCell.self)) { (_, item, cell) in
-//                    cell.dateLabel.text = item.latestDate?.isoToDateString("yyyy. M. d.")
-//                    cell.titleLabel.text = item.title
-//                    cell.contentLabel.text = item.content
-//                    cell.contentLabel.lineBreakMode = .byTruncatingTail
-//                }.disposed(by: disposeBag)
+        output.itemList
+            .drive(onNext: { [weak self] dataSource in
+                self?.sections = dataSource.0
+                self?.itemList = dataSource.1
+                self?.prayTableView.reloadData()
+            }).disposed(by: disposeBag)
+        
+    }
+}
+
+extension MyPrayListVC: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier:
+                    "sectionHeader") as! MyPrayListHeaderView
+        view.title.text = sections[section]
+
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return itemList[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as?
+                MyPrayListTVCell else { return UITableViewCell() }
+        let item = itemList[indexPath.section][indexPath.row]
+        cell.dateLabel.text = item.latestDate.isoToDateString("yyyy. M. d.")
+        cell.titleLabel.text = item.title
+        cell.contentLabel.text = item.content
+        cell.contentLabel.lineBreakMode = .byTruncatingTail
+        return cell
     }
 }
 

@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import SnapKit
-import Then
 
 class MyPrayListHeaderView: UITableViewHeaderFooterView {
     let title = MoyangLabel().then {
@@ -26,14 +24,14 @@ class MyPrayListHeaderView: UITableViewHeaderFooterView {
     
     func configureContents() {
         title.translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .nightSky1
 
         contentView.addSubview(title)
-
         NSLayoutConstraint.activate([
         
-            title.heightAnchor.constraint(equalToConstant: 30),
+            title.heightAnchor.constraint(equalToConstant: 48),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                   constant: 8),
+                   constant: 20),
             title.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
             title.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])

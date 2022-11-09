@@ -14,7 +14,7 @@ class MyPrayListVM: VMType {
     
     // MARK: - Events
     let isNetworking = BehaviorRelay<Bool>(value: false)
-    let itemList = BehaviorRelay<[[PrayListItem]]>(value: [])
+    let itemList = BehaviorRelay<([String], [[PrayListItem]])>(value: ([], []))
     
     // MARK: - UI
     
@@ -39,6 +39,7 @@ class MyPrayListVM: VMType {
                 let flatList = list.map { PrayListItem(data: $0) }
                 var curSection = flatList.first!.latestDate.isoToDateString("yyyy. M.")
                 var curList = [PrayListItem]()
+                var sections = [curSection!]
                 for item in flatList {
                     if curSection == item.latestDate.isoToDateString("yyyy. M.") {
                         curList.append(item)
@@ -47,18 +48,19 @@ class MyPrayListVM: VMType {
                         curList = [PrayListItem]()
                         curList.append(item)
                         curSection = item.latestDate.isoToDateString("yyyy. M.")
+                        sections.append(curSection!)
                     }
                 }
                 itemList.append(curList)
                 
-                self.itemList.accept(itemList)
+                self.itemList.accept((sections, itemList))
                 
             }).disposed(by: disposeBag)
     }
     
     private func fetchList() {
         guard let userID = UserData.shared.userInfo?.id else { Log.e(""); return }
-        useCase.fetchPrayList(userID: userID, page: 15)
+        useCase.fetchPrayList(userID: userID, page: 0)
     }
 }
 
@@ -68,7 +70,7 @@ extension MyPrayListVM {
     }
 
     struct Output {
-        let itemList: Driver<[[PrayListItem]]>
+        let itemList: Driver<([String], [[PrayListItem]])>
     }
 
     func transform(input: Input) -> Output {
