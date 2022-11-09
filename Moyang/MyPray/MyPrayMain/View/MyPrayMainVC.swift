@@ -107,6 +107,11 @@ class MyPrayMainVC: UIViewController, VCType {
                 self?.coordinator?.didTapNewPray()
             }).disposed(by: disposeBag)
         
+        myPraySummaryView.showAllView.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapPrayList()
+            }).disposed(by: disposeBag)
+        
         myPrayHabitView.myPrayAlarmView.tabBound.rx.tapGesture().when(.ended)
             .subscribe(onNext: { [weak self] _ in
                 self?.coordinator?.didTapSetAlarm()

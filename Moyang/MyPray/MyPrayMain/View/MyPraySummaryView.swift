@@ -106,7 +106,7 @@ class MyPraySummaryView: UIView {
                 guard let summary = summary else { return }
                 if summary.prayID != nil {
                     self?.showLatestPrayViewAndShowAllView()
-                    self?.myLatestPrayView.dateLabel.text = summary.latestDate?.isoToDateString("yyyy. MM. dd.")
+                    self?.myLatestPrayView.dateLabel.text = summary.latestDate?.isoToDateString("yyyy. M. d.")
                     self?.myLatestPrayView.titleLabel.text = summary.title
                     self?.myLatestPrayView.contentLabel.text = summary.content
                     self?.myLatestPrayView.contentLabel.lineBreakMode = .byTruncatingTail
@@ -126,8 +126,14 @@ class MyLatestPrayView: UIView {
     let forwardImageView = UIImageView(image: UIImage(systemName: "chevron.forward")).then {
         $0.tintColor = .sheep3
     }
-    let dateLabel = MoyangLabel()
-    let titleLabel = MoyangLabel()
+    let dateLabel = MoyangLabel().then {
+        $0.textColor = .sheep1
+        $0.font = .b02
+    }
+    let titleLabel = MoyangLabel().then {
+        $0.textColor = .sheep1
+        $0.font = .b01
+    }
     let contentLabel = MoyangLabel().then {
         $0.numberOfLines = 3
         $0.lineBreakStrategy = .hangulWordPriority
@@ -155,7 +161,13 @@ class MyLatestPrayView: UIView {
         setupcontentLabel()
         setuplatestPrayDateLabel()
         setupPrayButton()
-        
+    }
+    private func setupDateLabel() {
+        addSubview(dateLabel)
+        dateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.left.equalToSuperview().inset(16)
+        }
     }
     private func setupForwardImageView() {
         addSubview(forwardImageView)
@@ -164,13 +176,6 @@ class MyLatestPrayView: UIView {
             $0.right.equalToSuperview().inset(16)
             $0.width.equalTo(10)
             $0.height.equalTo(16)
-        }
-    }
-    private func setupDateLabel() {
-        addSubview(dateLabel)
-        dateLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20)
-            $0.left.equalToSuperview().inset(16)
         }
     }
     private func setuptitleLabel() {

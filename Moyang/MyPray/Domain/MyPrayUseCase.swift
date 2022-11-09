@@ -102,6 +102,7 @@ class MyPrayUseCase {
         }
     }
     
+    // TODO: - 네트워크 사용 줄이기 위해 Main과 UseCase를 공유하도록 변경하고 Scroll down to refresh를 추가하자..
     func fetchPrayList(userID: String, page: Int, row: Int = 7) {
         if checkAndSetIsNetworking() {
             return

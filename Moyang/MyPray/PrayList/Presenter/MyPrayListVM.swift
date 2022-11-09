@@ -14,6 +14,7 @@ class MyPrayListVM: VMType {
     
     // MARK: - Events
     let isNetworking = BehaviorRelay<Bool>(value: false)
+    let itemList = BehaviorRelay<[PrayListItem]>(value: [])
     
     // MARK: - UI
     
@@ -23,17 +24,24 @@ class MyPrayListVM: VMType {
     init(useCase: MyPrayUseCase) {
         self.useCase = useCase
         bind()
-        fetechList()
+        fetchList()
     }
 
     deinit { Log.i(self) }
     
     private func bind() {
-        
+        // TODO: - 추후 리프레시 추가
+        useCase.myPrayList
+            .subscribe(onNext: { [weak self] list in
+                guard let self = self else { return }
+                self.itemList.accept(list.map { PrayListItem(data: $0) })
+                
+            }).disposed(by: disposeBag)
     }
     
-    private func fetechList() {
-        
+    private func fetchList() {
+        guard let userID = UserData.shared.userInfo?.id else { Log.e(""); return }
+        useCase.fetchPrayList(userID: userID, page: 5)
     }
 }
 
@@ -43,11 +51,11 @@ extension MyPrayListVM {
     }
 
     struct Output {
-
+        let itemList: Driver<[PrayListItem]>
     }
 
     func transform(input: Input) -> Output {
-        return Output()
+        return Output(itemList: itemList.asDriver())
     }
 }
 
