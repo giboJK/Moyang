@@ -8,7 +8,7 @@
 import UIKit
 
 class MyPrayListHeaderView: UITableViewHeaderFooterView {
-    let title = MoyangLabel().then {
+    let titleLabel = MoyangLabel().then {
         $0.textColor = .sheep1
         $0.font = .headline
     }
@@ -23,18 +23,13 @@ class MyPrayListHeaderView: UITableViewHeaderFooterView {
     }
     
     func configureContents() {
-        title.translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .nightSky1
-
-        contentView.addSubview(title)
-        NSLayoutConstraint.activate([
-        
-            title.heightAnchor.constraint(equalToConstant: 48),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                   constant: 20),
-            title.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            title.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ])
+        contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.height.equalTo(21)
+            $0.left.equalToSuperview().inset(24)
+            $0.top.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(16)
+        }
     }
-    
 }

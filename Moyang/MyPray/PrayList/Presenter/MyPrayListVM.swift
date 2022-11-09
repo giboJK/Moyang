@@ -37,17 +37,17 @@ class MyPrayListVM: VMType {
                 guard !list.isEmpty else { return }
                 var itemList = [[PrayListItem]]()
                 let flatList = list.map { PrayListItem(data: $0) }
-                var curSection = flatList.first!.latestDate.isoToDateString("yyyy. M.")
+                var curSection = flatList.first!.latestDate.isoToDateString("yyyy년 M월")
                 var curList = [PrayListItem]()
                 var sections = [curSection!]
                 for item in flatList {
-                    if curSection == item.latestDate.isoToDateString("yyyy. M.") {
+                    if curSection == item.latestDate.isoToDateString("yyyy년 M월") {
                         curList.append(item)
                     } else {
                         itemList.append(curList)
                         curList = [PrayListItem]()
                         curList.append(item)
-                        curSection = item.latestDate.isoToDateString("yyyy. M.")
+                        curSection = item.latestDate.isoToDateString("yyyy년 M월")
                         sections.append(curSection!)
                     }
                 }

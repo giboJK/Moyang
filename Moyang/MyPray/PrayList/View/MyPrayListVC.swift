@@ -111,7 +111,7 @@ extension MyPrayListVC: UITableViewDataSource, UITableViewDelegate {
         
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier:
                     "sectionHeader") as! MyPrayListHeaderView
-        view.title.text = sections[section]
+        view.titleLabel.text = sections[section]
 
         return view
     }
