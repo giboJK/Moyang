@@ -21,6 +21,7 @@ class MyPrayListVC: UIViewController, VCType {
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(MyPrayListTVCell.self, forCellReuseIdentifier: "cell")
+        $0.register(MyPrayListHeaderView.self, forHeaderFooterViewReuseIdentifier: "sectionHeader")
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 160
@@ -83,18 +84,17 @@ class MyPrayListVC: UIViewController, VCType {
         let input = VM.Input()
         let output = vm.transform(input: input)
         
-        output.itemList
-            .drive(prayTableView.rx
-                .items(cellIdentifier: "cell", cellType: MyPrayListTVCell.self)) { (_, item, cell) in
-                    cell.dateLabel.text = item.latestDate?.isoToDateString("yyyy. M. d.")
-                    cell.titleLabel.text = item.title
-                    cell.contentLabel.text = item.content
-                    cell.contentLabel.lineBreakMode = .byTruncatingTail
-                }.disposed(by: disposeBag)
+//        output.itemList
+//            .drive(prayTableView.rx
+//                .items(cellIdentifier: "cell", cellType: MyPrayListTVCell.self)) { (_, item, cell) in
+//                    cell.dateLabel.text = item.latestDate?.isoToDateString("yyyy. M. d.")
+//                    cell.titleLabel.text = item.title
+//                    cell.contentLabel.text = item.content
+//                    cell.contentLabel.lineBreakMode = .byTruncatingTail
+//                }.disposed(by: disposeBag)
     }
 }
 
 protocol MyPrayListVCDelegate: AnyObject {
 
 }
-

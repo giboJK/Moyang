@@ -107,6 +107,7 @@
 		242F929E2848E0FF0023324D /* GroupActivityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F929D2848E0FF0023324D /* GroupActivityAssembly.swift */; };
 		242F92A12848FD140023324D /* NewPrayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F92A02848FD140023324D /* NewPrayVC.swift */; };
 		242F92A3284904AF0023324D /* MoyangTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242F92A2284904AF0023324D /* MoyangTextField.swift */; };
+		2439568B291BE64100511574 /* MyPrayListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2439568A291BE64100511574 /* MyPrayListHeaderView.swift */; };
 		2443A37A2917217800177884 /* UIDatePicker+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2443A3792917217800177884 /* UIDatePicker+.swift */; };
 		2447788228FEBDC800DD7499 /* MyPrayCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2447788128FEBDC800DD7499 /* MyPrayCoordinator.swift */; };
 		2447788428FEBDD300DD7499 /* MyPrayAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2447788328FEBDD300DD7499 /* MyPrayAssembly.swift */; };
@@ -345,6 +346,7 @@
 		242F929D2848E0FF0023324D /* GroupActivityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupActivityAssembly.swift; sourceTree = "<group>"; };
 		242F92A02848FD140023324D /* NewPrayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayVC.swift; sourceTree = "<group>"; };
 		242F92A2284904AF0023324D /* MoyangTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangTextField.swift; sourceTree = "<group>"; };
+		2439568A291BE64100511574 /* MyPrayListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayListHeaderView.swift; sourceTree = "<group>"; };
 		2443A3792917217800177884 /* UIDatePicker+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+.swift"; sourceTree = "<group>"; };
 		2447788128FEBDC800DD7499 /* MyPrayCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayCoordinator.swift; sourceTree = "<group>"; };
 		2447788328FEBDD300DD7499 /* MyPrayAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayAssembly.swift; sourceTree = "<group>"; };
@@ -696,6 +698,7 @@
 			children = (
 				08E490582918DDAD00735823 /* MyPrayListVC.swift */,
 				08E92824291B7DFB009D67AE /* MyPrayListTVCell.swift */,
+				2439568A291BE64100511574 /* MyPrayListHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2023,6 +2026,7 @@
 				08AD9596287BEB08002D4F94 /* AuthRepo.swift in Sources */,
 				2493DE6228467441001A9368 /* GroupActivityVC.swift in Sources */,
 				242F92A3284904AF0023324D /* MoyangTextField.swift in Sources */,
+				2439568B291BE64100511574 /* MyPrayListHeaderView.swift in Sources */,
 				24E0AB32283E74A900F52505 /* Request.swift in Sources */,
 				24E5D0F228B9FA4B00680101 /* SplashVM.swift in Sources */,
 				24CDD53728E538C80091A286 /* ProfileController.swift in Sources */,
