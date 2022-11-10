@@ -11,7 +11,7 @@ struct PrayDetail: Codable {
     let userName: String
     let groupID: String?
     let groupName: String?
-    var title: String
+    var category: String
     var content: String
     var latestDate: String
     let createDate: String
@@ -26,7 +26,7 @@ struct PrayDetail: Codable {
         self.userName = UserData.shared.userInfo?.name ?? ""
         self.groupID = groupID
         self.groupName = groupName
-        self.title = myPray.category
+        self.category = myPray.category
         self.content = myPray.content
         self.latestDate = myPray.latestDate
         self.createDate = myPray.createDate
@@ -41,7 +41,7 @@ struct PrayDetail: Codable {
         case userName = "user_name"
         case groupID = "group_id"
         case groupName = "group_name"
-        case title = "title"
+        case category = "category"
         case content = "content"
         case latestDate = "latest_date"
         case createDate = "create_date"

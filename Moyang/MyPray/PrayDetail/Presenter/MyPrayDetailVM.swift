@@ -91,7 +91,7 @@ class MyPrayDetailVM: VMType {
     }
     
     private func setData(data: PrayDetail) {
-        title.accept(data.title)
+        title.accept(data.category)
         groupName.accept(data.groupName)
         
         var itemList = [ContentItem]()
