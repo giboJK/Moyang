@@ -20,12 +20,12 @@ class PrayDetailHeader: UIView {
     var groupList = [String]()
     
     // MARK: - UI
-    let titleLabel = MoyangLabel().then {
-        $0.text = "제목"
+    let categoryLabel = MoyangLabel().then {
+        $0.text = "카테고리"
         $0.textColor = .sheep3
         $0.font = .b03
     }
-    let titleTextField = MoyangTextField(.sheep, "제목").then {
+    let categoryTextField = MoyangTextField(.sheep, "카테고리").then {
         $0.returnKeyType = .done
     }
     let mediatorLabel = MoyangLabel().then {
@@ -63,26 +63,26 @@ class PrayDetailHeader: UIView {
     }
     
     private func setupUI() {
-        setupTitleLabel()
-        setupTitleTextField()
+        setupCategoryLabel()
+        setupCategoryTextField()
         setupToolbar()
         setupMediatorLabel()
         setupMediatorTextField()
         setupRecordButton()
         setupChangeAndAnswerLabel()
     }
-    private func setupTitleLabel() {
-        addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
+    private func setupCategoryLabel() {
+        addSubview(categoryLabel)
+        categoryLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.left.equalToSuperview().inset(24)
             $0.height.equalTo(17)
         }
     }
-    private func setupTitleTextField() {
-        addSubview(titleTextField)
-        titleTextField.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+    private func setupCategoryTextField() {
+        addSubview(categoryTextField)
+        categoryTextField.snp.makeConstraints {
+            $0.top.equalTo(categoryLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(24)
             $0.height.equalTo(44)
         }
@@ -97,7 +97,7 @@ class PrayDetailHeader: UIView {
     private func setupMediatorLabel() {
         addSubview(mediatorLabel)
         mediatorLabel.snp.makeConstraints {
-            $0.top.equalTo(titleTextField.snp.bottom).offset(24)
+            $0.top.equalTo(categoryTextField.snp.bottom).offset(24)
             $0.left.equalToSuperview().inset(24)
         }
     }
@@ -155,7 +155,7 @@ class PrayDetailHeader: UIView {
         
         output.title
             .distinctUntilChanged()
-            .drive(titleTextField.rx.text)
+            .drive(categoryTextField.rx.text)
             .disposed(by: disposeBag)
         
         output.groupName
