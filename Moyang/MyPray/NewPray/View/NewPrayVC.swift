@@ -291,6 +291,7 @@ class NewPrayVC: UIViewController, VCType {
         groupClearButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.groupTextView.textField.text = nil
+                self?.groupTextView.textField.sendActions(for: .valueChanged)
             }).disposed(by: disposeBag)
         
         groupTextView.textField.rx.text.map { $0?.isEmpty ?? true }

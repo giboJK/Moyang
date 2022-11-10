@@ -50,6 +50,10 @@ class PrayDetailHeader: UIView {
         $0.clipsToBounds = true
         $0.barTintColor = .sheep2
     }
+    let groupClearButton = MoyangButton(.none).then {
+        $0.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        $0.tintColor = .nightSky2
+    }
     let groupPicker = UIPickerView()
     
     init() {
@@ -68,6 +72,7 @@ class PrayDetailHeader: UIView {
         setupToolbar()
         setupMediatorLabel()
         setupMediatorTextField()
+        setupGroupClearButton()
         setupRecordButton()
         setupChangeAndAnswerLabel()
     }
@@ -113,6 +118,14 @@ class PrayDetailHeader: UIView {
         mediatorTextField.inputAccessoryView = groupToolBar
         mediatorTextField.inputView = groupPicker
     }
+    private func setupGroupClearButton() {
+        mediatorTextField.addSubview(groupClearButton)
+        groupClearButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview().inset(8)
+            $0.size.equalTo(28)
+        }
+    }
     private func setupRecordButton() {
         addSubview(recordButton)
         recordButton.snp.makeConstraints {
@@ -146,6 +159,16 @@ class PrayDetailHeader: UIView {
                 guard let self = self else { return }
                 self.mediatorTextField.resignFirstResponder()
             }).disposed(by: disposeBag)
+        
+        groupClearButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.mediatorTextField.text = nil
+                self?.mediatorTextField.sendActions(for: .valueChanged)
+            }).disposed(by: disposeBag)
+        
+        mediatorTextField.rx.text.map { $0?.isEmpty ?? true }
+            .bind(to: groupClearButton.rx.isHidden)
+            .disposed(by: disposeBag)
     }
     
     func bind() {
@@ -161,6 +184,10 @@ class PrayDetailHeader: UIView {
         output.groupName
             .distinctUntilChanged()
             .drive(mediatorTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.groupName.map { $0?.isEmpty ?? true }
+            .drive(groupClearButton.rx.isHidden)
             .disposed(by: disposeBag)
         
         output.groupList.map { list in list.map { $0.name }}
