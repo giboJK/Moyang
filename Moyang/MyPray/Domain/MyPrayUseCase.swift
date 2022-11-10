@@ -50,7 +50,7 @@ class MyPrayUseCase {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No user ID"); return }
         if checkAndSetIsNetworking() { return }
         repo.addPray(userID: myID,
-                     title: title,
+                     category: title,
                      content: content,
                      groupID: groupID) { [weak self] result in
             self?.resetIsNetworking()
@@ -157,7 +157,7 @@ class MyPrayUseCase {
     // MARK: - Update
     func updatePray(prayID: String, title: String, content: String) {
         if checkAndSetIsNetworking() { return }
-        repo.updatePray(prayID: prayID, title: title, content: content) { [weak self] result in
+        repo.updatePray(prayID: prayID, category: title, content: content) { [weak self] result in
             self?.resetIsNetworking()
             switch result {
             case .success(let response):

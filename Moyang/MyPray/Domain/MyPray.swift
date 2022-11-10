@@ -9,7 +9,7 @@
 struct MyPray: Codable {
     let prayID: String
     let userID: String
-    var title: String
+    var category: String
     var content: String
     var latestDate: String
     let createDate: String
@@ -17,7 +17,7 @@ struct MyPray: Codable {
     enum CodingKeys: String, CodingKey {
         case prayID = "pray_id"
         case userID = "user_id"
-        case title = "title"
+        case category = "category"
         case content = "content"
         case latestDate = "latest_date"
         case createDate = "create_date"

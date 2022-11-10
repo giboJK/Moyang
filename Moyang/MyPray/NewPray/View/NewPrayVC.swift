@@ -38,7 +38,7 @@ class NewPrayVC: UIViewController, VCType {
         $0.textColor = .sheep1
         $0.font = .t04
     }
-    let titleTextView = NewPrayTextField("제목", "ex) 진로, 두려움, 감사, OO를 위한 기도")
+    let categoryTextView = NewPrayTextField("카테고리", "ex) 진로, 두려움, 감사, OO를 위한 기도")
     let contentTextView = NewPrayTextView("내용", "내용").then {
         $0.isHidden = true
     }
@@ -106,7 +106,7 @@ class NewPrayVC: UIViewController, VCType {
         setupGuideLabel()
         setupGroupTextView()
         setupContentTextView()
-        setupTitleTextView()
+        setupCategoryTextView()
         setupCancelButton()
         setupSaveButton()
         setupPrayContainer()
@@ -150,9 +150,9 @@ class NewPrayVC: UIViewController, VCType {
             $0.left.right.equalToSuperview().inset(16)
         }
     }
-    private func setupTitleTextView() {
-        view.addSubview(titleTextView)
-        titleTextView.snp.makeConstraints {
+    private func setupCategoryTextView() {
+        view.addSubview(categoryTextView)
+        categoryTextView.snp.makeConstraints {
             $0.top.equalTo(contentTextView.snp.bottom).offset(-56)
             $0.left.right.equalToSuperview().inset(16)
         }
@@ -160,7 +160,7 @@ class NewPrayVC: UIViewController, VCType {
             if !self.loadAskingPopup.isHidden {
                 return
             }
-            self.titleTextView.textField.becomeFirstResponder()
+            self.categoryTextView.textField.becomeFirstResponder()
         }
     }
     
@@ -228,7 +228,7 @@ class NewPrayVC: UIViewController, VCType {
     private func showContentView() {
         if isShowContent { return }
         contentTextView.isHidden = false
-        titleTextView.snp.updateConstraints {
+        categoryTextView.snp.updateConstraints {
             $0.top.equalTo(contentTextView.snp.bottom).offset(36)
         }
         isShowContent = true
@@ -320,15 +320,15 @@ class NewPrayVC: UIViewController, VCType {
         loadAskingPopup.secondButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
-                self?.titleTextView.textField.becomeFirstResponder()
+                self?.categoryTextView.textField.becomeFirstResponder()
             }).disposed(by: disposeBag)
     }
     
     // MARK: - Bind VM
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(setTitle: titleTextView.textField.rx.text.asDriver(),
-                             endTitleEditing: titleTextView.textField.rx.controlEvent(.editingDidEndOnExit).asDriver(),
+        let input = VM.Input(setCategory: categoryTextView.textField.rx.text.asDriver(),
+                             endCategoryEditing: categoryTextView.textField.rx.controlEvent(.editingDidEndOnExit).asDriver(),
                              setContent: contentTextView.textView.rx.text.asDriver(),
                              endContentEditing: contentDoneButton.rx.tap.asDriver(),
                              setGroup: groupTextView.textField.rx.text.asDriver(),
@@ -349,7 +349,7 @@ class NewPrayVC: UIViewController, VCType {
             .distinctUntilChanged()
             .drive(onNext: { [weak self] isEmpty in
                 if isEmpty { return }
-                self?.titleTextView.label.isHidden = isEmpty
+                self?.categoryTextView.label.isHidden = isEmpty
             }).disposed(by: disposeBag)
         
         output.content.map { $0?.isEmpty ?? true}
@@ -415,7 +415,7 @@ class NewPrayVC: UIViewController, VCType {
                 self?.groupClearButton.isHidden = true
                 self?.groupClearButton.isUserInteractionEnabled = false
                 self?.groupTextView.isUserInteractionEnabled = false
-                self?.titleTextView.isUserInteractionEnabled = false
+                self?.categoryTextView.isUserInteractionEnabled = false
                 self?.contentTextView.isUserInteractionEnabled = false
             }).disposed(by: disposeBag)
         
@@ -428,7 +428,7 @@ class NewPrayVC: UIViewController, VCType {
         
         output.title.skip(1)
             .distinctUntilChanged()
-            .drive(titleTextView.textField.rx.text)
+            .drive(categoryTextView.textField.rx.text)
             .disposed(by: disposeBag)
         
         output.content.skip(1)

@@ -115,7 +115,7 @@ extension MyPrayListVM {
                 
         init(data: MyPray) {
             self.prayID = data.prayID
-            self.title = data.title
+            self.title = data.category
             self.content = data.content
             self.latestDate = data.latestDate
             self.createDate = data.createDate

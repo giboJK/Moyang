@@ -120,6 +120,10 @@ class MyPrayDetailVM: VMType {
 //        useCase.updatePray(prayID: prayID, pray: pray)
     }
     
+    private func deleteItem(index: IndexPath) {
+        
+    }
+    
     private func deletePray() {
         useCase.deletePray()
     }
@@ -129,6 +133,7 @@ extension MyPrayDetailVM {
     struct Input {
         var setTitle: Driver<String?> = .empty()
         var updatePray: Driver<Void> = .empty()
+        var deleteItem: Driver<IndexPath> = .empty()
         var deletePray: Driver<Void> = .empty()
         var startPray: Driver<Void> = .empty()
         var addRecord: Driver<Void> = .empty()
@@ -165,6 +170,11 @@ extension MyPrayDetailVM {
         input.updatePray
             .drive(onNext: { [weak self] _ in
                 self?.updatePray()
+            }).disposed(by: disposeBag)
+        
+        input.deleteItem
+            .drive(onNext: { [weak self] index in
+                self?.deleteItem(index: index)
             }).disposed(by: disposeBag)
         
         input.deletePray

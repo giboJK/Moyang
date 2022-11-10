@@ -124,7 +124,7 @@ extension MyPrayMainVM {
         
         init(data: MyPraySummary) {
             self.prayID = data.pray?.prayID
-            self.title = data.pray?.title
+            self.title = data.pray?.category
             self.content = data.pray?.content
             self.latestDate = data.pray?.latestDate
             self.createDate = data.pray?.createDate

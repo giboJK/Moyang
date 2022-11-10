@@ -174,6 +174,7 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         guard let vm = vm else { Log.e("vm is nil"); return }
         
         let input = VM.Input(updatePray: saveButton.rx.tap.asDriver(),
+                             deleteItem: prayTableView.rx.itemDeleted.asDriver(),
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver()
         )
         let output = vm.transform(input: input)

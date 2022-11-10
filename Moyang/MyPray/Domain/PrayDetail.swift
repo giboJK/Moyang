@@ -26,7 +26,7 @@ struct PrayDetail: Codable {
         self.userName = UserData.shared.userInfo?.name ?? ""
         self.groupID = groupID
         self.groupName = groupName
-        self.title = myPray.title
+        self.title = myPray.category
         self.content = myPray.content
         self.latestDate = myPray.latestDate
         self.createDate = myPray.createDate

@@ -181,8 +181,8 @@ class NewPrayVM: VMType {
 
 extension NewPrayVM {
     struct Input {
-        let setTitle: Driver<String?>
-        let endTitleEditing: Driver<Void>
+        let setCategory: Driver<String?>
+        let endCategoryEditing: Driver<Void>
         
         let setContent: Driver<String?>
         let endContentEditing: Driver<Void>
@@ -223,17 +223,17 @@ extension NewPrayVM {
     }
 
     func transform(input: Input) -> Output {
-        // MARK: - Title
-        input.setTitle
+        // MARK: - Category
+        input.setCategory
             .drive(title)
             .disposed(by: disposeBag)
         
-        input.setTitle.skip(1)
+        input.setCategory.skip(1)
             .drive(onNext: { [weak self] _ in
                 self?.autoSave()
             }).disposed(by: disposeBag)
 
-        input.endTitleEditing
+        input.endCategoryEditing
             .drive(onNext: { [weak self] _ in
                 self?.changeCurrentStep(.content)
             }).disposed(by: disposeBag)
