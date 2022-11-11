@@ -83,7 +83,6 @@ class MyPraySummaryView: UIView {
     }
     
     private func hideLatestPrayViewAndShowAllView() {
-        Log.d("")
         addNewPrayView.snp.updateConstraints {
             $0.top.equalToSuperview().inset(0)
         }
@@ -126,10 +125,6 @@ class MyLatestPrayView: UIView {
     let forwardImageView = UIImageView(image: UIImage(systemName: "chevron.forward")).then {
         $0.tintColor = .sheep3
     }
-    let dateLabel = MoyangLabel().then {
-        $0.textColor = .sheep1
-        $0.font = .b02
-    }
     let titleLabel = MoyangLabel().then {
         $0.textColor = .sheep1
         $0.font = .b01
@@ -139,8 +134,9 @@ class MyLatestPrayView: UIView {
         $0.lineBreakStrategy = .hangulWordPriority
     }
     let latestPrayDateLabel = MoyangLabel()
-    let prayButton = MoyangButton(.sheepPrimary).then {
-        $0.setTitle("기도하기", for: .normal)
+    let dateLabel = MoyangLabel().then {
+        $0.textColor = .sheep1
+        $0.font = .b02
     }
     
     init() {
@@ -155,58 +151,49 @@ class MyLatestPrayView: UIView {
         super.init(coder: coder)
     }
     private func setupUI() {
-        setupDateLabel()
+        setupTitleLabel()
         setupForwardImageView()
-        setuptitleLabel()
-        setupcontentLabel()
-        setuplatestPrayDateLabel()
-        setupPrayButton()
+        setupContentLabel()
+        setupLatestPrayDateLabel()
+        setupDateLabel()
     }
-    private func setupDateLabel() {
-        addSubview(dateLabel)
-        dateLabel.snp.makeConstraints {
+    private func setupTitleLabel() {
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.left.equalToSuperview().inset(16)
+            $0.height.equalTo(19)
         }
     }
     private func setupForwardImageView() {
         addSubview(forwardImageView)
         forwardImageView.snp.makeConstraints {
-            $0.centerY.equalTo(dateLabel)
+            $0.centerY.equalTo(titleLabel)
             $0.right.equalToSuperview().inset(16)
             $0.width.equalTo(10)
             $0.height.equalTo(16)
         }
     }
-    private func setuptitleLabel() {
-        addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(56)
-            $0.left.right.equalToSuperview().inset(16)
-        }
-    }
-    private func setupcontentLabel() {
+    private func setupContentLabel() {
         addSubview(contentLabel)
         contentLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(88)
+            $0.top.equalToSuperview().inset(60)
             $0.left.right.equalToSuperview().inset(16)
         }
     }
-    private func setuplatestPrayDateLabel() {
+    private func setupLatestPrayDateLabel() {
         addSubview(latestPrayDateLabel)
         latestPrayDateLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(170)
             $0.left.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(20)
         }
     }
-    private func setupPrayButton() {
-        addSubview(prayButton)
-        prayButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(148)
+    private func setupDateLabel() {
+        addSubview(dateLabel)
+        dateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(132)
+            $0.bottom.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(16)
-            $0.height.equalTo(36)
-            $0.width.equalTo(92)
         }
     }
 }
