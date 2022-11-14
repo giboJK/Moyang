@@ -57,6 +57,10 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
 
         setupUI()
         bind()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     // 기도하기 화면 후 복귀 시 필요
@@ -69,6 +73,14 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
+        self.view.layoutIfNeeded()
     }
     
     func setupUI() {

@@ -20,6 +20,11 @@ class PrayDetailHeader: UIView {
     var groupList = [String]()
     
     // MARK: - UI
+    let infoLabel = MoyangLabel().then {
+        $0.text = "기본정보"
+        $0.textColor = .wilderness1
+        $0.font = .headline
+    }
     let categoryLabel = MoyangLabel().then {
         $0.text = "카테고리"
         $0.textColor = .sheep3
@@ -28,21 +33,22 @@ class PrayDetailHeader: UIView {
     let categoryTextField = MoyangTextField(.sheep, "카테고리").then {
         $0.returnKeyType = .done
     }
-    let mediatorLabel = MoyangLabel().then {
+    let categoryUpdateLabel = MoyangLabel().then {
+        $0.text = "수정됨"
+        $0.textColor = .sheep3
+        $0.font = .b05
+    }
+    let groupLabel = MoyangLabel().then {
         $0.text = "중보기도 요청"
         $0.textColor = .sheep3
         $0.font = .b03
     }
-    let mediatorTextField = MoyangTextField(.sheep, "공동체")
-    let recordButton = MoyangButton(.sheepPrimary).then {
-        $0.setTitle("기록하기", for: .normal)
+    let groupTextField = MoyangTextField(.sheep, "공동체")
+    let groupUpdateLabel = MoyangLabel().then {
+        $0.text = "수정됨"
+        $0.textColor = .sheep3
+        $0.font = .b05
     }
-    let changeAndAnswerLabel = MoyangLabel().then {
-        $0.text = "변화나 응답이 있나요?"
-        $0.textColor = .wilderness1
-        $0.font = .b01
-    }
-    
     var groupDoneButton = UIBarButtonItem()
     var groupCancelButton = UIBarButtonItem()
     let groupToolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
@@ -66,20 +72,36 @@ class PrayDetailHeader: UIView {
         super.init(coder: coder)
     }
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+    }
+    
+    
     private func setupUI() {
+        setupInfoLabel()
         setupCategoryLabel()
         setupCategoryTextField()
+        setupCategoryUpdateLabel()
         setupToolbar()
-        setupMediatorLabel()
-        setupMediatorTextField()
+        setupGroupLabel()
+        setupGroupTextField()
+        setupGroupUpdateLabel()
         setupGroupClearButton()
-        setupRecordButton()
-        setupChangeAndAnswerLabel()
+    }
+    private func setupInfoLabel() {
+        addSubview(infoLabel)
+        infoLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(24)
+            $0.left.equalToSuperview().inset(24)
+            $0.height.equalTo(21)
+        }
     }
     private func setupCategoryLabel() {
         addSubview(categoryLabel)
         categoryLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20)
+            $0.top.equalTo(infoLabel.snp.bottom).offset(12)
             $0.left.equalToSuperview().inset(24)
             $0.height.equalTo(17)
         }
@@ -92,6 +114,14 @@ class PrayDetailHeader: UIView {
             $0.height.equalTo(44)
         }
     }
+    private func setupCategoryUpdateLabel() {
+        addSubview(categoryUpdateLabel)
+        categoryUpdateLabel.snp.makeConstraints {
+            $0.top.equalTo(categoryTextField.snp.bottom).offset(4)
+            $0.right.equalToSuperview().inset(24)
+            $0.height.equalTo(17)
+        }
+    }
     
     private func setupToolbar() {
         groupDoneButton = UIBarButtonItem(title: "완료", style: .done, target: self, action: nil)
@@ -99,48 +129,39 @@ class PrayDetailHeader: UIView {
         let groupSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         groupToolBar.setItems([groupCancelButton, groupSpace, groupDoneButton], animated: false)
     }
-    private func setupMediatorLabel() {
-        addSubview(mediatorLabel)
-        mediatorLabel.snp.makeConstraints {
+    private func setupGroupLabel() {
+        addSubview(groupLabel)
+        groupLabel.snp.makeConstraints {
             $0.top.equalTo(categoryTextField.snp.bottom).offset(24)
             $0.left.equalToSuperview().inset(24)
         }
     }
-    private func setupMediatorTextField() {
-        addSubview(mediatorTextField)
-        mediatorTextField.snp.makeConstraints {
-            $0.top.equalTo(mediatorLabel.snp.bottom).offset(4)
+    private func setupGroupTextField() {
+        addSubview(groupTextField)
+        groupTextField.snp.makeConstraints {
+            $0.top.equalTo(groupLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(24)
             $0.height.equalTo(44)
         }
         groupPicker.dataSource = self
         groupPicker.delegate = self
-        mediatorTextField.inputAccessoryView = groupToolBar
-        mediatorTextField.inputView = groupPicker
+        groupTextField.inputAccessoryView = groupToolBar
+        groupTextField.inputView = groupPicker
+    }
+    private func setupGroupUpdateLabel() {
+        addSubview(groupUpdateLabel)
+        groupUpdateLabel.snp.makeConstraints {
+            $0.top.equalTo(groupTextField.snp.bottom).offset(4)
+            $0.right.equalToSuperview().inset(24)
+            $0.height.equalTo(17)
+        }
     }
     private func setupGroupClearButton() {
-        mediatorTextField.addSubview(groupClearButton)
+        groupTextField.addSubview(groupClearButton)
         groupClearButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().inset(8)
             $0.size.equalTo(28)
-        }
-    }
-    private func setupRecordButton() {
-        addSubview(recordButton)
-        recordButton.snp.makeConstraints {
-            $0.width.equalTo(92)
-            $0.height.equalTo(36)
-            $0.top.equalTo(mediatorTextField.snp.bottom).offset(24)
-            $0.right.equalToSuperview().inset(24)
-            $0.bottom.equalToSuperview().inset(12)
-        }
-    }
-    private func setupChangeAndAnswerLabel() {
-        addSubview(changeAndAnswerLabel)
-        changeAndAnswerLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(24)
-            $0.centerY.equalTo(recordButton)
         }
     }
     
@@ -149,31 +170,31 @@ class PrayDetailHeader: UIView {
         groupDoneButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.mediatorTextField.resignFirstResponder()
-                self.mediatorTextField.text = self.groupList[self.groupPicker.selectedRow(inComponent: 0)]
-                self.mediatorTextField.sendActions(for: .valueChanged)
+                self.groupTextField.resignFirstResponder()
+                self.groupTextField.text = self.groupList[self.groupPicker.selectedRow(inComponent: 0)]
+                self.groupTextField.sendActions(for: .valueChanged)
             }).disposed(by: disposeBag)
         
         groupCancelButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.mediatorTextField.resignFirstResponder()
+                self.groupTextField.resignFirstResponder()
             }).disposed(by: disposeBag)
         
         groupClearButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.mediatorTextField.text = nil
-                self?.mediatorTextField.sendActions(for: .valueChanged)
+                self?.groupTextField.text = nil
+                self?.groupTextField.sendActions(for: .valueChanged)
             }).disposed(by: disposeBag)
         
-        mediatorTextField.rx.text.map { $0?.isEmpty ?? true }
+        groupTextField.rx.text.map { $0?.isEmpty ?? true }
             .bind(to: groupClearButton.rx.isHidden)
             .disposed(by: disposeBag)
     }
     
     func bind() {
         guard let vm = vm, let disposeBag = disposeBag else { Log.e("No vm"); return }
-        let input = VM.Input(addRecord: recordButton.rx.tap.asDriver())
+        let input = VM.Input()
         let output = vm.transform(input: input)
         
         output.title
@@ -183,7 +204,7 @@ class PrayDetailHeader: UIView {
         
         output.groupName
             .distinctUntilChanged()
-            .drive(mediatorTextField.rx.text)
+            .drive(groupTextField.rx.text)
             .disposed(by: disposeBag)
         
         output.groupName.map { $0?.isEmpty ?? true }
