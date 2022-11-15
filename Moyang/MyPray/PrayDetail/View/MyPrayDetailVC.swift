@@ -160,6 +160,23 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         }
     }
     
+    private func showAlert() {
+        let alert = UIAlertController()
+        
+        alert.addAction(UIAlertAction(title: "변화", style: .default, handler: { [weak self] _ in
+            self?.vm?.changeType(type: .change)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "응답", style: .default, handler: { [weak self] _ in
+            self?.vm?.changeType(type: .answer)
+        }))
+
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { _ in
+        }))
+
+        self.present(alert, animated: true)
+    }
+    
     // MARK: - Binding
     func bind() {
         bindViews()
@@ -188,6 +205,11 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
                         $0.top.equalTo(self.view.safeAreaLayoutGuide).inset(-headerInset)
                     }
                 }
+            }).disposed(by: disposeBag)
+        
+        bottomView.typeContainer.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.showAlert()
             }).disposed(by: disposeBag)
         
         view.rx.tapGesture().when(.ended)

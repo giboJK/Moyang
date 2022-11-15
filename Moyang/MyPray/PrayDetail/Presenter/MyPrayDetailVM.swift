@@ -18,6 +18,8 @@ class MyPrayDetailVM: VMType {
     var initialCategory: String? = nil
     var initialGroup: String? = nil
     
+    var newContentItemType: ContentItemType = .change
+    
     // MARK: - Data
     let groupName = BehaviorRelay<String?>(value: "")
     let category = BehaviorRelay<String?>(value: nil)
@@ -37,8 +39,6 @@ class MyPrayDetailVM: VMType {
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
-    // MARK: - VM
-    let changeAndAnswerVM = BehaviorRelay<ChangeAndAnswerVM?>(value: nil)
     
     init(useCase: MyPrayUseCase) {
         self.useCase = useCase
@@ -131,9 +131,6 @@ class MyPrayDetailVM: VMType {
         
         isChanged = initialCategory != category
         isChanged = isChanged || (initialGroup != groupName.value)
-        Log.d(initialGroup)
-        Log.d(groupName.value)
-        Log.d(isChanged)
         
         isSaveEnabled.accept(isChanged)
     }
@@ -155,6 +152,10 @@ class MyPrayDetailVM: VMType {
     
     private func deletePray() {
         useCase.deletePray()
+    }
+    
+    func changeType(type: ContentItemType) {
+        newContentItemType = type
     }
 }
 
@@ -194,8 +195,6 @@ extension MyPrayDetailVM {
         
         let isNetworking: Driver<Bool>
         
-        // MARK: - VM
-        let changeAndAnswerVM: Driver<ChangeAndAnswerVM?>
     }
 
     func transform(input: Input) -> Output {
@@ -250,9 +249,7 @@ extension MyPrayDetailVM {
             deletePraySuccess: deletePraySuccess.asDriver(),
             deletePrayFailure: deletePrayFailure.asDriver(),
             
-            isNetworking: isNetworking.asDriver(),
-            
-            changeAndAnswerVM: changeAndAnswerVM.asDriver()
+            isNetworking: isNetworking.asDriver()
         )
     }
 }
