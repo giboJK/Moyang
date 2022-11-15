@@ -76,11 +76,23 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            UIView.animate(withDuration: 0.7) {
+                self.bottomView.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().inset(-UIApplication.bottomInset)
+                }
+                self.view.frame.origin.y = -keyboardSize.height
+            }
+        }
+        self.view.layoutIfNeeded()
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-//        self.view.frame.origin.y = 0
-//        self.view.layoutIfNeeded()
+        bottomView.snp.updateConstraints {
+            $0.bottom.equalToSuperview()
+        }
+        view.frame.origin.y = 0
+        view.layoutIfNeeded()
     }
     
     func setupUI() {
@@ -145,7 +157,6 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         view.addSubview(bottomView)
         bottomView.snp.makeConstraints {
             $0.left.right.bottom.equalToSuperview()
-            $0.height.equalTo(48 + UIApplication.bottomInset)
         }
     }
     

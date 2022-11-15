@@ -20,12 +20,14 @@ class MoyangTextView: UITextView {
     }
     private var style: MoyangTextViewStyle = .sheep
     
-    init(padding: UIEdgeInsets = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)) {
+    init(_ style: MoyangTextViewStyle = .none, padding: UIEdgeInsets = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)) {
         super.init(frame: .zero, textContainer: nil)
+        
+        self.style = style
         font = .b02
-        textColor = .sheep1
         textContainerInset = padding
-        backgroundColor = .nightSky1
+        
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
@@ -37,6 +39,22 @@ class MoyangTextView: UITextView {
             textColor = .sheep1
         } else {
             textColor = .sheep4
+        }
+    }
+    private func setupUI() {
+        switch style {
+        case .sheep:
+            backgroundColor = .sheep1
+            textColor = .nightSky1
+            layer.cornerRadius = 8
+            layer.masksToBounds = true
+            layer.borderWidth = 1
+            layer.borderColor = .sheep4
+        case .ghost:
+            break
+        case .none:
+            textColor = .sheep1
+            backgroundColor = .nightSky1
         }
     }
 }

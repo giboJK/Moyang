@@ -19,13 +19,13 @@ class MyPrayBottomView: UIView {
         $0.textColor = .nightSky2
         $0.font = .b03
     }
-    let downImageView = UIImageView(image: UIImage(systemName: "trash")).then {
+    let downImageView = UIImageView(image: UIImage(systemName: "arrowtriangle.down.fill")).then {
         $0.tintColor = .nightSky2
     }
     let prayButton = MoyangButton(.nightPrimary).then {
         $0.setTitle("기도하기", for: .normal)
     }
-    let textView = ChangeAnswerTextView("내용", "내용")
+    let textView = ChangeAnswerTextView("기도에 변화와 응답이 있나요?")
     
     init() {
         super.init(frame: .zero)
@@ -38,15 +38,26 @@ class MyPrayBottomView: UIView {
     }
     
     private func setupUI() {
+        setupTextView()
         setupPrayButton()
         setupTypeContainer()
+    }
+    private func setupTextView() {
+        addSubview(textView)
+        textView.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(59)
+            $0.top.equalToSuperview().inset(4)
+            $0.right.equalToSuperview().inset(120)
+            $0.height.greaterThanOrEqualTo(36)
+            $0.bottom.equalToSuperview().inset(UIApplication.bottomInset + 4)
+        }
     }
     private func setupPrayButton() {
         addSubview(prayButton)
         prayButton.snp.makeConstraints {
             $0.width.equalTo(100)
             $0.height.equalTo(36)
-            $0.top.equalToSuperview().inset(4)
+            $0.bottom.equalTo(textView)
             $0.right.equalToSuperview().inset(12)
         }
     }
@@ -69,31 +80,26 @@ class MyPrayBottomView: UIView {
     private func setupDownImageView() {
         typeContainer.addSubview(downImageView)
         downImageView.snp.makeConstraints {
-            $0.left.equalTo(typeLabel.snp.right)
-            $0.top.bottom.right.equalToSuperview()
+            $0.left.equalTo(typeLabel.snp.right).offset(4)
+            $0.centerY.right.equalToSuperview()
+            $0.size.equalTo(8)
         }
     }
 }
 
 class ChangeAnswerTextView: UIView {
-    let label = MoyangLabel().then {
-        $0.textColor = .sheep2
-        $0.font = .c02
-        $0.isHidden = true
-    }
-    let textView = MoyangTextView()
+    let textView = MoyangTextView(.sheep, padding: UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 36))
     let placeholder = MoyangLabel().then {
-        $0.font = .b02
-        $0.textColor = .nightSky5
+        $0.font = .b03
+        $0.textColor = .sheep3
     }
-    let underLine = UIView().then {
-        $0.backgroundColor = .nightSky3
+    let saveImageView = UIImageView(image: UIImage(systemName: "arrow.up.circle.fill")).then {
+        $0.tintColor = .nightSky2
     }
     
-    init(_ title: String, _ placeholder: String) {
+    init(_ placeholder: String) {
         super.init(frame: .zero)
         backgroundColor = .clear
-        label.text = title
         self.placeholder.text = placeholder
         setupUI()
         textViewDidChange(textView)
@@ -104,24 +110,16 @@ class ChangeAnswerTextView: UIView {
     }
     
     private func setupUI() {
-        setupLabel()
         setupTextView()
         setupPlaceholder()
-        setupUnderLine()
-    }
-    private func setupLabel() {
-        addSubview(label)
-        label.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(8)
-        }
+        setupSaveImageView()
     }
     private func setupTextView() {
         addSubview(textView)
         textView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12 + 14)
+            $0.top.equalToSuperview()
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(19)
+            $0.height.equalTo(36)
             $0.bottom.equalToSuperview()
         }
         textView.delegate = self
@@ -133,30 +131,24 @@ class ChangeAnswerTextView: UIView {
             $0.left.equalTo(textView).inset(8)
         }
     }
-    private func setupUnderLine() {
-        addSubview(underLine)
-        underLine.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(8)
-            $0.bottom.equalTo(textView)
-            $0.height.equalTo(1)
+    private func setupSaveImageView() {
+        addSubview(saveImageView)
+        saveImageView.snp.makeConstraints {
+            $0.size.equalTo(32)
+            $0.bottom.equalTo(textView).inset(2)
+            $0.right.equalTo(textView).inset(2)
         }
     }
 }
 
 extension ChangeAnswerTextView: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        underLine.backgroundColor = .oasis1
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        underLine.backgroundColor = .nightSky3
-    }
-    
     func textViewDidChange(_ textView: UITextView) {
         let size = CGSize(width: frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
+        placeholder.isHidden = !textView.text.isEmpty
+        saveImageView.isHidden = textView.text.isEmpty
         textView.snp.updateConstraints {
-            $0.height.equalTo(min(180, estimatedSize.height))
+            $0.height.equalTo(min(90, estimatedSize.height))
         }
     }
 }
