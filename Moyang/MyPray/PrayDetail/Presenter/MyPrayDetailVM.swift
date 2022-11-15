@@ -15,9 +15,12 @@ class MyPrayDetailVM: VMType {
     
     var myPray: MyPray!
     
+    var initialCategory: String? = nil
+    var initialGroup: String? = nil
+    
     // MARK: - Data
     let groupName = BehaviorRelay<String?>(value: "")
-    let title = BehaviorRelay<String?>(value: nil)
+    let category = BehaviorRelay<String?>(value: nil)
     let groupList = BehaviorRelay<[GroupInfo]>(value: [])
     // Content, Anser, Change
     let contentItemList = BehaviorRelay<[ContentItem]>(value: [])
@@ -91,7 +94,7 @@ class MyPrayDetailVM: VMType {
     }
     
     private func setData(data: PrayDetail) {
-        title.accept(data.category)
+        category.accept(data.category)
         groupName.accept(data.groupName)
         
         var itemList = [ContentItem]()
@@ -109,15 +112,41 @@ class MyPrayDetailVM: VMType {
         itemList.sort { $0.date < $1.date }
         
         contentItemList.accept(itemList)
+        
+        initialCategory = data.category
+        initialGroup = data.groupName
     }
     
-    private func setChangeAndAnswerVM() {
-//        changeAndAnswerVM.accept(ChangeAndAnswerVM(useCase: useCase, userID: userID, prayID: prayID))
+    private func checkIsSaveEnabled() {
+        guard let category = self.category.value else {
+            isSaveEnabled.accept(false)
+            return
+        }
+        if category.isEmpty {
+            isSaveEnabled.accept(false)
+            return
+        }
+        
+        var isChanged = false
+        
+        isChanged = initialCategory != category
+        isChanged = isChanged || (initialGroup != groupName.value)
+        Log.d(initialGroup)
+        Log.d(groupName.value)
+        Log.d(isChanged)
+        
+        isSaveEnabled.accept(isChanged)
     }
     
     private func updatePray() {
-        guard let title = self.title.value else { return }
+        guard let category = self.category.value else { return }
 //        useCase.updatePray(prayID: prayID, pray: pray)
+    }
+    
+    private func resetChange() {
+        category.accept(initialCategory)
+        groupName.accept(initialGroup)
+        isSaveEnabled.accept(false)
     }
     
     private func deleteItem(index: IndexPath) {
@@ -131,18 +160,25 @@ class MyPrayDetailVM: VMType {
 
 extension MyPrayDetailVM {
     struct Input {
-        var setTitle: Driver<String?> = .empty()
+        var setCategory: Driver<String?> = .empty()
+        var setGroup: Driver<String?> = .empty()
         var updatePray: Driver<Void> = .empty()
+        var resetChange: Driver<Void> = .empty()
+        
         var deleteItem: Driver<IndexPath> = .empty()
         var deletePray: Driver<Void> = .empty()
+        
         var startPray: Driver<Void> = .empty()
-        var addRecord: Driver<Void> = .empty()
+        
+        var setType: Driver<Int> = .empty()
+        var setChange: Driver<String?> = .empty()
+        var addChange: Driver<Void> = .empty()
     }
 
     struct Output {
         // MARK: - Data
+        let category: Driver<String?>
         let groupName: Driver<String?>
-        let title: Driver<String?>
         let contentItemList: Driver<[ContentItem]>
         let groupList: Driver<[GroupInfo]>
         
@@ -163,13 +199,31 @@ extension MyPrayDetailVM {
     }
 
     func transform(input: Input) -> Output {
-        input.setTitle.skip(1)
-            .drive(title)
-            .disposed(by: disposeBag)
+        input.setCategory.skip(1)
+            .drive(onNext: { [weak self] category in
+                self?.category.accept(category)
+                self?.checkIsSaveEnabled()
+            }).disposed(by: disposeBag)
+
+        input.setGroup.skip(1)
+            .drive(onNext: { [weak self] group in
+                guard let group = group else { return }
+                if group.isEmpty {
+                    self?.groupName.accept(nil)
+                } else {
+                    self?.groupName.accept(group)
+                }
+                self?.checkIsSaveEnabled()
+            }).disposed(by: disposeBag)
         
         input.updatePray
             .drive(onNext: { [weak self] _ in
                 self?.updatePray()
+            }).disposed(by: disposeBag)
+        
+        input.resetChange
+            .drive(onNext: { [weak self] _ in
+                self?.resetChange()
             }).disposed(by: disposeBag)
         
         input.deleteItem
@@ -184,8 +238,8 @@ extension MyPrayDetailVM {
         
         
         return Output(
+            category: category.asDriver(),
             groupName: groupName.asDriver(),
-            title: title.asDriver(),
             contentItemList: contentItemList.asDriver(),
             groupList: groupList.asDriver(),
             

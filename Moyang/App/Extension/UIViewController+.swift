@@ -146,4 +146,9 @@ extension RxSwift.Reactive where Base: UIViewController {
     return methodInvoked(#selector(UIViewController.viewDidDisappear))
        .map { $0.first as? Bool ?? false }
     }
+    
+    var viewWillDisappear: Observable<Bool> {
+    return methodInvoked(#selector(UIViewController.viewWillDisappear))
+       .map { $0.first as? Bool ?? false }
+    }
 }

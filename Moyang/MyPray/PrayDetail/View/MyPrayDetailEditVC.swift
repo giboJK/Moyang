@@ -109,12 +109,18 @@ class MyPrayDetailEditVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
+        
+        view.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         
         let input = VM.Input(updatePray: saveButton.rx.tap.asDriver(),
+                             resetChange: self.rx.viewWillDisappear.map({ _ in ()}).asDriver(onErrorJustReturn: ()),
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver()
         )
         let output = vm.transform(input: input)
