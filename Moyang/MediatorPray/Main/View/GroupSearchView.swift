@@ -1,29 +1,28 @@
 //
-//  NewGroupView.swift
+//  GroupSearchView.swift
 //  Moyang
 //
-//  Created by kibo on 2022/11/15.
+//  Created by kibo on 2022/11/01.
 //
 
 import UIKit
 import RxCocoa
 import RxSwift
-import SnapKit
 import Then
+import SnapKit
 
-class NewGroupView: UIView {
+class GroupSearchView: UIView {
     let label = MoyangLabel().then {
-        $0.text = "공동체 만들기"
+        $0.text = "공동체 찾기"
         $0.textColor = .sheep2
         $0.font = .b01
     }
-    let imageView = UIImageView(image: UIImage(systemName: "person.3.fill")).then {
+    let imageView = UIImageView(image: UIImage(systemName: "magnifyingglass")).then {
         $0.tintColor = .sheep1
     }
-    
     init() {
         super.init(frame: .zero)
-        backgroundColor = .nightSky4
+        backgroundColor = .nightSky3
         layer.cornerRadius = 12
         setupUI()
     }

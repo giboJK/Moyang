@@ -31,7 +31,7 @@
 		08CE42012780059A003352E0 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE42002780059A003352E0 /* FirestoreService.swift */; };
 		08CEB5EC2910A52D00D38045 /* MyPraySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5EB2910A52D00D38045 /* MyPraySummaryView.swift */; };
 		08CEB5EE2910C8FA00D38045 /* MyPrayHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5ED2910C8FA00D38045 /* MyPrayHabitView.swift */; };
-		08CEB5F02910E2CB00D38045 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5EF2910E2CB00D38045 /* GroupListView.swift */; };
+		08CEB5F02910E2CB00D38045 /* GroupSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5EF2910E2CB00D38045 /* GroupSearchView.swift */; };
 		08CEB5F22911D17800D38045 /* NewPrayTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5F12911D17800D38045 /* NewPrayTextField.swift */; };
 		08CEB5F42911D67200D38045 /* NewPrayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5F32911D67200D38045 /* NewPrayTextView.swift */; };
 		08CEB5F62911D84D00D38045 /* MoyangTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB5F52911D84D00D38045 /* MoyangTextView.swift */; };
@@ -128,6 +128,8 @@
 		24755367277CA9AB001908A6 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24755366277CA9AB001908A6 /* UserData.swift */; };
 		24831FB428E93BD400DB36A1 /* AlarmTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24831FB328E93BD400DB36A1 /* AlarmTimeView.swift */; };
 		24831FB628E93E4000DB36A1 /* NewAlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24831FB528E93E4000DB36A1 /* NewAlarmVC.swift */; };
+		248C6FE92923B94C009587F0 /* MyGroupTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248C6FE82923B94C009587F0 /* MyGroupTVCell.swift */; };
+		248C6FED2923BBC3009587F0 /* NewGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248C6FEC2923BBC3009587F0 /* NewGroupVC.swift */; };
 		248FEC152723A11600321E5E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248FEC142723A11500321E5E /* Colors.xcassets */; };
 		248FEC1D2723AB0300321E5E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FEC1C2723AB0300321E5E /* Assets.swift */; };
 		2493DE6228467441001A9368 /* GroupActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493DE6128467441001A9368 /* GroupActivityVC.swift */; };
@@ -271,7 +273,7 @@
 		08CE42002780059A003352E0 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		08CEB5EB2910A52D00D38045 /* MyPraySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPraySummaryView.swift; sourceTree = "<group>"; };
 		08CEB5ED2910C8FA00D38045 /* MyPrayHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayHabitView.swift; sourceTree = "<group>"; };
-		08CEB5EF2910E2CB00D38045 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
+		08CEB5EF2910E2CB00D38045 /* GroupSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchView.swift; sourceTree = "<group>"; };
 		08CEB5F12911D17800D38045 /* NewPrayTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayTextField.swift; sourceTree = "<group>"; };
 		08CEB5F32911D67200D38045 /* NewPrayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayTextView.swift; sourceTree = "<group>"; };
 		08CEB5F52911D84D00D38045 /* MoyangTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangTextView.swift; sourceTree = "<group>"; };
@@ -369,6 +371,8 @@
 		24755366277CA9AB001908A6 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		24831FB328E93BD400DB36A1 /* AlarmTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTimeView.swift; sourceTree = "<group>"; };
 		24831FB528E93E4000DB36A1 /* NewAlarmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmVC.swift; sourceTree = "<group>"; };
+		248C6FE82923B94C009587F0 /* MyGroupTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupTVCell.swift; sourceTree = "<group>"; };
+		248C6FEC2923BBC3009587F0 /* NewGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupVC.swift; sourceTree = "<group>"; };
 		248FEC142723A11500321E5E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		248FEC1C2723AB0300321E5E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		2493DE6128467441001A9368 /* GroupActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupActivityVC.swift; sourceTree = "<group>"; };
@@ -825,8 +829,9 @@
 			isa = PBXGroup;
 			children = (
 				08F082D6290663D80042319B /* MediatorPrayMainVC.swift */,
-				08CEB5EF2910E2CB00D38045 /* GroupListView.swift */,
+				08CEB5EF2910E2CB00D38045 /* GroupSearchView.swift */,
 				08E92828292369AB009D67AE /* NewGroupView.swift */,
+				248C6FE82923B94C009587F0 /* MyGroupTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -994,6 +999,7 @@
 				08F082D82906673F0042319B /* MediatorPrayAssembly.swift */,
 				08F082DF290667B00042319B /* MediatorPrayCoordinator.swift */,
 				08F082DA290667440042319B /* Main */,
+				248C6FEA2923BBAE009587F0 /* NewGroup */,
 			);
 			path = MediatorPray;
 			sourceTree = "<group>";
@@ -1080,6 +1086,22 @@
 				24B6A2542726BEB00065112A /* GroupInfo.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		248C6FEA2923BBAE009587F0 /* NewGroup */ = {
+			isa = PBXGroup;
+			children = (
+				248C6FEB2923BBBB009587F0 /* View */,
+			);
+			path = NewGroup;
+			sourceTree = "<group>";
+		};
+		248C6FEB2923BBBB009587F0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				248C6FEC2923BBC3009587F0 /* NewGroupVC.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		248FEC0E2723A07D00321E5E /* Main */ = {
@@ -1838,7 +1860,7 @@
 				24B88EEA27A2D77B00D5B001 /* SplashView.swift in Sources */,
 				08D2FD95286EE24800ED8ECB /* PrayReactionDetailVC.swift in Sources */,
 				082371B727BA84860050420E /* DatePickerTextField.swift in Sources */,
-				08CEB5F02910E2CB00D38045 /* GroupListView.swift in Sources */,
+				08CEB5F02910E2CB00D38045 /* GroupSearchView.swift in Sources */,
 				24E0AB36283E751800F52505 /* Reachability.swift in Sources */,
 				24C8E9B9286B1F4500AEE46B /* MyPrayRepo.swift in Sources */,
 				24ECC31528B6620B00A758CF /* SearchPrayTVCell.swift in Sources */,
@@ -1950,6 +1972,8 @@
 				2498F8FE287C316D007EF510 /* TermsVC.swift in Sources */,
 				2409170729016A7900905A38 /* NoteMainVC.swift in Sources */,
 				24C8E9BB286B1F5200AEE46B /* MyPrayUseCase.swift in Sources */,
+				248C6FED2923BBC3009587F0 /* NewGroupVC.swift in Sources */,
+				248C6FE92923B94C009587F0 /* MyGroupTVCell.swift in Sources */,
 				08AD9585287BDFF1002D4F94 /* AuthController.swift in Sources */,
 				08E992B928ED58C200696EB6 /* NoticeVM.swift in Sources */,
 				24F4D386287B1DB500B1AC06 /* GroupInfoVC.swift in Sources */,

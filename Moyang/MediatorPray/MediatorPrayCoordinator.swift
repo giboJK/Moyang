@@ -31,4 +31,7 @@ class MediatorPrayCoordinator: Coordinator {
 }
 
 extension MediatorPrayCoordinator: MediatorPrayMainVCDelegate {
+    func didTapNewGroupView() {
+        
+    }
 }
