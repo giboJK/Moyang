@@ -53,7 +53,7 @@ class MyPrayDetailEditVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
-        title = "더 보기"
+        title = "상세 보기"
         view.backgroundColor = .nightSky1
         setupSaveButton()
         setupHeader()

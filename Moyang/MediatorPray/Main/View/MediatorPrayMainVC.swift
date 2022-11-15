@@ -96,22 +96,6 @@ class MediatorPrayMainVC: UIViewController, VCType {
     }
 }
 
-class NewGroupView: UIView {
-    init() {
-        super.init(frame: .zero)
-        backgroundColor = .nightSky1
-        setupUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    private func setupUI() {
-    }
-    
-}
-
 protocol MediatorPrayMainVCDelegate: AnyObject {
 
 }
