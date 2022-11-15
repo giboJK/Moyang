@@ -33,22 +33,12 @@ class PrayDetailHeader: UIView {
     let categoryTextField = MoyangTextField(.sheep, "카테고리").then {
         $0.returnKeyType = .done
     }
-    let categoryUpdateLabel = MoyangLabel().then {
-        $0.text = "수정됨"
-        $0.textColor = .sheep3
-        $0.font = .b05
-    }
     let groupLabel = MoyangLabel().then {
         $0.text = "중보기도 요청"
         $0.textColor = .sheep3
         $0.font = .b03
     }
     let groupTextField = MoyangTextField(.sheep, "공동체")
-    let groupUpdateLabel = MoyangLabel().then {
-        $0.text = "수정됨"
-        $0.textColor = .sheep3
-        $0.font = .b05
-    }
     var groupDoneButton = UIBarButtonItem()
     var groupCancelButton = UIBarButtonItem()
     let groupToolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)).then {
@@ -66,6 +56,10 @@ class PrayDetailHeader: UIView {
         super.init(frame: .zero)
         backgroundColor = .nightSky1
         setupUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -83,11 +77,9 @@ class PrayDetailHeader: UIView {
         setupInfoLabel()
         setupCategoryLabel()
         setupCategoryTextField()
-        setupCategoryUpdateLabel()
         setupToolbar()
         setupGroupLabel()
         setupGroupTextField()
-        setupGroupUpdateLabel()
         setupGroupClearButton()
     }
     private func setupInfoLabel() {
@@ -112,14 +104,6 @@ class PrayDetailHeader: UIView {
             $0.top.equalTo(categoryLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview().inset(24)
             $0.height.equalTo(44)
-        }
-    }
-    private func setupCategoryUpdateLabel() {
-        addSubview(categoryUpdateLabel)
-        categoryUpdateLabel.snp.makeConstraints {
-            $0.top.equalTo(categoryTextField.snp.bottom).offset(4)
-            $0.right.equalToSuperview().inset(24)
-            $0.height.equalTo(17)
         }
     }
     
@@ -147,14 +131,6 @@ class PrayDetailHeader: UIView {
         groupPicker.delegate = self
         groupTextField.inputAccessoryView = groupToolBar
         groupTextField.inputView = groupPicker
-    }
-    private func setupGroupUpdateLabel() {
-        addSubview(groupUpdateLabel)
-        groupUpdateLabel.snp.makeConstraints {
-            $0.top.equalTo(groupTextField.snp.bottom).offset(4)
-            $0.right.equalToSuperview().inset(24)
-            $0.height.equalTo(17)
-        }
     }
     private func setupGroupClearButton() {
         groupTextField.addSubview(groupClearButton)

@@ -8,11 +8,17 @@
 import UIKit
 
 class MoyangTextView: UITextView {
+    enum MoyangTextViewStyle {
+        case sheep
+        case ghost
+        case none
+    }
     override var isEditable: Bool {
         didSet {
             self.updateUI()
         }
     }
+    private var style: MoyangTextViewStyle = .sheep
     
     init(padding: UIEdgeInsets = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)) {
         super.init(frame: .zero, textContainer: nil)

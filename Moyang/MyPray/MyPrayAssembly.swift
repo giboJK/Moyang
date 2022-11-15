@@ -53,6 +53,13 @@ class MyPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         
+        // MARK: - MyPrayDetailEditVC
+        container.register(MyPrayDetailEditVC.self) { (_, vm: MyPrayDetailVM) in
+            let vc = MyPrayDetailEditVC()
+            vc.vm = vm
+            return vc
+        }
+        
         
         // MARK: - MyPrayListVC
         container.register(MyPrayListVC.self) { r in

@@ -70,6 +70,14 @@ extension MyPrayCoordinator: MyPrayMainVCDelegate {
 
 // MARK: - MyPrayDetailVCDelegate
 extension MyPrayCoordinator: MyPrayDetailVCDelegate {
+    func didTapMoreButton(vm: MyPrayDetailVM) {
+        if let vc = assembler.resolver.resolve(MyPrayDetailEditVC.self, argument: vm) {
+            nav.pushViewController(vc, animated: true)
+        } else {
+            Log.e("error")
+        }
+    }
+    
     func didTapPrayButton(vm: GroupPrayingVM) {
         
     }

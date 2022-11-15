@@ -19,17 +19,27 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
     var coordinator: MyPrayDetailVCDelegate?
 
     // MARK: - Property
-    let headerHeight: CGFloat = 12 + 36 + 196
-    let minHeaderHeight: CGFloat = 12 + 36 + 12
-    var groupList = [String]()
+    let historyBgViewHeight: CGFloat = 12 + 21 + 16
+    let headerHeight: CGFloat = 247 + 12 + 21 + 16
     
     // MARK: - UI
-    let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
-    let headerView = PrayDetailHeader()
+    let moreButton = UIBarButtonItem(title: "상세 보기", style: .plain, target: nil, action: nil)
+    let headerView = PrayDetailHeader().then {
+        $0.categoryTextField.isUserInteractionEnabled = false
+        $0.groupTextField.isUserInteractionEnabled = false
+    }
+    let historyBgView = UIView().then {
+        $0.backgroundColor = .nightSky1
+    }
+    let historyLabel = MoyangLabel().then {
+        $0.text = "히스토리"
+        $0.textColor = .wilderness1
+        $0.font = .headline
+    }
     let prayTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(MyPrayDetailTVCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .clear
+        $0.backgroundColor = .nightSky1
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 60
         $0.showsVerticalScrollIndicator = false
@@ -37,16 +47,6 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         $0.isScrollEnabled = true
     }
     let bottomView = MyPrayBottomView()
-    
-    let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .sheepGhost).then {
-        $0.desc = "정말로 삭제하시겠어요? 삭제한 기도는 복구할 수 없습니다."
-        $0.firstButton.setTitle("삭제", for: .normal)
-        $0.secondButton.setTitle("취소", for: .normal)
-    }
-    let deleteFailurePopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
-        $0.desc = "삭제에 실패하였습니다. 잠시 후 다시 시도해주세요/"
-        $0.firstButton.setTitle("확인", for: .normal)
-    }
     
     let indicator = UIActivityIndicatorView(style: .large).then {
         $0.hidesWhenStopped = true
@@ -79,22 +79,40 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        self.view.frame.origin.y = 0
-        self.view.layoutIfNeeded()
+//        self.view.frame.origin.y = 0
+//        self.view.layoutIfNeeded()
     }
     
     func setupUI() {
         title = "기도"
         view.backgroundColor = .nightSky1
-        setupSaveButton()
+        setupMoreButton()
         setupPrayTableView()
         setupHeader()
+        setupHistoryBgView()
+        setupHistoryLabel()
         setupBottomView()
     }
-    private func setupSaveButton() {
-        navigationItem.rightBarButtonItem = saveButton
-//        navigationItem.rightBarButtonItems = [saveButton]
+    private func setupMoreButton() {
+        navigationItem.rightBarButtonItem = moreButton
     }
+    private func setupHistoryBgView() {
+        view.addSubview(historyBgView)
+        historyBgView.snp.makeConstraints {
+            $0.height.equalTo(historyBgViewHeight)
+            $0.top.equalTo(headerView.snp.bottom).offset(-historyBgViewHeight)
+            $0.left.right.equalToSuperview()
+        }
+    }
+    private func setupHistoryLabel() {
+        view.addSubview(historyLabel)
+        historyLabel.snp.makeConstraints {
+            $0.top.equalTo(historyBgView).inset(12)
+            $0.height.equalTo(21)
+            $0.left.equalToSuperview().inset(24)
+        }
+    }
+    
     private func setupPrayTableView() {
         view.addSubview(prayTableView)
         prayTableView.snp.makeConstraints {
@@ -138,25 +156,10 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
     }
     
     private func bindViews() {
-        bottomView.deleteContainer.rx.tapGesture().when(.ended)
+        moreButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.displayPopup(popup: self.deleteConfirmPopup)
-            }).disposed(by: disposeBag)
-        
-        deleteConfirmPopup.firstButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.closePopup()
-            }).disposed(by: disposeBag)
-        
-        deleteConfirmPopup.secondButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.closePopup()
-            }).disposed(by: disposeBag)
-        
-        deleteFailurePopup.firstButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.closePopup()
+                guard let vm = self?.vm else { return }
+                self?.coordinator?.didTapMoreButton(vm: vm)
             }).disposed(by: disposeBag)
         
         prayTableView.rx.contentOffset
@@ -168,7 +171,7 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
                         $0.top.equalTo(self.view.safeAreaLayoutGuide).inset(abs(self.headerHeight+contentOffset.y))
                     }
                 } else {
-                    let headerMaxInset = self.headerHeight - self.minHeaderHeight
+                    let headerMaxInset = self.headerHeight - self.historyBgViewHeight
                     let headerInset = min(headerMaxInset, self.headerHeight + contentOffset.y)
                     self.headerView.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide).inset(-headerInset)
@@ -185,43 +188,14 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         
-        let input = VM.Input(updatePray: saveButton.rx.tap.asDriver(),
-                             deleteItem: prayTableView.rx.itemDeleted.asDriver(),
-                             deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver()
-        )
+        let input = VM.Input()
         let output = vm.transform(input: input)
-        
-        output.isSaveEnabled
-            .drive(saveButton.rx.isEnabled)
-            .disposed(by: disposeBag)
         
         output.updatePraySuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.showTopToast(type: .success, message: "기도 저장 완료", disposeBag: self.disposeBag)
-                self.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
-        
-        output.updatePrayFailure
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.showTopToast(type: .failure, message: "알 수 없는 문제가 발생하였습니다.", disposeBag: self.disposeBag)
-                self.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
-        
-        output.deletePraySuccess
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
-        
-        output.deletePrayFailure
-            .skip(1)
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.displayPopup(popup: self.deleteFailurePopup)
             }).disposed(by: disposeBag)
         
         output.contentItemList
@@ -231,9 +205,16 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
                     cell.dateLabel.text = item.date.isoToDateString("yyyy.M.d.")
                     cell.updateUI(type: item.type)
                 }.disposed(by: disposeBag)
+        
+        output.deletePraySuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
     }
 }
 
 protocol MyPrayDetailVCDelegate: AnyObject {
+    func didTapMoreButton(vm: MyPrayDetailVM)
     func didTapPrayButton(vm: GroupPrayingVM)
 }
