@@ -24,14 +24,14 @@ class MediatorPrayMainVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-        useCase.myGroups
+        useCase.myGroupMediatorInfos
             .map({ list in list.map { GroupItem(data: $0) } })
             .bind(to: groupList)
             .disposed(by: disposeBag)
     }
     
     @objc func fetchGroupList() {
-        useCase.fetchMyGroupList()
+        useCase.fetchMyGroupSummary()
     }
 }
 
@@ -52,13 +52,20 @@ extension MediatorPrayMainVM {
         let id: String
         let name: String
         let desc: String
-        let createDate: String
+        let prayUser: String?
+        let eventDate: String?
         
-        init(data: GroupInfo) {
+        init(data: GroupMediatorInfo) {
             id = data.id
             name = data.name
             desc = data.desc
-            createDate = data.createDate
+            if let userName = data.prayName, let date = data.eventDate {
+                prayUser = userName + "님의 중보기도 요청이 있어요"
+                eventDate = date.isoToDateString("yyyy.M.d.") ?? ""
+            } else {
+                prayUser = nil
+                eventDate = nil
+            }
         }
     }
 }

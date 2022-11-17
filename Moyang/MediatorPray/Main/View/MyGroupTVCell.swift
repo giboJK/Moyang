@@ -62,8 +62,9 @@ class MyGroupTVCell: UITableViewCell {
     private func setupContainer() {
         contentView.addSubview(container)
         container.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(24)
+            $0.top.equalToSuperview().inset(20)
             $0.height.equalTo(106)
         }
         setupNameLabel()

@@ -12,7 +12,7 @@ protocol GroupRepo {
     
     func fetchGroupList(page: Int, row: Int)
     
-    func fetchMyGroupList(userID: String, completion: ((Result<GroupInfoListResponse, MoyangError>) -> Void)?)
+    func fetchMyGroupSummary(userID: String, completion: ((Result<GroupMediatorInfoListResponse, MoyangError>) -> Void)?)
     
     func fetchGroupEvent(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupEventResponse, MoyangError>) -> Void)?)
 }
@@ -32,12 +32,12 @@ class RegisterGroupResponse: BaseResponse {
 }
 
 
-class GroupInfoListResponse: BaseResponse {
-    let data: [GroupInfo]
+class GroupMediatorInfoListResponse: BaseResponse {
+    let data: [GroupMediatorInfo]
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        data = try container.decode([GroupInfo].self, forKey: .data)
+        data = try container.decode([GroupMediatorInfo].self, forKey: .data)
         try super.init(from: decoder)
     }
     

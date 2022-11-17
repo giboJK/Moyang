@@ -101,6 +101,7 @@ class MediatorPrayMainVC: UIViewController, VCType {
                 .items(cellIdentifier: "cell", cellType: MyGroupTVCell.self)) { (_, item, cell) in
                     cell.nameLabel.text = item.name
                     cell.greetingLabel.text = item.desc
+                    cell.prayLabel.text = item.prayUser
                 }.disposed(by: disposeBag)
     }
 }

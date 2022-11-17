@@ -21,3 +21,23 @@ struct GroupInfo: Codable, Identifiable {
         case desc = "desc"
     }
 }
+
+struct GroupMediatorInfo: Codable, Identifiable {
+    typealias Identifier = String
+    let id: Identifier
+    let name: String
+    let desc: String
+    let prayID: String?
+    let prayName: String?
+    let eventDate: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name = "name"
+        case desc = "desc"
+        case prayID = "pray_id"
+        case prayName = "pray_name"
+        case eventDate = "event_date"
+    }
+}
+

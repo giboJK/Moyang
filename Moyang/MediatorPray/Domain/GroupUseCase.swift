@@ -12,7 +12,7 @@ import RxCocoa
 class GroupUseCase {
     let repo: GroupRepo
     
-    let myGroups = BehaviorRelay<[GroupInfo]>(value: [])
+    let myGroupMediatorInfos = BehaviorRelay<[GroupMediatorInfo]>(value: [])
     let groups = BehaviorRelay<[GroupInfo]>(value: [])
     let groupEvents = BehaviorRelay<[GroupEvent]>(value: [])
     
@@ -54,16 +54,16 @@ class GroupUseCase {
         }
     }
     
-    func fetchMyGroupList() {
+    func fetchMyGroupSummary() {
         guard let userID = UserData.shared.userInfo?.id else { resetIsNetworking(); return }
         if checkAndSetIsNetworking() { return }
-        repo.fetchMyGroupList(userID: userID) { [weak self] result in
+        repo.fetchMyGroupSummary(userID: userID) { [weak self] result in
             self?.resetIsNetworking()
             guard let self = self else { return }
             switch result {
             case .success(let response):
                 if response.code == 0 {
-                    self.myGroups.accept(response.data)
+                    self.myGroupMediatorInfos.accept(response.data)
                 }
             case .failure(let error):
                 Log.e(error)

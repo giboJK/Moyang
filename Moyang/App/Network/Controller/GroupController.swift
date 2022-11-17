@@ -66,8 +66,8 @@ extension GroupController: GroupRepo {
         
     }
     
-    func fetchMyGroupList(userID: String, completion: ((Result<GroupInfoListResponse, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.PrayAPI.fetchMyGroupList)
+    func fetchMyGroupSummary(userID: String, completion: ((Result<GroupMediatorInfoListResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.GroupAPI.fetchMyGroupSummary)
         let dict: [String: Any] = [
             "user_id": userID
         ]
@@ -75,7 +75,7 @@ extension GroupController: GroupRepo {
                                                  method: .post,
                                                  parameters: dict)
         networkService.requestAPI(request: request,
-                                  type: GroupInfoListResponse.self,
+                                  type: GroupMediatorInfoListResponse.self,
                                   token: nil) { result in
             switch result {
             case .success(let response):
