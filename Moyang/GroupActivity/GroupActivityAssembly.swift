@@ -61,17 +61,6 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        // MARK: - GroupInfo
-        container.register(GroupInfoVM.self) { _ in
-            GroupInfoVM()
-        }
-        
-        container.register(GroupInfoVC.self) { r in
-            let vc = GroupInfoVC()
-            vc.vm = r ~> (GroupInfoVM.self)
-            return vc
-        }
-        
         // MARK: - GroupUseCase
         container.register(GroupRepo.self) { r in
             GroupController(networkService: r ~> (NetworkServiceProtocol.self))

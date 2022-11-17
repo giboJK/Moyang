@@ -13,6 +13,10 @@ import SnapKit
 
 class MyGroupTVCell: UITableViewCell {
     // MARK: - UI
+    let container = UIView().then {
+        $0.layer.cornerRadius = 12
+        $0.backgroundColor = .nightSky3
+    }
     let nameLabel = MoyangLabel().then {
         $0.textColor = .sheep2
         $0.font = .b01
@@ -22,20 +26,14 @@ class MyGroupTVCell: UITableViewCell {
         $0.font = .c01
     }
     let prayLabel = UILabel().then {
+        $0.text = "중보기도를 요청해보세요 :)"
         $0.textColor = .sheep2
         $0.font = .c01
     }
-    let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
-        let layout = LeftAlignedCollectionViewFlowLayout()
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 8
-        $0.collectionViewLayout = layout
-        $0.isScrollEnabled = true
-        $0.backgroundColor = .clear
-        $0.register(PrayTagCVCell.self, forCellWithReuseIdentifier: "cell")
-    }
-    let bottomLine = UIView().then {
-        $0.backgroundColor = .sheep2
+    let newImageView = UIView().then {
+        $0.layer.cornerRadius = 3
+        $0.backgroundColor = .appleRed1
+        $0.isHidden = true
     }
     
     var tags = [String]()
@@ -58,31 +56,51 @@ class MyGroupTVCell: UITableViewCell {
     
     // MARK: - UI
     private func setupUI() {
-        contentView.backgroundColor = .sheep1
+        contentView.backgroundColor = .nightSky1
+        setupContainer()
+    }
+    private func setupContainer() {
+        contentView.addSubview(container)
+        container.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(20)
+            $0.height.equalTo(106)
+        }
         setupNameLabel()
         setupDateLabel()
         setupPrayLabel()
+        setupNewImageView()
     }
     private func setupNameLabel() {
-        contentView.addSubview(nameLabel)
+        container.addSubview(nameLabel)
         nameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
-            $0.left.right.equalToSuperview().inset(24)
+            $0.top.equalToSuperview().inset(20)
+            $0.left.equalToSuperview().inset(16)
+            $0.height.equalTo(19)
         }
     }
     private func setupDateLabel() {
-        contentView.addSubview(greetingLabel)
+        container.addSubview(greetingLabel)
         greetingLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview().inset(24)
+            $0.top.equalToSuperview().inset(44)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(14)
         }
     }
     private func setupPrayLabel() {
-        contentView.addSubview(prayLabel)
+        container.addSubview(prayLabel)
         prayLabel.snp.makeConstraints {
-            $0.top.equalTo(greetingLabel.snp.bottom).offset(8)
-            $0.left.right.equalToSuperview().inset(24)
-            $0.bottom.equalToSuperview().inset(36)
+            $0.top.equalToSuperview().inset(72)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(14)
+        }
+    }
+    private func setupNewImageView() {
+        container.addSubview(newImageView)
+        newImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(17)
+            $0.left.equalTo(nameLabel.snp.right)
+            $0.size.equalTo(6)
         }
     }
 }

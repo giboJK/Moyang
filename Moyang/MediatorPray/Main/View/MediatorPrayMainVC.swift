@@ -95,6 +95,13 @@ class MediatorPrayMainVC: UIViewController, VCType {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let input = VM.Input()
         let output = vm.transform(input: input)
+        
+        output.groupList
+            .drive(groupTableView.rx
+                .items(cellIdentifier: "cell", cellType: MyGroupTVCell.self)) { (_, item, cell) in
+                    cell.nameLabel.text = item.name
+                    cell.greetingLabel.text = item.desc
+                }.disposed(by: disposeBag)
     }
 }
 

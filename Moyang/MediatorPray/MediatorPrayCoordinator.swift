@@ -32,6 +32,15 @@ class MediatorPrayCoordinator: Coordinator {
 
 extension MediatorPrayCoordinator: MediatorPrayMainVCDelegate {
     func didTapNewGroupView() {
-        
+        if let vc = assembler.resolver.resolve(NewGroupVC.self) {
+            vc.coordinator = self
+            nav.pushViewController(vc, animated: true)
+        } else {
+            Log.e("error")
+        }
     }
+}
+
+extension MediatorPrayCoordinator: NewGroupVCDelegate {
+    
 }

@@ -27,14 +27,32 @@ class MediatorPrayAssembly: Assembly, BaseAssembly {
             vc.vm = (r ~> MediatorPrayMainVM.self)
             vc.coordinator = r ~> (MediatorPrayCoordinator.self)
             
-            // View controllers
+            return vc
+        }
+        container.register(MediatorPrayMainVM.self) { r in
+            MediatorPrayMainVM(useCase: (r ~> GroupUseCase.self))
+        }
+        
+        
+        // MARK: - NewGroupVC
+        container.register(NewGroupVC.self) { r in
+            let vc = NewGroupVC()
+            vc.vm = (r ~> NewGroupVM.self)
             
             return vc
         }
-        container.register(MediatorPrayMainVM.self) { _ in
-            MediatorPrayMainVM()
+        container.register(NewGroupVM.self) { r in
+            NewGroupVM(useCase: (r ~> GroupUseCase.self))
         }
         
+        // MARK: - GroupUseCase
+        container.register(GroupRepo.self) { r in
+            GroupController(networkService: r ~> (NetworkServiceProtocol.self))
+        }
+        
+        container.register(GroupUseCase.self) { r in
+            GroupUseCase(repo: r ~> (GroupRepo.self))
+        }
         
         // MARK: - Coordinator
         container.register(MediatorPrayCoordinator.self) { _ in

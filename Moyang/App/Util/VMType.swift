@@ -33,9 +33,14 @@ class DummyVM: VMType {
 //    var disposeBag: DisposeBag = DisposeBag()
 //
 //    init() {
+//        bind()
 //    }
 //
 //    deinit { Log.i(self) }
+//
+//    private func bind() {
+//
+//    }
 //}
 //
 //extension VM {

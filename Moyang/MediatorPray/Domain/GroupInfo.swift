@@ -11,11 +11,13 @@ struct GroupInfo: Codable, Identifiable {
     typealias Identifier = String
     let id: Identifier
     let createDate: String
-    let groupName: String
+    let name: String
+    let desc: String
     
     enum CodingKeys: String, CodingKey {
         case id
         case createDate = "create_date"
-        case groupName = "group_name"
+        case name = "name"
+        case desc = "desc"
     }
 }

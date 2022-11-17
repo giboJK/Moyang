@@ -64,6 +64,7 @@
 		08E92825291B7DFB009D67AE /* MyPrayListTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E92824291B7DFB009D67AE /* MyPrayListTVCell.swift */; };
 		08E92827292318DA009D67AE /* MyPrayDetailEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E92826292318DA009D67AE /* MyPrayDetailEditVC.swift */; };
 		08E92829292369AB009D67AE /* NewGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E92828292369AB009D67AE /* NewGroupView.swift */; };
+		08E9282C292449BC009D67AE /* NewGroupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9282B292449BC009D67AE /* NewGroupVM.swift */; };
 		08E992B428ED4FB800696EB6 /* NoticeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B328ED4FB800696EB6 /* NoticeListVC.swift */; };
 		08E992B628ED589700696EB6 /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B528ED589700696EB6 /* NoticeVC.swift */; };
 		08E992B928ED58C200696EB6 /* NoticeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B828ED58C200696EB6 /* NoticeVM.swift */; };
@@ -175,8 +176,6 @@
 		24CDD53528E537FB0091A286 /* AlarmRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CDD53428E537FB0091A286 /* AlarmRepo.swift */; };
 		24CDD53728E538C80091A286 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CDD53628E538C80091A286 /* ProfileController.swift */; };
 		24CFA8B82878894D00484C89 /* StickyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8B72878894D00484C89 /* StickyHeaderView.swift */; };
-		24CFA8BE28792D4800484C89 /* AllGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8BD28792D4800484C89 /* AllGroupVC.swift */; };
-		24CFA8C128792D6700484C89 /* AllGroupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8C028792D6700484C89 /* AllGroupVM.swift */; };
 		24CFA8C428792F4600484C89 /* GroupRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8C328792F4600484C89 /* GroupRepo.swift */; };
 		24CFA8C62879300800484C89 /* GroupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFA8C52879300800484C89 /* GroupUseCase.swift */; };
 		24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0D2F727230CA3006FF67B /* MoyangApp.swift */; };
@@ -194,7 +193,6 @@
 		24DABE7227E8610C0008D132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24DABE7127E8610C0008D132 /* GoogleService-Info.plist */; };
 		24DABE7327E89E680008D132 /* praysong.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 24FAEF0D27E2153800B2DA81 /* praysong.m4a */; };
 		24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DB53BA27479DAA00F861EC /* UINavigationController+.swift */; };
-		24DDDEBE2879D49D00F7B82A /* GroupInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DDDEBD2879D49D00F7B82A /* GroupInfoTableViewCell.swift */; };
 		24E0AB1D283D1ECF00F52505 /* GroupPrayingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB1C283D1ECF00F52505 /* GroupPrayingVC.swift */; };
 		24E0AB1F283D1FF900F52505 /* MoyangNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB1E283D1FF900F52505 /* MoyangNavBar.swift */; };
 		24E0AB21283D228A00F52505 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0AB20283D228A00F52505 /* UIView+.swift */; };
@@ -232,8 +230,6 @@
 		24F41C662897E467005B5E70 /* NewPrayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F41C652897E467005B5E70 /* NewPrayVM.swift */; };
 		24F41C692897E9EA005B5E70 /* PrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F41C682897E9E9005B5E70 /* PrayController.swift */; };
 		24F41C6D2897EBCC005B5E70 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F41C6C2897EBCC005B5E70 /* ProfileVC.swift */; };
-		24F4D386287B1DB500B1AC06 /* GroupInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4D385287B1DB500B1AC06 /* GroupInfoVC.swift */; };
-		24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */; };
 		24F6B0C3289954740001B781 /* MemberItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F6B0C2289954740001B781 /* MemberItemTableViewCell.swift */; };
 		24F7021328B4F967009A8414 /* BibleSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7021228B4F967009A8414 /* BibleSelectVC.swift */; };
 		24FF077228BFAE7400F30ED0 /* GroupEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF077128BFAE7400F30ED0 /* GroupEvent.swift */; };
@@ -306,6 +302,7 @@
 		08E92824291B7DFB009D67AE /* MyPrayListTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayListTVCell.swift; sourceTree = "<group>"; };
 		08E92826292318DA009D67AE /* MyPrayDetailEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayDetailEditVC.swift; sourceTree = "<group>"; };
 		08E92828292369AB009D67AE /* NewGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupView.swift; sourceTree = "<group>"; };
+		08E9282B292449BC009D67AE /* NewGroupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupVM.swift; sourceTree = "<group>"; };
 		08E992B328ED4FB800696EB6 /* NoticeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListVC.swift; sourceTree = "<group>"; };
 		08E992B528ED589700696EB6 /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
 		08E992B828ED58C200696EB6 /* NoticeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVM.swift; sourceTree = "<group>"; };
@@ -419,8 +416,6 @@
 		24CDD53428E537FB0091A286 /* AlarmRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmRepo.swift; sourceTree = "<group>"; };
 		24CDD53628E538C80091A286 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		24CFA8B72878894D00484C89 /* StickyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyHeaderView.swift; sourceTree = "<group>"; };
-		24CFA8BD28792D4800484C89 /* AllGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupVC.swift; sourceTree = "<group>"; };
-		24CFA8C028792D6700484C89 /* AllGroupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupVM.swift; sourceTree = "<group>"; };
 		24CFA8C328792F4600484C89 /* GroupRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRepo.swift; sourceTree = "<group>"; };
 		24CFA8C52879300800484C89 /* GroupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUseCase.swift; sourceTree = "<group>"; };
 		24D0D2F427230CA3006FF67B /* Moyang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moyang.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -439,7 +434,6 @@
 		24DABDA8289180D200DEB6CC /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		24DABE7127E8610C0008D132 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24DB53BA27479DAA00F861EC /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
-		24DDDEBD2879D49D00F7B82A /* GroupInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoTableViewCell.swift; sourceTree = "<group>"; };
 		24E0AB1C283D1ECF00F52505 /* GroupPrayingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPrayingVC.swift; sourceTree = "<group>"; };
 		24E0AB1E283D1FF900F52505 /* MoyangNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangNavBar.swift; sourceTree = "<group>"; };
 		24E0AB20283D228A00F52505 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -477,8 +471,6 @@
 		24F41C652897E467005B5E70 /* NewPrayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrayVM.swift; sourceTree = "<group>"; };
 		24F41C682897E9E9005B5E70 /* PrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayController.swift; sourceTree = "<group>"; };
 		24F41C6C2897EBCC005B5E70 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		24F4D385287B1DB500B1AC06 /* GroupInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoVC.swift; sourceTree = "<group>"; };
-		24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoVM.swift; sourceTree = "<group>"; };
 		24F6B0C2289954740001B781 /* MemberItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberItemTableViewCell.swift; sourceTree = "<group>"; };
 		24F7021228B4F967009A8414 /* BibleSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleSelectVC.swift; sourceTree = "<group>"; };
 		24FAEF0D27E2153800B2DA81 /* praysong.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = praysong.m4a; sourceTree = "<group>"; };
@@ -753,6 +745,24 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		08E9282A292449B4009D67AE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				08E9282B292449BC009D67AE /* NewGroupVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		08E9282D2925A1BD009D67AE /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				24B6A2542726BEB00065112A /* GroupInfo.swift */,
+				24CFA8C328792F4600484C89 /* GroupRepo.swift */,
+				24CFA8C52879300800484C89 /* GroupUseCase.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		08E992B128ED4FA700696EB6 /* Notice */ = {
 			isa = PBXGroup;
 			children = (
@@ -998,6 +1008,7 @@
 			children = (
 				08F082D82906673F0042319B /* MediatorPrayAssembly.swift */,
 				08F082DF290667B00042319B /* MediatorPrayCoordinator.swift */,
+				08E9282D2925A1BD009D67AE /* Domain */,
 				08F082DA290667440042319B /* Main */,
 				248C6FEA2923BBAE009587F0 /* NewGroup */,
 			);
@@ -1054,8 +1065,6 @@
 			children = (
 				089E8A1927AF52A600640A39 /* Domain */,
 				246BD7A427240A96005C4E0B /* Presenter */,
-				24CFA8BB28792D3A00484C89 /* AllGroup */,
-				24F4D383287B1DA300B1AC06 /* GroupInfo */,
 				240946CD28707361003AEDAD /* AddReplyAndChange */,
 				08D2FD98286EE29C00ED8ECB /* PrayReaction */,
 				24E4DC35284C2CFF002ECD83 /* GroupPraying */,
@@ -1080,17 +1089,10 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		246BD7E527240AE4005C4E0B /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				24B6A2542726BEB00065112A /* GroupInfo.swift */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
 		248C6FEA2923BBAE009587F0 /* NewGroup */ = {
 			isa = PBXGroup;
 			children = (
+				08E9282A292449B4009D67AE /* Presenter */,
 				248C6FEB2923BBBB009587F0 /* View */,
 			);
 			path = NewGroup;
@@ -1268,42 +1270,6 @@
 				24CDD53028E537BE0091A286 /* Alarm.swift */,
 				24CDD53228E537C50091A286 /* AlarmUseCase.swift */,
 				24CDD53428E537FB0091A286 /* AlarmRepo.swift */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		24CFA8BB28792D3A00484C89 /* AllGroup */ = {
-			isa = PBXGroup;
-			children = (
-				24CFA8C228792F3D00484C89 /* Domain */,
-				24CFA8BF28792D5B00484C89 /* Presenter */,
-				24CFA8BC28792D4000484C89 /* View */,
-			);
-			path = AllGroup;
-			sourceTree = "<group>";
-		};
-		24CFA8BC28792D4000484C89 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				24CFA8BD28792D4800484C89 /* AllGroupVC.swift */,
-				24DDDEBD2879D49D00F7B82A /* GroupInfoTableViewCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		24CFA8BF28792D5B00484C89 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				24CFA8C028792D6700484C89 /* AllGroupVM.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		24CFA8C228792F3D00484C89 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				24CFA8C328792F4600484C89 /* GroupRepo.swift */,
-				24CFA8C52879300800484C89 /* GroupUseCase.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1554,32 +1520,6 @@
 				24F41C6C2897EBCC005B5E70 /* ProfileVC.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		24F4D383287B1DA300B1AC06 /* GroupInfo */ = {
-			isa = PBXGroup;
-			children = (
-				246BD7E527240AE4005C4E0B /* Domain */,
-				24F4D387287B1E5400B1AC06 /* Presenter */,
-				24F4D384287B1DAB00B1AC06 /* View */,
-			);
-			path = GroupInfo;
-			sourceTree = "<group>";
-		};
-		24F4D384287B1DAB00B1AC06 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				24F4D385287B1DB500B1AC06 /* GroupInfoVC.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		24F4D387287B1E5400B1AC06 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				24F4D388287B1E6100B1AC06 /* GroupInfoVM.swift */,
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 		24F7021128B4F95C009A8414 /* View */ = {
@@ -1852,6 +1792,7 @@
 				24AC737A27468BD7003B9B2F /* Array+.swift in Sources */,
 				08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */,
 				24E79EBF28A6619A00B34298 /* PrayingCVCell.swift in Sources */,
+				08E9282C292449BC009D67AE /* NewGroupVM.swift in Sources */,
 				24E0AB30283E746700F52505 /* Network.swift in Sources */,
 				24E5D0EF28B9E6C300680101 /* SplashVC.swift in Sources */,
 				24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */,
@@ -1879,7 +1820,6 @@
 				2447788428FEBDD300DD7499 /* MyPrayAssembly.swift in Sources */,
 				08F941FA289BA0E8003751F1 /* MyPrayDetailVC.swift in Sources */,
 				086ADDDB28D19861007A95F2 /* AlarmCoordinator.swift in Sources */,
-				24CFA8BE28792D4800484C89 /* AllGroupVC.swift in Sources */,
 				24CD549F28771AF50081375B /* PrayReplyDetailVM.swift in Sources */,
 				24831FB428E93BD400DB36A1 /* AlarmTimeView.swift in Sources */,
 				24D0D3292723145F006FF67B /* Date+.swift in Sources */,
@@ -1898,7 +1838,6 @@
 				08CEB5F42911D67200D38045 /* NewPrayTextView.swift in Sources */,
 				24D0D33327231537006FF67B /* UIScreen+.swift in Sources */,
 				08EBCFC227FDD78A00BDCB14 /* NetConst.swift in Sources */,
-				24F4D389287B1E6100B1AC06 /* GroupInfoVM.swift in Sources */,
 				08D0CEB728A36B1D00A15F3C /* TodayCoordinator.swift in Sources */,
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				241AF7CF28E46BC10085515B /* ProfileAssembly.swift in Sources */,
@@ -1938,7 +1877,6 @@
 				08D134D228B488A8008707F3 /* MoyangSearchBar.swift in Sources */,
 				08F4738928B5BAA70070CE2A /* BookSelectTVCell.swift in Sources */,
 				24E5D0F428B9FEDA00680101 /* SplashCoordinator.swift in Sources */,
-				24DDDEBE2879D49D00F7B82A /* GroupInfoTableViewCell.swift in Sources */,
 				08E49052291896CD00735823 /* PrayDetailHeader.swift in Sources */,
 				08E49054291899C400735823 /* MyPrayBottomView.swift in Sources */,
 				242F929C2848E02F0023324D /* GroupActivityCoordinator.swift in Sources */,
@@ -1976,7 +1914,6 @@
 				248C6FE92923B94C009587F0 /* MyGroupTVCell.swift in Sources */,
 				08AD9585287BDFF1002D4F94 /* AuthController.swift in Sources */,
 				08E992B928ED58C200696EB6 /* NoticeVM.swift in Sources */,
-				24F4D386287B1DB500B1AC06 /* GroupInfoVC.swift in Sources */,
 				24C68AC0287D7C4800330178 /* SetUserInfoVC.swift in Sources */,
 				24E0AB38283E75AF00F52505 /* CommonUtils.swift in Sources */,
 				08ECAADA28A6284F00B546F1 /* TaskDetailVM.swift in Sources */,
@@ -2040,7 +1977,6 @@
 				2447788728FEBE4100DD7499 /* MyPrayMainVC.swift in Sources */,
 				08EE004428C5B478000B02BD /* AppVersionInfo.swift in Sources */,
 				24BFD9ED28307B2200E105D3 /* MainVM.swift in Sources */,
-				24CFA8C128792D6700484C89 /* AllGroupVM.swift in Sources */,
 				24CFA8C428792F4600484C89 /* GroupRepo.swift in Sources */,
 				24E7EC9128FB068D008E0E3F /* BibleAssembly.swift in Sources */,
 				24D0D2F827230CA3006FF67B /* MoyangApp.swift in Sources */,

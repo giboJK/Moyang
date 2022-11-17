@@ -31,7 +31,7 @@ class NetConst {
     
     enum GroupAPI {
         /// post
-        static let registerGroup = "/group/register_user"
+        static let registerGroup = "/group/register_group"
         /// post
         static let fetchGroupSummary = "/group/group_summary_fetch"
         /// post

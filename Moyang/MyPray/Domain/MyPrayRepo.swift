@@ -153,9 +153,11 @@ class MyGroupListResponse: BaseResponse {
 struct MyGroup: Codable {
     let id: String
     let name: String
+    let desc: String
     
     enum CodingKeys: String, CodingKey {
         case id
         case name
+        case desc
     }
 }
