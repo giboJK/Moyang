@@ -13,7 +13,6 @@ class GroupUseCase {
     let repo: GroupRepo
     
     let myGroupMediatorInfos = BehaviorRelay<[GroupMediatorInfo]>(value: [])
-    let groups = BehaviorRelay<[GroupInfo]>(value: [])
     let groupEvents = BehaviorRelay<[GroupEvent]>(value: [])
     
     
@@ -88,6 +87,10 @@ class GroupUseCase {
                 Log.e(error)
             }
         }
+    }
+    
+    func fetchGroupDetail(groupID: String) {
+        
     }
     
     private func checkAndSetIsNetworking() -> Bool {

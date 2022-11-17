@@ -107,5 +107,6 @@ class MediatorPrayMainVC: UIViewController, VCType {
 }
 
 protocol MediatorPrayMainVCDelegate: AnyObject {
+    func didTapGroup(vm: GroupDetailVM)
     func didTapNewGroupView()
 }
