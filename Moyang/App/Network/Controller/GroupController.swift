@@ -40,7 +40,7 @@ extension GroupController: CommunityMainRepo {
 }
 
 extension GroupController: GroupRepo {
-    func registerGroup(userID: String, name: String, desc: String, completion: ((Result<RegisterGroupResponse, MoyangError>) -> Void)?) {
+    func registerGroup(userID: String, name: String, desc: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.GroupAPI.registerGroup)
         let dict: [String: Any] = [
             "user_id": userID,
@@ -51,7 +51,7 @@ extension GroupController: GroupRepo {
                                                  method: .post,
                                                  parameters: dict)
         networkService.requestAPI(request: request,
-                                  type: RegisterGroupResponse.self,
+                                  type: BaseResponse.self,
                                   token: nil) { result in
             switch result {
             case .success(let response):

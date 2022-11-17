@@ -44,9 +44,6 @@ class NewGroupVM: VMType {
             }).disposed(by: disposeBag)
         
         useCase.registerGroupSuccess
-            .bind(to: registerGroupSuccess).disposed(by: disposeBag)
-        
-        useCase.registerGroupSuccess
             .skip(1)
             .subscribe(onNext: { [weak self] _ in
                 NotificationCenter.default.post(name: NSNotification.Name.ReloadGroupList,
