@@ -12,7 +12,12 @@ class MediatorPrayMainVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: GroupUseCase
 
+    // MARK: - Data
     private let groupList = BehaviorRelay<[GroupItem]>(value: [])
+    
+    // MARK: - VM
+    private let detailVM = BehaviorRelay<GroupDetailVM?>(value: nil)
+    
     init(useCase: GroupUseCase) {
         self.useCase = useCase
         bind()
@@ -33,17 +38,32 @@ class MediatorPrayMainVM: VMType {
     @objc func fetchGroupList() {
         useCase.fetchMyGroupSummary()
     }
+    
+    private func createDetailVM(index: Int) {
+        let selectedGroup = groupList.value[index]
+        detailVM.accept(GroupDetailVM(useCase: useCase, groupID: selectedGroup.id))
+    }
 }
 
 extension MediatorPrayMainVM {
-    struct Input { }
+    struct Input {
+        let selectGroup: Driver<IndexPath>
+    }
 
     struct Output {
         let groupList: Driver<[GroupItem]>
+        let detailVM: Driver<GroupDetailVM?>
     }
 
     func transform(input: Input) -> Output {
-        return Output(groupList: groupList.asDriver())
+        input.selectGroup
+            .drive(onNext: { [weak self] index in
+                self?.createDetailVM(index: index.row)
+            }).disposed(by: disposeBag)
+        
+        return Output(groupList: groupList.asDriver(),
+                      detailVM: detailVM.asDriver()
+        )
     }
 }
 

@@ -93,7 +93,7 @@ class MediatorPrayMainVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(selectGroup: groupTableView.rx.itemSelected.asDriver())
         let output = vm.transform(input: input)
         
         output.groupList
@@ -103,6 +103,12 @@ class MediatorPrayMainVC: UIViewController, VCType {
                     cell.greetingLabel.text = item.desc
                     cell.prayLabel.text = item.prayUser
                 }.disposed(by: disposeBag)
+        
+        output.detailVM
+            .drive(onNext: { [weak self] detailVM in
+                guard let detailVM = detailVM else { return }
+                self?.coordinator?.didTapGroup(vm: detailVM)
+            }).disposed(by: disposeBag)
     }
 }
 

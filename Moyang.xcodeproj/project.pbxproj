@@ -67,6 +67,7 @@
 		08E9282C292449BC009D67AE /* NewGroupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9282B292449BC009D67AE /* NewGroupVM.swift */; };
 		08E9283129260BC0009D67AE /* GroupDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9283029260BC0009D67AE /* GroupDetailVC.swift */; };
 		08E9283429260E1E009D67AE /* GroupDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9283329260E1E009D67AE /* GroupDetailVM.swift */; };
+		08E9283629270DBE009D67AE /* GroupDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9283529270DBE009D67AE /* GroupDetailHeader.swift */; };
 		08E992B428ED4FB800696EB6 /* NoticeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B328ED4FB800696EB6 /* NoticeListVC.swift */; };
 		08E992B628ED589700696EB6 /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B528ED589700696EB6 /* NoticeVC.swift */; };
 		08E992B928ED58C200696EB6 /* NoticeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B828ED58C200696EB6 /* NoticeVM.swift */; };
@@ -307,6 +308,7 @@
 		08E9282B292449BC009D67AE /* NewGroupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupVM.swift; sourceTree = "<group>"; };
 		08E9283029260BC0009D67AE /* GroupDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailVC.swift; sourceTree = "<group>"; };
 		08E9283329260E1E009D67AE /* GroupDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailVM.swift; sourceTree = "<group>"; };
+		08E9283529270DBE009D67AE /* GroupDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailHeader.swift; sourceTree = "<group>"; };
 		08E992B328ED4FB800696EB6 /* NoticeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListVC.swift; sourceTree = "<group>"; };
 		08E992B528ED589700696EB6 /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
 		08E992B828ED58C200696EB6 /* NoticeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVM.swift; sourceTree = "<group>"; };
@@ -780,6 +782,7 @@
 			isa = PBXGroup;
 			children = (
 				08E9283029260BC0009D67AE /* GroupDetailVC.swift */,
+				08E9283529270DBE009D67AE /* GroupDetailHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1842,6 +1845,7 @@
 				08CEB5F62911D84D00D38045 /* MoyangTextView.swift in Sources */,
 				24DABDA72890FE6E00DEB6CC /* Calendar+.swift in Sources */,
 				24B9B86927A03B5F009FADC8 /* Encodable+.swift in Sources */,
+				08E9283629270DBE009D67AE /* GroupDetailHeader.swift in Sources */,
 				24FF077228BFAE7400F30ED0 /* GroupEvent.swift in Sources */,
 				24E7EC8F28FAEBAB008E0E3F /* WorshipNoteAssembly.swift in Sources */,
 				086ADDD928D19849007A95F2 /* AlarmSetVM.swift in Sources */,

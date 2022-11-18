@@ -55,5 +55,13 @@ extension MediatorPrayCoordinator: NewGroupVCDelegate {
 }
 
 extension MediatorPrayCoordinator: GroupDetailVCDelegate {
-    
+    func didTapMoreButton() {
+        
+    }
+    func didTapNewMediatorButton() {
+        
+    }
+    func didTapRequestMediatorButton() {
+        
+    }
 }
