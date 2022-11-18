@@ -83,7 +83,7 @@ extension MediatorPrayMainVM {
                 prayUser = userName + "님의 중보기도 요청이 있어요"
                 eventDate = date.isoToDateString("yyyy.M.d.") ?? ""
             } else {
-                prayUser = nil
+                prayUser = "중보기도를 요청해보세요 :)"
                 eventDate = nil
             }
         }

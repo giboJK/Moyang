@@ -60,7 +60,7 @@ class MediatorPrayMainVC: UIViewController, VCType {
         }
     }
     private func setupFooter() {
-        let footer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 20 + 59 + 20 + 59)).then {
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 20 + 59 + 20 + 59 + 24)).then {
             $0.backgroundColor = .clear
         }
         footer.addSubview(groupSearchView)
@@ -71,7 +71,7 @@ class MediatorPrayMainVC: UIViewController, VCType {
         }
         footer.addSubview(newGroupView)
         newGroupView.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(24)
             $0.left.right.equalToSuperview().inset(24)
             $0.height.equalTo(59)
         }
@@ -85,6 +85,11 @@ class MediatorPrayMainVC: UIViewController, VCType {
         bindVM()
     }
     private func bindViews() {
+        groupSearchView.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.didTapGroupSearchView()
+            }).disposed(by: disposeBag)
+        
         newGroupView.rx.tapGesture().when(.ended)
             .subscribe(onNext: { [weak self] _ in
                 self?.coordinator?.didTapNewGroupView()
@@ -114,5 +119,6 @@ class MediatorPrayMainVC: UIViewController, VCType {
 
 protocol MediatorPrayMainVCDelegate: AnyObject {
     func didTapGroup(vm: GroupDetailVM)
+    func didTapGroupSearchView()
     func didTapNewGroupView()
 }

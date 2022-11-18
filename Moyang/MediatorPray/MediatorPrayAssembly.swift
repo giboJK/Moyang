@@ -34,6 +34,17 @@ class MediatorPrayAssembly: Assembly, BaseAssembly {
         }
         
         
+        // MARK: - GroupSearchVC
+        container.register(GroupSearchVC.self) { r in
+            let vc = GroupSearchVC()
+            vc.vm = (r ~> GroupSearchVM.self)
+            
+            return vc
+        }
+        container.register(GroupSearchVM.self) { r in
+            GroupSearchVM(useCase: (r ~> GroupUseCase.self))
+        }
+        
         // MARK: - NewGroupVC
         container.register(NewGroupVC.self) { r in
             let vc = NewGroupVC()

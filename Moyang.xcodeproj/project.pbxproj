@@ -68,6 +68,8 @@
 		08E9283129260BC0009D67AE /* GroupDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9283029260BC0009D67AE /* GroupDetailVC.swift */; };
 		08E9283429260E1E009D67AE /* GroupDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9283329260E1E009D67AE /* GroupDetailVM.swift */; };
 		08E9283629270DBE009D67AE /* GroupDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9283529270DBE009D67AE /* GroupDetailHeader.swift */; };
+		08E9283A29275564009D67AE /* GroupSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9283929275564009D67AE /* GroupSearchVC.swift */; };
+		08E9283D29275CF4009D67AE /* GroupSearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E9283C29275CF4009D67AE /* GroupSearchVM.swift */; };
 		08E992B428ED4FB800696EB6 /* NoticeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B328ED4FB800696EB6 /* NoticeListVC.swift */; };
 		08E992B628ED589700696EB6 /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B528ED589700696EB6 /* NoticeVC.swift */; };
 		08E992B928ED58C200696EB6 /* NoticeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E992B828ED58C200696EB6 /* NoticeVM.swift */; };
@@ -309,6 +311,8 @@
 		08E9283029260BC0009D67AE /* GroupDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailVC.swift; sourceTree = "<group>"; };
 		08E9283329260E1E009D67AE /* GroupDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailVM.swift; sourceTree = "<group>"; };
 		08E9283529270DBE009D67AE /* GroupDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailHeader.swift; sourceTree = "<group>"; };
+		08E9283929275564009D67AE /* GroupSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchVC.swift; sourceTree = "<group>"; };
+		08E9283C29275CF4009D67AE /* GroupSearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchVM.swift; sourceTree = "<group>"; };
 		08E992B328ED4FB800696EB6 /* NoticeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListVC.swift; sourceTree = "<group>"; };
 		08E992B528ED589700696EB6 /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
 		08E992B828ED58C200696EB6 /* NoticeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVM.swift; sourceTree = "<group>"; };
@@ -795,6 +799,31 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		08E928372927554F009D67AE /* GroupSearch */ = {
+			isa = PBXGroup;
+			children = (
+				08E9283B29275CEB009D67AE /* Presenter */,
+				08E9283829275556009D67AE /* View */,
+			);
+			path = GroupSearch;
+			sourceTree = "<group>";
+		};
+		08E9283829275556009D67AE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				08E9283929275564009D67AE /* GroupSearchVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		08E9283B29275CEB009D67AE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				08E9283C29275CF4009D67AE /* GroupSearchVM.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		08E992B128ED4FA700696EB6 /* Notice */ = {
 			isa = PBXGroup;
 			children = (
@@ -1043,6 +1072,7 @@
 				08E9282D2925A1BD009D67AE /* Domain */,
 				08F082DA290667440042319B /* Main */,
 				08E9282E29260BB0009D67AE /* GroupDetail */,
+				08E928372927554F009D67AE /* GroupSearch */,
 				248C6FEA2923BBAE009587F0 /* NewGroup */,
 			);
 			path = MediatorPray;
@@ -1940,6 +1970,7 @@
 				24DABDA9289180D200DEB6CC /* Int+.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
 				08D5D8B62914D2F200A0CD95 /* MyPraySummary.swift in Sources */,
+				08E9283A29275564009D67AE /* GroupSearchVC.swift in Sources */,
 				0808E5082916569C00E7AB79 /* NSNotification+.swift in Sources */,
 				24E0AB34283E74B900F52505 /* NetworkImpl.swift in Sources */,
 				08E992B628ED589700696EB6 /* NoticeVC.swift in Sources */,
@@ -1967,6 +1998,7 @@
 				08E4905C2918DE0000735823 /* MyPrayListVM.swift in Sources */,
 				24630ED428F3CDA700567996 /* WorshipNoteUseCase.swift in Sources */,
 				08F082DE290667750042319B /* MediatorPrayMainVM.swift in Sources */,
+				08E9283D29275CF4009D67AE /* GroupSearchVM.swift in Sources */,
 				24E6455D2850E08A00CF10AD /* MoyangButton.swift in Sources */,
 				24E72A6128C306120062751B /* BibleVerseCVCell.swift in Sources */,
 				2493DE66284674DF001A9368 /* GroupActivityVM.swift in Sources */,
