@@ -15,6 +15,8 @@ class GroupUseCase {
     let myGroupMediatorInfos = BehaviorRelay<[GroupMediatorInfo]>(value: [])
     let groupEvents = BehaviorRelay<[GroupEvent]>(value: [])
     
+    let searchedGroupList = BehaviorRelay<[GroupSearchedInfo]>(value: [])
+    
     
     // MARK: - Event
     let registerGroupSuccess = BehaviorRelay<Void>(value: ())
@@ -51,6 +53,10 @@ class GroupUseCase {
                 self.registerGroupFailure.accept(())
             }
         }
+    }
+    
+    func fetchGroupList(page: Int, row: Int) {
+        
     }
     
     func fetchMyGroupSummary() {

@@ -41,3 +41,19 @@ struct GroupMediatorInfo: Codable, Identifiable {
     }
 }
 
+struct GroupSearchedInfo: Codable, Identifiable {
+    typealias Identifier = String
+    let id: Identifier
+    let createDate: String
+    let name: String
+    let desc: String
+    let leader: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case createDate = "create_date"
+        case name
+        case desc
+        case leader
+    }
+}

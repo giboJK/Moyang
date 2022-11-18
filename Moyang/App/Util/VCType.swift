@@ -38,6 +38,9 @@ protocol VCType {
 //        $0.closeButton.isHidden = true
 //    }
 //
+//    let indicator = UIActivityIndicatorView(style: .large).then {
+//        $0.hidesWhenStopped = true
+//    }
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
 //
@@ -52,6 +55,7 @@ protocol VCType {
 //    }
 //    func setupUI() {
 //        setupNavBar()
+//        setupIndicator()
 //    }
 //    private func setupNavBar() {
 //        view.addSubview(navBar)
@@ -59,6 +63,13 @@ protocol VCType {
 //            $0.left.right.equalToSuperview()
 //            $0.top.equalToSuperview()
 //            $0.height.equalTo(UIApplication.statusBarHeight + 44)
+//        }
+//    }
+//    private func setupIndicator() {
+//        view.addSubview(indicator)
+//        indicator.snp.makeConstraints {
+//            $0.size.equalTo(60)
+//            $0.center.equalToSuperview()
 //        }
 //    }
 //

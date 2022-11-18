@@ -20,10 +20,10 @@ class GroupSearchVC: UIViewController, VCType {
     // MARK: - UI
     let groupTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(MyPrayListTVCell.self, forCellReuseIdentifier: "cell")
+        $0.register(GroupSearchTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
-        $0.estimatedRowHeight = 100
+        $0.estimatedRowHeight = 102
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true
@@ -33,7 +33,10 @@ class GroupSearchVC: UIViewController, VCType {
         $0.firstButton.setTitle("요청하기", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
     }
-    
+    let indicator = UIActivityIndicatorView(style: .large).then {
+        $0.hidesWhenStopped = true
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,25 +57,72 @@ class GroupSearchVC: UIViewController, VCType {
     
     func setupUI() {
         setupGroupTableView()
+        setupIndicator()
     }
+    
     private func setupGroupTableView() {
         view.addSubview(groupTableView)
         groupTableView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    private func setupIndicator() {
+        view.addSubview(indicator)
+        indicator.snp.makeConstraints {
+            $0.size.equalTo(60)
+            $0.center.equalToSuperview()
+        }
+    }
 
     // MARK: - Binding
     func bind() {
         bindVM()
+        bindViews()
     }
     private func bindViews() {
-
+        confirmPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        confirmPopup.secondButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input(requestJoin: confirmPopup.firstButton.rx.tap.asDriver())
+        let output = vm.transform(input: input)
+        
+        output.isNetworking
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isNetworking in
+                if isNetworking {
+                    self?.indicator.startAnimating()
+                } else {
+                    self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
+        
+        output.groupList
+            .drive(groupTableView.rx
+                .items(cellIdentifier: "cell", cellType: GroupSearchTVCell.self)) { [weak self] (indexPath, item, cell) in
+                    cell.nameLabel.text = item.name
+                    cell.descLabel.text = item.desc
+                    cell.leaderLabel.text = item.leader
+                    cell.index = indexPath
+                    cell.vm = self?.vm
+                }.disposed(by: disposeBag)
+        
+        
+        output.requestConfirm.skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.confirmPopup)
+            }).disposed(by: disposeBag)
+        
     }
 }
 

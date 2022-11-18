@@ -47,6 +47,7 @@
 		08D2FD95286EE24800ED8ECB /* PrayReactionDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2FD94286EE24800ED8ECB /* PrayReactionDetailVC.swift */; };
 		08D2FD97286EE27300ED8ECB /* PrayReactionDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2FD96286EE27300ED8ECB /* PrayReactionDetailVM.swift */; };
 		08D4B76F28AF394A000BD7C6 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D4B76E28AF394A000BD7C6 /* ProfileVM.swift */; };
+		08D54F4029277CEA00511AD4 /* GroupSearchTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D54F3F29277CEA00511AD4 /* GroupSearchTVCell.swift */; };
 		08D5D8B62914D2F200A0CD95 /* MyPraySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D5D8B52914D2F200A0CD95 /* MyPraySummary.swift */; };
 		08D82957278D2548001E6B61 /* MoyangButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */; };
 		08D82959278D25F0001E6B61 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D82958278D25F0001E6B61 /* Font+.swift */; };
@@ -290,6 +291,7 @@
 		08D2FD94286EE24800ED8ECB /* PrayReactionDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReactionDetailVC.swift; sourceTree = "<group>"; };
 		08D2FD96286EE27300ED8ECB /* PrayReactionDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReactionDetailVM.swift; sourceTree = "<group>"; };
 		08D4B76E28AF394A000BD7C6 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
+		08D54F3F29277CEA00511AD4 /* GroupSearchTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchTVCell.swift; sourceTree = "<group>"; };
 		08D5D8B52914D2F200A0CD95 /* MyPraySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPraySummary.swift; sourceTree = "<group>"; };
 		08D82956278D2548001E6B61 /* MoyangButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyangButtonStyle.swift; sourceTree = "<group>"; };
 		08D82958278D25F0001E6B61 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
@@ -812,6 +814,7 @@
 			isa = PBXGroup;
 			children = (
 				08E9283929275564009D67AE /* GroupSearchVC.swift */,
+				08D54F3F29277CEA00511AD4 /* GroupSearchTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1852,6 +1855,7 @@
 			files = (
 				242F92952848D8810023324D /* CGColor+.swift in Sources */,
 				08F941FD289BA110003751F1 /* MyPrayDetailVM.swift in Sources */,
+				08D54F4029277CEA00511AD4 /* GroupSearchTVCell.swift in Sources */,
 				24AC737A27468BD7003B9B2F /* Array+.swift in Sources */,
 				08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */,
 				24E79EBF28A6619A00B34298 /* PrayingCVCell.swift in Sources */,
