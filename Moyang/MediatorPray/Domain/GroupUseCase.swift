@@ -56,7 +56,21 @@ class GroupUseCase {
     }
     
     func fetchGroupList(page: Int, row: Int) {
-        
+        if checkAndSetIsNetworking() { return }
+        repo.fetchGroupList(page: page, row: row) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.searchedGroupList.accept(response.data)
+                } else {
+                    
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
     }
     
     func fetchMyGroupSummary() {

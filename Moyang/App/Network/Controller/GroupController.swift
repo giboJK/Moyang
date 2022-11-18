@@ -62,8 +62,25 @@ extension GroupController: GroupRepo {
         }
     }
     
-    func fetchGroupList(page: Int, row: Int) {
-        
+    func fetchGroupList(page: Int, row: Int, completion: ((Result<GroupSearchedGroupListResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.GroupAPI.fetchGroupList)
+        let dict: [String: Any] = [
+            "page": page,
+            "row": row
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: GroupSearchedGroupListResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
     }
     
     func fetchMyGroupSummary(userID: String, completion: ((Result<GroupMediatorInfoListResponse, MoyangError>) -> Void)?) {
