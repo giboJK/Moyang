@@ -18,6 +18,11 @@ class GroupUseCase {
     let searchedGroupList = BehaviorRelay<[GroupSearchedInfo]>(value: [])
     
     
+    // MARK: - Properties
+    var page = 0
+    var row = 10
+    
+    
     // MARK: - Event
     let registerGroupSuccess = BehaviorRelay<Void>(value: ())
     let registerGroupFailure = BehaviorRelay<Void>(value: ())
@@ -55,7 +60,20 @@ class GroupUseCase {
         }
     }
     
-    func fetchGroupList(page: Int, row: Int) {
+    func fetchInitialGroupList() {
+        if checkAndSetIsNetworking() { return }
+        page = 0
+        fetchGroupList()
+    }
+    
+    func fetchMoreGroupList() {
+        if checkAndSetIsNetworking() { return }
+        page += row
+        fetchGroupList()
+    }
+    
+    
+    private func fetchGroupList() {
         if checkAndSetIsNetworking() { return }
         repo.fetchGroupList(page: page, row: row) { [weak self] result in
             self?.resetIsNetworking()
@@ -63,9 +81,17 @@ class GroupUseCase {
             switch result {
             case .success(let response):
                 if response.code == 0 {
-                    self.searchedGroupList.accept(response.data)
-                } else {
-                    
+                    var cur = self.searchedGroupList.value
+                    if cur.isEmpty {
+                        self.searchedGroupList.accept(response.data)
+                    } else {
+                        for item in response.data {
+                            if !cur.contains(where: { $0.id == item.id }) {
+                                cur.append(item)
+                            }
+                        }
+                        self.searchedGroupList.accept(cur)
+                    }
                 }
             case .failure(let error):
                 Log.e(error)

@@ -33,11 +33,18 @@ class GroupSearchVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
+        useCase.searchedGroupList.map { data in
+            return data.map { SearchedGroupItem(data: $0) }
+        }.bind(to: groupList)
+            .disposed(by: disposeBag)
         
+        useCase.isNetworking
+            .bind(to: isNetworking)
+            .disposed(by: disposeBag)
     }
     
     private func fetchGroupList() {
-        
+        useCase.fetchInitialGroupList()
     }
     
     private func selectGroup() {
@@ -47,6 +54,10 @@ class GroupSearchVM: VMType {
     private func confirmGroupRequest() {
         if selectedGroupIndex < 0 { return }
 //        uesCase.
+    }
+    
+    func fetchMoreGroupList() {
+        useCase.fetchMoreGroupList()
     }
 }
 
@@ -91,13 +102,10 @@ extension GroupSearchVM {
         let desc: String
         let leader: String
         
-        init(name: String,
-             desc: String,
-             leader: String
-        ) {
-            self.name = name
-            self.desc = desc
-            self.leader = leader
+        init(data: GroupSearchedInfo) {
+            self.name = data.name
+            self.desc = data.desc
+            self.leader = data.leader
         }
     }
 }

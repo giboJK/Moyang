@@ -89,6 +89,17 @@ class GroupSearchVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
+        
+        groupTableView.rx.contentOffset.asDriver()
+            .throttle(.milliseconds(300))
+            .drive(onNext: { [weak self] offset in
+                guard let self = self else { return }
+                let offset = self.groupTableView.contentOffset.y
+                let maxOffset = self.groupTableView.contentSize.height - self.groupTableView.frame.size.height
+                if maxOffset - offset <= 0 {
+                    self.vm?.fetchMoreGroupList()
+                }
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
