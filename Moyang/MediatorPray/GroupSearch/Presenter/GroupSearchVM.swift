@@ -34,9 +34,9 @@ class GroupSearchVM: VMType {
     
     private func bind() {
         useCase.searchedGroupList.map { data in
-            return data.map { SearchedGroupItem(data: $0) }
-        }.bind(to: groupList)
-            .disposed(by: disposeBag)
+            return data.map { SearchedGroupItem(data: $0) }}
+        .bind(to: groupList)
+        .disposed(by: disposeBag)
         
         useCase.isNetworking
             .bind(to: isNetworking)
@@ -80,8 +80,10 @@ extension GroupSearchVM {
                     self?.selectedGroupIndex = -1
                     Log.e("Invalid index")
                     return
+                } else {
+                    self?.selectedGroupIndex = index
+                    self?.selectGroup()
                 }
-                self?.selectGroup()
             }).disposed(by: disposeBag)
         
         input.requestJoin

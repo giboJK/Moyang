@@ -61,14 +61,12 @@ class GroupUseCase {
     }
     
     func fetchInitialGroupList() {
-        if checkAndSetIsNetworking() { return }
         page = 0
         fetchGroupList()
     }
     
     func fetchMoreGroupList() {
-        if checkAndSetIsNetworking() { return }
-        page += row
+        page = searchedGroupList.value.count
         fetchGroupList()
     }
     

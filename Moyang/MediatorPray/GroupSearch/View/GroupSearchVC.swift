@@ -56,6 +56,7 @@ class GroupSearchVC: UIViewController, VCType {
     }
     
     func setupUI() {
+        title = "공동체 찾기"
         setupGroupTableView()
         setupIndicator()
     }
@@ -91,7 +92,7 @@ class GroupSearchVC: UIViewController, VCType {
             }).disposed(by: disposeBag)
         
         groupTableView.rx.contentOffset.asDriver()
-            .throttle(.milliseconds(300))
+            .throttle(.seconds(1))
             .drive(onNext: { [weak self] offset in
                 guard let self = self else { return }
                 let offset = self.groupTableView.contentOffset.y
@@ -126,7 +127,6 @@ class GroupSearchVC: UIViewController, VCType {
                     cell.index = indexPath
                     cell.vm = self?.vm
                 }.disposed(by: disposeBag)
-        
         
         output.requestConfirm.skip(1)
             .drive(onNext: { [weak self] _ in

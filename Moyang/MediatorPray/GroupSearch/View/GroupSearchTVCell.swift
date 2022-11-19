@@ -17,10 +17,21 @@ class GroupSearchTVCell: UITableViewCell {
     var isBinded = false
     
     // MARK: - UI
-    let nameLabel = MoyangLabel()
-    let descLabel = MoyangLabel()
-    let leaderLabel = MoyangLabel()
-    let requestButton = MoyangButton(.sheepPrimary)
+    let nameLabel = MoyangLabel().then {
+        $0.textColor = .sheep1
+        $0.font = .b01
+    }
+    let descLabel = MoyangLabel().then {
+        $0.textColor = .sheep3
+        $0.font = .c01
+    }
+    let leaderLabel = MoyangLabel().then {
+        $0.textColor = .sheep1
+        $0.font = .b03
+    }
+    let requestButton = MoyangButton(.sheepPrimary).then {
+        $0.setTitle("가입 요청하기", for: .normal)
+    }
     var index = 0
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -41,37 +52,14 @@ class GroupSearchTVCell: UITableViewCell {
     
     private func setupUI() {
         setupContentView()
+        setupRequestButton()
         setupNameLabel()
         setupDescLabel()
         setupLeaderLabel()
-        setupRequestButton()
     }
     
     private func setupContentView() {
         contentView.backgroundColor = .nightSky1
-    }
-    private func setupNameLabel() {
-        contentView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20)
-            $0.left.equalToSuperview().inset(24)
-            $0.height.equalTo(19)
-        }
-    }
-    private func setupDescLabel() {
-        contentView.addSubview(descLabel)
-        descLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(43)
-            $0.height.equalTo(14)
-        }
-    }
-    private func setupLeaderLabel() {
-        contentView.addSubview(leaderLabel)
-        leaderLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(73)
-            $0.bottom.equalToSuperview().inset(12)
-            $0.height.equalTo(17)
-        }
     }
     private func setupRequestButton() {
         contentView.addSubview(requestButton)
@@ -80,6 +68,34 @@ class GroupSearchTVCell: UITableViewCell {
             $0.width.equalTo(124)
             $0.height.equalTo(40)
             $0.right.equalToSuperview().inset(24)
+        }
+    }
+    private func setupNameLabel() {
+        contentView.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.left.equalToSuperview().inset(24)
+            $0.right.equalTo(requestButton.snp.left).offset(-8)
+            $0.height.equalTo(19)
+        }
+    }
+    private func setupDescLabel() {
+        contentView.addSubview(descLabel)
+        descLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(43)
+            $0.left.equalToSuperview().inset(24)
+            $0.right.equalTo(requestButton.snp.left).offset(-8)
+            $0.height.equalTo(14)
+        }
+    }
+    private func setupLeaderLabel() {
+        contentView.addSubview(leaderLabel)
+        leaderLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(73)
+            $0.bottom.equalToSuperview().inset(12)
+            $0.left.equalToSuperview().inset(24)
+            $0.right.equalTo(requestButton.snp.left).offset(-8)
+            $0.height.equalTo(17)
         }
     }
     
