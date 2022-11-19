@@ -12,7 +12,6 @@ import SnapKit
 import Then
 
 class MyPrayListVC: UIViewController, VCType {
-    
     typealias VM = MyPrayListVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
@@ -32,9 +31,9 @@ class MyPrayListVC: UIViewController, VCType {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(MyPrayListTVCell.self, forCellReuseIdentifier: "cell")
         $0.register(MyPrayListHeaderView.self, forHeaderFooterViewReuseIdentifier: "sectionHeader")
-        $0.backgroundColor = .clear
+        $0.backgroundColor = .nightSky1
         $0.separatorStyle = .none
-        $0.estimatedRowHeight = 160
+        $0.estimatedRowHeight = 166
         $0.showsVerticalScrollIndicator = false
         $0.bounces = true
         $0.isScrollEnabled = true

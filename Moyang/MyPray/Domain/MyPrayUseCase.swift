@@ -137,7 +137,7 @@ class MyPrayUseCase {
     }
     
     func fetchPrayDetail(prayID: String) {
-        checkAndSetIsNetworking()
+        if checkAndSetIsNetworking() { return }
         repo.fetchPrayDetail(prayID: prayID) { [weak self] result in
             self?.resetIsNetworking()
             switch result {
