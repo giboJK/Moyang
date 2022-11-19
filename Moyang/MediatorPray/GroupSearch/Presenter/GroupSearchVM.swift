@@ -20,6 +20,7 @@ class GroupSearchVM: VMType {
     
     // MARK: - Data
     let groupList = BehaviorRelay<[SearchedGroupItem]>(value: [])
+    let selectedGroupInfo = BehaviorRelay<String>(value: "")
     
     // MARK: - Event
     let requestConfirm = BehaviorRelay<Void>(value: ())
@@ -47,8 +48,15 @@ class GroupSearchVM: VMType {
         useCase.fetchInitialGroupList()
     }
     
-    private func selectGroup() {
+    private func selectGroup(index: Int) {
+        selectedGroupIndex = index
+        if selectedGroupIndex < 0 {
+            Log.e("Invalid index")
+            return
+        }
         requestConfirm.accept(())
+        let group = groupList.value[selectedGroupIndex]
+        selectedGroupInfo.accept("정말 \(group.name)에 입장을 요청하시겠어요?")
     }
     
     private func confirmGroupRequest() {
@@ -71,29 +79,25 @@ extension GroupSearchVM {
         let isNetworking: Driver<Bool>
         let groupList: Driver<[SearchedGroupItem]>
         let requestConfirm: Driver<Void>
+        let selectedGroupInfo: Driver<String>
     }
     
     func transform(input: Input) -> Output {
         input.selectItem
             .drive(onNext: { [weak self] index in
-                if index < 0 {
-                    self?.selectedGroupIndex = -1
-                    Log.e("Invalid index")
-                    return
-                } else {
-                    self?.selectedGroupIndex = index
-                    self?.selectGroup()
-                }
+                self?.selectGroup(index: index)
             }).disposed(by: disposeBag)
         
         input.requestJoin
             .drive(onNext: { [weak self] _ in
+                
                 self?.confirmGroupRequest()
             }).disposed(by: disposeBag)
         
         return Output(isNetworking: isNetworking.asDriver(),
                       groupList: groupList.asDriver(),
-                      requestConfirm: requestConfirm.asDriver()
+                      requestConfirm: requestConfirm.asDriver(),
+                      selectedGroupInfo: selectedGroupInfo.asDriver()
         )
     }
 }
@@ -107,7 +111,7 @@ extension GroupSearchVM {
         init(data: GroupSearchedInfo) {
             self.name = data.name
             self.desc = data.desc
-            self.leader = data.leader
+            self.leader = "리더: " + data.leader
         }
     }
 }

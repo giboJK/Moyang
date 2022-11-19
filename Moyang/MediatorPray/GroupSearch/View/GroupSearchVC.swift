@@ -28,10 +28,21 @@ class GroupSearchVC: UIViewController, VCType {
         $0.bounces = true
         $0.isScrollEnabled = true
     }
-    let confirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .sheepPrimary, secondButtonStyle: .sheepGhost).then {
-        $0.desc = "정말로 가입 요청하시겠어요?"
+    let askAgainPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .nightPrimary, secondButtonStyle: .nightGhost).then {
+        $0.title = "공동체 들어가기"
+        $0.desc = "입장 요청"
         $0.firstButton.setTitle("요청하기", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
+    }
+    let confirmPopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
+        $0.title = "요청이 완료되었습니다"
+        $0.desc = "리더가 확인 후 입장이 완료됩니다."
+        $0.firstButton.setTitle("확인", for: .normal)
+    }
+    let failurePopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .warning).then {
+        $0.title = "요청이 실패하였습니다"
+        $0.desc = "개발자에게 문의하세요"
+        $0.firstButton.setTitle("확인", for: .normal)
     }
     let indicator = UIActivityIndicatorView(style: .large).then {
         $0.hidesWhenStopped = true
@@ -81,12 +92,23 @@ class GroupSearchVC: UIViewController, VCType {
         bindViews()
     }
     private func bindViews() {
+        
+        askAgainPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        askAgainPopup.secondButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
         confirmPopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
         
-        confirmPopup.secondButton.rx.tap
+        failurePopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
@@ -105,7 +127,7 @@ class GroupSearchVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(requestJoin: confirmPopup.firstButton.rx.tap.asDriver())
+        let input = VM.Input(requestJoin: askAgainPopup.firstButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
         output.isNetworking
@@ -126,14 +148,18 @@ class GroupSearchVC: UIViewController, VCType {
                     cell.leaderLabel.text = item.leader
                     cell.index = indexPath
                     cell.vm = self?.vm
+                    cell.bind()
                 }.disposed(by: disposeBag)
+        
+        output.selectedGroupInfo
+            .drive(askAgainPopup.descLabel.rx.text)
+            .disposed(by: disposeBag)
         
         output.requestConfirm.skip(1)
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.displayPopup(popup: self.confirmPopup)
+                self.displayPopup(popup: self.askAgainPopup)
             }).disposed(by: disposeBag)
-        
     }
 }
 

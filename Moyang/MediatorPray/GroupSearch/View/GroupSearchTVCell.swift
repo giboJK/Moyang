@@ -30,7 +30,7 @@ class GroupSearchTVCell: UITableViewCell {
         $0.font = .b03
     }
     let requestButton = MoyangButton(.sheepPrimary).then {
-        $0.setTitle("가입 요청하기", for: .normal)
+        $0.setTitle("입장 요청하기", for: .normal)
     }
     var index = 0
     
