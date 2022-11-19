@@ -104,10 +104,13 @@ class GroupSearchTVCell: UITableViewCell {
             if isBinded { return }
             isBinded = true
             
-            let input = VM.Input(selectItem: requestButton.rx.tap.map { self.index }
+            let input = VM.Input(selectItem: requestButton.rx.tap
+                .map { [weak self] _ in
+                    return self?.index ?? -1
+                }
                 .asDriver(onErrorJustReturn: -1))
             _ = vm.transform(input: input)
-
+            
         }
         
     }
