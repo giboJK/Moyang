@@ -13,10 +13,8 @@ class MyPrayDetailVM: VMType {
     
     let useCase: MyPrayUseCase
     
-    var myPray: MyPray!
-    
-    var initialCategory: String? = nil
-    var initialGroup: String? = nil
+    var initialCategory: String?
+    var initialGroup: String?
     
     var newContentType: ContentItemType = .change
     
@@ -137,6 +135,7 @@ class MyPrayDetailVM: VMType {
     
     private func updatePray() {
         guard let category = self.category.value else { return }
+        guard let content = self.contentItemList.value.first?.content else { return }
 //        useCase.updatePray(prayID: prayID, pray: pray)
     }
     
@@ -173,8 +172,6 @@ extension MyPrayDetailVM {
         var startPray: Driver<Void> = .empty()
         
         var setType: Driver<Int> = .empty()
-        var setChange: Driver<String?> = .empty()
-        var addChange: Driver<Void> = .empty()
     }
 
     struct Output {

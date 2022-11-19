@@ -20,6 +20,10 @@ class MyPrayDetailTVCell: UITableViewCell {
         $0.font = .b02
         $0.numberOfLines = 0
     }
+    let nameLabel = MoyangLabel().then {
+        $0.textColor = .sheep3
+        $0.font = .b05
+    }
     let dateLabel = MoyangLabel().then {
         $0.textColor = .sheep4
         $0.font = .b05
@@ -47,6 +51,7 @@ class MyPrayDetailTVCell: UITableViewCell {
         setupBubbleRImageView()
         setupBubbleLImageView()
         setupDateLabel()
+        setupNameLabel()
         contentView.bringSubviewToFront(contentLabel)
     }
     
@@ -69,6 +74,9 @@ class MyPrayDetailTVCell: UITableViewCell {
             $0.top.bottom.equalToSuperview().inset(4)
         }
     }
+    private func setupNameLabel() {
+        contentView.addSubview(nameLabel)
+    }
     private func setupDateLabel() {
         contentView.addSubview(dateLabel)
     }
@@ -76,7 +84,7 @@ class MyPrayDetailTVCell: UITableViewCell {
     func updateUI(type: MyPrayDetailVM.ContentItemType) {
         updateContentLabelUI(isMe: type == .startPray)
         updateBubbleImageView(isMe: type == .startPray)
-        updateDateLabel(isMe: type == .startPray)
+        updateDateAndNameLabel(isMe: type == .startPray)
     }
     
     private func updateContentLabelUI(isMe: Bool) {
@@ -98,7 +106,7 @@ class MyPrayDetailTVCell: UITableViewCell {
         bubbleRImageView.isHidden = !isMe
         changeImage(isMe: isMe)
     }
-    private func updateDateLabel(isMe: Bool) {
+    private func updateDateAndNameLabel(isMe: Bool) {
         dateLabel.snp.remakeConstraints {
             $0.bottom.equalToSuperview().inset(4)
             if isMe {
@@ -106,6 +114,16 @@ class MyPrayDetailTVCell: UITableViewCell {
             } else {
                 $0.left.equalTo(bubbleLImageView.snp.right).offset(4)
             }
+        }
+        nameLabel.isHidden = isMe
+        nameLabel.snp.remakeConstraints {
+            $0.bottom.equalTo(dateLabel.snp.top).offset(-4)
+            if isMe {
+                $0.right.equalTo(bubbleRImageView.snp.left).offset(-4)
+            } else {
+                $0.left.equalTo(bubbleLImageView.snp.right).offset(4)
+            }
+            
         }
     }
     private func changeImage(isMe: Bool) {

@@ -20,7 +20,7 @@ protocol MyPrayRepo {
     
     
     // MARK: - Update
-    func updatePray(prayID: String, category: String, content: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    func updatePray(prayID: String, category: String, content: String, groupID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
     // MARK: - Delete
     func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)

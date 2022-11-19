@@ -107,11 +107,12 @@ extension PrayController: MyPrayRepo {
     
     // MARK: - Update
     
-    func updatePray(prayID: String, category: String, content: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+    func updatePray(prayID: String, category: String, content: String, groupID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.updatePray)
         let dict: [String: Any] = ["pray_id": prayID,
                                    "category": category,
-                                   "content": content
+                                   "content": content,
+                                   "group_id": groupID
         ]
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
