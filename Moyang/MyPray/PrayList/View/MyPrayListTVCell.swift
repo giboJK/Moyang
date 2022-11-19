@@ -67,8 +67,8 @@ class MyPrayListTVCell: UITableViewCell {
     private func setupContainer() {
         contentView.addSubview(container)
         container.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(8)
+            $0.bottom.equalToSuperview().inset(8)
             $0.left.right.equalToSuperview().inset(24)
         }
         setupTitleLabel()

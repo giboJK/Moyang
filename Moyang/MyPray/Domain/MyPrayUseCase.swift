@@ -112,13 +112,26 @@ class MyPrayUseCase {
             guard let self = self else { return }
             switch result {
             case .success(let list):
-                var curList = self.myPrayList.value
-                curList.append(contentsOf: list)
-                self.myPrayList.accept(curList)
+                var cur = self.myPrayList.value
+                if cur.isEmpty {
+                    self.myPrayList.accept(list)
+                } else {
+                    for item in list {
+                        if !cur.contains(where: { $0.prayID == item.prayID }) {
+                            cur.append(item)
+                        }
+                    }
+                    self.myPrayList.accept(cur)
+                }
             case .failure(let error):
                 Log.e(error)
             }
         }
+    }
+    
+    func fetchMorePrayList(userID: String) {
+        let page = myPrayList.value.count
+        fetchPrayList(userID: userID, page: page)
     }
     
     func fetchMyGroupList() {

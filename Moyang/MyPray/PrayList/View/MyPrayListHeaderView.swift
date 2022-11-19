@@ -28,8 +28,8 @@ class MyPrayListHeaderView: UITableViewHeaderFooterView {
         titleLabel.snp.makeConstraints {
             $0.height.equalTo(21)
             $0.left.equalToSuperview().inset(24)
-            $0.top.equalToSuperview().inset(24)
-            $0.bottom.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(8)
         }
     }
 }

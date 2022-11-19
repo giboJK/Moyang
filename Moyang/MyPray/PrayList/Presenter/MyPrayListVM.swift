@@ -73,7 +73,8 @@ class MyPrayListVM: VMType {
     }
     
     func fetchMoreList() {
-        
+        guard let userID = UserData.shared.userInfo?.id else { Log.e(""); return }
+        useCase.fetchMorePrayList(userID: userID)
     }
     
     private func fetchPrayDetail(index: IndexPath) {

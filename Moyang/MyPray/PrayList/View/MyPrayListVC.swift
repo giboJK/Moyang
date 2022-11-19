@@ -95,7 +95,16 @@ class MyPrayListVC: UIViewController, VCType {
     }
     
     private func bindViews() {
-
+        prayTableView.rx.contentOffset.asDriver()
+            .throttle(.seconds(1))
+            .drive(onNext: { [weak self] offset in
+                guard let self = self else { return }
+                let offset = self.prayTableView.contentOffset.y
+                let maxOffset = self.prayTableView.contentSize.height - self.prayTableView.frame.size.height
+                if maxOffset - offset <= 0 {
+                    self.vm?.fetchMoreList()
+                }
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
