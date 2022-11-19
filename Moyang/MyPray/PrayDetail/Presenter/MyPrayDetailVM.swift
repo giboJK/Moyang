@@ -18,7 +18,7 @@ class MyPrayDetailVM: VMType {
     var initialCategory: String? = nil
     var initialGroup: String? = nil
     
-    var newContentItemType: ContentItemType = .change
+    var newContentType: ContentItemType = .change
     
     // MARK: - Data
     let groupName = BehaviorRelay<String?>(value: "")
@@ -26,6 +26,7 @@ class MyPrayDetailVM: VMType {
     let groupList = BehaviorRelay<[GroupInfo]>(value: [])
     // Content, Anser, Change
     let contentItemList = BehaviorRelay<[ContentItem]>(value: [])
+    let newContentTypeString = BehaviorRelay<String>(value: ContentItemType.change.typeStr)
     
     // MARK: - State
     let isSaveEnabled = BehaviorRelay<Bool>(value: false)
@@ -59,8 +60,7 @@ class MyPrayDetailVM: VMType {
         
         useCase.myGroupList
             .subscribe(onNext: { [weak self] list in
-                var groupList = list.map { GroupInfo(data: $0) }
-                self?.groupList.accept(groupList)
+                self?.groupList.accept(list.map { GroupInfo(data: $0) })
             }).disposed(by: disposeBag)
         
         // MARK: - Events
@@ -155,7 +155,8 @@ class MyPrayDetailVM: VMType {
     }
     
     func changeType(type: ContentItemType) {
-        newContentItemType = type
+        newContentType = type
+        newContentTypeString.accept(newContentType.typeStr)
     }
 }
 
@@ -182,6 +183,7 @@ extension MyPrayDetailVM {
         let groupName: Driver<String?>
         let contentItemList: Driver<[ContentItem]>
         let groupList: Driver<[GroupInfo]>
+        let newContentTypeString: Driver<String>
         
         // MARK: - State
         let isSaveEnabled: Driver<Bool>
@@ -241,6 +243,7 @@ extension MyPrayDetailVM {
             groupName: groupName.asDriver(),
             contentItemList: contentItemList.asDriver(),
             groupList: groupList.asDriver(),
+            newContentTypeString: newContentTypeString.asDriver(),
             
             isSaveEnabled: isSaveEnabled.asDriver(),
             
@@ -301,6 +304,19 @@ extension MyPrayDetailVM {
         case change
         case answer
         case reply
+        
+        var typeStr: String {
+            switch self {
+            case .startPray:
+                return "기도"
+            case .change:
+                return "변화"
+            case .answer:
+                return "응답"
+            case .reply:
+                return "기도 더하기"
+            }
+        }
     }
     
     struct GroupInfo {

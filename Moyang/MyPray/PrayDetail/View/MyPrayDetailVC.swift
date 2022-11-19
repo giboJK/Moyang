@@ -99,11 +99,11 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         title = "기도"
         view.backgroundColor = .nightSky1
         setupMoreButton()
+        setupBottomView()
         setupPrayTableView()
         setupHeader()
         setupHistoryBgView()
         setupHistoryLabel()
-        setupBottomView()
     }
     private func setupMoreButton() {
         navigationItem.rightBarButtonItem = moreButton
@@ -130,7 +130,7 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         prayTableView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.bottom.equalToSuperview().inset(48 + UIApplication.bottomInset)
+            $0.bottom.equalTo(bottomView.snp.top)
         }
         prayTableView.contentInset.top = headerHeight
         let footer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 12)).then {
@@ -212,7 +212,7 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
                 self?.showAlert()
             }).disposed(by: disposeBag)
         
-        view.rx.tapGesture().when(.ended)
+        prayTableView.rx.tapGesture().when(.ended)
             .subscribe(onNext: { [weak self] _ in
                 self?.view.endEditing(true)
             }).disposed(by: disposeBag)
@@ -238,6 +238,10 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
                     cell.dateLabel.text = item.date.isoToDateString("yyyy.M.d.")
                     cell.updateUI(type: item.type)
                 }.disposed(by: disposeBag)
+        
+        output.newContentTypeString
+            .drive(bottomView.typeLabel.rx.text)
+            .disposed(by: disposeBag)
         
         output.deletePraySuccess
             .skip(1)
