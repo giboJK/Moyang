@@ -168,7 +168,13 @@ class MyPrayUseCase {
     
     
     // MARK: - Update
-    func updatePray(prayID: String, category: String, content: String, groupID: String) {
+    func updatePray(category: String, content: String, groupID: String) {
+        guard let prayID = prayDetail.value?.prayID else {
+            Log.e("No pray id"); return
+        }
+        updatePray(prayID: prayID, category: category, content: content, groupID: groupID)
+    }
+    private func updatePray(prayID: String, category: String, content: String, groupID: String) {
         if checkAndSetIsNetworking() { return }
         repo.updatePray(prayID: prayID, category: category, content: content, groupID: groupID) { [weak self] result in
             self?.resetIsNetworking()

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
 		0808E5082916569C00E7AB79 /* NSNotification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0808E5072916569C00E7AB79 /* NSNotification+.swift */; };
+		081A25C0292A05D500EC16EC /* PrayDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */; };
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
 		086ADDD628D197DA007A95F2 /* AlarmSetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */; };
@@ -253,6 +254,7 @@
 
 /* Begin PBXFileReference section */
 		0808E5072916569C00E7AB79 /* NSNotification+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+.swift"; sourceTree = "<group>"; };
+		081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayDetailEditView.swift; sourceTree = "<group>"; };
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		086ADDD528D197DA007A95F2 /* AlarmSetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSetVC.swift; sourceTree = "<group>"; };
@@ -960,6 +962,7 @@
 				08E49053291899C400735823 /* MyPrayBottomView.swift */,
 				08E4905529189A0B00735823 /* MyPrayDetailTVCell.swift */,
 				08E92826292318DA009D67AE /* MyPrayDetailEditVC.swift */,
+				081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1980,6 +1983,7 @@
 				08E992B628ED589700696EB6 /* NoticeVC.swift in Sources */,
 				2498F8FE287C316D007EF510 /* TermsVC.swift in Sources */,
 				2409170729016A7900905A38 /* NoteMainVC.swift in Sources */,
+				081A25C0292A05D500EC16EC /* PrayDetailEditView.swift in Sources */,
 				24C8E9BB286B1F5200AEE46B /* MyPrayUseCase.swift in Sources */,
 				248C6FED2923BBC3009587F0 /* NewGroupVC.swift in Sources */,
 				248C6FE92923B94C009587F0 /* MyGroupTVCell.swift in Sources */,

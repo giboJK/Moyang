@@ -22,7 +22,7 @@ class MyPrayDetailEditVC: UIViewController, VCType {
     
     // MARK: - UI
     let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
-    let headerView = PrayDetailHeader()
+    let editView = PrayDetailEditView()
     let deleteButton = MoyangButton(.warning).then {
         $0.setTitle("삭제하기", for: .normal)
     }
@@ -56,29 +56,29 @@ class MyPrayDetailEditVC: UIViewController, VCType {
         title = "상세 보기"
         view.backgroundColor = .nightSky1
         setupSaveButton()
-        setupHeader()
+        setupEditView()
         setupDeleteButton()
     }
     
     private func setupSaveButton() {
         navigationItem.rightBarButtonItem = saveButton
     }
-    private func setupHeader() {
-        view.addSubview(headerView)
-        headerView.snp.makeConstraints {
+    private func setupEditView() {
+        view.addSubview(editView)
+        editView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(0)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(headerHeight)
         }
-        headerView.vm = vm
-        headerView.disposeBag = disposeBag
-        headerView.bind()
-        headerView.bindViews()
+        editView.vm = vm
+        editView.disposeBag = disposeBag
+        editView.bind()
+        editView.bindViews()
     }
     private func setupDeleteButton() {
         view.addSubview(deleteButton)
         deleteButton.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(-20)
+            $0.top.equalTo(editView.snp.bottom).offset(-20)
             $0.left.right.equalToSuperview().inset(24)
             $0.height.equalTo(48)
         }

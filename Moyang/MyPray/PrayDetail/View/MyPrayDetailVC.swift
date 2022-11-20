@@ -150,7 +150,6 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         headerView.vm = vm
         headerView.disposeBag = disposeBag
         headerView.bind()
-        headerView.bindViews()
     }
     
     private func setupBottomView() {
