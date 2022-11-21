@@ -80,7 +80,7 @@ extension MyPrayCoordinator: MyPrayDetailVCDelegate {
         }
     }
     
-    func didTapPrayButton(vm: GroupPrayingVM) {
+    func didTapPrayButton(vm: MyPrayPrayingVM) {
         
     }
 }

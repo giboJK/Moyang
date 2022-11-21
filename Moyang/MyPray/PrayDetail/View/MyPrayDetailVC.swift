@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import RxGesture
 
-class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRecognizerDelegate {
+class MyPrayDetailVC: UIViewController, VCType {
     typealias VM = MyPrayDetailVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
@@ -47,6 +47,17 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
         $0.isScrollEnabled = true
     }
     let bottomView = MyPrayBottomView()
+    
+    let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .sheepGhost).then {
+        $0.desc = "다른 사람의 기도문을 정말로 삭제하시겠어요?"
+        $0.firstButton.setTitle("삭제", for: .normal)
+        $0.secondButton.setTitle("취소", for: .normal)
+    }
+    
+    let cantEditPopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
+        $0.desc = "다른 사람의 기도문은 수정할 수 없어요."
+        $0.firstButton.setTitle("확인", for: .normal)
+    }
     
     let indicator = UIActivityIndicatorView(style: .large).then {
         $0.hidesWhenStopped = true
@@ -215,13 +226,38 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
             .subscribe(onNext: { [weak self] _ in
                 self?.view.endEditing(true)
             }).disposed(by: disposeBag)
+        
+        cantEditPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        deleteConfirmPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        deleteConfirmPopup.secondButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         
-        let input = VM.Input()
+        let input = VM.Input(startPray: bottomView.prayButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
+        
+        output.isNetworking
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isNetworking in
+                if isNetworking {
+                    self?.indicator.startAnimating()
+                } else {
+                    self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
         
         output.updatePraySuccess
             .skip(1)
@@ -248,10 +284,62 @@ class MyPrayDetailVC: UIViewController, VCType, UITableViewDelegate, UIGestureRe
             .drive(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
+        
+        output.canEditPopup
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.cantEditPopup)
+            }).disposed(by: disposeBag)
+        
+        output.deleteConfirmPopup
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.deleteConfirmPopup)
+            }).disposed(by: disposeBag)
+        
+        output.prayingVM
+            .drive(onNext: { [weak self] prayingVM in
+                guard let prayingVM = prayingVM else { return }
+                self?.coordinator?.didTapPrayButton(vm: prayingVM)
+            }).disposed(by: disposeBag)
+    }
+}
+
+extension MyPrayDetailVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title:  "수정",
+                                        handler: { [weak self] (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            success(true)
+            self?.vm?.checkCanEdit(indexPath: indexPath)
+        })
+        
+        action.image = UIImage(named: "")
+        action.backgroundColor = UIColor.nightSky4
+        
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if indexPath.row == 0 {
+            return nil
+        }
+        
+        let action = UIContextualAction(style: .normal, title:  "삭제",
+                                        handler: { [weak self] (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            success(true)
+            self?.vm?.checkCanDelete(indexPath: indexPath)
+        })
+        
+        action.image = UIImage(named: "")
+        action.backgroundColor = UIColor.red
+        
+        return UISwipeActionsConfiguration(actions: [action])
     }
 }
 
 protocol MyPrayDetailVCDelegate: AnyObject {
     func didTapMoreButton(vm: MyPrayDetailVM)
-    func didTapPrayButton(vm: GroupPrayingVM)
+    func didTapPrayButton(vm: MyPrayPrayingVM)
 }

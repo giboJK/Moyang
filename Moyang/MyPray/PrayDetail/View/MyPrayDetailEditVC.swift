@@ -32,7 +32,7 @@ class MyPrayDetailEditVC: UIViewController, VCType {
         $0.secondButton.setTitle("취소", for: .normal)
     }
     let deleteFailurePopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
-        $0.desc = "삭제에 실패하였습니다. 잠시 후 다시 시도해주세요/"
+        $0.desc = "삭제에 실패하였습니다. 잠시 후 다시 시도해주세요."
         $0.firstButton.setTitle("확인", for: .normal)
     }
     
@@ -124,6 +124,16 @@ class MyPrayDetailEditVC: UIViewController, VCType {
                              deletePray: deleteConfirmPopup.firstButton.rx.tap.asDriver()
         )
         let output = vm.transform(input: input)
+        
+        output.isNetworking
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isNetworking in
+                if isNetworking {
+                    self?.indicator.startAnimating()
+                } else {
+                    self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
         
         output.isSaveEnabled
             .drive(saveButton.rx.isEnabled)

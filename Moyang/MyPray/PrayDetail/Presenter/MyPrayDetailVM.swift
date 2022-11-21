@@ -15,6 +15,7 @@ class MyPrayDetailVM: VMType {
     
     var initialCategory: String?
     var initialGroup: String?
+
     
     var newContentType: ContentItemType = .change
     
@@ -36,7 +37,13 @@ class MyPrayDetailVM: VMType {
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
+    let canEditPopup = BehaviorRelay<Void>(value: ())
+    let deleteConfirmPopup = BehaviorRelay<Void>(value: ())
+    
     let isNetworking = BehaviorRelay<Bool>(value: false)
+    
+    // MARK: - VM
+    let prayingVM = BehaviorRelay<MyPrayPrayingVM?>(value: nil)
     
     
     init(useCase: MyPrayUseCase) {
@@ -161,6 +168,28 @@ class MyPrayDetailVM: VMType {
         newContentType = type
         newContentTypeString.accept(newContentType.typeStr)
     }
+    
+    func checkCanEdit(indexPath: IndexPath) {
+        let list = contentItemList.value
+        if list[indexPath.row].type == .reply {
+            canEditPopup.accept(())
+        } else {
+            
+        }
+    }
+    
+    func checkCanDelete(indexPath: IndexPath) {
+        let list = contentItemList.value
+        if list[indexPath.row].type == .reply {
+            deleteConfirmPopup.accept(())
+        } else {
+            
+        }
+    }
+    
+    private func createPrayingVM() {
+        
+    }
 }
 
 extension MyPrayDetailVM {
@@ -169,13 +198,11 @@ extension MyPrayDetailVM {
         var setGroup: Driver<String?> = .empty()
         var updatePray: Driver<Void> = .empty()
         var resetChange: Driver<Void> = .empty()
-        
-        var deleteItem: Driver<IndexPath> = .empty()
         var deletePray: Driver<Void> = .empty()
+
+        var deleteItem: Driver<IndexPath> = .empty()
         
         var startPray: Driver<Void> = .empty()
-        
-        var setType: Driver<Int> = .empty()
     }
 
     struct Output {
@@ -196,7 +223,13 @@ extension MyPrayDetailVM {
         let deletePraySuccess: Driver<Void>
         let deletePrayFailure: Driver<Void>
         
+        let canEditPopup: Driver<Void>
+        let deleteConfirmPopup: Driver<Void>
+        
         let isNetworking: Driver<Bool>
+        
+        // MARK: - VM
+        let prayingVM: Driver<MyPrayPrayingVM?>
         
     }
 
@@ -238,6 +271,10 @@ extension MyPrayDetailVM {
                 self?.deletePray()
             }).disposed(by: disposeBag)
         
+        input.startPray
+            .drive(onNext: { [weak self] _ in
+                self?.createPrayingVM()
+            }).disposed(by: disposeBag)
         
         return Output(
             category: category.asDriver(),
@@ -253,7 +290,12 @@ extension MyPrayDetailVM {
             deletePraySuccess: deletePraySuccess.asDriver(),
             deletePrayFailure: deletePrayFailure.asDriver(),
             
-            isNetworking: isNetworking.asDriver()
+            canEditPopup: canEditPopup.asDriver(),
+            deleteConfirmPopup: deleteConfirmPopup.asDriver(),
+            
+            isNetworking: isNetworking.asDriver(),
+            
+            prayingVM: prayingVM.asDriver()
         )
     }
 }
