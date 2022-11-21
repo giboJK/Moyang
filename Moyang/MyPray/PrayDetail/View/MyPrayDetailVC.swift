@@ -187,6 +187,14 @@ class MyPrayDetailVC: UIViewController, VCType {
         self.present(alert, animated: true)
     }
     
+    private func showFixVC() {
+        let vc = MyPrayFixVC()
+        vc.vm = self.vm
+        vc.modalPresentationStyle = .pageSheet
+        present(vc, animated: true)
+    }
+    
+    
     // MARK: - Binding
     func bind() {
         bindViews()
