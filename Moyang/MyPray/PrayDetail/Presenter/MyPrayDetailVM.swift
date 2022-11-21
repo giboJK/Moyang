@@ -112,7 +112,7 @@ class MyPrayDetailVM: VMType {
             itemList.append(ContentItem(change: change, name: data.userName))
         }
         for answer in data.answers {
-            itemList.append(ContentItem(answer: answer, name: data.userName))
+            itemList.append(ContentItem(answer: answer))
         }
         for reply in data.replys {
             itemList.append(ContentItem(reply: reply))
@@ -364,11 +364,11 @@ extension MyPrayDetailVM {
             type = .change
         }
         
-        init(answer: PrayAnswer, name: String) {
+        init(answer: PrayAnswer) {
             id = answer.id
             content = answer.answer
             date = answer.date
-            self.name = name
+            name = "주님"
             type = .answer
         }
         

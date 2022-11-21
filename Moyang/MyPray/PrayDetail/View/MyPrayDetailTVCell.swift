@@ -15,6 +15,7 @@ import RxSwift
 class MyPrayDetailTVCell: UITableViewCell {
     let bubbleRImageView = UIImageView().then { $0.isHidden = true }
     let bubbleLImageView = UIImageView().then { $0.isHidden = true }
+    let bubbleLOtherImageView = UIImageView().then { $0.isHidden = true }
     let contentLabel = MoyangLabel().then {
         $0.textColor = .nightSky1
         $0.font = .b02
@@ -50,6 +51,7 @@ class MyPrayDetailTVCell: UITableViewCell {
         setupContentLabel()
         setupBubbleRImageView()
         setupBubbleLImageView()
+        setupBubbleLOtherImageView()
         setupDateLabel()
         setupNameLabel()
         contentView.bringSubviewToFront(contentLabel)
@@ -74,6 +76,14 @@ class MyPrayDetailTVCell: UITableViewCell {
             $0.top.bottom.equalToSuperview().inset(4)
         }
     }
+    private func setupBubbleLOtherImageView() {
+        contentView.addSubview(bubbleLOtherImageView)
+        bubbleLOtherImageView.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(16)
+            $0.right.equalTo(contentLabel).offset(8)
+            $0.top.bottom.equalToSuperview().inset(4)
+        }
+    }
     private func setupNameLabel() {
         contentView.addSubview(nameLabel)
     }
@@ -84,7 +94,7 @@ class MyPrayDetailTVCell: UITableViewCell {
     func updateUI(type: MyPrayDetailVM.ContentItemType) {
         let isMe = type == .startPray || type == .change
         updateContentLabelUI(isMe: isMe)
-        updateBubbleImageView(isMe: isMe)
+        updateBubbleImageView(isMe: isMe, isOther: type == .reply)
         updateDateAndNameLabel(isMe: isMe)
     }
     
@@ -102,10 +112,12 @@ class MyPrayDetailTVCell: UITableViewCell {
             $0.top.bottom.equalToSuperview().inset(12)
         }
     }
-    private func updateBubbleImageView(isMe: Bool) {
-        bubbleLImageView.isHidden = isMe
+    private func updateBubbleImageView(isMe: Bool, isOther: Bool) {
+        bubbleLImageView.isHidden = isMe && isOther
+        bubbleLOtherImageView.isHidden = isMe && !isOther
+        
         bubbleRImageView.isHidden = !isMe
-        changeImage(isMe: isMe)
+        changeImage(isMe: isMe, isOther: isOther)
     }
     private func updateDateAndNameLabel(isMe: Bool) {
         dateLabel.snp.remakeConstraints {
@@ -127,15 +139,24 @@ class MyPrayDetailTVCell: UITableViewCell {
             
         }
     }
-    private func changeImage(isMe: Bool) {
+    private func changeImage(isMe: Bool, isOther: Bool) {
         if isMe {
             let inset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 28)
             bubbleRImageView.image = Asset.Images.Pray.bubbleR.image.resizableImage(withCapInsets: inset,
                                                                                     resizingMode: .stretch)
+            contentLabel.textColor = .nightSky1
         } else {
-            let inset = UIEdgeInsets(top: 20, left: 28, bottom: 20, right: 20)
-            bubbleLImageView.image = Asset.Images.Pray.bubbleL.image.resizableImage(withCapInsets: inset,
-                                                                                    resizingMode: .stretch)
+            if isOther {
+                let inset = UIEdgeInsets(top: 20, left: 28, bottom: 20, right: 20)
+                bubbleLOtherImageView.image = Asset.Images.Pray.bubbleLOther.image.resizableImage(withCapInsets: inset,
+                                                                                                  resizingMode: .stretch)
+                contentLabel.textColor = .nightSky1
+            } else {
+                let inset = UIEdgeInsets(top: 20, left: 28, bottom: 20, right: 20)
+                bubbleLImageView.image = Asset.Images.Pray.bubbleL.image.resizableImage(withCapInsets: inset,
+                                                                                        resizingMode: .stretch)
+                contentLabel.textColor = .sheep1
+            }
         }
     }
 }

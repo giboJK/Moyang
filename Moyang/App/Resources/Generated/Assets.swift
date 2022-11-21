@@ -50,6 +50,7 @@ public enum Asset {
     }
     public enum Pray {
       public static let bubbleL = ImageAsset(name: "bubbleL")
+      public static let bubbleLOther = ImageAsset(name: "bubbleLOther")
       public static let bubbleR = ImageAsset(name: "bubbleR")
       public static let comment = ImageAsset(name: "comment")
     }
