@@ -49,7 +49,7 @@ class MyPrayDetailVC: UIViewController, VCType {
     let bottomView = MyPrayBottomView()
     
     let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .sheepGhost).then {
-        $0.desc = "다른 사람의 기도문을 정말로 삭제하시겠어요?"
+        $0.desc = "정말로 다른 사람의 기도문이 보이지 않도록 하시겠어요?"
         $0.firstButton.setTitle("삭제", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
     }

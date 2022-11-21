@@ -276,6 +276,14 @@ class MyPrayUseCase {
         }
     }
     
+    func deleteAnswer() {
+        
+    }
+    
+    func deleteChange() {
+        
+    }
+    
     
     // MARK: - Firestore
     func loadSong() {
