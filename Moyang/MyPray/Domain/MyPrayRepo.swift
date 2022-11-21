@@ -25,6 +25,10 @@ protocol MyPrayRepo {
     // MARK: - Delete
     func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
+    func deleteChange(changeID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    
+    func deleteAnswer(answerID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    
     
     // MARK: - Fetch
     func fetchPrayDetail(prayID: String, completion: ((Result<PrayDetailResponse, MoyangError>) -> Void)?)

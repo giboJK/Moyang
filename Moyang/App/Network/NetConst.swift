@@ -56,6 +56,8 @@ class NetConst {
         /// post
         static let deletePray = "/pray/delete_pray"
         static let deleteReply = "/pray/delete_reply"
+        static let deleteChange = "/pray/delete_change"
+        static let deleteAnswer = "/pray/delete_answer"
         
         /// post
         static let fetchPrayList = "/pray/fetch_pray_list"

@@ -276,12 +276,46 @@ class MyPrayUseCase {
         }
     }
     
-    func deleteAnswer() {
-        
+    func deleteAnswer(answewrID: String) {
+        if checkAndSetIsNetworking() { return }
+        repo.deleteAnswer(answerID: answewrID) { [weak self] result in
+            self?.resetIsNetworking()
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    var cur = self?.prayDetail.value!
+                    var answers = cur!.answers
+                    answers.removeAll { $0.id == answewrID }
+                    cur?.answers = answers
+                    self?.prayDetail.accept(cur)
+                } else {
+                    
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
     }
     
-    func deleteChange() {
-        
+    func deleteChange(changeID: String) {
+        if checkAndSetIsNetworking() { return }
+        repo.deleteChange(changeID: changeID) { [weak self] result in
+            self?.resetIsNetworking()
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    var cur = self?.prayDetail.value!
+                    var changes = cur!.changes
+                    changes.removeAll { $0.id == changeID }
+                    cur?.changes = changes
+                    self?.prayDetail.accept(cur)
+                } else {
+                    
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
     }
     
     

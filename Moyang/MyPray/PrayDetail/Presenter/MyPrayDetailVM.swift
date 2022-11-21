@@ -169,9 +169,9 @@ class MyPrayDetailVM: VMType {
         case .reply:
             Log.e("")
         case .change:
-            Log.d("")
+            useCase.deleteChange(changeID: item.id)
         case .answer:
-            Log.i("")
+            useCase.deleteAnswer(answewrID: item.id)
         }
     }
     
