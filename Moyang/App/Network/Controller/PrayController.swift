@@ -46,10 +46,9 @@ extension PrayController: MyPrayRepo {
     }
     
     
-    func addAnswer(userID: String, prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?) {
+    func addAnswer(prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.addAnswer)
-        let dict: [String: Any] = ["user_id": userID,
-                                   "pray_id": prayID,
+        let dict: [String: Any] = ["pray_id": prayID,
                                    "answer": answer]
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
@@ -66,10 +65,10 @@ extension PrayController: MyPrayRepo {
         }
     }
     
-    func addChange(prayID: String, content: String, completion: ((Result<AddPrayChangeResponse, MoyangError>) -> Void)?) {
+    func addChange(prayID: String, change: String, completion: ((Result<AddPrayChangeResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.PrayAPI.addChange)
         let dict: [String: Any] = ["pray_id": prayID,
-                                   "content": content]
+                                   "change": change]
         let request = networkService.makeRequest(url: url,
                                                  method: .post,
                                                  parameters: dict)

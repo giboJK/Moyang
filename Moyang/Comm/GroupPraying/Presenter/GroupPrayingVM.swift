@@ -30,7 +30,6 @@ class GroupPrayingVM: VMType {
     let amenSuccess = BehaviorRelay<Void>(value: ())
     let isAmenEnable = BehaviorRelay<Bool>(value: false)
     
-    let prayPlusAndChangeVM = BehaviorRelay<AddReplyAndChangeVM?>(value: nil)
     
     private var player: AVAudioPlayer?
     private var url: URL?
@@ -194,7 +193,6 @@ extension GroupPrayingVM {
         let prayingTimeStr: Driver<String>
         let amenSuccess: Driver<Void>
         let isAmenEnable: Driver<Bool>
-        let prayPlusAndChangeVM: Driver<AddReplyAndChangeVM?>
     }
     
     func transform(input: Input) -> Output {
@@ -211,29 +209,16 @@ extension GroupPrayingVM {
         input.addPrayPlus
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
-                                                                    bibleUseCase: self.bibleUseCase,
-                                                                    prayID: self.prayID,
-                                                                    userID: self.userID))
             }).disposed(by: disposeBag)
         
         input.addChange
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
-                                                                    bibleUseCase: self.bibleUseCase,
-                                                                    prayID: self.prayID,
-                                                                    userID: self.userID))
             }).disposed(by: disposeBag)
         
         input.addAnswer
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.prayPlusAndChangeVM.accept(AddReplyAndChangeVM(useCase: self.useCase,
-                                                                    bibleUseCase: self.bibleUseCase,
-                                                                    prayID: self.prayID,
-                                                                    userID: self.userID,
-                                                                    isAnswer: true))
             }).disposed(by: disposeBag)
         
         return Output(selectedMemberName: selectedMemberName.asDriver(),
@@ -243,8 +228,7 @@ extension GroupPrayingVM {
                       isMe: isMe.asDriver(),
                       prayingTimeStr: prayingTimeStr.asDriver(),
                       amenSuccess: amenSuccess.asDriver(),
-                      isAmenEnable: isAmenEnable.asDriver(),
-                      prayPlusAndChangeVM: prayPlusAndChangeVM.asDriver()
+                      isAmenEnable: isAmenEnable.asDriver()
         )
     }
     

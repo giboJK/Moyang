@@ -16,6 +16,8 @@ class MyPrayDetailVM: VMType {
     var initialCategory: String?
     var initialGroup: String?
 
+    var itemToDelete: IndexPath?
+    var itemToEdit: IndexPath?
     
     var newContentType: ContentItemType = .change
     
@@ -23,6 +25,8 @@ class MyPrayDetailVM: VMType {
     let groupName = BehaviorRelay<String?>(value: "")
     let category = BehaviorRelay<String?>(value: nil)
     let groupList = BehaviorRelay<[GroupInfo]>(value: [])
+    let newContent = BehaviorRelay<String?>(value: nil)
+    
     // Content, Anser, Change
     let contentItemList = BehaviorRelay<[ContentItem]>(value: [])
     let newContentTypeString = BehaviorRelay<String>(value: ContentItemType.change.typeStr)
@@ -156,8 +160,19 @@ class MyPrayDetailVM: VMType {
         isSaveEnabled.accept(false)
     }
     
-    private func deleteItem(index: IndexPath) {
-        
+    private func deleteItem() {
+        guard let index = itemToDelete else { return }
+        let item = contentItemList.value[index.row]
+        switch item.type {
+        case .startPray:
+            break
+        case .reply:
+            Log.e("")
+        case .change:
+            Log.d("")
+        case .answer:
+            Log.i("")
+        }
     }
     
     private func deletePray() {
@@ -174,7 +189,7 @@ class MyPrayDetailVM: VMType {
         if list[indexPath.row].type == .reply {
             canEditPopup.accept(())
         } else {
-            
+            itemToEdit = indexPath
         }
     }
     
@@ -183,12 +198,25 @@ class MyPrayDetailVM: VMType {
         if list[indexPath.row].type == .reply {
             deleteConfirmPopup.accept(())
         } else {
-            
+            itemToDelete = indexPath
+            deleteItem()
         }
     }
     
     private func createPrayingVM() {
         
+    }
+    
+    private func addNew() {
+        guard let new = newContent.value else { Log.e("No data"); return }
+        switch newContentType {
+        case .change:
+            useCase.addChange(change: new)
+        case .answer:
+            useCase.addAnswer(answer: new)
+        default:
+            break
+        }
     }
 }
 
@@ -200,9 +228,11 @@ extension MyPrayDetailVM {
         var resetChange: Driver<Void> = .empty()
         var deletePray: Driver<Void> = .empty()
 
-        var deleteItem: Driver<IndexPath> = .empty()
+        var deleteItem: Driver<Void> = .empty()
         
         var startPray: Driver<Void> = .empty()
+        var setNew: Driver<String?> = .empty()
+        var addNew: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -263,7 +293,7 @@ extension MyPrayDetailVM {
         
         input.deleteItem
             .drive(onNext: { [weak self] index in
-                self?.deleteItem(index: index)
+                self?.deleteItem()
             }).disposed(by: disposeBag)
         
         input.deletePray
@@ -274,6 +304,15 @@ extension MyPrayDetailVM {
         input.startPray
             .drive(onNext: { [weak self] _ in
                 self?.createPrayingVM()
+            }).disposed(by: disposeBag)
+        
+        input.setNew
+            .drive(newContent)
+            .disposed(by: disposeBag)
+        
+        input.addNew
+            .drive(onNext: { [weak self] _ in
+                self?.addNew()
             }).disposed(by: disposeBag)
         
         return Output(

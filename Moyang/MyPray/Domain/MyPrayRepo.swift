@@ -12,9 +12,9 @@ protocol MyPrayRepo {
     // MARK: - Add
     func addPray(userID: String, category: String, content: String, groupID: String, completion: ((Result<AddPrayResponse, MoyangError>) -> Void)?)
     
-    func addAnswer(userID: String, prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?)
+    func addAnswer(prayID: String, answer: String, completion: ((Result<AddPrayAnswerResponse, MoyangError>) -> Void)?)
     
-    func addChange(prayID: String, content: String, completion: ((Result<AddPrayChangeResponse, MoyangError>) -> Void)?)
+    func addChange(prayID: String, change: String, completion: ((Result<AddPrayChangeResponse, MoyangError>) -> Void)?)
     
     func addPrayGroupInfo(groupID: String, prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     

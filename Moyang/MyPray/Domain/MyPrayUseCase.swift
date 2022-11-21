@@ -72,10 +72,54 @@ class MyPrayUseCase {
         }
     }
     
-    func addAnswer(prayID: String, answer: String) {
+    func addAnswer(answer: String) {
+        guard let prayID = prayDetail.value?.prayID else { Log.e("No pray ID"); return }
+        addAnswer(prayID: prayID, answer: answer)
     }
     
-    func addChange(prayID: String, content: String) {
+    func addChange(change: String) {
+        guard let prayID = prayDetail.value?.prayID else { Log.e("No pray ID"); return }
+        addChange(prayID: prayID, change: change)
+    }
+    
+    private func addAnswer(prayID: String, answer: String) {
+        if checkAndSetIsNetworking() { return }
+        repo.addAnswer(prayID: prayID, answer: answer) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    var cur = self.prayDetail.value!
+                    cur.answers.append(response.data)
+                    self.prayDetail.accept(cur)
+                } else {
+                    Log.e(response.errorMessage ?? "")
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
+    }
+    
+    private func addChange(prayID: String, change: String) {
+        if checkAndSetIsNetworking() { return }
+        repo.addChange(prayID: prayID, change: change) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    var cur = self.prayDetail.value!
+                    cur.changes.append(response.data)
+                    self.prayDetail.accept(cur)
+                } else {
+                    Log.e(response.errorMessage ?? "")
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
     }
     
     func addPrayGroupInfo(groupID: String, prayID: String) {

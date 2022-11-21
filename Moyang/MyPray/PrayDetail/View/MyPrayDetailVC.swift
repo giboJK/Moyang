@@ -246,7 +246,10 @@ class MyPrayDetailVC: UIViewController, VCType {
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         
-        let input = VM.Input(startPray: bottomView.prayButton.rx.tap.asDriver())
+        let addNew = bottomView.textView.saveImageView.rx.tapGesture().when(.ended).map({ _ in ()}).asDriver(onErrorJustReturn: ())
+        let input = VM.Input(startPray: bottomView.prayButton.rx.tap.asDriver(),
+                             setNew: bottomView.textView.textView.rx.text.asDriver(),
+                             addNew: addNew)
         let output = vm.transform(input: input)
         
         output.isNetworking

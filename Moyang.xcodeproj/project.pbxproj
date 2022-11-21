@@ -101,8 +101,6 @@
 		08FDCADE28F7BFCC00EDDA10 /* NewNoteTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FDCADD28F7BFCC00EDDA10 /* NewNoteTagCVCell.swift */; };
 		176298367FB9301245178345 /* Pods_MoyangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBEE8B8AC07D3451E88B65C /* Pods_MoyangTests.framework */; };
 		2409170729016A7900905A38 /* NoteMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2409170629016A7900905A38 /* NoteMainVC.swift */; };
-		240946D028707379003AEDAD /* AddReplyAndChangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240946CF28707379003AEDAD /* AddReplyAndChangeVC.swift */; };
-		240946D3287073FE003AEDAD /* AddReplyAndChangeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240946D2287073FE003AEDAD /* AddReplyAndChangeVM.swift */; };
 		24126C8A285D68EC00E8282B /* PrayReactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24126C89285D68EC00E8282B /* PrayReactionView.swift */; };
 		24126C8C285D7B5A00E8282B /* ReactionPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24126C8B285D7B5A00E8282B /* ReactionPopupView.swift */; };
 		2416F8F12903DE8800152101 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2416F8F02903DE8800152101 /* Fonts.swift */; };
@@ -346,8 +344,6 @@
 		08FDCADD28F7BFCC00EDDA10 /* NewNoteTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteTagCVCell.swift; sourceTree = "<group>"; };
 		1920D411DE996472D48943BE /* Pods_Moyang_MoyangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moyang_MoyangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2409170629016A7900905A38 /* NoteMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteMainVC.swift; sourceTree = "<group>"; };
-		240946CF28707379003AEDAD /* AddReplyAndChangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReplyAndChangeVC.swift; sourceTree = "<group>"; };
-		240946D2287073FE003AEDAD /* AddReplyAndChangeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReplyAndChangeVM.swift; sourceTree = "<group>"; };
 		24126C89285D68EC00E8282B /* PrayReactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayReactionView.swift; sourceTree = "<group>"; };
 		24126C8B285D7B5A00E8282B /* ReactionPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPopupView.swift; sourceTree = "<group>"; };
 		2416F8F02903DE8800152101 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -975,15 +971,6 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		240946CD28707361003AEDAD /* AddReplyAndChange */ = {
-			isa = PBXGroup;
-			children = (
-				240946CF28707379003AEDAD /* AddReplyAndChangeVC.swift */,
-				240946D2287073FE003AEDAD /* AddReplyAndChangeVM.swift */,
-			);
-			path = AddReplyAndChange;
-			sourceTree = "<group>";
-		};
 		241CFBB128CC83FE003D8EBD /* MyPray */ = {
 			isa = PBXGroup;
 			children = (
@@ -1134,7 +1121,6 @@
 			children = (
 				089E8A1927AF52A600640A39 /* Domain */,
 				246BD7A427240A96005C4E0B /* Presenter */,
-				240946CD28707361003AEDAD /* AddReplyAndChange */,
 				08D2FD98286EE29C00ED8ECB /* PrayReaction */,
 				24E4DC35284C2CFF002ECD83 /* GroupPraying */,
 			);
@@ -1888,7 +1874,6 @@
 				086ADDD928D19849007A95F2 /* AlarmSetVM.swift in Sources */,
 				24E0AB2C283E73F800F52505 /* CommunityMainRepo.swift in Sources */,
 				2498F907287C4F60007EF510 /* IntroAssembly.swift in Sources */,
-				240946D3287073FE003AEDAD /* AddReplyAndChangeVM.swift in Sources */,
 				2447788428FEBDD300DD7499 /* MyPrayAssembly.swift in Sources */,
 				08F941FA289BA0E8003751F1 /* MyPrayDetailVC.swift in Sources */,
 				086ADDDB28D19861007A95F2 /* AlarmCoordinator.swift in Sources */,
@@ -1914,7 +1899,6 @@
 				24DB53BB27479DAA00F861EC /* UINavigationController+.swift in Sources */,
 				241AF7CF28E46BC10085515B /* ProfileAssembly.swift in Sources */,
 				08E92825291B7DFB009D67AE /* MyPrayListTVCell.swift in Sources */,
-				240946D028707379003AEDAD /* AddReplyAndChangeVC.swift in Sources */,
 				08D2FD97286EE27300ED8ECB /* PrayReactionDetailVM.swift in Sources */,
 				2447788B28FEBEA500DD7499 /* MyPrayMainVM.swift in Sources */,
 				24E0AB21283D228A00F52505 /* UIView+.swift in Sources */,
