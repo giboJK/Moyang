@@ -82,9 +82,10 @@ class MyPrayDetailTVCell: UITableViewCell {
     }
     
     func updateUI(type: MyPrayDetailVM.ContentItemType) {
-        updateContentLabelUI(isMe: type == .startPray)
-        updateBubbleImageView(isMe: type == .startPray)
-        updateDateAndNameLabel(isMe: type == .startPray)
+        let isMe = type == .startPray || type == .change
+        updateContentLabelUI(isMe: isMe)
+        updateBubbleImageView(isMe: isMe)
+        updateDateAndNameLabel(isMe: isMe)
     }
     
     private func updateContentLabelUI(isMe: Bool) {
