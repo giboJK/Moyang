@@ -178,16 +178,25 @@ class MyPrayUseCase {
         if checkAndSetIsNetworking() { return }
         repo.updatePray(prayID: prayID, category: category, content: content, groupID: groupID) { [weak self] result in
             self?.resetIsNetworking()
+            guard let self = self else { return }
             switch result {
             case .success(let response):
                 if response.code == 0 {
-                    self?.updatePraySuccess.accept(())
+                    self.updatePraySuccess.accept(())
+                    var cur = self.prayDetail.value
+                    cur?.category = category
+                    
+                    if let group = self.myGroupList.value.first(where: { $0.id == groupID }) {
+                        cur?.groupID = groupID
+                        cur?.groupName = group.name
+                    }
+                    self.prayDetail.accept(cur)
                 } else {
-                    self?.updatePrayFailure.accept(())
+                    self.updatePrayFailure.accept(())
                 }
             case .failure(let error):
                 Log.e(error)
-                self?.addPrayFailure.accept(())
+                self.addPrayFailure.accept(())
             }
         }
     }

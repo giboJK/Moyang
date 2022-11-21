@@ -9,8 +9,8 @@ struct PrayDetail: Codable {
     let prayID: String
     let userID: String
     let userName: String
-    let groupID: String?
-    let groupName: String?
+    var groupID: String?
+    var groupName: String?
     var category: String
     var content: String
     var latestDate: String

@@ -50,12 +50,14 @@ extension MyPrayCoordinator: MyPrayMainVCDelegate {
     }
     
     func didTapPray(vm: MyPrayDetailVM) {
-        if let vc = assembler.resolver.resolve(MyPrayDetailVC.self) {
-            vc.vm = vm
-            vc.coordinator = self
-            nav.pushViewController(vc, animated: true)
-        } else {
-            Log.e("")
+        if let topVC = nav.topViewController, topVC is MainVC {
+            if let vc = assembler.resolver.resolve(MyPrayDetailVC.self) {
+                vc.vm = vm
+                vc.coordinator = self
+                nav.pushViewController(vc, animated: true)
+            } else {
+                Log.e("")
+            }
         }
     }
     
