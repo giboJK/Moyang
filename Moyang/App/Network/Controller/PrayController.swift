@@ -129,6 +129,51 @@ extension PrayController: MyPrayRepo {
         }
     }
     
+    
+    func updateChange(changeID: String, change: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.updateChange)
+        let dict: [String: Any] = ["change_id": changeID,
+                                   "change": change
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil,
+                                  encoding: JSONEncoding.default) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
+    func updateAnswer(answerID: String, answer: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.updateAnswer)
+        let dict: [String: Any] = ["answer_id": answerID,
+                                   "answer": answer
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil,
+                                  encoding: JSONEncoding.default) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
+    
+    
     // MARK: - Delete
     
     func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {

@@ -32,6 +32,13 @@ class MyPrayUseCase {
     let addAnswerSuccess = BehaviorRelay<Void>(value: ())
     let addAnswerFailure = BehaviorRelay<Void>(value: ())
     
+    // MyPrayFixVC
+    let updateChangeSuccess = BehaviorRelay<Void>(value: ())
+    let updateChangeFailure = BehaviorRelay<Void>(value: ())
+    let updateAnswerSuccess = BehaviorRelay<Void>(value: ())
+    let updateAnswerFailure = BehaviorRelay<Void>(value: ())
+    
+    
     // MARK: - State
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
@@ -241,6 +248,58 @@ class MyPrayUseCase {
             case .failure(let error):
                 Log.e(error)
                 self.addPrayFailure.accept(())
+            }
+        }
+    }
+    
+    func updateChange(changeID: String, change: String) {
+        if checkAndSetIsNetworking() { return }
+        repo.updateChange(changeID: changeID, change: change) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    var cur = self.prayDetail.value!
+                    var changes = cur.changes
+                    if let index = changes.firstIndex(where: { $0.id == changeID }) {
+                        changes[index].content = change
+                        cur.changes = changes
+                    }
+                    self.prayDetail.accept(cur)
+                    self.updateChangeSuccess.accept(())
+                } else {
+                    self.updateChangeFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.updateChangeFailure.accept(())
+            }
+        }
+    }
+    
+    func updateAnswer(answerID: String, answer: String) {
+        if checkAndSetIsNetworking() { return }
+        repo.updateAnswer(answerID: answerID, answer: answer) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    var cur = self.prayDetail.value!
+                    var answers = cur.answers
+                    if let index = answers.firstIndex(where: { $0.id == answerID }) {
+                        answers[index].answer = answer
+                        cur.answers = answers
+                    }
+                    self.prayDetail.accept(cur)
+                    self.updateAnswerSuccess.accept(())
+                } else {
+                    self.updateAnswerFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.updateAnswerFailure.accept(())
             }
         }
     }

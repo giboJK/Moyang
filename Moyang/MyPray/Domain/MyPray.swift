@@ -26,7 +26,7 @@ struct MyPray: Codable {
 
 struct PrayChange: Codable {
     let id: String
-    let content: String
+    var content: String
     let date: String
     
     enum CodingKeys: String, CodingKey {
@@ -39,7 +39,7 @@ struct PrayChange: Codable {
 struct PrayAnswer: Codable {
     let id: String
     let prayID: String
-    let answer: String
+    var answer: String
     let date: String
     
     enum CodingKeys: String, CodingKey {

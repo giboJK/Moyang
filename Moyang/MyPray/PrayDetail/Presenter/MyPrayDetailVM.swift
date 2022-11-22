@@ -15,7 +15,7 @@ class MyPrayDetailVM: VMType {
     
     var initialCategory: String?
     var initialGroup: String?
-
+    
     var itemToDelete: IndexPath?
     var itemToEdit: IndexPath?
     
@@ -48,6 +48,12 @@ class MyPrayDetailVM: VMType {
     let canEditPopup = BehaviorRelay<Void>(value: ())
     let deleteConfirmPopup = BehaviorRelay<Void>(value: ())
     let showFixVC = BehaviorRelay<Void>(value: ())
+    
+    // MyPrayFixVC
+    let updateChangeSuccess = BehaviorRelay<Void>(value: ())
+    let updateChangeFailure = BehaviorRelay<Void>(value: ())
+    let updateAnswerSuccess = BehaviorRelay<Void>(value: ())
+    let updateAnswerFailure = BehaviorRelay<Void>(value: ())
     
     
     // MARK: - VM
@@ -95,6 +101,22 @@ class MyPrayDetailVM: VMType {
         
         useCase.deletePrayFailure
             .bind(to: deletePrayFailure)
+            .disposed(by: disposeBag)
+        
+        useCase.updateChangeSuccess
+            .bind(to: updateChangeSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.updateChangeFailure
+            .bind(to: updateChangeFailure)
+            .disposed(by: disposeBag)
+        
+        useCase.updateAnswerSuccess
+            .bind(to: updateAnswerSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.updateAnswerFailure
+            .bind(to: updateAnswerFailure)
             .disposed(by: disposeBag)
         
         useCase.isNetworking
@@ -193,14 +215,6 @@ class MyPrayDetailVM: VMType {
         if list[indexPath.row].type == .reply {
             canEditPopup.accept(())
         } else {
-            Log.e(list[indexPath.row].content)
-            Log.e(list[indexPath.row].content)
-            Log.e(list[indexPath.row].content)
-            Log.e(list[indexPath.row].content)
-            Log.e(list[indexPath.row].content)
-            Log.e(list[indexPath.row].content)
-            Log.e(list[indexPath.row].content)
-            Log.e(list[indexPath.row].content)
             itemToEdit = indexPath
             contentToChange.accept(list[indexPath.row].content)
             showFixVC.accept(())
@@ -234,7 +248,23 @@ class MyPrayDetailVM: VMType {
     }
     
     private func updateChange() {
-        
+        guard let content = contentToChange.value else { Log.e("No data"); return }
+        switch newContentType {
+        case .change:
+            if let index = itemToEdit?.row {
+                let list = contentItemList.value
+                let item = list[index]
+                useCase.updateChange(changeID: item.id, change: content)
+            }
+        case .answer:
+            if let index = itemToEdit?.row {
+                let list = contentItemList.value
+                let item = list[index]
+                useCase.updateAnswer(answerID: item.id, answer: content)
+            }
+        default:
+            break
+        }
     }
 }
 
@@ -245,7 +275,7 @@ extension MyPrayDetailVM {
         var updatePray: Driver<Void> = .empty()
         var resetChange: Driver<Void> = .empty()
         var deletePray: Driver<Void> = .empty()
-
+        
         var deleteItem: Driver<Void> = .empty()
         
         // BottomView
@@ -257,7 +287,7 @@ extension MyPrayDetailVM {
         var setChange: Driver<String?> = .empty()
         var saveChange: Driver<Void> = .empty()
     }
-
+    
     struct Output {
         // MARK: - Data
         let category: Driver<String?>
@@ -284,19 +314,24 @@ extension MyPrayDetailVM {
         let deleteConfirmPopup: Driver<Void>
         let showFixVC: Driver<Void>
         
+        // Fix
+        let updateChangeSuccess: Driver<Void>
+        let updateChangeFailure: Driver<Void>
+        let updateAnswerSuccess: Driver<Void>
+        let updateAnswerFailure: Driver<Void>
         
         // MARK: - VM
         let prayingVM: Driver<MyPrayPrayingVM?>
         
     }
-
+    
     func transform(input: Input) -> Output {
         input.setCategory.skip(1)
             .drive(onNext: { [weak self] category in
                 self?.category.accept(category)
                 self?.checkIsSaveEnabled()
             }).disposed(by: disposeBag)
-
+        
         input.setGroup.skip(1)
             .drive(onNext: { [weak self] group in
                 guard let group = group else { return }
@@ -371,6 +406,11 @@ extension MyPrayDetailVM {
             canEditPopup: canEditPopup.asDriver(),
             deleteConfirmPopup: deleteConfirmPopup.asDriver(),
             showFixVC: showFixVC.asDriver(),
+            
+            updateChangeSuccess: updateChangeSuccess.asDriver(),
+            updateChangeFailure: updateChangeFailure.asDriver(),
+            updateAnswerSuccess: updateAnswerSuccess.asDriver(),
+            updateAnswerFailure: updateAnswerFailure.asDriver(),
             
             prayingVM: prayingVM.asDriver()
         )
