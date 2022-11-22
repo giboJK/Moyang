@@ -286,6 +286,13 @@ class MyPrayDetailVC: UIViewController, VCType {
                     cell.updateUI(type: item.type)
                 }.disposed(by: disposeBag)
         
+        output.contentItemList.map { $0.count }
+            .drive(onNext: { [weak self] count in
+                if count == 0 { return }
+                self?.prayTableView.scrollToRow(at: IndexPath(row: count - 1, section: 0), at: .top, animated: true)
+                self?.bottomView.textView.textView.text = nil
+            }).disposed(by: disposeBag)
+        
         output.newContentTypeString
             .drive(bottomView.typeLabel.rx.text)
             .disposed(by: disposeBag)
@@ -308,6 +315,12 @@ class MyPrayDetailVC: UIViewController, VCType {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.displayPopup(popup: self.deleteConfirmPopup)
+            }).disposed(by: disposeBag)
+        
+        output.showFixVC
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.showFixVC()
             }).disposed(by: disposeBag)
         
         output.prayingVM

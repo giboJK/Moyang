@@ -27,12 +27,16 @@ class MyPrayDetailVM: VMType {
     let groupList = BehaviorRelay<[GroupInfo]>(value: [])
     let newContent = BehaviorRelay<String?>(value: nil)
     
-    // Content, Anser, Change
+    // Content, Answer, Change
     let contentItemList = BehaviorRelay<[ContentItem]>(value: [])
     let newContentTypeString = BehaviorRelay<String>(value: ContentItemType.change.typeStr)
+    let contentToChange = BehaviorRelay<String?>(value: nil)
+    
     
     // MARK: - State
     let isSaveEnabled = BehaviorRelay<Bool>(value: false)
+    let isNetworking = BehaviorRelay<Bool>(value: false)
+    
     
     // MARK: - Events
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
@@ -43,8 +47,8 @@ class MyPrayDetailVM: VMType {
     
     let canEditPopup = BehaviorRelay<Void>(value: ())
     let deleteConfirmPopup = BehaviorRelay<Void>(value: ())
+    let showFixVC = BehaviorRelay<Void>(value: ())
     
-    let isNetworking = BehaviorRelay<Bool>(value: false)
     
     // MARK: - VM
     let prayingVM = BehaviorRelay<MyPrayPrayingVM?>(value: nil)
@@ -189,7 +193,17 @@ class MyPrayDetailVM: VMType {
         if list[indexPath.row].type == .reply {
             canEditPopup.accept(())
         } else {
+            Log.e(list[indexPath.row].content)
+            Log.e(list[indexPath.row].content)
+            Log.e(list[indexPath.row].content)
+            Log.e(list[indexPath.row].content)
+            Log.e(list[indexPath.row].content)
+            Log.e(list[indexPath.row].content)
+            Log.e(list[indexPath.row].content)
+            Log.e(list[indexPath.row].content)
             itemToEdit = indexPath
+            contentToChange.accept(list[indexPath.row].content)
+            showFixVC.accept(())
         }
     }
     
@@ -218,6 +232,10 @@ class MyPrayDetailVM: VMType {
             break
         }
     }
+    
+    private func updateChange() {
+        
+    }
 }
 
 extension MyPrayDetailVM {
@@ -230,9 +248,14 @@ extension MyPrayDetailVM {
 
         var deleteItem: Driver<Void> = .empty()
         
+        // BottomView
         var startPray: Driver<Void> = .empty()
         var setNew: Driver<String?> = .empty()
         var addNew: Driver<Void> = .empty()
+        
+        // MyPrayFixVC
+        var setChange: Driver<String?> = .empty()
+        var saveChange: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -242,9 +265,13 @@ extension MyPrayDetailVM {
         let contentItemList: Driver<[ContentItem]>
         let groupList: Driver<[GroupInfo]>
         let newContentTypeString: Driver<String>
+        let contentToChange: Driver<String?>
+        
         
         // MARK: - State
         let isSaveEnabled: Driver<Bool>
+        let isNetworking: Driver<Bool>
+        
         
         // MARK: - Events
         let updatePraySuccess: Driver<Void>
@@ -255,8 +282,8 @@ extension MyPrayDetailVM {
         
         let canEditPopup: Driver<Void>
         let deleteConfirmPopup: Driver<Void>
+        let showFixVC: Driver<Void>
         
-        let isNetworking: Driver<Bool>
         
         // MARK: - VM
         let prayingVM: Driver<MyPrayPrayingVM?>
@@ -315,14 +342,26 @@ extension MyPrayDetailVM {
                 self?.addNew()
             }).disposed(by: disposeBag)
         
+        input.setChange
+            .skip(1)
+            .drive(contentToChange)
+            .disposed(by: disposeBag)
+        
+        input.saveChange
+            .drive(onNext: { [weak self] _ in
+                self?.updateChange()
+            }).disposed(by: disposeBag)
+        
         return Output(
             category: category.asDriver(),
             groupName: groupName.asDriver(),
             contentItemList: contentItemList.asDriver(),
             groupList: groupList.asDriver(),
             newContentTypeString: newContentTypeString.asDriver(),
+            contentToChange: contentToChange.asDriver(),
             
             isSaveEnabled: isSaveEnabled.asDriver(),
+            isNetworking: isNetworking.asDriver(),
             
             updatePraySuccess: updatePraySuccess.asDriver(),
             updatePrayFailure: updatePrayFailure.asDriver(),
@@ -331,8 +370,7 @@ extension MyPrayDetailVM {
             
             canEditPopup: canEditPopup.asDriver(),
             deleteConfirmPopup: deleteConfirmPopup.asDriver(),
-            
-            isNetworking: isNetworking.asDriver(),
+            showFixVC: showFixVC.asDriver(),
             
             prayingVM: prayingVM.asDriver()
         )
