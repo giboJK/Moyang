@@ -130,28 +130,6 @@ class GroupActivityVC: UIViewController, VCType {
 //                self?.noteMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.worshipNote.rawValue
             }).disposed(by: disposeBag)
     }
-    private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
-        let vc = PrayReactionDetailVC()
-        vc.vm = prayReactionDetailVM
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .pageSheet
-
-        if let sheet = nav.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-        }
-        present(nav, animated: true, completion: nil)
-    }
-    private func showReplyView(prayReplyDetailVM: PrayReplyDetailVM) {
-        let vc = PrayReplyDetailVC()
-        vc.vm = prayReplyDetailVM
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .pageSheet
-
-        if let sheet = nav.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-        }
-        present(nav, animated: true, completion: nil)
-    }
     
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }

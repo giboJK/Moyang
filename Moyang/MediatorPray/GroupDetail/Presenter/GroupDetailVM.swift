@@ -26,12 +26,17 @@ class GroupDetailVM: VMType {
         self.useCase = useCase
         self.groupID = groupID
         bind()
+        fetchGroupDetail()
     }
 
     deinit { Log.i(self) }
 
     private func bind() {
 
+    }
+    
+    private func fetchGroupDetail() {
+        useCase.fetchGroupDetail(groupID: groupID)
     }
 }
 

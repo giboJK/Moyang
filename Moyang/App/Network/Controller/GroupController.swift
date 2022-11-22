@@ -15,29 +15,6 @@ class GroupController {
     }
 }
 
-extension GroupController: CommunityMainRepo {
-    func fetchGroupSummary(myInfo: UserInfo, completion: ((Result<GroupSummary, MoyangError>) -> Void)?) {
-        let url = networkService.makeUrl(path: NetConst.GroupAPI.fetchGroupSummary)
-        let dict = ["user_id": myInfo.id]
-        let request = networkService.makeRequest(url: url,
-                                                 method: .post,
-                                                 parameters: dict)
-        networkService.requestAPI(request: request,
-                                  type: GroupSummary.self,
-                                  token: nil) { result in
-            switch result {
-            case .success(let response):
-                completion?(.success(response))
-            case .failure(let error):
-                completion?(.failure(.other(error)))
-            }
-        }
-    }
-    
-    func fetchGroupInfo(community: String, groupID: String, completion: ((Result<GroupInfo, MoyangError>) -> Void)?) {
-    }
-    
-}
 
 extension GroupController: GroupRepo {
     func registerGroup(userID: String, name: String, desc: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
@@ -115,6 +92,25 @@ extension GroupController: GroupRepo {
                                                  parameters: dict)
         networkService.requestAPI(request: request,
                                   type: GroupEventResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
+    func fetchGroupDetail(groupID: String, completion: ((Result<GroupDetailResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.GroupAPI.fetchGroupDetail)
+        let dict: [String: Any] = ["group_id": groupID]
+        
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: GroupDetailResponse.self,
                                   token: nil) { result in
             switch result {
             case .success(let response):

@@ -36,11 +36,6 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        container.register(GroupPrayingVC.self) { (_, vm: GroupPrayingVM) in
-            let vc = GroupPrayingVC()
-            vc.vm = vm
-            return vc
-        }
         
         container.register(NetworkServiceProtocol.self) { _ in
             AFNetworkService(sessionConfiguration: .default)

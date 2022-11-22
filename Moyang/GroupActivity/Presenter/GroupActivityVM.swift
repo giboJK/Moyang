@@ -30,9 +30,6 @@ class GroupActivityVM: VMType {
     let keyword = BehaviorRelay<String?>(value: nil)
     let autoCompleteList = BehaviorRelay<[String]>(value: [])
     
-    let prayReactionDetailVM = BehaviorRelay<PrayReactionDetailVM?>(value: nil)
-    let prayReplyDetailVM = BehaviorRelay<PrayReplyDetailVM?>(value: nil)
-    
     let groupPrayDetailVM = BehaviorRelay<MyPrayDetailVM?>(value: nil)
     
     // QT

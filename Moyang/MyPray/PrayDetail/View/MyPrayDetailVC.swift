@@ -193,6 +193,17 @@ class MyPrayDetailVC: UIViewController, VCType {
         vc.modalPresentationStyle = .pageSheet
         present(vc, animated: true)
     }
+//    private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
+//        let vc = PrayReactionDetailVC()
+//        vc.vm = prayReactionDetailVM
+//        let nav = UINavigationController(rootViewController: vc)
+//        nav.modalPresentationStyle = .pageSheet
+//
+//        if let sheet = nav.sheetPresentationController {
+//            sheet.detents = [.medium(), .large()]
+//        }
+//        present(nav, animated: true, completion: nil)
+//    }
     
     
     // MARK: - Binding

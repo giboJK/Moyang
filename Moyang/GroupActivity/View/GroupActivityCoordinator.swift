@@ -48,7 +48,3 @@ extension GroupActivityCoordinator: GroupActivityVCDelegate {
         }
     }
 }
-
-extension GroupActivityCoordinator: GroupPrayingVCDelegate {
-    
-}

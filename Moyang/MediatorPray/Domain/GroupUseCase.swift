@@ -17,6 +17,8 @@ class GroupUseCase {
     
     let searchedGroupList = BehaviorRelay<[GroupSearchedInfo]>(value: [])
     
+    // MARK: - GroupDetail
+    let groupDetail = BehaviorRelay<GroupDetail?>(value: nil)
     
     // MARK: - Properties
     var page = 0
@@ -134,7 +136,17 @@ class GroupUseCase {
     }
     
     func fetchGroupDetail(groupID: String) {
-        
+        if checkAndSetIsNetworking() { return }
+        repo.fetchGroupDetail(groupID: groupID) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                self.groupDetail.accept(response.data)
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
     }
     
     private func checkAndSetIsNetworking() -> Bool {
