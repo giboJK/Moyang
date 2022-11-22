@@ -172,7 +172,7 @@ class GroupDetailMoreVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(exitGroup: exitButton.rx.tap.asDriver())
         let output = vm.transform(input: input)
         
         output.isNetworking
