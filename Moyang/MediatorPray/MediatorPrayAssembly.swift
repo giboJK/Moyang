@@ -64,6 +64,15 @@ class MediatorPrayAssembly: Assembly, BaseAssembly {
             return vc
         }
         
+        
+        // MARK: - GroupDetailMoreVC
+        container.register(GroupDetailMoreVC.self) { (r, vm: GroupDetailVM) in
+            let vc = GroupDetailMoreVC()
+            vc.vm = vm
+            
+            return vc
+        }
+        
         // MARK: - GroupUseCase
         container.register(GroupRepo.self) { r in
             GroupController(networkService: r ~> (NetworkServiceProtocol.self))

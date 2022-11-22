@@ -23,7 +23,7 @@ class GroupDetailVC: UIViewController, VCType {
     // MARK: - UI
     let moreButton = UIBarButtonItem(title: "더 보기", style: .plain, target: nil, action: nil)
     let greetingLabel = MoyangLabel().then {
-        $0.text = "인사말"
+        $0.text = "소개글"
         $0.textColor = .wilderness1
         $0.font = .b03
     }
@@ -120,10 +120,15 @@ class GroupDetailVC: UIViewController, VCType {
 
     // MARK: - Binding
     func bind() {
+        bindViews()
         bindVM()
     }
     private func bindViews() {
-
+        moreButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let vm = self?.vm else { return }
+                self?.coordinator?.didTapMoreButton(vm: vm)
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
@@ -133,7 +138,7 @@ class GroupDetailVC: UIViewController, VCType {
 }
 
 protocol GroupDetailVCDelegate: AnyObject {
-    func didTapMoreButton()
+    func didTapMoreButton(vm: GroupDetailVM)
     func didTapNewMediatorButton()
     func didTapRequestMediatorButton()
 }

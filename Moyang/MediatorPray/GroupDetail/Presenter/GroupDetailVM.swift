@@ -37,7 +37,8 @@ class GroupDetailVM: VMType {
 
 extension GroupDetailVM {
     struct Input {
-        let selectUser: Driver<IndexPath>
+        var selectUser: Driver<IndexPath> = .empty()
+        var exitGroup: Driver<Void> = .empty()
     }
 
     struct Output {

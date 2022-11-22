@@ -10,6 +10,7 @@
 		03DE97E4F728930818596A97 /* Pods_Moyang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45781C750B0FFEF1DF6E58AB /* Pods_Moyang.framework */; };
 		0808E5082916569C00E7AB79 /* NSNotification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0808E5072916569C00E7AB79 /* NSNotification+.swift */; };
 		08194BAC292B58250008D72B /* MyPrayFixVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BAB292B58250008D72B /* MyPrayFixVC.swift */; };
+		08194BB0292C7AB80008D72B /* GroupDetailMoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BAF292C7AB80008D72B /* GroupDetailMoreVC.swift */; };
 		081A25C0292A05D500EC16EC /* PrayDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */; };
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
@@ -254,6 +255,7 @@
 /* Begin PBXFileReference section */
 		0808E5072916569C00E7AB79 /* NSNotification+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+.swift"; sourceTree = "<group>"; };
 		08194BAB292B58250008D72B /* MyPrayFixVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayFixVC.swift; sourceTree = "<group>"; };
+		08194BAF292C7AB80008D72B /* GroupDetailMoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailMoreVC.swift; sourceTree = "<group>"; };
 		081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayDetailEditView.swift; sourceTree = "<group>"; };
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
@@ -517,6 +519,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08194BAD292C7AA00008D72B /* GroupDetailMore */ = {
+			isa = PBXGroup;
+			children = (
+				08194BAE292C7AAC0008D72B /* View */,
+			);
+			path = GroupDetailMore;
+			sourceTree = "<group>";
+		};
+		08194BAE292C7AAC0008D72B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				08194BAF292C7AB80008D72B /* GroupDetailMoreVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		086ADDD328D197CA007A95F2 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
@@ -1068,6 +1086,7 @@
 				08E9282D2925A1BD009D67AE /* Domain */,
 				08F082DA290667440042319B /* Main */,
 				08E9282E29260BB0009D67AE /* GroupDetail */,
+				08194BAD292C7AA00008D72B /* GroupDetailMore */,
 				08E928372927554F009D67AE /* GroupSearch */,
 				248C6FEA2923BBAE009587F0 /* NewGroup */,
 			);
@@ -1963,6 +1982,7 @@
 				242F92A12848FD140023324D /* NewPrayVC.swift in Sources */,
 				24DABDA9289180D200DEB6CC /* Int+.swift in Sources */,
 				0880103927AEBB48002E49F0 /* CommunityMainVM.swift in Sources */,
+				08194BB0292C7AB80008D72B /* GroupDetailMoreVC.swift in Sources */,
 				08D5D8B62914D2F200A0CD95 /* MyPraySummary.swift in Sources */,
 				08E9283A29275564009D67AE /* GroupSearchVC.swift in Sources */,
 				0808E5082916569C00E7AB79 /* NSNotification+.swift in Sources */,
