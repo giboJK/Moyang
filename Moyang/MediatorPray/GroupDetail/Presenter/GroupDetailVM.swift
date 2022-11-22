@@ -32,7 +32,21 @@ class GroupDetailVM: VMType {
     deinit { Log.i(self) }
 
     private func bind() {
-
+        useCase.myGroupMediatorInfos
+            .subscribe(onNext: { [weak self] list in
+                guard let self = self else { return }
+                if let group = list.first(where: { $0.id == self.groupID }) {
+                    self.groupName.accept(group.name)
+                    self.desc.accept(group.desc)
+                }
+            }).disposed(by: disposeBag)
+        
+        useCase.groupDetail
+            .subscribe(onNext: { [weak self] detail in
+                guard let self = self, let detail = detail else { return }
+                var itemList = [MediatorItem]()
+                
+            }).disposed(by: disposeBag)
     }
     
     private func fetchGroupDetail() {

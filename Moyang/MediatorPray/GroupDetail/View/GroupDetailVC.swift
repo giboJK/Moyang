@@ -22,12 +22,12 @@ class GroupDetailVC: UIViewController, VCType {
     let minHeaderHeight: CGFloat = 0
     // MARK: - UI
     let moreButton = UIBarButtonItem(title: "더 보기", style: .plain, target: nil, action: nil)
-    let greetingLabel = MoyangLabel().then {
+    let descLabel = MoyangLabel().then {
         $0.text = "소개글"
         $0.textColor = .wilderness1
         $0.font = .b03
     }
-    let greetingValueLabel = MoyangLabel().then {
+    let descValueLabel = MoyangLabel().then {
         $0.text = "반가워요~"
         $0.textColor = .sheep1
         $0.font = .b01
@@ -36,7 +36,7 @@ class GroupDetailVC: UIViewController, VCType {
     let headerView = GroupDetailHeader()
     let memberTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(MyPrayListTVCell.self, forCellReuseIdentifier: "cell")
+        $0.register(GroupDetailTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 160
@@ -71,33 +71,33 @@ class GroupDetailVC: UIViewController, VCType {
     func setupUI() {
         view.backgroundColor = .nightSky1
         setupMoreButton()
-        setupGreetingLabel()
-        setupGreetingValueLabel()
+        setupDescLabel()
+        setupDescValueLabel()
         setupMediatorTableView()
         setupPrayButton()
     }
     private func setupMoreButton() {
         navigationItem.rightBarButtonItem = moreButton
     }
-    private func setupGreetingLabel() {
-        view.addSubview(greetingLabel)
-        greetingLabel.snp.makeConstraints {
+    private func setupDescLabel() {
+        view.addSubview(descLabel)
+        descLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(28)
             $0.left.right.equalToSuperview().inset(24)
             $0.height.equalTo(17)
         }
     }
-    private func setupGreetingValueLabel() {
-        view.addSubview(greetingValueLabel)
-        greetingValueLabel.snp.makeConstraints {
-            $0.top.equalTo(greetingLabel.snp.bottom).offset(8)
+    private func setupDescValueLabel() {
+        view.addSubview(descValueLabel)
+        descValueLabel.snp.makeConstraints {
+            $0.top.equalTo(descLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(24)
         }
     }
     private func setupMediatorTableView() {
         view.addSubview(memberTableView)
         memberTableView.snp.makeConstraints {
-            $0.top.equalTo(greetingValueLabel.snp.bottom).offset(28)
+            $0.top.equalTo(descValueLabel.snp.bottom).offset(28)
             $0.left.right.equalToSuperview().inset(24)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(48)
         }
@@ -132,8 +132,27 @@ class GroupDetailVC: UIViewController, VCType {
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input()
+        let output = vm.transform(input: input)
+        
+        output.isNetworking
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isNetworking in
+                if isNetworking {
+                    self?.indicator.startAnimating()
+                } else {
+                    self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
+        
+        output.groupName
+            .drive(self.rx.title)
+            .disposed(by: disposeBag)
+        
+        output.desc
+            .drive(descValueLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 }
 

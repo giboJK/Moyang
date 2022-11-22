@@ -57,7 +57,7 @@ class MediatorPrayAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - GroupDetailVC
-        container.register(GroupDetailVC.self) { (r, vm: GroupDetailVM) in
+        container.register(GroupDetailVC.self) { (_, vm: GroupDetailVM) in
             let vc = GroupDetailVC()
             vc.vm = vm
             
