@@ -18,6 +18,7 @@ class GroupDetailMoreVC: UIViewController, VCType {
     var coordinator: GroupDetailMoreVCDelegate?
 
     // MARK: - UI
+    let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
     let infoLabel = MoyangLabel().then {
         $0.text = "기본정보"
         $0.textColor = .wilderness1
@@ -76,6 +77,7 @@ class GroupDetailMoreVC: UIViewController, VCType {
     func setupUI() {
         title = "그룹 정보"
         view.backgroundColor = .nightSky1
+        setupSaveButton()
         setupInfoLabel()
         setupNameLabel()
         setupNameTextField()
@@ -85,6 +87,9 @@ class GroupDetailMoreVC: UIViewController, VCType {
         setupMemberLabel()
         setupMemberTableView()
         setupIndicator()
+    }
+    private func setupSaveButton() {
+        navigationItem.rightBarButtonItem = saveButton
     }
     private func setupInfoLabel() {
         view.addSubview(infoLabel)
