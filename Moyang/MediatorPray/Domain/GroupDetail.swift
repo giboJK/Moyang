@@ -8,8 +8,8 @@
 import Foundation
 
 struct GroupDetail: Codable{
-    let prays: GroupDetailPray
-    let members: GroupMember
+    let prays: [GroupDetailPray]
+    let members: [GroupMember]
     
     enum CodingKeys: String, CodingKey {
         case prays
@@ -40,7 +40,7 @@ struct GroupMember: Codable {
     
     enum CodingKeys: String, CodingKey {
         case userID = "user_id"
-        case userName = "user_name"
+        case userName = "name"
         case isLeader = "is_leader"
     }
 }

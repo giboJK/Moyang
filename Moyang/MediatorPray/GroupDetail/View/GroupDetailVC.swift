@@ -18,7 +18,7 @@ class GroupDetailVC: UIViewController, VCType {
     var coordinator: GroupDetailVCDelegate?
     
     // MARK: - Property
-    let headerHeight: CGFloat = 89 + 28 + 89
+    let headerHeight: CGFloat = 89 + 28 + 89 + 28
     let minHeaderHeight: CGFloat = 0
     // MARK: - UI
     let moreButton = UIBarButtonItem(title: "더 보기", style: .plain, target: nil, action: nil)
@@ -37,7 +37,7 @@ class GroupDetailVC: UIViewController, VCType {
     let memberTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.register(GroupDetailTVCell.self, forCellReuseIdentifier: "cell")
-        $0.backgroundColor = .clear
+        $0.backgroundColor = .nightSky1
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 160
         $0.showsVerticalScrollIndicator = false
@@ -153,6 +153,15 @@ class GroupDetailVC: UIViewController, VCType {
         output.desc
             .drive(descValueLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        output.mediatorItemList
+            .drive(memberTableView.rx
+                .items(cellIdentifier: "cell", cellType: GroupDetailTVCell.self)) { (_, item, cell) in
+                    cell.nameLabel.text = item.name
+                    cell.categoryLabel.text = item.category
+                    cell.latestDateLabel.text = item.date
+                    cell.forwardImageView.isHidden = item.prayID.isEmpty
+                }.disposed(by: disposeBag)
     }
 }
 

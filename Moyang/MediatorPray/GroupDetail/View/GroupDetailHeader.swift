@@ -47,7 +47,7 @@ class GroupDetailHeader: UIView {
         requestMediatorView.snp.makeConstraints {
             $0.top.equalTo(newMediatorView.snp.bottom).offset(28)
             $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(28)
             $0.height.equalTo(89)
         }
     }

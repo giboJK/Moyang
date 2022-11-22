@@ -45,7 +45,18 @@ class GroupDetailVM: VMType {
             .subscribe(onNext: { [weak self] detail in
                 guard let self = self, let detail = detail else { return }
                 var itemList = [MediatorItem]()
+                for pray in detail.prays {
+                    itemList.append(MediatorItem(groupDetailPray: pray))
+                }
+                itemList.sort { $0.date < $1.date }
+
+                for member in detail.members {
+                    if !itemList.contains(where: { $0.userID == member.userID }) {
+                        itemList.append(MediatorItem(groupMember: member))
+                    }
+                }
                 
+                self.mediatorItemList.accept(itemList)
             }).disposed(by: disposeBag)
     }
     
@@ -85,11 +96,23 @@ extension GroupDetailVM {
         let name: String
         let category: String
         let date: String
+        let prayID: String
+        let userID: String
         
-        init(name: String, category: String, date: String) {
-            self.name = name
-            self.category = category
-            self.date = date
+        init(groupDetailPray: GroupDetailPray) {
+            name = groupDetailPray.userName + "의 중보기도"
+            category = groupDetailPray.category
+            date = groupDetailPray.latestDate.isoToDateString("yyyy.M.d") ?? ""
+            prayID = groupDetailPray.prayID
+            userID = groupDetailPray.userID
+        }
+        
+        init(groupMember: GroupMember) {
+            name = groupMember.userName + "의 중보기도"
+            category = "중보 기도 요청이 없습니다."
+            date = ""
+            prayID = ""
+            userID = groupMember.userID
         }
     }
 }
