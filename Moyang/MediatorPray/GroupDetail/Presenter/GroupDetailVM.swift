@@ -26,6 +26,11 @@ class GroupDetailVM: VMType {
     // MARK: - VM
     let listVM = BehaviorRelay<GroupMemberPrayListVM?>(value: nil)
     
+    // MARK: - Event
+    let showExitConfirmPopup = BehaviorRelay<Void>(value: ())
+    let exitGroupSuccess = BehaviorRelay<Void>(value: ())
+    let exitGroupFailure = BehaviorRelay<Void>(value: ())
+    
     
     init(useCase: GroupUseCase, groupID: String) {
         self.useCase = useCase
@@ -77,11 +82,19 @@ class GroupDetailVM: VMType {
                 for member in detail.members {
                     itemList.append(MediatorItem(groupMember: member))
                 }
-                itemList.sort { leftItem, rightItem in
+                itemList.sort { leftItem, _ in
                     return leftItem.isLeader
                 }
                 self.memberList.accept(itemList)
             }).disposed(by: disposeBag)
+        
+        useCase.exitGroupSuccess
+            .bind(to: exitGroupSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.exitGroupFailure
+            .bind(to: exitGroupFailure)
+            .disposed(by: disposeBag)
     }
     
     private func fetchGroupDetail() {
@@ -92,12 +105,25 @@ class GroupDetailVM: VMType {
         let item = mediatorItemList.value[index]
         listVM.accept(GroupMemberPrayListVM(useCase: useCase, groupID: groupID, userID: item.userID))
     }
+    
+    private func checkIsLeader() {
+        if isLeader.value {
+            showExitConfirmPopup.accept(())
+        } else {
+            exitGroup()
+        }
+    }
+    
+    private func exitGroup() {
+        useCase.exitGroup(groupID: groupID)
+    }
 }
 
 extension GroupDetailVM {
     struct Input {
         var selectUser: Driver<IndexPath> = .empty()
         var exitGroup: Driver<Void> = .empty()
+        var exitGroupLeader: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -113,6 +139,11 @@ extension GroupDetailVM {
         
         // MARK: - VM
         let listVM: Driver<GroupMemberPrayListVM?>
+        
+        // MARK: - Event
+        let showExitConfirmPopup: Driver<Void>
+        let exitGroupSuccess: Driver<Void>
+        let exitGroupFailure: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
@@ -120,6 +151,17 @@ extension GroupDetailVM {
             .drive(onNext: { [weak self] index in
                 self?.createGroupMemberPrayDetailVM(index: index.row)
             }).disposed(by: disposeBag)
+        
+        input.exitGroup
+            .drive(onNext: { [weak self] _ in
+                self?.checkIsLeader()
+            }).disposed(by: disposeBag)
+        
+        input.exitGroupLeader
+            .drive(onNext: { [weak self] _ in
+                self?.exitGroup()
+            }).disposed(by: disposeBag)
+        
         return Output(isNetworking: isNetworking.asDriver(),
                       
                       isLeader: isLeader.asDriver(),
@@ -128,7 +170,11 @@ extension GroupDetailVM {
                       mediatorItemList: mediatorItemList.asDriver(),
                       memberList: memberList.asDriver(),
                       
-                      listVM: listVM.asDriver()
+                      listVM: listVM.asDriver(),
+                      
+                      showExitConfirmPopup: showExitConfirmPopup.asDriver(),
+                      exitGroupSuccess: exitGroupSuccess.asDriver(),
+                      exitGroupFailure: exitGroupFailure.asDriver()
         )
     }
 }

@@ -29,6 +29,8 @@ class GroupUseCase {
     // MARK: - Event
     let registerGroupSuccess = BehaviorRelay<Void>(value: ())
     let registerGroupFailure = BehaviorRelay<Void>(value: ())
+    let exitGroupSuccess = BehaviorRelay<Void>(value: ())
+    let exitGroupFailure = BehaviorRelay<Void>(value: ())
     
     
     // MARK: - State
@@ -151,7 +153,24 @@ class GroupUseCase {
     }
     
     // MARK: - GroupDetailMore
-    func exitGroup(groupID: String, userID: String) {
+    func exitGroup(groupID: String) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No ID"); return }
+        if checkAndSetIsNetworking() { return }
+        repo.exitGroup(groupID: groupID, userID: myID) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.exitGroupSuccess.accept(())
+                } else {
+                    self.exitGroupFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.exitGroupFailure.accept(())
+            }
+        }
     }
     
     // MARK: - GroupMemberPrayList
@@ -162,6 +181,7 @@ class GroupUseCase {
     func fetchPrayDetail(prayID: String) {
         
     }
+    
     
     private func checkAndSetIsNetworking() -> Bool {
         if isNetworking.value {

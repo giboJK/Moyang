@@ -6,8 +6,7 @@
 //
 
 import Foundation
-
-struct GroupDetail: Codable{
+struct GroupDetail: Codable {
     let prays: [GroupDetailPray]
     let members: [GroupMember]
     

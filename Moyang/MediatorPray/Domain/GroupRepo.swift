@@ -20,6 +20,10 @@ protocol GroupRepo {
     func fetchGroupDetail(groupID: String, completion: ((Result<GroupDetailResponse, MoyangError>) -> Void)?)
     
     func fetchGroupMember(groupID: String, userID: String, page: Int, row: Int, completion: ((Result<GroupMemberPrayListResponse, MoyangError>) -> Void)?)
+    
+    
+    // MARK: - Etc
+    func exitGroup(groupID: String, userID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
 }
 
 class GroupMediatorInfoListResponse: BaseResponse {

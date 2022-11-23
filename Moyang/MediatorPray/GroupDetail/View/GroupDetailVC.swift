@@ -168,6 +168,12 @@ class GroupDetailVC: UIViewController, VCType {
                 guard let listVM = listVM else { return }
                 self?.coordinator?.didTapGroupMember(vm: listVM)
             }).disposed(by: disposeBag)
+        
+        output.exitGroupSuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
     }
 }
 

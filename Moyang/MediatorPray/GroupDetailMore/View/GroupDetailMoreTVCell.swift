@@ -51,7 +51,7 @@ class GroupDetailMoreTVCell: UITableViewCell {
     }
     
     private func setupContentView() {
-        contentView.backgroundColor = .clear
+        contentView.backgroundColor = .nightSky1
     }
     private func setupContainer() {
         contentView.addSubview(container)
@@ -59,7 +59,7 @@ class GroupDetailMoreTVCell: UITableViewCell {
             $0.top.equalToSuperview()
             $0.bottom.equalToSuperview().inset(20)
             $0.left.right.equalToSuperview().inset(24)
-            $0.height.equalTo(56)
+            $0.height.equalTo(64)
         }
         setupNameLabel()
         setupLeaderLabel()

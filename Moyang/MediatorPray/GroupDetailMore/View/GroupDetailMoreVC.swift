@@ -59,6 +59,15 @@ class GroupDetailMoreVC: UIViewController, VCType {
         $0.isScrollEnabled = true
     }
     
+    let exitConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .sheepGhost).then {
+        $0.desc = "방장이 나가면 방이 사라집니다. 계속 하시겠어요?"
+        $0.firstButton.setTitle("나가기", for: .normal)
+        $0.secondButton.setTitle("취소", for: .normal)
+    }
+    let exitFailurePopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
+        $0.desc = "그룹 나가기에 실패하였습니다. 개발자에게 문의해주세요."
+        $0.firstButton.setTitle("확인", for: .normal)
+    }
     let indicator = UIActivityIndicatorView(style: .large).then {
         $0.hidesWhenStopped = true
     }
@@ -141,7 +150,7 @@ class GroupDetailMoreVC: UIViewController, VCType {
     private func setupMemberLabel() {
         view.addSubview(memberLabel)
         memberLabel.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(28)
+            $0.top.equalTo(exitButton.snp.bottom).offset(32)
             $0.left.equalToSuperview().inset(24)
         }
     }
@@ -164,15 +173,29 @@ class GroupDetailMoreVC: UIViewController, VCType {
 
     // MARK: - Binding
     func bind() {
+        bindViews()
         bindVM()
     }
     private func bindViews() {
-
+        exitConfirmPopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        exitConfirmPopup.secondButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        exitFailurePopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(exitGroup: exitButton.rx.tap.asDriver())
+        let input = VM.Input(exitGroup: exitButton.rx.tap.asDriver(),
+                             exitGroupLeader: exitConfirmPopup.firstButton.rx.tap.asDriver()
+        )
         let output = vm.transform(input: input)
         
         output.isNetworking
@@ -214,6 +237,26 @@ class GroupDetailMoreVC: UIViewController, VCType {
                     cell.leaderLabel.isHidden = !item.isLeader
                     cell.leaderImageView.isHidden = !item.isLeader
                 }.disposed(by: disposeBag)
+        
+        output.showExitConfirmPopup
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.exitConfirmPopup)
+            }).disposed(by: disposeBag)
+        
+        output.exitGroupSuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
+        
+        output.exitGroupFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.exitFailurePopup)
+            }).disposed(by: disposeBag)
     }
 }
 
