@@ -120,4 +120,27 @@ extension GroupController: GroupRepo {
             }
         }
     }
+    
+    func fetchGroupMember(groupID: String, userID: String, page: Int, row: Int, completion: ((Result<GroupMemberPrayListResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.GroupAPI.fetchGroupMemberPrayList)
+        let dict: [String: Any] = ["group_id": groupID,
+                                   "user_id": userID,
+                                   "page": page,
+                                   "row": row]
+        
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: GroupMemberPrayListResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+        
+    }
 }

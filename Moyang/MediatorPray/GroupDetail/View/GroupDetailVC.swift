@@ -133,7 +133,7 @@ class GroupDetailVC: UIViewController, VCType {
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let input = VM.Input(selectUser: memberTableView.rx.itemSelected.asDriver())
         let output = vm.transform(input: input)
         
         output.isNetworking
@@ -162,6 +162,12 @@ class GroupDetailVC: UIViewController, VCType {
                     cell.latestDateLabel.text = item.date
                     cell.forwardImageView.isHidden = item.prayID.isEmpty
                 }.disposed(by: disposeBag)
+        
+        output.listVM
+            .drive(onNext: { [weak self] listVM in
+                guard let listVM = listVM else { return }
+                self?.coordinator?.didTapGroupMember(vm: listVM)
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -169,4 +175,5 @@ protocol GroupDetailVCDelegate: AnyObject {
     func didTapMoreButton(vm: GroupDetailVM)
     func didTapNewMediatorButton()
     func didTapRequestMediatorButton()
+    func didTapGroupMember(vm: GroupMemberPrayListVM)
 }

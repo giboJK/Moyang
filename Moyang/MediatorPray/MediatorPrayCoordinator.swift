@@ -78,8 +78,20 @@ extension MediatorPrayCoordinator: GroupDetailVCDelegate {
     func didTapRequestMediatorButton() {
         
     }
+    func didTapGroupMember(vm: GroupMemberPrayListVM) {
+        if let vc = assembler.resolver.resolve(GroupMemberPrayListVC.self, argument: vm) {
+            vc.coordinator = self
+            nav.pushViewController(vc, animated: true)
+        } else {
+            Log.e("error")
+        }
+    }
 }
 
 extension MediatorPrayCoordinator: GroupDetailMoreVCDelegate {
+    
+}
+
+extension MediatorPrayCoordinator: GroupMemberPrayListVCDelegate {
     
 }

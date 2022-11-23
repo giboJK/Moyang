@@ -22,6 +22,10 @@ class GroupDetailVM: VMType {
     let desc = BehaviorRelay<String>(value: "")
     let mediatorItemList = BehaviorRelay<[MediatorItem]>(value: [])
 
+    // MARK: - VM
+    let listVM = BehaviorRelay<GroupMemberPrayListVM?>(value: nil)
+    
+    
     init(useCase: GroupUseCase, groupID: String) {
         self.useCase = useCase
         self.groupID = groupID
@@ -63,6 +67,11 @@ class GroupDetailVM: VMType {
     private func fetchGroupDetail() {
         useCase.fetchGroupDetail(groupID: groupID)
     }
+    
+    private func createGroupMemberPrayDetailVM(index: Int) {
+        let item = mediatorItemList.value[index]
+        listVM.accept(GroupMemberPrayListVM(useCase: useCase, groupID: groupID, userID: item.userID))
+    }
 }
 
 extension GroupDetailVM {
@@ -80,14 +89,23 @@ extension GroupDetailVM {
         let groupName: Driver<String>
         let desc: Driver<String>
         let mediatorItemList: Driver<[MediatorItem]>
+        
+        // MARK: - VM
+        let listVM: Driver<GroupMemberPrayListVM?>
     }
 
     func transform(input: Input) -> Output {
+        input.selectUser
+            .drive(onNext: { [weak self] index in
+                self?.createGroupMemberPrayDetailVM(index: index.row)
+            }).disposed(by: disposeBag)
         return Output(isNetworking: isNetworking.asDriver(),
                       isLeader: isLeader.asDriver(),
                       groupName: groupName.asDriver(),
                       desc: desc.asDriver(),
-                      mediatorItemList: mediatorItemList.asDriver())
+                      mediatorItemList: mediatorItemList.asDriver(),
+                      listVM: listVM.asDriver()
+        )
     }
 }
 

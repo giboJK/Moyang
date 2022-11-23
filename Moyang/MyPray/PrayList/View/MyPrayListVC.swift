@@ -21,10 +21,6 @@ class MyPrayListVC: UIViewController, VCType {
     var sections = [String]()
     var itemList = [[VM.PrayListItem]]()
     
-    let indicator = UIActivityIndicatorView(style: .large).then {
-        $0.hidesWhenStopped = true
-    }
-    
     
     // MARK: - UI
     let prayTableView = UITableView().then {
@@ -38,6 +34,10 @@ class MyPrayListVC: UIViewController, VCType {
         $0.bounces = true
         $0.isScrollEnabled = true
     }
+    let indicator = UIActivityIndicatorView(style: .large).then {
+        $0.hidesWhenStopped = true
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

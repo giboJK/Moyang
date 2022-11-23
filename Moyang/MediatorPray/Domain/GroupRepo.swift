@@ -18,6 +18,8 @@ protocol GroupRepo {
     func fetchGroupEvent(groupID: String, isWeek: Bool, date: String, completion: ((Result<GroupEventResponse, MoyangError>) -> Void)?)
     
     func fetchGroupDetail(groupID: String, completion: ((Result<GroupDetailResponse, MoyangError>) -> Void)?)
+    
+    func fetchGroupMember(groupID: String, userID: String, page: Int, row: Int, completion: ((Result<GroupMemberPrayListResponse, MoyangError>) -> Void)?)
 }
 
 class GroupMediatorInfoListResponse: BaseResponse {
@@ -54,6 +56,20 @@ class GroupDetailResponse: BaseResponse {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         data = try container.decode(GroupDetail.self, forKey: .data)
+        try super.init(from: decoder)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}
+
+class GroupMemberPrayListResponse: BaseResponse {
+    let data: [GroupMemberPray]
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        data = try container.decode([GroupMemberPray].self, forKey: .data)
         try super.init(from: decoder)
     }
     

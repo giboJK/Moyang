@@ -10,7 +10,11 @@ import RxSwift
 import RxCocoa
 
 class GroupUseCase {
+    // MARK: - Properties
     let repo: GroupRepo
+    var page = 0
+    var row = 10
+    
     
     let myGroupMediatorInfos = BehaviorRelay<[GroupMediatorInfo]>(value: [])
     let groupEvents = BehaviorRelay<[GroupEvent]>(value: [])
@@ -20,9 +24,6 @@ class GroupUseCase {
     // MARK: - GroupDetail
     let groupDetail = BehaviorRelay<GroupDetail?>(value: nil)
     
-    // MARK: - Properties
-    var page = 0
-    var row = 10
     
     
     // MARK: - Event
@@ -147,6 +148,15 @@ class GroupUseCase {
                 Log.e(error)
             }
         }
+    }
+    
+    // MARK: - GroupMemberPrayList
+    func fetchPrayList(groupID: String, userID: String) {
+        
+    }
+    
+    func fetchPrayDetail(prayID: String) {
+        
     }
     
     private func checkAndSetIsNetworking() -> Bool {
