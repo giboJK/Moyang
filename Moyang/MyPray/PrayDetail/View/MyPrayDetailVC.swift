@@ -72,6 +72,8 @@ class MyPrayDetailVC: UIViewController, VCType {
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     // 기도하기 화면 후 복귀 시 필요
