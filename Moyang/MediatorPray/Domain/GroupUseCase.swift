@@ -162,6 +162,9 @@ class GroupUseCase {
             switch result {
             case .success(let response):
                 if response.code == 0 {
+                    var cur = self.myGroupMediatorInfos.value
+                    cur.removeAll { $0.id == groupID }
+                    self.myGroupMediatorInfos.accept(cur)
                     self.exitGroupSuccess.accept(())
                 } else {
                     self.exitGroupFailure.accept(())
