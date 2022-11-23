@@ -17,6 +17,7 @@
 		08194BBF292DB0560008D72B /* GroupMemberPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BBE292DB0560008D72B /* GroupMemberPray.swift */; };
 		08194BC3292DB1380008D72B /* GroupMemberPrayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BC2292DB1380008D72B /* GroupMemberPrayDetailVC.swift */; };
 		08194BC6292DB1620008D72B /* GroupMemberPrayDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BC5292DB1620008D72B /* GroupMemberPrayDetailVM.swift */; };
+		08194BC8292DD8A90008D72B /* GroupDetailMoreTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BC7292DD8A90008D72B /* GroupDetailMoreTVCell.swift */; };
 		081A25C0292A05D500EC16EC /* PrayDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */; };
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
@@ -254,6 +255,7 @@
 		08194BBE292DB0560008D72B /* GroupMemberPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberPray.swift; sourceTree = "<group>"; };
 		08194BC2292DB1380008D72B /* GroupMemberPrayDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberPrayDetailVC.swift; sourceTree = "<group>"; };
 		08194BC5292DB1620008D72B /* GroupMemberPrayDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberPrayDetailVM.swift; sourceTree = "<group>"; };
+		08194BC7292DD8A90008D72B /* GroupDetailMoreTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailMoreTVCell.swift; sourceTree = "<group>"; };
 		081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayDetailEditView.swift; sourceTree = "<group>"; };
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 			isa = PBXGroup;
 			children = (
 				08194BAF292C7AB80008D72B /* GroupDetailMoreVC.swift */,
+				08194BC7292DD8A90008D72B /* GroupDetailMoreTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2006,6 +2009,7 @@
 				08194BBB292DAA9C0008D72B /* GroupMemberPrayListVM.swift in Sources */,
 				2447788728FEBE4100DD7499 /* MyPrayMainVC.swift in Sources */,
 				08EE004428C5B478000B02BD /* AppVersionInfo.swift in Sources */,
+				08194BC8292DD8A90008D72B /* GroupDetailMoreTVCell.swift in Sources */,
 				24BFD9ED28307B2200E105D3 /* MainVM.swift in Sources */,
 				24CFA8C428792F4600484C89 /* GroupRepo.swift in Sources */,
 				24E7EC9128FB068D008E0E3F /* BibleAssembly.swift in Sources */,

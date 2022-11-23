@@ -48,6 +48,7 @@ class GroupDetailVM: VMType {
         useCase.groupDetail
             .subscribe(onNext: { [weak self] detail in
                 guard let self = self, let detail = detail else { return }
+                guard let myID = UserData.shared.userInfo?.id else { return }
                 var itemList = [MediatorItem]()
                 for pray in detail.prays {
                     itemList.append(MediatorItem(groupDetailPray: pray))
@@ -57,6 +58,9 @@ class GroupDetailVM: VMType {
                 for member in detail.members {
                     if !itemList.contains(where: { $0.userID == member.userID }) {
                         itemList.append(MediatorItem(groupMember: member))
+                    }
+                    if member.userID == myID {
+                        self.isLeader.accept(member.isLeader)
                     }
                 }
                 

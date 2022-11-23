@@ -18,7 +18,7 @@ class GroupDetailMoreVC: UIViewController, VCType {
     var coordinator: GroupDetailMoreVCDelegate?
 
     // MARK: - UI
-    let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
+    var saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
     let infoLabel = MoyangLabel().then {
         $0.text = "기본정보"
         $0.textColor = .wilderness1
@@ -50,7 +50,7 @@ class GroupDetailMoreVC: UIViewController, VCType {
     }
     let memberTableView = UITableView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.register(MyPrayDetailTVCell.self, forCellReuseIdentifier: "cell")
+        $0.register(GroupDetailMoreTVCell.self, forCellReuseIdentifier: "cell")
         $0.backgroundColor = .nightSky1
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 60
@@ -184,6 +184,30 @@ class GroupDetailMoreVC: UIViewController, VCType {
                     self?.indicator.stopAnimating()
                 }
             }).disposed(by: disposeBag)
+        
+        output.isLeader.map { $0 }
+            .drive(saveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.isLeader
+            .drive(nameTextField.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.isLeader
+            .drive(descTextField.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.groupName
+            .distinctUntilChanged()
+            .drive(nameTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.desc
+            .distinctUntilChanged()
+            .drive(descTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        
     }
 }
 

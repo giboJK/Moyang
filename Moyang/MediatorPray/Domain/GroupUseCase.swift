@@ -150,6 +150,10 @@ class GroupUseCase {
         }
     }
     
+    // MARK: - GroupDetailMore
+    func exitGroup(groupID: String, userID: String) {
+    }
+    
     // MARK: - GroupMemberPrayList
     func fetchPrayList(groupID: String, userID: String) {
         
