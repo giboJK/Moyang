@@ -34,8 +34,6 @@ class GroupMemberPrayListVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-        // TODO: - 추후 리프레시 추가
-        
         useCase.isNetworking
             .bind(to: isNetworking)
             .disposed(by: disposeBag)

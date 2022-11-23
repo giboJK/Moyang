@@ -71,8 +71,10 @@ class GroupMemberPrayListVC: UIViewController, VCType {
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input(selectItem: prayTableView.rx.itemSelected.asDriver())
+        let output = vm.transform(input: input)
+        
     }
 }
 

@@ -344,8 +344,8 @@ class MyPrayDetailVC: UIViewController, VCType {
 
 extension MyPrayDetailVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .normal, title:  "수정",
-                                        handler: { [weak self] (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+        let action = UIContextualAction(style: .normal, title: "수정",
+                                        handler: { [weak self] (_, _, success: (Bool) -> Void) in
             success(true)
             self?.vm?.checkCanEdit(indexPath: indexPath)
         })
@@ -361,8 +361,8 @@ extension MyPrayDetailVC: UITableViewDelegate {
             return nil
         }
         
-        let action = UIContextualAction(style: .normal, title:  "삭제",
-                                        handler: { [weak self] (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+        let action = UIContextualAction(style: .normal, title: "삭제",
+                                        handler: { [weak self] (_, _, success: (Bool) -> Void) in
             success(true)
             self?.vm?.checkCanDelete(indexPath: indexPath)
         })
