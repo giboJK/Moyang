@@ -22,8 +22,12 @@ class GroupDetailMoreTVCell: UITableViewCell {
         $0.font = .b01
     }
     let leaderLabel = MoyangLabel().then {
-        $0.textColor = .sheep1
-        $0.font = .b03
+        $0.text = "방장"
+        $0.textColor = .sheep2
+        $0.font = .c03
+    }
+    let leaderImageView = UIImageView().then {
+        $0.image = Asset.Images.Group.isLeader.image.withTintColor(.sheep2)
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -59,6 +63,7 @@ class GroupDetailMoreTVCell: UITableViewCell {
         }
         setupNameLabel()
         setupLeaderLabel()
+        setupLeaderImageView()
     }
     private func setupNameLabel() {
         container.addSubview(nameLabel)
@@ -69,10 +74,18 @@ class GroupDetailMoreTVCell: UITableViewCell {
         }
     }
     private func setupLeaderLabel() {
-        contentView.addSubview(leaderLabel)
-        container.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+        container.addSubview(leaderLabel)
+        leaderLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom)
             $0.left.equalToSuperview().inset(16)
+        }
+    }
+    private func setupLeaderImageView() {
+        container.addSubview(leaderImageView)
+        leaderImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.size.equalTo(16)
+            $0.right.equalToSuperview().inset(16)
         }
     }
 }

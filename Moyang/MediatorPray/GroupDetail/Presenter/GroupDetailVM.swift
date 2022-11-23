@@ -21,6 +21,7 @@ class GroupDetailVM: VMType {
     let groupName = BehaviorRelay<String>(value: "")
     let desc = BehaviorRelay<String>(value: "")
     let mediatorItemList = BehaviorRelay<[MediatorItem]>(value: [])
+    let memberList = BehaviorRelay<[MediatorItem]>(value: [])
 
     // MARK: - VM
     let listVM = BehaviorRelay<GroupMemberPrayListVM?>(value: nil)
@@ -58,6 +59,8 @@ class GroupDetailVM: VMType {
                 for member in detail.members {
                     if !itemList.contains(where: { $0.userID == member.userID }) {
                         itemList.append(MediatorItem(groupMember: member))
+                    } else {
+                        
                     }
                     if member.userID == myID {
                         self.isLeader.accept(member.isLeader)
@@ -65,6 +68,19 @@ class GroupDetailVM: VMType {
                 }
                 
                 self.mediatorItemList.accept(itemList)
+            }).disposed(by: disposeBag)
+        
+        useCase.groupDetail
+            .subscribe(onNext: { [weak self] detail in
+                guard let self = self, let detail = detail else { return }
+                var itemList = [MediatorItem]()
+                for member in detail.members {
+                    itemList.append(MediatorItem(groupMember: member))
+                }
+                itemList.sort { leftItem, rightItem in
+                    return leftItem.isLeader
+                }
+                self.memberList.accept(itemList)
             }).disposed(by: disposeBag)
     }
     
@@ -93,6 +109,7 @@ extension GroupDetailVM {
         let groupName: Driver<String>
         let desc: Driver<String>
         let mediatorItemList: Driver<[MediatorItem]>
+        let memberList: Driver<[MediatorItem]>
         
         // MARK: - VM
         let listVM: Driver<GroupMemberPrayListVM?>
@@ -104,10 +121,13 @@ extension GroupDetailVM {
                 self?.createGroupMemberPrayDetailVM(index: index.row)
             }).disposed(by: disposeBag)
         return Output(isNetworking: isNetworking.asDriver(),
+                      
                       isLeader: isLeader.asDriver(),
                       groupName: groupName.asDriver(),
                       desc: desc.asDriver(),
                       mediatorItemList: mediatorItemList.asDriver(),
+                      memberList: memberList.asDriver(),
+                      
                       listVM: listVM.asDriver()
         )
     }
@@ -120,6 +140,7 @@ extension GroupDetailVM {
         let date: String
         let prayID: String
         let userID: String
+        let isLeader: Bool
         
         init(groupDetailPray: GroupDetailPray) {
             name = groupDetailPray.userName + "의 중보기도"
@@ -127,14 +148,16 @@ extension GroupDetailVM {
             date = groupDetailPray.latestDate.isoToDateString("yyyy.M.d") ?? ""
             prayID = groupDetailPray.prayID
             userID = groupDetailPray.userID
+            isLeader = false
         }
         
         init(groupMember: GroupMember) {
-            name = groupMember.userName + "의 중보기도"
+            name = groupMember.userName
             category = "중보 기도 요청이 없습니다."
             date = ""
             prayID = ""
             userID = groupMember.userID
+            isLeader = groupMember.isLeader
         }
     }
 }

@@ -149,7 +149,7 @@ class GroupDetailMoreVC: UIViewController, VCType {
         view.addSubview(memberTableView)
         memberTableView.snp.makeConstraints {
             $0.top.equalTo(memberLabel.snp.bottom).offset(8)
-            $0.left.right.equalToSuperview().inset(24)
+            $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
     }
@@ -207,7 +207,13 @@ class GroupDetailMoreVC: UIViewController, VCType {
             .drive(descTextField.rx.text)
             .disposed(by: disposeBag)
         
-        
+        output.memberList
+            .drive(memberTableView.rx
+                .items(cellIdentifier: "cell", cellType: GroupDetailMoreTVCell.self)) { (_, item, cell) in
+                    cell.nameLabel.text = item.name
+                    cell.leaderLabel.isHidden = !item.isLeader
+                    cell.leaderImageView.isHidden = !item.isLeader
+                }.disposed(by: disposeBag)
     }
 }
 

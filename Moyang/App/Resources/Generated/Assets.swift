@@ -47,6 +47,8 @@ public enum Asset {
     public enum Common {
       public static let checkEmpty = ImageAsset(name: "checkEmpty")
       public static let checkFill = ImageAsset(name: "checkFill")
+    }
+    public enum Group {
       public static let isLeader = ImageAsset(name: "isLeader")
     }
     public enum Pray {
