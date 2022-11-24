@@ -72,12 +72,15 @@ extension MediatorPrayCoordinator: GroupDetailVCDelegate {
             Log.e("error")
         }
     }
+    
     func didTapNewMediatorButton() {
         
     }
+    
     func didTapRequestMediatorButton() {
         
     }
+    
     func didTapGroupMember(vm: GroupMemberPrayListVM) {
         if let vc = assembler.resolver.resolve(GroupMemberPrayListVC.self, argument: vm) {
             vc.coordinator = self
@@ -94,14 +97,13 @@ extension MediatorPrayCoordinator: GroupDetailMoreVCDelegate {
 
 extension MediatorPrayCoordinator: GroupMemberPrayListVCDelegate {
     func didTapPray(vm: GroupMemberPrayDetailVM) {
-        if let vc = assembler.resolver.resolve(GroupMemberPrayDetailVC.self) {
+        if let vc = assembler.resolver.resolve(GroupMemberPrayDetailVC.self, argument: vm) {
             vc.vm = vm
             vc.coordinator = self
             nav.pushViewController(vc, animated: true)
         } else {
             Log.e("")
         }
-        
     }
 }
 

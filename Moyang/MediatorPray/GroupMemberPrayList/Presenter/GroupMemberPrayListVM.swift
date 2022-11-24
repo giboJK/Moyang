@@ -102,6 +102,7 @@ extension GroupMemberPrayListVM {
         input.selectItem
             .drive(onNext: { [weak self] index in
                 self?.fetchPrayDetail(index: index)
+                self?.createDetailVM()
             }).disposed(by: disposeBag)
         
         input.clearList

@@ -66,7 +66,7 @@ class MediatorPrayAssembly: Assembly, BaseAssembly {
         
         
         // MARK: - GroupDetailMoreVC
-        container.register(GroupDetailMoreVC.self) { (r, vm: GroupDetailVM) in
+        container.register(GroupDetailMoreVC.self) { (_, vm: GroupDetailVM) in
             let vc = GroupDetailMoreVC()
             vc.vm = vm
             
@@ -74,8 +74,16 @@ class MediatorPrayAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - GroupMemberPrayListVC
-        container.register(GroupMemberPrayListVC.self) { (r, vm: GroupMemberPrayListVM) in
+        container.register(GroupMemberPrayListVC.self) { (_, vm: GroupMemberPrayListVM) in
             let vc = GroupMemberPrayListVC()
+            vc.vm = vm
+            
+            return vc
+        }
+        
+        // MARK: - GroupMemberPrayDetailVC
+        container.register(GroupMemberPrayDetailVC.self) { (_, vm: GroupMemberPrayDetailVM) in
+            let vc = GroupMemberPrayDetailVC()
             vc.vm = vm
             
             return vc

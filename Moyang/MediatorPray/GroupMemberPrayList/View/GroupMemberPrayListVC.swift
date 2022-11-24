@@ -166,5 +166,4 @@ extension GroupMemberPrayListVC: UITableViewDataSource, UITableViewDelegate {
 
 protocol GroupMemberPrayListVCDelegate: AnyObject {
     func didTapPray(vm: GroupMemberPrayDetailVM)
-
 }

@@ -31,6 +31,10 @@ class GroupUseCase {
     let memberPrayList = BehaviorRelay<[GroupMemberPray]>(value: [])
     
     
+    // MARK: - GroupMemberPrayDetail
+    let prayDetail = BehaviorRelay<PrayDetail?>(value: nil)
+    
+    
     // MARK: - Event
     let registerGroupSuccess = BehaviorRelay<Void>(value: ())
     let registerGroupFailure = BehaviorRelay<Void>(value: ())
@@ -224,7 +228,20 @@ class GroupUseCase {
     }
     
     func fetchPrayDetail(prayID: String) {
-        
+        if checkAndSetIsNetworking() { return }
+        repo.fetchPrayDetail(prayID: prayID) { [weak self] result in
+            self?.resetIsNetworking()
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self?.prayDetail.accept(response.data)
+                } else {
+                    Log.e("")
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
     }
     
     
