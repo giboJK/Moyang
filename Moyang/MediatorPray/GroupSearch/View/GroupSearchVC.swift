@@ -68,6 +68,7 @@ class GroupSearchVC: UIViewController, VCType {
     
     func setupUI() {
         title = "공동체 찾기"
+        view.backgroundColor = .nightSky1
         setupGroupTableView()
         setupIndicator()
     }

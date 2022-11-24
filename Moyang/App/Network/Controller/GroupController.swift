@@ -183,4 +183,45 @@ extension GroupController: GroupRepo {
             }
         }
     }
+    
+    func joinGroup(groupID: String, userID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.GroupAPI.joinGroup)
+        let dict: [String: Any] = ["group_id": groupID,
+                                   "user_id": userID]
+        
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
+    
+    func acceptGroup(reqID: String, isAccepted: Bool, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.GroupAPI.acceptGroup)
+        let dict: [String: Any] = ["req_id": reqID,
+                                   "is_accepted": isAccepted]
+        
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+        
+    }
 }

@@ -25,6 +25,10 @@ protocol GroupRepo {
     
     // MARK: - Etc
     func exitGroup(groupID: String, userID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    
+    func joinGroup(groupID: String, userID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
+    
+    func acceptGroup(reqID: String, isAccepted: Bool, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
 }
 
 class GroupMediatorInfoListResponse: BaseResponse {

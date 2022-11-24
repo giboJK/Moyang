@@ -61,7 +61,8 @@ class GroupSearchVM: VMType {
     
     private func confirmGroupRequest() {
         if selectedGroupIndex < 0 { return }
-//        uesCase.
+        let group = groupList.value[selectedGroupIndex]
+        
     }
     
     func fetchMoreGroupList() {
