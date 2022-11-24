@@ -22,4 +22,3 @@ struct GroupMemberPray: Codable {
         case createDate = "create_date"
     }
 }
-

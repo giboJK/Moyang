@@ -52,8 +52,29 @@ class GroupMemberPrayListVC: UIViewController, VCType {
         .darkContent
     }
     func setupUI() {
+        title = "기도목록"
+        view.backgroundColor = .nightSky1
+        setupPrayTableView()
         setupIndicator()
     }
+    
+    private func setupPrayTableView() {
+        view.addSubview(prayTableView)
+        prayTableView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.bottom.equalToSuperview()
+        }
+        let footer = UIView(frame: CGRect(x: 0, y: 0,
+                                          width: UIScreen.main.bounds.width,
+                                          height: UIApplication.bottomInset)).then {
+            $0.backgroundColor = .clear
+        }
+        prayTableView.tableFooterView = footer
+        prayTableView.dataSource = self
+        prayTableView.delegate = self
+    }
+    
     private func setupIndicator() {
         view.addSubview(indicator)
         indicator.snp.makeConstraints {
@@ -64,20 +85,86 @@ class GroupMemberPrayListVC: UIViewController, VCType {
 
     // MARK: - Binding
     func bind() {
+        bindViews()
         bindVM()
     }
     private func bindViews() {
-
+        prayTableView.rx.contentOffset.asDriver()
+            .throttle(.seconds(1))
+            .drive(onNext: { [weak self] offset in
+                guard let self = self else { return }
+                let offset = self.prayTableView.contentOffset.y
+                let maxOffset = self.prayTableView.contentSize.height - self.prayTableView.frame.size.height
+                if maxOffset - offset <= 0 {
+                    self.vm?.fetchMoreList()
+                }
+            }).disposed(by: disposeBag)
     }
+
 
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(selectItem: prayTableView.rx.itemSelected.asDriver())
+        let clearList = self.rx.viewDidDisappear.map { _ -> Void in () }.asDriver(onErrorJustReturn: ())
+        let input = VM.Input(selectItem: prayTableView.rx.itemSelected.asDriver(),
+                             clearList: clearList)
         let output = vm.transform(input: input)
         
+        output.isNetworking
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isNetworking in
+                if isNetworking {
+                    self?.indicator.startAnimating()
+                } else {
+                    self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
+        
+        output.itemList
+            .drive(onNext: { [weak self] dataSource in
+                self?.sections = dataSource.0
+                self?.itemList = dataSource.1
+                self?.prayTableView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        output.detailVM
+            .drive(onNext: { [weak self] detailVM in
+                guard let detailVM = detailVM else { return }
+                self?.coordinator?.didTapPray(vm: detailVM)
+            }).disposed(by: disposeBag)
+    }
+}
+
+extension GroupMemberPrayListVC: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier:
+                    "sectionHeader") as! MyPrayListHeaderView
+        view.titleLabel.text = sections[section]
+
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return itemList[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as?
+                MyPrayListTVCell else { return UITableViewCell() }
+        let item = itemList[indexPath.section][indexPath.row]
+        cell.dateLabel.text = item.latestDate.isoToDateString("yyyy. M. d.")
+        cell.titleLabel.text = item.title
+        cell.contentLabel.text = item.content
+        cell.contentLabel.lineBreakMode = .byTruncatingTail
+        return cell
     }
 }
 
 protocol GroupMemberPrayListVCDelegate: AnyObject {
+    func didTapPray(vm: GroupMemberPrayDetailVM)
 
 }

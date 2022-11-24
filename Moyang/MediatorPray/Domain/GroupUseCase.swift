@@ -14,6 +14,8 @@ class GroupUseCase {
     let repo: GroupRepo
     var page = 0
     var row = 10
+    var memberPrayPage = 0
+    var memberPrayRow = 20
     
     
     let myGroupMediatorInfos = BehaviorRelay<[GroupMediatorInfo]>(value: [])
@@ -24,6 +26,9 @@ class GroupUseCase {
     // MARK: - GroupDetail
     let groupDetail = BehaviorRelay<GroupDetail?>(value: nil)
     
+    
+    // MARK: - GroupMemberPrayList
+    let memberPrayList = BehaviorRelay<[GroupMemberPray]>(value: [])
     
     
     // MARK: - Event
@@ -177,8 +182,45 @@ class GroupUseCase {
     }
     
     // MARK: - GroupMemberPrayList
-    func fetchPrayList(groupID: String, userID: String) {
-        
+    func fetchInitialMemberPrayList(groupID: String, userID: String) {
+        memberPrayPage = 0
+        fetchPrayList(groupID: groupID, userID: userID)
+    }
+    
+    func fetchMoreMemberPrayList(groupID: String, userID: String) {
+        if isNetworking.value { return }
+        memberPrayPage += 20
+        fetchPrayList(groupID: groupID, userID: userID)
+    }
+    
+    private func fetchPrayList(groupID: String, userID: String) {
+        if checkAndSetIsNetworking() { return }
+        repo.fetchGroupMemberPrayList(groupID: groupID, userID: userID, page: 0, row: 30) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    var cur = self.memberPrayList.value
+                    if cur.isEmpty {
+                        self.memberPrayList.accept(response.data)
+                    } else {
+                        for item in response.data {
+                            if !cur.contains(where: { $0.prayID == item.prayID }) {
+                                cur.append(item)
+                            }
+                        }
+                        self.memberPrayList.accept(cur)
+                    }
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
+    }
+    
+    func clearMemberPray() {
+        memberPrayList.accept([])
     }
     
     func fetchPrayDetail(prayID: String) {

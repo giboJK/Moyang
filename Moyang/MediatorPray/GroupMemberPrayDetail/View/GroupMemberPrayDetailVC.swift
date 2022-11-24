@@ -12,7 +12,7 @@ import SnapKit
 import Then
 
 class GroupMemberPrayDetailVC: UIViewController, VCType {
-    typealias VM = DummyVM
+    typealias VM = GroupMemberPrayDetailVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupMemberPrayDetailVCDelegate?

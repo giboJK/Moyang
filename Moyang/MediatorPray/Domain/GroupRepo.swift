@@ -19,7 +19,7 @@ protocol GroupRepo {
     
     func fetchGroupDetail(groupID: String, completion: ((Result<GroupDetailResponse, MoyangError>) -> Void)?)
     
-    func fetchGroupMember(groupID: String, userID: String, page: Int, row: Int, completion: ((Result<GroupMemberPrayListResponse, MoyangError>) -> Void)?)
+    func fetchGroupMemberPrayList(groupID: String, userID: String, page: Int, row: Int, completion: ((Result<GroupMemberPrayListResponse, MoyangError>) -> Void)?)
     
     
     // MARK: - Etc

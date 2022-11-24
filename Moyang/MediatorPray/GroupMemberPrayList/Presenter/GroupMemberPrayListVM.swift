@@ -37,10 +37,35 @@ class GroupMemberPrayListVM: VMType {
         useCase.isNetworking
             .bind(to: isNetworking)
             .disposed(by: disposeBag)
+        
+        useCase.memberPrayList
+            .subscribe(onNext: { [weak self] list in
+                guard let self = self else { return }
+                guard !list.isEmpty else { return }
+                var itemList = [[PrayListItem]]()
+                let flatList = list.map { PrayListItem(data: $0) }
+                var curSection = flatList.first!.latestDate.isoToDateString("yyyy년 M월")
+                var curList = [PrayListItem]()
+                var sections = [curSection!]
+                for item in flatList {
+                    if curSection == item.latestDate.isoToDateString("yyyy년 M월") {
+                        curList.append(item)
+                    } else {
+                        itemList.append(curList)
+                        curList = [PrayListItem]()
+                        curList.append(item)
+                        curSection = item.latestDate.isoToDateString("yyyy년 M월")
+                        sections.append(curSection!)
+                    }
+                }
+                itemList.append(curList)
+                
+                self.itemList.accept((sections, itemList))
+            }).disposed(by: disposeBag)
     }
     
     private func fetchList() {
-        useCase.fetchPrayList(groupID: groupID, userID: userID)
+        useCase.fetchInitialMemberPrayList(groupID: groupID, userID: userID)
     }
     
     private func fetchPrayDetail(index: IndexPath) {
@@ -48,14 +73,23 @@ class GroupMemberPrayListVM: VMType {
         useCase.fetchPrayDetail(prayID: prayID)
     }
     
+    func fetchMoreList() {
+        useCase.fetchMoreMemberPrayList(groupID: groupID, userID: userID)
+    }
+    
     private func createDetailVM() {
         detailVM.accept(GroupMemberPrayDetailVM(useCase: useCase))
+    }
+    
+    private func clearList() {
+        useCase.clearMemberPray()
     }
 }
 
 extension GroupMemberPrayListVM {
     struct Input {
         let selectItem: Driver<IndexPath>
+        let clearList: Driver<Void>
     }
 
     struct Output {
@@ -69,6 +103,12 @@ extension GroupMemberPrayListVM {
             .drive(onNext: { [weak self] index in
                 self?.fetchPrayDetail(index: index)
             }).disposed(by: disposeBag)
+        
+        input.clearList
+            .drive(onNext: { [weak self] _ in
+                self?.clearList()
+            }).disposed(by: disposeBag)
+        
         return Output(isNetworking: isNetworking.asDriver(),
                       itemList: itemList.asDriver(),
                       detailVM: detailVM.asDriver()
@@ -85,7 +125,7 @@ extension GroupMemberPrayListVM {
         var latestDate: String
         let createDate: String
                 
-        init(data: MyPray) {
+        init(data: GroupMemberPray) {
             self.prayID = data.prayID
             self.title = data.category
             self.content = data.content
