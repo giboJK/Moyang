@@ -24,6 +24,8 @@ class GroupSearchVM: VMType {
     
     // MARK: - Event
     let requestConfirm = BehaviorRelay<Void>(value: ())
+    let joinGroupReqSuccess = BehaviorRelay<Void>(value: ())
+    let joinGroupReqFailure = BehaviorRelay<Void>(value: ())
     
     init(useCase: GroupUseCase) {
         self.useCase = useCase
@@ -42,6 +44,15 @@ class GroupSearchVM: VMType {
         useCase.isNetworking
             .bind(to: isNetworking)
             .disposed(by: disposeBag)
+        
+        useCase.joinGroupReqSuccess
+            .bind(to: joinGroupReqSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.joinGroupReqFailure
+            .bind(to: joinGroupReqFailure)
+            .disposed(by: disposeBag)
+        
     }
     
     private func fetchGroupList() {
@@ -62,7 +73,7 @@ class GroupSearchVM: VMType {
     private func confirmGroupRequest() {
         if selectedGroupIndex < 0 { return }
         let group = groupList.value[selectedGroupIndex]
-        
+        useCase.joinGroup(groupID: group.id)
     }
     
     func fetchMoreGroupList() {
@@ -79,8 +90,13 @@ extension GroupSearchVM {
     struct Output {
         let isNetworking: Driver<Bool>
         let groupList: Driver<[SearchedGroupItem]>
-        let requestConfirm: Driver<Void>
+        
         let selectedGroupInfo: Driver<String>
+        
+        // MARK: - Event
+        let requestConfirm: Driver<Void>
+        let joinGroupReqSuccess: Driver<Void>
+        let joinGroupReqFailure: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -97,19 +113,25 @@ extension GroupSearchVM {
         
         return Output(isNetworking: isNetworking.asDriver(),
                       groupList: groupList.asDriver(),
+                      
+                      selectedGroupInfo: selectedGroupInfo.asDriver(),
+                      
                       requestConfirm: requestConfirm.asDriver(),
-                      selectedGroupInfo: selectedGroupInfo.asDriver()
+                      joinGroupReqSuccess: joinGroupReqSuccess.asDriver(),
+                      joinGroupReqFailure: joinGroupReqFailure.asDriver()
         )
     }
 }
 
 extension GroupSearchVM {
     struct SearchedGroupItem {
+        let id: String
         let name: String
         let desc: String
         let leader: String
         
         init(data: GroupSearchedInfo) {
+            self.id = data.id
             self.name = data.name
             self.desc = data.desc
             self.leader = "리더: " + data.leader

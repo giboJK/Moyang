@@ -41,6 +41,12 @@ class GroupUseCase {
     let exitGroupSuccess = BehaviorRelay<Void>(value: ())
     let exitGroupFailure = BehaviorRelay<Void>(value: ())
     
+    /// Search
+    let joinGroupReqSuccess = BehaviorRelay<Void>(value: ())
+    let joinGroupReqFailure = BehaviorRelay<Void>(value: ())
+    let acceptGroupReqSuccess = BehaviorRelay<Void>(value: ())
+    let acceptGroupReqFailure = BehaviorRelay<Void>(value: ())
+    
     
     // MARK: - State
     let isNetworking = BehaviorRelay<Bool>(value: false)
@@ -126,6 +132,31 @@ class GroupUseCase {
                 Log.e(error)
             }
         }
+    }
+    
+    func joinGroup(groupID: String) {
+        guard let myID = UserData.shared.userInfo?.id else { resetIsNetworking(); return }
+        if checkAndSetIsNetworking() { return }
+        repo.joinGroup(groupID: groupID, userID: myID) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.joinGroupReqSuccess.accept(())
+                } else {
+                    self.joinGroupReqFailure.accept(())
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.joinGroupReqFailure.accept(())
+            }
+        }
+    }
+    
+    func acceptGroupJoinReq(reqID: String, isAccepted: Bool) {
+        if checkAndSetIsNetworking() { return }
+        
     }
     
     

@@ -34,9 +34,8 @@ class GroupSearchVC: UIViewController, VCType {
         $0.firstButton.setTitle("요청하기", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
     }
-    let confirmPopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
+    let successPopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
         $0.title = "요청이 완료되었습니다"
-        $0.desc = "리더가 확인 후 입장이 완료됩니다."
         $0.firstButton.setTitle("확인", for: .normal)
     }
     let failurePopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .warning).then {
@@ -104,7 +103,7 @@ class GroupSearchVC: UIViewController, VCType {
                 self?.closePopup()
             }).disposed(by: disposeBag)
         
-        confirmPopup.firstButton.rx.tap
+        successPopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
@@ -160,6 +159,20 @@ class GroupSearchVC: UIViewController, VCType {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.displayPopup(popup: self.askAgainPopup)
+            }).disposed(by: disposeBag)
+        
+        output.joinGroupReqSuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.successPopup)
+            }).disposed(by: disposeBag)
+        
+        output.joinGroupReqFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.failurePopup)
             }).disposed(by: disposeBag)
     }
 }
