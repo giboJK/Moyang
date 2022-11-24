@@ -9,10 +9,12 @@ import Foundation
 struct GroupDetail: Codable {
     let prays: [GroupDetailPray]
     let members: [GroupMember]
+    let reqs: [GroupJoinReq]
     
     enum CodingKeys: String, CodingKey {
         case prays
         case members
+        case reqs
     }
 }
 
@@ -41,5 +43,17 @@ struct GroupMember: Codable {
         case userID = "user_id"
         case userName = "name"
         case isLeader = "is_leader"
+    }
+}
+
+struct GroupJoinReq: Codable {
+    let reqID: String
+    let userName: String
+    let userID: String
+    
+    enum CodingKeys: String, CodingKey {
+        case reqID = "req_id"
+        case userName = "name"
+        case userID = "user_id"
     }
 }

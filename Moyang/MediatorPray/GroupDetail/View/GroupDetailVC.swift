@@ -22,6 +22,9 @@ class GroupDetailVC: UIViewController, VCType {
     let minHeaderHeight: CGFloat = 0
     // MARK: - UI
     let moreButton = UIBarButtonItem(title: "더 보기", style: .plain, target: nil, action: nil)
+    let reqCheckView = GroupJoinReqCheckView().then {
+        $0.alpha = 0
+    }
     let descLabel = MoyangLabel().then {
         $0.text = "소개글"
         $0.textColor = .wilderness1
@@ -71,6 +74,7 @@ class GroupDetailVC: UIViewController, VCType {
     func setupUI() {
         view.backgroundColor = .nightSky1
         setupMoreButton()
+        setupReqCheckView()
         setupDescLabel()
         setupDescValueLabel()
         setupMediatorTableView()
@@ -78,6 +82,14 @@ class GroupDetailVC: UIViewController, VCType {
     }
     private func setupMoreButton() {
         navigationItem.rightBarButtonItem = moreButton
+    }
+    private func setupReqCheckView() {
+        view.addSubview(reqCheckView)
+        reqCheckView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(0)
+            $0.left.right.equalToSuperview()
+        }
     }
     private func setupDescLabel() {
         view.addSubview(descLabel)
@@ -117,6 +129,38 @@ class GroupDetailVC: UIViewController, VCType {
             $0.height.equalTo(48)
         }
     }
+    
+    private func showReqCheckView() {
+        reqCheckView.snp.updateConstraints {
+            $0.height.equalTo(14 + 16 + 8)
+        }
+        descLabel.snp.updateConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(28 + 20)
+        }
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+            self.reqCheckView.alpha = 1
+        }
+    }
+    private func hideReqCheckView() {
+        reqCheckView.snp.updateConstraints {
+            $0.height.equalTo(0)
+        }
+        descLabel.snp.updateConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(28)
+        }
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+            self.reqCheckView.alpha = 0
+        }
+    }
+    
+    private func showGroupReqCheckVC() {
+        let vc = GroupReqCheckVC()
+        vc.vm = self.vm
+        vc.modalPresentationStyle = .pageSheet
+        present(vc, animated: true)
+    }
 
     // MARK: - Binding
     func bind() {
@@ -128,6 +172,11 @@ class GroupDetailVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 guard let vm = self?.vm else { return }
                 self?.coordinator?.didTapMoreButton(vm: vm)
+            }).disposed(by: disposeBag)
+        
+        reqCheckView.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.showGroupReqCheckVC()
             }).disposed(by: disposeBag)
     }
 
@@ -143,6 +192,18 @@ class GroupDetailVC: UIViewController, VCType {
                     self?.indicator.startAnimating()
                 } else {
                     self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
+
+        output.hasJoinReq
+            .skip(1)
+            .delay(.milliseconds(200))
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] hasJoinReq in
+                if hasJoinReq {
+                    self?.showReqCheckView()
+                } else {
+                    self?.hideReqCheckView()
                 }
             }).disposed(by: disposeBag)
         

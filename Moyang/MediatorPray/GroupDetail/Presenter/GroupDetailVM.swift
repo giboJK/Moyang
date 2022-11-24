@@ -17,6 +17,7 @@ class GroupDetailVM: VMType {
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
     // MARK: - Data
+    let hasJoinReq = BehaviorRelay<Bool>(value: false)
     let isLeader = BehaviorRelay<Bool>(value: false)
     let groupName = BehaviorRelay<String>(value: "")
     let desc = BehaviorRelay<String>(value: "")
@@ -71,6 +72,8 @@ class GroupDetailVM: VMType {
                         self.isLeader.accept(member.isLeader)
                     }
                 }
+                
+                self.hasJoinReq.accept(!detail.reqs.isEmpty)
                 
                 self.mediatorItemList.accept(itemList)
             }).disposed(by: disposeBag)
@@ -131,6 +134,7 @@ extension GroupDetailVM {
         let isNetworking: Driver<Bool>
         
         // MARK: - Data
+        let hasJoinReq: Driver<Bool>
         let isLeader: Driver<Bool>
         let groupName: Driver<String>
         let desc: Driver<String>
@@ -164,6 +168,7 @@ extension GroupDetailVM {
         
         return Output(isNetworking: isNetworking.asDriver(),
                       
+                      hasJoinReq: hasJoinReq.asDriver(),
                       isLeader: isLeader.asDriver(),
                       groupName: groupName.asDriver(),
                       desc: desc.asDriver(),

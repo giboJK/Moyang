@@ -154,6 +154,8 @@
 		24A603F528E9D414006DFD05 /* AlarmSelectDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A603F428E9D414006DFD05 /* AlarmSelectDayView.swift */; };
 		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
 		24A6A4AD275A2DD700D7DB25 /* BaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */; };
+		24A8B6CA292F894C0059656A /* GroupJoinReqCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8B6C9292F894C0059656A /* GroupJoinReqCheckView.swift */; };
+		24A8B6CC292F939B0059656A /* GroupReqCheckVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8B6CB292F939B0059656A /* GroupReqCheckVC.swift */; };
 		24AACA78283FB42A00308AC3 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA77283FB42A00308AC3 /* MainAssembly.swift */; };
 		24AACA7C283FC3DD00308AC3 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7B283FC3DD00308AC3 /* MainCoordinator.swift */; };
 		24AACA7E283FC40A00308AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AACA7D283FC40A00308AC3 /* Coordinator.swift */; };
@@ -395,6 +397,8 @@
 		24A603F428E9D414006DFD05 /* AlarmSelectDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSelectDayView.swift; sourceTree = "<group>"; };
 		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
 		24A6A4AC275A2DD700D7DB25 /* BaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAssembly.swift; sourceTree = "<group>"; };
+		24A8B6C9292F894C0059656A /* GroupJoinReqCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupJoinReqCheckView.swift; sourceTree = "<group>"; };
+		24A8B6CB292F939B0059656A /* GroupReqCheckVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupReqCheckVC.swift; sourceTree = "<group>"; };
 		24AACA77283FB42A00308AC3 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
 		24AACA7B283FC3DD00308AC3 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		24AACA7D283FC40A00308AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -812,6 +816,8 @@
 				08E9283029260BC0009D67AE /* GroupDetailVC.swift */,
 				08E9283529270DBE009D67AE /* GroupDetailHeader.swift */,
 				2440B585292B9232001767A6 /* GroupDetailTVCell.swift */,
+				24A8B6C9292F894C0059656A /* GroupJoinReqCheckView.swift */,
+				24A8B6CB292F939B0059656A /* GroupReqCheckVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1832,6 +1838,7 @@
 				24AC737A27468BD7003B9B2F /* Array+.swift in Sources */,
 				08EBCFC027FDD6C200BDCB14 /* GoogleSignInButton.swift in Sources */,
 				08E9282C292449BC009D67AE /* NewGroupVM.swift in Sources */,
+				24A8B6CC292F939B0059656A /* GroupReqCheckVC.swift in Sources */,
 				24E0AB30283E746700F52505 /* Network.swift in Sources */,
 				24E5D0EF28B9E6C300680101 /* SplashVC.swift in Sources */,
 				24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */,
@@ -1965,6 +1972,7 @@
 				24F41C692897E9EA005B5E70 /* PrayController.swift in Sources */,
 				08BBB8BB27F9257E0005663C /* PopOver+.swift in Sources */,
 				24E7EC9328FB0F9D008E0E3F /* NoteCategory.swift in Sources */,
+				24A8B6CA292F894C0059656A /* GroupJoinReqCheckView.swift in Sources */,
 				2498F909287C514D007EF510 /* IntroCoordinator.swift in Sources */,
 				24B6E31F275F81CE00AD2E53 /* MoyangError.swift in Sources */,
 				08E4905C2918DE0000735823 /* MyPrayListVM.swift in Sources */,
