@@ -110,8 +110,6 @@ class GroupSearchTVCell: UITableViewCell {
                 }
                 .asDriver(onErrorJustReturn: -1))
             _ = vm.transform(input: input)
-            
         }
-        
     }
 }

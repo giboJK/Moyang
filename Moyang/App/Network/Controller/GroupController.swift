@@ -39,9 +39,10 @@ extension GroupController: GroupRepo {
         }
     }
     
-    func fetchGroupList(page: Int, row: Int, completion: ((Result<GroupSearchedGroupListResponse, MoyangError>) -> Void)?) {
+    func fetchGroupList(userID: String, page: Int, row: Int, completion: ((Result<GroupSearchedGroupListResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.GroupAPI.fetchGroupList)
         let dict: [String: Any] = [
+            "user_id": userID,
             "page": page,
             "row": row
         ]

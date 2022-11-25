@@ -40,7 +40,7 @@ class MyGroupTVCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .nightSky3
+        backgroundView.backgroundColor = .clear
         selectedBackgroundView = backgroundView
         
         setupUI()

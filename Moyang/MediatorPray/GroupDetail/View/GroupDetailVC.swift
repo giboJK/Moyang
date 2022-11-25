@@ -137,7 +137,7 @@ class GroupDetailVC: UIViewController, VCType {
         descLabel.snp.updateConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(28 + 20)
         }
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
             self.reqCheckView.alpha = 1
         }
@@ -149,7 +149,7 @@ class GroupDetailVC: UIViewController, VCType {
         descLabel.snp.updateConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(28)
         }
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
             self.reqCheckView.alpha = 0
         }

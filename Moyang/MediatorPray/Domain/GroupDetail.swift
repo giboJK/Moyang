@@ -50,10 +50,12 @@ struct GroupJoinReq: Codable {
     let reqID: String
     let userName: String
     let userID: String
+    let requestDate: String
     
     enum CodingKeys: String, CodingKey {
         case reqID = "req_id"
         case userName = "name"
         case userID = "user_id"
+        case requestDate = "request_date"
     }
 }

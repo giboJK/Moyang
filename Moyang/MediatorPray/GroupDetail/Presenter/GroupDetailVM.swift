@@ -18,6 +18,7 @@ class GroupDetailVM: VMType {
     
     // MARK: - Data
     let hasJoinReq = BehaviorRelay<Bool>(value: false)
+    let reqList = BehaviorRelay<[ReqItem]>(value: [])
     let isLeader = BehaviorRelay<Bool>(value: false)
     let groupName = BehaviorRelay<String>(value: "")
     let desc = BehaviorRelay<String>(value: "")
@@ -74,6 +75,7 @@ class GroupDetailVM: VMType {
                 }
                 
                 self.hasJoinReq.accept(!detail.reqs.isEmpty)
+                self.reqList.accept(detail.reqs.map { ReqItem(data: $0) })
                 
                 self.mediatorItemList.accept(itemList)
             }).disposed(by: disposeBag)
@@ -120,6 +122,20 @@ class GroupDetailVM: VMType {
     private func exitGroup() {
         useCase.exitGroup(groupID: groupID)
     }
+    
+    private func acceptReq(index: Int) {
+        if index < 0 {
+            Log.e("Invalid index")
+            return
+        }
+    }
+    
+    private func denyReq(index: Int) {
+        if index < 0 {
+            Log.e("Invalid index")
+            return
+        }
+    }
 }
 
 extension GroupDetailVM {
@@ -127,6 +143,10 @@ extension GroupDetailVM {
         var selectUser: Driver<IndexPath> = .empty()
         var exitGroup: Driver<Void> = .empty()
         var exitGroupLeader: Driver<Void> = .empty()
+        
+        // Req
+        var acceptItem: Driver<Int> = .empty()
+        var denyItem: Driver<Int> = .empty()
     }
 
     struct Output {
@@ -135,6 +155,7 @@ extension GroupDetailVM {
         
         // MARK: - Data
         let hasJoinReq: Driver<Bool>
+        let reqList: Driver<[ReqItem]>
         let isLeader: Driver<Bool>
         let groupName: Driver<String>
         let desc: Driver<String>
@@ -166,9 +187,19 @@ extension GroupDetailVM {
                 self?.exitGroup()
             }).disposed(by: disposeBag)
         
+        input.acceptItem
+            .drive(onNext: { [weak self] index in
+                self?.acceptReq(index: index)
+            }).disposed(by: disposeBag)
+        input.denyItem
+            .drive(onNext: { [weak self] index in
+                self?.denyReq(index: index)
+            }).disposed(by: disposeBag)
+        
         return Output(isNetworking: isNetworking.asDriver(),
                       
                       hasJoinReq: hasJoinReq.asDriver(),
+                      reqList: reqList.asDriver(),
                       isLeader: isLeader.asDriver(),
                       groupName: groupName.asDriver(),
                       desc: desc.asDriver(),
@@ -209,6 +240,20 @@ extension GroupDetailVM {
             prayID = ""
             userID = groupMember.userID
             isLeader = groupMember.isLeader
+        }
+    }
+    
+    struct ReqItem {
+        let reqID: String
+        let userID: String
+        let name: String
+        let requestDate: String
+        
+        init(data: GroupJoinReq) {
+            self.reqID = data.reqID
+            self.userID = data.userID
+            self.name = data.userName
+            self.requestDate = data.requestDate
         }
     }
 }

@@ -20,6 +20,7 @@
 		08194BC8292DD8A90008D72B /* GroupDetailMoreTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BC7292DD8A90008D72B /* GroupDetailMoreTVCell.swift */; };
 		08194BCA292EFD400008D72B /* MemberPrayDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BC9292EFD400008D72B /* MemberPrayDetailHeader.swift */; };
 		08194BCC292F024D0008D72B /* GroupMemberPrayBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BCB292F024D0008D72B /* GroupMemberPrayBottomView.swift */; };
+		08194BCE29302D580008D72B /* GroupReqCheckTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BCD29302D580008D72B /* GroupReqCheckTVCell.swift */; };
 		081A25C0292A05D500EC16EC /* PrayDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */; };
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
@@ -262,6 +263,7 @@
 		08194BC7292DD8A90008D72B /* GroupDetailMoreTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailMoreTVCell.swift; sourceTree = "<group>"; };
 		08194BC9292EFD400008D72B /* MemberPrayDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPrayDetailHeader.swift; sourceTree = "<group>"; };
 		08194BCB292F024D0008D72B /* GroupMemberPrayBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberPrayBottomView.swift; sourceTree = "<group>"; };
+		08194BCD29302D580008D72B /* GroupReqCheckTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupReqCheckTVCell.swift; sourceTree = "<group>"; };
 		081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayDetailEditView.swift; sourceTree = "<group>"; };
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
@@ -818,6 +820,7 @@
 				2440B585292B9232001767A6 /* GroupDetailTVCell.swift */,
 				24A8B6C9292F894C0059656A /* GroupJoinReqCheckView.swift */,
 				24A8B6CB292F939B0059656A /* GroupReqCheckVC.swift */,
+				08194BCD29302D580008D72B /* GroupReqCheckTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1968,6 +1971,7 @@
 				08D82959278D25F0001E6B61 /* Font+.swift in Sources */,
 				242F929E2848E0FF0023324D /* GroupActivityAssembly.swift in Sources */,
 				08F66EFB28BDAB720078B6AB /* GroupEventTVCell.swift in Sources */,
+				08194BCE29302D580008D72B /* GroupReqCheckTVCell.swift in Sources */,
 				08F66EF928BD9D5F0078B6AB /* GroupEventVM.swift in Sources */,
 				24F41C692897E9EA005B5E70 /* PrayController.swift in Sources */,
 				08BBB8BB27F9257E0005663C /* PopOver+.swift in Sources */,

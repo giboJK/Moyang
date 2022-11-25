@@ -92,8 +92,9 @@ class GroupUseCase {
     
     
     private func fetchGroupList() {
+        guard let myID = UserData.shared.userInfo?.id else { resetIsNetworking(); return }
         if checkAndSetIsNetworking() { return }
-        repo.fetchGroupList(page: page, row: row) { [weak self] result in
+        repo.fetchGroupList(userID: myID, page: page, row: row) { [weak self] result in
             self?.resetIsNetworking()
             guard let self = self else { return }
             switch result {
@@ -118,9 +119,9 @@ class GroupUseCase {
     }
     
     func fetchMyGroupSummary() {
-        guard let userID = UserData.shared.userInfo?.id else { resetIsNetworking(); return }
+        guard let myID = UserData.shared.userInfo?.id else { resetIsNetworking(); return }
         if checkAndSetIsNetworking() { return }
-        repo.fetchMyGroupSummary(userID: userID) { [weak self] result in
+        repo.fetchMyGroupSummary(userID: myID) { [weak self] result in
             self?.resetIsNetworking()
             guard let self = self else { return }
             switch result {
