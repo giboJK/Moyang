@@ -128,6 +128,8 @@ class GroupDetailVM: VMType {
             Log.e("Invalid index")
             return
         }
+        let reqID = reqList.value[index].reqID
+        useCase.acceptGroupReq(reqID: reqID, isAccepted: true)
     }
     
     private func denyReq(index: Int) {
@@ -135,6 +137,8 @@ class GroupDetailVM: VMType {
             Log.e("Invalid index")
             return
         }
+        let reqID = reqList.value[index].reqID
+        useCase.acceptGroupReq(reqID: reqID, isAccepted: false)
     }
 }
 

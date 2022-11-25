@@ -193,6 +193,34 @@ class GroupUseCase {
         }
     }
     
+    func acceptGroupReq(reqID: String, isAccepted: Bool) {
+        if checkAndSetIsNetworking() { return }
+        repo.acceptGroup(reqID: reqID, isAccepted: isAccepted) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    var cur = self.groupDetail.value
+
+                    if isAccepted {
+                        if let reqUser = cur?.reqs.first(where: { $0.reqID == reqID }) {
+                            cur?.members.append(GroupMember(userID: reqUser.userID,
+                                                            userName: reqUser.userName,
+                                                            isLeader: false))
+                        }
+                    }
+                    cur?.reqs.removeAll(where: { $0.reqID == reqID })
+                    self.groupDetail.accept(cur)
+                } else {
+                    Log.e("")
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
+    }
+    
     // MARK: - GroupDetailMore
     func exitGroup(groupID: String) {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No ID"); return }

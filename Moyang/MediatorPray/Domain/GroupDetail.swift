@@ -7,9 +7,9 @@
 
 import Foundation
 struct GroupDetail: Codable {
-    let prays: [GroupDetailPray]
-    let members: [GroupMember]
-    let reqs: [GroupJoinReq]
+    var prays: [GroupDetailPray]
+    var members: [GroupMember]
+    var reqs: [GroupJoinReq]
     
     enum CodingKeys: String, CodingKey {
         case prays
