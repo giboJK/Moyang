@@ -42,7 +42,7 @@ class NewPrayVC: UIViewController, VCType {
     let contentTextView = NewPrayTextView("내용", "내용").then {
         $0.isHidden = true
     }
-    let groupTextView = NewPrayTextField("공동체", "", "성령님과 기도할게요 :)").then {
+    let groupTextView = NewPrayTextField("공동체", "", "중보기도를 요청할까요?").then {
         $0.isHidden = true
     }
     let groupClearButton = MoyangButton(.none).then {

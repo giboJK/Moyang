@@ -92,7 +92,7 @@ extension NewPrayTextView: UITextViewDelegate {
         let size = CGSize(width: frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
         textView.snp.updateConstraints {
-            $0.height.equalTo(min(180, estimatedSize.height))
+            $0.height.equalTo(min(140, estimatedSize.height))
         }
     }
 }

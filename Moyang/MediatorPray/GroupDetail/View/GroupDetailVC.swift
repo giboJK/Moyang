@@ -56,13 +56,13 @@ class GroupDetailVC: UIViewController, VCType {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         bind()
     }
-
+    
     deinit { Log.i(self) }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
@@ -161,7 +161,7 @@ class GroupDetailVC: UIViewController, VCType {
         vc.modalPresentationStyle = .pageSheet
         present(vc, animated: true)
     }
-
+    
     // MARK: - Binding
     func bind() {
         bindViews()
@@ -179,10 +179,12 @@ class GroupDetailVC: UIViewController, VCType {
                 self?.showGroupReqCheckVC()
             }).disposed(by: disposeBag)
     }
-
+    
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input(selectUser: memberTableView.rx.itemSelected.asDriver())
+        let input = VM.Input(showMyList: headerView.newMediatorView.rx
+            .tapGesture().when(.ended).map { _ in () }.asDriver(onErrorJustReturn: ()),
+                             selectUser: memberTableView.rx.itemSelected.asDriver())
         let output = vm.transform(input: input)
         
         output.isNetworking
@@ -194,7 +196,7 @@ class GroupDetailVC: UIViewController, VCType {
                     self?.indicator.stopAnimating()
                 }
             }).disposed(by: disposeBag)
-
+        
         output.hasJoinReq
             .skip(1)
             .delay(.milliseconds(200))

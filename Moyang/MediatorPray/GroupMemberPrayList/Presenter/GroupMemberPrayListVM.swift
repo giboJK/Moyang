@@ -16,9 +16,10 @@ class GroupMemberPrayListVM: VMType {
     
     // MARK: - Events
     let isNetworking = BehaviorRelay<Bool>(value: false)
-    let itemList = BehaviorRelay<([String], [[PrayListItem]])>(value: ([], []))
     
-    // MARK: - UI
+    // MARK: - Data
+    let itemList = BehaviorRelay<([String], [[PrayListItem]])>(value: ([], []))
+    let userName = BehaviorRelay<String>(value: "")
     
     // MARK: - VM
     let detailVM = BehaviorRelay<GroupMemberPrayDetailVM?>(value: nil)
@@ -62,6 +63,14 @@ class GroupMemberPrayListVM: VMType {
                 
                 self.itemList.accept((sections, itemList))
             }).disposed(by: disposeBag)
+        
+        useCase.groupDetail
+            .subscribe(onNext: { [weak self] detail in
+                guard let detail = detail, let self = self else { return }
+                if let member = detail.members.first(where: { $0.userID == self.userID }) {
+                    self.userName.accept(member.userName)
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func fetchList() {
@@ -95,6 +104,7 @@ extension GroupMemberPrayListVM {
     struct Output {
         let isNetworking: Driver<Bool>
         let itemList: Driver<([String], [[PrayListItem]])>
+        let userName: Driver<String>
         let detailVM: Driver<GroupMemberPrayDetailVM?>
     }
 
@@ -112,6 +122,7 @@ extension GroupMemberPrayListVM {
         
         return Output(isNetworking: isNetworking.asDriver(),
                       itemList: itemList.asDriver(),
+                      userName: userName.asDriver(),
                       detailVM: detailVM.asDriver()
         )
     }

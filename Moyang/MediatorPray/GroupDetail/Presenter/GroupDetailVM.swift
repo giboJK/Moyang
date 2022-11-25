@@ -106,6 +106,11 @@ class GroupDetailVM: VMType {
         useCase.fetchGroupDetail(groupID: groupID)
     }
     
+    private func showMyList() {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No ID"); return }
+        listVM.accept(GroupMemberPrayListVM(useCase: useCase, groupID: groupID, userID: myID))
+    }
+    
     private func createGroupMemberPrayDetailVM(index: Int) {
         let item = mediatorItemList.value[index]
         listVM.accept(GroupMemberPrayListVM(useCase: useCase, groupID: groupID, userID: item.userID))
@@ -144,6 +149,7 @@ class GroupDetailVM: VMType {
 
 extension GroupDetailVM {
     struct Input {
+        var showMyList: Driver<Void> = .empty()
         var selectUser: Driver<IndexPath> = .empty()
         var exitGroup: Driver<Void> = .empty()
         var exitGroupLeader: Driver<Void> = .empty()
@@ -176,6 +182,10 @@ extension GroupDetailVM {
     }
 
     func transform(input: Input) -> Output {
+        input.showMyList
+            .drive(onNext: { [weak self] _ in
+                self?.showMyList()
+            }).disposed(by: disposeBag)
         input.selectUser
             .drive(onNext: { [weak self] index in
                 self?.createGroupMemberPrayDetailVM(index: index.row)

@@ -57,7 +57,7 @@ class MyPraySummaryView: UIView {
         addSubview(showAllView)
         showAllView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(addNewPrayView.snp.top).offset(-28)
+            $0.bottom.equalTo(addNewPrayView.snp.top).offset(-20)
         }
     }
     
@@ -71,7 +71,7 @@ class MyPraySummaryView: UIView {
     
     private func showLatestPrayViewAndShowAllView() {
         addNewPrayView.snp.updateConstraints {
-            $0.top.equalToSuperview().inset(myLatestPrayView.frame.height + showAllView.frame.height + 28 + 20)
+            $0.top.equalToSuperview().inset(myLatestPrayView.frame.height + showAllView.frame.height + 20 + 20)
         }
         
         UIView.animate(withDuration: 0.5) {
@@ -107,6 +107,7 @@ class MyPraySummaryView: UIView {
                     self?.showLatestPrayViewAndShowAllView()
                     self?.myLatestPrayView.dateLabel.text = summary.latestDate?.isoToDateString("yyyy. M. d.")
                     self?.myLatestPrayView.titleLabel.text = summary.title
+                    self?.myLatestPrayView.titleLabel.lineBreakMode = .byTruncatingTail
                     self?.myLatestPrayView.contentLabel.text = summary.content
                     self?.myLatestPrayView.contentLabel.lineBreakMode = .byTruncatingTail
                 } else {
@@ -162,6 +163,7 @@ class MyLatestPrayView: UIView {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.left.equalToSuperview().inset(16)
+            $0.right.equalToSuperview().inset(16 + 10 + 8)
             $0.height.equalTo(19)
         }
     }
@@ -263,6 +265,9 @@ class AddNewPrayView: UIView {
         $0.font = .b03
         $0.textColor = .sheep2
     }
+    let forwardImageView = UIImageView(image: UIImage(systemName: "chevron.forward")).then {
+        $0.tintColor = .sheep3
+    }
     let writePrayLabel = MoyangLabel().then {
         $0.text = "새 기도 작성하기"
         $0.font = .headline
@@ -282,6 +287,7 @@ class AddNewPrayView: UIView {
     }
     private func setupUI() {
         setupDescLabel()
+        setupForwardImageView()
         setupWritePrayLabel()
     }
     private func setupDescLabel() {
@@ -292,10 +298,19 @@ class AddNewPrayView: UIView {
             $0.left.equalToSuperview().inset(16)
         }
     }
+    private func setupForwardImageView() {
+        addSubview(forwardImageView)
+        forwardImageView.snp.makeConstraints {
+            $0.centerY.equalTo(descLabel)
+            $0.right.equalToSuperview().inset(16)
+            $0.width.equalTo(10)
+            $0.height.equalTo(16)
+        }
+    }
     private func setupWritePrayLabel() {
         addSubview(writePrayLabel)
         writePrayLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(72)
+            $0.top.equalToSuperview().inset(64)
             $0.left.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(20)
             $0.height.equalTo(21)

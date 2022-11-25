@@ -119,6 +119,10 @@ class GroupMemberPrayListVC: UIViewController, VCType {
                 }
             }).disposed(by: disposeBag)
         
+        output.userName.map { $0 + "의 기도목록" }
+            .drive(self.rx.title)
+            .disposed(by: disposeBag)
+        
         output.itemList
             .drive(onNext: { [weak self] dataSource in
                 self?.sections = dataSource.0
@@ -140,7 +144,6 @@ extension GroupMemberPrayListVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier:
                     "sectionHeader") as! MyPrayListHeaderView
         view.titleLabel.text = sections[section]
