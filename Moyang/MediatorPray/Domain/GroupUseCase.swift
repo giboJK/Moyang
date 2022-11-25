@@ -47,6 +47,10 @@ class GroupUseCase {
     let acceptGroupReqSuccess = BehaviorRelay<Void>(value: ())
     let acceptGroupReqFailure = BehaviorRelay<Void>(value: ())
     
+    /// DetailPray
+    let addPraySuccess = BehaviorRelay<Void>(value: ())
+    let addPrayFailure = BehaviorRelay<Void>(value: ())
+    
     
     // MARK: - State
     let isNetworking = BehaviorRelay<Bool>(value: false)

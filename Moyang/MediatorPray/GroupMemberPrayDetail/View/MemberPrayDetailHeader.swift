@@ -99,20 +99,19 @@ class MemberPrayDetailHeader: UIView {
     }
     
     func bind() {
-//        guard let vm = vm, let disposeBag = disposeBag else { Log.e("No vm"); return }
-//        let input = VM.Input(setCategory: categoryTextField.rx.text.asDriver(),
-//                             setGroup: groupTextField.rx.text.asDriver())
-//        let output = vm.transform(input: input)
-//
-//        output.category
-//            .distinctUntilChanged()
-//            .drive(categoryTextField.rx.text)
-//            .disposed(by: disposeBag)
-//
-//        output.groupName
-//            .distinctUntilChanged()
-//            .drive(groupTextField.rx.text)
-//            .disposed(by: disposeBag)
+        guard let vm = vm, let disposeBag = disposeBag else { Log.e("No vm"); return }
+        let input = VM.Input()
+        let output = vm.transform(input: input)
+
+        output.category
+            .distinctUntilChanged()
+            .drive(categoryTextField.rx.text)
+            .disposed(by: disposeBag)
+
+        output.groupName
+            .distinctUntilChanged()
+            .drive(groupTextField.rx.text)
+            .disposed(by: disposeBag)
     }
 }
 
