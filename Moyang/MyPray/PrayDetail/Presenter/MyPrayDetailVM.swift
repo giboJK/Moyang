@@ -354,7 +354,7 @@ extension MyPrayDetailVM {
             }).disposed(by: disposeBag)
         
         input.deleteItem
-            .drive(onNext: { [weak self] index in
+            .drive(onNext: { [weak self] _ in
                 self?.deleteItem()
             }).disposed(by: disposeBag)
         

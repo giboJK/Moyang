@@ -16,7 +16,7 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupMemberPrayDetailVCDelegate?
-
+    
     // MARK: - Property
     let historyBgViewHeight: CGFloat = 12 + 21 + 16
     let headerHeight: CGFloat = 247 + 12 + 21 + 16
@@ -55,14 +55,14 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
         $0.desc = "다른 사람의 기도문은 수정할 수 없어요."
         $0.firstButton.setTitle("확인", for: .normal)
     }
-
+    
     let indicator = UIActivityIndicatorView(style: .large).then {
         $0.hidesWhenStopped = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         bind()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
@@ -73,9 +73,9 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
         
         navigationItem.largeTitleDisplayMode = .never
     }
-
+    
     deinit { Log.i(self) }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
@@ -168,7 +168,7 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
             $0.center.equalToSuperview()
         }
     }
-
+    
     // MARK: - Binding
     func bind() {
         bindViews()
@@ -212,10 +212,13 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
                 self?.closePopup()
             }).disposed(by: disposeBag)
     }
-
+    
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
-        let input = VM.Input()
+        let addNew = bottomView.textView.saveImageView.rx.tapGesture().when(.ended).map({ _ in ()}).asDriver(onErrorJustReturn: ())
+        let input = VM.Input(addPray: addNew,
+                             setNew: bottomView.textView.textView.rx.text.asDriver()
+        )
         let output = vm.transform(input: input)
         
         output.isNetworking
@@ -272,5 +275,5 @@ extension GroupMemberPrayDetailVC: UITableViewDelegate {
 }
 
 protocol GroupMemberPrayDetailVCDelegate: AnyObject {
-
+    
 }

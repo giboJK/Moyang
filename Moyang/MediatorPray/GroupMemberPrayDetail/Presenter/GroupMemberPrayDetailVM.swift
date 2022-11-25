@@ -13,11 +13,15 @@ class GroupMemberPrayDetailVM: VMType {
 
     let useCase: GroupUseCase
     
+    // MARK: - Propertise
+    var prayID: String = ""
+    
     
     // MARK: - State
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
     // MARK: - Data
+    let isMe = BehaviorRelay<Bool>(value: false)
     let groupName = BehaviorRelay<String?>(value: "")
     let category = BehaviorRelay<String?>(value: nil)
     let newContent = BehaviorRelay<String?>(value: nil)
@@ -58,6 +62,7 @@ class GroupMemberPrayDetailVM: VMType {
     private func setData(data: PrayDetail) {
         category.accept(data.category)
         groupName.accept(data.groupName)
+        prayID = data.prayID
         
         var itemList = [ContentItem]()
         itemList.append(ContentItem(id: data.prayID, content: data.content, date: data.createDate, name: data.userName))
@@ -83,15 +88,28 @@ class GroupMemberPrayDetailVM: VMType {
     func checkCanDelete(indexPath: IndexPath) {
         
     }
+    
+    private func addPray() {
+        if prayID.isEmpty { Log.e("No pray id"); return }
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No user id"); return }
+        guard let content = newContent.value else { Log.e("No Content"); return }
+        useCase.addReply(prayID: prayID, myID: myID, content: content)
+    }
+    private func addChange() {
+        
+    }
 }
 
 extension GroupMemberPrayDetailVM {
     struct Input {
+        var addPray: Driver<Void> = .empty()
+        var setNew: Driver<String?> = .empty()
     }
 
     struct Output {
         let isNetworking: Driver<Bool>
         
+        let isMe: Driver<Bool>
         let groupName: Driver<String?>
         let category: Driver<String?>
         let newContent: Driver<String?>
@@ -102,8 +120,23 @@ extension GroupMemberPrayDetailVM {
     }
 
     func transform(input: Input) -> Output {
+        input.addPray
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                if self.isMe.value {
+                    self.addChange()
+                } else {
+                    self.addPray()
+                }
+            }).disposed(by: disposeBag)
+        
+        input.setNew
+            .drive(newContent)
+            .disposed(by: disposeBag)
+        
         return Output(isNetworking: isNetworking.asDriver(),
                       
+                      isMe: isMe.asDriver(),
                       groupName: groupName.asDriver(),
                       category: category.asDriver(),
                       newContent: newContent.asDriver(),

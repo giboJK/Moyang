@@ -13,14 +13,10 @@ import SnapKit
 
 
 class GroupMemberPrayBottomView: UIView {
-    let typeContainer = UIView()
     let typeLabel = MoyangLabel().then {
         $0.text = "기도 더하기"
         $0.textColor = .nightSky2
         $0.font = .b03
-    }
-    let downImageView = UIImageView(image: UIImage(systemName: "arrowtriangle.down.fill")).then {
-        $0.tintColor = .nightSky2
     }
     let prayButton = MoyangButton(.nightPrimary).then {
         $0.setTitle("기도하기", for: .normal)
@@ -53,14 +49,14 @@ class GroupMemberPrayBottomView: UIView {
     }
     
     private func setupUI() {
+        setupTypeLabel()
         setupTextView()
         setupPrayButton()
-        setupTypeContainer()
     }
     private func setupTextView() {
         addSubview(textView)
         textView.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(92)
+            $0.left.equalTo(typeLabel.snp.right).offset(8)
             $0.top.equalToSuperview().inset(4)
             $0.right.equalToSuperview().inset(120)
             $0.height.greaterThanOrEqualTo(36)
@@ -76,28 +72,11 @@ class GroupMemberPrayBottomView: UIView {
             $0.right.equalToSuperview().inset(12)
         }
     }
-    private func setupTypeContainer() {
-        addSubview(typeContainer)
-        typeContainer.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(12)
-            $0.centerY.equalTo(prayButton)
-            $0.height.equalTo(17)
-        }
-        setupTypeLabel()
-        setupDownImageView()
-    }
     private func setupTypeLabel() {
-        typeContainer.addSubview(typeLabel)
+        addSubview(typeLabel)
         typeLabel.snp.makeConstraints {
-            $0.top.left.equalToSuperview()
-        }
-    }
-    private func setupDownImageView() {
-        typeContainer.addSubview(downImageView)
-        downImageView.snp.makeConstraints {
-            $0.left.equalTo(typeLabel.snp.right).offset(4)
-            $0.centerY.right.equalToSuperview()
-            $0.size.equalTo(8)
+            $0.top.equalToSuperview().inset(14)
+            $0.left.equalToSuperview().inset(12)
         }
     }
     
