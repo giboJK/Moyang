@@ -98,6 +98,13 @@ class MyPrayDetailTVCell: UITableViewCell {
         updateDateAndNameLabel(isMe: isMe)
     }
     
+    func updateUI(type: GroupMemberPrayDetailVM.ContentItemType) {
+        let isMe = type == .startPray || type == .change
+        updateContentLabelUI(isMe: isMe)
+        updateBubbleImageView(isMe: isMe, isOther: type == .reply)
+        updateDateAndNameLabel(isMe: isMe)
+    }
+    
     private func updateContentLabelUI(isMe: Bool) {
         guard let textWidth = contentLabel.text?.longestLine
             .width(withConstraintedHeight: 19, font: .b02) else { return }

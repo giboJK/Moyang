@@ -227,6 +227,15 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
                     self?.indicator.stopAnimating()
                 }
             }).disposed(by: disposeBag)
+        
+        output.contentItemList
+            .drive(prayTableView.rx
+                .items(cellIdentifier: "cell", cellType: MyPrayDetailTVCell.self)) { (_, item, cell) in
+                    cell.contentLabel.text = item.content
+                    cell.dateLabel.text = item.date.isoToDateString("yyyy.M.d.")
+                    cell.nameLabel.text = item.name
+                    cell.updateUI(type: item.type)
+                }.disposed(by: disposeBag)
     }
 }
 
