@@ -316,7 +316,18 @@ class MyPrayDetailVC: UIViewController, VCType {
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
         
-        output.canEditPopup
+        Driver.combineLatest(output.addChangeSuccess,
+                             output.addAnswerSuccess)
+        .skip(2).delay(.milliseconds(100))
+        .drive(onNext: { [weak self](_, _) in
+            guard let self = self else { return }
+            let numberOfRows = self.prayTableView.numberOfRows(inSection: 0) - 1
+            guard numberOfRows > 0 else { return }
+            self.prayTableView.scrollToRow(at: IndexPath(row: numberOfRows, section: 0), at: .bottom, animated: true)
+            self.bottomView.textView.textView.text.removeAll()
+        }).disposed(by: disposeBag)
+        
+        output.cantEditPopup
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }

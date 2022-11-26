@@ -31,6 +31,9 @@ class GroupMemberPrayDetailVM: VMType {
     let addPraySuccess = BehaviorRelay<Void>(value: ())
     let addPrayFailure = BehaviorRelay<Void>(value: ())
     
+    let cantEditPopup = BehaviorRelay<Void>(value: ())
+    let deleteConfirmPopup = BehaviorRelay<Void>(value: ())
+    let showFixVC = BehaviorRelay<Void>(value: ())
     
     init(useCase: GroupUseCase) {
         self.useCase = useCase
@@ -60,17 +63,22 @@ class GroupMemberPrayDetailVM: VMType {
     }
     
     private func setData(data: PrayDetail) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No my id"); return }
         category.accept(data.category)
         groupName.accept(data.groupName)
         prayID = data.prayID
         
         var itemList = [ContentItem]()
-        itemList.append(ContentItem(id: data.prayID, content: data.content, date: data.createDate, name: data.userName))
+        itemList.append(ContentItem(id: data.prayID,
+                                    userID: myID,
+                                    content: data.content,
+                                    date: data.createDate,
+                                    name: data.userName))
         for change in data.changes {
-            itemList.append(ContentItem(change: change, name: data.userName))
+            itemList.append(ContentItem(change: change, userID: myID, name: data.userName))
         }
         for answer in data.answers {
-            itemList.append(ContentItem(answer: answer))
+            itemList.append(ContentItem(answer: answer, userID: myID))
         }
         for reply in data.replys {
             itemList.append(ContentItem(reply: reply))
@@ -86,7 +94,17 @@ class GroupMemberPrayDetailVM: VMType {
     }
     
     func checkCanDelete(indexPath: IndexPath) {
-        
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No my id"); return }
+        let item = contentItemList.value[indexPath.row]
+        if item.type == .reply {
+            if item.userID != myID {
+                cantEditPopup.accept(())
+            } else {
+                
+            }
+        } else {
+            
+        }
     }
     
     private func addPray() {
@@ -98,12 +116,17 @@ class GroupMemberPrayDetailVM: VMType {
     private func addChange() {
         
     }
+    
+    private func clearPrayDetail() {
+        useCase.clearPrayDetail()
+    }
 }
 
 extension GroupMemberPrayDetailVM {
     struct Input {
         var addPray: Driver<Void> = .empty()
         var setNew: Driver<String?> = .empty()
+        var clearPrayDetail: Driver<Void> = .empty()
     }
 
     struct Output {
@@ -134,6 +157,11 @@ extension GroupMemberPrayDetailVM {
             .drive(newContent)
             .disposed(by: disposeBag)
         
+        input.clearPrayDetail
+            .drive(onNext: { [weak self] _ in
+                self?.clearPrayDetail()
+            }).disposed(by: disposeBag)
+        
         return Output(isNetworking: isNetworking.asDriver(),
                       
                       isMe: isMe.asDriver(),
@@ -151,29 +179,33 @@ extension GroupMemberPrayDetailVM {
 extension GroupMemberPrayDetailVM {
     struct ContentItem {
         let id: String
+        let userID: String
         let content: String
         let date: String
         let name: String
         let type: ContentItemType
         
-        init(id: String, content: String, date: String, name: String) {
+        init(id: String, userID: String, content: String, date: String, name: String) {
             self.id = id
+            self.userID = userID
             self.content = content
             self.date = date
             self.name = name
             type = .startPray
         }
         
-        init(change: PrayChange, name: String) {
+        init(change: PrayChange, userID: String, name: String) {
             id = change.id
+            self.userID = userID
             content = change.content
             date = change.date
             self.name = name
             type = .change
         }
         
-        init(answer: PrayAnswer) {
+        init(answer: PrayAnswer, userID: String) {
             id = answer.id
+            self.userID = userID
             content = answer.answer
             date = answer.date
             name = "주님"
@@ -182,6 +214,7 @@ extension GroupMemberPrayDetailVM {
         
         init(reply: PrayReply) {
             id = reply.id
+            userID = reply.memberID
             content = reply.reply
             date = reply.createDate
             name = reply.name

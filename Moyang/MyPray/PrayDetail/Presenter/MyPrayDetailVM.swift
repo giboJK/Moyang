@@ -39,13 +39,18 @@ class MyPrayDetailVM: VMType {
     
     
     // MARK: - Events
+    let addChangeSuccess = BehaviorRelay<Void>(value: ())
+    let addChangeFailure = BehaviorRelay<Void>(value: ())
+    let addAnswerSuccess = BehaviorRelay<Void>(value: ())
+    let addAnswerFailure = BehaviorRelay<Void>(value: ())
+    
     let updatePraySuccess = BehaviorRelay<Void>(value: ())
     let updatePrayFailure = BehaviorRelay<Void>(value: ())
     
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
-    let canEditPopup = BehaviorRelay<Void>(value: ())
+    let cantEditPopup = BehaviorRelay<Void>(value: ())
     let deleteConfirmPopup = BehaviorRelay<Void>(value: ())
     let showFixVC = BehaviorRelay<Void>(value: ())
     
@@ -117,6 +122,22 @@ class MyPrayDetailVM: VMType {
         
         useCase.updateAnswerFailure
             .bind(to: updateAnswerFailure)
+            .disposed(by: disposeBag)
+        
+        useCase.addChangeSuccess
+            .bind(to: addChangeSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.addChangeFailure
+            .bind(to: addChangeFailure)
+            .disposed(by: disposeBag)
+        
+        useCase.addAnswerSuccess
+            .bind(to: addAnswerSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.addAnswerFailure
+            .bind(to: addAnswerFailure)
             .disposed(by: disposeBag)
         
         useCase.isNetworking
@@ -213,7 +234,7 @@ class MyPrayDetailVM: VMType {
     func checkCanEdit(indexPath: IndexPath) {
         let list = contentItemList.value
         if list[indexPath.row].type == .reply {
-            canEditPopup.accept(())
+            cantEditPopup.accept(())
         } else {
             itemToEdit = indexPath
             contentToChange.accept(list[indexPath.row].content)
@@ -304,13 +325,18 @@ extension MyPrayDetailVM {
         
         
         // MARK: - Events
+        let addChangeSuccess: Driver<Void>
+        let addChangeFailure: Driver<Void>
+        let addAnswerSuccess: Driver<Void>
+        let addAnswerFailure: Driver<Void>
+        
         let updatePraySuccess: Driver<Void>
         let updatePrayFailure: Driver<Void>
         
         let deletePraySuccess: Driver<Void>
         let deletePrayFailure: Driver<Void>
         
-        let canEditPopup: Driver<Void>
+        let cantEditPopup: Driver<Void>
         let deleteConfirmPopup: Driver<Void>
         let showFixVC: Driver<Void>
         
@@ -398,12 +424,17 @@ extension MyPrayDetailVM {
             isSaveEnabled: isSaveEnabled.asDriver(),
             isNetworking: isNetworking.asDriver(),
             
+            addChangeSuccess: addChangeSuccess.asDriver(),
+            addChangeFailure: addChangeFailure.asDriver(),
+            addAnswerSuccess: addAnswerSuccess.asDriver(),
+            addAnswerFailure: addAnswerFailure.asDriver(),
+            
             updatePraySuccess: updatePraySuccess.asDriver(),
             updatePrayFailure: updatePrayFailure.asDriver(),
             deletePraySuccess: deletePraySuccess.asDriver(),
             deletePrayFailure: deletePrayFailure.asDriver(),
             
-            canEditPopup: canEditPopup.asDriver(),
+            cantEditPopup: cantEditPopup.asDriver(),
             deleteConfirmPopup: deleteConfirmPopup.asDriver(),
             showFixVC: showFixVC.asDriver(),
             

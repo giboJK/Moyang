@@ -316,10 +316,10 @@ class GroupUseCase {
             switch result {
             case .success(let response):
                 if response.code == 0 {
-                    self.addPraySuccess.accept(())
                     var cur = self.prayDetail.value
                     cur?.replys.append(response.data)
                     self.prayDetail.accept(cur)
+                    self.addPraySuccess.accept(())
                 } else {
                     self.addPrayFailure.accept(())
                     Log.e("")
@@ -329,6 +329,10 @@ class GroupUseCase {
                 self.addPrayFailure.accept(())
             }
         }
+    }
+    
+    func clearPrayDetail() {
+        prayDetail.accept(nil)
     }
     
     

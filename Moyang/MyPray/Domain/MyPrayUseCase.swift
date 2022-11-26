@@ -97,14 +97,17 @@ class MyPrayUseCase {
             switch result {
             case .success(let response):
                 if response.code == 0 {
+                    self.addAnswerSuccess.accept(())
                     var cur = self.prayDetail.value!
                     cur.answers.append(response.data)
                     self.prayDetail.accept(cur)
                 } else {
+                    self.addAnswerFailure.accept(())
                     Log.e(response.errorMessage ?? "")
                 }
             case .failure(let error):
                 Log.e(error)
+                self.addAnswerFailure.accept(())
             }
         }
     }
@@ -117,14 +120,17 @@ class MyPrayUseCase {
             switch result {
             case .success(let response):
                 if response.code == 0 {
+                    self.addChangeSuccess.accept(())
                     var cur = self.prayDetail.value!
                     cur.changes.append(response.data)
                     self.prayDetail.accept(cur)
                 } else {
+                    self.addChangeFailure.accept(())
                     Log.e(response.errorMessage ?? "")
                 }
             case .failure(let error):
                 Log.e(error)
+                self.addChangeFailure.accept(())
             }
         }
     }

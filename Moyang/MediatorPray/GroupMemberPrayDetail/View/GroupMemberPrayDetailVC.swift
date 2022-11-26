@@ -216,8 +216,10 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
     private func bindVM() {
         guard let vm = vm else { Log.e("vm is nil"); return }
         let addNew = bottomView.textView.saveImageView.rx.tapGesture().when(.ended).map({ _ in ()}).asDriver(onErrorJustReturn: ())
+        let clear = self.rx.viewDidDisappear.map { _ -> Void in () }.asDriver(onErrorJustReturn: ())
         let input = VM.Input(addPray: addNew,
-                             setNew: bottomView.textView.textView.rx.text.asDriver()
+                             setNew: bottomView.textView.textView.rx.text.asDriver(),
+                             clearPrayDetail: clear
         )
         let output = vm.transform(input: input)
         
@@ -239,6 +241,17 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
                     cell.nameLabel.text = item.name
                     cell.updateUI(type: item.type)
                 }.disposed(by: disposeBag)
+        
+        output.addPraySuccess
+            .skip(1)
+            .delay(.milliseconds(100))
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                let numberOfRows = self.prayTableView.numberOfRows(inSection: 0) - 1
+                guard numberOfRows > 0 else { return }
+                self.prayTableView.scrollToRow(at: IndexPath(row: numberOfRows, section: 0), at: .bottom, animated: true)
+                self.bottomView.textView.textView.text.removeAll()
+            }).disposed(by: disposeBag)
     }
 }
 
