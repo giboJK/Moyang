@@ -168,6 +168,22 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
             $0.center.equalToSuperview()
         }
     }
+    private func showAlert() {
+        let alert = UIAlertController()
+        
+        alert.addAction(UIAlertAction(title: "변화", style: .default, handler: { [weak self] _ in
+            self?.vm?.changeType(type: .change)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "응답", style: .default, handler: { [weak self] _ in
+            self?.vm?.changeType(type: .answer)
+        }))
+
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { _ in
+        }))
+
+        self.present(alert, animated: true)
+    }
     
     // MARK: - Binding
     func bind() {
@@ -195,6 +211,11 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
         prayTableView.rx.tapGesture().when(.ended)
             .subscribe(onNext: { [weak self] _ in
                 self?.view.endEditing(true)
+            }).disposed(by: disposeBag)
+        
+        bottomView.isMeTypeContainer.rx.tapGesture().when(.ended)
+            .subscribe(onNext: { [weak self] _ in
+                self?.showAlert()
             }).disposed(by: disposeBag)
         
         cantEditPopup.firstButton.rx.tap
@@ -233,6 +254,13 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
                 }
             }).disposed(by: disposeBag)
         
+        output.isMe
+            .skip(1)
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isMe in
+                self?.bottomView.changeBottomOption(isMe: isMe)
+            }).disposed(by: disposeBag)
+        
         output.contentItemList
             .drive(prayTableView.rx
                 .items(cellIdentifier: "cell", cellType: MyPrayDetailTVCell.self)) { (_, item, cell) in
@@ -241,6 +269,10 @@ class GroupMemberPrayDetailVC: UIViewController, VCType {
                     cell.nameLabel.text = item.name
                     cell.updateUI(type: item.type)
                 }.disposed(by: disposeBag)
+        
+        output.newContentTypeString
+            .drive(bottomView.isMeTypeLabel.rx.text)
+            .disposed(by: disposeBag)
         
         output.addPraySuccess
             .skip(1)

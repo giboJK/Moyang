@@ -10,11 +10,11 @@ import RxCocoa
 
 class GroupMemberPrayDetailVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-
     let useCase: GroupUseCase
     
     // MARK: - Propertise
     var prayID: String = ""
+    var newContentType: ContentItemType = .change
     
     
     // MARK: - State
@@ -25,6 +25,7 @@ class GroupMemberPrayDetailVM: VMType {
     let groupName = BehaviorRelay<String?>(value: "")
     let category = BehaviorRelay<String?>(value: nil)
     let newContent = BehaviorRelay<String?>(value: nil)
+    let newContentTypeString = BehaviorRelay<String>(value: ContentItemType.change.typeStr)
     let contentItemList = BehaviorRelay<[ContentItem]>(value: [])
     
     // MARK: - Events
@@ -85,8 +86,16 @@ class GroupMemberPrayDetailVM: VMType {
         }
         
         itemList.sort { $0.date < $1.date }
+        isMe.accept(data.userID == myID)
+        newContentTypeString.accept(data.userID == myID ? ContentItemType.change.typeStr :
+                                        ContentItemType.reply.typeStr)
         
         contentItemList.accept(itemList)
+    }
+    
+    func changeType(type: ContentItemType) {
+        newContentType = type
+        newContentTypeString.accept(newContentType.typeStr)
     }
     
     func checkCanEdit(indexPath: IndexPath) {
@@ -136,6 +145,7 @@ extension GroupMemberPrayDetailVM {
         let groupName: Driver<String?>
         let category: Driver<String?>
         let newContent: Driver<String?>
+        let newContentTypeString: Driver<String>
         let contentItemList: Driver<[ContentItem]>
         
         let addPraySuccess: Driver<Void>
@@ -168,6 +178,7 @@ extension GroupMemberPrayDetailVM {
                       groupName: groupName.asDriver(),
                       category: category.asDriver(),
                       newContent: newContent.asDriver(),
+                      newContentTypeString: newContentTypeString.asDriver(),
                       contentItemList: contentItemList.asDriver(),
                       
                       addPraySuccess: addPraySuccess.asDriver(),

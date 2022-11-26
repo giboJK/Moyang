@@ -10,9 +10,9 @@ import RxCocoa
 
 class MyPrayDetailVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
-    
     let useCase: MyPrayUseCase
     
+    // MARK: - Propertise
     var initialCategory: String?
     var initialGroup: String?
     

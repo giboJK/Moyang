@@ -60,7 +60,7 @@ class MyPrayBottomView: UIView {
     private func setupTextView() {
         addSubview(textView)
         textView.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(59)
+            $0.left.equalToSuperview().inset(55)
             $0.top.equalToSuperview().inset(4)
             $0.right.equalToSuperview().inset(120)
             $0.height.greaterThanOrEqualTo(36)
