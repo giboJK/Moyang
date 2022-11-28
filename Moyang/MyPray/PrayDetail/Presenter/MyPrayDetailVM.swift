@@ -196,11 +196,13 @@ class MyPrayDetailVM: VMType {
     private func updatePray() {
         guard let category = self.category.value else { Log.e(""); return }
         guard let content = self.contentItemList.value.first?.content else { Log.e(""); return }
-        guard let groupID = groupList.value.first(where: { groupInfo in
+        if let groupID = groupList.value.first(where: { groupInfo in
             groupInfo.name == groupName.value
-        })?.id else { Log.e(""); return }
-        
-        useCase.updatePray(category: category, content: content, groupID: groupID)
+        })?.id {
+            useCase.updatePray(category: category, content: content, groupID: groupID)
+        } else {
+            useCase.updatePray(category: category, content: content, groupID: "")
+        }
     }
     
     private func resetChange() {

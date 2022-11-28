@@ -30,7 +30,7 @@ extension UIFont {
     @nonobjc class var c04: UIFont { Fonts.Caption.c04 }
     
     class func systemRelativeFont(ofSize fontSize: CGFloat, weight: UIFont.Weight) -> UIFont {
-        let ratio = UIScreen.main.bounds.width / 390
+        let ratio = min(UIScreen.main.bounds.width / 390, 1.1)
         let fixedFont = fontSize * ratio
         return .systemFont(ofSize: fixedFont, weight: weight)
     }

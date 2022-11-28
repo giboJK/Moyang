@@ -64,7 +64,7 @@ class MoyangLabel: UILabel {
     func setupLabelTypography() {
         let textAlignment = self.textAlignment
         let textColor = self.textColor
-        let widthRatio = UIScreen.main.bounds.width / 390
+        let widthRatio = min(UIScreen.main.bounds.width / 390, 1.1)
         switch font {
             // MARK: - Title
         case Fonts.Title.t01:

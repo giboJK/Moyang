@@ -199,4 +199,3 @@ extension PrayDetailEditView: UIPickerViewDelegate, UIPickerViewDataSource {
         return groupList[row]
     }
 }
-

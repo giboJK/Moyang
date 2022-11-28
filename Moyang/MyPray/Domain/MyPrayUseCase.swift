@@ -246,6 +246,9 @@ class MyPrayUseCase {
                     if let group = self.myGroupList.value.first(where: { $0.id == groupID }) {
                         cur?.groupID = groupID
                         cur?.groupName = group.name
+                    } else {
+                        cur?.groupID = nil
+                        cur?.groupName = nil
                     }
                     self.prayDetail.accept(cur)
                 } else {
