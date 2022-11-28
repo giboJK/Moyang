@@ -143,6 +143,11 @@ class TabMenuCVCell: UICollectionViewCell {
         $0.backgroundColor = .sheep2
         $0.isHidden = true
     }
+    let newImageView = UIView().then {
+        $0.backgroundColor = .appleRed1
+        $0.layer.cornerRadius = 3
+        $0.isHidden = true
+    }
     
     override var isSelected: Bool {
         didSet {
@@ -159,6 +164,12 @@ class TabMenuCVCell: UICollectionViewCell {
         contentView.backgroundColor = .nightSky1
         setupMenuLabel()
         setupSelectBar()
+        setupNewImageView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showNewImage),
+                                               name: NSNotification.Name.ShowNewImageBadge, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideNewImage),
+                                               name: NSNotification.Name.HideNewImageBadge, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -180,6 +191,22 @@ class TabMenuCVCell: UICollectionViewCell {
             $0.height.equalTo(3)
             $0.centerX.equalTo(menuLabel)
         }
+    }
+    private func setupNewImageView() {
+        contentView.addSubview(newImageView)
+        newImageView.snp.makeConstraints {
+            $0.top.equalTo(menuLabel).offset(-1)
+            $0.left.equalTo(menuLabel.snp.right).offset(-1)
+            $0.size.equalTo(6)
+        }
+    }
+    
+    @objc func showNewImage() {
+        newImageView.isHidden = false
+    }
+    
+    @objc func hideNewImage() {
+        newImageView.isHidden = true
     }
     
     func showIcon() {

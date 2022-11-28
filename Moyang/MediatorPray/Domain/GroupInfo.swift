@@ -30,6 +30,7 @@ struct GroupMediatorInfo: Codable, Identifiable {
     let prayID: String?
     let prayName: String?
     let eventDate: String?
+    var hasJoinEvent: Bool
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -38,6 +39,7 @@ struct GroupMediatorInfo: Codable, Identifiable {
         case prayID = "pray_id"
         case prayName = "pray_name"
         case eventDate = "event_date"
+        case hasJoinEvent = "has_join_event"
     }
 }
 
