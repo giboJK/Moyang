@@ -26,9 +26,9 @@ class MyPrayUseCase {
     let deletePraySuccess = BehaviorRelay<Void>(value: ())
     let deletePrayFailure = BehaviorRelay<Void>(value: ())
     
+    /// Change & Answer
     let addChangeSuccess = BehaviorRelay<Void>(value: ())
     let addChangeFailure = BehaviorRelay<Void>(value: ())
-    
     let addAnswerSuccess = BehaviorRelay<Void>(value: ())
     let addAnswerFailure = BehaviorRelay<Void>(value: ())
     

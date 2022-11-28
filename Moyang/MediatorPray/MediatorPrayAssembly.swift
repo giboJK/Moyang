@@ -94,8 +94,12 @@ class MediatorPrayAssembly: Assembly, BaseAssembly {
             GroupController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         
+        container.register(MyPrayRepo.self) { r in
+            PrayController(networkService: r ~> (NetworkServiceProtocol.self))
+        }
+        
         container.register(GroupUseCase.self) { r in
-            GroupUseCase(repo: r ~> (GroupRepo.self))
+            GroupUseCase(repo: r ~> (GroupRepo.self), prayRepo: r ~> (MyPrayRepo.self))
         }
         
         // MARK: - Coordinator

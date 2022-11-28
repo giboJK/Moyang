@@ -327,7 +327,7 @@ extension NewPrayVM {
         var guide: String {
             switch self {
             case .title:
-                return "제목을 적어주세요"
+                return "무엇에 관한 기도인가요?"
             case .content:
                 return "내용을 적어주세요"
             case .group:

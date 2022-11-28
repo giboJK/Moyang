@@ -61,9 +61,14 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             GroupController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         
-        container.register(GroupUseCase.self) { r in
-            GroupUseCase(repo: r ~> (GroupRepo.self))
+        container.register(MyPrayRepo.self) { r in
+            PrayController(networkService: r ~> (NetworkServiceProtocol.self))
         }
+        
+        container.register(GroupUseCase.self) { r in
+            GroupUseCase(repo: r ~> (GroupRepo.self), prayRepo: r ~> (MyPrayRepo.self))
+        }
+        
         
         // MARK: - Assembly
         container.register(WorshipNoteAssembly.self) { _ in

@@ -122,8 +122,13 @@ class GroupMemberPrayDetailVM: VMType {
         guard let content = newContent.value else { Log.e("No Content"); return }
         useCase.addReply(prayID: prayID, myID: myID, content: content)
     }
-    private func addChange() {
-        
+    
+    private func addChangeAndAnswer() {
+        if newContentType == .change {
+            
+        } else {
+            
+        }
     }
     
     private func clearPrayDetail() {
@@ -157,7 +162,7 @@ extension GroupMemberPrayDetailVM {
             .drive(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 if self.isMe.value {
-                    self.addChange()
+                    self.addChangeAndAnswer()
                 } else {
                     self.addPray()
                 }

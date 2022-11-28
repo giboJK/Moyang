@@ -12,6 +12,7 @@ import RxCocoa
 class GroupUseCase {
     // MARK: - Properties
     let repo: GroupRepo
+    let prayRepo: MyPrayRepo
     var page = 0
     var row = 10
     var memberPrayPage = 0
@@ -41,6 +42,12 @@ class GroupUseCase {
     let exitGroupSuccess = BehaviorRelay<Void>(value: ())
     let exitGroupFailure = BehaviorRelay<Void>(value: ())
     
+    /// Change & Answer
+    let addChangeSuccess = BehaviorRelay<Void>(value: ())
+    let addChangeFailure = BehaviorRelay<Void>(value: ())
+    let addAnswerSuccess = BehaviorRelay<Void>(value: ())
+    let addAnswerFailure = BehaviorRelay<Void>(value: ())
+    
     /// Search
     let joinGroupReqSuccess = BehaviorRelay<Void>(value: ())
     let joinGroupReqFailure = BehaviorRelay<Void>(value: ())
@@ -57,8 +64,9 @@ class GroupUseCase {
     
     
     // MARK: - Lifecycle
-    init(repo: GroupRepo) {
+    init(repo: GroupRepo, prayRepo: MyPrayRepo) {
         self.repo = repo
+        self.prayRepo = prayRepo
     }
     
     
@@ -327,6 +335,62 @@ class GroupUseCase {
             case .failure(let error):
                 Log.e(error)
                 self.addPrayFailure.accept(())
+            }
+        }
+    }
+    
+    func addAnswer(answer: String) {
+        guard let prayID = prayDetail.value?.prayID else { Log.e("No pray ID"); return }
+        addAnswer(prayID: prayID, answer: answer)
+    }
+    
+    func addChange(change: String) {
+        guard let prayID = prayDetail.value?.prayID else { Log.e("No pray ID"); return }
+        addChange(prayID: prayID, change: change)
+    }
+    
+    private func addAnswer(prayID: String, answer: String) {
+        if checkAndSetIsNetworking() { return }
+        prayRepo.addAnswer(prayID: prayID, answer: answer) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.addAnswerSuccess.accept(())
+                    var cur = self.prayDetail.value!
+                    cur.answers.append(response.data)
+                    self.prayDetail.accept(cur)
+                } else {
+                    self.addAnswerFailure.accept(())
+                    Log.e(response.errorMessage ?? "")
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.addAnswerFailure.accept(())
+            }
+        }
+    }
+    
+    private func addChange(prayID: String, change: String) {
+        if checkAndSetIsNetworking() { return }
+        prayRepo.addChange(prayID: prayID, change: change) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    self.addChangeSuccess.accept(())
+                    var cur = self.prayDetail.value!
+                    cur.changes.append(response.data)
+                    self.prayDetail.accept(cur)
+                } else {
+                    self.addChangeFailure.accept(())
+                    Log.e(response.errorMessage ?? "")
+                }
+            case .failure(let error):
+                Log.e(error)
+                self.addChangeFailure.accept(())
             }
         }
     }

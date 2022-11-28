@@ -34,10 +34,6 @@ class NewPrayVC: UIViewController, VCType {
     var contentDoneButton = UIBarButtonItem()
     var groupDoneButton = UIBarButtonItem()
     var groupCancelButton = UIBarButtonItem()
-    let guideLabel = MoyangLabel().then {
-        $0.textColor = .sheep1
-        $0.font = .t04
-    }
     let categoryTextView = NewPrayTextField("카테고리", "ex) 진로, 두려움, 감사, OO를 위한 기도")
     let contentTextView = NewPrayTextView("내용", "내용").then {
         $0.isHidden = true
@@ -89,7 +85,7 @@ class NewPrayVC: UIViewController, VCType {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = false
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -103,11 +99,9 @@ class NewPrayVC: UIViewController, VCType {
     func setupUI() {
         view.backgroundColor = .nightSky1
         setupToolbar()
-        setupGuideLabel()
         setupGroupTextView()
         setupContentTextView()
         setupCategoryTextView()
-        setupCancelButton()
         setupSaveButton()
         setupPrayContainer()
         setupIndicator()
@@ -122,17 +116,10 @@ class NewPrayVC: UIViewController, VCType {
         let groupSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         groupToolBar.setItems([groupCancelButton, groupSpace, groupDoneButton], animated: false)
     }
-    private func setupGuideLabel() {
-        view.addSubview(guideLabel)
-        guideLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.left.equalTo(view.safeAreaLayoutGuide).inset(24)
-        }
-    }
     private func setupGroupTextView() {
         view.addSubview(groupTextView)
         groupTextView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(112)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(24)
             $0.left.right.equalToSuperview().inset(16)
         }
         setupGroupClearButton()
@@ -146,7 +133,7 @@ class NewPrayVC: UIViewController, VCType {
         view.addSubview(contentTextView)
         contentTextView.textView.inputAccessoryView = contentToolBar
         contentTextView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(112)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(24)
             $0.left.right.equalToSuperview().inset(16)
         }
     }
@@ -164,20 +151,11 @@ class NewPrayVC: UIViewController, VCType {
         }
     }
     
-    
-    private func setupCancelButton() {
-        view.addSubview(cancelButton)
-        cancelButton.snp.makeConstraints {
-            $0.height.equalTo(48)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
-            $0.left.right.equalToSuperview().inset(24)
-        }
-    }
     private func setupSaveButton() {
         view.addSubview(saveButton)
         saveButton.snp.makeConstraints {
             $0.height.equalTo(48)
-            $0.bottom.equalTo(cancelButton.snp.top).offset(-16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.left.right.equalToSuperview().inset(24)
         }
     }
@@ -244,7 +222,7 @@ class NewPrayVC: UIViewController, VCType {
         if isShowGroup { return }
         groupTextView.isHidden = false
         contentTextView.snp.updateConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(201)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(113)
         }
         isShowGroup = true
         groupTextView.textField.becomeFirstResponder()
@@ -343,7 +321,7 @@ class NewPrayVC: UIViewController, VCType {
         
         // UI
         output.guide
-            .drive(guideLabel.rx.text)
+            .drive(self.rx.title)
             .disposed(by: disposeBag)
         
         output.title.map { $0?.isEmpty ?? true}

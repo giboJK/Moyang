@@ -84,7 +84,9 @@ class MyPrayDetailVM: VMType {
         
         useCase.myGroupList
             .subscribe(onNext: { [weak self] list in
-                self?.groupList.accept(list.map { GroupInfo(data: $0) })
+                var groupList = list.map { GroupInfo(data: $0) }
+                groupList.append(GroupInfo(id: "", name: "성령님과 기도할게요 :)"))
+                self?.groupList.accept(groupList)
             }).disposed(by: disposeBag)
         
         // MARK: - Events
