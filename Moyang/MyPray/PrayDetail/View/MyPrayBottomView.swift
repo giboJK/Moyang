@@ -180,12 +180,10 @@ class ChangeAnswerTextView: UIView {
 
 extension ChangeAnswerTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        let size = CGSize(width: frame.width, height: .infinity)
-        let estimatedSize = textView.sizeThatFits(size)
         placeholder.isHidden = !textView.text.isEmpty
         saveImageView.isHidden = textView.text.isEmpty
         textView.snp.updateConstraints {
-            $0.height.equalTo(min(90, estimatedSize.height))
+            $0.height.equalTo(min(16 + 17*4, max(36, textView.numberOfLines() * 17 + 16)))
         }
     }
 }

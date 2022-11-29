@@ -21,6 +21,7 @@
 		08194BCA292EFD400008D72B /* MemberPrayDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BC9292EFD400008D72B /* MemberPrayDetailHeader.swift */; };
 		08194BCC292F024D0008D72B /* GroupMemberPrayBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BCB292F024D0008D72B /* GroupMemberPrayBottomView.swift */; };
 		08194BCE29302D580008D72B /* GroupReqCheckTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BCD29302D580008D72B /* GroupReqCheckTVCell.swift */; };
+		08194BD02936C8CC0008D72B /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08194BCF2936C8CB0008D72B /* UITextView+.swift */; };
 		081A25C0292A05D500EC16EC /* PrayDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */; };
 		082371B727BA84860050420E /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082371B627BA84860050420E /* DatePickerTextField.swift */; };
 		084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BE66E277B243800CFC19D /* UIApplication+.swift */; };
@@ -264,6 +265,7 @@
 		08194BC9292EFD400008D72B /* MemberPrayDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPrayDetailHeader.swift; sourceTree = "<group>"; };
 		08194BCB292F024D0008D72B /* GroupMemberPrayBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberPrayBottomView.swift; sourceTree = "<group>"; };
 		08194BCD29302D580008D72B /* GroupReqCheckTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupReqCheckTVCell.swift; sourceTree = "<group>"; };
+		08194BCF2936C8CB0008D72B /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		081A25BF292A05D500EC16EC /* PrayDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayDetailEditView.swift; sourceTree = "<group>"; };
 		082371B627BA84860050420E /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		084BE66E277B243800CFC19D /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
@@ -1436,6 +1438,7 @@
 				2416F8F22903DEEB00152101 /* UIFont+.swift */,
 				0808E5072916569C00E7AB79 /* NSNotification+.swift */,
 				2443A3792917217800177884 /* UIDatePicker+.swift */,
+				08194BCF2936C8CB0008D72B /* UITextView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1920,6 +1923,7 @@
 				08E4905629189A0B00735823 /* MyPrayDetailTVCell.swift in Sources */,
 				24BB426028471F6700E86CCD /* PrayTagCVCell.swift in Sources */,
 				24AACA7E283FC40A00308AC3 /* Coordinator.swift in Sources */,
+				08194BD02936C8CC0008D72B /* UITextView+.swift in Sources */,
 				08F082D7290663D80042319B /* MediatorPrayMainVC.swift in Sources */,
 				242D7464274283710053EF2A /* Strings.swift in Sources */,
 				08D134D228B488A8008707F3 /* MoyangSearchBar.swift in Sources */,

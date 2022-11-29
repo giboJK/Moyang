@@ -87,7 +87,8 @@ class GroupMemberPrayBottomView: UIView {
     private func setupTypeLabel() {
         addSubview(typeLabel)
         typeLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(14)
+//            $0.top.equalToSuperview().inset(14)
+            $0.bottom.equalToSuperview().inset(UIApplication.bottomInset + 14)
             $0.left.equalToSuperview().inset(12)
         }
     }
