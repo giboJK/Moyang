@@ -105,6 +105,7 @@ class NewAlarmVC: UIViewController, VCType {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(180)
         }
+        timePicker.setValue(UIColor.sheep1, forKeyPath: "textColor")
     }
     private func setupOptionView() {
         view.addSubview(optionView)
