@@ -35,6 +35,7 @@ struct MoyangApp: App {
     var body: some Scene {
         WindowGroup {
             SplashView()
+                .preferredColorScheme(.light)
         }
     }
 }
