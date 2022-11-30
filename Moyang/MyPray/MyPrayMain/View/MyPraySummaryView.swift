@@ -132,6 +132,7 @@ class MyLatestPrayView: UIView {
     }
     let contentLabel = MoyangLabel().then {
         $0.numberOfLines = 3
+        $0.textColor = .sheep1
         $0.lineBreakStrategy = .hangulWordPriority
     }
     let latestPrayDateLabel = MoyangLabel()

@@ -29,8 +29,16 @@ class ProfileAssembly: Assembly, BaseAssembly {
             return vc
         }
         
-        container.register(ProfileVM.self) { _ in
-            ProfileVM()
+        container.register(ProfileVM.self) { r in
+            ProfileVM(useCase: r ~> (ProfileUseCase.self))
+        }
+        
+        container.register(ProfileUseCase.self) { r in
+            return ProfileUseCase(repo: r ~> (AuthController.self))
+        }
+        
+        container.register(AuthController.self) { r in
+            return AuthController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         
         // MARK: - NoticeList

@@ -141,6 +141,7 @@
 		2498F905287C4E4A007EF510 /* IntroVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498F904287C4E4A007EF510 /* IntroVM.swift */; };
 		2498F907287C4F60007EF510 /* IntroAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498F906287C4F60007EF510 /* IntroAssembly.swift */; };
 		2498F909287C514D007EF510 /* IntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498F908287C514D007EF510 /* IntroCoordinator.swift */; };
+		24A547032937727100784CEF /* ProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A547022937727100784CEF /* ProfileUseCase.swift */; };
 		24A55F64279AFE7D007DDE02 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A55F63279AFE7D007DDE02 /* String+.swift */; };
 		24A603F528E9D414006DFD05 /* AlarmSelectDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A603F428E9D414006DFD05 /* AlarmSelectDayView.swift */; };
 		24A6A4AB275A2D7800D7DB25 /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */; };
@@ -371,6 +372,7 @@
 		2498F904287C4E4A007EF510 /* IntroVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVM.swift; sourceTree = "<group>"; };
 		2498F906287C4F60007EF510 /* IntroAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAssembly.swift; sourceTree = "<group>"; };
 		2498F908287C514D007EF510 /* IntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinator.swift; sourceTree = "<group>"; };
+		24A547022937727100784CEF /* ProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUseCase.swift; sourceTree = "<group>"; };
 		24A55F63279AFE7D007DDE02 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		24A603F428E9D414006DFD05 /* AlarmSelectDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSelectDayView.swift; sourceTree = "<group>"; };
 		24A6A4AA275A2D7800D7DB25 /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
@@ -1186,6 +1188,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		24A547012937725500784CEF /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				24A547022937727100784CEF /* ProfileUseCase.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		24A603F328E9D3D2006DFD05 /* NewAlarm */ = {
 			isa = PBXGroup;
 			children = (
@@ -1472,6 +1482,7 @@
 			isa = PBXGroup;
 			children = (
 				241AF7CE28E46BC10085515B /* ProfileAssembly.swift */,
+				24A547012937725500784CEF /* Domain */,
 				08D4B76D28AF3941000BD7C6 /* Presenter */,
 				24F41C6B2897EBC3005B5E70 /* View */,
 			);
@@ -1761,6 +1772,7 @@
 				08E9282C292449BC009D67AE /* NewGroupVM.swift in Sources */,
 				24A8B6CC292F939B0059656A /* GroupReqCheckVC.swift in Sources */,
 				24E0AB30283E746700F52505 /* Network.swift in Sources */,
+				24A547032937727100784CEF /* ProfileUseCase.swift in Sources */,
 				24E5D0EF28B9E6C300680101 /* SplashVC.swift in Sources */,
 				24E36117284B806C00C7EE26 /* UIViewController+.swift in Sources */,
 				24EFE40F287F10CD00549E07 /* KeychainSwift.swift in Sources */,

@@ -20,7 +20,11 @@ class ProfileVC: UIViewController, VCType {
     // MARK: - UI
     let nameLabel = UILabel().then {
         $0.textColor = .sheep2
-        $0.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.font = .b01
+    }
+    let emailLabel = UILabel().then {
+        $0.textColor = .sheep2
+        $0.font = .b01
     }
     let noticeButton = MoyangButton(.none).then {
         $0.setTitle("공지사항", for: .normal)
@@ -68,6 +72,7 @@ class ProfileVC: UIViewController, VCType {
     func setupUI() {
         view.backgroundColor = .nightSky1
         setupNameLabel()
+        setupEmailLabel()
         setupNoticeButton()
 //        setupAlarmButton()
         setupLogoutButton()
@@ -83,7 +88,14 @@ class ProfileVC: UIViewController, VCType {
         view.addSubview(nameLabel)
         nameLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(48)
-            $0.left.equalToSuperview().inset(17)
+            $0.left.equalToSuperview().inset(24)
+        }
+    }
+    private func setupEmailLabel() {
+        view.addSubview(emailLabel)
+        emailLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(8)
+            $0.left.equalToSuperview().inset(24)
         }
     }
     private func setupNoticeButton() {
@@ -128,7 +140,7 @@ class ProfileVC: UIViewController, VCType {
         versionLabel.text = "버전 " + CommonUtils.currentVersion + "." + CommonUtils.currentBuildVersion
         versionLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
         }
     }
     
