@@ -30,6 +30,7 @@
 		086ADDDB28D19861007A95F2 /* AlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDDA28D19861007A95F2 /* AlarmCoordinator.swift */; };
 		086ADDE128D198A6007A95F2 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086ADDE028D198A6007A95F2 /* ProfileCoordinator.swift */; };
 		086CB32328130077003BF6F7 /* MyPray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086CB32228130077003BF6F7 /* MyPray.swift */; };
+		0887782D29381BA50050F5A3 /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887782C29381BA50050F5A3 /* UseCase.swift */; };
 		08AA085D288520E2008670E3 /* LogInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AA085C288520E2008670E3 /* LogInVM.swift */; };
 		08AD9585287BDFF1002D4F94 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD9584287BDFF1002D4F94 /* AuthController.swift */; };
 		08AD958A287BE063002D4F94 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD9589287BE063002D4F94 /* SignUpVC.swift */; };
@@ -260,6 +261,7 @@
 		086ADDDA28D19861007A95F2 /* AlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinator.swift; sourceTree = "<group>"; };
 		086ADDE028D198A6007A95F2 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		086CB32228130077003BF6F7 /* MyPray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPray.swift; sourceTree = "<group>"; };
+		0887782C29381BA50050F5A3 /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		08AA085C288520E2008670E3 /* LogInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVM.swift; sourceTree = "<group>"; };
 		08AD9584287BDFF1002D4F94 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		08AD9589287BE063002D4F94 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
@@ -1344,6 +1346,7 @@
 				24D96AE7281AD2CA00445B22 /* AlarmCenter.swift */,
 				24AACA7D283FC40A00308AC3 /* Coordinator.swift */,
 				24EFE40E287F10CD00549E07 /* KeychainSwift.swift */,
+				0887782C29381BA50050F5A3 /* UseCase.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1940,6 +1943,7 @@
 				24E36119284B812D00C7EE26 /* MoyangPopupView.swift in Sources */,
 				24755367277CA9AB001908A6 /* UserData.swift in Sources */,
 				084BE66F277B243800CFC19D /* UIApplication+.swift in Sources */,
+				0887782D29381BA50050F5A3 /* UseCase.swift in Sources */,
 				24C877D1282FD77500F69AAD /* VMType.swift in Sources */,
 				08AD9598287BEB52002D4F94 /* BaseResponse.swift in Sources */,
 				08F082D92906673F0042319B /* MediatorPrayAssembly.swift in Sources */,

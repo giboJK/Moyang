@@ -25,6 +25,8 @@ struct MoyangApp: App {
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.sheep2]
 
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().tintColor = .sheep2
         
         let appAssembly = AppAssembly()

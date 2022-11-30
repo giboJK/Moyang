@@ -93,4 +93,9 @@ extension AuthController: AuthRepo {
             }
         }
     }
+    
+    func deleteUser(myID: String, completion: ((Result<BaseResponse, Error>) -> Void)?) {
+        
+        
+    }
 }

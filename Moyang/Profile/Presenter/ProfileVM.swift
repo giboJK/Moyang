@@ -17,9 +17,22 @@ class ProfileVM: VMType {
     
     init(useCase: ProfileUseCase) {
         self.useCase = useCase
+        bind()
     }
 
     deinit { Log.i(self) }
+    
+    private func bind() {
+        
+    }
+    
+    private func setData() {
+        
+    }
+    
+    private func delelteUser() {
+        useCase.deleteUser()
+    }
 }
 
 extension ProfileVM {
@@ -35,7 +48,7 @@ extension ProfileVM {
     func transform(input: Input) -> Output {
         input.deleteAccount
             .drive(onNext: { [weak self] _ in
-                
+                self?.delelteUser()
             }).disposed(by: disposeBag)
         
         return Output(name: name.asDriver(),

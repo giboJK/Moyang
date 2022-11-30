@@ -27,6 +27,8 @@ class NetConst {
         static let appLogin = "/login/app_login"
         /// post
         static let appInfo = "/login/appinfo_fetch"
+        /// post
+        static let deleteUser = "/login/delete_user"
     }
     
     enum GroupAPI {

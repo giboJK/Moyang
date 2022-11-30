@@ -9,13 +9,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class AuthUseCase {
+class AuthUseCase: UseCase {
     // MARK: - Properties
     let repo: AuthRepo
     
     // MARK: - Rx
-    let isNetworking = BehaviorRelay<Bool>(value: false)
-    
     let isAlreadyExist = BehaviorRelay<Void>(value: ())
     let isEmailNotExist = BehaviorRelay<Void>(value: ())
     let isError = BehaviorRelay<Error?>(value: nil)
@@ -35,6 +33,8 @@ class AuthUseCase {
     // MARK: - Lifecycle
     init(repo: AuthRepo) {
         self.repo = repo
+        
+        super.init()
     }
     
     func checkAppVersion() {
@@ -50,11 +50,10 @@ class AuthUseCase {
     }
 
     func checkEmailExist(email: String, credential: String, auth: String) {
-        if checkAndSetIsNetworking() {
-            return
-        }
+        if checkAndSetIsNetworking() { return }
         
         repo.checkEmailExist(email: email.lowercased()) { [weak self] result in
+            self?.resetIsNetworking()
             switch result {
             case .success(let responce):
                 if responce.code == 0 {
@@ -69,7 +68,6 @@ class AuthUseCase {
             case .failure(let error):
                 Log.e(error)
             }
-            self?.isNetworking.accept(false)
         }
     }
     
@@ -79,10 +77,9 @@ class AuthUseCase {
             isError.accept(MoyangError.unknown)
             return
         }
-        if checkAndSetIsNetworking() {
-            return
-        }
+        if checkAndSetIsNetworking() { return }
         repo.registUser(email: email.lowercased(), pw: credential, name: name, birth: birth, authType: autyType) { [weak self] result in
+            self?.resetIsNetworking()
             switch result {
             case .success(let response):
                 Log.d(response)
@@ -94,7 +91,6 @@ class AuthUseCase {
                 Log.e(error)
                 self?.isRegisterFailure.accept(())
             }
-            self?.isNetworking.accept(false)
         }
     }
     
@@ -117,15 +113,6 @@ class AuthUseCase {
                 self?.isLoginFailure.accept(())
             }
         }
-    }
-    
-    private func checkAndSetIsNetworking() -> Bool {
-        if isNetworking.value {
-            Log.d("isNetworking...")
-            return true
-        }
-        isNetworking.accept(true)
-        return false
     }
 }
 

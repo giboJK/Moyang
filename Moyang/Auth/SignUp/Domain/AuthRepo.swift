@@ -15,6 +15,8 @@ protocol AuthRepo {
     func appLogin(email: String, credential: String, token: String, completion: ((Result<UserInfo, Error>) -> Void)?)
     
     func checkAppVersion(completion: ((Result<AppVersionInfo, Error>) -> Void)?)
+    
+    func deleteUser(myID: String, completion: ((Result<BaseResponse, Error>) -> Void)?)
 }
 
 enum AuthType: String {

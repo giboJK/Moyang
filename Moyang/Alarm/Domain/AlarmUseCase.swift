@@ -9,13 +9,12 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class AlarmUseCase {
+class AlarmUseCase: UseCase {
     let repo: AlarmRepo
     
     let alarms = BehaviorRelay<[Alarm]>(value: [])
     
     let error = BehaviorRelay<MoyangError?>(value: nil)
-    let isNetworking = BehaviorRelay<Bool>(value: false)
     let isSuccess = BehaviorRelay<Void>(value: ())
     let isFailure = BehaviorRelay<Void>(value: ())
     

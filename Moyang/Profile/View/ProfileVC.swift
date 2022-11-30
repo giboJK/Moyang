@@ -50,6 +50,12 @@ class ProfileVC: UIViewController, VCType {
         $0.textColor = .sheep3
         $0.font = .systemFont(ofSize: 14, weight: .regular)
     }
+    let deleteConfirmPopup = MoyangPopupView(style: .twoButton, firstButtonStyle: .warning, secondButtonStyle: .sheepGhost).then {
+        $0.title = "계정 탈퇴"
+        $0.desc = "정말로 탈퇴하시겠어요? 탈퇴하시면 모든 정보가 사라집니다."
+        $0.firstButton.setTitle("탈퇴", for: .normal)
+        $0.secondButton.setTitle("취소", for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,11 +165,36 @@ class ProfileVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.coordinator?.didTapAlarmButton()
             }).disposed(by: disposeBag)
+        
+        deleteButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.deleteConfirmPopup)
+            }).disposed(by: disposeBag)
+        
+        deleteConfirmPopup.firstButton.rx.tap
+            .subscribe(onNext: {[weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        deleteConfirmPopup.secondButton.rx.tap
+            .subscribe(onNext: {[weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
-//        guard let vm = vm else { Log.e("vm is nil"); return }
-//        let input = VM.Input()
+        guard let vm = vm else { Log.e("vm is nil"); return }
+        let input = VM.Input(deleteAccount: deleteConfirmPopup.firstButton.rx.tap.asDriver())
+        let output = vm.transform(input: input)
+        
+        output.name
+            .drive(nameLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.email
+            .drive(emailLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 }
 

@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class MyPrayUseCase {
+class MyPrayUseCase: UseCase {
     let repo: MyPrayRepo
     
     // MARK: - MyPray
@@ -39,13 +39,9 @@ class MyPrayUseCase {
     let updateAnswerFailure = BehaviorRelay<Void>(value: ())
     
     
-    // MARK: - State
-    let isNetworking = BehaviorRelay<Bool>(value: false)
-    
     // MARK: - GroupPraying
     let songName = BehaviorRelay<String?>(value: nil)
     let songURL = BehaviorRelay<URL?>(value: nil)
-    
     
     
     init(repo: MyPrayRepo) {
@@ -413,18 +409,5 @@ class MyPrayUseCase {
                 Log.e(MoyangError.other(error))
             }
         }
-    }
-    
-    private func checkAndSetIsNetworking() -> Bool {
-        if isNetworking.value {
-            Log.d("isNetworking...")
-            return true
-        }
-        isNetworking.accept(true)
-        return false
-    }
-    
-    private func resetIsNetworking() {
-        self.isNetworking.accept(false)
     }
 }

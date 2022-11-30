@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class GroupUseCase {
+class GroupUseCase: UseCase {
     // MARK: - Properties
     let repo: GroupRepo
     let prayRepo: MyPrayRepo
@@ -58,15 +58,12 @@ class GroupUseCase {
     let addPraySuccess = BehaviorRelay<Void>(value: ())
     let addPrayFailure = BehaviorRelay<Void>(value: ())
     
-    
-    // MARK: - State
-    let isNetworking = BehaviorRelay<Bool>(value: false)
-    
-    
     // MARK: - Lifecycle
     init(repo: GroupRepo, prayRepo: MyPrayRepo) {
         self.repo = repo
         self.prayRepo = prayRepo
+        
+        super.init()
     }
     
     
@@ -397,19 +394,5 @@ class GroupUseCase {
     
     func clearPrayDetail() {
         prayDetail.accept(nil)
-    }
-    
-    
-    private func checkAndSetIsNetworking() -> Bool {
-        if isNetworking.value {
-            Log.d("isNetworking...")
-            return true
-        }
-        isNetworking.accept(true)
-        return false
-    }
-    
-    private func resetIsNetworking() {
-        self.isNetworking.accept(false)
     }
 }

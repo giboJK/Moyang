@@ -9,28 +9,27 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class NoticeUseCase {
+class NoticeUseCase: UseCase {
     let repo: NoticeRepo
     
     let notices = BehaviorRelay<[Notice]>(value: [])
     var page: Int = 0
     var row: Int = 5
     
-    var isNetworking = false
+    
     // MARK: - Lifecycle
     init(repo: NoticeRepo) {
         self.repo = repo
     }
     
     func fetchLotices() {
-        if isNetworking { return }
-        isNetworking = true
+        if checkAndSetIsNetworking() { return }
         page = 0
         row = 5
         
         repo.fetchNotices(page: page, row: row) { [weak self] result in
+            self?.resetIsNetworking()
             guard let self = self else { return }
-            self.isNetworking = false
             switch result {
             case .success(let response):
                 self.notices.accept(response.list)
@@ -41,14 +40,13 @@ class NoticeUseCase {
     }
     
     func fetchMoreNotices() {
-        if isNetworking { return }
-        isNetworking = true
+        if checkAndSetIsNetworking() { return }
         page = row
         row += 5
         
         repo.fetchNotices(page: page, row: row) { [weak self] result in
+            self?.resetIsNetworking()
             guard let self = self else { return }
-            self.isNetworking = false
             switch result {
             case .success(let response):
                 var list = self.notices.value
