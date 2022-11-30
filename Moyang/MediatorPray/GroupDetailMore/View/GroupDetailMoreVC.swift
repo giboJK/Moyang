@@ -81,7 +81,7 @@ class GroupDetailMoreVC: UIViewController, VCType {
     deinit { Log.i(self) }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        .lightContent
     }
     func setupUI() {
         title = "그룹 정보"

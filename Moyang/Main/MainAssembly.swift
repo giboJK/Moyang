@@ -54,11 +54,6 @@ class MainAssembly: Assembly, BaseAssembly {
             assembly.nav = self.nav
             return assembly
         }
-        container.register(WorshipNoteAssembly.self) { _ in
-            let assembly = WorshipNoteAssembly()
-            assembly.nav = self.nav
-            return assembly
-        }
         container.register(BibleAssembly.self) { _ in
             let assembly = BibleAssembly()
             assembly.nav = self.nav
@@ -80,11 +75,10 @@ class MainAssembly: Assembly, BaseAssembly {
             let today = r ~> (TodayAssembly.self)
             let activity = r ~> (GroupActivityAssembly.self)
             let profile = r ~> (ProfileAssembly.self)
-            let note = r ~> (WorshipNoteAssembly.self)
             let bible = r ~> (BibleAssembly.self)
             let myPray = r ~> (MyPrayAssembly.self)
             let mediatorPray = r ~> (MediatorPrayAssembly.self)
-            let assembler = Assembler([self, today, activity, profile, note, bible, myPray, mediatorPray])
+            let assembler = Assembler([self, today, activity, profile, bible, myPray, mediatorPray])
             let coordinator = MainCoordinator(nav: nav, assembler: assembler)
             return coordinator
         }

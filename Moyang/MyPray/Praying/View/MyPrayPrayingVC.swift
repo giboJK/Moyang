@@ -32,7 +32,7 @@ class MyPrayPrayingVC: UIViewController, VCType {
     deinit { Log.i(self) }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        .lightContent
     }
     
     override func viewWillAppear(_ animated: Bool) {

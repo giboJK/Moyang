@@ -63,7 +63,7 @@ class NewGroupVC: UIViewController, VCType {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        .lightContent
     }
     func setupUI() {
         title = "새 공동체"

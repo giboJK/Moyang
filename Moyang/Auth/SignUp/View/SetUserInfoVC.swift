@@ -81,7 +81,7 @@ class SetUserInfoVC: UIViewController, VCType {
     deinit { Log.i(self) }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        .lightContent
     }
     
     func setupUI() {

@@ -21,13 +21,6 @@ class BibleAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - Bible
-        container.register(BibleUseCase.self) { r in
-            return BibleUseCase(repo: (r ~> WorshipNoteRepo.self))
-        }
-        
-        container.register(WorshipNoteRepo.self) { r in
-            NoteController(networkService: (r ~> NetworkServiceProtocol.self))
-        }
         
         // MARK: - Coordinator
     }

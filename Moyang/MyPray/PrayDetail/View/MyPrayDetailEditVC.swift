@@ -50,7 +50,7 @@ class MyPrayDetailEditVC: UIViewController, VCType {
     deinit { Log.i(self) }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        .lightContent
     }
     func setupUI() {
         title = "상세 보기"

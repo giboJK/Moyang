@@ -41,7 +41,7 @@ class TermsVC: UIViewController, VCType {
     deinit { Log.i(self) }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        .lightContent
     }
     func setupUI() {
         title = "이용약관"

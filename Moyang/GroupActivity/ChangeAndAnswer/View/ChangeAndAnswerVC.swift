@@ -45,7 +45,7 @@ class ChangeAndAnswerVC: UIViewController, VCType {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        .lightContent
     }
     func setupUI() {
         view.backgroundColor = .nightSky1

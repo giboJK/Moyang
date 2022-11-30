@@ -71,11 +71,6 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         
         
         // MARK: - Assembly
-        container.register(WorshipNoteAssembly.self) { _ in
-            let assembly = WorshipNoteAssembly()
-            assembly.nav = self.nav
-            return assembly
-        }
         container.register(MyPrayAssembly.self) { _ in
             let assembly = MyPrayAssembly()
             assembly.nav = self.nav
@@ -90,10 +85,9 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         // MARK: - Coordinator
         container.register(GroupActivityCoordinator.self) { r in
             guard let nav = self.nav else { return GroupActivityCoordinator() }
-            let note = r ~> (WorshipNoteAssembly.self)
             let myPray = r ~> (MyPrayAssembly.self)
             let mediatorPray = r ~> (MediatorPrayAssembly.self)
-            let assembler = Assembler([self, note, myPray, mediatorPray])
+            let assembler = Assembler([self, myPray, mediatorPray])
             let coordinator = GroupActivityCoordinator(nav: nav, assembler: assembler)
             return coordinator
         }

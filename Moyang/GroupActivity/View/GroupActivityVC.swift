@@ -28,7 +28,6 @@ class GroupActivityVC: UIViewController, VCType {
     
     var myPrayMainVC: MyPrayMainVC?
     var mediatorPrayMainVC: MediatorPrayMainVC?
-    var noteMainVC: NoteMainVC?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +56,6 @@ class GroupActivityVC: UIViewController, VCType {
         
         setupMediatorPrayMainVC()
         setupMyPrayMainVC()
-//        setupNoteMainVC()
     }
     private func setupNewsButton() {
         view.addSubview(newsButton)
@@ -97,17 +95,6 @@ class GroupActivityVC: UIViewController, VCType {
             $0.left.bottom.right.equalToSuperview()
         }
         vc.view.isHidden = !(tabView.tabMenus.first == .pray)
-    }
-    private func setupNoteMainVC() {
-        guard let vc = noteMainVC else { Log.e("NoteMainVC is nil"); return }
-        view.addSubview(vc.view)
-        addChild(vc)
-        vc.didMove(toParent: self)
-        vc.view.snp.makeConstraints {
-            $0.top.equalTo(tabView.snp.bottom)
-            $0.left.bottom.right.equalToSuperview()
-        }
-//        vc.view.isHidden = !(tabView.tabMenus.first == .worshipNote)
     }
     
     // MARK: - Binding

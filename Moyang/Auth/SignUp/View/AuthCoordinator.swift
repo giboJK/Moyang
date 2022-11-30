@@ -42,6 +42,7 @@ class AuthCoordinator: Coordinator {
             nav.pushViewController(vc, animated: animated)
             nav.isNavigationBarHidden = true
             vc.coordinator = self
+            Log.e(nav.preferredStatusBarStyle)
         } else {
             Log.e("VC init failed")
         }
