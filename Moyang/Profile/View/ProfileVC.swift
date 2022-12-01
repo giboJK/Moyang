@@ -61,6 +61,10 @@ class ProfileVC: UIViewController, VCType {
         $0.firstButton.setTitle("탈퇴", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
     }
+    let deleteSuccessPopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
+        $0.title = "계정 탈퇴 성공"
+        $0.firstButton.setTitle("확인", for: .normal)
+    }
     let deleteFailurePopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .warning).then {
         $0.title = "계정 탈퇴 실패"
         $0.desc = "개발자에게 문의주세요. teoeirm@gmail.com"
@@ -202,6 +206,12 @@ class ProfileVC: UIViewController, VCType {
                 self?.closePopup()
             }).disposed(by: disposeBag)
         
+        deleteSuccessPopup.firstButton.rx.tap
+            .subscribe(onNext: {[weak self] _ in
+                self?.coordinator?.didTapLogoutButton()
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
         deleteFailurePopup.firstButton.rx.tap
             .subscribe(onNext: {[weak self] _ in
                 self?.closePopup()
@@ -224,7 +234,8 @@ class ProfileVC: UIViewController, VCType {
         output.deletionSuccess
             .skip(1)
             .drive(onNext: {[weak self] _ in
-                self?.coordinator?.didTapLogoutButton()
+                guard let self = self else { return }
+                self.displayPopup(popup: self.deleteSuccessPopup)
             }).disposed(by: disposeBag)
         
         output.deletionFailure

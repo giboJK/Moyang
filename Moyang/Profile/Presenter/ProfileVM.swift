@@ -11,10 +11,15 @@ import RxCocoa
 class ProfileVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: ProfileUseCase
-
+    
+    // MARK: - State
+    let isNetworking = BehaviorRelay<Bool>(value: false)
+    
+    // MARK: - Data
     let name = BehaviorRelay<String>(value: "")
     let email = BehaviorRelay<String>(value: "")
     
+    // MARK: - Events
     let deletionSuccess = BehaviorRelay<Void>(value: ())
     let deletionFailure = BehaviorRelay<Void>(value: ())
     
@@ -27,6 +32,10 @@ class ProfileVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
+        useCase.isNetworking
+            .bind(to: isNetworking)
+            .disposed(by: disposeBag)
+        
         useCase.userInfo
             .subscribe(onNext: { [weak self] info in
                 guard let info = info else { return }
