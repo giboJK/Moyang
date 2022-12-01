@@ -37,9 +37,14 @@ class LogInVC: UIViewController, VCType {
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 14
     }
-    let loginFailurePopup = MoyangPopupView(style: .oneButton).then {
+    let loginFailurePopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
         $0.title = "로그인 실패"
         $0.desc = "개발자에게 문의하세요"
+        $0.firstButton.setTitle("확인", for: .normal)
+    }
+    let noAccountPopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .nightPrimary).then {
+        $0.title = "로그인 실패"
+        $0.desc = "가입되지 않은 계정입니다. 회원가입을 진행해주세요."
         $0.firstButton.setTitle("확인", for: .normal)
     }
     
@@ -118,6 +123,11 @@ class LogInVC: UIViewController, VCType {
     
     private func bindViews() {
         loginFailurePopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
+        noAccountPopup.firstButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
