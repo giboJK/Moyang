@@ -23,11 +23,20 @@ class ProfileVM: VMType {
     deinit { Log.i(self) }
     
     private func bind() {
-        
+        useCase.userInfo
+            .subscribe(onNext: { [weak self] info in
+                guard let info = info else { return }
+                self?.setData(data: info)
+            }).disposed(by: disposeBag)
     }
     
-    private func setData() {
-        
+    private func setData(data: UserInfo) {
+        name.accept(data.name)
+        if data.email.contains("@privaterelay.appleid.com") {
+            email.accept("Apple login")
+        } else {
+            email.accept(data.email)
+        }
     }
     
     private func delelteUser() {

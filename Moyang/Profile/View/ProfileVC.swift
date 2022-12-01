@@ -21,10 +21,15 @@ class ProfileVC: UIViewController, VCType {
     let nameLabel = UILabel().then {
         $0.textColor = .sheep2
         $0.font = .b01
+        $0.numberOfLines = 2
     }
     let emailLabel = UILabel().then {
         $0.textColor = .sheep2
-        $0.font = .b01
+        $0.font = .b03
+        $0.numberOfLines = 2
+    }
+    let dividor = UIView().then {
+        $0.backgroundColor = .sheep3
     }
     let noticeButton = MoyangButton(.none).then {
         $0.setTitle("공지사항", for: .normal)
@@ -79,6 +84,7 @@ class ProfileVC: UIViewController, VCType {
         view.backgroundColor = .nightSky1
         setupNameLabel()
         setupEmailLabel()
+        setupDividor()
         setupNoticeButton()
 //        setupAlarmButton()
         setupLogoutButton()
@@ -93,21 +99,30 @@ class ProfileVC: UIViewController, VCType {
     private func setupNameLabel() {
         view.addSubview(nameLabel)
         nameLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(48)
-            $0.left.equalToSuperview().inset(24)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(52)
+            $0.left.right.equalToSuperview().inset(24)
         }
     }
     private func setupEmailLabel() {
         view.addSubview(emailLabel)
         emailLabel.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(8)
+            $0.left.right.equalToSuperview().inset(24)
+        }
+    }
+    private func setupDividor() {
+        view.addSubview(dividor)
+        dividor.snp.makeConstraints {
+            $0.top.equalTo(emailLabel.snp.bottom).offset(24)
             $0.left.equalToSuperview().inset(24)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(1)
         }
     }
     private func setupNoticeButton() {
         view.addSubview(noticeButton)
         noticeButton.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(32)
+            $0.top.equalTo(dividor.snp.bottom).offset(24)
             $0.left.equalToSuperview().inset(24)
             $0.right.equalToSuperview()
             $0.height.equalTo(52)
