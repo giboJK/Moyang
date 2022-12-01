@@ -25,11 +25,11 @@ class ProfileVC: UIViewController, VCType {
     }
     let emailLabel = UILabel().then {
         $0.textColor = .sheep2
-        $0.font = .b03
+        $0.font = .b02
         $0.numberOfLines = 2
     }
     let dividor = UIView().then {
-        $0.backgroundColor = .sheep3
+        $0.backgroundColor = .sheep2.withAlphaComponent(0.4)
     }
     let noticeButton = MoyangButton(.none).then {
         $0.setTitle("공지사항", for: .normal)
@@ -47,7 +47,7 @@ class ProfileVC: UIViewController, VCType {
         $0.setTitleColor(.sheep2, for: .normal)
     }
     let deleteButton = MoyangButton(.none).then {
-        $0.setTitle("계정삭제", for: .normal)
+        $0.setTitle("계정탈퇴", for: .normal)
         $0.contentHorizontalAlignment = .left
         $0.setTitleColor(.appleRed1, for: .normal)
     }
@@ -122,7 +122,7 @@ class ProfileVC: UIViewController, VCType {
     private func setupNoticeButton() {
         view.addSubview(noticeButton)
         noticeButton.snp.makeConstraints {
-            $0.top.equalTo(dividor.snp.bottom).offset(24)
+            $0.top.equalTo(dividor.snp.bottom).offset(8)
             $0.left.equalToSuperview().inset(24)
             $0.right.equalToSuperview()
             $0.height.equalTo(52)

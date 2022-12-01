@@ -95,7 +95,22 @@ extension AuthController: AuthRepo {
     }
     
     func deleteUser(myID: String, completion: ((Result<BaseResponse, Error>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.LoginAPI.deleteUser)
+        let dict = ["user_id": myID]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
         
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
         
     }
 }
