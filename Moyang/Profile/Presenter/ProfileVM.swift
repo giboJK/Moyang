@@ -15,6 +15,10 @@ class ProfileVM: VMType {
     let name = BehaviorRelay<String>(value: "")
     let email = BehaviorRelay<String>(value: "")
     
+    let deletionSuccess = BehaviorRelay<Void>(value: ())
+    let deletionFailure = BehaviorRelay<Void>(value: ())
+    
+    
     init(useCase: ProfileUseCase) {
         self.useCase = useCase
         bind()
@@ -28,6 +32,14 @@ class ProfileVM: VMType {
                 guard let info = info else { return }
                 self?.setData(data: info)
             }).disposed(by: disposeBag)
+        
+        useCase.deletionSuccess
+            .bind(to: deletionSuccess)
+            .disposed(by: disposeBag)
+        
+        useCase.deletionFailure
+            .bind(to: deletionFailure)
+            .disposed(by: disposeBag)
     }
     
     private func setData(data: UserInfo) {
@@ -52,6 +64,10 @@ extension ProfileVM {
     struct Output {
         let name: Driver<String>
         let email: Driver<String>
+        
+        // MARK: - Event
+        let deletionSuccess: Driver<Void>
+        let deletionFailure: Driver<Void>
     }
 
     func transform(input: Input) -> Output {
@@ -61,6 +77,9 @@ extension ProfileVM {
             }).disposed(by: disposeBag)
         
         return Output(name: name.asDriver(),
-                      email: email.asDriver())
+                      email: email.asDriver(),
+                      deletionSuccess: deletionSuccess.asDriver(),
+                      deletionFailure: deletionFailure.asDriver()
+        )
     }
 }

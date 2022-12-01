@@ -61,6 +61,11 @@ class ProfileVC: UIViewController, VCType {
         $0.firstButton.setTitle("탈퇴", for: .normal)
         $0.secondButton.setTitle("취소", for: .normal)
     }
+    let deleteFailurePopup = MoyangPopupView(style: .oneButton, firstButtonStyle: .warning).then {
+        $0.title = "계정 탈퇴 실패"
+        $0.desc = "개발자에게 문의주세요. teoeirm@gmail.com"
+        $0.firstButton.setTitle("확인", for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -196,6 +201,11 @@ class ProfileVC: UIViewController, VCType {
             .subscribe(onNext: {[weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
+        
+        deleteFailurePopup.firstButton.rx.tap
+            .subscribe(onNext: {[weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
@@ -210,6 +220,20 @@ class ProfileVC: UIViewController, VCType {
         output.email
             .drive(emailLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        output.deletionSuccess
+            .skip(1)
+            .drive(onNext: {[weak self] _ in
+                self?.coordinator?.didTapLogoutButton()
+            }).disposed(by: disposeBag)
+        
+        output.deletionFailure
+            .skip(1)
+            .drive(onNext: {[weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.deleteFailurePopup)
+            }).disposed(by: disposeBag)
+        
     }
 }
 
