@@ -15,8 +15,6 @@ class SignUpVM: NSObject, VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: AuthUseCase
     
-    let name = BehaviorRelay<String?>(value: nil)
-    let birth = BehaviorRelay<String?>(value: nil)
     
     let isAlreadyExist = BehaviorRelay<Void>(value: ())
     let isEmailNotExist = BehaviorRelay<Void>(value: ())
@@ -64,11 +62,7 @@ class SignUpVM: NSObject, VMType {
     }
     
     private func registerUser() {
-        guard let name = name.value, let birth = birth.value else {
-            Log.e("No data")
-            return
-        }
-        useCase.registUser(name: name, birth: birth)
+//        useCase.registUser(name: name)
     }
     
     func googleSignUp(user: GIDGoogleUser) {
@@ -88,15 +82,10 @@ class SignUpVM: NSObject, VMType {
 extension SignUpVM {
     struct Input {
         var apple: Driver<Void> = .empty()
-        var setName: Driver<String?> = .empty()
-        var setBirth: Driver<String?> = .empty()
         var registUser: Driver<Void> = .empty()
     }
     
     struct Output {
-        let name: Driver<String?>
-        let birth: Driver<String?>
-        
         let isAlreadyExist: Driver<Void>
         let isEmailNotExist: Driver<Void>
         
@@ -105,25 +94,13 @@ extension SignUpVM {
     }
     
     func transform(input: Input) -> Output {
-        input.setName
-            .drive(onNext: { [weak self] name in
-                if let name = name, !(name.first?.isWhitespace ?? false) {
-                    self?.name.accept(String(name.prefix(30)))
-                }
-            }).disposed(by: disposeBag)
-        
-        input.setBirth
-            .drive(birth)
-            .disposed(by: disposeBag)
         
         input.registUser
             .drive(onNext: { [weak self] _ in
                 self?.registerUser()
             }).disposed(by: disposeBag)
         
-        return Output(name: name.asDriver(),
-                      birth: birth.asDriver(),
-                      isAlreadyExist: isAlreadyExist.asDriver(),
+        return Output(isAlreadyExist: isAlreadyExist.asDriver(),
                       isEmailNotExist: isEmailNotExist.asDriver(),
                       
                       isRegisterSuccess: isRegisterSuccess.asDriver(),

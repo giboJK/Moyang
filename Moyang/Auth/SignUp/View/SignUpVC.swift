@@ -146,6 +146,11 @@ class SignUpVC: UIViewController, VCType {
             .subscribe(onNext: { [weak self] _ in
                 self?.closePopup()
             }).disposed(by: disposeBag)
+        
+        logInButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.moveToLogin()
+            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
@@ -157,7 +162,7 @@ class SignUpVC: UIViewController, VCType {
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 guard let signupVM = self?.vm else { return }
-                self?.coordinator?.startProfileProcess(vm: signupVM)
+                self?.coordinator?.moveToMainVC()
             }).disposed(by: disposeBag)
         
         output.isAlreadyExist
@@ -176,6 +181,6 @@ extension SignUpVC: ASAuthorizationControllerPresentationContextProviding {
 }
 
 protocol SignUpVCDelegate: AnyObject {
-    func startProfileProcess(vm: SignUpVM)
     func moveToLogin()
+    func moveToMainVC()
 }

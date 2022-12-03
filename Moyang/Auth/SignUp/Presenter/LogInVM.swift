@@ -66,11 +66,11 @@ class LogInVM: NSObject, VMType {
     }
     
     private func registerUser() {
-        guard let name = name.value, let birth = birth.value else {
+        guard let name = name.value else {
             Log.e("No data")
             return
         }
-        useCase.registUser(name: name, birth: birth)
+        useCase.registUser(name: name)
     }
     
     func googleSignUp(user: GIDGoogleUser) {

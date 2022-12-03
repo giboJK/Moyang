@@ -19,6 +19,7 @@ class AuthUseCase: UseCase {
     let isError = BehaviorRelay<Error?>(value: nil)
     
     let email = BehaviorRelay<String?>(value: nil)
+    let name = BehaviorRelay<String?>(value: nil)
     let credential = BehaviorRelay<String?>(value: nil)
     let authType = BehaviorRelay<String?>(value: nil)
     
@@ -71,14 +72,14 @@ class AuthUseCase: UseCase {
         }
     }
     
-    func registUser(name: String, birth: String) {
+    func registUser(name: String) {
         guard let email = email.value, let credential = credential.value, let autyType = authType.value else {
             Log.e("No data")
             isError.accept(MoyangError.unknown)
             return
         }
         if checkAndSetIsNetworking() { return }
-        repo.registUser(email: email.lowercased(), pw: credential, name: name, birth: birth, authType: autyType) { [weak self] result in
+        repo.registUser(email: email.lowercased(), pw: credential, name: name, authType: autyType) { [weak self] result in
             self?.resetIsNetworking()
             switch result {
             case .success(let response):

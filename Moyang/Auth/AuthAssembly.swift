@@ -45,12 +45,6 @@ class AuthAssembly: Assembly, BaseAssembly {
             return AuthController(networkService: r ~> (NetworkServiceProtocol.self))
         }
         
-        // MARK: - SetUserInfoVC
-        container.register(SetUserInfoVC.self) { _ in
-            let vc = SetUserInfoVC()
-            return vc
-        }
-        
         // MARK: - LogInVC
         container.register(LogInVC.self) { r in
             let vc = LogInVC()

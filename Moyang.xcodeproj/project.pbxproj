@@ -163,7 +163,6 @@
 		24BB426028471F6700E86CCD /* PrayTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */; };
 		24BB42622847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB42612847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		24BFD9ED28307B2200E105D3 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BFD9EC28307B2200E105D3 /* MainVM.swift */; };
-		24C68AC0287D7C4800330178 /* SetUserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C68ABF287D7C4800330178 /* SetUserInfoVC.swift */; };
 		24C877CD282FD6B400F69AAD /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C877CC282FD6B400F69AAD /* MainVC.swift */; };
 		24C877CF282FD76100F69AAD /* VCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C877CE282FD76100F69AAD /* VCType.swift */; };
 		24C877D1282FD77500F69AAD /* VMType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C877D0282FD77500F69AAD /* VMType.swift */; };
@@ -396,7 +395,6 @@
 		24BB425F28471F6700E86CCD /* PrayTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayTagCVCell.swift; sourceTree = "<group>"; };
 		24BB42612847230700E86CCD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		24BFD9EC28307B2200E105D3 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
-		24C68ABF287D7C4800330178 /* SetUserInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUserInfoVC.swift; sourceTree = "<group>"; };
 		24C877CC282FD6B400F69AAD /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		24C877CE282FD76100F69AAD /* VCType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCType.swift; sourceTree = "<group>"; };
 		24C877D0282FD77500F69AAD /* VMType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMType.swift; sourceTree = "<group>"; };
@@ -614,7 +612,6 @@
 				08AD9590287BE371002D4F94 /* AuthCoordinator.swift */,
 				08AD9589287BE063002D4F94 /* SignUpVC.swift */,
 				2498F8FD287C316D007EF510 /* TermsVC.swift */,
-				24C68ABF287D7C4800330178 /* SetUserInfoVC.swift */,
 				08D21A412884C93E002823E6 /* LogInVC.swift */,
 			);
 			path = View;
@@ -1891,7 +1888,6 @@
 				248C6FE92923B94C009587F0 /* MyGroupTVCell.swift in Sources */,
 				08AD9585287BDFF1002D4F94 /* AuthController.swift in Sources */,
 				08E992B928ED58C200696EB6 /* NoticeVM.swift in Sources */,
-				24C68AC0287D7C4800330178 /* SetUserInfoVC.swift in Sources */,
 				24E0AB38283E75AF00F52505 /* CommonUtils.swift in Sources */,
 				08ECAADA28A6284F00B546F1 /* TaskDetailVM.swift in Sources */,
 				08D82959278D25F0001E6B61 /* Font+.swift in Sources */,
