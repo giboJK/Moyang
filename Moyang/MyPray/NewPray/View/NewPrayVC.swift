@@ -79,6 +79,10 @@ class NewPrayVC: UIViewController, VCType {
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+            self.categoryTextView.textField.becomeFirstResponder()
+        }
     }
     
     deinit { Log.i(self) }
