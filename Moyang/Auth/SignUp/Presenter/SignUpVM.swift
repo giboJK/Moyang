@@ -15,13 +15,14 @@ class SignUpVM: NSObject, VMType {
     var disposeBag: DisposeBag = DisposeBag()
     let useCase: AuthUseCase
     
-    
     let isAlreadyExist = BehaviorRelay<Void>(value: ())
-    let isEmailNotExist = BehaviorRelay<Void>(value: ())
     let credential = BehaviorRelay<String?>(value: nil)
     
     let isRegisterSuccess = BehaviorRelay<Void>(value: ())
     let isRegisterFailure = BehaviorRelay<Void>(value: ())
+    
+    let nameToRegister = BehaviorRelay<String>(value: "")
+    let emailToRegister = BehaviorRelay<String?>(value: "")
     
     init(useCase: AuthUseCase) {
         self.useCase = useCase
@@ -41,8 +42,10 @@ class SignUpVM: NSObject, VMType {
             .disposed(by: disposeBag)
         
         useCase.isEmailNotExist
-            .bind(to: isEmailNotExist)
-            .disposed(by: disposeBag)
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                self?.registerUser()
+            }).disposed(by: disposeBag)
         
         useCase.isError
             .subscribe(onNext: { error in
@@ -57,12 +60,16 @@ class SignUpVM: NSObject, VMType {
         
         useCase.isRegisterFailure
             .skip(1)
-            .bind(to: isRegisterSuccess)
+            .bind(to: isRegisterFailure)
             .disposed(by: disposeBag)
     }
     
     private func registerUser() {
-//        useCase.registUser(name: name)
+        if emailToRegister.value != nil {
+            useCase.registUser(name: nameToRegister.value)
+        } else {
+            isRegisterFailure.accept(())
+        }
     }
     
     func googleSignUp(user: GIDGoogleUser) {
@@ -74,8 +81,12 @@ class SignUpVM: NSObject, VMType {
                                 credential: credential, auth: AuthType.google.rawValue)
     }
     private func appleSignIn(_ userIdentifier: String, _ name: PersonNameComponents?, _ email: String?) {
-        useCase.checkEmailExist(email: email ?? "",
-                                credential: userIdentifier, auth: AuthType.apple.rawValue)
+        if let email = email {
+            useCase.checkEmailExist(email: email,
+                                    credential: userIdentifier, auth: AuthType.apple.rawValue)
+        } else {
+            isRegisterFailure.accept(())
+        }
     }
 }
 
@@ -87,7 +98,6 @@ extension SignUpVM {
     
     struct Output {
         let isAlreadyExist: Driver<Void>
-        let isEmailNotExist: Driver<Void>
         
         let isRegisterSuccess: Driver<Void>
         let isRegisterFailure: Driver<Void>
@@ -101,7 +111,6 @@ extension SignUpVM {
             }).disposed(by: disposeBag)
         
         return Output(isAlreadyExist: isAlreadyExist.asDriver(),
-                      isEmailNotExist: isEmailNotExist.asDriver(),
                       
                       isRegisterSuccess: isRegisterSuccess.asDriver(),
                       isRegisterFailure: isRegisterFailure.asDriver()
@@ -115,19 +124,30 @@ extension SignUpVM: ASAuthorizationControllerDelegate {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             
+            let keychain = KeychainSwift()
             // Create an account in your system.
             let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
+            let formatter = PersonNameComponentsFormatter()
+            formatter.style = .default
+            if let fullName = appleIDCredential.fullName {
+                let nameStr = formatter.string(from: fullName)
+                if nameStr.isEmpty, let keychainName = keychain.get("MoyangAppleNameKey") {
+                    nameToRegister.accept(keychainName)
+                } else {
+                    nameToRegister.accept(nameStr)
+                    keychain.set(nameStr, forKey: "MoyangAppleNameKey")
+                }
+            }
             var email = appleIDCredential.email
             
-            let keychain = KeychainSwift()
             if let email = email {
-                keychain.set(email, forKey: "appleEmailKey")
+                keychain.set(email, forKey: "MoyangAppleEmailKey")
             } else {
-                email = keychain.get("appleEmailKey")
+                email = keychain.get("MoyangAppleEmailKey")
             }
+            emailToRegister.accept(email)
             // Register user in fitto server system.
-            self.appleSignIn(userIdentifier, fullName, email)
+            self.appleSignIn(userIdentifier, appleIDCredential.fullName, email)
             
         case let passwordCredential as ASPasswordCredential:
             

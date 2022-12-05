@@ -41,6 +41,20 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
             AFNetworkService(sessionConfiguration: .default)
         }
         
+        
+        // MARK: - MediatorPrayMainVC
+        
+        container.register(MediatorPrayMainVC.self) { r in
+            let vc = MediatorPrayMainVC()
+            vc.vm = (r ~> MediatorPrayMainVM.self)
+            vc.coordinator = r ~> (MediatorPrayCoordinator.self)
+            
+            return vc
+        }
+        container.register(MediatorPrayMainVM.self) { r in
+            MediatorPrayMainVM(useCase: (r ~> GroupUseCase.self))
+        }
+        
         // MARK: - GroupPray
         container.register(GroupActivityVM.self) { r in
             GroupActivityVM()

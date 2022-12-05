@@ -75,8 +75,15 @@ extension AuthCoordinator: SignUpVCDelegate {
     }
     
     func moveToMainVC() {
-        if let vc = assembler.resolver.resolve(MainVC.self) {
-            nav.pushViewController(vc, animated: true)
+        if let coordinator = assembler.resolver.resolve(MainCoordinator.self) {
+            coordinator.start(false, completion: nil)
+            
+            var vcList = self.nav.viewControllers
+            vcList.removeAll(where: { $0 is LogInVC })
+            // SignUp -> 이미 있는 계정 -> Login -> Login 성공
+            vcList.removeAll(where: { $0 is SignUpVC })
+            vcList.removeAll(where: { $0 is TermsVC })
+            nav.viewControllers = vcList
         } else {
             Log.e("init failed")
         }

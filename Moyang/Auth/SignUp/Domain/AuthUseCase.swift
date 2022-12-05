@@ -84,10 +84,10 @@ class AuthUseCase: UseCase {
             switch result {
             case .success(let response):
                 Log.d(response)
-                self?.isRegisterSuccess.accept(())
                 UserData.shared.email = email
                 UserData.shared.password = credential
                 UserData.shared.userInfo = response
+                self?.isRegisterSuccess.accept(())
             case .failure(let error):
                 Log.e(error)
                 self?.isRegisterFailure.accept(())

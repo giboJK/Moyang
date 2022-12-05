@@ -54,6 +54,12 @@ class SignUpVC: UIViewController, VCType {
         $0.firstButton.setTitle("로그인하기", for: .normal)
         $0.secondButton.setTitle("확인", for: .normal)
     }
+    let registerFailurePopup = MoyangPopupView(style: .oneButton,
+                                             firstButtonStyle: .warning).then {
+        $0.title = "회원 가입 실패"
+        $0.desc = "개발자에게 문의해주세요"
+        $0.firstButton.setTitle("확인", for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,6 +153,11 @@ class SignUpVC: UIViewController, VCType {
                 self?.closePopup()
             }).disposed(by: disposeBag)
         
+        registerFailurePopup.firstButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.closePopup()
+            }).disposed(by: disposeBag)
+        
         logInButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.coordinator?.moveToLogin()
@@ -158,11 +169,18 @@ class SignUpVC: UIViewController, VCType {
         let input = VM.Input()
         let output = vm.transform(input: input)
         
-        output.isEmailNotExist
+        output.isRegisterSuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
                 guard let signupVM = self?.vm else { return }
                 self?.coordinator?.moveToMainVC()
+            }).disposed(by: disposeBag)
+        
+        output.isRegisterFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayPopup(popup: self.registerFailurePopup)
             }).disposed(by: disposeBag)
         
         output.isAlreadyExist
