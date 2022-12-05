@@ -77,6 +77,7 @@ class SignUpVM: NSObject, VMType {
               let email = user.profile?.email else {
             return
         }
+        nameToRegister.accept(user.profile?.name ?? "") 
         useCase.checkEmailExist(email: email,
                                 credential: credential, auth: AuthType.google.rawValue)
     }
