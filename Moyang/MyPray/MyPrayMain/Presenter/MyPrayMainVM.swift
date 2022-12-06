@@ -15,6 +15,7 @@ class MyPrayMainVM: VMType {
     
     // MARK: - Events
     let isNetworking = BehaviorRelay<Bool>(value: false)
+    let isFirstLaunch = BehaviorRelay<Void>(value: ())
     
     // MARK: - UI
     let summary = BehaviorRelay<PraySummary?>(value: nil)
@@ -40,9 +41,12 @@ class MyPrayMainVM: VMType {
             .disposed(by: disposeBag)
         
         useCase.myPraySummary
+            .skip(1)
             .bind(onNext: { [weak self] data in
-                guard let data = data else { return }
-                self?.summary.accept(PraySummary(data: data))
+                if data != nil {
+                    self?.summary.accept(PraySummary(data: data!))
+                }
+                self?.checkIsFristLauhch(data: data)
             }).disposed(by: disposeBag)
         
         useCase.prayDetail
@@ -74,6 +78,15 @@ class MyPrayMainVM: VMType {
             alarmUseCase.updateAlarm(alarmID: id, time: time, isOn: isOn, day: day)
         }
     }
+    
+    private func checkIsFristLauhch(data: MyPraySummary?) {
+        if UserData.shared.isNotFirstLaunchPray {
+        } else {
+            if data == nil {
+                isFirstLaunch.accept(())
+            }
+        }
+    }
 }
 
 extension MyPrayMainVM {
@@ -84,6 +97,7 @@ extension MyPrayMainVM {
 
     struct Output {
         let isNetworking: Driver<Bool>
+        let isFirstLaunch: Driver<Void>
         let summary: Driver<PraySummary?>
         let detailVM: Driver<MyPrayDetailVM?>
     }
@@ -100,6 +114,7 @@ extension MyPrayMainVM {
             }).disposed(by: disposeBag)
         
         return Output(isNetworking: isNetworking.asDriver(),
+                      isFirstLaunch: isFirstLaunch.asDriver(),
                       summary: summary.asDriver(),
                       detailVM: detailVM.asDriver())
     }

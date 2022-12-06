@@ -24,11 +24,12 @@ class MyPrayListHeaderView: UITableViewHeaderFooterView {
     
     func configureContents() {
         backgroundColor = .nightSky1
+        tintColor = .nightSky1
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.height.equalTo(21)
             $0.left.equalToSuperview().inset(24)
-            $0.top.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(12)
             $0.bottom.equalToSuperview().inset(8)
         }
     }

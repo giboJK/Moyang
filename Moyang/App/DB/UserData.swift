@@ -11,12 +11,12 @@ class UserData {
     static let shared = UserData()
     var userInfo: UserInfo?
     
-    var isNotFirstLaunch: Bool {
+    var isNotFirstLaunchPray: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: "IS_NOT_FIRST_LAUNCH")
+            return UserDefaults.standard.bool(forKey: "IS_NOT_FIRST_LAUNCH_PRAY")
         }
         set(v) {
-            UserDefaults.standard.set(v, forKey: "IS_NOT_FIRST_LAUNCH")
+            UserDefaults.standard.set(v, forKey: "IS_NOT_FIRST_LAUNCH_PRAY")
         }
     }
     
@@ -97,63 +97,9 @@ class UserData {
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedPrayTitle)
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.autoSavedPrayContent)
     }
-    
-    // MARK: - WorshipNote
-    
-    var autoSavedNoteTitle: String? {
-        get {
-            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedNoteTitle)
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedNoteTitle)
-        }
-    }
-    
-    var autoSavedNoteBible: String? {
-        get {
-            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedNoteBible)
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedNoteBible)
-        }
-    }
-    
-    var autoSavedNotePastor: String? {
-        get {
-            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedNotePastor)
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedNotePastor)
-        }
-    }
-    
-    var autoSavedNoteContent: String? {
-        get {
-            return UserDefaults.standard.string(forKey: UserDefaultKey.autoSavedNoteContent)
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedNoteContent)
-        }
-    }
-    
-    var autoSavedNoteTags: [String]? {
-        get {
-            return UserDefaults.standard.object(forKey: UserDefaultKey.autoSavedNoteTag) as? [String]
-        }
-        set(v) {
-            UserDefaults.standard.set(v, forKey: UserDefaultKey.autoSavedNoteTag)
-        }
-    }
 }
 
 class UserDefaultKey {
     static let autoSavedPrayTitle = "AUTO_SAVED_PRAY_TITLE"
     static let autoSavedPrayContent = "AUTO_SAVED_PRAY_CONTENT"
-    
-    // MARK: - WorshipNote
-    static let autoSavedNoteTitle = "AUTO_SAVED_NOTE_TITLE"
-    static let autoSavedNoteBible = "AUTO_SAVED_NOTE_BIBLE"
-    static let autoSavedNotePastor = "AUTO_SAVED_NOTE_PASTOR"
-    static let autoSavedNoteContent = "AUTO_SAVED_NOTE_CONTENT"
-    static let autoSavedNoteTag = "AUTO_SAVED_NOTE_Tag"
 }

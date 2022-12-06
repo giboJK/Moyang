@@ -94,6 +94,10 @@ class MyPrayMainVC: UIViewController, VCType {
             $0.center.equalToSuperview()
         }
     }
+    
+    private func showTutorial() {
+        
+    }
 
     // MARK: - Binding
     func bind() {
@@ -141,6 +145,12 @@ class MyPrayMainVC: UIViewController, VCType {
             .drive(onNext: { [weak self] detailVM in
                 guard let detailVM = detailVM else { return }
                 self?.coordinator?.didTapPray(vm: detailVM)
+            }).disposed(by: disposeBag)
+        
+        output.isFirstLaunch
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.showTutorial()
             }).disposed(by: disposeBag)
     }
 }
