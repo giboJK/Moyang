@@ -119,9 +119,15 @@ class GroupMemberPrayListVC: UIViewController, VCType {
                 }
             }).disposed(by: disposeBag)
         
-        output.userName.map { $0 + "의 기도목록" }
-            .drive(self.rx.title)
-            .disposed(by: disposeBag)
+        Driver.combineLatest(output.userName, output.isMyList)
+            .drive(onNext: { [weak self] (name, isMy) in
+                guard let self = self else { return }
+                if isMy {
+                    self.title = "내 모든 기도"
+                } else {
+                    self.title = name + "의 중보기도"
+                }
+            }).disposed(by: disposeBag)
         
         output.itemList
             .drive(onNext: { [weak self] dataSource in

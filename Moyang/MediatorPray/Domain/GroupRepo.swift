@@ -24,6 +24,9 @@ protocol GroupRepo {
     
     func fetchPrayDetail(prayID: String, completion: ((Result<PrayDetailResponse, MoyangError>) -> Void)?)
     
+    func fetchMyPrayList(userID: String, page: Int, row: Int, completion: ((Result<[GroupMemberPray], MoyangError>) -> Void)?)
+    
+    
     // MARK: - Etc
     func exitGroup(groupID: String, userID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     

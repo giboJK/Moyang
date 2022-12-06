@@ -255,10 +255,42 @@ class GroupUseCase: UseCase {
     }
     
     // MARK: - GroupMemberPrayList
-    func fetechInitialMyUnsharedPrayList(groupID: String) {
-        
+    func fetechInitialMyPrayList(groupID: String, userID: String) {
+        memberPrayPage = 0
+        fetchMyPrayList(groupID: groupID, userID: userID)
     }
     
+    func fetchMoreMyPrayList(groupID: String, userID: String) {
+        if isNetworking.value { return }
+        memberPrayPage += 20
+        fetchMyPrayList(groupID: groupID, userID: userID)
+    }
+    
+    private func fetchMyPrayList(groupID: String, userID: String) {
+        if checkAndSetIsNetworking() { return }
+        repo.fetchMyPrayList(userID: userID, page: memberPrayPage, row: 20) { [weak self] result in
+            self?.resetIsNetworking()
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                var cur = self.memberPrayList.value
+                if cur.isEmpty {
+                    self.memberPrayList.accept(response)
+                } else {
+                    for item in response {
+                        if !cur.contains(where: { $0.prayID == item.prayID }) {
+                            cur.append(item)
+                        }
+                    }
+                    self.memberPrayList.accept(cur)
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
+    }
+    
+    ///
     func fetchInitialMemberPrayList(groupID: String, userID: String) {
         memberPrayPage = 0
         fetchMemberPrayList(groupID: groupID, userID: userID)
@@ -272,7 +304,9 @@ class GroupUseCase: UseCase {
     
     private func fetchMemberPrayList(groupID: String, userID: String) {
         if checkAndSetIsNetworking() { return }
-        repo.fetchGroupMemberPrayList(groupID: groupID, userID: userID, page: 0, row: 30) { [weak self] result in
+        repo.fetchGroupMemberPrayList(groupID: groupID, userID: userID,
+                                      page: memberPrayPage,
+                                      row: 20) { [weak self] result in
             self?.resetIsNetworking()
             guard let self = self else { return }
             switch result {

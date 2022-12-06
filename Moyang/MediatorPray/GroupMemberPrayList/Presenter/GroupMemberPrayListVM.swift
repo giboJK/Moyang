@@ -13,21 +13,25 @@ class GroupMemberPrayListVM: VMType {
     let useCase: GroupUseCase
     let groupID: String
     let userID: String
+    let showMyList: Bool
     
     // MARK: - Events
     let isNetworking = BehaviorRelay<Bool>(value: false)
     
     // MARK: - Data
+    let isMyList = BehaviorRelay<Bool>(value: false)
     let itemList = BehaviorRelay<([String], [[PrayListItem]])>(value: ([], []))
     let userName = BehaviorRelay<String>(value: "")
     
     // MARK: - VM
     let detailVM = BehaviorRelay<GroupMemberPrayDetailVM?>(value: nil)
     
-    init(useCase: GroupUseCase, groupID: String, userID: String) {
+    init(useCase: GroupUseCase, groupID: String, userID: String, showMyList: Bool = false) {
         self.useCase = useCase
         self.groupID = groupID
         self.userID = userID
+        self.showMyList = showMyList
+        isMyList.accept(showMyList)
         bind()
         fetchList()
     }
@@ -74,14 +78,11 @@ class GroupMemberPrayListVM: VMType {
     }
     
     private func fetchList() {
-        if userID == UserData.shared.userInfo?.id {
-            fetchMyUnsharedList()
+        if showMyList {
+            useCase.fetechInitialMyPrayList(groupID: groupID, userID: userID)
         } else {
             useCase.fetchInitialMemberPrayList(groupID: groupID, userID: userID)
         }
-    }
-    private func fetchMyUnsharedList() {
-        
     }
     
     private func fetchPrayDetail(index: IndexPath) {
@@ -110,6 +111,7 @@ extension GroupMemberPrayListVM {
 
     struct Output {
         let isNetworking: Driver<Bool>
+        let isMyList: Driver<Bool>
         let itemList: Driver<([String], [[PrayListItem]])>
         let userName: Driver<String>
         let detailVM: Driver<GroupMemberPrayDetailVM?>
@@ -128,6 +130,7 @@ extension GroupMemberPrayListVM {
             }).disposed(by: disposeBag)
         
         return Output(isNetworking: isNetworking.asDriver(),
+                      isMyList: isMyList.asDriver(),
                       itemList: itemList.asDriver(),
                       userName: userName.asDriver(),
                       detailVM: detailVM.asDriver()

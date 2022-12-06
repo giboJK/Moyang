@@ -73,9 +73,10 @@ class GroupDetailVM: VMType {
                         self.isLeader.accept(member.isLeader)
                     }
                 }
-                
-                self.hasJoinReq.accept(!detail.reqs.isEmpty)
-                self.reqList.accept(detail.reqs.map { ReqItem(data: $0) })
+                if self.isLeader.value {
+                    self.hasJoinReq.accept(!detail.reqs.isEmpty)
+                    self.reqList.accept(detail.reqs.map { ReqItem(data: $0) })
+                }
                 
                 self.mediatorItemList.accept(itemList)
             }).disposed(by: disposeBag)
@@ -108,7 +109,7 @@ class GroupDetailVM: VMType {
     
     private func showMyList() {
         guard let myID = UserData.shared.userInfo?.id else { Log.e("No ID"); return }
-        listVM.accept(GroupMemberPrayListVM(useCase: useCase, groupID: groupID, userID: myID))
+        listVM.accept(GroupMemberPrayListVM(useCase: useCase, groupID: groupID, userID: myID, showMyList: true))
     }
     
     private func createGroupMemberPrayDetailVM(index: Int) {
