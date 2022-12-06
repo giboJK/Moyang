@@ -255,18 +255,22 @@ class GroupUseCase: UseCase {
     }
     
     // MARK: - GroupMemberPrayList
+    func fetechInitialMyUnsharedPrayList(groupID: String) {
+        
+    }
+    
     func fetchInitialMemberPrayList(groupID: String, userID: String) {
         memberPrayPage = 0
-        fetchPrayList(groupID: groupID, userID: userID)
+        fetchMemberPrayList(groupID: groupID, userID: userID)
     }
     
     func fetchMoreMemberPrayList(groupID: String, userID: String) {
         if isNetworking.value { return }
         memberPrayPage += 20
-        fetchPrayList(groupID: groupID, userID: userID)
+        fetchMemberPrayList(groupID: groupID, userID: userID)
     }
     
-    private func fetchPrayList(groupID: String, userID: String) {
+    private func fetchMemberPrayList(groupID: String, userID: String) {
         if checkAndSetIsNetworking() { return }
         repo.fetchGroupMemberPrayList(groupID: groupID, userID: userID, page: 0, row: 30) { [weak self] result in
             self?.resetIsNetworking()

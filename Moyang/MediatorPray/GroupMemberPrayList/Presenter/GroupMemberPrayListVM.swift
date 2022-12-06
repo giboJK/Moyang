@@ -74,7 +74,14 @@ class GroupMemberPrayListVM: VMType {
     }
     
     private func fetchList() {
-        useCase.fetchInitialMemberPrayList(groupID: groupID, userID: userID)
+        if userID == UserData.shared.userInfo?.id {
+            fetchMyUnsharedList()
+        } else {
+            useCase.fetchInitialMemberPrayList(groupID: groupID, userID: userID)
+        }
+    }
+    private func fetchMyUnsharedList() {
+        
     }
     
     private func fetchPrayDetail(index: IndexPath) {
