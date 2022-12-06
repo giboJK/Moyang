@@ -22,9 +22,9 @@ class MyPrayBottomView: UIView {
     let downImageView = UIImageView(image: UIImage(systemName: "arrowtriangle.down.fill")).then {
         $0.tintColor = .nightSky2
     }
-    let prayButton = MoyangButton(.nightPrimary).then {
-        $0.setTitle("기도하기", for: .normal)
-    }
+//    let prayButton = MoyangButton(.nightPrimary).then {
+//        $0.setTitle("기도하기", for: .normal)
+//    }
     let textView = ChangeAnswerTextView("기도에 변화와 응답이 있나요?")
     
     init() {
@@ -43,18 +43,18 @@ class MyPrayBottomView: UIView {
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        hidePrayButton()
+//        hidePrayButton()
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if textView.textView.text.isEmpty {
-            showPrayButton()
-        }
+//        if textView.textView.text.isEmpty {
+//            showPrayButton()
+//        }
     }
     
     private func setupUI() {
         setupTextView()
-        setupPrayButton()
+//        setupPrayButton()
         setupTypeContainer()
     }
     private func setupTextView() {
@@ -62,25 +62,25 @@ class MyPrayBottomView: UIView {
         textView.snp.makeConstraints {
             $0.left.equalToSuperview().inset(55)
             $0.top.equalToSuperview().inset(4)
-            $0.right.equalToSuperview().inset(120)
+            $0.right.equalToSuperview().inset(12)
             $0.height.greaterThanOrEqualTo(36)
             $0.bottom.equalToSuperview().inset(UIApplication.bottomInset + 4)
         }
     }
-    private func setupPrayButton() {
-        addSubview(prayButton)
-        prayButton.snp.makeConstraints {
-            $0.width.equalTo(100)
-            $0.height.equalTo(36)
-            $0.bottom.equalTo(textView)
-            $0.right.equalToSuperview().inset(12)
-        }
-    }
+//    private func setupPrayButton() {
+//        addSubview(prayButton)
+//        prayButton.snp.makeConstraints {
+//            $0.width.equalTo(100)
+//            $0.height.equalTo(36)
+//            $0.bottom.equalTo(textView)
+//            $0.right.equalToSuperview().inset(12)
+//        }
+//    }
     private func setupTypeContainer() {
         addSubview(typeContainer)
         typeContainer.snp.makeConstraints {
             $0.left.equalToSuperview().inset(12)
-            $0.centerY.equalTo(prayButton)
+            $0.bottom.equalTo(textView).inset(10)
             $0.height.equalTo(17)
         }
         setupTypeLabel()
@@ -101,27 +101,27 @@ class MyPrayBottomView: UIView {
         }
     }
     
-    private func hidePrayButton() {
-        textView.snp.updateConstraints {
-            $0.right.equalToSuperview().inset(12)
-        }
-        prayButton.isHidden = true
-        UIView.animate(withDuration: 0.5) {
-            self.updateConstraints()
-            self.layoutIfNeeded()
-        }
-    }
-    
-    private func showPrayButton() {
-        textView.snp.updateConstraints {
-            $0.right.equalToSuperview().inset(120)
-        }
-        prayButton.isHidden = false
-        UIView.animate(withDuration: 0.5) {
-            self.updateConstraints()
-            self.layoutIfNeeded()
-        }
-    }
+//    private func hidePrayButton() {
+//        textView.snp.updateConstraints {
+//            $0.right.equalToSuperview().inset(12)
+//        }
+//        prayButton.isHidden = true
+//        UIView.animate(withDuration: 0.5) {
+//            self.updateConstraints()
+//            self.layoutIfNeeded()
+//        }
+//    }
+//
+//    private func showPrayButton() {
+//        textView.snp.updateConstraints {
+//            $0.right.equalToSuperview().inset(120)
+//        }
+//        prayButton.isHidden = false
+//        UIView.animate(withDuration: 0.5) {
+//            self.updateConstraints()
+//            self.layoutIfNeeded()
+//        }
+//    }
 }
 
 class ChangeAnswerTextView: UIView {

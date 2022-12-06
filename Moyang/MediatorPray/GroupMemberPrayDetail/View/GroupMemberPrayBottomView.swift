@@ -29,9 +29,9 @@ class GroupMemberPrayBottomView: UIView {
     let downImageView = UIImageView(image: UIImage(systemName: "arrowtriangle.down.fill")).then {
         $0.tintColor = .nightSky2
     }
-    let prayButton = MoyangButton(.nightPrimary).then {
-        $0.setTitle("기도하기", for: .normal)
-    }
+//    let prayButton = MoyangButton(.nightPrimary).then {
+//        $0.setTitle("기도하기", for: .normal)
+//    }
     let textView = ChangeAnswerTextView("같이 기도해보세요 :)")
     
     init() {
@@ -50,19 +50,19 @@ class GroupMemberPrayBottomView: UIView {
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        hidePrayButton()
+//        hidePrayButton()
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if textView.textView.text.isEmpty {
-            showPrayButton()
-        }
+//        if textView.textView.text.isEmpty {
+//            showPrayButton()
+//        }
     }
     
     private func setupUI() {
         setupTypeLabel()
         setupTextView()
-        setupPrayButton()
+//        setupPrayButton()
         setupIsMeTypeContainer()
     }
     private func setupTextView() {
@@ -70,20 +70,20 @@ class GroupMemberPrayBottomView: UIView {
         textView.snp.makeConstraints {
             $0.left.equalTo(typeLabel.snp.right).offset(8)
             $0.top.equalToSuperview().inset(4)
-            $0.right.equalToSuperview().inset(120)
+            $0.right.equalToSuperview().inset(12)
             $0.height.greaterThanOrEqualTo(36)
             $0.bottom.equalToSuperview().inset(UIApplication.bottomInset + 4)
         }
     }
-    private func setupPrayButton() {
-        addSubview(prayButton)
-        prayButton.snp.makeConstraints {
-            $0.width.equalTo(100)
-            $0.height.equalTo(36)
-            $0.bottom.equalTo(textView)
-            $0.right.equalToSuperview().inset(12)
-        }
-    }
+//    private func setupPrayButton() {
+//        addSubview(prayButton)
+//        prayButton.snp.makeConstraints {
+//            $0.width.equalTo(100)
+//            $0.height.equalTo(36)
+//            $0.bottom.equalTo(textView)
+//            $0.right.equalToSuperview().inset(12)
+//        }
+//    }
     private func setupTypeLabel() {
         addSubview(typeLabel)
         typeLabel.snp.makeConstraints {
@@ -97,7 +97,7 @@ class GroupMemberPrayBottomView: UIView {
         addSubview(isMeTypeContainer)
         isMeTypeContainer.snp.makeConstraints {
             $0.left.equalToSuperview().inset(12)
-            $0.centerY.equalTo(prayButton)
+            $0.bottom.equalTo(textView).inset(10)
             $0.height.equalTo(17)
         }
         setupIsMeTypeLabel()
@@ -120,27 +120,27 @@ class GroupMemberPrayBottomView: UIView {
     
     
     // MARK: - Animation
-    private func hidePrayButton() {
-        textView.snp.updateConstraints {
-            $0.right.equalToSuperview().inset(12)
-        }
-        prayButton.isHidden = true
-        UIView.animate(withDuration: 0.5) {
-            self.updateConstraints()
-            self.layoutIfNeeded()
-        }
-    }
-    
-    private func showPrayButton() {
-        textView.snp.updateConstraints {
-            $0.right.equalToSuperview().inset(120)
-        }
-        prayButton.isHidden = false
-        UIView.animate(withDuration: 0.5) {
-            self.updateConstraints()
-            self.layoutIfNeeded()
-        }
-    }
+//    private func hidePrayButton() {
+//        textView.snp.updateConstraints {
+//            $0.right.equalToSuperview().inset(12)
+//        }
+//        prayButton.isHidden = true
+//        UIView.animate(withDuration: 0.5) {
+//            self.updateConstraints()
+//            self.layoutIfNeeded()
+//        }
+//    }
+//
+//    private func showPrayButton() {
+//        textView.snp.updateConstraints {
+//            $0.right.equalToSuperview().inset(120)
+//        }
+//        prayButton.isHidden = false
+//        UIView.animate(withDuration: 0.5) {
+//            self.updateConstraints()
+//            self.layoutIfNeeded()
+//        }
+//    }
     
     func changeBottomOption(isMe: Bool) {
         isMeTypeContainer.isHidden = !isMe

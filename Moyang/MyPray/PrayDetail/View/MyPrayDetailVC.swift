@@ -268,7 +268,7 @@ class MyPrayDetailVC: UIViewController, VCType {
         guard let vm = vm else { Log.e("vm is nil"); return }
         
         let addNew = bottomView.textView.saveImageView.rx.tapGesture().when(.ended).map({ _ in ()}).asDriver(onErrorJustReturn: ())
-        let input = VM.Input(startPray: bottomView.prayButton.rx.tap.asDriver(),
+        let input = VM.Input(startPray: .empty(), // bottomView.prayButton.rx.tap.asDriver(),
                              setNew: bottomView.textView.textView.rx.text.asDriver(),
                              addNew: addNew)
         let output = vm.transform(input: input)
