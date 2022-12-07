@@ -51,7 +51,7 @@ class GroupActivityVC: UIViewController, VCType {
     func setupUI() {
         view.backgroundColor = .nightSky1
         
-        setupNewsButton()
+//        setupNewsButton()
         setupTabView()
         
         setupMediatorPrayMainVC()
@@ -60,15 +60,15 @@ class GroupActivityVC: UIViewController, VCType {
     private func setupNewsButton() {
         view.addSubview(newsButton)
         newsButton.snp.makeConstraints {
-            $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.size.equalTo(24)
         }
     }
     private func setupTabView() {
         view.addSubview(tabView)
         tabView.snp.makeConstraints {
-            $0.top.equalTo(newsButton.snp.bottom)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(44)
         }

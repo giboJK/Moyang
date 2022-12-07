@@ -172,7 +172,6 @@ class SignUpVC: UIViewController, VCType {
         output.isRegisterSuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in
-                guard let signupVM = self?.vm else { return }
                 self?.coordinator?.moveToMainVC()
             }).disposed(by: disposeBag)
         

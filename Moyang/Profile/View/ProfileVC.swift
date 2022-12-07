@@ -108,7 +108,7 @@ class ProfileVC: UIViewController, VCType {
     private func setupNameLabel() {
         view.addSubview(nameLabel)
         nameLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(52)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(28)
             $0.left.right.equalToSuperview().inset(24)
         }
     }
