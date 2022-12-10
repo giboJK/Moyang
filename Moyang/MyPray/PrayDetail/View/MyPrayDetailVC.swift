@@ -74,6 +74,7 @@ class MyPrayDetailVC: UIViewController, VCType {
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
         
         navigationItem.largeTitleDisplayMode = .never
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     
     // 기도하기 화면 후 복귀 시 필요

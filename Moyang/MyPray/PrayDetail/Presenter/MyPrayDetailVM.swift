@@ -193,9 +193,21 @@ class MyPrayDetailVM: VMType {
         isSaveEnabled.accept(isChanged)
     }
     
-    private func updatePray() {
+    private func updatePrayCategoryAndGroup() {
         guard let category = self.category.value else { Log.e(""); return }
         guard let content = self.contentItemList.value.first?.content else { Log.e(""); return }
+        if let groupID = groupList.value.first(where: { groupInfo in
+            groupInfo.name == groupName.value
+        })?.id {
+            useCase.updatePray(category: category, content: content, groupID: groupID)
+        } else {
+            useCase.updatePray(category: category, content: content, groupID: "")
+        }
+    }
+    
+    private func updatePrayContent() {
+        guard let category = self.category.value else { Log.e(""); return }
+        guard let content = self.contentToChange.value else { Log.e(""); return }
         if let groupID = groupList.value.first(where: { groupInfo in
             groupInfo.name == groupName.value
         })?.id {
@@ -237,6 +249,7 @@ class MyPrayDetailVM: VMType {
     
     func checkCanEdit(indexPath: IndexPath) {
         let list = contentItemList.value
+        changeType(type: list[indexPath.row].type)
         if list[indexPath.row].type == .reply {
             cantEditPopup.accept(())
         } else {
@@ -287,6 +300,8 @@ class MyPrayDetailVM: VMType {
                 let item = list[index]
                 useCase.updateAnswer(answerID: item.id, answer: content)
             }
+        case .startPray:
+            updatePrayContent()
         default:
             break
         }
@@ -375,7 +390,7 @@ extension MyPrayDetailVM {
         
         input.updatePray
             .drive(onNext: { [weak self] _ in
-                self?.updatePray()
+                self?.updatePrayCategoryAndGroup()
             }).disposed(by: disposeBag)
         
         input.resetChange

@@ -113,6 +113,18 @@ class MyPrayFixVC: UIViewController, VCType {
             .drive(saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
+        output.updatePraySuccess
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        output.updatePrayFailure
+            .skip(1)
+            .drive(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
         output.updateChangeSuccess
             .skip(1)
             .drive(onNext: { [weak self] _ in

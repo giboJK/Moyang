@@ -235,7 +235,6 @@ class MyPrayUseCase: UseCase {
             switch result {
             case .success(let response):
                 if response.code == 0 {
-                    self.updatePraySuccess.accept(())
                     var cur = self.prayDetail.value
                     cur?.category = category
                     
@@ -246,7 +245,9 @@ class MyPrayUseCase: UseCase {
                         cur?.groupID = nil
                         cur?.groupName = nil
                     }
+                    cur?.content = content
                     self.prayDetail.accept(cur)
+                    self.updatePraySuccess.accept(())
                 } else {
                     self.updatePrayFailure.accept(())
                 }

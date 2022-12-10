@@ -27,7 +27,7 @@ class MyPrayDetailTVCell: UITableViewCell {
     }
     let dateLabel = MoyangLabel().then {
         $0.textColor = .sheep4
-        $0.font = .b05
+        $0.font = .c01
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -63,7 +63,7 @@ class MyPrayDetailTVCell: UITableViewCell {
     private func setupBubbleRImageView() {
         contentView.addSubview(bubbleRImageView)
         bubbleRImageView.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(16)
+            $0.right.equalToSuperview().inset(12)
             $0.left.equalTo(contentLabel).offset(-8)
             $0.top.bottom.equalToSuperview().inset(4)
         }
@@ -71,7 +71,7 @@ class MyPrayDetailTVCell: UITableViewCell {
     private func setupBubbleLImageView() {
         contentView.addSubview(bubbleLImageView)
         bubbleLImageView.snp.remakeConstraints {
-            $0.left.equalToSuperview().inset(16)
+            $0.left.equalToSuperview().inset(12)
             $0.right.equalTo(contentLabel).offset(8)
             $0.top.bottom.equalToSuperview().inset(4)
         }
@@ -79,7 +79,7 @@ class MyPrayDetailTVCell: UITableViewCell {
     private func setupBubbleLOtherImageView() {
         contentView.addSubview(bubbleLOtherImageView)
         bubbleLOtherImageView.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(16)
+            $0.left.equalToSuperview().inset(12)
             $0.right.equalTo(contentLabel).offset(8)
             $0.top.bottom.equalToSuperview().inset(4)
         }
@@ -111,9 +111,9 @@ class MyPrayDetailTVCell: UITableViewCell {
         let width = min(textWidth * 1.02, UIScreen.main.bounds.width * 0.65)
         contentLabel.snp.remakeConstraints {
             if isMe {
-                $0.right.equalToSuperview().inset(24 + 4)
+                $0.right.equalToSuperview().inset(20 + 4)
             } else {
-                $0.left.equalToSuperview().inset(24 + 4)
+                $0.left.equalToSuperview().inset(20 + 4)
             }
             $0.width.equalTo(width)
             $0.top.bottom.equalToSuperview().inset(12)
