@@ -32,10 +32,12 @@ class MyPrayBottomView: UIView {
         backgroundColor = .sheep2
         setupUI()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+//                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+//                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardObserverSet),
+//                                               name: NSNotification.Name.MyPrayDetailVCKeyboard, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -50,6 +52,14 @@ class MyPrayBottomView: UIView {
 //        if textView.textView.text.isEmpty {
 //            showPrayButton()
 //        }
+    }
+    
+    @objc func keyboardObserverSet(notification: NSNotification) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
     
     private func setupUI() {

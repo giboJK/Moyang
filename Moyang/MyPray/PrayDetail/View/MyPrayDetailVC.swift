@@ -72,6 +72,8 @@ class MyPrayDetailVC: UIViewController, VCType {
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardObserverSet),
+                                               name: NSNotification.Name.MyPrayDetailVCKeyboard, object: nil)
         
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -107,6 +109,12 @@ class MyPrayDetailVC: UIViewController, VCType {
         }
         view.frame.origin.y = 0
         view.layoutIfNeeded()
+    }
+    @objc func keyboardObserverSet(notification: NSNotification) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func setupUI() {
@@ -195,6 +203,8 @@ class MyPrayDetailVC: UIViewController, VCType {
         vc.vm = self.vm
         vc.modalPresentationStyle = .pageSheet
         present(vc, animated: true)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 //    private func showReactionView(prayReactionDetailVM: PrayReactionDetailVM) {
 //        let vc = PrayReactionDetailVC()

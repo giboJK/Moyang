@@ -19,6 +19,7 @@ class MyPrayFixVC: UIViewController, VCType {
     // MARK: - UI
     let textView = MoyangTextView(.sheep, padding: UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 36))
     let placeholder = MoyangLabel().then {
+        $0.text = "내용을 입력하세요"
         $0.font = .b03
         $0.textColor = .sheep3
     }
@@ -34,25 +35,62 @@ class MyPrayFixVC: UIViewController, VCType {
 
         setupUI()
         bind()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    deinit { Log.i(self) }
-
+    deinit {
+        Log.i(self)
+        NotificationCenter.default.post(name: NSNotification.Name.MyPrayDetailVCKeyboard,
+                                        object: nil, userInfo: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            UIView.animate(withDuration: 0.7) {
+                self.saveButton.snp.updateConstraints {
+                    $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+                        .inset(keyboardSize.height-8)
+                }
+            }
+        }
+        self.view.layoutIfNeeded()
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        saveButton.snp.updateConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        view.frame.origin.y = 0
+        view.layoutIfNeeded()
+    }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
     func setupUI() {
+        view.backgroundColor = .nightSky4
+        setupSaveButton()
         setupTextView()
         setupPlaceholder()
-        setupSaveButton()
         setupIndicator()
+    }
+    private func setupSaveButton() {
+        view.addSubview(saveButton)
+        saveButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(48)
+            $0.left.right.equalToSuperview().inset(28)
+        }
     }
     private func setupTextView() {
         view.addSubview(textView)
         textView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(28)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(28)
             $0.left.right.equalToSuperview().inset(28)
-            $0.height.equalTo(220)
+            $0.bottom.equalTo(saveButton.snp.top).offset(-20)
         }
     }
     private func setupPlaceholder() {
@@ -60,14 +98,6 @@ class MyPrayFixVC: UIViewController, VCType {
         placeholder.snp.makeConstraints {
             $0.top.equalTo(textView).inset(8)
             $0.left.equalTo(textView).inset(8)
-        }
-    }
-    private func setupSaveButton() {
-        view.addSubview(saveButton)
-        saveButton.snp.makeConstraints {
-            $0.top.equalTo(textView.snp.bottom).offset(24)
-            $0.height.equalTo(48)
-            $0.left.right.equalToSuperview().inset(28)
         }
     }
     private func setupIndicator() {
@@ -85,10 +115,6 @@ class MyPrayFixVC: UIViewController, VCType {
     }
     
     private func bindViews() {
-        view.rx.tapGesture().when(.ended)
-            .subscribe(onNext: { [weak self] _ in
-                self?.view.endEditing(true)
-            }).disposed(by: disposeBag)
     }
 
     private func bindVM() {
@@ -97,6 +123,16 @@ class MyPrayFixVC: UIViewController, VCType {
                              saveChange: saveButton.rx.tap.asDriver()
         )
         let output = vm.transform(input: input)
+        
+        output.isNetworking
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] isNetworking in
+                if isNetworking {
+                    self?.indicator.startAnimating()
+                } else {
+                    self?.indicator.stopAnimating()
+                }
+            }).disposed(by: disposeBag)
         
         output.contentToChange
             .distinctUntilChanged()
