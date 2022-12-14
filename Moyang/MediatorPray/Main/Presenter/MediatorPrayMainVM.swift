@@ -14,6 +14,8 @@ class MediatorPrayMainVM: VMType {
 
     // MARK: - Data
     private let groupList = BehaviorRelay<[GroupItem]>(value: [])
+    private let hasNew = BehaviorRelay<Bool>(value: false)
+    private let hasJoinEvent = BehaviorRelay<Bool>(value: false)
     
     // MARK: - VM
     private let detailVM = BehaviorRelay<GroupDetailVM?>(value: nil)
@@ -33,6 +35,20 @@ class MediatorPrayMainVM: VMType {
             .map({ list in list.map { GroupItem(data: $0) } })
             .bind(to: groupList)
             .disposed(by: disposeBag)
+        
+        groupList
+            .subscribe(onNext: { [weak self] list in
+                if list.isEmpty { return }
+                var hasJoinEvent = false
+                var hasNew = false
+                
+                list.forEach { item in
+                    hasJoinEvent = hasJoinEvent || (item.hasJoinEvent ?? false)
+                    hasNew = hasNew || (item.hasNew ?? false)
+                }
+                self?.hasJoinEvent.accept(hasJoinEvent)
+                self?.hasNew.accept(hasNew)
+            }).disposed(by: disposeBag)
     }
     
     @objc func fetchGroupList() {
@@ -53,6 +69,8 @@ extension MediatorPrayMainVM {
     struct Output {
         let groupList: Driver<[GroupItem]>
         let detailVM: Driver<GroupDetailVM?>
+        let hasJoinEvent: Driver<Bool>
+        let hasNew: Driver<Bool>
     }
 
     func transform(input: Input) -> Output {
@@ -62,7 +80,9 @@ extension MediatorPrayMainVM {
             }).disposed(by: disposeBag)
         
         return Output(groupList: groupList.asDriver(),
-                      detailVM: detailVM.asDriver()
+                      detailVM: detailVM.asDriver(),
+                      hasJoinEvent: hasJoinEvent.asDriver(),
+                      hasNew: hasNew.asDriver()
         )
     }
 }
@@ -74,11 +94,16 @@ extension MediatorPrayMainVM {
         let desc: String
         let prayUser: String?
         let eventDate: String?
+        let hasJoinEvent: Bool?
+        let hasNew: Bool?
         
         init(data: GroupMediatorInfo) {
             id = data.id
             name = data.name
             desc = data.desc
+            hasJoinEvent = data.hasJoinEvent
+            hasNew = data.hasNew
+            
             if let userName = data.prayName, let date = data.eventDate {
                 prayUser = userName + "님의 중보기도 요청이 있어요"
                 eventDate = date.isoToDateString("yyyy.M.d.") ?? ""
