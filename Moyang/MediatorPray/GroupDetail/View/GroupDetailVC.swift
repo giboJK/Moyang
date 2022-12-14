@@ -18,7 +18,7 @@ class GroupDetailVC: UIViewController, VCType {
     var coordinator: GroupDetailVCDelegate?
     
     // MARK: - Property
-    let headerHeight: CGFloat = 89 + 28 + 89 + 28
+    let headerHeight: CGFloat = 89 + 28
     let minHeaderHeight: CGFloat = 0
     // MARK: - UI
     let moreButton = UIBarButtonItem(title: "더 보기", style: .plain, target: nil, action: nil)
@@ -78,7 +78,7 @@ class GroupDetailVC: UIViewController, VCType {
         setupDescLabel()
         setupDescValueLabel()
         setupMediatorTableView()
-        setupPrayButton()
+//        setupPrayButton()
     }
     private func setupMoreButton() {
         navigationItem.rightBarButtonItem = moreButton

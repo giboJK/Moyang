@@ -149,7 +149,8 @@ class GroupMemberPrayBottomView: UIView {
             textView.snp.remakeConstraints {
                 $0.left.equalToSuperview().inset(55)
                 $0.top.equalToSuperview().inset(4)
-                $0.right.equalToSuperview().inset(120)
+//                $0.right.equalToSuperview().inset(120)
+                $0.right.equalToSuperview().inset(12)
                 $0.height.greaterThanOrEqualTo(36)
                 $0.bottom.equalToSuperview().inset(UIApplication.bottomInset + 4)
             }
@@ -157,7 +158,8 @@ class GroupMemberPrayBottomView: UIView {
             textView.snp.remakeConstraints {
                 $0.left.equalTo(typeLabel.snp.right).offset(8)
                 $0.top.equalToSuperview().inset(4)
-                $0.right.equalToSuperview().inset(120)
+//                $0.right.equalToSuperview().inset(120)
+                $0.right.equalToSuperview().inset(12)
                 $0.height.greaterThanOrEqualTo(36)
                 $0.bottom.equalToSuperview().inset(UIApplication.bottomInset + 4)
             }

@@ -31,7 +31,7 @@ class GroupDetailHeader: UIView {
     }
     
     private func setupUI() {
-        setupNewMediatorView()
+//        setupNewMediatorView()
         setupRequestMediatorView()
     }
     private func setupNewMediatorView() {
@@ -45,10 +45,10 @@ class GroupDetailHeader: UIView {
     private func setupRequestMediatorView() {
         addSubview(requestMediatorView)
         requestMediatorView.snp.makeConstraints {
-            $0.top.equalTo(newMediatorView.snp.bottom).offset(28)
             $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(28)
+            $0.top.equalToSuperview()
             $0.height.equalTo(89)
+            $0.bottom.equalToSuperview().inset(28)
         }
     }
 }
