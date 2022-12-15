@@ -19,7 +19,7 @@ class MainVC: UITabBarController, VCType {
 
     // MARK: - UI
     var todayVC: TodayVC?
-    var groupActivityVC: GroupActivityVC?
+    var activityVC: ActivityVC?
     var profileVC: ProfileVC?
 
     override func viewDidLoad() {
@@ -40,8 +40,8 @@ class MainVC: UITabBarController, VCType {
 //        guard let todayVC = todayVC else {
 //            Log.e("TodayVC init failed"); return
 //        }
-        guard let groupActivityVC = groupActivityVC else {
-            Log.e("CommunityMainVC init failed"); return
+        guard let activityVC = activityVC else {
+            Log.e("ActivityVC init failed"); return
         }
         guard let profileVC = profileVC else {
             Log.e("profileVC init failed"); return
@@ -56,7 +56,7 @@ class MainVC: UITabBarController, VCType {
         let standardAppearance = UITabBarAppearance()
         standardAppearance.backgroundColor = .nightSky1
         tabBar.standardAppearance = standardAppearance
-        setViewControllers([groupActivityVC,
+        setViewControllers([activityVC,
 //                            todayVC,
                             profileVC], animated: false)
         guard let items = tabBar.items else { return }

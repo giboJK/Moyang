@@ -1,5 +1,5 @@
 //
-//  GroupActivityVM.swift
+//  ActivityVM.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/01.
@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 import Foundation
 
-class GroupActivityVM: VMType {
+class ActivityVM: VMType {
     var disposeBag: DisposeBag = DisposeBag()
     
     let isNetworking = BehaviorRelay<Bool>(value: false)
@@ -135,7 +135,7 @@ class GroupActivityVM: VMType {
 
 
 // MARK: - Extension
-extension GroupActivityVM {
+extension ActivityVM {
     struct Input {
         var selectMember: Driver<IndexPath> = .empty()
         
@@ -209,7 +209,7 @@ extension GroupActivityVM {
     }
 }
 
-extension GroupActivityVM {
+extension ActivityVM {
     struct MemberItem {
         let id: String
         let name: String

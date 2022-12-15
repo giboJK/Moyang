@@ -1,5 +1,5 @@
 //
-//  GroupActivityAssembly.swift
+//  ActivityAssembly.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/02.
@@ -10,16 +10,16 @@ import SwinjectAutoregistration
 import Foundation
 import UIKit
 
-class GroupActivityAssembly: Assembly, BaseAssembly {
+class ActivityAssembly: Assembly, BaseAssembly {
     var nav: UINavigationController?
     
     deinit { Log.i(self) }
     
     func assemble(container: Container) {
-        container.register(GroupActivityVC.self) { r in
-            let vc = GroupActivityVC()
-            vc.vm = (r ~> GroupActivityVM.self)
-            vc.coordinator = r ~> (GroupActivityCoordinator.self)
+        container.register(ActivityVC.self) { r in
+            let vc = ActivityVC()
+            vc.vm = (r ~> ActivityVM.self)
+            vc.coordinator = r ~> (ActivityCoordinator.self)
             
             // View controllers
             let mediatorPrayMainVC = r ~> (MediatorPrayMainVC.self)
@@ -56,8 +56,8 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - GroupPray
-        container.register(GroupActivityVM.self) { r in
-            GroupActivityVM()
+        container.register(ActivityVM.self) { r in
+            ActivityVM()
         }
         
         // MARK: - GroupNews
@@ -97,12 +97,12 @@ class GroupActivityAssembly: Assembly, BaseAssembly {
         }
         
         // MARK: - Coordinator
-        container.register(GroupActivityCoordinator.self) { r in
-            guard let nav = self.nav else { return GroupActivityCoordinator() }
+        container.register(ActivityCoordinator.self) { r in
+            guard let nav = self.nav else { return ActivityCoordinator() }
             let myPray = r ~> (MyPrayAssembly.self)
             let mediatorPray = r ~> (MediatorPrayAssembly.self)
             let assembler = Assembler([self, myPray, mediatorPray])
-            let coordinator = GroupActivityCoordinator(nav: nav, assembler: assembler)
+            let coordinator = ActivityCoordinator(nav: nav, assembler: assembler)
             return coordinator
         }
     }

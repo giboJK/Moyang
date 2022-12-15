@@ -94,8 +94,8 @@ extension MediatorPrayMainVM {
         let desc: String
         let prayUser: String?
         let eventDate: String?
-        let hasJoinEvent: Bool?
-        let hasNew: Bool?
+        var hasJoinEvent: Bool?
+        var hasNew: Bool?
         
         init(data: GroupMediatorInfo) {
             id = data.id

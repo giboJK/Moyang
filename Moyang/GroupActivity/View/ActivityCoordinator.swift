@@ -1,5 +1,5 @@
 //
-//  GroupActivityCoordinator.swift
+//  ActivityCoordinator.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/02.
@@ -9,7 +9,7 @@ import Foundation
 import Swinject
 import UIKit
 
-class GroupActivityCoordinator: Coordinator {
+class ActivityCoordinator: Coordinator {
     
     var assembler: Assembler
     var nav: UINavigationController
@@ -37,7 +37,7 @@ class GroupActivityCoordinator: Coordinator {
     }
 }
 
-extension GroupActivityCoordinator: GroupActivityVCDelegate {
+extension ActivityCoordinator: GroupActivityVCDelegate {
     func didTapNewsButton() {
         if let vc = assembler.resolver.resolve(GroupEventVC.self) {
             nav.pushViewController(vc, animated: true)

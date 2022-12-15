@@ -20,7 +20,7 @@ class MainAssembly: Assembly, BaseAssembly {
             let vc = MainVC()
             
             vc.todayVC = r ~> (TodayVC.self)
-            vc.groupActivityVC = r ~> (GroupActivityVC.self)
+            vc.activityVC = r ~> (ActivityVC.self)
             vc.profileVC = r ~> (ProfileVC.self)
             
             return vc
@@ -44,8 +44,8 @@ class MainAssembly: Assembly, BaseAssembly {
             return assembly
         }
         
-        container.register(GroupActivityAssembly.self) { _ in
-            let assembly = GroupActivityAssembly()
+        container.register(ActivityAssembly.self) { _ in
+            let assembly = ActivityAssembly()
             assembly.nav = self.nav
             return assembly
         }
@@ -73,7 +73,7 @@ class MainAssembly: Assembly, BaseAssembly {
         container.register(MainCoordinator.self) { r in
             guard let nav = self.nav else { return MainCoordinator() }
             let today = r ~> (TodayAssembly.self)
-            let activity = r ~> (GroupActivityAssembly.self)
+            let activity = r ~> (ActivityAssembly.self)
             let profile = r ~> (ProfileAssembly.self)
             let bible = r ~> (BibleAssembly.self)
             let myPray = r ~> (MyPrayAssembly.self)

@@ -1,5 +1,5 @@
 //
-//  GroupActivityVC.swift
+//  ActivityVC.swift
 //  Moyang
 //
 //  Created by 정김기보 on 2022/06/01.
@@ -11,8 +11,8 @@ import RxSwift
 import SnapKit
 import Then
 
-class GroupActivityVC: UIViewController, VCType {
-    typealias VM = GroupActivityVM
+class ActivityVC: UIViewController, VCType {
+    typealias VM = ActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     var coordinator: GroupActivityVCDelegate?
@@ -24,7 +24,7 @@ class GroupActivityVC: UIViewController, VCType {
         $0.setImage(UIImage(systemName: "bell", withConfiguration: config), for: .normal)
         $0.tintColor = .sheep1
     }
-    let tabView = GroupActivityTabView()
+    let tabView = ActivityTabView()
     
     var myPrayMainVC: MyPrayMainVC?
     var mediatorPrayMainVC: MediatorPrayMainVC?
@@ -35,6 +35,11 @@ class GroupActivityVC: UIViewController, VCType {
         setupUI()
         bind()
         self.hidesBottomBarWhenPushed = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showNewImage),
+                                               name: NSNotification.Name.ShowNewImageBadge, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideNewImage),
+                                               name: NSNotification.Name.HideNewImageBadge, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,6 +102,18 @@ class GroupActivityVC: UIViewController, VCType {
         vc.view.isHidden = !(tabView.tabMenus.first == .pray)
     }
     
+    @objc func showNewImage() {
+        if let cell = tabView.menuCV.cellForItem(at: IndexPath(row: 1, section: 0)) as? TabMenuCVCell {
+            cell.newImageView.isHidden = false
+        }
+    }
+    
+    @objc func hideNewImage() {
+        if let cell = tabView.menuCV.cellForItem(at: IndexPath(row: 1, section: 0)) as? TabMenuCVCell {
+            cell.newImageView.isHidden = true
+        }
+    }
+    
     // MARK: - Binding
     func bind() {
         bindViews()
@@ -112,8 +129,8 @@ class GroupActivityVC: UIViewController, VCType {
         tabView.menuCV.rx.itemSelected
             .skip(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] index in
-                self?.mediatorPrayMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.mediatorPray.rawValue
-                self?.myPrayMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.pray.rawValue
+                self?.mediatorPrayMainVC?.view.isHidden = index.row != ActivityTabView.TapMenu.mediatorPray.rawValue
+                self?.myPrayMainVC?.view.isHidden = index.row != ActivityTabView.TapMenu.pray.rawValue
 //                self?.noteMainVC?.view.isHidden = index.row != GroupActivityTabView.TapMenu.worshipNote.rawValue
             }).disposed(by: disposeBag)
     }

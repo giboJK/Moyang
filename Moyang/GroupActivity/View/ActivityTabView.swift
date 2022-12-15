@@ -1,5 +1,5 @@
 //
-//  GroupActivityTabView.swift
+//  ActivityTabView.swift
 //  Moyang
 //
 //  Created by kibo on 2022/09/07.
@@ -11,8 +11,8 @@ import Then
 import RxSwift
 import RxCocoa
 
-class GroupActivityTabView: UIView {
-    typealias VM = GroupActivityVM
+class ActivityTabView: UIView {
+    typealias VM = ActivityVM
     var disposeBag: DisposeBag = DisposeBag()
     var vm: VM?
     
@@ -98,7 +98,7 @@ class GroupActivityTabView: UIView {
     }
 }
 
-extension GroupActivityTabView: UICollectionViewDelegateFlowLayout {
+extension ActivityTabView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let buttonWidth = tabMenus[indexPath.row].tabTitle.width(withConstraintedHeight: 24,
                                                                  font: .systemFont(ofSize: 18, weight: .semibold))
@@ -106,7 +106,7 @@ extension GroupActivityTabView: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension GroupActivityTabView: UICollectionViewDataSource {
+extension ActivityTabView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tabMenus.count
     }
@@ -165,11 +165,6 @@ class TabMenuCVCell: UICollectionViewCell {
         setupMenuLabel()
         setupSelectBar()
         setupNewImageView()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(showNewImage),
-                                               name: NSNotification.Name.ShowNewImageBadge, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(hideNewImage),
-                                               name: NSNotification.Name.HideNewImageBadge, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -199,14 +194,6 @@ class TabMenuCVCell: UICollectionViewCell {
             $0.left.equalTo(menuLabel.snp.right).offset(-1)
             $0.size.equalTo(6)
         }
-    }
-    
-    @objc func showNewImage() {
-        newImageView.isHidden = false
-    }
-    
-    @objc func hideNewImage() {
-        newImageView.isHidden = true
     }
     
     func showIcon() {

@@ -107,12 +107,27 @@ class MediatorPrayMainVC: UIViewController, VCType {
                     cell.nameLabel.text = item.name
                     cell.greetingLabel.text = item.desc
                     cell.prayLabel.text = item.prayUser
+                    cell.newImageView.isHidden = false
+                    let hasJoinEvent = item.hasJoinEvent ?? false
+                    let hasNew = item.hasNew ?? false
+                    cell.newImageView.isHidden = !(hasJoinEvent || hasNew)
                 }.disposed(by: disposeBag)
         
         output.detailVM
             .drive(onNext: { [weak self] detailVM in
                 guard let detailVM = detailVM else { return }
                 self?.coordinator?.didTapGroup(vm: detailVM)
+            }).disposed(by: disposeBag)
+        
+        Driver.combineLatest(output.hasJoinEvent, output.hasNew)
+            .drive(onNext: { (hasJoinEvent, hasNew) in
+                if hasJoinEvent || hasNew {
+                    NotificationCenter.default.post(name: Notification.Name.ShowNewImageBadge,
+                                                    object: nil, userInfo: nil)
+                } else {
+                    NotificationCenter.default.post(name: Notification.Name.HideNewImageBadge,
+                                                    object: nil, userInfo: nil)
+                }
             }).disposed(by: disposeBag)
     }
 }
