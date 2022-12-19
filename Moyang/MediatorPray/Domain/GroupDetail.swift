@@ -24,6 +24,8 @@ struct GroupDetailPray: Codable {
     let prayID: String
     let category: String
     let latestDate: String
+    var hasNew: Bool
+    let hasNewID: String
     
     enum CodingKeys: String, CodingKey {
         case userID = "user_id"
@@ -31,6 +33,8 @@ struct GroupDetailPray: Codable {
         case prayID = "pray_id"
         case category = "category"
         case latestDate = "latest_date"
+        case hasNew = "has_new"
+        case hasNewID = "has_new_id"
     }
 }
 

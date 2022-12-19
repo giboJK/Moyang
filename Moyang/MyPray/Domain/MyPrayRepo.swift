@@ -26,6 +26,7 @@ protocol MyPrayRepo {
     
     func updateAnswer(answerID: String, answer: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
+    func updatePrayReadInfo(infoID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)
     
     // MARK: - Delete
     func deletePray(prayID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?)

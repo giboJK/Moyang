@@ -224,6 +224,7 @@ class GroupDetailVC: UIViewController, VCType {
                     cell.categoryLabel.text = item.category
                     cell.latestDateLabel.text = item.date
                     cell.forwardImageView.isHidden = item.prayID.isEmpty
+                    cell.hasNewView.isHidden = !item.hasNew
                 }.disposed(by: disposeBag)
         
         output.listVM

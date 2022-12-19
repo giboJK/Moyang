@@ -103,9 +103,11 @@ extension GroupController: GroupRepo {
         }
     }
     
-    func fetchGroupDetail(groupID: String, completion: ((Result<GroupDetailResponse, MoyangError>) -> Void)?) {
+    func fetchGroupDetail(groupID: String, userID: String, completion: ((Result<GroupDetailResponse, MoyangError>) -> Void)?) {
         let url = networkService.makeUrl(path: NetConst.GroupAPI.fetchGroupDetail)
-        let dict: [String: Any] = ["group_id": groupID]
+        let dict: [String: Any] = ["group_id": groupID,
+                                   "user_id": userID
+        ]
         
         let request = networkService.makeRequest(url: url,
                                                  method: .post,

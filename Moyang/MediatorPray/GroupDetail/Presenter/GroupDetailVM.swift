@@ -115,6 +115,9 @@ class GroupDetailVM: VMType {
     private func createGroupMemberPrayDetailVM(index: Int) {
         let item = mediatorItemList.value[index]
         listVM.accept(GroupMemberPrayListVM(useCase: useCase, groupID: groupID, userID: item.userID))
+        if item.hasNew {
+            useCase.checkNewPray(infoID: item.hasNewID, prayID: item.prayID)
+        }
     }
     
     private func checkIsLeader() {
@@ -238,6 +241,8 @@ extension GroupDetailVM {
         let prayID: String
         let userID: String
         let isLeader: Bool
+        let hasNew: Bool
+        let hasNewID: String
         
         init(groupDetailPray: GroupDetailPray) {
             name = groupDetailPray.userName + "의 중보기도"
@@ -246,6 +251,8 @@ extension GroupDetailVM {
             prayID = groupDetailPray.prayID
             userID = groupDetailPray.userID
             isLeader = false
+            hasNew = groupDetailPray.hasNew
+            hasNewID = groupDetailPray.hasNewID
         }
         
         init(groupMember: GroupMember) {
@@ -255,6 +262,8 @@ extension GroupDetailVM {
             prayID = ""
             userID = groupMember.userID
             isLeader = groupMember.isLeader
+            hasNew = false
+            hasNewID = ""
         }
     }
     

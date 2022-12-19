@@ -172,6 +172,26 @@ extension PrayController: MyPrayRepo {
         }
     }
     
+    func updatePrayReadInfo(infoID: String, completion: ((Result<BaseResponse, MoyangError>) -> Void)?) {
+        let url = networkService.makeUrl(path: NetConst.PrayAPI.updateReadInfo)
+        let dict: [String: Any] = ["info_id": infoID,
+                                   "state": 1
+        ]
+        let request = networkService.makeRequest(url: url,
+                                                 method: .post,
+                                                 parameters: dict)
+        networkService.requestAPI(request: request,
+                                  type: BaseResponse.self,
+                                  token: nil,
+                                  encoding: JSONEncoding.default) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(response))
+            case .failure(let error):
+                completion?(.failure(.other(error)))
+            }
+        }
+    }
     
     
     // MARK: - Delete

@@ -31,9 +31,10 @@ class GroupDetailTVCell: UITableViewCell {
         $0.textColor = .sheep2
         $0.font = .c02
     }
-    let redDotImage = UIView().then {
+    let hasNewView = UIView().then {
         $0.backgroundColor = .appleRed1
         $0.layer.cornerRadius = 3
+        $0.isHidden = true
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -69,6 +70,7 @@ class GroupDetailTVCell: UITableViewCell {
         setupForwardImageView()
         setupCategoryLabel()
         setupLatestDateLabel()
+        setupHasNewView()
     }
     private func setupNameLabel() {
         container.addSubview(nameLabel)
@@ -103,6 +105,14 @@ class GroupDetailTVCell: UITableViewCell {
             $0.bottom.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(16)
             $0.height.equalTo(14)
+        }
+    }
+    private func setupHasNewView() {
+        container.addSubview(hasNewView)
+        hasNewView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(16)
+            $0.size.equalTo(6)
+            $0.left.equalToSuperview().inset(12)
         }
     }
 }

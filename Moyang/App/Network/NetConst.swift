@@ -35,8 +35,6 @@ class NetConst {
         /// post
         static let registerGroup = "/group/register_group"
         /// post
-        static let fetchGroupSummary = "/group/group_summary_fetch"
-        /// post
         static let fetchGroupEvent = "/group/event_fetch"
         /// post
         static let fetchMyGroupSummary = "/group/fetch_my_group_summary"
@@ -80,6 +78,8 @@ class NetConst {
         static let fetchMyGroupList = "/group/fetch_my_group_list"
         
         static let fetchPraySummary = "/pray/fetch_summary"
+        
+        static let updateReadInfo = "/pray/update_read_info"
         
         // MARK: - Praying
         static let addAmen = "/pray/add_amen_record"

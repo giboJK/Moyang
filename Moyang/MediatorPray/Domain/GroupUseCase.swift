@@ -189,8 +189,9 @@ class GroupUseCase: UseCase {
     }
     
     func fetchGroupDetail(groupID: String) {
+        guard let myID = UserData.shared.userInfo?.id else { Log.e("No ID"); return }
         if checkAndSetIsNetworking() { return }
-        repo.fetchGroupDetail(groupID: groupID) { [weak self] result in
+        repo.fetchGroupDetail(groupID: groupID, userID: myID) { [weak self] result in
             self?.resetIsNetworking()
             guard let self = self else { return }
             switch result {
@@ -406,6 +407,28 @@ class GroupUseCase: UseCase {
             }
         }
     }
+    
+    // Select has new Item
+    func checkNewPray(infoID: String, prayID: String) {
+        prayRepo.updatePrayReadInfo(infoID: infoID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                if response.code == 0 {
+                    var groupDetail = self.groupDetail.value
+                    if var prayIndex = groupDetail?.prays.firstIndex(where: { $0.prayID == prayID }) {
+                        groupDetail?.prays[prayIndex].hasNew = false
+                        self.groupDetail.accept(groupDetail)
+                    }
+                } else {
+                    Log.e("")
+                }
+            case .failure(let error):
+                Log.e(error)
+            }
+        }
+    }
+    
     
     private func addChange(prayID: String, change: String) {
         if checkAndSetIsNetworking() { return }
