@@ -30,6 +30,22 @@ class PopupVC: UIViewController {
 }
 
 extension UIViewController {
+    class func swizzleMethod() {
+        let originalSelector = #selector(viewDidLoad)
+        let swizzleSelector = #selector(swizzleViewDidLoad)
+
+        guard let originMethod = class_getInstanceMethod(UIViewController.self, originalSelector),
+              let swizzleMethod = class_getInstanceMethod(UIViewController.self, swizzleSelector) else { return }
+        
+        method_exchangeImplementations(originMethod, swizzleMethod)
+    }
+
+    @objc public func swizzleViewDidLoad(animated: Bool) {
+        Log.i("\(self) is loaded")
+    }
+}
+
+extension UIViewController {
     func displayPopup(popup: MoyangPopupView, backAlpha: CGFloat = 0.5) {
         if popupArray.contains(popup) {
             return

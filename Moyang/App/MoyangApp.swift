@@ -32,6 +32,7 @@ struct MoyangApp: App {
         let appAssembly = AppAssembly()
         assembler.apply(assembly: appAssembly)
         Log.setup()
+//        UIViewController.swizzleMethod()
     }
     
     var body: some Scene {
