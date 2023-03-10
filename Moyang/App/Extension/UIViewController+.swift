@@ -30,6 +30,7 @@ class PopupVC: UIViewController {
 }
 
 extension UIViewController {
+    // https://babbab2.tistory.com/76
     class func swizzleMethod() {
         let originalSelector = #selector(viewDidLoad)
         let swizzleSelector = #selector(swizzleViewDidLoad)
